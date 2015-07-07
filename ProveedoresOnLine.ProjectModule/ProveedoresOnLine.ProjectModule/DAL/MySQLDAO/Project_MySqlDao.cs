@@ -44,7 +44,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            
+
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemId", EvaluationItemId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemName", EvaluationItemName));
@@ -264,11 +264,12 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId)
+        public ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId, bool ViewEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vViewEnable", ViewEnable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -298,6 +299,60 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              ItemId = pcg.Key.ProjectConfigId,
                              ItemName = pcg.Key.ProjectConfigName,
                              Enable = pcg.Key.ProjectConfigEnable,
+                             RelatedEvaluationItem =
+                             (from ei in response.DataTableResult.AsEnumerable()
+                              where !ei.IsNull("EvaluationItemId") &&
+                                    ei.Field<int>("ProjectConfigId") == pcg.Key.ProjectConfigId
+                              group ei by new
+                              {
+                                  EvaluationItemId = ei.Field<int>("EvaluationItemId"),
+                                  EvaluationItemName = ei.Field<string>("EvaluationItemName"),
+                                  EvaluationItemTypeId = ei.Field<int>("EvaluationItemTypeId"),
+                                  EvaluationItemTypeName = ei.Field<string>("EvaluationItemTypeName"),
+                                  ParentEvaluationItem = ei.Field<int?>("ParentEvaluationItem"),
+                                  EvaluationItemEnable = ei.Field<UInt64>("EvaluationItemEnable") == 1 ? true : false,
+                              }
+                                  into eig
+                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                  {
+                                      ItemId = eig.Key.EvaluationItemId,
+                                      ItemName = eig.Key.EvaluationItemName,
+                                      ItemType = new CatalogModel()
+                                      {
+                                          ItemId = eig.Key.EvaluationItemTypeId,
+                                          ItemName = eig.Key.EvaluationItemTypeName,
+                                      },
+                                      ParentItem = eig.Key.ParentEvaluationItem == null ? null : new GenericItemModel()
+                                      {
+                                          ItemId = (int)eig.Key.ParentEvaluationItem,
+                                      },
+                                      Enable = eig.Key.EvaluationItemEnable,
+                                      ItemInfo =
+                                      (from inf in response.DataTableResult.AsEnumerable()
+                                       where !inf.IsNull("EvaluationItemInfoId") &&
+                                             inf.Field<int>("EvaluationItemId") == eig.Key.EvaluationItemId
+                                       group inf by new
+                                       {
+                                           EvaluationItemInfoId = inf.Field<int>("EvaluationItemInfoId"),
+                                           EvaluationItemInfoTypeId = inf.Field<int>("EvaluationItemInfoTypeId"),
+                                           EvaluationItemInfoTypeName = inf.Field<string>("EvaluationItemInfoTypeName"),
+                                           Value = inf.Field<string>("Value"),
+                                           LargeValue = inf.Field<string>("LargeValue"),
+                                           EvaluationItemInfoEnable = inf.Field<UInt64>("EvaluationItemInfoEnable") == 1 ? true : false,
+                                       }
+                                           into infg
+                                           select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                           {
+                                               ItemInfoId = infg.Key.EvaluationItemInfoId,
+                                               ItemInfoType = new CatalogModel()
+                                               {
+                                                   ItemId = infg.Key.EvaluationItemInfoTypeId,
+                                                   ItemName = infg.Key.EvaluationItemInfoTypeName,
+                                               },
+                                               Value = infg.Key.Value,
+                                               LargeValue = infg.Key.LargeValue,
+                                           }).ToList(),
+                                  }).ToList(),
                          }).FirstOrDefault();
             }
 
@@ -1900,7 +1955,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
         #region ProjectCharts
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByState(string CustomerPublicId,  DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByState(string CustomerPublicId, DateTime Year)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -1972,7 +2027,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
             return oReturn;
         }
-        
-        #endregion        
+
+        #endregion
     }
 }
