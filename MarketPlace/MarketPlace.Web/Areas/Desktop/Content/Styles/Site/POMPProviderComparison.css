@@ -112,11 +112,11 @@
 
             #CompareDetail > div > div > table > thead > tr > th > ul > li {
                 display: inline-block;
-                width: 45%;
+                width: 50%;
                 height: 18px;
-                text-align: right;
+                text-align: center;
                 margin: 0px;
-                padding: 0px 10px 0px 0px;
+                padding: 0px;
                 font-size: 1em;
                 line-height: 0.9em;
                 color: #666;
@@ -172,7 +172,7 @@
         }
 
             #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:first-child {
-                border-right: 1px solid grey;
+                /*border-right: 1px solid grey;*/
             }
 
     #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper {

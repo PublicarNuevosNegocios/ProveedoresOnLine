@@ -1051,11 +1051,14 @@ namespace MarketPlace.Web.Controllers
                             }
                             else
                             {
-                                oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
-                                {
-                                    RelatedAccount = ac,
-                                    Value = 0,
-                                };
+                                    oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
+                                    {
+
+                                        RelatedAccount = ac,
+                                        Value = 0,
+
+
+                                    };                                
                             }
 
                             #region Eval Vertical Formula
