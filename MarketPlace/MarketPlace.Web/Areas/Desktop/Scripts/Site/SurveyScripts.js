@@ -284,10 +284,6 @@ var Survey_ProgramObject = {
     },
 };
 
-
-
-
-
 /*Print View EvaluationProgramSurvey*/
 var Survey_Evaluation_ProgramObject = {
     ObjectId: '',
@@ -334,8 +330,9 @@ var Survey_Evaluation_ProgramObject = {
                 dataType: 'json',
                 success: function (e) {
                     if (e != null && e.length > 0) {
+                        debugger;
                         //Render Roles
-                        var divEvaluator = $('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
+                        var divEvaluator = $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
                         var area = null;
                         $.each(e, function (item, value) {
                             var result = '<li><label>' + value.AreaName + '</label></li>' +
@@ -343,9 +340,9 @@ var Survey_Evaluation_ProgramObject = {
                                          "_" + value.SurveyConfigItemInfoRolId +
                                          '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' +
                                          value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
-
+                            debugger;
                             area = value.AreaName;
-                            $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+                            divEvaluator.append(result);
                             //init survey evaluator autocomplete
                             $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRolId).kendoAutoComplete({
                                 minLength: 0,
@@ -399,11 +396,9 @@ var Survey_Evaluation_ProgramObject = {
         });
         $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_StartDate').kendoDatePicker({
             format: Survey_Evaluation_ProgramObject.DateFormat,
-            min: new Date(),
         });
         $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_EndDate').kendoDatePicker({
-            format: Survey_Evaluation_ProgramObject.DateFormat,
-            min: new Date(),
+            format: Survey_Evaluation_ProgramObject.DateFormat,            
         });
 
         //init form validator
@@ -412,9 +407,6 @@ var Survey_Evaluation_ProgramObject = {
 
     }//RenderEValuation
 }
-
-
-
 
 var Survey_SaveObject = {
 
@@ -451,10 +443,6 @@ var Survey_SaveObject = {
 
     },
 };
-
-
-
-
 
 var Survey_File = {
 

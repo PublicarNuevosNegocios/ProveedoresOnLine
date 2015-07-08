@@ -21,9 +21,17 @@
                         <label class="POMPProviderDataSubtitle">
                             @if (item.IB_Bank != null && !string.IsNullOrEmpty(item.IB_AccountType))
                             {
-                                <span>@item.IB_Bank.ItemName, @item.IB_AccountType</span>
+                                <span>@item.IB_Bank.ItemName</span>
                             }
                         </label>
+
+                        @if (!string.IsNullOrEmpty(item.IB_AccountType))
+                        {
+                            <label>
+                                Tipo de cuenta
+                                <span>@item.IB_AccountType</span>
+                            </label>
+                        }
                         @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
                         {
                             <label>

@@ -463,6 +463,7 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPGraphics.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPEvaluationProgram.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSurvey.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPProgramSurvey.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPTermsConditions.css" />
@@ -1201,7 +1202,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>40464</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
