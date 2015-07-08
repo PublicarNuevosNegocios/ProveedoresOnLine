@@ -1944,6 +1944,7 @@ var Customer_EvaluationItemObject = {
                 field: 'EA_EvaluatorType',
                 title: 'Tipo de Evaluador',
                 template: function (dataItem) {
+                    debugger;
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.EA_EvaluatorType != null) {
                         $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1405], function (item, value) {
@@ -1970,6 +1971,7 @@ var Customer_EvaluationItemObject = {
                 title: 'Evaluador',
                 template: function (dataItem) {
                     var oReturn = '';
+                    debugger;
                     if (dataItem != null && dataItem.EA_Evaluator != null) {
                         oReturn = dataItem.EA_Evaluator;
                     }
@@ -1990,6 +1992,7 @@ var Customer_EvaluationItemObject = {
                                             url: BaseUrl.ApiUrl + '/UtilApi?GetRoleCompanyByPublicId=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId,
                                             dataType: 'json',
                                             success: function (result) {
+                                                debugger;
                                                 options.success(result);
                                             },
                                             error: function (result) {
