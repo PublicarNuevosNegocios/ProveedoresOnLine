@@ -115,7 +115,7 @@
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
                 EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',
-                EvaluationRoleCompanyPublicId: '@Html.Raw(vstrRoleCompanyList)',
+                RoleCompanyList: '@Html.Raw(vstrRoleCompanyList)',
                 @*EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUrl)',*@
             });
             Customer_EvaluationItemObject.RenderAsync({
