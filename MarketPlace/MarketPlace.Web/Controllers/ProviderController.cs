@@ -1051,14 +1051,14 @@ namespace MarketPlace.Web.Controllers
                             }
                             else
                             {
-                                    oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
-                                    {
+                                oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
+                                {
 
-                                        RelatedAccount = ac,
-                                        Value = 0,
+                                    RelatedAccount = ac,
+                                    Value = 0,
 
 
-                                    };                                
+                                };
                             }
 
                             #region Eval Vertical Formula
@@ -1591,9 +1591,9 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult SVSurveyProgram(string ProviderPublicId)
+        public virtual ActionResult SVSurveyProgram(string ProviderPublicId, string SurveyPublicId)
         {
-             ProviderViewModel oModel = new ProviderViewModel();
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1620,10 +1620,25 @@ namespace MarketPlace.Web.Controllers
                 if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
                 {
                     ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
+                    SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
 
-                    //SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
+                    if (!string.IsNullOrEmpty(SurveyPublicId))
+                    {
+                        oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
+                        (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+                        if (oModel.RelatedSurvey != null)
+                        {
+                            oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
+                            List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();                               
 
-                    //var oReturn = new Models.Survey.SurveyViewModel(SurveyToUpsert);
+                            Evaluators.All(evt => 
+                            {
+                                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
+                                (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, evt)));
+                                return true;
+                            });                            
+                        }
+                    }
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -1656,7 +1671,7 @@ namespace MarketPlace.Web.Controllers
                 RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
                 {
                     ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
-                },                
+                },
                 Enable = true,
                 User = SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User, //Responsable               
                 SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
