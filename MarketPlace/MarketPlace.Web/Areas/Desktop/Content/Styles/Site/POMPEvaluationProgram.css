@@ -1,11 +1,15 @@
 /***********CONTENEDOR EVALUACIÓN********/
-.POMPContainerEvaluation{
+/*.POMPContainerEvaluation{
     width:50%;
     height:auto;
-    margin:10px 0 0 25% !important;
+    margin: 0 auto !important;
     float:left;
-
+    background:Red;
  
+}*/
+
+.row{
+    background:red !important;
 }
 
 .POMPContainerEvaluation > li {
@@ -15,12 +19,14 @@
   
 }
 .POMPEvaluationInput{
-    width:100% !important;
+    width:270px !important;
+    border:1px solid black;
+    background:green;
 }
 
 .POMPSaveButton{
     width:100px;
-    margin:20px 0 0 25% !important;
+    margin:20px 0 0 0 !important;
     color:#fff;
     background:#ff8300;
 }

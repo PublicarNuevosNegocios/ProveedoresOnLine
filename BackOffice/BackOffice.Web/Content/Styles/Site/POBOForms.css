@@ -37,9 +37,8 @@
         display:inline-block;
         height: auto;
         vertical-align: top;
-        width:100%;
+        width:48.5%;
 }
-
         .POBOProviderUpsertForm ul li label {
             color: #4d4d4d;
             font-size: 1em;
@@ -47,6 +46,10 @@
             letter-spacing: -0.7px;
             margin: 0px;
     }
+
+#POBOSocialObject{
+    width:100% !important;
+}
 #POBOTA{
     width:100%;
 }
