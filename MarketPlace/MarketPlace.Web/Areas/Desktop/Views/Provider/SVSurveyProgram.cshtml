@@ -21,7 +21,7 @@
                 {
                     ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                 }))">                
-                <ul class="POMPContainerEvaluation">
+                <ul>
                     <li>
                         <label>Evaluación:</label>
                         <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" />
@@ -56,13 +56,13 @@
                         </div>
                     </li>
                     @*if (Model.CurrentProject != null)
-            {
-                <li>
-                    <label>Proceso de selección:</label>
-                    <input id="Survey_ProgramSurvey_Project" value="@Model.CurrentProject.ProjectName" readonly="readonly" />
-                    <input type="hidden" id="Survey_ProgramSurvey_ProjectPublicId" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId" />
-                </li>
-            }*@
+                {
+                    <li>
+                        <label>Proceso de selección:</label>
+                        <input id="Survey_ProgramSurvey_Project" value="@Model.CurrentProject.ProjectName" readonly="readonly" />
+                        <input type="hidden" id="Survey_ProgramSurvey_ProjectPublicId" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId" />
+                    </li>
+                }*@
 
                     <li>
                         <label>Observaciones:</label>
@@ -74,7 +74,7 @@
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
-                    <input type="hidden" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
+                    <input type="text" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
 
                     <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
                     <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
