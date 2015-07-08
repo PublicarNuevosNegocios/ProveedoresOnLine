@@ -1735,6 +1735,7 @@ var Customer_EvaluationItemObject = {
     EvaluationCriteriaUpsertUrl: '',
     DataParentEvaluationItem: '',
     DataEvaluationItemType: '',
+    RoleCompanyList: new Array(),
     ProjectConfigOptionsList: new Array(),
 
     Init: function (vInitObject) {
@@ -1744,7 +1745,7 @@ var Customer_EvaluationItemObject = {
         this.PageSize = vInitObject.PageSize;
         this.ProjectConfigOptionsList = vInitObject.ProjectConfigOptionsList;
         this.EvaluationCriteriaUpsertUrl = vInitObject.EvaluationCriteriaUpsertUrl;
-
+        this.RoleCompanyList = vInitObject.RoleCompanyList;
         if (vInitObject.ProjectConfigOptionsList != null) {
             $.each(vInitObject.ProjectConfigOptionsList, function (item, value) {
                 Customer_EvaluationItemObject.ProjectConfigOptionsList[value.Key] = value.Value;
@@ -1944,7 +1945,6 @@ var Customer_EvaluationItemObject = {
                 field: 'EA_EvaluatorType',
                 title: 'Tipo de Evaluador',
                 template: function (dataItem) {
-                    debugger;
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.EA_EvaluatorType != null) {
                         $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1405], function (item, value) {
@@ -1970,7 +1970,7 @@ var Customer_EvaluationItemObject = {
                 field: 'EA_Evaluator',
                 title: 'Evaluador',
                 template: function (dataItem) {
-                    var oReturn = '';
+                    var oReturn = 'Seleccione una opción';
                     debugger;
                     if (dataItem != null && dataItem.EA_Evaluator != null) {
                         oReturn = dataItem.EA_Evaluator;
@@ -2012,6 +2012,26 @@ var Customer_EvaluationItemObject = {
                         .appendTo(container);
                     }
                 },
+                //template: function (dataItem) {
+                //      var oReturn = 'Seleccione una opción';
+                //    $.each(Customer_RulesObject.RoleCompanyList, function (item, value) {
+                //        if (value.RoleId == dataItem.RoleCompanyId) {
+                //            oReturn = value.RoleName;
+                //        }
+                //    });
+
+                //    return oReturn;
+                //},
+                //editor: function (container, options) {
+                //    $('<input required data-bind="value:' + options.field + '"/>')
+                //        .appendTo(container)
+                //        .kendoDropDownList({
+                //            dataSource: Customer_RulesObject.RoleCompanyList,
+                //            dataTextField: 'RoleName',
+                //            dataValueField: 'RoleId',
+                //            optionLabel: 'Seleccione una opción'
+                //        });
+                //},
                 width: '190px',
             }, {
                 field: 'EA_Unit',
