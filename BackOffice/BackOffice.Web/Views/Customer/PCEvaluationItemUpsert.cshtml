@@ -90,7 +90,7 @@
             oProjectConfigOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
         }
-        
+
         string oPCEvaluationCriteriaUpsertUrl = Url.Action
             (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
             MVC.Customer.Name,
@@ -99,6 +99,9 @@
                 CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
             }) + "&ProjectProviderId=${ProjectProviderId}"
             + "&EvaluationItemId=${EvaluationItemId}";
+
+        string vstrRoleCompanyList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(Model.RelatedRoleCompanyList);
     }
 
     <script type="text/javascript">
@@ -112,6 +115,7 @@
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
                 EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',
+                EvaluationRoleCompanyPublicId: '@Html.Raw(vstrRoleCompanyList)',
                 @*EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUrl)',*@
             });
             Customer_EvaluationItemObject.RenderAsync({
