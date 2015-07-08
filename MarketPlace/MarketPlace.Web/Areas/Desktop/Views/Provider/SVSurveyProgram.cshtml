@@ -2,83 +2,107 @@
 @{
     ViewBag.Title = "Proveedores OnLine - Programar Evaluación de desempeño";
     Layout = MVC.Desktop.Shared.Views._Layout;
-
     Model.RenderScripts = false;
 }
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-@*Acá va el div de la evaluación*@
-<div>
-    <form id="Survey_ProgramSurvey_Form" action="@Url.Content("~/api/SurveyApi?SurveyUpsert=true")" method="post">
-        <ul>
-            <li>
-                <label>Evaluación:</label>
-                <input id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" />
-            </li>
-            <li>
-                <label>Fecha de envío:</label>
-                <input id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
-            </li>
-            <li>
-                <label>Fecha de caducidad:</label>
-                <input id="Survey_ProgramSurvey_ExpirationDate" placeholder="yyyy-MM-dd" required validarionmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).ToString())_" />
-            </li>
-            <li>
-                <div id="Survey_ProgramSurvey_EvaluatorDiv">
-                </div>
-            </li>
-            <li>
-                <label>Contrato o Factura:</label>
-                <input id="Survey_ProgramSurvey_Contract" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Contract).ToString())_" />
-            </li>
-            <li>
-                <label>Periodo de Evaluación:</label>
-                <div class="EvaluationPeriodDialog">
-                    <label>Fecha Inicial:</label>
-                    <input id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" />
-                    <label>Fecha Final:</label>
-                    <input id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" />
-                </div>
-            </li>
-            @if (Model.CurrentProject != null)
-            {
-                <li>
-                    <label>Proceso de selección:</label>
-                    <input id="Survey_ProgramSurvey_Project" value="@Model.CurrentProject.ProjectName" readonly="readonly" />
-                    <input type="hidden" id="Survey_ProgramSurvey_ProjectPublicId" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId" />
-                </li>
-            }
-            <li>
-                <label>Observaciones:</label>
-                <textarea id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_"></textarea>
-            </li>
-        </ul>
-        <div style="display:none">
-            <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
-            <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
-            <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
+    <div class="POMPProviderDataWrapper">
+        <div id="Survey_ProgramSurvey">
+            <form id="Survey_ProgramSurvey_Form" method="post"
+                  action="@(Url.Action
+                (MVC.Provider.ActionNames.SVSurveyProgram,
+                MVC.Provider.Name))">    
+                
+                <input type="text" name="ProviderPublicId" value="@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId"/>            
+                <br />
+                <ul>
+                    <li>
+                        <label>Evaluación:</label>
+                        <input id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" />
+                    </li>
+                    <li>
+                        <label>Fecha de envío:</label>
+                        <input id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
+                    </li>
+                    <li>
+                        <label>Fecha de caducidad:</label>
+                        <input id="Survey_ProgramSurvey_ExpirationDate" placeholder="yyyy-MM-dd" required validarionmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).ToString())_" />
+                    </li>
+                    <li>
+                        <div id="Survey_ProgramSurvey_EvaluatorDiv">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Contrato o Factura:</label>
+                        <input id="Survey_ProgramSurvey_Contract" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Contract).ToString())_" />
+                    </li>
+                    <li>
+                        <label>Periodo de Evaluación:</label>
+                        <div class="EvaluationPeriodDialog">
+                            <label>Fecha Inicial:</label>
+                            <input id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" />
+                            <label>Fecha Final:</label>
+                            <input id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" />
+                        </div>
+                    </li>
+                    @*if (Model.CurrentProject != null)
+                {
+                    <li>
+                        <label>Proceso de selección:</label>
+                        <input id="Survey_ProgramSurvey_Project" value="@Model.CurrentProject.ProjectName" readonly="readonly" />
+                        <input type="hidden" id="Survey_ProgramSurvey_ProjectPublicId" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId" />
+                    </li>
+                }*@
 
-            <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
-            <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
-            <input type="hidden" id="Survey_ProgramSurvey_Progress" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Progress).ToString())_" value="0" />
-            <input type="hidden" id="Survey_ProgramSurvey_Rating" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Rating).ToString())_" value="0" />
+                    <li>
+                        <label>Observaciones:</label>
+                        <textarea id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_"></textarea>
+                    </li>
+                </ul>
+                <div>
+                    <!--style="display:none"-->
+                    <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
+                    <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
+                    <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
+                    <input type="text" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
+
+                    <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
+                    <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
+                    <input type="hidden" id="Survey_ProgramSurvey_Progress" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Progress).ToString())_" value="0" />
+                    <input type="hidden" id="Survey_ProgramSurvey_Rating" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Rating).ToString())_" value="0" />
+                </div>
+                <div>
+                    <input type="submit" value="Guardar" />
+                </div>
+
+            </form>
+
         </div>
-    </form>
-
+    </div>
 </div>
 
 @{
-    Model.RenderScripts = true;    
+    Model.RenderScripts = true;
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @*@Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)*@
     @*@Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)*@
-
     <script type="text/javascript">
         $(document).ready(function () {
             //show generic progress bar
-            ProgressBar_Generic_Show();
+            Survey_Evaluation_ProgramObject.Init(
+                {
+                    ObjectId: 'Survey_ProgramSurvey',
+                    DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                });
+
+            Survey_Evaluation_ProgramObject.RenderEvaluation();
         });
     </script>
 }
-
