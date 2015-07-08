@@ -41,8 +41,15 @@
 
 .panel-default{
     margin-top:20px;
-    border-bottom:none;
 }
+.areaTitle{
+    margin:10px 0 0 0;
+}
+
+.areaBox{
+    margin:5px 0 0 0;
+}
+
 /**********EXPERIMENTO**********/
 .EvaluationPeriodDialog label{
     width:100% !important;
