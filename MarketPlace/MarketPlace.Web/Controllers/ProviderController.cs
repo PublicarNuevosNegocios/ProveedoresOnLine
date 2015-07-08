@@ -1591,7 +1591,7 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult SVSurveyProgram(string ProviderPublicId, string UpsertAction)
+        public virtual ActionResult SVSurveyProgram(string ProviderPublicId)
         {
              ProviderViewModel oModel = new ProviderViewModel();
 
@@ -1619,10 +1619,11 @@ namespace MarketPlace.Web.Controllers
 
                 if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
                 {
-                   GetSurveyUpsertRequest();
+                    ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
 
-                    //Llamo la función del Request
+                    //SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
 
+                    //var oReturn = new Models.Survey.SurveyViewModel(SurveyToUpsert);
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
