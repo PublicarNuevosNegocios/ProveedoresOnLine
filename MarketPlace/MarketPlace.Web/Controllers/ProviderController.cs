@@ -1622,32 +1622,46 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
                     SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
 
-                    if (!string.IsNullOrEmpty(SurveyPublicId))
+                    
+                }
+                if (!string.IsNullOrEmpty(SurveyPublicId) && !string.IsNullOrEmpty(SurveyPublicId))//si es editar
+                {
+                    if (oProvider != null)
                     {
-                        oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
-                        (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
-                        if (oModel.RelatedSurvey != null)
+                        if (!string.IsNullOrEmpty(SurveyPublicId))
                         {
-                            oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
-                            List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();                               
-
-                            Evaluators.All(evt => 
+                            oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
+                            (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+                            if (oModel.RelatedSurvey != null)
                             {
-                                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
-                                (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, evt)));
-                                return true;
-                            });                            
+                                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
+                                List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                                Evaluators.All(evt =>
+                                {
+                                    oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
+                                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, evt)));
+                                    return true;
+                                });
+                            }
                         }
+
                     }
                 }
-
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+
             return View(oModel);
         }
         #endregion
 
         #region Pivate Functions
+
+        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetRelatedSurvey(string SurveyPublicId)
+        {
+
+            return null;
+        }
 
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
         {
@@ -1754,7 +1768,7 @@ namespace MarketPlace.Web.Controllers
                                 {
                                     ItemId = (int)enumSurveyInfoType.CurrentArea
                                 },
-                                Value = a.Item1.ToString() + ","+ a.Item3.ToString(),
+                                Value = a.Item1.ToString() + "_"+ a.Item3.ToString(),
                                 Enable = true,
                             });
                             it.SurveyInfo.Add(new GenericItemInfoModel()
