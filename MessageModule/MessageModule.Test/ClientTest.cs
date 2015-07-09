@@ -18,7 +18,7 @@ namespace MessageModule.Test
 
                     MessageQueueInfo = new System.Collections.Generic.List<Tuple<string,string>>()
                     {
-                        new Tuple<string,string>("To","Jairo Andres Guzman Duran<johann.martinez@publicar.com>"),
+                        new Tuple<string,string>("To","Jose Forero<josexandthecity@gmail.com>"),
                         new Tuple<string,string>("RememberUrl","https://www.proveedoresonline.co/marketplace/home/TermsAndConditios"),
                     },
                 });

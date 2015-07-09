@@ -24,8 +24,6 @@ namespace ProveedoresOnLine.SurveyBatch
                     {
                         try
                         {
-                            if (sv.RelatedSurveyConfig.ParentItem != null)
-                            {
                                 if (sv.SurveyInfo != null)
                                 {
                                     MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv, sv.User);
@@ -62,7 +60,7 @@ namespace ProveedoresOnLine.SurveyBatch
                                 {
                                     throw new Exception("La evaluación con id '" + sv.SurveyPublicId + "' no tienen información para enviar el correo.");
                                 }
-                            }
+                            
                         }
                         catch (Exception err)
                         {
