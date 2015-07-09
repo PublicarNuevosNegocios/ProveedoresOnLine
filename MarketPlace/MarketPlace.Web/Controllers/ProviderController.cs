@@ -1651,7 +1651,9 @@ namespace MarketPlace.Web.Controllers
 
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
         {
-            List<Tuple<string, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int>>();
+            //Item1 = Email
+            //Item2 = 
+            List<Tuple<string, int, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int, int>>();
             List<string> EvaluatorsEmail = new List<string>();
 
             #region Parent Survey
@@ -1697,7 +1699,10 @@ namespace MarketPlace.Web.Controllers
 
                     //Get Evaluator Rol info
                     if (Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator)
-                        EvaluatorsRoleObj.Add(new Tuple<string, int, int>(System.Web.HttpContext.Current.Request[req], Convert.ToInt32(strSplit[4].Trim()), Convert.ToInt32(strSplit[2].Trim())));
+                        EvaluatorsRoleObj.Add(new Tuple<string, int, int, int>(System.Web.HttpContext.Current.Request[req], 
+                                                                                Convert.ToInt32(strSplit[4].Trim()), 
+                                                                                Convert.ToInt32(strSplit[2].Trim()), 
+                                                                                Convert.ToInt32(strSplit[5].Trim())));
                 }
                 return true;
             });
@@ -1736,8 +1741,8 @@ namespace MarketPlace.Web.Controllers
                 //Set SurveyChild Info
                 oReturn.ChildSurvey.All(it =>
                 {
-                    List<Tuple<int, int>> AreaIdList = new List<Tuple<int, int>>();
-                    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int>(y.Item2, y.Item3)).ToList());
+                    List<Tuple<int,int, int>> AreaIdList = new List<Tuple<int, int, int>>();
+                    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int, int>(y.Item2, y.Item3, y.Item4)).ToList());
                     if (AreaIdList != null)
                     {
                         AreaIdList.All(a =>
@@ -1749,7 +1754,7 @@ namespace MarketPlace.Web.Controllers
                                 {
                                     ItemId = (int)enumSurveyInfoType.CurrentArea
                                 },
-                                Value = a.Item1.ToString(),
+                                Value = a.Item1.ToString() + ","+ a.Item3.ToString(),
                                 Enable = true,
                             });
                             it.SurveyInfo.Add(new GenericItemInfoModel()
@@ -1770,6 +1775,16 @@ namespace MarketPlace.Web.Controllers
                                     ItemId = (int)enumSurveyInfoType.Contract
                                 },
                                 Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Status
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(x => x.Value).FirstOrDefault(),
                                 Enable = true,
                             });
                             it.SurveyInfo.Add(new GenericItemInfoModel()
