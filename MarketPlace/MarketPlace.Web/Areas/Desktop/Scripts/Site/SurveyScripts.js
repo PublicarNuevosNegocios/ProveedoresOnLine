@@ -349,7 +349,7 @@ var Survey_Evaluation_ProgramObject = {
                         $.each(e, function (item, value) {
 
                             if (area == value.AreaName && inarea==1) {
-                                resultAddInfo += '<li style="list-style:none">';
+                                resultAddInfo += '<li style="list-style:none; margin-top:15px">';
                                 resultAddInfo += '<label>' + value.SurveyConfigItemInfoRolName + ':</label>';
                                 resultAddInfo += '<input id="' + Survey_Evaluation_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '_' + value.SurveyConfigItemInfoRolWeight + '" />';
                                 resultAddInfo += '</li>';
