@@ -470,6 +470,7 @@
 
     public enum enumEvaluationItemType
     {
+        ProjectConfig,
         EvaluationArea = 1401001,
         EvaluationCriteria = 1401002,
     }

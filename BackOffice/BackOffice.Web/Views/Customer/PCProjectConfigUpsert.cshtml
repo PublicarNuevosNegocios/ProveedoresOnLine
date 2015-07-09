@@ -67,13 +67,15 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Customer_ProjectConfig.Init({
+            Customer_ProjectModule.Init({
                 ObjectId: 'divGridProjectConfig',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 EvaluationItemUpsertUrl: '@Html.Raw(oPCEvaluationItemUpsertUrl)',
             });
-            Customer_ProjectConfig.RenderAsync();
+            Customer_ProjectModule.RenderAsync({
+                EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.ProjectConfig).ToString())',
+            });
         });
     </script>
 }
