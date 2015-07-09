@@ -351,7 +351,10 @@ var Survey_Evaluation_ProgramObject = {
                             if (area == value.AreaName && inarea==1) {
                                 resultAddInfo += '<li style="list-style:none">';
                                 resultAddInfo += '<label>' + value.SurveyConfigItemInfoRolName + ':</label>';
-                                resultAddInfo += '<input id="' + Survey_Evaluation_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '_' + value.SurveyConfigItemInfoRolWeight + '" />';
+                                resultAddInfo += '<input id="' + Survey_Evaluation_ProgramObject.ObjectId + '_Evaluator_'
+                                                               + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + //0 es igual al info Id
+                                                                 value.SurveyConfigItemInfoRolId + '_' + value.AreaId
+                                                                 + '_' + value.SurveyConfigItemInfoRolWeight + '" />';
                                 resultAddInfo += '</li>';
                                 divEvaluator.append(resultAddInfo);
                                 resultAddInfo='';                                
