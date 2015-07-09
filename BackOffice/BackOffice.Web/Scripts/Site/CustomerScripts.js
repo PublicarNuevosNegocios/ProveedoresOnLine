@@ -404,8 +404,7 @@ var Customer_SurveyObject = {
             pageable: true,
             scrollable: true,
             toolbar: [
-                { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'create', text: 'Nuevo' },                
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'Search', template: $('#' + Customer_SurveyObject.ObjectId + '_SearchTemplate').html() },
                 { name: 'ViewEnable', template: $('#' + Customer_SurveyObject.ObjectId + '_ViewEnablesTemplate').html() },

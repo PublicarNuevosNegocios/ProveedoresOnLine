@@ -2242,7 +2242,7 @@ namespace MarketPlace.Web.Controllers
                         //Company healty politic
                         oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                         {
-                            Name = "Politicas de Seguridad, Medio Ambiente y Seguridad",
+                            Name = "Política de seguridad, salud y Medio Ambiente",
                             Url = Url.RouteUrl
                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new

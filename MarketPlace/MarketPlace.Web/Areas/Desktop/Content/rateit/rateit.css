@@ -12,7 +12,7 @@
 }
 
 .rateit .rateit-range
-{
+{margin-left:20px;
     position: relative;
     display: -moz-inline-box;
     display: inline-block;
