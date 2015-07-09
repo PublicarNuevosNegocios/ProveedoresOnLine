@@ -481,6 +481,7 @@ namespace MarketPlace.Web.Controllers
         public class ActionParamsClass_SVSurveyProgram
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SurveyPublicId = "SurveyPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -804,14 +805,15 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId, string SurveyPublicId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            SVSurveyProgramOverride(callInfo, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
+            SVSurveyProgramOverride(callInfo, ProviderPublicId, SurveyPublicId);
             return callInfo;
         }
 
