@@ -1192,11 +1192,15 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                          SurveyPublicId = sv.Field<string>("SurveyPublicId"),
                          LastModify = sv.Field<DateTime>("SurveyLastModify"),
                          ProviderPublicId = sv.Field<string>("ProviderPublicId"),
+                         User = sv.Field<string>("User"),
+                         ParentSurveyId = sv.Field<string>("ParentSurveyId"),
                      } into svg
                      select new SurveyModel()
                      {
                          SurveyPublicId = svg.Key.SurveyPublicId,
                          LastModify = svg.Key.LastModify,
+                         User = svg.Key.User,
+                         ParentSurveyPublicId = svg.Key.ParentSurveyId,
 
                          SurveyInfo =
                             (from svinf in response.DataSetResult.Tables[1].AsEnumerable()
