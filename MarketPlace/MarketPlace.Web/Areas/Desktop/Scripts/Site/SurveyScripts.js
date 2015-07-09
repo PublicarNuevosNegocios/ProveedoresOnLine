@@ -283,7 +283,6 @@ var Survey_ProgramObject = {
         }
     },
 };
-
 /*Print View EvaluationProgramSurvey*/
 var Survey_Evaluation_ProgramObject = {
     ObjectId: '',
@@ -340,7 +339,7 @@ var Survey_Evaluation_ProgramObject = {
                                          "_" + value.SurveyConfigItemInfoRolId +
                                          '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' +
                                          value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
-                            debugger;
+                            //debugger;
                             area = value.AreaName;
                             divEvaluator.append(result);
                             //init survey evaluator autocomplete

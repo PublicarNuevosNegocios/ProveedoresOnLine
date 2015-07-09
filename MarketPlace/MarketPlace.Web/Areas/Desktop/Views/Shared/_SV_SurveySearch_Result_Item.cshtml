@@ -11,6 +11,15 @@
             ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
             SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
         });
+    string strUrlEdit = Url.RouteUrl
+        (MarketPlace.Models.General.Constants.C_Routes_Default,
+        new
+        {
+            controller = MVC.Provider.Name,
+            action = MVC.Provider.ActionNames.SVSurveyProgram,
+            ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+            SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
+        });
 
     string strjsUpdateObject = string.Empty;
     if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
@@ -126,7 +135,7 @@
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
         {
 
-            <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+            <a class="POMPEvaluationListActions" href="@strUrlEdit">
                 Editar
             </a>
 
