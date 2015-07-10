@@ -89,27 +89,33 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CIExperiencesUpsert()
+        public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HICertificationsUpsert()
+        public virtual System.Web.Mvc.ActionResult LIRutUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIRutUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HIHealtyPoliticUpsert()
+        public virtual System.Web.Mvc.ActionResult LICIFINUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LICIFINUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HIRiskPoliciesUpsert()
+        public virtual System.Web.Mvc.ActionResult LISARLAFTUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LISARLAFTUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LIResolutionUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -143,33 +149,27 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert()
+        public virtual System.Web.Mvc.ActionResult CIExperiencesUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LIRutUpsert()
+        public virtual System.Web.Mvc.ActionResult HICertificationsUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIRutUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LICIFINUpsert()
+        public virtual System.Web.Mvc.ActionResult HIHealtyPoliticUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LICIFINUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LISARLAFTUpsert()
+        public virtual System.Web.Mvc.ActionResult HIRiskPoliciesUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LISARLAFTUpsert);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LIResolutionUpsert()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -205,20 +205,20 @@ namespace BackOffice.Web.Controllers
             public readonly string GIPersonContactUpsert = "GIPersonContactUpsert";
             public readonly string GIBranchUpsert = "GIBranchUpsert";
             public readonly string GIDistributorUpsert = "GIDistributorUpsert";
-            public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
-            public readonly string HICertificationsUpsert = "HICertificationsUpsert";
-            public readonly string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
-            public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
-            public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
-            public readonly string FITaxUpsert = "FITaxUpsert";
-            public readonly string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
-            public readonly string FIBankUpsert = "FIBankUpsert";
-            public readonly string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
             public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             public readonly string LIRutUpsert = "LIRutUpsert";
             public readonly string LICIFINUpsert = "LICIFINUpsert";
             public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
             public readonly string LIResolutionUpsert = "LIResolutionUpsert";
+            public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
+            public readonly string FITaxUpsert = "FITaxUpsert";
+            public readonly string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
+            public readonly string FIBankUpsert = "FIBankUpsert";
+            public readonly string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
+            public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
+            public readonly string HICertificationsUpsert = "HICertificationsUpsert";
+            public readonly string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
+            public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
             public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public readonly string DownloadFile = "DownloadFile";
         }
@@ -232,20 +232,20 @@ namespace BackOffice.Web.Controllers
             public const string GIPersonContactUpsert = "GIPersonContactUpsert";
             public const string GIBranchUpsert = "GIBranchUpsert";
             public const string GIDistributorUpsert = "GIDistributorUpsert";
-            public const string CIExperiencesUpsert = "CIExperiencesUpsert";
-            public const string HICertificationsUpsert = "HICertificationsUpsert";
-            public const string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
-            public const string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
-            public const string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
-            public const string FITaxUpsert = "FITaxUpsert";
-            public const string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
-            public const string FIBankUpsert = "FIBankUpsert";
-            public const string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
             public const string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             public const string LIRutUpsert = "LIRutUpsert";
             public const string LICIFINUpsert = "LICIFINUpsert";
             public const string LISARLAFTUpsert = "LISARLAFTUpsert";
             public const string LIResolutionUpsert = "LIResolutionUpsert";
+            public const string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
+            public const string FITaxUpsert = "FITaxUpsert";
+            public const string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
+            public const string FIBankUpsert = "FIBankUpsert";
+            public const string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
+            public const string CIExperiencesUpsert = "CIExperiencesUpsert";
+            public const string HICertificationsUpsert = "HICertificationsUpsert";
+            public const string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
+            public const string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
             public const string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public const string DownloadFile = "DownloadFile";
         }
@@ -291,35 +291,43 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_CIExperiencesUpsert s_params_CIExperiencesUpsert = new ActionParamsClass_CIExperiencesUpsert();
+        static readonly ActionParamsClass_LIChaimberOfCommerceUpsert s_params_LIChaimberOfCommerceUpsert = new ActionParamsClass_LIChaimberOfCommerceUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CIExperiencesUpsert CIExperiencesUpsertParams { get { return s_params_CIExperiencesUpsert; } }
+        public ActionParamsClass_LIChaimberOfCommerceUpsert LIChaimberOfCommerceUpsertParams { get { return s_params_LIChaimberOfCommerceUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CIExperiencesUpsert
+        public class ActionParamsClass_LIChaimberOfCommerceUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_HICertificationsUpsert s_params_HICertificationsUpsert = new ActionParamsClass_HICertificationsUpsert();
+        static readonly ActionParamsClass_LIRutUpsert s_params_LIRutUpsert = new ActionParamsClass_LIRutUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HICertificationsUpsert HICertificationsUpsertParams { get { return s_params_HICertificationsUpsert; } }
+        public ActionParamsClass_LIRutUpsert LIRutUpsertParams { get { return s_params_LIRutUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HICertificationsUpsert
+        public class ActionParamsClass_LIRutUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_HIHealtyPoliticUpsert s_params_HIHealtyPoliticUpsert = new ActionParamsClass_HIHealtyPoliticUpsert();
+        static readonly ActionParamsClass_LICIFINUpsert s_params_LICIFINUpsert = new ActionParamsClass_LICIFINUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HIHealtyPoliticUpsert HIHealtyPoliticUpsertParams { get { return s_params_HIHealtyPoliticUpsert; } }
+        public ActionParamsClass_LICIFINUpsert LICIFINUpsertParams { get { return s_params_LICIFINUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HIHealtyPoliticUpsert
+        public class ActionParamsClass_LICIFINUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_HIRiskPoliciesUpsert s_params_HIRiskPoliciesUpsert = new ActionParamsClass_HIRiskPoliciesUpsert();
+        static readonly ActionParamsClass_LISARLAFTUpsert s_params_LISARLAFTUpsert = new ActionParamsClass_LISARLAFTUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HIRiskPoliciesUpsert HIRiskPoliciesUpsertParams { get { return s_params_HIRiskPoliciesUpsert; } }
+        public ActionParamsClass_LISARLAFTUpsert LISARLAFTUpsertParams { get { return s_params_LISARLAFTUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HIRiskPoliciesUpsert
+        public class ActionParamsClass_LISARLAFTUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_LIResolutionUpsert s_params_LIResolutionUpsert = new ActionParamsClass_LIResolutionUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LIResolutionUpsert LIResolutionUpsertParams { get { return s_params_LIResolutionUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LIResolutionUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -363,43 +371,35 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LIChaimberOfCommerceUpsert s_params_LIChaimberOfCommerceUpsert = new ActionParamsClass_LIChaimberOfCommerceUpsert();
+        static readonly ActionParamsClass_CIExperiencesUpsert s_params_CIExperiencesUpsert = new ActionParamsClass_CIExperiencesUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIChaimberOfCommerceUpsert LIChaimberOfCommerceUpsertParams { get { return s_params_LIChaimberOfCommerceUpsert; } }
+        public ActionParamsClass_CIExperiencesUpsert CIExperiencesUpsertParams { get { return s_params_CIExperiencesUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIChaimberOfCommerceUpsert
+        public class ActionParamsClass_CIExperiencesUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LIRutUpsert s_params_LIRutUpsert = new ActionParamsClass_LIRutUpsert();
+        static readonly ActionParamsClass_HICertificationsUpsert s_params_HICertificationsUpsert = new ActionParamsClass_HICertificationsUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIRutUpsert LIRutUpsertParams { get { return s_params_LIRutUpsert; } }
+        public ActionParamsClass_HICertificationsUpsert HICertificationsUpsertParams { get { return s_params_HICertificationsUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIRutUpsert
+        public class ActionParamsClass_HICertificationsUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LICIFINUpsert s_params_LICIFINUpsert = new ActionParamsClass_LICIFINUpsert();
+        static readonly ActionParamsClass_HIHealtyPoliticUpsert s_params_HIHealtyPoliticUpsert = new ActionParamsClass_HIHealtyPoliticUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LICIFINUpsert LICIFINUpsertParams { get { return s_params_LICIFINUpsert; } }
+        public ActionParamsClass_HIHealtyPoliticUpsert HIHealtyPoliticUpsertParams { get { return s_params_HIHealtyPoliticUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LICIFINUpsert
+        public class ActionParamsClass_HIHealtyPoliticUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LISARLAFTUpsert s_params_LISARLAFTUpsert = new ActionParamsClass_LISARLAFTUpsert();
+        static readonly ActionParamsClass_HIRiskPoliciesUpsert s_params_HIRiskPoliciesUpsert = new ActionParamsClass_HIRiskPoliciesUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LISARLAFTUpsert LISARLAFTUpsertParams { get { return s_params_LISARLAFTUpsert; } }
+        public ActionParamsClass_HIRiskPoliciesUpsert HIRiskPoliciesUpsertParams { get { return s_params_HIRiskPoliciesUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LISARLAFTUpsert
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
-        }
-        static readonly ActionParamsClass_LIResolutionUpsert s_params_LIResolutionUpsert = new ActionParamsClass_LIResolutionUpsert();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIResolutionUpsert LIResolutionUpsertParams { get { return s_params_LIResolutionUpsert; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIResolutionUpsert
+        public class ActionParamsClass_HIRiskPoliciesUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -553,50 +553,62 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void CIExperiencesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void LIChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CIExperiencesUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CIExperiencesUpsertOverride(callInfo, ProviderPublicId);
+            LIChaimberOfCommerceUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
         [NonAction]
-        partial void HICertificationsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void LIRutUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HICertificationsUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult LIRutUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIRutUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            HICertificationsUpsertOverride(callInfo, ProviderPublicId);
+            LIRutUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
         [NonAction]
-        partial void HIHealtyPoliticUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void LICIFINUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HIHealtyPoliticUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult LICIFINUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LICIFINUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            HIHealtyPoliticUpsertOverride(callInfo, ProviderPublicId);
+            LICIFINUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
         [NonAction]
-        partial void HIRiskPoliciesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void LISARLAFTUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HIRiskPoliciesUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult LISARLAFTUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LISARLAFTUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            HIRiskPoliciesUpsertOverride(callInfo, ProviderPublicId);
+            LISARLAFTUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LIResolutionUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LIResolutionUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            LIResolutionUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
@@ -661,62 +673,50 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void LIChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void CIExperiencesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult CIExperiencesUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            LIChaimberOfCommerceUpsertOverride(callInfo, ProviderPublicId);
+            CIExperiencesUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
         [NonAction]
-        partial void LIRutUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void HICertificationsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LIRutUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult HICertificationsUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIRutUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            LIRutUpsertOverride(callInfo, ProviderPublicId);
+            HICertificationsUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
         [NonAction]
-        partial void LICIFINUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void HIHealtyPoliticUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LICIFINUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult HIHealtyPoliticUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LICIFINUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            LICIFINUpsertOverride(callInfo, ProviderPublicId);
+            HIHealtyPoliticUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
         [NonAction]
-        partial void LISARLAFTUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void HIRiskPoliciesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LISARLAFTUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult HIRiskPoliciesUpsert(string ProviderPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LISARLAFTUpsert);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            LISARLAFTUpsertOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LIResolutionUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult LIResolutionUpsert(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            LIResolutionUpsertOverride(callInfo, ProviderPublicId);
+            HIRiskPoliciesUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

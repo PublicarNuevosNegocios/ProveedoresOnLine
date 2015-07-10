@@ -1,0 +1,115 @@
+﻿@model Tuple<backoffice.models.customer.customerviewmodel, backoffice.models.customer.evaluationitemviewmodel>
+
+    @*
+        Tipo de Evaluador
+        Evaluador
+        Peso
+        Criterio de Evaluación (Combo)
+        InfoType_Value_Operator_Result (Combo)
+        Numero de años a tener en cuenta
+        Configuración de experiencias (formulario)
+        Orden
+        Porcentaje de aprobación
+    *@
+
+    <div>
+        <label>Agregar Criterio de Evaluación</label>
+        <ul>
+            <li>
+                <label>Tipo de Evaluador:</label>
+                <input id="@BackOffice.Models.General.enumEvaluationItemInfoType.EvaluatorType" type="text" />
+            </li>
+            <li>
+                <label>Evaluador:</label>
+                <input id="@BackOffice.Models.General.enumEvaluationItemInfoType.Evaluator" type="text" />
+            </li>
+            <li>
+                <label>Orden:</label>
+                <input id="@BackOffice.Models.General.enumEvaluationItemInfoType.Order" type="text" />
+            </li>
+            <li>
+                <label>Peso:</label>
+                <input id="@BackOffice.Models.General.enumEvaluationItemInfoType.Rating" type="text" />
+            </li>
+            <li>
+                <label>Porcentaje de aprobación:</label>
+                <input id="@BackOffice.Models.General.enumEvaluationItemInfoType.ApprovePercentage" type="text" />
+            </li>
+            <li>
+                <label>Número de años a tener en cuenta:</label>
+                <input id="@BackOffice.Models.General.enumEvaluationItemInfoType.YearsQuantity" type="text" />
+            </li>
+            <li>
+                <label>Configuración de Experiencias:</label>
+                <input type="checkbox" title="Habilitado" />
+                <div id="loading"></div>
+                <div id="divProjectConfigExperiences"></div>
+            </li>
+            <li>
+                <label>Criterio de evaluación:</label>
+                <input type="checkbox" title="Habilitado" />
+                <div id="loading"></div>
+                <div id="divProjecConfigEvaluationCriteria"></div>
+            </li>
+            <li>
+                <label>InfoType_Value_Operator_Result:</label>
+                <input type="checkbox" title="Habilitado" />
+                <div id="loading"></div>
+                <div id="divProjectConfigInfoTypeValue"></div>
+            </li>
+        </ul>
+    </div>
+
+    @section inlinescripts{
+
+        @{
+            string oProjectConfigOptions = "[]";
+            if (Model.ProjectConfigOptions != null &&
+                Model.ProjectConfigOptions.Count > 0)
+            {
+                Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionProjectConfig =
+                    Model.ProjectConfigOptions.
+                    GroupBy(x => x.CatalogId).
+                    Select(x =>
+                        new
+                        {
+                            okey = x.Key,
+                            ovalue = Model.Item1.ProjectConfigOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                        }).ToDictionary(k => k.okey, v => v.ovalue);
+
+                oProjectConfigOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
+            }
+
+            string oPCEvaluationCriteriaUpsertUrl = Url.Action
+                (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
+                MVC.Customer.Name,
+                new
+                {
+                    CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
+                }) + "&ProjectProviderId=${ProjectProviderId}"
+                + "&EvaluationItemId=${EvaluationItemId}";
+
+            string vstrRoleCompanyList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(Model.Item1.RelatedRoleCompanyList);
+        }
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var vProjectConfigOptionList = @(Html.Raw(oProjectConfigOptions));
+
+                Customer_ProjectModule.Init({
+                    ObjectId: 'divGridEvaluationItem',
+                    CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                    ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
+                    PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
+                    ProjectConfigOptionsList: vProjectConfigOptionList,
+                    EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',
+                    RoleCompanyList: @Html.Raw(vstrRoleCompanyList),
+                });
+                Customer_ProjectModule.RenderAsync({
+                    EvaluationItemType: '@BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria',
+                });
+            });
+        </script>
+    }
