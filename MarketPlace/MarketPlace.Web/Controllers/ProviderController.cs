@@ -787,8 +787,14 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
                 if (oBalanceAux != null && oBalanceAux.Count > 0)
                 {
+
                     oBalanceAux.All(bs =>
                     {
+                        //if (bs.BalanceSheetInfo.Count > 0)
+                        //{
+                        //    oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
+                        //}
+                        //return true;
                         oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
                         return true;
                     });
@@ -797,6 +803,29 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedBalanceSheetInfo = new List<ProviderBalanceSheetViewModel>();
                 if (oBalanceAux != null && oBalanceAux.Count > 0)
                 {
+                    List<BalanceSheetModel> oBalancetemp = new List<BalanceSheetModel>();
+
+
+                    foreach (var item in oBalanceAux)
+                    {
+                        if (item.BalanceSheetInfo.Count == 0)
+                        {
+                            oBalancetemp.Add(item);
+                        }
+                    }
+
+                    int cont = 0;
+                    foreach (var item in oBalancetemp)
+                    {
+                        if(cont < 1)
+                        {
+                            oBalanceAux.Remove(item);
+                            cont++;
+                        }
+                        
+
+                    }
+
                     oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
                         (null,
                         oBalanceAux,
@@ -1622,7 +1651,7 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
                     SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
 
-                    
+
                 }
                 if (!string.IsNullOrEmpty(SurveyPublicId) && !string.IsNullOrEmpty(SurveyPublicId))//si es editar
                 {
@@ -1713,9 +1742,9 @@ namespace MarketPlace.Web.Controllers
 
                     //Get Evaluator Rol info
                     if (Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator)
-                        EvaluatorsRoleObj.Add(new Tuple<string, int, int, int>(System.Web.HttpContext.Current.Request[req], 
-                                                                                Convert.ToInt32(strSplit[4].Trim()), 
-                                                                                Convert.ToInt32(strSplit[2].Trim()), 
+                        EvaluatorsRoleObj.Add(new Tuple<string, int, int, int>(System.Web.HttpContext.Current.Request[req],
+                                                                                Convert.ToInt32(strSplit[4].Trim()),
+                                                                                Convert.ToInt32(strSplit[2].Trim()),
                                                                                 Convert.ToInt32(strSplit[5].Trim())));
                 }
                 return true;
@@ -1755,7 +1784,7 @@ namespace MarketPlace.Web.Controllers
                 //Set SurveyChild Info
                 oReturn.ChildSurvey.All(it =>
                 {
-                    List<Tuple<int,int, int>> AreaIdList = new List<Tuple<int, int, int>>();
+                    List<Tuple<int, int, int>> AreaIdList = new List<Tuple<int, int, int>>();
                     AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int, int>(y.Item2, y.Item3, y.Item4)).ToList());
                     if (AreaIdList != null)
                     {
@@ -1768,7 +1797,7 @@ namespace MarketPlace.Web.Controllers
                                 {
                                     ItemId = (int)enumSurveyInfoType.CurrentArea
                                 },
-                                Value = a.Item1.ToString() + "_"+ a.Item3.ToString(),
+                                Value = a.Item1.ToString() + "_" + a.Item3.ToString(),
                                 Enable = true,
                             });
                             it.SurveyInfo.Add(new GenericItemInfoModel()
