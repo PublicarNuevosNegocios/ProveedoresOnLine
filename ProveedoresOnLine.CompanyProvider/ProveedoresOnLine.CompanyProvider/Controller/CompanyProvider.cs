@@ -1128,7 +1128,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 oBalanceAccountInfo = new List<BalanceSheetModel>();
 
             oBalanceBasicInfo.All(bbi =>
-            {
+            {    
                 Models.Provider.BalanceSheetModel oBalanceToAdd = new BalanceSheetModel()
                 {
                     ItemId = bbi.ItemId,
@@ -1175,6 +1175,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                         return true;
                     }));
 
+                oBalanceToAdd.
                 oReturn.Add(oBalanceToAdd);
 
                 return true;

@@ -79,3 +79,48 @@ div#POMPRenderFooter {
     width: calc(100% - 262px);
 }
 
+/************ SISTEMA DE RIESGOS LABORALES FORM *********/
+.POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}
+.POBOProviderUpsertForm li.POBOHSEQ, .POBOProviderUpsertForm li.POBOCamaraComercioSocios {
+    text-align:left;
+    display:block;
+    width:95.2%;
+    margin:10px 8px;
+        border:none;
+}
+#ReportLITF {
+        border-bottom:1px solid #ff8400;
+        border-top:1px solid #ff8400;
+    width: auto;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+    /*margin-bottom: 15px;*/
+}
+    #ReportLITF li {
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 -2px 0 -2px;
+    }
+
+        #ReportLITF li hr {
+            margin: 0 !important;
+            width: 100%;
+        }
+
+    li#F2 label {
+    font-size: 1.2em;
+    margin: 0px 8px;
+    }
+
+li#F3, li#F3 label {
+    display: block;
+    width: 192px;
+    text-align: left;
+    padding: 1px 4px;
+}
+
+li#F3 {
+    margin:0px 0px 0px 58.7%;
+    background-color:#ececec;
+}

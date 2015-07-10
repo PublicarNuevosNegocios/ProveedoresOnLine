@@ -189,10 +189,10 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              ItemName = eig.Key.EvaluationItemTypeName,
                          },
                          ParentItem = eig.Key.ParentEvaluationItem == null ? null :
-                         new Company.Models.Util.GenericItemModel()
-                         {
-                             ItemId = eig.Key.ParentEvaluationItem.Value,
-                         },
+                             new Company.Models.Util.GenericItemModel()
+                             {
+                                 ItemId = eig.Key.ParentEvaluationItem.Value,
+                             },
                          ItemInfo =
                             (from eiinf in response.DataTableResult.AsEnumerable()
                              where !eiinf.IsNull("EvaluationItemInfoId") &&

@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void GetAllEvaluationItemByProjectConfig()
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
-                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(1, null,1401001, null, true);
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(1, null, 1401001, null, true);
 
             Assert.IsNotNull(oReturn);
         }
@@ -93,7 +93,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         {
             int oTotalRows;
             List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearch
-                ("DA5C572E", string.Empty, null , 0, 20,out oTotalRows);
+                ("DA5C572E", string.Empty, null, 0, 20, out oTotalRows);
             Assert.IsNotNull(oResult);
         }
 
