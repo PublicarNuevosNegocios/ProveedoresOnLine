@@ -37,7 +37,7 @@
                     </label>
                 </li>
             }
-            @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) &&  Model.RelatedHSEQlInfo.Count() > 2)
+            @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
             {
                 <li>
                     <label>
@@ -46,26 +46,26 @@
                 </li>
             }
         </ul>
+        <ul id="ReportLITF">
 
-
-        <ul class="POBOHSEQWrapper">
-            <li class="POBOHSEQ">
-                <label>Reporte LTIF</label>
-                <ul id="ReportLITF">
-                    <li id="F1">
-                        <label>Fatalidades + Accidentes Incapacitantes</label>
-                        <hr />
-                        <label>Horas hombre trabajadas</label>
-                    </li>
-                    <li id="F2">
-                        <label>* 1'000.000</label>
-                    </li>
-                    <li id="F3">
-                        <label id="lblLTIFResult">Resultado LTIF: @Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()</label>
-                    </li>
-                </ul>
+            <li id="F1">
+                <label>Fatalidades + Accidentes Incapacitantes</label>
+                <hr />
+                <label>Horas hombre trabajadas</label>
+            </li>
+            <li id="F2">
+                <label>* 1'000.000</label>
+            </li>
+            <li id="F3">
+                <label id="lblLTIFResult">Resultado LTIF: @Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()</label>
             </li>
         </ul>
+
+
+
+
+
+
 
 
     }

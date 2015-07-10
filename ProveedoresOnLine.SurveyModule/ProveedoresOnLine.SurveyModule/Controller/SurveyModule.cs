@@ -476,9 +476,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 oAssignedAreas.All(ev =>
                 {
                     //Get Areas
-                    Areas.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
+                    Areas.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.Value.Split('_')[0])).Select(x => x).ToList());
                     //Get Areas Iteminfo
-                    Areas.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
+                    Areas.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.Value.Split('_')[0])).Select(x => x).ToList());
                     return true;
                 });
                 if (Areas.Count > 0)
@@ -740,11 +740,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     {
                         decimal? CurrentChildRate = a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value)).DefaultIfEmpty(0).FirstOrDefault();
 
-                        TotalRate += (CurrentChildRate * CurrentAreaModel.Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 1203006)
-                                                .Select(y => y.Value).FirstOrDefault() == EvaluatorRolId.ToString()).Select(x => x.ItemInfo.
-                                                Where(i => i.ItemInfoType.ItemId == 1203006).
-                                                Select(i => Convert.ToDecimal(i.Value)).DefaultIfEmpty(0).FirstOrDefault()).FirstOrDefault()) / 100;
-
+                        TotalRate += (CurrentChildRate *
+                                     a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204014).
+                                     Select(x => Convert.ToInt32(x.Value.Split('_')[1])).FirstOrDefault()) / 100;
                         return true;
                     });
                     ParentProgress = ParentProgress + TotalRate;
