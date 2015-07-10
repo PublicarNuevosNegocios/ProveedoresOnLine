@@ -37,9 +37,9 @@ namespace MarketPlace.Web.Controllers
                 oAssignedAreas.All(ev =>
                 {
                     //Get Areas
-                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
+                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.Value.Split('_')[0])).Select(x => x).ToList());
                     //Get Areas Iteminfo
-                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
+                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.Value.Split('_')[0])).Select(x => x).ToList());
                     return true;
                 });
                 if (Areas.Count > 0)
