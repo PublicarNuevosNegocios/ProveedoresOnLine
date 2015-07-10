@@ -285,7 +285,6 @@ var Customer_RulesObject = {
                 title: 'Cargo',
                 width: '150px',
                 template: function (dataItem) {
-                    debugger;
                     var oReturn = 'Seleccione una opción';
                     $.each(Customer_RulesObject.RoleCompanyList, function (item, value) {
                         if (value.RoleId == dataItem.RoleCompanyId) {
@@ -296,7 +295,6 @@ var Customer_RulesObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    debugger;
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
@@ -1554,9 +1552,6 @@ var Customer_ProjectModule = {
     },
 
     RenderAsync: function (vRenderObject) {
-
-        debugger;
-
         if (vRenderObject.EvaluationItemType == '0') {
             //Render project config
             Customer_ProjectModule.RenderProjectConfig();
@@ -1996,7 +1991,6 @@ var Customer_ProjectModule = {
 
                         ////validate SurveyConfigId attribute
                         if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                            debugger;
                             window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
                         }
 

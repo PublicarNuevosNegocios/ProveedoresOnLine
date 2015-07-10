@@ -294,9 +294,22 @@ namespace BackOffice.Web.Controllers
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
+                RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
                 RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()),true)),
                 ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
             };
+
+            //get role company list
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oRules = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId(CustomerPublicId);
+
+            if (oRules != null && oRules.RelatedRole != null && oRules.RelatedRole.Count > 0)
+            {
+                oRules.RelatedRole.All(x =>
+                {
+                    oModel.RelatedRoleCompanyList.Add(new Models.Customer.CustomerRoleViewModel(x));
+                    return true;
+                });
+            }
 
             List<GenericItemModel> oRelatedEvaluationItem = new List<GenericItemModel>();
 
