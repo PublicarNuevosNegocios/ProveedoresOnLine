@@ -168,21 +168,22 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    @*@Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)*@
-    @*@Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)*@
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#Survey_ProgramSurvey_Form").submit(function () {
-                Survey_SaveObject.ProgressBar_Generic_Show();
-                $.ajax({
-                    type: "POST",
-                    url: $("#Survey_ProgramSurvey_Form").attr('action'),
-                    data: $("#idForm").serialize(), // serializes the form's elements.
-                    success: function (data) {
+    $(document).ready(function () {
+        $("#Survey_ProgramSurvey_Form").submit(function (e) {
+            Survey_SaveObject.ProgressBar_Generic_Show();
+            e.preventDefault();
+            $.ajax({
+                url: '@(Url.Action(MVC.Provider.ActionNames.SVSurveyProgram,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))',
+                    type: 'POST',
+                    data: $("#Survey_ProgramSurvey_Form").serialize(),
+                    success: function (result) {
+
+                        window.location = '@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))';
                         Survey_SaveObject.ProgressBar_Generic_Hidden();
-                        window.location = 'SVSurveySearch?ProviderPublicId=@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId';
                     }
                 });
+
 
                 return false; // avoid to execute the actual submit of the form.
             });
@@ -190,10 +191,10 @@
                 {
                     ObjectId: 'Survey_ProgramSurvey',
                     DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-                });
+            });
 
-            Survey_Evaluation_ProgramObject.RenderEvaluation();
-        });
+        Survey_Evaluation_ProgramObject.RenderEvaluation();
+    });
 </script>
 
 
