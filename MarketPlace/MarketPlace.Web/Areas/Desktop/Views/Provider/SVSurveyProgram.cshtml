@@ -23,7 +23,7 @@
                                     <label>Evaluación:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyConfigName.ToString();}" />
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -31,7 +31,7 @@
                                     <label>Fecha de envío:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyIssueDate.ToString();}" />
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -39,26 +39,44 @@
                                     <label>Fecha de caducidad:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ExpirationDate" placeholder="yyyy-MM-dd" required validarionmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).ToString())_" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ExpirationDate" placeholder="yyyy-MM-dd" required validarionmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyExpirationDate.ToString();}" />
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="row">
-                                    <div class="row">
+                                    @if (Model.RelatedSurvey != null)
+                                    {
+                                        <div id="Survey_ProgramSurvey_EvaluatorDiv">
+                                            <ul>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                            </ul>
+                                        </div>
+                                    }
+                                    else
+                                    {
                                         <div id="Survey_ProgramSurvey_EvaluatorDiv"></div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-xs-4">
                                 <div class="col-xs-12">
                                     <label>Contrato o Factura:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_Contract" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Contract).ToString())_" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_Contract" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Contract).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyContract.ToString();}" />
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -66,7 +84,7 @@
                                     <label>Fecha Inicial:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyStartDate.ToString();}" />
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -74,10 +92,9 @@
                                     <label>Fecha Final:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyEndDate.ToString();}" />
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="row">
@@ -86,7 +103,11 @@
                                     <label>Observaciones:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_"></textarea>
+                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">
+                                        @if (Model.RelatedSurvey != null)
+                                        {@Model.RelatedSurvey.SurveyComments.ToString();
+                                        }
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -101,36 +122,37 @@
                             <input type="hidden" id="Survey_ProgramSurvey_Progress" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Progress).ToString())_" value="0" />
                             <input type="hidden" id="Survey_ProgramSurvey_Rating" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Rating).ToString())_" value="0" />
                         </div>
+
                         <div class="row">
                             <div class="col-xs-12" style="text-align:right;">
                                 <input type="submit" value="Guardar" class="POMPSaveButton" />
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-        @*@Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)*@
-        @*@Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)*@
-        <script type="text/javascript">
-            $(document).ready(function () {
-                //show generic progress bar
-                Survey_Evaluation_ProgramObject.Init(
-                    {
-                        ObjectId: 'Survey_ProgramSurvey',
-                        DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-                    });
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @*@Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)*@
+    @*@Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //show generic progress bar
+            Survey_Evaluation_ProgramObject.Init(
+                {
+                    ObjectId: 'Survey_ProgramSurvey',
+                    DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                });
 
-                Survey_Evaluation_ProgramObject.RenderEvaluation();
-            });
-        </script>
-    }
+            Survey_Evaluation_ProgramObject.RenderEvaluation();
+        });
+    </script>
+}
