@@ -1128,7 +1128,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 oBalanceAccountInfo = new List<BalanceSheetModel>();
 
             oBalanceBasicInfo.All(bbi =>
-            {    
+            {
                 Models.Provider.BalanceSheetModel oBalanceToAdd = new BalanceSheetModel()
                 {
                     ItemId = bbi.ItemId,
@@ -1171,13 +1171,17 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                             RelatedAccount = baid.RelatedAccount,
                             Value = oAccountUnit.Replace(" ", "") == "$" ? (baid.Value * oExchangeRate) : baid.Value,
                         });
-
                         return true;
                     }));
 
-                oBalanceToAdd.
-                oReturn.Add(oBalanceToAdd);
+                //foreach (var item in oBalanceAccountInfo)
+                //{
+                //    if (oBalanceToAdd.ItemId == item.ItemId)
+                //    {
+                        oReturn.Add(oBalanceToAdd);
+                //    }
 
+                //}
                 return true;
             });
 
