@@ -1110,6 +1110,7 @@
     <Content Include="Views\Shared\_PJ_EvaluationCriteria_1404007.cshtml" />
     <Content Include="Views\Shared\_PJ_EvaluationCriteria_1404008.cshtml" />
     <Content Include="Views\Customer\PCEvaluationCriteriaUpsert.cshtml" />
+    <Content Include="Views\Shared\_PJ_EvaluationCriteria_Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1563,6 +1563,9 @@ var Customer_ProjectModule = {
             //Render evaluation criteria
             Customer_ProjectModule.RenderEvaluationCriteria;
         }
+        else if (vRenderObject.EvaluationItemType == 1401003) {
+            Customer_ProjectModule.RenderProjectConfigExperiences();
+        }
 
         //Render config options
         Customer_ProjectModule.ConfigKeyBoard();
@@ -1993,14 +1996,14 @@ var Customer_ProjectModule = {
                             window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
                         }
 
-                        ////validate SurveyConfigItemTypeId attribute
-                        //if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
-                        //    //is in evaluation area show question
-                        //    vRenderObject.ParentEvaluationIte...m = data.EvaluationItemId;
-                        //    vRenderObject.EvaluationItemType = '1401002';
-                        //    vRenderObject.Title = data.EvaluationItemName;
-                        //    Customer_EvaluationItemObject.RenderAsync(vRenderObject);
-                        //}
+                        //validate SurveyConfigItemTypeId attribute
+                        if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
+                            //is in evaluation area show question
+                            vRenderObject.ParentEvaluationIte.m = data.EvaluationItemId;
+                            vRenderObject.EvaluationItemType = '1401002';
+                            vRenderObject.Title = data.EvaluationItemName;
+                            Customer_EvaluationItemObject.RenderAsync(vRenderObject);
+                        }
                     }
                 }],
             }, ],
@@ -2010,4 +2013,8 @@ var Customer_ProjectModule = {
     RenderEvaluationCriteria: function () {
 
     },
+
+    RenderProjectConfigExperiences: function () {
+
+    }
 };
