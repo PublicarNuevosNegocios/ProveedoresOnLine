@@ -790,11 +790,6 @@ namespace MarketPlace.Web.Controllers
 
                     oBalanceAux.All(bs =>
                     {
-                        //if (bs.BalanceSheetInfo.Count > 0)
-                        //{
-                        //    oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
-                        //}
-                        //return true;
                         oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
                         return true;
                     });

@@ -1174,14 +1174,8 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                         return true;
                     }));
 
-                //foreach (var item in oBalanceAccountInfo)
-                //{
-                //    if (oBalanceToAdd.ItemId == item.ItemId)
-                //    {
-                        oReturn.Add(oBalanceToAdd);
-                //    }
+                oReturn.Add(oBalanceToAdd);
 
-                //}
                 return true;
             });
 
