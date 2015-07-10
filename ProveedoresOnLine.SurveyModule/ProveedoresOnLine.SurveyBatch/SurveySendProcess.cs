@@ -24,18 +24,18 @@ namespace ProveedoresOnLine.SurveyBatch
                     {
                         try
                         {
-                                if (sv.SurveyInfo != null)
+                            if (sv.SurveyInfo != null)
+                            {
+                                MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv, sv.User);
+
+                                //create message
+                                MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToUpsert);
+
+                                //update survey status
+                                ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new SurveyModule.Models.SurveyModel()
                                 {
-                                    MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv, sv.User);
-
-                                    //create message
-                                    MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToUpsert);
-
-                                    //update survey status
-                                    ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new SurveyModule.Models.SurveyModel()
-                                    {
-                                        SurveyPublicId = sv.SurveyPublicId,
-                                        SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>()
+                                    SurveyPublicId = sv.SurveyPublicId,
+                                    SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>()
                                     {
                                         new Company.Models.Util.GenericItemInfoModel()
                                         {
@@ -52,15 +52,15 @@ namespace ProveedoresOnLine.SurveyBatch
                                             Enable = true,
                                         }
                                     }
-                                    };
+                                };
 
-                                    oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
-                                }
-                                else
-                                {
-                                    throw new Exception("La evaluación con id '" + sv.SurveyPublicId + "' no tienen información para enviar el correo.");
-                                }
-                            
+                                oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
+                            }
+                            else
+                            {
+                                throw new Exception("La evaluación con id '" + sv.SurveyPublicId + "' no tienen información para enviar el correo.");
+                            }
+
                         }
                         catch (Exception err)
                         {

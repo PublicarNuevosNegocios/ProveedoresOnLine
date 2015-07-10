@@ -32,34 +32,37 @@
                 <div id="NewCriteria">
                     <a>Agregar Criterio</a>
                 </div>
-                <div>
-
-                    <ul>
-                        @if (Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem != null &&
+                <form id="ProjectCriteriaUpsert">
+                    <div>
+                        <ul>
+                            @if (Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem != null &&
                         Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem.Count > 0)
-                        {
-                            foreach (ProveedoresOnLine.Company.Models.Util.GenericItemModel EvaluationCriteria in Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem)
                             {
-                                <li>
-                                    <label name="EvaluationCriteriaId">@EvaluationCriteria.ItemId</label>
+                                foreach (ProveedoresOnLine.Company.Models.Util.GenericItemModel EvaluationCriteria in Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem)
+                                {
+                                    <li>
+                                        <label name="EvaluationCriteriaId">@EvaluationCriteria.ItemId</label>
 
-                                    <label id="EvaluationCriteriaName">@EvaluationCriteria.ItemName</label>
+                                        <label id="EvaluationCriteriaName">@EvaluationCriteria.ItemName</label>
 
-                                    @foreach (string EvaluationCriteriaType in EvaluationCriteria.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).Select(x => x.Value.ToString()))
-                                    {
-                                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404001.Replace("1404001", EvaluationCriteriaType),
+                                        @foreach (string EvaluationCriteriaType in EvaluationCriteria.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).Select(x => x.Value.ToString()))
+                                        {
+                                            @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404001.Replace("1404001", EvaluationCriteriaType),
                                                          new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
                                                              (Model, new BackOffice.Models.Customer.EvaluationItemViewModel(EvaluationCriteria))
                                                             ))
-                                    }
-                                </li>
+                                        }
+                                    </li>
+                                }
                             }
-                        }
-
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                    <div>
+                        <a>Guardar</a>
+                        <a>Cancelar</a>
+                    </div>
+                </form>
             </div>
-
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
@@ -67,8 +70,6 @@
         </div>
     </div>
 </div>
-
-
 @{
     Model.RenderScripts = true;
 }

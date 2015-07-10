@@ -108,83 +108,64 @@
           <key name="MessageBody">
             &lt;![CDATA[
 				        <table>
+	              <thead>
+		              <table width="628" cellspacing="0" cellpadding="0">
+			                <tr>
+			  	              <td align="center" style="padding: 20px 0 10px 0;">
+				               <img src="{CustomerLogo}" alt="ALPINA" width="23%" style="display: block;" />
+				              </td>
+			                 </tr>
 
-	<thead>
-		<table width="628" cellspacing="0" cellpadding="0">
-
-			  <tr>
-			  	<td align="center" style="padding: 20px 0 10px 0;">
-				 <img src="{CustomerLogo}" alt="ALPINA" width="23%" style="display: block;" />
-				</td>
-			   </tr>
-
-			   <tr>
-			   		<td height="60" align="center" style="border-bottom:1px solid #C0C0C0;">
-					<span style="font-size:0.8em; color:#4F66B5">
-						{CustomerName}, {CustomerIdentificationTypeName}, {CustomerIdentificationNumber}
-					</span>
-					</td>
-			   </tr>
+			                 <tr>
+			   		              <td height="60" align="center" style="border-bottom:1px solid #C0C0C0;">
+					              <span style="font-size:0.8em; color:#4F66B5">
+						              {CustomerName}, {CustomerIdentificationTypeName}, {CustomerIdentificationNumber}
+					              </span>
+					              </td>
+			                 </tr>
 			
-		</table>
-	</thead>
-	    <tbody>
-		    <table width="628" cellspacing="0" cellpadding="0">
-				    <tr>
-					    <td width="234" height="190" align="center"/ >
-						    <img src="{ProviderLogo}" alt="NALCO" width="55%" style="display: block;">
-					    </td>
+		              </table>
+	              </thead>
+	                  <tbody>
+		                  <table width="628" cellspacing="0" cellpadding="0">
+				                  <tr>
+					                  <td width="234" height="190" align="center"/ >
+						                  <img src="{ProviderLogo}" alt="NALCO" width="55%" style="display: block;">
+					                  </td>
 
-					    <td width="394" height="190" >
-						    <span style="font-size:0.9em; color:#404040;">
-						     {ProviderName}
-						    <br />
-						    tiene la siguiente evaluación de desempeño pendiente:
-						    <br />
-						    <strong>{SurveyName} y fecha 2015-04-13.</strong>
-						    <br /><br />
-						    Para responder la evaluación haga clic en el siguiente enlace:
-						    <br />
-						    <a target="_blank" title="{ProviderLink}" href="{ProviderLink}" style="display:block;margin:6px 0 5px 0;color:#0066ae;display:block;font-size:1em;letter-spacing: -0.8px;font-weight: bold;">{ProviderLink}</a>
-						    </span>	
-					    </td>
-				    </tr>
-		    </table>
-		    <table  width="628" height="190" cellspacing="0" cellpadding="0" style="border-top:1px solid #C0C0C0;">
-				    <tr>
-					    <td>
-						    <span style="font-size:0.9em; color:#404040; padding:0 0 0 20px; display:inline-block;">
-						    Para ver el detalle de: <br /><br />
-						    {ProviderName}
-						    <br />
-						    {ProviderIdentificationTypeName}: {ProviderIdentificationNumber}
-						    <br />
-						    <br />
-						    siga el enlace a continuación:															
-						    <br />
-						    <a target="_blank" title="{SurveyLink}" href="{SurveyLink}" style="display:block;margin:6px 0 5px 0;color:#0066ae;display:block;font-size:1em;letter-spacing:-0.8px;font-weight:bold;">{ProviderLink}</a>
-					    </span>
-					    </td>
-				    </tr>
-		    </table>
-	    </tbody>
-	    <tfoot>
-		    <table width="628" cellspacing="0" cellpadding="0">
-			     <tr>
-				    <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
-					    <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
-					    <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
-				    </td>
-			     </tr>
-			    <tr>
-				     <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
-					    <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-					     <a target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>									  
-					     </td>
-			     </tr>
-		    </table>
-	    </tfoot>
-</table>
+					                  <td width="394" height="190" >
+						                  <span style="font-size:0.9em; color:#404040;">
+						                   {ProviderName}
+						                  <br />
+						                  tiene la siguiente evaluación de desempeño pendiente:
+						                  <br />
+						                  <strong>{SurveyName} con fecha 2015-04-13.</strong>
+						                  <br /><br />
+						                  Para responder la evaluación haga clic en el siguiente enlace:
+						                  <br />
+                              <a target="_blank" title="{SurveyLink}" href="{SurveyLink}" style="display:block;margin:6px 0 5px 0;color:#0066ae;display:block;font-size:1em;letter-spacing:-0.8px;font-weight:bold;">{SurveyLink}</a>                              
+						                  </span>	
+					                  </td>
+				                  </tr>
+		                  </table>		                 
+	                  </tbody>
+	                  <tfoot>
+		                  <table width="628" cellspacing="0" cellpadding="0">
+			                   <tr>
+				                  <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
+					                  <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
+					                  <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
+				                  </td>
+			                   </tr>
+			                  <tr>
+				                   <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
+					                  <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+					                   <a target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>									  
+					                   </td>
+			                   </tr>
+		                  </table>
+	                  </tfoot>
+              </table>
             ]]&gt;
           </key>
         </POL_SurveyWriteBackNotification_Mail>
@@ -507,6 +488,7 @@
         </POL_ProjectRejectArea_Mail>
       ]]>
     </key>
+  
   </MessageModule>
 </Settings>
 
