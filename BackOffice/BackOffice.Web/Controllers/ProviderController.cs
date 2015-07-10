@@ -1573,7 +1573,7 @@ namespace BackOffice.Web.Controllers
                 //Company healty politic
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Salud, medio ambiente y seguridad",
+                    Name = "Política de seguridad, salud y Medio Ambiente",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.HIHealtyPoliticUpsert,
                         MVC.Provider.Name,

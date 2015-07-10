@@ -1622,36 +1622,52 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
                     SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
 
-                    if (!string.IsNullOrEmpty(SurveyPublicId))
+                    
+                }
+                if (!string.IsNullOrEmpty(SurveyPublicId) && !string.IsNullOrEmpty(SurveyPublicId))//si es editar
+                {
+                    if (oProvider != null)
                     {
-                        oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
-                        (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
-                        if (oModel.RelatedSurvey != null)
+                        if (!string.IsNullOrEmpty(SurveyPublicId))
                         {
-                            oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
-                            List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();                               
-
-                            Evaluators.All(evt => 
+                            oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
+                            (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+                            if (oModel.RelatedSurvey != null)
                             {
-                                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
-                                (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, evt)));
-                                return true;
-                            });                            
+                                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
+                                List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                                Evaluators.All(evt =>
+                                {
+                                    oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
+                                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, evt)));
+                                    return true;
+                                });
+                            }
                         }
+
                     }
                 }
-
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+
             return View(oModel);
         }
         #endregion
 
         #region Pivate Functions
 
+        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetRelatedSurvey(string SurveyPublicId)
+        {
+
+            return null;
+        }
+
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
         {
-            List<Tuple<string, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int>>();
+            //Item1 = Email
+            //Item2 = 
+            List<Tuple<string, int, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int, int>>();
             List<string> EvaluatorsEmail = new List<string>();
 
             #region Parent Survey
@@ -1697,7 +1713,10 @@ namespace MarketPlace.Web.Controllers
 
                     //Get Evaluator Rol info
                     if (Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator)
-                        EvaluatorsRoleObj.Add(new Tuple<string, int, int>(System.Web.HttpContext.Current.Request[req], Convert.ToInt32(strSplit[4].Trim()), Convert.ToInt32(strSplit[2].Trim())));
+                        EvaluatorsRoleObj.Add(new Tuple<string, int, int, int>(System.Web.HttpContext.Current.Request[req], 
+                                                                                Convert.ToInt32(strSplit[4].Trim()), 
+                                                                                Convert.ToInt32(strSplit[2].Trim()), 
+                                                                                Convert.ToInt32(strSplit[5].Trim())));
                 }
                 return true;
             });
@@ -1736,8 +1755,8 @@ namespace MarketPlace.Web.Controllers
                 //Set SurveyChild Info
                 oReturn.ChildSurvey.All(it =>
                 {
-                    List<Tuple<int, int>> AreaIdList = new List<Tuple<int, int>>();
-                    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int>(y.Item2, y.Item3)).ToList());
+                    List<Tuple<int,int, int>> AreaIdList = new List<Tuple<int, int, int>>();
+                    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int, int>(y.Item2, y.Item3, y.Item4)).ToList());
                     if (AreaIdList != null)
                     {
                         AreaIdList.All(a =>
@@ -1749,7 +1768,7 @@ namespace MarketPlace.Web.Controllers
                                 {
                                     ItemId = (int)enumSurveyInfoType.CurrentArea
                                 },
-                                Value = a.Item1.ToString(),
+                                Value = a.Item1.ToString() + "_"+ a.Item3.ToString(),
                                 Enable = true,
                             });
                             it.SurveyInfo.Add(new GenericItemInfoModel()
@@ -1770,6 +1789,16 @@ namespace MarketPlace.Web.Controllers
                                     ItemId = (int)enumSurveyInfoType.Contract
                                 },
                                 Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Status
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(x => x.Value).FirstOrDefault(),
                                 Enable = true,
                             });
                             it.SurveyInfo.Add(new GenericItemInfoModel()
@@ -2242,7 +2271,7 @@ namespace MarketPlace.Web.Controllers
                         //Company healty politic
                         oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                         {
-                            Name = "Politicas de Seguridad, Medio Ambiente y Seguridad",
+                            Name = "Política de seguridad, salud y Medio Ambiente",
                             Url = Url.RouteUrl
                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new

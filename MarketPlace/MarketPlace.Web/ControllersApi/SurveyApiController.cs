@@ -258,7 +258,6 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-
         #region Survey Charts
 
         [HttpPost]
@@ -491,6 +490,16 @@ namespace MarketPlace.Web.ControllersApi
                                     ItemId = (int)enumSurveyInfoType.Contract
                                 },
                                 Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            inf.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Status 
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(x => x.Value).FirstOrDefault(),
                                 Enable = true,
                             });
                             inf.SurveyInfo.Add(new GenericItemInfoModel()

@@ -119,8 +119,13 @@
                             if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                             {
                                 <div class="NewSurvey">
-                                    <!--actions-->
-                                    <a class="POMPButtonsSurvey" id="POMPButtonSurveryNewEvaluation" href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
+                                    <a class="POMPButtonsSurvey" id="POMPButtonSurveryNewEvaluation" href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                                                                            new
+                                                                                                            {
+                                                                                                                controller = MVC.Provider.Name,
+                                                                                                                action = MVC.Provider.ActionNames.SVSurveyProgram,
+                                                                                                                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId                                                                                                                
+                                                                                                            }))">Programar nueva evaluación</a>
                                 </div>
                             }
                         }
