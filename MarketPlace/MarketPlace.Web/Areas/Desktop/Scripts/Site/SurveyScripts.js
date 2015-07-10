@@ -328,7 +328,8 @@ var Survey_Evaluation_ProgramObject = {
                     },
                 }
             }
-        }).focusout(function () {            
+        }).focusout(function () {
+            debugger;
             var IdSurvey = $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyConfigId').val();        
             if (IdSurvey == '') {
                 $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyName').val('');
@@ -452,11 +453,13 @@ var Survey_SaveObject = {
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
-
-        //show generic progress bar
-        ProgressBar_Generic_Show();
     },
-
+    ProgressBar_Generic_Show: function () {
+        kendo.ui.progress($("#loading"), true);
+    },
+    ProgressBar_Generic_Hidden: function () {
+        kendo.ui.progress($("#loading"), false);
+    },
     Save: function (vUrl) {
         $('#' + Survey_SaveObject.ObjectId + '_Form').attr('action', vUrl);
         $('#' + Survey_SaveObject.ObjectId + '_Form').submit();

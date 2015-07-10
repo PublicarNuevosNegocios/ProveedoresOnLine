@@ -23,7 +23,7 @@
                                     <label>Evaluación:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyConfigName.ToString();}" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyConfigName.ToString();}" autofocus />
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -51,14 +51,40 @@
                                     {
                                         <div id="Survey_ProgramSurvey_EvaluatorDiv">
                                             <ul>
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
+                                                @{
+                                                   List<Tuple<string, string, int>> AreaEvaluatorsObjs = new List<Tuple<string, string, int>>();
+                                                   foreach (ProveedoresOnLine.Company.Models.Util.GenericItemModel areas in Model.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem) {
+                                                       if (areas.ItemType.ItemId == 1202001)
+                                                       {
+                                                           var val = areas.ItemName;
+                                                       }
+                                                      /* areas.ItemId
+                                                       
+                                                      // codigo de areas.
+                                                       
+                                                       if (areas.ItemType.ItemId == 1202001) {
+                                                           foreach (ProveedoresOnLine.SurveyModule.Models.SurveyModel item in Model.RelatedSurvey.RelatedSurvey.ChildSurvey)
+                                                           {
+                                                               string area = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == areas.ItemType.ItemId).Select(y => y.ItemName).FirstOrDefault();
+                                                               AreaEvaluatorsObjs.Add(new Tuple<string, string, int>(area, item.User, 1));
+                                                           }
+                                                       }*/
+                                                   }
+
+                                                   /*
+                                                   foreach (ProveedoresOnLine.SurveyModule.Models.SurveyModel item in Model.RelatedSurvey.RelatedSurvey.ChildSurvey)
+                                                    {
+                                                       string area = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202001).Select(y => y.ItemName).FirstOrDefault();
+                                                       var infoRol = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == 90).FirstOrDefault();
+                                                       int rol = int.Parse(infoRol.ItemInfo.Where(x => x.ItemInfoId == 239).Select(y => y.Value).FirstOrDefault());
+                                                       AreaEvaluatorsObjs.Add(new Tuple<string, string, int>(area, item.User, rol));
+                                                       ////var areas = new ProveedoresOnLine.Company.Models.Util.CatalogModel();
+                                                       
+                                                    }
+                                                    * */
+                                                   var o = AreaEvaluatorsObjs;
+                                                }
+                                               
                                             </ul>
                                         </div>
                                     }
@@ -134,6 +160,8 @@
         </div>
     </div>
 </div>
+<div id="loading"/>
+
 
 @{
     Model.RenderScripts = true;
@@ -145,7 +173,20 @@
     @*@Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)*@
     <script type="text/javascript">
         $(document).ready(function () {
-            //show generic progress bar
+            $("#Survey_ProgramSurvey_Form").submit(function () {
+                Survey_SaveObject.ProgressBar_Generic_Show();
+                $.ajax({
+                    type: "POST",
+                    url: $("#Survey_ProgramSurvey_Form").attr('action'),
+                    data: $("#idForm").serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        Survey_SaveObject.ProgressBar_Generic_Hidden();
+                        window.location = 'SVSurveySearch?ProviderPublicId=@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId';
+                    }
+                });
+
+                return false; // avoid to execute the actual submit of the form.
+            });
             Survey_Evaluation_ProgramObject.Init(
                 {
                     ObjectId: 'Survey_ProgramSurvey',
@@ -154,5 +195,7 @@
 
             Survey_Evaluation_ProgramObject.RenderEvaluation();
         });
-    </script>
+</script>
+
+
 }
