@@ -129,11 +129,10 @@
                                     <label>Observaciones:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">
-                                        @if (Model.RelatedSurvey != null)
-                                        {@Model.RelatedSurvey.SurveyComments.ToString();
-                                        }
-                                    </textarea>
+                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">@if (Model.RelatedSurvey != null)
+                                        {
+                                            @Model.RelatedSurvey.SurveyComments.ToString();
+                                        }</textarea>
                                 </div>
                             </div>
                         </div>
