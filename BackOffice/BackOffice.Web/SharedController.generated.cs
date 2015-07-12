@@ -53,7 +53,6 @@ namespace T4MVC
                 public readonly string _PJ_EvaluationCriteria_1404006 = "_PJ_EvaluationCriteria_1404006";
                 public readonly string _PJ_EvaluationCriteria_1404007 = "_PJ_EvaluationCriteria_1404007";
                 public readonly string _PJ_EvaluationCriteria_1404008 = "_PJ_EvaluationCriteria_1404008";
-                public readonly string _PJ_EvaluationCriteria_Add = "_PJ_EvaluationCriteria_Add";
             }
             public readonly string _C_CustomerActions = "~/Views/Shared/_C_CustomerActions.cshtml";
             public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
@@ -72,7 +71,6 @@ namespace T4MVC
             public readonly string _PJ_EvaluationCriteria_1404006 = "~/Views/Shared/_PJ_EvaluationCriteria_1404006.cshtml";
             public readonly string _PJ_EvaluationCriteria_1404007 = "~/Views/Shared/_PJ_EvaluationCriteria_1404007.cshtml";
             public readonly string _PJ_EvaluationCriteria_1404008 = "~/Views/Shared/_PJ_EvaluationCriteria_1404008.cshtml";
-            public readonly string _PJ_EvaluationCriteria_Add = "~/Views/Shared/_PJ_EvaluationCriteria_Add.cshtml";
         }
     }
 

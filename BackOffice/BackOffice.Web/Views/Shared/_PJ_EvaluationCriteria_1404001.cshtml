@@ -17,12 +17,12 @@
         Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
 
     var RatingId = Model.Item2 != null &&
-        Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+        Model.Item2.EC_RatingId != null ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
     var Rating = Model.Item2 != null &&
-        Model.Item2.EC_Rating != string.Empty ? Model.Item2.EC_Rating.ToString() : string.Empty;
+        Model.Item2.EC_Rating != null ? Model.Item2.EC_Rating.ToString() : string.Empty;
 
     var ExperiencesId = Model.Item2 != null &&
-        Model.Item2.EC_ExperienceConfigId != string.Empty ? Convert.ToInt32(Model.Item2.EC_ExperienceConfigId.Trim()) : 0;
+        Model.Item2.EC_ExperienceConfigId != null ? Convert.ToInt32(Model.Item2.EC_ExperienceConfigId.Trim()) : 0;
 
     var AmmountEnable = Model.Item2.ProjectConfigExperience.AmmounEnable != null ? Model.Item2.ProjectConfigExperience.AmmounEnable : true;
     var CurrencyEnable = Model.Item2.ProjectConfigExperience.CurrencyEnable != null ? Model.Item2.ProjectConfigExperience.CurrencyEnable : true;
@@ -35,91 +35,143 @@
 
 <div>
     <label>Criterio de Evaluación de Experiencias</label>
+    <form id="frmEvaluationCriteria_1404001_Upsert" method="post" action="@(Url.Action
+                (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
+                MVC.Customer.Name,
+                new {
+                    CustomerPublicId = Model.Item1.RelatedCustomer.RelatedCompany.CompanyPublicId,
+                    ProjectProviderId = Model.Item1.RelatedProjectConfig.RelatedProjectProvider.ItemId,
+                    EvaluationItemId = Model.Item2.EvaluationItemId,
+                }))">
+        <ul>
+            <li>
+                <label>Unidad:</label>
+                <select id="EC_UnitId" name="EC_Unit">
+                    <option value="0">Seleccione una Opción</option>
+                    @{
+                        foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
+                        {
+                            if (Unit != null &&
+                                Unit.Length > 0)
+                            {
+                                if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                                {
+                                    <option value="@item.ItemId">@item.ItemName</option>
+                                }
+                                else if (item.ItemId == Convert.ToInt32(Unit))
+                                {
+                                    <option value="@item.ItemId" selected>@item.ItemName</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="@item.ItemId">@item.ItemName</option>
+                            }
+                        }
+
+                    }
+                </select>
+                <input type="hidden" name="EC_UnitId" value="@UnitId" />
+            </li>
+            <li>
+                <input type="hidden" name="EC_EvaluationCriteria" value="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.Experiences)" />
+                <input type="hidden" name="EC_EvaluationCriteriaId" value="@EvaluationCriteriaId" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input type="text" id="EC_OrderId" name="EC_Order" value="@Order" />
+                <input type="hidden" name="EC_OrderId" value="@OrderId" />
+            </li>
+            @*<li>
+                    <label>Configuración de Experiencia</label>
+                    <div id="divProjectConfigExperiences"></div>
+                    <input type="hidden" name="EC_ExperiencesConfigId" value="@ExperiencesId" />
+                    <div>
+                        <ul>
+                            <li>
+                                <label>Años de experiencia a tener en cuenta</label>
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <label>Tipo de Fecha:</label>
+                                            <input />
+                                        </li>
+                                        <li>
+                                            <label>Identificador:</label>
+                                            <input />
+                                        </li>
+                                        <li>
+                                            <label>Operador:</label>
+                                            <input />
+                                        </li>
+                                        <li>
+                                            <label>Etiqueta:</label>
+                                            <input />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <label>Cantidad minima de experiencias:</label>
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <label>Identificador:</label>
+                                            <input />
+                                        </li>
+                                        <li>
+                                            <label>Etiqueta:</label>
+                                            <input />
+                                        </li>
+                                        <li>
+                                            <label>Habilitado</label>
+                                            <input type="checkbox" checked />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <label>Actividades Económicas:</label>
+                                <input type="checkbox" value="@DefaultActivityEnable" />
+                            </li>
+                            <li>
+                                <label>Actividades Económicas Personalizadas:</label>
+                                <input type="checkbox" value="@CustomActivityEnable" />
+                            </li>
+                            <li>
+                                <label>Valor estimado:</label>
+                                <input type="checkbox" value="@AmmountEnable" />
+                            </li>
+                            <li>
+                                <label>Moneda:</label>
+                                <input type="checkbox" value="@CurrencyEnable" />
+                            </li>
+                        </ul>
+                    </div>
+                </li>*@
+        </ul>
+        <div style="display:none">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+            <input type="hidden" name="EvaluationCriteria_1404001" id="EvaluationCriteria_1404001" value="true" />
+            <input type="hidden" name="StepAction" id="StepAction" value="" />
+        </div>
+    </form>
     <ul>
         <li>
-            <label>Unidad:</label>
-            <input id="@UnitId" name="EC_UnitId" value="@Unit" />
-        </li>
-        <li>
-            <label>Criterio de Evaluación:</label>
-            <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
-        </li>
-        <li>
-            <label>Orden</label>
-            <input id="@OrderId" name="EC_OrderId" value="@Order" />
-        </li>
-        <li>
-            <label>Habilitado:</label>
-            <input type="checkbox" checked />
-            <label>Peso:</label>
-            <input id="@RatingId" name="EC_RatingId" value="@Rating" />
-        </li>
-        <li>
-            <label>Configuración de Experiencia</label>
-            <div id="divProjectConfigExperiences"></div>
-            <input type="hidden" name="EC_ExperiencesConfigId" value="@ExperiencesId" />
-            <div>
-                <ul>
-                    <li>
-                        <label>Años de experiencia a tener en cuenta</label>
-                        <div>
-                            <ul>
-                                <li>
-                                    <label>Tipo de Fecha:</label>
-                                    <input />
-                                </li>
-                                <li>
-                                    <label>Identificador:</label>
-                                    <input />
-                                </li>
-                                <li>
-                                    <label>Operador:</label>
-                                    <input />
-                                </li>
-                                <li>
-                                    <label>Etiqueta:</label>
-                                    <input />
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <label>Cantidad minima de experiencias:</label>
-                        <div>
-                            <ul>
-                                <li>
-                                    <label>Identificador:</label>
-                                    <input />
-                                </li>
-                                <li>
-                                    <label>Etiqueta:</label>
-                                    <input />
-                                </li>
-                                <li>
-                                    <label>Habilitado</label>
-                                    <input type="checkbox" checked />
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <label>Actividades Económicas:</label>
-                        <input type="checkbox" value="@DefaultActivityEnable" />
-                    </li>
-                    <li>
-                        <label>Actividades Económicas Personalizadas:</label>
-                        <input type="checkbox" value="@CustomActivityEnable />
-                    </li>
-                    <li>
-                        <label>Valor estimado:</label>
-                        <input type="checkbox" value="@AmmountEnable" />
-                    </li>
-                    <li>
-                        <label>Moneda:</label>
-                        <input type="checkbox" value="@CurrencyEnable" />
-                    </li>
-                </ul>
-            </div>
+            <label>Certificados de Accidentalidad</label><br />
+            <div id="loading"></div>
+            <div id="divGridConfigExperiences"></div>
         </li>
     </ul>
+    <div class="POBOButtonsSaveProvider">
+        <a class="POBOButtons" href="javascript:Provider_SubmitForm({FormId:'frmEvaluationCriteria_1404001_Upsert'})">Guardar</a>
+    </div>
 </div>
+
+@section inlinescripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}

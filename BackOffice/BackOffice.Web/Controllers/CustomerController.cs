@@ -263,7 +263,7 @@ namespace BackOffice.Web.Controllers
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
-                RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()),true)),
+                RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()), true)),
                 ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
                 RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
             };
@@ -295,7 +295,7 @@ namespace BackOffice.Web.Controllers
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
                 RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
-                RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()),true)),
+                RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()), true)),
                 ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
             };
 
@@ -324,8 +324,107 @@ namespace BackOffice.Web.Controllers
 
             //get provider menu
             oModel.CustomerMenu = GetCustomerMenu(oModel);
+
+            //eval request
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                GenericItemModel EvaluationCriteriaToUpsert = GetEvaluationCriteriaInfoRequest();
+
+                EvaluationCriteriaToUpsert.ItemId = Convert.ToInt32(EvaluationItemId);
+
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.EvaluationItemInfoUpsert(EvaluationCriteriaToUpsert);
+            }
+
             return View(oModel);
         }
+
+        #region Private Methods
+
+        private GenericItemModel GetEvaluationCriteriaInfoRequest()
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"])
+               && bool.Parse(Request["UpsertAction"]))
+            {
+                GenericItemModel oReturn = null;
+
+                if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404001"])
+                    && bool.Parse(Request["EvaluationCriteria_1404001"]))
+                {
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId =  int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_OrderId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order,
+                                },
+                                Value = Request["EC_Order"],
+                                Enable = true,
+                            },
+                        },
+                    };
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404002"])
+                    && bool.Parse(Request["EvaluationCriteria_1404002"]))
+                {
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404003"])
+                    && bool.Parse(Request["EvaluationCriteria_1404003"]))
+                {
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404004"])
+                    && bool.Parse(Request["EvaluationCriteria_1404004"]))
+                {
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404005"])
+                    && bool.Parse(Request["EvaluationCriteria_1404005"]))
+                {
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404006"])
+                    && bool.Parse(Request["EvaluationCriteria_1404006"]))
+                {
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404007"])
+                    && bool.Parse(Request["EvaluationCriteria_1404007"]))
+                {
+
+                }
+                else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404008"])
+                    && bool.Parse(Request["EvaluationCriteria_1404008"]))
+                {
+
+                }
+
+                return oReturn;
+            }
+
+            return null;
+        }
+
+        #endregion
 
         #endregion
 
@@ -443,34 +542,34 @@ namespace BackOffice.Web.Controllers
 
                 #region Project config
 
-                ////header
-                //oMenuAux = new Models.General.GenericMenu()
-                //{
-                //    Name = "Configuración de Precalificaciones",
-                //    Position = 3,
-                //    ChildMenu = new List<Models.General.GenericMenu>(),
-                //};
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Configuración de Precalificaciones",
+                    Position = 3,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
 
-                ////Company User
-                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                //{
-                //    Name = "Precalificaciones",
-                //    Url = Url.Action
-                //        (MVC.Customer.ActionNames.PCProjectConfigUpsert,
-                //        MVC.Customer.Name,
-                //        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
-                //    Position = 0,
-                //    IsSelected =
-                //        ((oCurrentAction == MVC.Customer.ActionNames.PCProjectConfigUpsert ||
-                //        oCurrentAction == MVC.Customer.ActionNames.PCEvaluationItemUpsert) &&
-                //        oCurrentController == MVC.Customer.Name),
-                //});
+                //Company User
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Precalificaciones",
+                    Url = Url.Action
+                        (MVC.Customer.ActionNames.PCProjectConfigUpsert,
+                        MVC.Customer.Name,
+                        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        ((oCurrentAction == MVC.Customer.ActionNames.PCProjectConfigUpsert ||
+                        oCurrentAction == MVC.Customer.ActionNames.PCEvaluationItemUpsert) &&
+                        oCurrentController == MVC.Customer.Name),
+                });
 
-                ////get is selected menu
-                //oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                ////add menu
-                //oReturn.Add(oMenuAux);
+                //add menu
+                oReturn.Add(oMenuAux);
 
                 #endregion
 

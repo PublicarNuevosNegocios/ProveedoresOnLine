@@ -13,7 +13,89 @@
     <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
     </div>
+
     <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Criterios de Evaluación</label>
+            <div class="POBOEvaluationGoBackWrapper">
+                <a href="@(Url.Action(
+                MVC.Customer.ActionNames.PCEvaluationItemUpsert,
+                MVC.Customer.Name,
+                    new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, ProjectProviderId = Model.RelatedProjectConfig.ProjectProviderId }))">
+                    <div></div>Regresar a la configuración de áreas.
+                </a>
+            </div>
+            <label>Agregar Criterio de Evaluación</label>
+            <ul>
+                <li>
+                    <label>Criterio de Evaluación:</label>
+                    <select id="EvaluationCriteriaId" name="EvaluationCriteria">
+                        <option id="0">Seleccione una opción</option>
+                        @foreach (var item in Model.ProjectConfigOptions.Where(x => x.CatalogId == 1404))
+                        {
+                            <option id="@item.ItemId">@item.ItemName</option>
+                        }
+                    </select>
+                </li>
+                <li>
+                    <div id="EvaluationCriteria_1404001" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404001,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404002" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404002,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404003" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404003,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404004" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404004,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404005" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404005,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404006" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404006,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404007" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404007,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+
+                    <div id="EvaluationCriteria_1404008" style="display:none;">
+                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404008,
+                            new Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+                            (Model, new BackOffice.Models.Customer.EvaluationItemViewModel())))
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@*templates*@
+
+
+
+@*<div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Criterios de Evaluación</label>
             @{
@@ -68,8 +150,7 @@
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
         </div>
-    </div>
-</div>
+    </div>*@
 @{
     Model.RenderScripts = true;
 }
@@ -79,8 +160,23 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
-        $(document).ready(function () {
 
+        var oEvaluationCriteriaId;
+
+        $(document).ready(function () {
+            $("#EvaluationCriteriaId").change(function () {
+                debugger;
+                var id = $(this).children(":selected").attr("id");
+                $("#EvaluationCriteria_" + oEvaluationCriteriaId).hide();
+                $("#EvaluationCriteria_" + id).show();
+                oEvaluationCriteriaId = id;
+            });
+
+            Customer_ProjectModule.Init({
+                ObjectAutocomplete: 'EC_Value',
+            });
+
+            Customer_ProjectModule.RenderAutocompleteHESQ();
         });
     </script>
 }

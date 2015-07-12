@@ -1,4 +1,13 @@
-﻿/*Customer search object*/
+﻿/*Generic provider submit form*/
+function Customer_SubmitForm(SubmitObject) {
+    if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
+        $('#StepAction').val(SubmitObject.StepValue);
+    }
+    $('#' + SubmitObject.FormId).submit();
+    Message('success', null);
+}
+
+/*Customer search object*/
 var Customer_SearchObject = {
     ObjectId: '',
     SearchFilter: '',
@@ -1518,6 +1527,7 @@ var Customer_SurveyItemObject = {
 
 var Customer_ProjectModule = {
     ObjectId: '',
+    ObjectAutocomplete: '',
     CustomerPublicId: '',
     ProjectConfigId: '',
     EvaluationItemId: '',
@@ -1531,6 +1541,7 @@ var Customer_ProjectModule = {
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
+        this.ObjectAutocomplete = vInitObject.ObjectAutocomplete;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.EvaluationItemId = vInitObject.EvaluationItemId;
@@ -1572,6 +1583,68 @@ var Customer_ProjectModule = {
         Customer_ProjectModule.ConfigEvents();
         Customer_ProjectModule.GetViewEnable();
         Customer_ProjectModule.GetSearchParam();
+    },
+
+    RenderAutocompleteHESQ: function () {
+        debugger;
+        $('#' + Customer_ProjectModule.ObjectAutocomplete).kendoAutoComplete({
+            dataTextField: "",
+            select: function (e) {
+                debugger;
+                var selectedItem = e.item.index();
+                $('#' + Customer_ProjectModule.ObjectAutocomplete).text(selectedItem.ItemName);
+                $('#' + Customer_ProjectModule.ObjectAutocomplete + '_id').text(selectedItem.ItemId);
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function () {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByICA=true&SearchParam=&PageNumber=0&RowCount=0',
+                            dataType: 'json',
+                            success: function (result) {
+                                debugger;
+                            },
+                            error: function (result) {
+                            }
+                        });
+                    },
+                }
+            }
+        });
+    },
+
+    RenderAutocompleteFinantial: function(){
+        $('#' + Customer_ProjectModule.ObjectAutocompleteId).kendoAutoComplete({
+            dataTextField: "",
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                //set server fiel name
+                options.model[options.field] = selectedItem.ItemName;
+                options.model['C_Rule'] = selectedItem.ItemId;
+                //enable made changes
+                options.model.dirty = true;
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByRule=true&SearchParam=' + options.data.filter.filters[0].value,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
+        });
     },
 
     ConfigKeyBoard: function () {
@@ -1984,27 +2057,43 @@ var Customer_ProjectModule = {
                     text: 'Editar'
                 }, {
                     name: 'Detail',
-                    text: 'Ver Detalle',
+                    text: 'Ver Criterios',
                     click: function (e) {
                         // e.target is the DOM element representing the button
                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
 
-                        ////validate SurveyConfigId attribute
-                        if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                            window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                        }
+                        //validate SurveyConfigId attribute
+                        //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                        //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                        //}
 
                         //validate SurveyConfigItemTypeId attribute
+                        debugger;
                         if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
                             //is in evaluation area show question
-                            vRenderObject.ParentEvaluationIte.m = data.EvaluationItemId;
+                            vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
                             vRenderObject.EvaluationItemType = '1401002';
                             vRenderObject.Title = data.EvaluationItemName;
                             Customer_EvaluationItemObject.RenderAsync(vRenderObject);
                         }
                     }
+                }, {
+                    name: 'Add Criteria',
+                    text: 'Agregar Criterio',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr");// get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+
+                        //Redirect SurveyCriteriaUpsert
+                        if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                            debugger;
+                            window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                        }
+                    },
                 }],
             }, ],
         });

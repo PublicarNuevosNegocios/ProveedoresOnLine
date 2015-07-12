@@ -17,9 +17,9 @@
         Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
 
     var RatingId = Model.Item2 != null &&
-        Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+        Model.Item2.EC_RatingId != null ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
     var Rating = Model.Item2 != null &&
-        Model.Item2.EC_Rating != string.Empty ? Model.Item2.EC_Rating.ToString() : string.Empty;
+        Model.Item2.EC_Rating != null ? Model.Item2.EC_Rating.ToString() : string.Empty;
 }
 
 <div>
@@ -27,7 +27,32 @@
     <ul>
         <li>
             <label>Unidad:</label>
-            <input id="@UnitId" name="EC_UnitId" value="@Unit" />
+            <select id="EC_UnitId" name="EC_Unit">
+                <option value="0">Seleccione una Opción</option>
+                @{
+                    foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
+                    {
+                        if (Unit != null &&
+                            Unit.Length > 0)
+                        {
+                            if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                            {
+                                <option value="@item.ItemId">@item.ItemName</option>
+                            }
+                            else if (item.ItemId == Convert.ToInt32(Unit))
+                            {
+                                <option value="@item.ItemId" selected>@item.ItemName</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="@item.ItemId">@item.ItemName</option>
+                        }
+                    }
+
+                }
+            </select>
+            <input type="hidden" name="EC_UnitId" value="@UnitId" />
         </li>
         <li>
             <label>Habilitado:</label>

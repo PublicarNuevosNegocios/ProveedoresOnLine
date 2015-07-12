@@ -16,57 +16,119 @@
     var Order = Model.Item2 != null &&
         Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
 
+    var EvaluationValuesId = Model.Item2 != null &&
+    Model.Item2.EC_InfoType_Value_OperatorId != null ? Convert.ToInt32(Model.Item2.EC_InfoType_Value_OperatorId.Trim()) : 0;
+    var EvaluationValues = Model.Item2 != null &&
+        Model.Item2.EC_InfoType_Value_Operator != null ? Model.Item2.EC_InfoType_Value_Operator.ToString() : string.Empty;
+
+    var InformationType = string.Empty;
+    var Value = string.Empty;
+    var Operator = string.Empty;
+    var Result = string.Empty;
+
+    if (EvaluationValues != null &&
+        EvaluationValues.Length > 0)
+    {
+        string[] values = EvaluationValues.Split('_');
+
+        InformationType = values[0];
+        Value = values[1];
+        Operator = values[2];
+        Result = values[3];
+    }
+
     var RatingId = Model.Item2 != null &&
-        Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+        Model.Item2.EC_RatingId != null ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
     var Rating = Model.Item2 != null &&
-        Model.Item2.EC_Rating != string.Empty ? Model.Item2.EC_Rating.ToString() : string.Empty;
+        Model.Item2.EC_Rating != null ? Model.Item2.EC_Rating.ToString() : string.Empty;
 }
 
 <div>
     <label>Criterio de Evaluación de LTIF</label>
 
-        <ul>
-            <li>
-                <label>Unidad:</label>
-                <input id="@UnitId" name="EC_UnitId" value="@Unit" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación:</label>
-                <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input id="@OrderId" name="EC_OrderId" value="@OrderId" />
-            </li>
-            <li>
-                <label>Peso:</label>
-                <input id="@RatingId" name="EC_RatingId" value="@Rating" />
-            </li>
-            <li>
-                <label>Valores de Evaluación:</label>
-                <div id="divProjectConfigEvaluationCriteria"></div>
-                <div>
-                    <ul>
-                        <li>
-                            <label>Tipo de Información:</label>
-                            <input />
-                        </li>
-                        <li>
-                            <label>Valor:</label>
-                            <input />
-                        </li>
-                        <li>
-                            <label>Operador</label>
-                            <select id="OperatorId" name="Operator">
-                                <option id="0">Seleccione un Operador</option>
-                                @foreach (var ProjectOptions in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
+    <ul>
+        <li>
+            <label>Unidad:</label>
+            <select id="EC_UnitId" name="EC_Unit">
+                <option value="0">Seleccione una Opción</option>
+                @{
+                    foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1403))
+                    {
+                        if (Unit != null &&
+                            Unit.Length > 0)
+                        {
+                            if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                            {
+                                <option value="@item.ItemId">@item.ItemName</option>
+                            }
+                            else if (item.ItemId == Convert.ToInt32(Unit))
+                            {
+                                <option value="@item.ItemId" selected>@item.ItemName</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="@item.ItemId">@item.ItemName</option>
+                        }
+                    }
+
+                }
+            </select>
+            <input type="hidden" name="EC_UnitId" value="@UnitId" />
+        </li>
+        <li>
+            <label>Criterio de Evaluación:</label>
+            <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
+        </li>
+        <li>
+            <label>Orden</label>
+            <input id="@OrderId" name="EC_OrderId" value="@OrderId" />
+        </li>
+        <li>
+            <label>Peso:</label>
+            <input id="@RatingId" name="EC_RatingId" value="@Rating" />
+        </li>
+        <li>
+            <label>Valores de Evaluación:</label>
+            <div id="divProjectConfigEvaluationCriteria"></div>
+            <div>
+                <ul>
+                    <li>
+                        <label>Tipo de Información:</label>
+                        <input type="text" id="InformationType" name="EC_InformationType" value="@InformationType" />
+                    </li>
+                    <li>
+                        <label>Valor:</label>
+                        <input type="text" id="EC_Value" name="EC_Value" value="@Value" />
+                    </li>
+                    <li>
+                        <label>Operador:</label>
+                        <select id="EC_Operator" name="EC_Operator">
+                            <option value="0">Seleccione una Opción</option>
+                            @{
+                                foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1403))
                                 {
-                                    <option id="@ProjectOptions.ItemId">@ProjectOptions.ItemName</option>
+                                    if (Operator != null &&
+                                        Operator.Length > 0 &&
+                                        item.ItemId == Convert.ToInt32(Operator))
+                                    {
+                                        <option value="@item.ItemId" selected>@item.ItemName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.ItemId">@item.ItemName</option>
+                                    }
                                 }
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
+
+                            }
+                        </select>
+                    </li>
+                    <li>
+                        <label>Resultado:</label>
+                        <input type="text" id="EC_Result" name="EC_Result" value="@Result" />
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
 </div>
