@@ -54,7 +54,7 @@ namespace MarketPlace.Web.Controllers
 
             #region Stats
 
-            MarketPlace.Models.General.GenericMenu oMenuAux;
+            MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
 
             //header
             oMenuAux = new GenericMenu()
@@ -64,56 +64,71 @@ namespace MarketPlace.Web.Controllers
                 ChildMenu = new List<GenericMenu>(),
             };
 
-            //Provider Stats
-            oMenuAux.ChildMenu.Add(new GenericMenu()
+            foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
             {
-                Name = "Proveedores",
-                Url = Url.RouteUrl
-                        (MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Stats.Name,
-                            action = MVC.Stats.ActionNames.STProviderStats
-                        }),
-                Position = 0,
-                IsSelected =
-                    (oCurrentAction == MVC.Stats.ActionNames.STProviderStats &&
-                    oCurrentController == MVC.Stats.Name)
-            });
+                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderStats)
+                {
+                    //Provider Stats
+                    oMenuAux.ChildMenu.Add(new GenericMenu()
+                    {
+                        Name = "Proveedores",
+                        Url = Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Stats.Name,
+                                    action = MVC.Stats.ActionNames.STProviderStats
+                                }),
+                        Position = 0,
+                        IsSelected =
+                            (oCurrentAction == MVC.Stats.ActionNames.STProviderStats &&
+                            oCurrentController == MVC.Stats.Name)
+                    });
+                }
 
-            //Evalutaion Stats
-            oMenuAux.ChildMenu.Add(new GenericMenu()
-            {
-                Name = "Evaluación de desempeño",
-                Url = Url.RouteUrl
-                        (MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Stats.Name,
-                            action = MVC.Stats.ActionNames.STSurveyStats
-                        }),
-                Position = 0,
-                IsSelected =
-                    (oCurrentAction == MVC.Stats.ActionNames.STSurveyStats &&
-                    oCurrentController == MVC.Stats.Name)
-            });
 
-            //Project Stats
-            oMenuAux.ChildMenu.Add(new GenericMenu()
-            {
-                Name = "Proceso de Selección",
-                Url = Url.RouteUrl
-                        (MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Stats.Name,
-                            action = MVC.Stats.ActionNames.STProjectStats,
-                        }),
-                Position = 0,
-                IsSelected =
-                    (oCurrentAction == MVC.Stats.ActionNames.STProjectStats &&
-                    oCurrentController == MVC.Stats.Name)
-            });
+                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                {
+                    //Evalutaion Stats
+                    oMenuAux.ChildMenu.Add(new GenericMenu()
+                    {
+                        Name = "Evaluación de desempeño",
+                        Url = Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Stats.Name,
+                                    action = MVC.Stats.ActionNames.STSurveyStats
+                                }),
+                        Position = 0,
+                        IsSelected =
+                            (oCurrentAction == MVC.Stats.ActionNames.STSurveyStats &&
+                            oCurrentController == MVC.Stats.Name)
+                    });
+                }
+
+          
+
+                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
+                {
+                    //Project Stats
+                    oMenuAux.ChildMenu.Add(new GenericMenu()
+                    {
+                        Name = "Proceso de Selección",
+                        Url = Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Stats.Name,
+                                    action = MVC.Stats.ActionNames.STProjectStats,
+                                }),
+                        Position = 0,
+                        IsSelected =
+                            (oCurrentAction == MVC.Stats.ActionNames.STProjectStats &&
+                            oCurrentController == MVC.Stats.Name)
+                    });
+                }
+            }
 
             //Other menu stats
 

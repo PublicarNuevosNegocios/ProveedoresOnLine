@@ -76,7 +76,7 @@ namespace MarketPlace.Web.Controllers
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search
                             }),
-                        IsSelected = (CurrentControllerName == MVC.Provider.Name && 
+                        IsSelected = (CurrentControllerName == MVC.Provider.Name &&
                                     CurrentActionName == MVC.Provider.ActionNames.Search),
                     });
                     oPosition++;
@@ -130,9 +130,10 @@ namespace MarketPlace.Web.Controllers
                     oPosition++;
                 }
 
+
                 if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderStats))
                 {
-                    //provider compare
+                    //Proveedores
                     oReturn.Add(new GenericMenu()
                     {
                         Name = "Estadisticas",
@@ -148,6 +149,43 @@ namespace MarketPlace.Web.Controllers
                     });
                     oPosition++;
                 }
+                else if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
+                {
+                    //Evaluaciones
+                    oReturn.Add(new GenericMenu()
+                    {
+                        Name = "Estadisticas",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Stats.Name,
+                                action = MVC.Stats.ActionNames.STSurveyStats
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.Stats.ActionNames.STSurveyStats),
+                    });
+                    oPosition++;
+                }
+                else if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderSelectionCreate))
+                {
+                    //Project Stats
+                    oReturn.Add(new GenericMenu()
+                    {
+                        Name = "Estadisticas",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Stats.Name,
+                                action = MVC.Stats.ActionNames.STProjectStats
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.Stats.ActionNames.STProjectStats),
+                    });
+                    oPosition++;
+                }
+
             }
 
             #endregion
