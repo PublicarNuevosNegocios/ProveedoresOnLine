@@ -184,7 +184,7 @@
             Survey_SaveObject.ProgressBar_Generic_Show();
             e.preventDefault();
             $.ajax({
-                timeout: 18000,
+                timeout: 9000,
                 url: '@(Url.Action(MVC.Provider.ActionNames.SVSurveyProgram,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))',
                 type: 'POST',
                 data: $("#Survey_ProgramSurvey_Form").serialize(),

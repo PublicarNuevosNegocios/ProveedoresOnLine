@@ -47,106 +47,124 @@
 
 <div>
     <label>Criterio de Evaluación de Normas</label>
-    <ul>
-        <li>
-            <label>Unidad:</label>
-            <select id="EC_UnitId" name="EC_Unit">
-                <option value="0">Seleccione una Opción</option>
-                @{
-                    foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
-                    {
-                        if (Unit != null &&
-                            Unit.Length > 0)
+    <form id="frmEvaluationCriteria_1404002_Upsert" method="post" action="@(Url.Action
+                (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
+                MVC.Customer.Name,
+                new {
+                    CustomerPublicId = Model.Item1.RelatedCustomer.RelatedCompany.CompanyPublicId,
+                    ProjectProviderId = Model.Item1.RelatedProjectConfig.RelatedProjectProvider.ItemId,
+                    EvaluationItemId = Model.Item2.EvaluationItemId,
+                }))">
+        <ul>
+            <li>
+                <label>Unidad:</label>
+                <select id="EC_UnitId" name="EC_Unit">
+                    <option value="0">Seleccione una Opción</option>
+                    @{
+                        foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
                         {
-                            if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                            if (Unit != null &&
+                                Unit.Length > 0)
+                            {
+                                if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                                {
+                                    <option value="@item.ItemId">@item.ItemName</option>
+                                }
+                                else if (item.ItemId == Convert.ToInt32(Unit))
+                                {
+                                    <option value="@item.ItemId" selected>@item.ItemName</option>
+                                }
+                            }
+                            else
                             {
                                 <option value="@item.ItemId">@item.ItemName</option>
                             }
-                            else if (item.ItemId == Convert.ToInt32(Unit))
-                            {
-                                <option value="@item.ItemId" selected>@item.ItemName</option>
-                            }
                         }
-                        else
-                        {
-                            <option value="@item.ItemId">@item.ItemName</option>
-                        }
+
                     }
+                </select>
+                <input type="hidden" name="EC_UnitId" value="@UnitId" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="@OrderId" name="EC_OrderId" value="@Order" />
+            </li>
+            <li>
+                <label>Peso:</label>
+                <input id="@RatingId" name="EC_RatingId" value="@Rating" />
+            </li>
+            <li>
+                <label>Valores de Evaluación:</label>
+                <input type="hidden" name="EC_EvaluationValuesId" value="@EvaluationValuesId" />
+                <div>
+                    <ul>
+                        <li>
+                            <label>Tipo de Información:</label>
+                            <select id="EC_InfoTypeId" name="EC_InfoType">
+                                <option value="0">Seleccione una Opción</option>
+                                @{
+                                    foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 702))
+                                    {
+                                        if (InfoType != null &&
+                                            InfoType.Length > 0 &&
+                                            item.ItemId == Convert.ToInt32(InfoType))
+                                        {
+                                            <option value="@item.ItemId" selected>@item.ItemName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ItemId">@item.ItemName</option>
+                                        }
+                                    }
 
-                }
-            </select>
-            <input type="hidden" name="EC_UnitId" value="@UnitId" />
-        </li>
-        <li>
-            <label>Orden</label>
-            <input id="@OrderId" name="EC_OrderId" value="@Order" />
-        </li>
-        <li>
-            <label>Habilitado:</label>
-            <input type="checkbox" checked />
-            <label>Peso:</label>
-            <input id="@RatingId" name="EC_RatingId" value="@Rating" />
-        </li>
-        <li>
-            <label>Valores de Evaluación:</label>
-            <div id="divProjectConfigEvaluationCriteria"></div>
-            <div>
-                <ul>
-                    <li>
-                        <label>Tipo de Información:</label>
-                        <select id="EC_InfoTypeId" name="EC_InfoType">
-                            <option value="0">Seleccione una Opción</option>
-                            @{
-                                foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 702))
-                                {
-                                    if (InfoType != null &&
-                                        InfoType.Length > 0 &&
-                                        item.ItemId == Convert.ToInt32(InfoType))
-                                    {
-                                        <option value="@item.ItemId" selected>@item.ItemName</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.ItemId">@item.ItemName</option>
-                                    }
                                 }
+                            </select>
+                        </li>
+                        <li>
+                            <label>Valor:</label>
+                            <input type="text" id="EC_Value" name="EC_Value" value="@Value" />
+                            <input type="hidden" id="Selected_Value" name="Selected_Value" value="" />
+                            <input type="hidden" id="EC_Value_Id" name="EC_ValueId" value="" />
+                        </li>
+                        <li>
+                            <label>Operador:</label>
+                            <select id="EC_OperatorId" name="EC_Operator">
+                                <option value="0">Seleccione una Opción</option>
+                                @{
+                                    foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1403))
+                                    {
+                                        if (Operator != null &&
+                                            Operator.Length > 0 &&
+                                            item.ItemId == Convert.ToInt32(Operator))
+                                        {
+                                            <option value="@item.ItemId" selected>@item.ItemName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ItemId">@item.ItemName</option>
+                                        }
+                                    }
 
-                            }
-                        </select>
-                    </li>
-                    <li>
-                        <label>Valor:</label>
-                        <input type="text" id="EC_Value" name="EC_Value" value="@Value" />
-                        <input type="hidden" id="EC_Value_Id" name="EC_ValueId" value="" />
-                    </li>
-                    <li>
-                        <label>Operador:</label>
-                        <select id="EC_OperatorId" name="EC_Operator">
-                            <option value="0">Seleccione una Opción</option>
-                            @{
-                                foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1403))
-                                {
-                                    if (Operator != null &&
-                                        Operator.Length > 0 &&
-                                        item.ItemId == Convert.ToInt32(Operator))
-                                    {
-                                        <option value="@item.ItemId" selected>@item.ItemName</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.ItemId">@item.ItemName</option>
-                                    }
                                 }
+                            </select>
+                        </li>
+                        <li>
+                            <label>Resultado:</label>
+                            <input type="text" id="EC_ResultId" name="EC_Result" value="@Result" />
 
-                            }
-                        </select>
-                    </li>
-                    <li>
-                        <label>Resultado:</label>
-                        <input type="text" id="EC_ResultId" name="EC_Result" value="@Result" />
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <div style="display:none">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+            <input type="hidden" name="EvaluationCriteria_1404002" id="EvaluationCriteria_1404002" value="true" />
+            <input type="hidden" name="EvaluationCriteriaId" value="@EvaluationCriteriaId" />
+            <input type="hidden" name="StepAction" id="StepAction" value="" />
+        </div>
+    </form>
+    <div class="POBOButtonsSaveProvider">
+        <a class="POBOButtons" href="javascript:Provider_SubmitForm({FormId:'frmEvaluationCriteria_1404002_Upsert'})">Guardar</a>
+    </div>
 </div>

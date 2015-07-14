@@ -1087,6 +1087,22 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<GenericItemModel> GetHSEQCategory
+            (string GetHSEQCategory,
+            string SearchParam)
+        {
+            List<GenericItemModel> oReturn = new List<GenericItemModel>();
+
+            if (GetHSEQCategory == "true")
+            {
+                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(SearchParam, 0, 16000);
+            }
+
+            return oReturn;
+        }
+
         #endregion
     }
 }
