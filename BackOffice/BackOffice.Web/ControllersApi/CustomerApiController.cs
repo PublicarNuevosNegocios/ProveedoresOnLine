@@ -358,7 +358,7 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.Weight
                                     },
-                                    Value = oDataToUpsert.SurveyConfigItemInfoWeight.Replace(" ",""),
+                                    Value = Convert.ToDecimal(oDataToUpsert.SurveyConfigItemInfoWeight.Replace(" ","")).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                                     Enable = true,
                                 },
                             },
@@ -450,7 +450,7 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight
                                     },
-                                    Value = oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ",""),
+                                    Value =  Convert.ToDecimal(oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ","")).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                                     Enable = true,
                                 },
                             },

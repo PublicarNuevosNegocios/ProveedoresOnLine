@@ -338,6 +338,36 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult PCEvaluationItemShowCriteria(int ProjectConfigId, string CustomerPublicId, string ProjectProviderId, string EvaluationItemId)
+        {
+            BackOffice.Models.Customer.CustomerViewModel oModel = null;
+            if (CustomerPublicId.Length > 0 && ProjectProviderId.Length > 0 && EvaluationItemId.Length > 0)
+            {
+                oModel = new Models.Customer.CustomerViewModel()
+                {
+                    CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                    RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                    },
+                    RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
+                    RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()), true)),
+                    ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
+                };
+
+            //Lista de los criterios de evaluacion
+            
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(ProjectConfigId, null, 1401002, 1, true);
+
+    
+            }
+            //get provider menu
+            if (oModel!= null)
+                oModel.CustomerMenu = GetCustomerMenu(oModel);
+            return View(oModel);
+        }
+
         #region Private Methods
 
         private GenericItemModel GetEvaluationCriteriaInfoRequest()

@@ -57,3 +57,53 @@ function ProgressBar_Generic_Show() {
     });
 }
 
+//date validation
+function dateValidation(date_a, date_b) {
+    var auxfec1 = date_a;
+    var auxfec2 = date_b;
+    if (auxfec1 > auxfec2) {
+        return (false);
+    }
+    if (auxfec1 == auxfec2) {
+        return (true);
+    }
+    return (true);
+}
+//show modal
+function showModal(response) {
+    if (response != null) {
+        $("#msg").html(response);
+        $("#modal").show().kendoWindow({
+            modal: true,
+            title: "Evaluación."
+        }).data("kendoWindow").center().open();
+
+    }
+}
+//date validation
+/*$('#Survey_ProgramSurvey_StartDate').focusout(function () {
+    if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
+        if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
+            $('Survey_ProgramSurvey_Form').submit();
+        }
+        else {
+            showModal('La fecha inicial no debe ser superior a la fecha final');
+        }
+    }
+    else {
+        showModal('Ingrese la Fecha inicial y Final');
+    }
+});*/
+$('#Survey_ProgramSurvey_EndDate').focusout(function () {
+    if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
+        if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
+            $('Survey_ProgramSurvey_Form').submit();
+        }
+        else {
+            showModal('La fecha inicial no debe ser superior a la fecha final');
+        }
+    }
+    else {
+        showModal('Ingrese la Fecha inicial y Final');
+    }
+});

@@ -460,6 +460,35 @@ var Survey_SaveObject = {
     ProgressBar_Generic_Hidden: function () {
         kendo.ui.progress($("#loading"), false);
     },
+    excute_form: function () {
+        $("#Survey_ProgramSurvey_Form").submit(function (e) {
+            Survey_SaveObject.ProgressBar_Generic_Show();
+            e.preventDefault();
+            $.ajax({
+                timeout: 18000,
+                url: '@(Url.Action(MVC.Provider.ActionNames.SVSurveyProgram,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))',
+                type: 'POST',
+                data: $("#Survey_ProgramSurvey_Form").serialize(),
+                success: function (result) {
+                    $('#modal').bind('click', function () {
+                        $('#modal').parent().find(".k-window-action").css("visibility", "hidden");
+                    });
+                    Survey_SaveObject.ProgressBar_Generic_Hidden();
+                    showModal('Evaluación almacenada correctamente.');
+                    $('#controls').innerHTML = '<button id="aceptButtonModal" onclick="redirect_to()" >Aceptar</button>';
+                },
+                error: function (x, t, m) {
+                    $('#modal').bind('click', function () {
+                        $('#modal').parent().find(".k-window-action").css("visibility", "hidden");
+                    });
+                    Survey_SaveObject.ProgressBar_Generic_Hidden();
+                    showModal('Evaluación almacenada correctamente.');
+                    $('#controls').innerHTML = '<button id="aceptButtonModal" onclick="redirect_to()" >Aceptar</button>';
+                }
+            });
+            return false; // avoid to execute the actual submit of the form.
+        });
+    },
     Save: function (vUrl) {
         $('#' + Survey_SaveObject.ObjectId + '_Form').attr('action', vUrl);
         $('#' + Survey_SaveObject.ObjectId + '_Form').submit();
@@ -546,3 +575,4 @@ var Survey_File = {
         });
     },
 };
+

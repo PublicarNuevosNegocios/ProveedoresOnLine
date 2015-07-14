@@ -1,0 +1,24 @@
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Comprador - Detalle del criterio de evaluación.";
+    Layout = MVC.Shared.Views._Layout;
+    if (Model != null){Model.RenderScripts = false;}
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Detalle de los criterios de evaluación</label>
+            <div class="POBOEvaluationGoBackWrapper">
+            
+            </div>
+        </div>
+    </div>
+</div>
+
