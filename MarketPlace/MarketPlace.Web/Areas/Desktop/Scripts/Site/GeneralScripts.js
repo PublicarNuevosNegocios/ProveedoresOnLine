@@ -80,3 +80,30 @@ function showModal(response) {
 
     }
 }
+//date validation
+/*$('#Survey_ProgramSurvey_StartDate').focusout(function () {
+    if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
+        if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
+            $('Survey_ProgramSurvey_Form').submit();
+        }
+        else {
+            showModal('La fecha inicial no debe ser superior a la fecha final');
+        }
+    }
+    else {
+        showModal('Ingrese la Fecha inicial y Final');
+    }
+});*/
+$('#Survey_ProgramSurvey_EndDate').focusout(function () {
+    if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
+        if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
+            $('Survey_ProgramSurvey_Form').submit();
+        }
+        else {
+            showModal('La fecha inicial no debe ser superior a la fecha final');
+        }
+    }
+    else {
+        showModal('Ingrese la Fecha inicial y Final');
+    }
+});

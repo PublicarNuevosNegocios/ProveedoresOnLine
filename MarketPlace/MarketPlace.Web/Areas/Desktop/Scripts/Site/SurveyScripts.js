@@ -460,34 +460,6 @@ var Survey_SaveObject = {
     ProgressBar_Generic_Hidden: function () {
         kendo.ui.progress($("#loading"), false);
     },
-    validate_date_inputs: function () {
-        $('#Survey_ProgramSurvey_StartDate').focusout(function () {
-            if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
-                if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
-                    $('Survey_ProgramSurvey_Form').submit();
-                }
-                else {
-                    showModal('La fecha inicial no debe ser superior a la fecha final');
-                }
-            }
-            else {
-                showModal('Ingrese la Fecha inicial y Final');
-            }
-        });
-        $('#Survey_ProgramSurvey_EndDate').focusout(function () {
-            if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
-                if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
-                    $('Survey_ProgramSurvey_Form').submit();
-                }
-                else {
-                    alert('La fecha inicial no debe ser superior a la fecha final');
-                }
-            }
-            else {
-                alert('Ingrese la Fecha inicial y Final');
-            }
-        });
-    },
     excute_form: function () {
         $("#Survey_ProgramSurvey_Form").submit(function (e) {
             Survey_SaveObject.ProgressBar_Generic_Show();
