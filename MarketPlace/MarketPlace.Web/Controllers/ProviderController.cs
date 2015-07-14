@@ -1494,17 +1494,14 @@ namespace MarketPlace.Web.Controllers
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
                                                         Select(x => x).ToList();
+                        
                     }
                     oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
 
-                    //oSurveyResults.All(x =>
-                    //{
-                    //    x.SurveyInfo = 
-                    //    return true;
-                    //});
                     //parse view model
                     if (oSurveyResults != null && oSurveyResults.Count > 0)
                     {
+                        oSurveyResults = oSurveyResults.Where(x => x != null).ToList();
                         //Get the Average
                         decimal Average = 0;
                         //Get ClosedSurve
