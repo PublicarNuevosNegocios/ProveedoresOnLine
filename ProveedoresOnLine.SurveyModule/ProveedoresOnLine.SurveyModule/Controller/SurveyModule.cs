@@ -560,14 +560,10 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oParentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(oCurrentSurvey.ParentSurveyPublicId);
 
-            List<SurveyModel> TempChilSurvey = new List<SurveyModel>();
-            TempChilSurvey.Add(SurveyGetByUser(oParentSurvey.SurveyPublicId, UserEmail));
-
             decimal oTotalRatting = EvaluationAreaResults.Sum(ear => ((ear.EvaluationAreaRatting * ear.EvaluationAreaWeight) / 100)
                                                                 * oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204014 
                                                                 && Convert.ToInt32(x.Value.Split('_')[0]) == ear.EvaluationAreaId).
                                                                 Select(x => Convert.ToDecimal(x.Value.Split('_')[1])).FirstOrDefault() / 100);            
-
             #endregion
 
             #region Upsert Survey Child calculate values
@@ -662,7 +658,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oParentSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
             {
-                SurveyPublicId = oCurrentSurvey.SurveyPublicId,
+                SurveyPublicId = oParentSurvey.SurveyPublicId,
                 SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>(),
                 RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
             };
@@ -671,7 +667,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             List<string> Evaluators = oParentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204003).Select(x => x.Value).ToList();
             Evaluators = Evaluators.GroupBy(x => x).Select(grp => grp.First()).ToList();
 
-            //Get Evaluators Parent Survey
+            //Get Evaluators Parent Survey|
             if (Evaluators != null)
             {
                 Evaluators.All(y =>
@@ -742,56 +738,53 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     decimal? TotalRate = 0;
                     ChildsSurvey.All(a =>
                     {
-                        decimal? CurrentChildRate = a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006 && a.User == UserEmail).Select(x => Convert.ToDecimal(x.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                        decimal? CurrentChildRate = a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value)).DefaultIfEmpty(0).FirstOrDefault();
 
-                        TotalRate += (CurrentChildRate *
-                                     a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204014).
-                                     Select(x => Convert.ToInt32(x.Value.Split('_')[1])).FirstOrDefault()) / 100;
+                        TotalRate += CurrentChildRate; 
                         return true;
                     });
-                    ParentProgress = ParentProgress + TotalRate;
-                    #endregion
-
-                    //add survey progress to upsert model
-                    oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = oParentSurvey.SurveyInfo.
-                            Where(svinf => svinf.ItemInfoType.ItemId == 1204005).
-                            Select(svinf => svinf.ItemInfoId).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault(),
-
-                        ItemInfoType = new Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = 1204005,
-                        },
-                        Value = ChildCurrentProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
-                        Enable = true,
-                    });
-
-                    //add survey progress to upsert model
-                    oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = oParentSurvey.SurveyInfo.
-                            Where(svinf => svinf.ItemInfoType.ItemId == 1204006).
-                            Select(svinf => svinf.ItemInfoId).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault(),
-
-                        ItemInfoType = new Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = 1204006,
-                        },
-                        Value = ParentProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
-                        Enable = true,
-                    });
-
-                    //upsert survey info
-                    oSurveyToUpsert = SurveyInfoUpsert(oParentSurveyToUpsert);
-
-                    //upsert survey item
-                    oSurveyToUpsert = SurveyItemUpsert(oParentSurveyToUpsert);
+                    ParentProgress = (ParentProgress + TotalRate);
+                    #endregion                   
                 }
+                //add survey progress to upsert model
+                oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                {
+                    ItemInfoId = oParentSurvey.SurveyInfo.
+                        Where(svinf => svinf.ItemInfoType.ItemId == 1204005).
+                        Select(svinf => svinf.ItemInfoId).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+
+                    ItemInfoType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = 1204005,
+                    },
+                    Value = ChildCurrentProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
+                    Enable = true,
+                });
+
+                //add survey progress to upsert model
+                oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                {
+                    ItemInfoId = oParentSurvey.SurveyInfo.
+                        Where(svinf => svinf.ItemInfoType.ItemId == 1204006).
+                        Select(svinf => svinf.ItemInfoId).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+
+                    ItemInfoType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = 1204006,
+                    },
+                    Value = ParentProgress.Value.ToString(),
+                    Enable = true,
+                });
+
+                //upsert survey info
+                oSurveyToUpsert = SurveyInfoUpsert(oParentSurveyToUpsert);
+
+                //upsert survey item
+                oSurveyToUpsert = SurveyItemUpsert(oParentSurveyToUpsert);
             }          
            
             #endregion
