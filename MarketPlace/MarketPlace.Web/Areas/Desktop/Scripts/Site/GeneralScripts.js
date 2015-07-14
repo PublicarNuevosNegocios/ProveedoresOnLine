@@ -57,3 +57,26 @@ function ProgressBar_Generic_Show() {
     });
 }
 
+//date validation
+function dateValidation(date_a, date_b) {
+    var auxfec1 = date_a;
+    var auxfec2 = date_b;
+    if (auxfec1 > auxfec2) {
+        return (false);
+    }
+    if (auxfec1 == auxfec2) {
+        return (true);
+    }
+    return (true);
+}
+//show modal
+function showModal(response) {
+    if (response != null) {
+        $("#msg").html(response);
+        $("#modal").show().kendoWindow({
+            modal: true,
+            title: "Evaluación."
+        }).data("kendoWindow").center().open();
+
+    }
+}

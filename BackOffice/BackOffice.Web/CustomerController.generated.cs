@@ -99,6 +99,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCEvaluationCriteriaUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PCEvaluationItemShowCriteria()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCEvaluationItemShowCriteria);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CustomerController Actions { get { return MVC.Customer; } }
@@ -123,6 +129,7 @@ namespace BackOffice.Web.Controllers
             public readonly string PCProjectConfigUpsert = "PCProjectConfigUpsert";
             public readonly string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
             public readonly string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
+            public readonly string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -136,6 +143,7 @@ namespace BackOffice.Web.Controllers
             public const string PCProjectConfigUpsert = "PCProjectConfigUpsert";
             public const string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
             public const string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
+            public const string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
         }
 
 
@@ -199,6 +207,17 @@ namespace BackOffice.Web.Controllers
             public readonly string ProjectProviderId = "ProjectProviderId";
             public readonly string EvaluationItemId = "EvaluationItemId";
         }
+        static readonly ActionParamsClass_PCEvaluationItemShowCriteria s_params_PCEvaluationItemShowCriteria = new ActionParamsClass_PCEvaluationItemShowCriteria();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PCEvaluationItemShowCriteria PCEvaluationItemShowCriteriaParams { get { return s_params_PCEvaluationItemShowCriteria; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PCEvaluationItemShowCriteria
+        {
+            public readonly string ProjectConfigId = "ProjectConfigId";
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string ProjectProviderId = "ProjectProviderId";
+            public readonly string EvaluationItemId = "EvaluationItemId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -212,6 +231,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
                 public readonly string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
+                public readonly string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
                 public readonly string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
                 public readonly string PCProjectConfigUpsert = "PCProjectConfigUpsert";
                 public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
@@ -221,6 +241,7 @@ namespace BackOffice.Web.Controllers
             public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
             public readonly string PCEvaluationCriteriaUpsert = "~/Views/Customer/PCEvaluationCriteriaUpsert.cshtml";
+            public readonly string PCEvaluationItemShowCriteria = "~/Views/Customer/PCEvaluationItemShowCriteria.cshtml";
             public readonly string PCEvaluationItemUpsert = "~/Views/Customer/PCEvaluationItemUpsert.cshtml";
             public readonly string PCProjectConfigUpsert = "~/Views/Customer/PCProjectConfigUpsert.cshtml";
             public readonly string ROCustomerUserUpsert = "~/Views/Customer/ROCustomerUserUpsert.cshtml";
@@ -330,6 +351,21 @@ namespace BackOffice.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectProviderId", ProjectProviderId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EvaluationItemId", EvaluationItemId);
             PCEvaluationCriteriaUpsertOverride(callInfo, CustomerPublicId, ProjectProviderId, EvaluationItemId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void PCEvaluationItemShowCriteriaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int ProjectConfigId, string CustomerPublicId, string ProjectProviderId, string EvaluationItemId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PCEvaluationItemShowCriteria(int ProjectConfigId, string CustomerPublicId, string ProjectProviderId, string EvaluationItemId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCEvaluationItemShowCriteria);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectConfigId", ProjectConfigId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectProviderId", ProjectProviderId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EvaluationItemId", EvaluationItemId);
+            PCEvaluationItemShowCriteriaOverride(callInfo, ProjectConfigId, CustomerPublicId, ProjectProviderId, EvaluationItemId);
             return callInfo;
         }
 

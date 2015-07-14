@@ -150,7 +150,7 @@
 
                         <div class="row">
                             <div class="col-xs-12" style="text-align:right;">
-                                <input type="submit" value="Guardar" class="POMPSaveButton" />
+                                <input type="submit" id="buttonSubmit" value="Guardar" class="POMPSaveButton" />
                             </div>
                         </div>
                     </form>
@@ -159,9 +159,13 @@
         </div>
     </div>
 </div>
+<!--loader-->
 <div id="loading"/>
-
-
+<!--modal-->
+<div id="modal" style="display:none">
+    <div><p id="msg">:)</p><br/></div>
+    <div id="controls" style="text-align:center;"></div>
+</div>
 @{
     Model.RenderScripts = true;
 }
@@ -169,32 +173,19 @@
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     <script type="text/javascript">
-    $(document).ready(function () {
-        $("#Survey_ProgramSurvey_Form").submit(function (e) {
-            Survey_SaveObject.ProgressBar_Generic_Show();
-            e.preventDefault();
-            $.ajax({
-                url: '@(Url.Action(MVC.Provider.ActionNames.SVSurveyProgram,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))',
-                    type: 'POST',
-                    data: $("#Survey_ProgramSurvey_Form").serialize(),
-                    success: function (result) {
-
-                        window.location = '@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))';
-                        Survey_SaveObject.ProgressBar_Generic_Hidden();
-                    }
-                });
-
-
-                return false; // avoid to execute the actual submit of the form.
+        $(document).ready(function () {
+            Survey_Evaluation_ProgramObject.validate_date_inputs();
+            Survey_Evaluation_ProgramObject.excute_form();
+            Survey_Evaluation_ProgramObject.Init({
+                ObjectId: 'Survey_ProgramSurvey',
+                DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
             });
-            Survey_Evaluation_ProgramObject.Init(
-                {
-                    ObjectId: 'Survey_ProgramSurvey',
-                    DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-            });
-
-        Survey_Evaluation_ProgramObject.RenderEvaluation();
-    });
+            Survey_Evaluation_ProgramObject.RenderEvaluation();
+        });
+        function redirect_to() {
+            var url = '@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))';
+            window.location = url;
+        };
 </script>
 
 
