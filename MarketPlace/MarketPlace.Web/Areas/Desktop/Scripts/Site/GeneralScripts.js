@@ -22,10 +22,10 @@ function Tooltip_InitGeneric() {
 
 /*show process message*/
 function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
+    
     var DialogDiv = $('#Generic_MessageDialog').html();
     DialogDiv = DialogDiv.replace(/\${Title}/gi, vTitle);
     DialogDiv = DialogDiv.replace(/\${Message}/gi, vMessage);
-
     $(DialogDiv).dialog({
         width: 300,
         modal: true,
@@ -80,29 +80,25 @@ function showModal(response) {
     }
 }
 //date validation
-/*$('#Survey_ProgramSurvey_StartDate').focusout(function () {
+$('#Survey_ProgramSurvey_StartDate').focusout(function () {
     if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
         if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
-            $('Survey_ProgramSurvey_Form').submit();
         }
         else {
-            showModal('La fecha inicial no debe ser superior a la fecha final');
+            $('#Survey_ProgramSurvey_StartDate').focus();
+            $('#Survey_ProgramSurvey_StartDate').val($('#Survey_ProgramSurvey_EndDate').val());
+            Dialog_ShowMessage("Evaluación", "La fecha inicial no debe ser superior a la fecha final.", '');
         }
     }
-    else {
-        showModal('Ingrese la Fecha inicial y Final');
-    }
-});*/
+});
 $('#Survey_ProgramSurvey_EndDate').focusout(function () {
     if ($('#Survey_ProgramSurvey_StartDate').val() != '' && $('#Survey_ProgramSurvey_EndDate').val() != '') {
         if (dateValidation($('#Survey_ProgramSurvey_StartDate').val(), $('#Survey_ProgramSurvey_EndDate').val())) {
-            $('Survey_ProgramSurvey_Form').submit();
         }
         else {
-            showModal('La fecha inicial no debe ser superior a la fecha final');
+            $('#Survey_ProgramSurvey_EndDate').focus();
+            $('#Survey_ProgramSurvey_StartDate').val($('#Survey_ProgramSurvey_EndDate').val());
+            Dialog_ShowMessage("Evaluación", "La fecha inicial no debe ser superior a la fecha final.", '');
         }
-    }
-    else {
-        showModal('Ingrese la Fecha inicial y Final');
     }
 });

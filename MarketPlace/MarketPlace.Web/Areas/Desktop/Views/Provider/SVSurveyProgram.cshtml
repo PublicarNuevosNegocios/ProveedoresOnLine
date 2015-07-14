@@ -162,9 +162,14 @@
 <!--loader-->
 <div id="loading"/>
 <!--modal-->
-<div id="modal" style="display:none">
-    <div><p id="msg">:)</p></div>
-    <div id="controls"></div>
+<div style="display:none;">
+    <!--Generic message dialog-->
+    <div id="Generic_MessageDialog">
+        <div title="${Title}">
+            ${Message}
+        </div>
+    </div>
+
 </div>
 @{
     Model.RenderScripts = true;
@@ -173,13 +178,12 @@
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     <script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
         Survey_Evaluation_ProgramObject.Init({
-                ObjectId: 'Survey_ProgramSurvey',
-                DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+            ObjectId: 'Survey_ProgramSurvey',
+            DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
         });
-         Survey_Evaluation_ProgramObject.RenderEvaluation();
-        
+        Survey_Evaluation_ProgramObject.RenderEvaluation();
         $("#Survey_ProgramSurvey_Form").submit(function (e) {
             Survey_SaveObject.ProgressBar_Generic_Show();
             e.preventDefault();
@@ -189,34 +193,17 @@
                 type: 'POST',
                 data: $("#Survey_ProgramSurvey_Form").serialize(),
                 success: function (result) {
-                    $('#modal').bind('click', function () {
-                        $('#modal').parent().find(".k-window-action").css("visibility", "hidden");
-                    });
                     Survey_SaveObject.ProgressBar_Generic_Hidden();
-                    $('#controls').append('<button id="aceptButtonModal" onclick="redirect_to()" >Aceptar</button>');
-                    showModal('Evaluación almacenada correctamente.');
-                    
+                    Dialog_ShowMessage("Evaluación", "Evaluación almacenada correctamente.", "@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))");
                     },
                 error: function (x, t, m) {
-                    $('#modal').bind('click', function () {
-                         $('#modal').parent().find(".k-window-action").css("visibility", "hidden");
-                    });
                     Survey_SaveObject.ProgressBar_Generic_Hidden();
-                    $('#controls').append('<button id="aceptButtonModal" onclick="redirect_to()" >Aceptar</button>');
-                    showModal('Evaluación almacenada correctamente.');
-                    
+                    Dialog_ShowMessage("Evaluación", "Evaluación almacenada correctamente.", "@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))");
                     }
                 });
                 return false;
             });
         });
-        $('#modal').bind('click', function () {
-            $('#modal').parent().find(".k-window-action").css("visibility", "hidden");
-        });
-        function redirect_to(){
-            var url = '@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))';
-            window.location = url;
-        }
 </script>
 
 
