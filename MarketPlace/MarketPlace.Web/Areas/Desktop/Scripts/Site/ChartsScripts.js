@@ -35,7 +35,7 @@ var Survey_ChartsObject = {
                     var selectedItem = chart.getSelection()[0];
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;
+                        var SearchFilter = 0;                    
                         if (topping == "Programada") {
                             SearchFilter = 1206001;
                         }
@@ -153,6 +153,31 @@ var SurveyByEvaluators_ChartsObject = {
                 dashboard.bind(barFilterMonth, vBarChart);
                 dashboard.bind(barFilterState, vBarChart);
 
+                function selectHandler() {
+                    var selectedItem = vBarChart.getSelection()[0];
+                    if (selectedItem) {
+                        debugger;
+                        var topping = data.getValue(selectedItem.row, 0);
+                        var SearchFilter = 0;
+                        debugger;
+                        if (topping == "Programada") {
+                            SearchFilter = 1206001;
+                        }
+                        else if (topping == "Enviada") {
+                            SearchFilter = 1206002;
+                        }
+                        else if (topping == "En progreso") {
+                            SearchFilter = 1206003;
+                        }
+                        else if (topping == "Finalizada") {
+                            SearchFilter = 1206004;
+                        }
+                        window.location = SurveyByEvaluators_ChartsObject.GetSearchUrl(SearchFilter);
+                    }
+                }
+                
+            
+                google.visualization.events.addListener(vBarChart, 'select', selectHandler);
 
 
                 dashboard.draw(data);
@@ -171,6 +196,23 @@ var SurveyByEvaluators_ChartsObject = {
         });
     },
 
+    GetSearchUrl: function (SearchFilter) {
+        debugger;
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+       
+            oUrl += '&SearchFilter=,111011;' + SearchFilter
+        
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
+    },
 };
 
 var SurveyByMonth_ChartsObject = {
@@ -210,6 +252,7 @@ var SurveyByMonth_ChartsObject = {
                         },
                         slices: {
                             0: { color: 'orange' },
+                            1: { color: 'red' },
                         },
                         pieHole: 0.4
                         , chartArea: { left: 0, top: 0, width: "100%", height: "100%" }

@@ -111,7 +111,7 @@
                     model: {
                         id: 'GIT_CountryId',
                         fields: {
-                            GIT_Country: { editable: true, nullable: false, validation: { required: true } },                            
+                            GIT_Country: { editable: true, nullable: false, validation: { required: true } },
 
                             GIT_CountryDirespCode: { editable: true, nullable: true },
                             GIT_CountryDirespCodeId: { editable: false },
@@ -205,15 +205,10 @@
                 title: 'País',
                 width: '90px',
                 template: function (dataItem) {
+                    debugger;
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.GIT_Country != null) {
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
-                        else {
-                            oReturn = '';
-                        }
-                        oReturn = oReturn + dataItem.GIT_Country;
+                        oReturn = dataItem.GIT_Country;
                     }
                     return oReturn;
                 },
@@ -230,7 +225,7 @@
                         dataTextField: 'GIT_Country',
                         change: function (e) {
                             if (isSelected == false) {
-                                options.model['GIT_Country'] = e.sender._old;
+                                input.attr('value', '');
                                 options.model.dirty = true;
                             }
                         },
@@ -251,8 +246,7 @@
                                 read: function (options) {
 
                                     $.ajax({
-                                        //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
-                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=20&IsAutoComplete=true',
+                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=1&IsAutoComplete=true',
                                         dataType: 'json',
                                         success: function (result) {
                                             options.success(result);
@@ -318,10 +312,10 @@
                             //enable made changes
                             options.model.dirty = true;
                         },
-                        dataSource: {                            
+                        dataSource: {
                             type: 'json',
                             serverFiltering: true,
-                            transport: {                                
+                            transport: {
                                 read: function (options) {
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetState=true&SearchParamCountry=' + CountrySearched + '&SearchParamState=' + options.data.filter.filters[0].value + '&PageNumber=0' + '&RowCount=20',
@@ -1206,7 +1200,7 @@
                                     options.model[options.field] = $('#' + Admin_CategoryObject.ObjectId + '_ProviderTypeMultiselect').data('kendoMultiSelect')._dataItems;
                                     options.model.dirty = true;
                                 }
-                            },                            
+                            },
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
