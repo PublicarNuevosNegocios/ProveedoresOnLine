@@ -1455,7 +1455,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         if (oSurveyResults != null)
                         {
-                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();
+                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();                           
                         }
                     }
                     else
@@ -1486,12 +1486,13 @@ namespace MarketPlace.Web.Controllers
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
                                                         Select(x => x).ToList();
+                        
                     }
                     oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
 
                     //parse view model
                     if (oSurveyResults != null && oSurveyResults.Count > 0)
-                    {
+                    {                        
                         //Get the Average
                         decimal Average = 0;
                         //Get ClosedSurve
@@ -1645,8 +1646,6 @@ namespace MarketPlace.Web.Controllers
                 {
                     ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
                     SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
-
-
                 }
                 if (!string.IsNullOrEmpty(SurveyPublicId) && !string.IsNullOrEmpty(SurveyPublicId))//si es editar
                 {

@@ -743,7 +743,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                         TotalRate += CurrentChildRate; 
                         return true;
                     });
-                    ParentProgress = (ParentProgress + TotalRate);
+                    ParentProgress = ParentProgress + TotalRate;
                     #endregion                   
                 }
                 //add survey progress to upsert model
