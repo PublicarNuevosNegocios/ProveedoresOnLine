@@ -105,7 +105,8 @@ namespace MarketPlace.Web.Controllers
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
             
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId
+                                , SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User);
 
             //redirect
             return RedirectToRoute
@@ -133,7 +134,9 @@ namespace MarketPlace.Web.Controllers
             }
 
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, 
+                                        SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId
+                                        , SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User);
 
             //redirect
             return RedirectToRoute
