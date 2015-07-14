@@ -44,7 +44,6 @@ function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
 
 /*show generic progressbar*/
 function ProgressBar_Generic_Show() {
-
     $('.selProgressBar').kendoProgressBar({
         type: 'percent',
         animation: {
