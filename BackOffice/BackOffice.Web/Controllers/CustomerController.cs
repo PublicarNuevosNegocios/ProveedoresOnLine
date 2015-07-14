@@ -385,42 +385,285 @@ namespace BackOffice.Web.Controllers
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404002"])
                     && bool.Parse(Request["EvaluationCriteria_1404002"]))
                 {
+                    string EvaluationValues = Request["EC_InfoType"] != null ? Request["EC_InfoType"] : string.Empty;
+                    EvaluationValues += Request["Selected_Value"] != null ? "_" + Request["Selected_Value"] : string.Empty;
+                    EvaluationValues += Request["EC_Operator"] != null ? "_" + Request["EC_Operator"] : string.Empty;
+                    EvaluationValues += Request["EC_Result"] != null ? Request["EC_Result"] : string.Empty;
 
+
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_RatingId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating,
+                                },
+                                Value = Request["EC_Rating"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationValuesId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.InfoType_Value_Operator,
+                                },
+                                Value = EvaluationValues,
+                                Enable = true,
+                            }
+                        }
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404003"])
                     && bool.Parse(Request["EvaluationCriteria_1404003"]))
                 {
+                    string EvaluationValues = Request["EC_InfoType"] != null ? Request["EC_InfoType"] : string.Empty;
+                    EvaluationValues += Request["EC_Value"] != null ? "_" + Request["EC_Value"] : string.Empty;
+                    EvaluationValues += Request["EC_Operator"] != null ? "_" + Request["EC_Operator"] : string.Empty;
+                    EvaluationValues += Request["EC_Result"] != null ? Request["EC_Result"] : string.Empty;
 
+
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_RatingId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating,
+                                },
+                                Value = Request["EC_Rating"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationValuesId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.InfoType_Value_Operator,
+                                },
+                                Value = EvaluationValues,
+                                Enable = true,
+                            }
+                        }
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404004"])
                     && bool.Parse(Request["EvaluationCriteria_1404004"]))
                 {
+                    string EvaluationValues = Request["EC_InfoType"] != null ? Request["EC_InfoType"] : string.Empty;
+                    EvaluationValues += Request["EC_Value"] != null ? "_" + Request["EC_Value"] : string.Empty;
+                    EvaluationValues += Request["EC_Operator"] != null ? "_" + Request["EC_Operator"] : string.Empty;
+                    EvaluationValues += Request["EC_Result"] != null ? Request["EC_Result"] : string.Empty;
 
+
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_RatingId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating,
+                                },
+                                Value = Request["EC_Rating"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationValuesId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.InfoType_Value_Operator,
+                                },
+                                Value = EvaluationValues,
+                                Enable = true,
+                            }
+                        }
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404005"])
                     && bool.Parse(Request["EvaluationCriteria_1404005"]))
                 {
-
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_RatingId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating,
+                                },
+                                Value = Request["EC_Rating"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                        }
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404006"])
                     && bool.Parse(Request["EvaluationCriteria_1404006"]))
                 {
-
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_OrderId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order,
+                                },
+                                Value = Request["EC_Order"],
+                                Enable = true,
+                            },
+                        }
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404007"])
                     && bool.Parse(Request["EvaluationCriteria_1404007"]))
                 {
-
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_OrderId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order,
+                                },
+                                Value = Request["EC_Order"],
+                                Enable = true,
+                            },
+                        }
+                    };
                 }
                 else if (!string.IsNullOrEmpty(Request["EvaluationCriteria_1404008"])
                     && bool.Parse(Request["EvaluationCriteria_1404008"]))
                 {
-
+                    oReturn = new GenericItemModel()
+                    {
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(){
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_UnitId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                },
+                                Value = Request["EC_Unit"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_EvaluationCriteriaId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria,
+                                },
+                                Value = Request["EC_EvaluationCriteria"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel(){
+                                ItemInfoId = int.Parse(Request["EC_OrderId"]),
+                                ItemInfoType = new CatalogModel(){
+                                    ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order,
+                                },
+                                Value = Request["EC_Order"],
+                                Enable = true,
+                            },
+                        }
+                    };
                 }
-
                 return oReturn;
             }
-
             return null;
         }
 

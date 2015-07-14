@@ -1527,7 +1527,8 @@ var Customer_SurveyItemObject = {
 
 var Customer_ProjectModule = {
     ObjectId: '',
-    ObjectAutocomplete: '',
+    AutoCompleteId: '',
+    ControlToRetornACId: '',
     CustomerPublicId: '',
     ProjectConfigId: '',
     EvaluationItemId: '',
@@ -1541,7 +1542,8 @@ var Customer_ProjectModule = {
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
-        this.ObjectAutocomplete = vInitObject.ObjectAutocomplete;
+        this.AutoCompleteId = vInitObject.AutoCompleteId;
+        this.ControlToRetornACId = vInitObject.ControlToRetornACId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.EvaluationItemId = vInitObject.EvaluationItemId;
@@ -1585,46 +1587,19 @@ var Customer_ProjectModule = {
         Customer_ProjectModule.GetSearchParam();
     },
 
-    RenderAutocompleteHESQ: function () {
-        debugger;
-        $('#' + Customer_ProjectModule.ObjectAutocomplete).kendoAutoComplete({
-            dataTextField: "",
-            select: function (e) {
-                debugger;
-                var selectedItem = e.item.index();
-                $('#' + Customer_ProjectModule.ObjectAutocomplete).text(selectedItem.ItemName);
-                $('#' + Customer_ProjectModule.ObjectAutocomplete + '_id').text(selectedItem.ItemId);
-            },
-            dataSource: {
-                type: "json",
-                serverFiltering: true,
-                transport: {
-                    read: function () {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByICA=true&SearchParam=&PageNumber=0&RowCount=0',
-                            dataType: 'json',
-                            success: function (result) {
-                                debugger;
-                            },
-                            error: function (result) {
-                            }
-                        });
-                    },
-                }
-            }
-        });
+    RenderAutocomplete: function(){
+        Customer_ProjectModule.AutoComplete(Customer_ProjectModule.AutoCompleteId, Customer_ProjectModule.ControlToRetornACId);
     },
 
-    RenderAutocompleteFinantial: function(){
-        $('#' + Customer_ProjectModule.ObjectAutocompleteId).kendoAutoComplete({
-            dataTextField: "",
+    AutoComplete: function (acId, ControlToRetornACId) {
+        var acValue = $('#' + acId).val();
+        $('#' + acId).kendoAutoComplete({
+
+            dataTextField: "ItemName",
             select: function (e) {
                 var selectedItem = this.dataItem(e.item.index());
                 //set server fiel name
-                options.model[options.field] = selectedItem.ItemName;
-                options.model['C_Rule'] = selectedItem.ItemId;
-                //enable made changes
-                options.model.dirty = true;
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
             },
             dataSource: {
                 type: "json",
@@ -1632,7 +1607,7 @@ var Customer_ProjectModule = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByRule=true&SearchParam=' + options.data.filter.filters[0].value,
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetHSEQCategory=true&SearchParam=' + options.data.filter.filters[0].value,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);

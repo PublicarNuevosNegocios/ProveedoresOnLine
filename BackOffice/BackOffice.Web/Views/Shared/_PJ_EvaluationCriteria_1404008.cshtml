@@ -24,47 +24,64 @@
 
 <div>
     <label>Criterio de Evaluación de SARLAFT</label>
-    <ul>
-        <li>
-            <label>Unidad:</label>
-            <select id="EC_UnitId" name="EC_Unit">
-                <option value="0">Seleccione una Opción</option>
-                @{
-                    foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
-                    {
-                        if (Unit != null &&
-                            Unit.Length > 0)
+    <form id="frmEvaluationCriteria_1404008_Upsert" method="post" action="@(Url.Action
+                (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
+                MVC.Customer.Name,
+                new {
+                    CustomerPublicId = Model.Item1.RelatedCustomer.RelatedCompany.CompanyPublicId,
+                    ProjectProviderId = Model.Item1.RelatedProjectConfig.RelatedProjectProvider.ItemId,
+                    EvaluationItemId = Model.Item2.EvaluationItemId,
+                }))">
+        <ul>
+            <li>
+                <label>Unidad:</label>
+                <select id="EC_UnitId" name="EC_Unit">
+                    <option value="0">Seleccione una Opción</option>
+                    @{
+                        foreach (var item in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
                         {
-                            if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                            if (Unit != null &&
+                                Unit.Length > 0)
+                            {
+                                if (Unit == BackOffice.Models.General.enumEvaluationItemUnitType.None.ToString())
+                                {
+                                    <option value="@item.ItemId">@item.ItemName</option>
+                                }
+                                else if (item.ItemId == Convert.ToInt32(Unit))
+                                {
+                                    <option value="@item.ItemId" selected>@item.ItemName</option>
+                                }
+                            }
+                            else
                             {
                                 <option value="@item.ItemId">@item.ItemName</option>
                             }
-                            else if (item.ItemId == Convert.ToInt32(Unit))
-                            {
-                                <option value="@item.ItemId" selected>@item.ItemName</option>
-                            }
                         }
-                        else
-                        {
-                            <option value="@item.ItemId">@item.ItemName</option>
-                        }
-                    }
 
-                }
-            </select>
-            <input type="hidden" name="EC_UnitId" value="@UnitId" />
-        </li>
-        <li>
-            <label>Criterio de Evaluación:</label>
-            <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
-        </li>
-        <li>
-            <label>Orden</label>
-            <input id="@OrderId" name="EC_OrderId" value="@Order" />
-        </li>
-        <li>
-            <label>Peso:</label>
-            <input id="@RatingId" name="EC_RatingId" value="@Rating" />
-        </li>
-    </ul>
+                    }
+                </select>
+                <input type="hidden" name="EC_UnitId" value="@UnitId" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación:</label>
+                <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="@OrderId" name="EC_OrderId" value="@Order" />
+            </li>
+            <li>
+                <label>Peso:</label>
+                <input id="@RatingId" name="EC_RatingId" value="@Rating" />
+            </li>
+        </ul>
+        <div style="display:none">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+            <input type="hidden" name="EvaluationCriteria_1404008" id="EvaluationCriteria_1404008" value="true" />
+            <input type="hidden" name="StepAction" id="StepAction" value="" />
+        </div>
+    </form>
+    <div class="POBOButtonsSaveProvider">
+        <a class="POBOButtons" href="javascript:Provider_SubmitForm({FormId:'frmEvaluationCriteria_1404008_Upsert'})">Guardar</a>
+    </div>
 </div>
