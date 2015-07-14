@@ -1455,15 +1455,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         if (oSurveyResults != null)
                         {
-                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();
-                            List<SurveyModel> oSurveyInfo = new List<SurveyModel>();
-                            oSurveyResults.All(x =>
-                            {
-                                oSurveyInfo.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, x.User));
-                                return true;
-                            });
-
-                            oSurveyResults = oSurveyInfo;
+                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();                           
                         }
                     }
                     else
@@ -1500,8 +1492,7 @@ namespace MarketPlace.Web.Controllers
 
                     //parse view model
                     if (oSurveyResults != null && oSurveyResults.Count > 0)
-                    {
-                        oSurveyResults = oSurveyResults.Where(x => x != null).ToList();
+                    {                        
                         //Get the Average
                         decimal Average = 0;
                         //Get ClosedSurve
