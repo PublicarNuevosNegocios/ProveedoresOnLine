@@ -1456,6 +1456,14 @@ namespace MarketPlace.Web.Controllers
                         if (oSurveyResults != null)
                         {
                             oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();
+                            List<SurveyModel> oSurveyInfo = new List<SurveyModel>();
+                            oSurveyResults.All(x =>
+                            {
+                                oSurveyInfo.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, x.User));
+                                return true;
+                            });
+
+                            oSurveyResults = oSurveyInfo;
                         }
                     }
                     else
@@ -1489,6 +1497,11 @@ namespace MarketPlace.Web.Controllers
                     }
                     oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
 
+                    //oSurveyResults.All(x =>
+                    //{
+                    //    x.SurveyInfo = 
+                    //    return true;
+                    //});
                     //parse view model
                     if (oSurveyResults != null && oSurveyResults.Count > 0)
                     {
@@ -1645,8 +1658,6 @@ namespace MarketPlace.Web.Controllers
                 {
                     ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
                     SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
-
-
                 }
                 if (!string.IsNullOrEmpty(SurveyPublicId) && !string.IsNullOrEmpty(SurveyPublicId))//si es editar
                 {
