@@ -238,7 +238,7 @@
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyType))
                 {
                     <li>
-                        <span>Evaluaciones</span>
+                        <span>Tipo de Evaluaciones</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyType).OrderByDescending(x => x.Quantity).ToList())
                             {
