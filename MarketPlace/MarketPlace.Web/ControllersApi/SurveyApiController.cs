@@ -296,6 +296,41 @@ namespace MarketPlace.Web.ControllersApi
         }
 
 
+
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetSurveyByName
+            (string GetSurveyByName)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+            #region Survey
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+   
+     
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+           
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(x.ItemName, x.Count);
+                    return true;
+                });
+            }
+            #endregion
+            return oReturn;
+        }
+
+
         [HttpPost]
         [HttpGet]
         public List<Tuple<string, string, string, int>> GetSurveyByEvaluators(string GetSurveyByEvaluators)

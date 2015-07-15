@@ -1,0 +1,21 @@
+﻿
+<div id="SurveyByNameChartId" class="ResponsiveChartsClass"></div>
+
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(SurveyByName_ChartsObject.RenderChart);
+
+        SurveyByName_ChartsObject.Init({
+            ObjectId: 'SurveyByNameChartId',
+            SurveyName: 'true',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        })
+    })
+</script>
