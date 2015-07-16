@@ -1,0 +1,230 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Evaluación de desempeño";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+
+    string strjsUpdateObject = string.Empty;
+    if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
+    {
+        strjsUpdateObject = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(new
+            {
+                SurveyStatus = (int)Model.RelatedSurvey.SurveyStatus,
+
+                SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
+                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+
+                SurveyConfigId = Model.RelatedSurvey.SurveyConfigId,
+                SurveyConfigName = Model.RelatedSurvey.SurveyConfigName,
+
+                SurveyEvaluator = Model.RelatedSurvey.SurveyEvaluator,
+                SurveyEvaluatorId = Model.RelatedSurvey.SurveyEvaluatorId,
+
+                SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
+                SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
+
+                SurveyContract = Model.RelatedSurvey.SurveyContract,
+                SurveyContractId = Model.RelatedSurvey.SurveyContractId,
+
+                SurveyStartDate = Model.RelatedSurvey.SurveyStartDate,
+                SurveyStartDateId = Model.RelatedSurvey.SurveyStartDateId,
+
+                SurveyEndDate = Model.RelatedSurvey.SurveyEndDate,
+                SurveyEndDateId = Model.RelatedSurvey.SurveyEndDateId,
+
+                SurveyComments = Model.RelatedSurvey.SurveyComments,
+                SurveyCommentsId = Model.RelatedSurvey.SurveyCommentsId,
+
+                SurveyRelatedProject = Model.RelatedSurvey.SurveyRelatedProject,
+                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,
+            });
+
+    }
+
+    Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
+
+    MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
+    {
+        RenderScripts = false,
+    };
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Detalle de evaluación de desempeño</label>
+        <div class="POMPResultsOrder">
+            <div class="POMPResultsBasicInfo">
+                <!--evaluation basic info-->
+                <a>
+                    @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+                </a>
+                <ul>
+                    <li>
+                        <label>Calificación:</label>
+                        <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                        <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+                    </li>
+                    <li>
+                        <label>Progreso:</label>
+                        <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                        <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
+                    </li>
+                    <li>
+                        <label>Estado:</label>
+                        <span>@Model.RelatedSurvey.SurveyStatusName</span>
+                    </li>
+                    <li>
+                        <label>Fecha de programación:</label>
+                        <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+                    </li>
+                    <li>
+                        <label>Evaluador:</label>
+                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+                    </li>
+                    <li>
+                        <label>Ultima actualización:</label>
+                        <span>@Model.RelatedSurvey.SurveyLastModify</span>
+                    </li>
+                    <li>
+                        <label>Responsable:</label>
+                        <span>@Model.RelatedSurvey.SurveyResponsible</span>
+                    </li>
+                    <li>
+                        <label>Proceso de Selección</label>
+                        <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
+                    </li>
+                </ul>
+            </div>
+            <!--evaluation actions-->
+            <div class="POMPResultsActions">
+
+                @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
+                            Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                {
+                    <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                        Editar
+                    </a>
+                }
+                @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+                            Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                {
+                    <a class="POMPEvaluationListActions" href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Survey.Name,
+                                        action = MVC.Survey.ActionNames.Index,
+                                        SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
+                                    }))" target="_blank">Responder evaluación</a>
+                }
+            </div>
+
+            <div style="margin-top:40px;"></div>
+
+            <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
+
+            <div style="margin-top:40px;"></div>
+
+            <div class="POMPProviderQuestions">
+
+                @foreach (var EvaluationArea in
+                        Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
+                {
+                    var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+
+                    var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
+                        (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+
+                    <!-- CONTENEDOR ÁREA-->
+                    <div class="POMPAreaWrap">
+
+                        <!--título aréa-->
+                        <h1>@EvaluationArea.Order. @EvaluationArea.Name  / Calificación: (@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))) - Peso: @EvaluationArea.Weight %</h1>
+
+                        <!--contenedor detalle preguntas-->
+                        <div class="POMPAreaDetail">
+
+                            @foreach (var Question in lstQuestion)
+                            {
+                                var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                                var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                    (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                                <div class="POMPAreaQuestion">
+                                    @if (Question.IsMandatory)
+                                    {
+                                        <p><span class="PMMPMandatory">*</span> @Question.Order. @Question.Name</p>
+                                    }
+                                </div>
+
+                                <div class="POMPAreaAnswer">
+                                    @foreach (var Answer in lstAnswer)
+                                    {
+                                        <p>
+                                            @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                            {
+                                                <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
+                                            }
+                                            <span>@Answer.Name</span>
+                                        </p>
+                                    }
+                                </div>
+
+                                <div class="POMPAreaObservation">
+                                    @if (Question.HasDescription)
+                                    {
+                                        <p>Observaciones:</p>
+                                        <p>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)</p>
+                                    }
+                                </div>
+
+                                <div class="POMPAreaCalification">
+                                    <p>Calificación: (@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))) /  Peso: dentro de <strong>@EvaluationArea.Name</strong>  @Question.Weight %</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
+
+</div>
+
+@{
+    Model.RenderScripts = true;
+    oSurveyModel.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //show generic progress bar
+            ProgressBar_Generic_Show();
+        });
+    </script>
+}
+
