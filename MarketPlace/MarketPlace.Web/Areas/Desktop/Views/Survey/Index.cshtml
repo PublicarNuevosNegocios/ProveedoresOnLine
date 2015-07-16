@@ -9,18 +9,18 @@
 
     List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationRol = null;
 
-    var isAutorized = true;    
+    var isAutorized = true;
     if (Model.RelatedSurvey.SurveyConfigStepEnable)
     {
         lstEvaluationArea = new List<MarketPlace.Models.Survey.SurveyConfigItemViewModel>()
         {
             lstEvaluationArea.Where(x => x.Order == Model.RelatedSurvey.CurrentStepId).FirstOrDefault(),
         };
-        
+
         //get evaluation area Rol
-        lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, 
-                    lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());       
-        
+        lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol,
+                    lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());
+
         var CurrentRolId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
                                                 Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault();
         var RoleAutorizedArea =
@@ -29,21 +29,21 @@
                                              Where(y => y.User != null).Select(y => y.User).FirstOrDefault()).Select(x => x.LargeValue).ToList();
 
         RoleAutorizedArea = RoleAutorizedArea.Where(x => x == lstEvaluationArea.FirstOrDefault().SurveyConfigItemId.ToString()).Select(x => x).ToList();
-        
-        lstEvaluationRol = lstEvaluationRol.Where(x => x.SurveyConfigItemInfoRol == CurrentRolId.ToString() 
+
+        lstEvaluationRol = lstEvaluationRol.Where(x => x.SurveyConfigItemInfoRol == CurrentRolId.ToString()
                             && x.AreaId == lstEvaluationArea.FirstOrDefault().SurveyConfigItemId.ToString()).Select(x => x).ToList();
 
-       
+
     }
     else
     {
         //get all evaluation Rol
         lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, null);
-    }    
+    }
 
     string AutorizedRol = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                             Where(y => y.User != null).Select(y => y.User).FirstOrDefault();                              
-        
+                                             Where(y => y.User != null).Select(y => y.User).FirstOrDefault();
+
     //get mandatory info
     Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
 
@@ -78,7 +78,7 @@
                     <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                 </li>
                 <li>
-                    <label>Progreso:</label>                    
+                    <label>Progreso:</label>
                     <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
                     <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                 </li>
@@ -90,13 +90,13 @@
                     <label>Fecha de programación:</label>
                     <span>@Model.RelatedSurvey.SurveyIssueDate</span>
                 </li>
-               
+
                 @{
                     for (int i = 0; i < Model.RelatedSurvey.SurveyEvaluatorList.Count; i++)
                     {
                         <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
                     }
-                }               
+                }
                 <li>
                     <label>Contrato o Factura</label>
                     <span>@Model.RelatedSurvey.SurveyContract</span>
@@ -162,7 +162,7 @@
                 @foreach (var EvaluationArea in lstEvaluationArea)
                 {
                     var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
-                    
+
                     var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
                         (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
 
@@ -170,73 +170,83 @@
 
                     <h2>@EvaluationArea.Order. @EvaluationArea.Name</h2>
 
-                    <div class="POMPAreaDetail">
-                                        @foreach (var Question in lstQuestion)
-                                        {
-                                            var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+                    if (EvaluationArea.RelatedSurveyConfigItem.ItemInfo.Where(x => x.ItemInfoType.ItemId == 1203003).Select(y=>y.ItemInfoType.ItemEnable).ToString().CompareTo("")==0)//
+                    {
+                        <div class="POMPAreaObservation">
+                            <p>Obervaciones:</p>
+                            <!--<textarea class="POMPDescriptionArea" name="SurveyItemText_Question.SurveyConfigItemId" (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "readonly=\"readonly\"" : string.Empty)>(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>-->
 
-                                            var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
-                                                (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+                        </div>
+                    }
+
+
+
+                    <div class="POMPAreaDetail">
+                        @foreach (var Question in lstQuestion)
+                        {
+                            var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                            var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
                             <div class="POMPAreaQuestion2">
                                 <p>
                                     @if (Question.IsMandatory)
-                                            {
-                                                <span class="PMMPMandatory">*</span>
-                                            }
+                                    {
+                                        <span class="PMMPMandatory">*</span>
+                                    }
                                     @if (Question.QuestionType == "118002")
+                                    {
+                                        <input type="file" name="Survey_FileUpload" id="Survey_FileUpload" value="" />
+                                        <ul id="Survey_FileUpload_FileList">
+                                            @if (Model.RelatedSurvey.SurveyFile != null && Model.RelatedSurvey.SurveyFile.Count > 0)
                                             {
-                                                <input type="file" name="Survey_FileUpload" id="Survey_FileUpload" value="" />
+                                                foreach (var oFile in Model.RelatedSurvey.SurveyFile)
+                                                {
+                                                    <li id="Survey_FileUpload_File_@oFile.FileObjectId">
+                                                        <a href="javascript:Survey_File.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
+                                                        <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
+                                                        <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <span> @Question.Order. @Question.Name</span>
+                                    }
+                                </p>
+                            </div>
 
-                                                <ul id="Survey_FileUpload_FileList">
-                                                    @if (Model.RelatedSurvey.SurveyFile != null && Model.RelatedSurvey.SurveyFile.Count > 0)
-                                                    {
-                                                        foreach (var oFile in Model.RelatedSurvey.SurveyFile)
-                                                        {
-                                                            <li id="Survey_FileUpload_File_@oFile.FileObjectId">
-                                                                <a href="javascript:Survey_File.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
-                                                                <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
-                                                                <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
-                                                            </li>
-                                                        }
-                                                    }
-                                                </ul>
+
+                            <div class="POMPAreaAnswer">
+                                @foreach (var Answer in lstAnswer)
+                                {
+                                    <li>
+                                        <p>
+                                            @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                            {
+
+                                                <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "disabled=\"disabled\"" : string.Empty) />
                                             }
                                             else
                                             {
-                                        <span> @Question.Order. @Question.Name</span>
+                                                <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "disabled=\"disabled\"" : string.Empty) />
                                             }
-                                    </p>
-                                </div>
+                                            @Answer.Name
+                                        </p>
+                                    </li>
 
-
-                                <div class="POMPAreaAnswer">
-                                                @foreach (var Answer in lstAnswer)
-                                                {
-                                                    <li>
-                                            <p>
-                                                @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
-                                                        {
-
-                                                            <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "disabled=\"disabled\"" : string.Empty) />
-                                                        }
-                                                        else
-                                                        {
-                                                            <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "disabled=\"disabled\"" : string.Empty) />
-                                                        }
-                                                @Answer.Name
-                                            </p>
-                                                    </li>
-
-                                                }
-                                </div>
-                                            if (Question.HasDescription)
-                                            {
+                                }
+                            </div>
+                            if (Question.HasDescription)
+                            {
                                 <div class="POMPAreaObservation">
                                     <p>Obervaciones:</p>
-                                                    <textarea class="POMPDescriptionArea" name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
-                                                </div>
-                                            }
-                                        }
+                                    <textarea class="POMPDescriptionArea" name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
+                                </div>
+                            }
+                        }
                     </div>
                 }
 
@@ -298,7 +308,7 @@
             Survey_SaveObject.Init({
                 ObjectId: 'SurveySave',
             });
-            
+
             Survey_File.Init({
                 ObjectId: 'Survey_FileUpload',
                 SurveyPublicId: '@Model.RelatedSurvey.SurveyPublicId',

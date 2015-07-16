@@ -234,7 +234,7 @@
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
-    <Compile Include="Controllers\SurveyController.cs" />
+    <Compile Include="ControllersApi\SurveyController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1173,6 +1173,7 @@
     <Content Include="Areas\Desktop\Views\Stats\STProviderStats.cshtml" />
     <Content Include="Areas\Desktop\Views\Stats\STSurveyStats.cshtml" />
     <Content Include="Areas\Desktop\Views\Stats\STProjectStats.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\SVSurveyEvaluatorDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />
