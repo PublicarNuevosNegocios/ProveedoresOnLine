@@ -16,7 +16,29 @@
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Detalle de los criterios de evaluación</label>
             <div class="POBOEvaluationGoBackWrapper">
-            
+                @{
+                    <h3>@Model.RelatedProjectConfig.ProjectProviderName</h3>
+                    <ul>
+                      
+                        @foreach(ProveedoresOnLine.Company.Models.Util.GenericItemModel objItem in Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem){
+                            <li>    
+                                @objItem.ItemName
+                            <br/>
+                                @objItem.ItemType.ItemId.ToString()
+                                @{
+                                    
+                                  //"_PJ_EvaluationCriteria_"
+                                  //  Model.IsForm = true;
+                                  //  string url=MVC.Shared.Views._PJ_EvaluationCriteria_1404001.ToString().Replace("1404001",objItem.ItemType.ItemId.ToString());
+                                  //  Html.RenderPartial(url, null);
+                                
+                                    
+                                 }
+                            </li>    
+                        }
+                    </ul>
+                // 
+                }
             </div>
         </div>
     </div>
