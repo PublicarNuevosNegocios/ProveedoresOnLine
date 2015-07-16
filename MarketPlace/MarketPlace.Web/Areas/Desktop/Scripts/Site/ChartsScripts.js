@@ -12,7 +12,7 @@ var Survey_ChartsObject = {
         this.UserEmail = vInitObject.UserEmail;
     },
 
-    RenderChatrSurveyByResponsable: function () {
+    RenderChartSurveyByResponsable: function () {
         $.ajax({
             url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true',
             dataType: "json",
@@ -35,7 +35,7 @@ var Survey_ChartsObject = {
                     var selectedItem = chart.getSelection()[0];
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;                    
+                        var SearchFilter = 0;
                         if (topping == "Programada") {
                             SearchFilter = 1206001;
                         }
@@ -91,6 +91,93 @@ var Survey_ChartsObject = {
     },
 };
 
+var SurveyByName_ChartsObject = {
+    ObjectId: '',
+    SurveyName: '',
+    SearchUrl: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SurveyName = vInitObject.SurveyName;
+        this.SearchUrl = vInitObject.SearchUrl;
+    },
+
+    RenderChart: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByName=true',
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Estado');
+                data.addColumn('number', 'Cantidad');
+                $.each(result, function (item, value) {
+                    data.addRows([[item, value]]);
+                });
+                var options = {
+                    is3D: true,
+                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
+                  , height: "100%"
+                  , width: "100%"
+                };
+
+                function selectHandler() {
+                    var selectedItem = chart.getSelection()[0];
+                    if (selectedItem) {
+                        var topping = data.getValue(selectedItem.row, 0);
+                        var SearchFilter = 0;
+                        if (topping == "Programada") {
+                            SearchFilter = 1206001;
+                        }
+                        else if (topping == "Enviada") {
+                            SearchFilter = 1206002;
+                        }
+                        else if (topping == "En progreso") {
+                            SearchFilter = 1206003;
+                        }
+                        else if (topping == "Finalizada") {
+                            SearchFilter = 1206004;
+                        }
+                        window.location = SurveyByName_ChartsObject.GetSearchUrl(SearchFilter);
+                    }
+                }
+                var chart = new google.visualization.PieChart(document.getElementById(SurveyByName_ChartsObject.ObjectId));
+                google.visualization.events.addListener(chart, 'select', selectHandler);
+                chart.draw(data, options);
+                function resize() {
+                    // change dimensions if necessary
+                    chart.draw(data, options);
+                }
+                if (window.addEventListener) {
+                    window.addEventListener('resize', resize);
+                }
+                else {
+                    window.attachEvent('onresize', resize);
+                }
+
+            }
+        });
+    },
+
+    GetSearchUrl: function (SearchFilter) {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+
+        oUrl += '&SearchFilter=,111011;' + SearchFilter
+
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
+    },
+};
+
 var SurveyByEvaluators_ChartsObject = {
     ObjectId: '',
     SearchUrl: '',
@@ -108,7 +195,7 @@ var SurveyByEvaluators_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-                
+
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Mail');
                 data.addColumn('string', 'Estado');
@@ -175,8 +262,8 @@ var SurveyByEvaluators_ChartsObject = {
                         window.location = SurveyByEvaluators_ChartsObject.GetSearchUrl(SearchFilter);
                     }
                 }
-                
-            
+
+
                 google.visualization.events.addListener(vBarChart, 'select', selectHandler);
 
 
@@ -204,9 +291,9 @@ var SurveyByEvaluators_ChartsObject = {
         oUrl += '&ProjectPublicId=';
         oUrl += '&SearchParam=';
 
-       
-            oUrl += '&SearchFilter=,111011;' + SearchFilter
-        
+
+        oUrl += '&SearchFilter=,111011;' + SearchFilter
+
         oUrl += '&SearchOrderType=113002';
         oUrl += '&OrderOrientation=false';
         oUrl += '&PageNumber=0';
@@ -227,7 +314,6 @@ var SurveyByMonth_ChartsObject = {
     },
 
     RenderChatrSurveyByMonth: function () {
-
         $.ajax({
             url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByMonth=true',
             dataType: "json",
@@ -413,7 +499,7 @@ var ProjectByStatus_ChartsObject = {
                 });
                 var options = {
                     legend: 'none',
-                    series: { 0: { color: 'orange', opacity: 0.2}, 1: { color: 'blue', opacity: 0.2 } },
+                    series: { 0: { color: 'orange', opacity: 0.2 }, 1: { color: 'blue', opacity: 0.2 } },
                     is3D: true,
                     chartArea: { left: 30, top: 10, width: "100%", height: "80%" }
                   , height: "100%"
@@ -457,7 +543,7 @@ var ProjectByMonth_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-                
+
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Mes');
@@ -467,23 +553,23 @@ var ProjectByMonth_ChartsObject = {
                 data.addColumn('date', 'Fecha');
                 data.addColumn({ type: 'string', role: 'annotation' });
                 $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item5,  new Date (value.m_Item6), value.m_Item1]]);
-                });             
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item5, new Date(value.m_Item6), value.m_Item1]]);
+                });
                 var dashboard = new google.visualization.Dashboard(document.getElementById(ProjectByMonth_ChartsObject.DashboardId));
 
                 var vBarChart = new google.visualization.ChartWrapper({
-                    'chartType': 'Bar',                    
+                    'chartType': 'Bar',
                     'containerId': document.getElementById(ProjectByMonth_ChartsObject.ObjectId),
                     'options': {
-                        bars: 'horizontal',                        
-                        series: {0:{color: 'orange', visibleInLegend: false}, 1:{color: 'blue', visibleInLegend: false}},                                                                
+                        bars: 'horizontal',
+                        series: { 0: { color: 'orange', visibleInLegend: false }, 1: { color: 'blue', visibleInLegend: false } },
                         chartArea: { left: 150, top: 10, width: "80%", height: "80%" },
                         height: "100%",
                         width: "100%"
                     },
 
                     'view': {
-                        'columns': [3,4, 6]
+                        'columns': [3, 4, 6]
                     }
                 });
 

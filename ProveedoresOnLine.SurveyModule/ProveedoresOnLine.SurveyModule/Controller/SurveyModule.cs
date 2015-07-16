@@ -910,6 +910,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByResponsable(CustomerPublicId, ResponsableEmail, Year);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByName(string CustomerPublicId, DateTime Year)
+        {
+            return DAL.Controller.SurveyDataController.Instance.GetSurveyByName(CustomerPublicId, Year);
+        }
+
         public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year)
         {
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByMonth(CustomerPublicId, Year);
