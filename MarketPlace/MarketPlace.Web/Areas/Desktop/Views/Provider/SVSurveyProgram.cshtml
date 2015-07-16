@@ -18,7 +18,7 @@
                     <form id="Survey_ProgramSurvey_Form" method="post" action="@(Url.Action(MVC.Provider.ActionNames.SVSurveyProgram,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))">
 
                         <div class="row">
-                            <div class="col-xs-4">
+                            <div class="col-xs-6">
                                 <div class="col-xs-12">
                                     <label>Evaluación:</label>
                                 </div>
@@ -26,7 +26,7 @@
                                     <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_SurveyName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyConfigName.ToString();}" autofocus />
                                 </div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-3">
                                 <div class="col-xs-12">
                                     <label>Fecha de envío:</label>
                                 </div>
@@ -34,7 +34,7 @@
                                     <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyIssueDate.ToString();}" />
                                 </div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-3">
                                 <div class="col-xs-12">
                                     <label>Fecha de caducidad:</label>
                                 </div>
