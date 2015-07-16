@@ -115,8 +115,8 @@ namespace BackOffice.Models.Customer
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
+                FirstOrDefault();            
+            
             if (RelatedConfigItem.ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
             {
                 #region Question
