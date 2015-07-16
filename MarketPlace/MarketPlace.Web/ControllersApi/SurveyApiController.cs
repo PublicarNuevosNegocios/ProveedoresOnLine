@@ -299,8 +299,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetSurveyByName
-            (string GetSurveyByName)
+        public List<Tuple<int, string, int>> GetSurveyByName(string GetSurveyByName)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -312,22 +311,29 @@ namespace MarketPlace.Web.ControllersApi
                 ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
-   
-     
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
-           
-            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email);
+            }
+            else
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty);
+            }
+            
+
+            List<Tuple<int, string, int>> oReturn = new List<Tuple<int, string, int>>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(x.ItemName, x.Count);
+                    oReturn.Add(Tuple.Create(x.CountX, x.ItemName, x.Count));
                     return true;
                 });
             }
             #endregion
-            return oReturn;
+            return oReturn;         
         }
 
 
