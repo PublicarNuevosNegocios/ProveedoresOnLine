@@ -109,35 +109,26 @@ var SurveyByName_ChartsObject = {
             async: false,
             success: function (result) {
                 var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Estado');
+                
+                data.addColumn('string', 'Tipo');
                 data.addColumn('number', 'Cantidad');
+                data.addColumn('number', 'filtro');
                 $.each(result, function (item, value) {
-                    data.addRows([[item, value]]);
+                    data.addRows([[value.m_Item2, value.m_Item3, value.m_Item1]]);
                 });
+
                 var options = {
                     is3D: true,
-                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
-                  , height: "100%"
-                  , width: "100%"
+                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
+                    height: "100%",
+                    width: "100%",
+                    
                 };
 
                 function selectHandler() {
-                    var selectedItem = chart.getSelection()[0];
-                    if (selectedItem) {
-                        var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;
-                        if (topping == "Programada") {
-                            SearchFilter = 1206001;
-                        }
-                        else if (topping == "Enviada") {
-                            SearchFilter = 1206002;
-                        }
-                        else if (topping == "En progreso") {
-                            SearchFilter = 1206003;
-                        }
-                        else if (topping == "Finalizada") {
-                            SearchFilter = 1206004;
-                        }
+                    var selectedItem = chart.getSelection()[0];                    
+                    if (selectedItem) {                        
+                        var SearchFilter = data.getValue(selectedItem.row, 2);
                         window.location = SurveyByName_ChartsObject.GetSearchUrl(SearchFilter);
                     }
                 }
@@ -168,7 +159,7 @@ var SurveyByName_ChartsObject = {
         oUrl += '&SearchParam=';
 
 
-        oUrl += '&SearchFilter=,111011;' + SearchFilter
+        oUrl += '&SearchFilter=,111012;' + SearchFilter
 
         oUrl += '&SearchOrderType=113002';
         oUrl += '&OrderOrientation=false';
