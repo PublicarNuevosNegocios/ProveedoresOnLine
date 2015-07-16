@@ -354,12 +354,10 @@ namespace BackOffice.Web.Controllers
                     RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()), true)),
                     ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
                 };
-
-            //Lista de los criterios de evaluacion
-            
+                //Lista de los criterios de evaluacion
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(ProjectConfigId, null, 1401002, 1, true);
-
+                oModel.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem = oReturn;
     
             }
             //get provider menu

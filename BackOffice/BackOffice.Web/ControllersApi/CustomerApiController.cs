@@ -358,7 +358,17 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.Weight
                                     },
-                                    Value = Convert.ToDecimal(oDataToUpsert.SurveyConfigItemInfoWeight.Replace(" ","")).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
+                                    Value = oDataToUpsert.SurveyConfigItemInfoWeight.Replace(" ","").Replace(".",","),
+                                    Enable = true,
+                                },
+                                new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoAreaHasDescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoAreaHasDescriptionId.Trim()),
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription
+                                    },
+                                    Value = oDataToUpsert.SurveyConfigItemInfoAreaHasDescription,
                                     Enable = true,
                                 },
                             },
@@ -450,7 +460,7 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight
                                     },
-                                    Value =  Convert.ToDecimal(oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ","")).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
+                                    Value =  oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ","").Replace(".",","),
                                     Enable = true,
                                 },
                             },
