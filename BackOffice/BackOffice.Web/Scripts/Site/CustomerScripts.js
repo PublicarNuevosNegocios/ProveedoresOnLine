@@ -705,6 +705,9 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
                             SurveyConfigItemInfoOrderId: { editable: false },
 
+                            SurveyConfigItemInfoDescriptionId : { editable: false },
+                            SurveyConfigItemInfoDescription: { editable: true, type: 'boolean', defaultValue: true },
+
                             SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
                             SurveyConfigItemInfoWeightId: { editable: false },
                         },
@@ -808,11 +811,26 @@ var Customer_SurveyItemObject = {
                 title: 'Orden',
                 width: '50px',
                 format: '{0:n0}'
+            },{
+                field: 'SurveyConfigItemInfoDescription',
+                title: 'Descripción',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.SurveyConfigItemInfoDescription == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n0}'
+                format: '{0:n1}'
             }, {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
@@ -918,8 +936,8 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
                             SurveyConfigItemInfoWeightId: { editable: false },
 
-                            SurveyConfigItemInfoHasDescription: { editable: true, type: 'boolean', defaultValue: true },
-                            SurveyConfigItemInfoHasDescriptionId: { editable: false },
+                            SurveyConfigItemInfoAreaHasDescription: { editable: true, type: 'boolean', defaultValue: true },
+                            SurveyConfigItemInfoAreaHasDescriptionId: { editable: false },
 
                             SurveyConfigItemInfoIsMandatory: { editable: true, type: 'boolean', defaultValue: true },
                             SurveyConfigItemInfoIsMandatoryId: { editable: false },
@@ -1082,15 +1100,15 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n0}',
+                format: '{0:n3}',                
             }, {
-                field: 'SurveyConfigItemInfoHasDescription',
+                field: 'SurveyConfigItemInfoAreaHasDescription',
                 title: 'Mostrar descripción',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = '';
 
-                    if (dataItem.SurveyConfigItemInfoHasDescription == true) {
+                    if (dataItem.SurveyConfigItemInfoAreaHasDescription == true) {
                         oReturn = 'Si'
                     }
                     else {
