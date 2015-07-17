@@ -1434,7 +1434,6 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
-
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByName(string CustomerPublicId, string ResponsableEmail)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -1457,7 +1456,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             {
                 oReturn =
                    (from sv in response.DataTableResult.AsEnumerable()
-                    where !sv.IsNull("Count") && (int)sv.Field<Int64>("Count") < 0
+                    where !sv.IsNull("Count") && (int)sv.Field<Int64>("Count") > 0
                     select new GenericChartsModelInfo()
                     {
                         CountX = (int)sv.Field<UInt64>("SurveyConfigId"),
@@ -1468,7 +1467,6 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
             return oReturn;
         }
-
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
         {
@@ -1507,12 +1505,12 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, string ResponsableEmail)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
+            lstParams.Add(DataInstance.CreateTypedParameter("vResponable", ResponsableEmail));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

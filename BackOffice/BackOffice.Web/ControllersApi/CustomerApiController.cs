@@ -366,7 +366,7 @@ namespace BackOffice.Web.ControllersApi
                                     ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoAreaHasDescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoAreaHasDescriptionId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
-                                        ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription
+                                        ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.AreaHasDescription
                                     },
                                     Value = oDataToUpsert.SurveyConfigItemInfoAreaHasDescription,
                                     Enable = true,

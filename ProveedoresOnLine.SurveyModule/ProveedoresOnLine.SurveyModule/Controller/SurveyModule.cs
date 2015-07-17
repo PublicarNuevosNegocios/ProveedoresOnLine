@@ -915,9 +915,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByName(CustomerPublicId, ResponsableEmail);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, string ResponsableEmail)
         {
-            return DAL.Controller.SurveyDataController.Instance.GetSurveyByMonth(CustomerPublicId, Year);
+            return DAL.Controller.SurveyDataController.Instance.GetSurveyByMonth(CustomerPublicId, ResponsableEmail);
         }
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
