@@ -87,7 +87,7 @@ namespace MarketPlace.Web.Controllers
                 }
 
 
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
                 {
                     //Evalutaion Stats
                     oMenuAux.ChildMenu.Add(new GenericMenu()

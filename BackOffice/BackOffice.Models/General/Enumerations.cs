@@ -461,7 +461,8 @@
         QuestionType = 1203005,
 
         RolId = 1203006,
-        RolWeight = 1203007
+        RolWeight = 1203007,
+        AreaHasDescription = 1203008,
     }
  
     #endregion

@@ -133,7 +133,7 @@ namespace MarketPlace.Web.Controllers
 
                 if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderStats))
                 {
-                    //Proveedores
+                    //Estadisticas
                     oReturn.Add(new GenericMenu()
                     {
                         Name = "Estadisticas",
@@ -149,7 +149,7 @@ namespace MarketPlace.Web.Controllers
                     });
                     oPosition++;
                 }
-                else if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
+                else if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingView))
                 {
                     //Evaluaciones
                     oReturn.Add(new GenericMenu()

@@ -262,8 +262,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetSurveyByResponsable
-            (string GetSurveyByResponsable)
+        public Dictionary<string, int> GetSurveyByResponsable(string GetSurveyByResponsable)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -295,12 +294,9 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-
-
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetSurveyByName
-            (string GetSurveyByName)
+        public List<Tuple<int, string, int>> GetSurveyByName(string GetSurveyByName)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -312,24 +308,30 @@ namespace MarketPlace.Web.ControllersApi
                 ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
-   
-     
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
-           
-            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty);
+            }
+            else
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByName(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email);
+            }
+
+
+            List<Tuple<int, string, int>> oReturn = new List<Tuple<int, string, int>>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(x.ItemName, x.Count);
+                    oReturn.Add(Tuple.Create(x.CountX, x.ItemName, x.Count));
                     return true;
                 });
             }
             #endregion
             return oReturn;
         }
-
 
         [HttpPost]
         [HttpGet]
@@ -347,8 +349,6 @@ namespace MarketPlace.Web.ControllersApi
             };
 
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
-
-
 
             List<Tuple<string, string, string, int>> oReturn = new List<Tuple<string, string, string, int>>();
 
@@ -379,7 +379,15 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
             //Get By Year
-            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty);
+            }
+            else
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email);
+            }
+
 
             // Se repite el estado porque es necesario para el tooltip de la gráfica
             List<Tuple<string, int, string, string>> oReturn = new List<Tuple<string, int, string, string>>();
@@ -516,7 +524,7 @@ namespace MarketPlace.Web.ControllersApi
                                 },
                                 Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(x => x.Value).FirstOrDefault(),
                                 Enable = true,
-                            });                            
+                            });
                             inf.SurveyInfo.Add(new GenericItemInfoModel()
                             {
                                 ItemInfoId = 0,
@@ -532,7 +540,7 @@ namespace MarketPlace.Web.ControllersApi
                                 ItemInfoId = 0,
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                    ItemId = (int)enumSurveyInfoType.Status 
+                                    ItemId = (int)enumSurveyInfoType.Status
                                 },
                                 Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(x => x.Value).FirstOrDefault(),
                                 Enable = true,

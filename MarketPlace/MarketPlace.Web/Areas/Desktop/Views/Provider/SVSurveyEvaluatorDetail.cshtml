@@ -86,20 +86,7 @@
                     </li>
                     <li>
                         <label>Evaluador:</label>
-                        @foreach (string EvaluatorUser in Model.RelatedSurvey.SurveyEvaluatorList)
-                        {
-                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
-                                        ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                                        SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
-                                        User = EvaluatorUser
-                                    }))">@EvaluatorUser</a>
-                        }
-
-                        @*<span>@Model.RelatedSurvey.SurveyEvaluator</span>*@
+                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
                     </li>
                     <li>
                         <label>Ultima actualización:</label>
@@ -122,11 +109,11 @@
                             Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
-                    @*<a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);"> //TODO: Arreglar el editar
+                    <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
                         Editar
-                    </a>*@
+                    </a>
                 }
-                @*@if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+                @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                             Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
@@ -137,10 +124,10 @@
                                         action = MVC.Survey.ActionNames.Index,
                                         SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
                                     }))" target="_blank">Responder evaluación</a>
-                }*@
+                }
             </div>
 
-            @*<div style="margin-top:40px;"></div>
+            <div style="margin-top:40px;"></div>
 
             <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
 
@@ -185,13 +172,13 @@
                                         <p>
                                             @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
                                             {
-                                                <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked"  />
+                                                <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked" />
                                             }
                                             else
                                             {
                                                 <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
                                             }
-                                            <span>@Answer.Name</span>                                           
+                                            <span>@Answer.Name</span>
                                         </p>
                                     }
                                 </div>
@@ -211,7 +198,7 @@
                         </div>
                     </div>
                 }
-            </div>*@
+            </div>
 
         </div>
     </div>

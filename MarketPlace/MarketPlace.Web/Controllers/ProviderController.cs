@@ -1572,6 +1572,50 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult SVSurveyEvaluatorDetail(string ProviderPublicId, string SurveyPublicId, string User)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+                //get survey info
+                oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+
+                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
+                List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                Evaluators.All(evt =>
+                {
+                    oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, User)));
+                    return true;
+                });
+            }
+            return View(oModel);
+        }
+
         public virtual ActionResult SVSurveyReport(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();

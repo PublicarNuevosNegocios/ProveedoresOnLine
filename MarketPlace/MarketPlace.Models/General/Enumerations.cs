@@ -540,6 +540,7 @@
         File = 1205004,
         EvaluatorRol = 1205005,
         EvaluatorName = 1205006,
+        AreaDescription = 1205007,
     }
 
     public enum enumSurveyConfigInfoType
@@ -565,7 +566,10 @@
         QuestionType = 1203005,
 
         RolId = 1203006,
-        RolWeight = 1203007
+        RolWeight = 1203007,
+
+        //Set Area Description
+        AreaHasDescription = 1203008,
     }
 
 

@@ -704,6 +704,9 @@ var Customer_SurveyItemObject = {
 
                             SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
                             SurveyConfigItemInfoOrderId: { editable: false },
+                            
+                            SurveyConfigItemInfoAreaHasDescription: { editable: true, type: 'boolean', defaultValue: true },
+                            SurveyConfigItemInfoAreaHasDescriptionId: { editable: false },
 
                             SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
                             SurveyConfigItemInfoWeightId: { editable: false },
@@ -808,11 +811,26 @@ var Customer_SurveyItemObject = {
                 title: 'Orden',
                 width: '50px',
                 format: '{0:n0}'
+            },{
+                field: 'SurveyConfigItemInfoAreaHasDescription',
+                title: 'Descripción',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.SurveyConfigItemInfoAreaHasDescription == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n0}'
+                format: '{0:n1}'
             }, {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
@@ -1024,10 +1042,7 @@ var Customer_SurveyItemObject = {
                     if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
                         $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
                             if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
-                                oReturn = value.ItemName;
-                                //if (value.ItemId == 118002) {
-                                //    $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
-                                //}
+                                oReturn = value.ItemName;                                
                             }
                         });
                     }
@@ -1082,7 +1097,7 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n0}',
+                format: '{0:n1}',                
             }, {
                 field: 'SurveyConfigItemInfoHasDescription',
                 title: 'Mostrar descripción',

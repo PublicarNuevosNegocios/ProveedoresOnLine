@@ -191,6 +191,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyEvaluatorDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyEvaluatorDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SVSurveyReport()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
@@ -240,6 +246,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
+            public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
             public readonly string SVSurveyReport = "SVSurveyReport";
             public readonly string SVSurveyProgram = "SVSurveyProgram";
         }
@@ -270,6 +277,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
+            public const string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
             public const string SVSurveyReport = "SVSurveyReport";
             public const string SVSurveyProgram = "SVSurveyProgram";
         }
@@ -466,6 +474,16 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string SurveyPublicId = "SurveyPublicId";
         }
+        static readonly ActionParamsClass_SVSurveyEvaluatorDetail s_params_SVSurveyEvaluatorDetail = new ActionParamsClass_SVSurveyEvaluatorDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyEvaluatorDetail SVSurveyEvaluatorDetailParams { get { return s_params_SVSurveyEvaluatorDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyEvaluatorDetail
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SurveyPublicId = "SurveyPublicId";
+            public readonly string User = "User";
+        }
         static readonly ActionParamsClass_SVSurveyReport s_params_SVSurveyReport = new ActionParamsClass_SVSurveyReport();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SVSurveyReport SVSurveyReportParams { get { return s_params_SVSurveyReport; } }
@@ -515,6 +533,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string LISARLAFTInfo = "LISARLAFTInfo";
                 public readonly string Search = "Search";
                 public readonly string SVSurveyDetail = "SVSurveyDetail";
+                public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
                 public readonly string SVSurveyProgram = "SVSurveyProgram";
                 public readonly string SVSurveyReport = "SVSurveyReport";
                 public readonly string SVSurveySearch = "SVSurveySearch";
@@ -541,6 +560,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string LISARLAFTInfo = "~/Areas/Desktop/Views/Provider/LISARLAFTInfo.cshtml";
             public readonly string Search = "~/Areas/Desktop/Views/Provider/Search.cshtml";
             public readonly string SVSurveyDetail = "~/Areas/Desktop/Views/Provider/SVSurveyDetail.cshtml";
+            public readonly string SVSurveyEvaluatorDetail = "~/Areas/Desktop/Views/Provider/SVSurveyEvaluatorDetail.cshtml";
             public readonly string SVSurveyProgram = "~/Areas/Desktop/Views/Provider/SVSurveyProgram.cshtml";
             public readonly string SVSurveyReport = "~/Areas/Desktop/Views/Provider/SVSurveyReport.cshtml";
             public readonly string SVSurveySearch = "~/Areas/Desktop/Views/Provider/SVSurveySearch.cshtml";
@@ -839,6 +859,20 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
             SVSurveyDetailOverride(callInfo, ProviderPublicId, SurveyPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyEvaluatorDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId, string User);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyEvaluatorDetail(string ProviderPublicId, string SurveyPublicId, string User)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyEvaluatorDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "User", User);
+            SVSurveyEvaluatorDetailOverride(callInfo, ProviderPublicId, SurveyPublicId, User);
             return callInfo;
         }
 

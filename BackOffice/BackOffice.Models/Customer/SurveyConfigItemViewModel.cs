@@ -41,6 +41,9 @@ namespace BackOffice.Models.Customer
         public string SurveyConfigItemInfoRolWeight { get; set; }
         public string SurveyConfigItemInfoRolWeightId { get; set; }
 
+        public string SurveyConfigItemInfoAreaHasDescription { get; set; }
+        public string SurveyConfigItemInfoAreaHasDescriptionId { get; set; }
+
         public SurveyConfigItemViewModel() { }
 
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedConfigItem)
@@ -53,7 +56,6 @@ namespace BackOffice.Models.Customer
             SurveyConfigItemTypeId = RelatedConfigItem.ItemType.ItemId.ToString();
             ParentSurveyConfigItem = RelatedConfigItem.ParentItem == null ? null : RelatedConfigItem.ParentItem.ItemId.ToString();
             SurveyConfigItemEnable = RelatedConfigItem.Enable;
-
             //generic infos
             SurveyConfigItemInfoOrder = RelatedConfigItem.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.Order).
@@ -103,7 +105,18 @@ namespace BackOffice.Models.Customer
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            SurveyConfigItemInfoAreaHasDescription = RelatedConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.AreaHasDescription).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
 
+            SurveyConfigItemInfoAreaHasDescriptionId = RelatedConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.AreaHasDescription).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();            
+            
             if (RelatedConfigItem.ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
             {
                 #region Question

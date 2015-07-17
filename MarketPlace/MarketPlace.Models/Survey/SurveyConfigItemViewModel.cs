@@ -38,6 +38,18 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public bool AreaHasDescription
+        {
+            get
+            {
+                return RelatedSurveyConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.AreaHasDescription).
+                    Select(y => !string.IsNullOrEmpty(y.Value) && y.Value.Trim().ToLower() == "true").
+                    DefaultIfEmpty(false).
+                    FirstOrDefault();
+            }
+        }      
+
         public bool IsMandatory
         {
             get

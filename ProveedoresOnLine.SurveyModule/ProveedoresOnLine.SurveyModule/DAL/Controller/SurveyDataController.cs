@@ -142,18 +142,17 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         {
             return DataFactory.GetSurveyByResponsable(CustomerPublicId, ResponsableEmail, Year);
         }
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByName(string CustomerPublicId, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByName(string CustomerPublicId, string ResponsableEmail)
         {
-            return DataFactory.GetSurveyByName(CustomerPublicId, Year);
+            return DataFactory.GetSurveyByName(CustomerPublicId, ResponsableEmail);
         }
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
         {
             return DataFactory.GetSurveyByEvaluator(CustomerPublicId, Year);
         }
-
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, string ResponsableEmail)
         {
-            return DataFactory.GetSurveyByMonth(CustomerPublicId, Year);
+            return DataFactory.GetSurveyByMonth(CustomerPublicId, ResponsableEmail);
         }
         #endregion        
     }
