@@ -133,11 +133,24 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                return RelatedSurvey.SurveyInfo.
+                //return RelatedSurvey.SurveyInfo.
+                //    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).
+                //    Select(y => y.Value).
+                //    DefaultIfEmpty(string.Empty).
+                //    FirstOrDefault();
+
+                if (RelatedSurvey.ParentSurveyPublicId != null)
+                {
+                    return RelatedSurvey.User;                    
+                }
+                else
+                {
+                    return RelatedSurvey.SurveyInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).
                     Select(y => y.Value).
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();
+                }
             }
         }
 

@@ -812,12 +812,12 @@ namespace MarketPlace.Web.Controllers
                     int cont = 0;
                     foreach (var item in oBalancetemp)
                     {
-                        if(cont < 1)
+                        if (cont < 1)
                         {
                             oBalanceAux.Remove(item);
                             cont++;
                         }
-                        
+
 
                     }
 
@@ -1455,7 +1455,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         if (oSurveyResults != null)
                         {
-                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();                           
+                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();
                         }
                     }
                     else
@@ -1486,13 +1486,13 @@ namespace MarketPlace.Web.Controllers
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
                                                         Select(x => x).ToList();
-                        
+
                     }
                     oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
 
                     //parse view model
                     if (oSurveyResults != null && oSurveyResults.Count > 0)
-                    {                        
+                    {
                         //Get the Average
                         decimal Average = 0;
                         //Get ClosedSurve
@@ -1601,17 +1601,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
                 //get survey info
                 oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
-                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
-
-                oModel.RelatedSurvey.RelatedSurvey.ChildSurvey = new List<SurveyModel>();
-                List<string> Evaluators = oModel.RelatedSurvey.SurveyEvaluatorList.GroupBy(x => x).Select(grp => grp.First()).ToList();
-
-                Evaluators.All(evt =>
-                {
-                    oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
-                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, User)));
-                    return true;
-                });
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, User));
             }
             return View(oModel);
         }
@@ -1837,7 +1827,7 @@ namespace MarketPlace.Web.Controllers
                                 },
                                 Value = a.Item1.ToString() + "_" + a.Item3.ToString(),
                                 Enable = true,
-                            });                            
+                            });
                             return true;
                         });
 
@@ -2449,8 +2439,8 @@ namespace MarketPlace.Web.Controllers
                                 ((oCurrentAction == MVC.Provider.ActionNames.SVSurveySearch ||
                                 oCurrentAction == MVC.Provider.ActionNames.SVSurveyDetail) &&
                                 oCurrentController == MVC.Provider.Name),
-                        });                      
-                        
+                        });
+
 
                         //survey list
                         oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
