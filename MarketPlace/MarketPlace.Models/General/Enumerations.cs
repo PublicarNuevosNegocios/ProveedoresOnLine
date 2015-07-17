@@ -540,6 +540,7 @@
         File = 1205004,
         EvaluatorRol = 1205005,
         EvaluatorName = 1205006,
+        AreaDescription = 1205007,
     }
 
     public enum enumSurveyConfigInfoType

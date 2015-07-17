@@ -172,8 +172,8 @@
                     if (EvaluationArea.AreaHasDescription)
                     {
                         <div class="POMPAreaObservation">
-                            <p>Obervaciones:</p>
-                            <textarea class="POMPDescriptionArea" name="SurveyAreaItemText_"></textarea>
+                            <p>Participantes:</p>
+                            <textarea class="POMPDescriptionArea" name="SurveyItem_@EvaluationArea.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "readonly=\"readonly\"" : string.Empty)>@(EvaluationAreaInfo == null ? string.Empty : EvaluationAreaInfo.AreaDescriptionText.Trim())</textarea>
                         </div>
                     }
                     <div class="POMPAreaDetail">

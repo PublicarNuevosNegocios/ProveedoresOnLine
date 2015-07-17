@@ -21,10 +21,10 @@ namespace MarketPlace.Web.Controllers
 
             //get survey info
             if (oModel.RelatedSurvey.RelatedSurvey.ParentSurveyPublicId == null)
-            {                
+            {
                 oModel.RelatedSurvey = new SurveyViewModel(
                     ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser
-                    (SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));     
+                    (SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));
             }
             List<GenericItemInfoModel> oAssignedAreas = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.CurrentArea).Select(inf => inf).ToList();
 
@@ -56,7 +56,7 @@ namespace MarketPlace.Web.Controllers
                 }
                 oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem = Areas;
             }
-                               
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, oModel.RelatedSurvey.RelatedSurvey.RelatedProvider.RelatedCompany.CompanyPublicId);
@@ -99,11 +99,11 @@ namespace MarketPlace.Web.Controllers
             //get survey request model
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert =
                 GetSurveyUpsertRequest(SurveyPublicId);
-         
+
             //upsert survey
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
-            
+
             //recalculate survey item values
             ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId
                                 , SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User);
@@ -134,7 +134,7 @@ namespace MarketPlace.Web.Controllers
             }
 
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, 
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId,
                                         SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId
                                         , SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User);
 
@@ -198,6 +198,7 @@ namespace MarketPlace.Web.Controllers
             {
                 string[] strAux = req.Split('_');
 
+                #region Answers
                 if (strAux.Length >= 2)
                 {
                     int oSurveyConfigItemId = Convert.ToInt32(strAux[1].Replace(" ", ""));
@@ -264,7 +265,7 @@ namespace MarketPlace.Web.Controllers
                                 },
                                 Value = Request[req],
                                 Enable = true,
-                            },
+                            },                           
                             new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 
@@ -290,6 +291,25 @@ namespace MarketPlace.Web.Controllers
                                     (oSurveyItem != null && 
                                     oSurveyItem.ItemInfo != null && 
                                      oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
+                                    oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.AreaDescription)) ?
+                                    oSurveyItem.ItemInfo.
+                                        Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.AreaDescription).
+                                        Select(sitinf=>sitinf.ItemInfoId).
+                                        DefaultIfEmpty(0).
+                                        FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyItemInfoType.AreaDescription,
+                                },
+                                Value = Request[req],
+                                Enable = true,
+                            },
+                             new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 
+                                    (oSurveyItem != null && 
+                                    oSurveyItem.ItemInfo != null && 
+                                     oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
                                     oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.EvaluatorRol)) ?
                                     oSurveyItem.ItemInfo.
                                         Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.EvaluatorRol).
@@ -304,7 +324,7 @@ namespace MarketPlace.Web.Controllers
                                                 Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId.ToString()).FirstOrDefault(),
                                 Enable = true,
                             },          
-                             new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 
                                     (oSurveyItem != null && 
@@ -329,8 +349,9 @@ namespace MarketPlace.Web.Controllers
                     //add survey item to survey to upsert
                     oSurveyToUpsert.RelatedSurveyItem.Add(oSurveyItemToUpsert);
                 }
+                #endregion
                 return true;
-            });
+            });            
 
             #endregion
 
