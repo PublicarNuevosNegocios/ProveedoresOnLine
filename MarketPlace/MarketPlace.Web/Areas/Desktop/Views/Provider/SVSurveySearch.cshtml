@@ -102,7 +102,7 @@
                             <!--actions-->
                                 <a class="POMPButtonsSurvey" href="javascript:Provider_SurveyReports.ShowProgramReport({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId'});">Generar Reporte</a>
                             }
-                            
+
                         </div>
                     </li>
                     <li class="SurveyResults">
@@ -124,7 +124,7 @@
                                                                                                             {
                                                                                                                 controller = MVC.Provider.Name,
                                                                                                                 action = MVC.Provider.ActionNames.SVSurveyProgram,
-                                                                                                                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId                                                                                                                
+                                                                                                                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                                                                                             }))">Programar nueva evaluación</a>
                                 </div>
                             }
@@ -156,7 +156,7 @@
                     {
                         if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                         {
-                                <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                                                             new
                                                                                                             {
                                                                                                                 controller = MVC.Provider.Name,
