@@ -86,6 +86,19 @@
                     </li>
                     <li>
                         <label>Evaluador:</label>
+                        @foreach (string EvaluatorUser in Model.RelatedSurvey.SurveyEvaluatorList)
+                        {
+                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
+                                        ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                        SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
+                                        User = EvaluatorUser
+                                    }))">@EvaluatorUser</a>
+                        }
+
                         <span>@Model.RelatedSurvey.SurveyEvaluator</span>
                     </li>
                     <li>
@@ -150,7 +163,7 @@
                         <h1>@EvaluationArea.Order. @EvaluationArea.Name  / Calificación: (@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))) - Peso: @EvaluationArea.Weight %</h1>
 
                         <!--contenedor detalle preguntas-->
-                        <div class="POMPAreaDetail">
+                        @*<div class="POMPAreaDetail">
 
                             @foreach (var Question in lstQuestion)
                             {
@@ -195,7 +208,7 @@
                                     <p>Calificación: (@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))) /  Peso: dentro de <strong>@EvaluationArea.Name</strong>  @Question.Weight %</p>
                                 </div>
                             }
-                        </div>
+                        </div>*@
                     </div>
                 }
             </div>

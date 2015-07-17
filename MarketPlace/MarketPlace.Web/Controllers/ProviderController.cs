@@ -1609,7 +1609,7 @@ namespace MarketPlace.Web.Controllers
                 Evaluators.All(evt =>
                 {
                     oModel.RelatedSurvey.RelatedSurvey.ChildSurvey.Add(
-                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, evt)));
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, User)));
                     return true;
                 });
             }
