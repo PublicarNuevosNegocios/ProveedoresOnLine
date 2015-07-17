@@ -1042,10 +1042,7 @@ var Customer_SurveyItemObject = {
                     if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
                         $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
                             if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
-                                oReturn = value.ItemName;
-                                //if (value.ItemId == 118002) {
-                                //    $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
-                                //}
+                                oReturn = value.ItemName;                                
                             }
                         });
                     }

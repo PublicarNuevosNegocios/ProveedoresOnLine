@@ -106,13 +106,13 @@ namespace BackOffice.Models.Customer
                 FirstOrDefault();
 
             SurveyConfigItemInfoAreaHasDescription = RelatedConfigItem.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.AreaHasDescription).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             SurveyConfigItemInfoAreaHasDescriptionId = RelatedConfigItem.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.AreaHasDescription).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();            
