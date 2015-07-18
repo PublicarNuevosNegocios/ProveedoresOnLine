@@ -1512,7 +1512,7 @@ namespace MarketPlace.Web.Controllers
                             oModel.RelatedSurveySearch.SurveySearchResult.All(sv =>
                             {
                                 if (sv.SurveyStatus == enumSurveyStatus.Close)
-                                    Average = (Average += sv.SurveyRating);
+                                    Average = (Average += Convert.ToDecimal(sv.SurveyRating.ToString("#,0.##")));
                                 return true;
                             });
                             Average = Average != 0 ? Average / oModel.RelatedSurveySearch.SurveySearchResult.Where(x => x.SurveyStatus == enumSurveyStatus.Close).Count() : 0;
@@ -1824,6 +1824,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     List<Tuple<int, int, int>> AreaIdList = new List<Tuple<int, int, int>>();
                     AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int, int>(y.Item2, y.Item3, y.Item4)).ToList());
+                    AreaIdList = AreaIdList.GroupBy(x => x.Item1).Select(grp => grp.First()).ToList();
                     if (AreaIdList != null)
                     {
                         AreaIdList.All(a =>
