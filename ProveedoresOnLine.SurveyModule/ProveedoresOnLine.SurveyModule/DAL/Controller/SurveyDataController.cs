@@ -133,6 +133,10 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         {
             return DataFactory.BPSurveyGetNotification();
         }
+        public List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> BPSurveyGetReminders()
+        {
+            return DataFactory.BPSurveyGetReminders();
+        }
 
         #endregion
 

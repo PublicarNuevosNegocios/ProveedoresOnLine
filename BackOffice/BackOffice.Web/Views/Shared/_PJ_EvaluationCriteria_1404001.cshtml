@@ -17,12 +17,12 @@
         Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
 
     var RatingId = Model.Item2 != null &&
-        Model.Item2.EC_RatingId != null ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+        Model.Item2.EC_RatingId != null && Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
     var Rating = Model.Item2 != null &&
         Model.Item2.EC_Rating != null ? Model.Item2.EC_Rating.ToString() : string.Empty;
 
-    var ExperiencesId = Model.Item2 != null &&
-        Model.Item2.EC_ExperienceConfigId != null ? Convert.ToInt32(Model.Item2.EC_ExperienceConfigId.Trim()) : 0;
+    var ExperiencesId = Model.Item2 != null  &&
+        Model.Item2.EC_ExperienceConfigId != null && Model.Item2.EC_ExperienceConfigId != string.Empty ? Convert.ToInt32(Model.Item2.EC_ExperienceConfigId.Trim()) : 0;
 
     var AmmountEnable = Model.Item2.ProjectConfigExperience.AmmounEnable != null ? Model.Item2.ProjectConfigExperience.AmmounEnable : true;
     var CurrencyEnable = Model.Item2.ProjectConfigExperience.CurrencyEnable != null ? Model.Item2.ProjectConfigExperience.CurrencyEnable : true;
@@ -31,6 +31,8 @@
 
     var QuantityInterval = Model.Item2.GetExperienceQuantityValues();
     var YearsInterval = Model.Item2.GetExperienceYearValues();
+
+    
 }
 
 <div>

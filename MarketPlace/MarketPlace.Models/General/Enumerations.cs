@@ -517,6 +517,7 @@
         File = 1204012,
         ExpirationDate = 1204013,
         CurrentArea = 1204014,
+        Reminder = 1204015,
 
         //SurveyRepor
 
@@ -540,6 +541,7 @@
         File = 1205004,
         EvaluatorRol = 1205005,
         EvaluatorName = 1205006,
+        AreaDescription = 1205007,
     }
 
     public enum enumSurveyConfigInfoType

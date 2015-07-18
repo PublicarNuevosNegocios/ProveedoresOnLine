@@ -46,6 +46,18 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public string AreaDescriptionText
+        {
+            get
+            {
+                return RelatedSurveyItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyItemInfoType.AreaDescription).
+                    Select(y => y.Value).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         public string EvaluatorRol
         {
             get

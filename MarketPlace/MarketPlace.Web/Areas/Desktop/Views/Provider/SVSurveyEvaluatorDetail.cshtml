@@ -58,7 +58,15 @@
     </div>
 
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Detalle de evaluación de desempeño</label>
+        <label class="POMPSectionTitles">Detalle de evaluación de desempeño del usuario @Model.RelatedSurvey.SurveyEvaluator</label>
+        <div class="POBOEvaluationGoBackWrapper">
+            <a href="@(Url.Action(
+                MVC.Provider.ActionNames.SVSurveyDetail,
+                MVC.Provider.Name,
+                 new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, SurveyPublicId = Model.RelatedSurvey.RelatedSurvey.ParentSurveyPublicId }))">
+                <div></div>Regresar a la evaluación.
+            </a>
+        </div>
         <div class="POMPResultsOrder">
             <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->

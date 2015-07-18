@@ -560,7 +560,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oParentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(oCurrentSurvey.ParentSurveyPublicId);
 
-            decimal oTotalRatting = EvaluationAreaResults.Sum(ear => ((ear.EvaluationAreaRatting * ear.EvaluationAreaWeight) / 100)
+            decimal? oTotalRatting = EvaluationAreaResults.Sum(ear => ((ear.EvaluationAreaRatting * ear.EvaluationAreaWeight) / 100)
                                                                 * oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204014 
                                                                 && Convert.ToInt32(x.Value.Split('_')[0]) == ear.EvaluationAreaId).
                                                                 Select(x => Convert.ToDecimal(x.Value.Split('_')[1])).FirstOrDefault() / 100);            
@@ -598,7 +598,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 {
                     ItemId = 1204006,
                 },
-                Value = oTotalRatting.ToString("#,0.##"),
+                Value = oTotalRatting.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                 Enable = true,
             });
 
@@ -637,7 +637,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                             {
                                 ItemId = 1205001,
                             },
-                            Value = ear.EvaluationAreaRatting.ToString("#,0.##"),
+                            Value = ear.EvaluationAreaRatting.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                             Enable = true,
                         },                    
                     }
@@ -776,7 +776,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     {
                         ItemId = 1204006,
                     },
-                    Value = ParentProgress.Value.ToString(),
+                    Value = ParentProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                     Enable = true,
                 });
 
@@ -862,7 +862,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                             {
                                 ItemId = 901003,
                             },
-                            Value = oTotalProviderRatting.Value.ToString("#,0.##"),
+                            Value = oTotalProviderRatting.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                             Enable = true,
                         },
                         new Company.Models.Util.GenericItemInfoModel()
@@ -899,6 +899,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> BPSurveyGetNotification()
         {
             return DAL.Controller.SurveyDataController.Instance.BPSurveyGetNotification();
+        }
+
+        public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> BPSurveyGetReminders()
+        {
+            return DAL.Controller.SurveyDataController.Instance.BPSurveyGetReminders();
         }
 
         #endregion

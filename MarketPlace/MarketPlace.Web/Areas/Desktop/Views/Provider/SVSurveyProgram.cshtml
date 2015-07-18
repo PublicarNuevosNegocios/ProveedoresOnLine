@@ -113,7 +113,7 @@
                                     <label>Fecha Inicial:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyStartDate.ToString();}" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyStartDate.ToString();}" />
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -121,7 +121,7 @@
                                     <label>Fecha Final:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyEndDate.ToString();}" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd"   name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyEndDate.ToString();}" />
                                 </div>
                             </div>
                         </div>

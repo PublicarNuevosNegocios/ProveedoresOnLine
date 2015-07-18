@@ -29,6 +29,7 @@ namespace ProveedoresOnLine.SurveyBatch.Models
         #region Message Agent Constants
 
         public const string C_POL_SurveyWriteBackNotification_Mail_Agent = "POL_SurveyWriteBackNotification_Mail";
+        public const string C_POL_SurveyReminder_Mail_Agent = "POL_SurveyReminder_Mail";
 
         #endregion
     }
