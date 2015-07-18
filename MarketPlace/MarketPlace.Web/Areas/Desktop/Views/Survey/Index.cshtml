@@ -82,10 +82,6 @@
                     <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
                     <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                 </li>
-                @*<li>
-                        <label>Estado:</label>
-                        <span>@Model.RelatedSurvey.SurveyStatusName</span>
-                    </li>*@
                 <li>
                     <label>Fecha de programación:</label>
                     <span>@Model.RelatedSurvey.SurveyIssueDate</span>
@@ -243,7 +239,6 @@
                         }
                     </div>
                 }
-
                 <!--Survey Actions-->
                 <div class="POMPResultsActions">
                     @if (Model.RelatedSurvey.SurveyConfigStepEnable)
@@ -279,11 +274,7 @@
                 </p>
             </div>
         </div>
-
-
     </div>
-
-
     <!--Templates-->
     <div style="display:none">
         <ul id="Survey_FileUpload_FileItemTemplate">

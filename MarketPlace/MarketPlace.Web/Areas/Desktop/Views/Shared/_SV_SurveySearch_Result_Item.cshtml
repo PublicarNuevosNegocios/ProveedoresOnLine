@@ -154,8 +154,24 @@
                                     }))" target="_blank">Responder evaluación</a>
 
         }
-
-        <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
+        @if (Model.RelatedSurvey.SurveyEvaluator == Model.RelatedSurvey.SurveyResponsible &&
+            Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() == MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+        {
+            
+            <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
+        }
+        else
+        {
+            <a class="POMPEvaluationListActions" href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                        new
+                                                        {
+                                                            controller = MVC.Provider.Name,
+                                                            action = MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
+                                                            ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                                            SurveyPublicId = Model.RelatedSurvey.RelatedSurvey.ParentSurveyPublicId,
+                                                            User = Model.RelatedSurvey.SurveyEvaluator
+                                                        }))">Ver detalle</a>
+        }       
 
     </div>
 }
