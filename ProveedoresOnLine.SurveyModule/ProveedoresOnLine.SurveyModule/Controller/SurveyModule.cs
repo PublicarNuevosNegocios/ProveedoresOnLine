@@ -862,7 +862,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                             {
                                 ItemId = 901003,
                             },
-                            Value = oTotalProviderRatting.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),,
+                            Value = oTotalProviderRatting.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                             Enable = true,
                         },
                         new Company.Models.Util.GenericItemInfoModel()
