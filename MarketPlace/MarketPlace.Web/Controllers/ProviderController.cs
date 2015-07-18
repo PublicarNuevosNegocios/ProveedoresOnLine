@@ -1856,6 +1856,16 @@ namespace MarketPlace.Web.Controllers
                             ItemInfoId = 0,
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
+                                ItemId = (int)enumSurveyInfoType.Reminder
+                            },
+                            Value = "false",
+                            Enable = true,
+                        });
+                        it.SurveyInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
                                 ItemId = (int)enumSurveyInfoType.Contract
                             },
                             Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),

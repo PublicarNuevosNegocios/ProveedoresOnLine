@@ -66,6 +66,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\InternalSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SurveyReminderProcess.cs" />
     <Compile Include="SurveySendProcess.cs" />
   </ItemGroup>
   <ItemGroup>

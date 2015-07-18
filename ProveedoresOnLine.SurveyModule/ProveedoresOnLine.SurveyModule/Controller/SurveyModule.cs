@@ -901,6 +901,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.BPSurveyGetNotification();
         }
 
+        public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> BPSurveyGetReminders()
+        {
+            return DAL.Controller.SurveyDataController.Instance.BPSurveyGetReminders();
+        }
+
         #endregion
 
         #region SurveyCharts

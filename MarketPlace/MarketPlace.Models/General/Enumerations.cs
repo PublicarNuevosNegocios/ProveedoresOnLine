@@ -517,6 +517,7 @@
         File = 1204012,
         ExpirationDate = 1204013,
         CurrentArea = 1204014,
+        Reminder = 1204015,
 
         //SurveyRepor
 
