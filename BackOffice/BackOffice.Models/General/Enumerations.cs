@@ -48,6 +48,8 @@
         OrganizationStructure = 506,
 
         ProviderStatus = 902,
+
+        EvaluationCriteria = 1404,
     }
 
     #region Util

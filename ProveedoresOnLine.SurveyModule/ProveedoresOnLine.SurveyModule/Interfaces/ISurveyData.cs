@@ -53,6 +53,7 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
         #region SurveyBatch
 
         List<SurveyModule.Models.SurveyModel> BPSurveyGetNotification();
+        List<SurveyModule.Models.SurveyModel> BPSurveyGetReminders();
 
         #endregion
 

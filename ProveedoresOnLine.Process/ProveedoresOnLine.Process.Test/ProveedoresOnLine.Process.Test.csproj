@@ -91,6 +91,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SurveyReminderProcessJobTest.cs" />
     <Compile Include="SurveySendProcessJobTest.cs" />
     <Compile Include="MessageModuleJobTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
