@@ -157,12 +157,12 @@
                         if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                         {
                             <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                                                                                            new
-                                                                                                            {
-                                                                                                                controller = MVC.Provider.Name,
-                                                                                                                action = MVC.Provider.ActionNames.SVSurveyProgram,
-                                                                                                                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                                                                                            }))">La búsqueda no arrojó resultados o aún no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.</a>
+                                        new
+                                        {
+                                            controller = MVC.Provider.Name,
+                                            action = MVC.Provider.ActionNames.SVSurveyProgram,
+                                            ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                        }))">La búsqueda no arrojó resultados o aún no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.</a>
                         }
                     }
                 }
