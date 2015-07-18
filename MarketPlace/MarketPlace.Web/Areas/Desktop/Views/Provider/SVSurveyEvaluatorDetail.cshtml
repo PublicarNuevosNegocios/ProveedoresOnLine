@@ -83,45 +83,80 @@
         <div class="POMPResultsOrder">
             <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->
-                <a>
-                    @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-                </a>
-                <ul>
-                    <li>
-                        <label>Calificación:</label>
-                        <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                        <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                    </li>
-                    <li>
-                        <label>Progreso:</label>
-                        <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
-                        <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
-                    </li>
-                    <li>
-                        <label>Estado:</label>
-                        <span>@Model.RelatedSurvey.SurveyStatusName</span>
-                    </li>
-                    <li>
-                        <label>Fecha de programación:</label>
-                        <span>@Model.RelatedSurvey.SurveyIssueDate</span>
-                    </li>
-                    <li>
-                        <label>Evaluador:</label>
-                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
-                    </li>
-                    <li>
-                        <label>Ultima actualización:</label>
-                        <span>@Model.RelatedSurvey.SurveyLastModify</span>
-                    </li>
-                    <li>
-                        <label>Responsable:</label>
-                        <span>@Model.RelatedSurvey.SurveyResponsible</span>
-                    </li>
-                    <li>
-                        <label>Proceso de Selección</label>
-                        <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
-                    </li>
-                </ul>
+                <div class="container-fluid">
+                    <div class="POMPEvalTitle">
+                        <div class="col-xs-12">
+                            <a>
+                                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+                            </a>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-4" style="margin-top:0;">
+                                <label>Calificación:</label>
+                                <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+                            </div>
+                            <div class="col-xs-8" style="margin-top:0;">
+                                <div class="col-xs-12">
+                                    <div class="selProgressBar" style="width:85%; margin-bottom:4px; margin-left:30px; data-value=" @Model.RelatedSurvey.SurveyProgress "></div>
+                                    <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Estado:</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedSurvey.SurveyStatusName</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Fecha de programación:</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Evaluador:</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Ultima actualización:</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedSurvey.SurveyLastModify</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Responsable:</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedSurvey.SurveyResponsible</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Proceso de Selección</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--evaluation actions-->
             <div class="POMPResultsActions">

@@ -80,6 +80,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SurveyReminderProcessTest.cs" />
     <Compile Include="SurveySendProcessTest.cs" />
     <Compile Include="SurveyControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

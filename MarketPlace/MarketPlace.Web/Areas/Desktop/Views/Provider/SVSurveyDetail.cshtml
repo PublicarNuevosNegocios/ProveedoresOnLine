@@ -61,65 +61,105 @@
         <label class="POMPSectionTitles">Detalle de evaluación de desempeño</label>
         <div class="POBOEvaluationGoBackWrapper">
             <a href="@(Url.Action(
-                        MVC.Provider.ActionNames.SVSurveySearch,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }))">
+                MVC.Provider.ActionNames.SVSurveySearch,
+                MVC.Provider.Name,
+                   new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }))">
                 <div></div>Regresar al listado de evaluaciones.
             </a>
         </div>
         <div class="POMPResultsOrder">
             <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->
+                <div class="container-fluid">
+                    <div class="POMPEvalTitle">
+                        <div class="col-xs-12">
                 <a>
                     @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
                 </a>
-                <ul>
-                    <li>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-4" style="margin-top:0;">
                         <label>Calificación:</label>
                         <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                         <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                    </li>
-                    <li>
-                        <label>Progreso:</label>
-                        <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                            </div>
+                            <div class="col-xs-8" style="margin-top:0;">
+                                <div class="col-xs-12">
+                                    <div class="selProgressBar" style="width:85%; margin-bottom:4px; margin-left:30px; data-value=" @Model.RelatedSurvey.SurveyProgress "></div>
                         <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
-                    </li>
-                    <li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
                         <label>Estado:</label>
+                            </div>
+                            <div class="col-xs-12">
                         <span>@Model.RelatedSurvey.SurveyStatusName</span>
-                    </li>
-                    <li>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
                         <label>Fecha de programación:</label>
+                            </div>
+                            <div class="col-xs-12">
                         <span>@Model.RelatedSurvey.SurveyIssueDate</span>
-                    </li>
-                    <li>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="POMPEvaluator">
+                                <div class="col-xs-12" style="margin:5px 0 5px 0;">
                         <label>Evaluador:</label>
+                                </div>
+
+
                         @foreach (string EvaluatorUser in Model.RelatedSurvey.SurveyEvaluatorList)
                         {
+                                    <div class="col-xs-4" style="text-decoration:underline;">
                             <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                        new
-                                        {
-                                            controller = MVC.Provider.Name,
-                                            action = MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
-                                            ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                                            SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
-                                            User = EvaluatorUser
-                                        }))">@EvaluatorUser</a>
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
+                                        ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                        SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
+                                        User = EvaluatorUser
+                                    }))">@EvaluatorUser</a>
+                                </div>
+
                         }
-                    </li>
-                    <li>
+
+                        @*<span>@Model.RelatedSurvey.SurveyEvaluator</span>*@
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
                         <label>Ultima actualización:</label>
+                            </div>
+                            <div class="col-xs-12">
                         <span>@Model.RelatedSurvey.SurveyLastModify</span>
-                    </li>
-                    <li>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
                         <label>Responsable:</label>
+                            </div>
+                            <div class="col-xs-12">
                         <span>@Model.RelatedSurvey.SurveyResponsible</span>
-                    </li>
-                    <li>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
                         <label>Proceso de Selección</label>
+                            </div>
+                            <div class="col-xs-12">
                         <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
-                    </li>
-                </ul>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\CompanyProviderProcessJob.cs" />
+    <Compile Include="Implement\SurveyReminderProcessJob.cs" />
     <Compile Include="Implement\SurveySendProcessJob.cs" />
     <Compile Include="Implement\MessageModuleJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
