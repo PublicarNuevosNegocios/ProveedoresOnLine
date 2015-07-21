@@ -2060,7 +2060,6 @@ var Customer_ProjectModule = {
                         //}
 
                         //validate SurveyConfigItemTypeId attribute
-                        debugger;
                         if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
                             //is in evaluation area show question
                             vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
@@ -2080,7 +2079,6 @@ var Customer_ProjectModule = {
 
                         //Redirect SurveyCriteriaUpsert
                         if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                            debugger;
                             window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
                         }
                     },

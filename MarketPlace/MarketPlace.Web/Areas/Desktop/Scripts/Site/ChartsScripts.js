@@ -234,10 +234,8 @@ var SurveyByEvaluators_ChartsObject = {
                 function selectHandler() {
                     var selectedItem = vBarChart.getSelection()[0];
                     if (selectedItem) {
-                        debugger;
                         var topping = data.getValue(selectedItem.row, 0);
                         var SearchFilter = 0;
-                        debugger;
                         if (topping == "Programada") {
                             SearchFilter = 1206001;
                         }
@@ -275,7 +273,6 @@ var SurveyByEvaluators_ChartsObject = {
     },
 
     GetSearchUrl: function (SearchFilter) {
-        debugger;
         var oUrl = this.SearchUrl;
 
         oUrl += '?CompareId=';

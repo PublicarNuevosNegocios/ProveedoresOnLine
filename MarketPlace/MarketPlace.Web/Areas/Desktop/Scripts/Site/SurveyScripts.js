@@ -329,7 +329,6 @@ var Survey_Evaluation_ProgramObject = {
                 }
             }
         }).focusout(function () {
-            debugger;
             var IdSurvey = $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyConfigId').val();        
             if (IdSurvey == '') {
                 $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyName').val('');

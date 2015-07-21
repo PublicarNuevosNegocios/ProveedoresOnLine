@@ -3803,7 +3803,6 @@ var Provider_CompanyFinancialObject = {
     EvalBalanceSheetFormula: function () {
 
         if (Provider_CompanyFinancialObject.FormulaAccounts != null && Provider_CompanyFinancialObject.FormulaAccounts.length > 0) {
-            debugger;
             $.each(Provider_CompanyFinancialObject.FormulaAccounts, function (item, value) {
 
                 if (value.Formula != null && value.Formula.length > 0) {

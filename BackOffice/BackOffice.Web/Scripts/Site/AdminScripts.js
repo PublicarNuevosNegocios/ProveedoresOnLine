@@ -205,7 +205,6 @@
                 title: 'País',
                 width: '90px',
                 template: function (dataItem) {
-                    debugger;
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.GIT_Country != null) {
                         oReturn = dataItem.GIT_Country;
