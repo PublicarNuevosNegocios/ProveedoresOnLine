@@ -1698,12 +1698,12 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, string ResponsableEmail)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
+            lstParams.Add(DataInstance.CreateTypedParameter("vResponable", ResponsableEmail));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -1729,6 +1729,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                         ItemName = sv.Field<string>("ItemName"),
                         Count = (int)sv.Field<Int64>("Count"),
                         AxisY = sv.Field<string>("Mail"),
+                        CountX = (int)sv.Field<UInt64>("UserId"),
                     }).ToList();
             }
 

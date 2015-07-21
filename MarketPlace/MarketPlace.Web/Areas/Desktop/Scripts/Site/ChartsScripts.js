@@ -109,7 +109,7 @@ var SurveyByName_ChartsObject = {
             async: false,
             success: function (result) {
                 var data = new google.visualization.DataTable();
-                
+
                 data.addColumn('string', 'Tipo');
                 data.addColumn('number', 'Cantidad');
                 data.addColumn('number', 'filtro');
@@ -122,12 +122,12 @@ var SurveyByName_ChartsObject = {
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
                     height: "100%",
                     width: "100%",
-                    
+
                 };
 
                 function selectHandler() {
-                    var selectedItem = chart.getSelection()[0];                    
-                    if (selectedItem) {                        
+                    var selectedItem = chart.getSelection()[0];
+                    if (selectedItem) {
                         var SearchFilter = data.getValue(selectedItem.row, 2);
                         window.location = SurveyByName_ChartsObject.GetSearchUrl(SearchFilter);
                     }
@@ -193,8 +193,9 @@ var SurveyByEvaluators_ChartsObject = {
                 data.addColumn('string', 'Mes');
                 data.addColumn('number', 'Cantidad');
                 data.addColumn({ type: 'string', role: 'annotation' });
+                data.addColumn('number', 'UserId');
                 $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item2]]);
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item2, value.m_Item5]]);
                 });
 
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByEvaluators_ChartsObject.DashboardId));
@@ -204,7 +205,7 @@ var SurveyByEvaluators_ChartsObject = {
                     'bars': 'horizontal',
                     'containerId': document.getElementById(SurveyByEvaluators_ChartsObject.ObjectId),
                     'options': {
-                        chartArea: { left: 150, top: 0, width: "70%", height: "60%" },
+                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
                         height: "100%",
                         width: "100%"
                     },
@@ -231,26 +232,17 @@ var SurveyByEvaluators_ChartsObject = {
                 dashboard.bind(barFilterMonth, vBarChart);
                 dashboard.bind(barFilterState, vBarChart);
 
+
+                google.visualization.events.addListener(vBarChart, 'ready', function () {
+                    google.visualization.events.addListener(vBarChart, 'select', selectHandler);
+                });
+
                 function selectHandler() {
-                    var selectedItem = vBarChart.getSelection()[0];
+                    var selectedItem = vBarChart.getChart().getSelection();
                     if (selectedItem) {
-                        debugger;
-                        var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;
-                        debugger;
-                        if (topping == "Programada") {
-                            SearchFilter = 1206001;
-                        }
-                        else if (topping == "Enviada") {
-                            SearchFilter = 1206002;
-                        }
-                        else if (topping == "En progreso") {
-                            SearchFilter = 1206003;
-                        }
-                        else if (topping == "Finalizada") {
-                            SearchFilter = 1206004;
-                        }
+                        var SearchFilter = data.getValue(selectedItem[0].row, 5);
                         window.location = SurveyByEvaluators_ChartsObject.GetSearchUrl(SearchFilter);
+
                     }
                 }
 
@@ -274,8 +266,7 @@ var SurveyByEvaluators_ChartsObject = {
         });
     },
 
-    GetSearchUrl: function (SearchFilter) {
-        debugger;
+    GetSearchUrl: function (SearchFilter) {        
         var oUrl = this.SearchUrl;
 
         oUrl += '?CompareId=';
@@ -283,7 +274,7 @@ var SurveyByEvaluators_ChartsObject = {
         oUrl += '&SearchParam=';
 
 
-        oUrl += '&SearchFilter=,111011;' + SearchFilter
+        oUrl += '&SearchFilter=,111014;' + SearchFilter
 
         oUrl += '&SearchOrderType=113002';
         oUrl += '&OrderOrientation=false';
@@ -315,8 +306,9 @@ var SurveyByMonth_ChartsObject = {
                 data.addColumn('number', 'Cantidad');
                 data.addColumn('string', 'Mes');
                 data.addColumn({ type: 'string', role: 'tooltip' });
+                data.addColumn('string', "EstadoId");
                 $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4]]);
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item1, value.m_Item4]]);
                 });
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByMonth_ChartsObject.DashboardId));
 
@@ -339,15 +331,31 @@ var SurveyByMonth_ChartsObject = {
                     'view': { 'columns': [0, 1] },
 
                 });
-                // Create a range slider, passing some options
-                var donutRangeSlider = new google.visualization.ControlWrapper({
+
+
+                var filterMonth = new google.visualization.ControlWrapper({
                     'controlType': 'CategoryFilter',
                     'containerId': 'filter_div',
                     'options': {
                         'filterColumnLabel': 'Mes'
                     }
                 });
-                dashboard.bind(donutRangeSlider, pieChart);
+                dashboard.bind(filterMonth, pieChart);
+
+
+                google.visualization.events.addListener(pieChart, 'ready', function () {
+                    google.visualization.events.addListener(pieChart, 'select', selectHandler);
+                });
+
+                function selectHandler() {
+                    debugger;
+                    var selectedItem = pieChart.getChart().getSelection();
+                    if (selectedItem) {
+                        var SearchFilter = data.getValue(selectedItem[0].row, 4);
+                        window.location = SurveyByMonth_ChartsObject.GetSearchUrl(SearchFilter);
+
+                    }
+                }
 
 
 
@@ -365,6 +373,23 @@ var SurveyByMonth_ChartsObject = {
 
             }
         });
+    },
+
+    GetSearchUrl: function (SearchFilter) {        
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+
+        oUrl += '&SearchFilter=,111011;' + SearchFilter
+
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
     }
 };
 
