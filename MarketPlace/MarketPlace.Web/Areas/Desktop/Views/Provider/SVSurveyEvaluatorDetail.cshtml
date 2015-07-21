@@ -61,7 +61,7 @@
         <label class="POMPSectionTitles">Detalle de evaluación de desempeño del usuario @Model.RelatedSurvey.SurveyEvaluator</label>
         <div class="POBOEvaluationGoBackWrapper">
 
-            @if (Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() == MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+            @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
             {
                 <a href="@(Url.Action(
                                 MVC.Provider.ActionNames.SVSurveyDetail,
