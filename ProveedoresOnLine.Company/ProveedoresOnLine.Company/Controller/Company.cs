@@ -396,9 +396,9 @@ namespace ProveedoresOnLine.Company.Controller
                     strFile = strFile.Replace("{providerName}", oReportToBuild[12].ToString());
                     strFile = strFile.Replace("{providerTipoId}", oReportToBuild[13].ToString());
                     strFile = strFile.Replace("{providerId}", oReportToBuild[14].ToString());
-                    strFile = strFile.Replace("{dateStart}",  Convert.ToDateTime(oReportToBuild[2]).ToString("dd/mm/yyyy"));
-                    strFile = strFile.Replace("{dateEnd}", Convert.ToDateTime(oReportToBuild[3]).ToString("dd/mm/yyyy"));
-                    strFile = strFile.Replace("{reportDate}", Convert.ToDateTime(oReportToBuild[5]).ToString("dd/mm/yyyy"));
+                    strFile = strFile.Replace("{dateStart}",  Convert.ToDateTime(oReportToBuild[2]).ToString("dd/MM/yyyy"));
+                    strFile = strFile.Replace("{dateEnd}", Convert.ToDateTime(oReportToBuild[3]).ToString("dd/MM/yyyy"));
+                    strFile = strFile.Replace("{reportDate}", Convert.ToDateTime(oReportToBuild[5]).ToString("dd/MM/yyyy"));
                     strFile = strFile.Replace("{average}", oReportToBuild[4].ToString());
                     strFile = strFile.Replace("{remarks}", oReportToBuild[0].ToString());
                     strFile = strFile.Replace("{actionPlan}", oReportToBuild[1].ToString());
