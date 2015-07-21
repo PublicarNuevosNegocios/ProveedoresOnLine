@@ -70,14 +70,14 @@
                             </a>
                         </div>
                         <div class="col-xs-12">
-                            <div class="col-xs-4" style="margin-top:0;">
+                            <div class="col-xs-4">
                                 <label>Calificación:</label>
                                 <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                                 <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                             </div>
-                            <div class="col-xs-8" style="margin-top:0;">
+                            <div class="col-xs-8">
                                 <div class="col-xs-12">
-                                    <div class="selProgressBar" style="width:85%; margin-bottom:4px; margin-left:30px;" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                                    <div class="selProgressBar" id="POMPbar2" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
                                     <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                                 </div>
                             </div>
@@ -138,8 +138,8 @@
                     <div class="col-xs-12">
                         <div class="row">
                             @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
-                            { <div class="col-xs-3 pull-right">
-                                <a style="color:#337ab7 !important;" href="@(Url.Action(
+                            { <div class="col-xs-4 pull-right POMPbackeval" id="POMPacolor">
+                                <a href="@(Url.Action(
                                 MVC.Provider.ActionNames.SVSurveyDetail,
                                 MVC.Provider.Name,
                                  new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, SurveyPublicId = Model.RelatedSurvey.RelatedSurvey.ParentSurveyPublicId }))">
@@ -149,8 +149,8 @@
                             }
 
                             else
-                            { <div class="col-xs-3 pull-right">
-                                <a style="color:#337ab7 !important;" href="@(Url.Action(
+                            { <div class="col-xs-4 pull-right" id="POMPacolor">
+                                <a href="@(Url.Action(
                         MVC.Provider.ActionNames.SVSurveySearch,
                         MVC.Provider.Name,
                         new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }))">
