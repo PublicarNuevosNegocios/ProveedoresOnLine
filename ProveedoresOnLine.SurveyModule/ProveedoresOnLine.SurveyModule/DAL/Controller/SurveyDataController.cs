@@ -150,9 +150,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         {
             return DataFactory.GetSurveyByName(CustomerPublicId, ResponsableEmail);
         }
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, string ResponsableEmail)
         {
-            return DataFactory.GetSurveyByEvaluator(CustomerPublicId, Year);
+            return DataFactory.GetSurveyByEvaluator(CustomerPublicId, ResponsableEmail);
         }
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, string ResponsableEmail)
         {

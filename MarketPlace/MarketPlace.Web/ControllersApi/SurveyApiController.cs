@@ -335,7 +335,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<Tuple<string, string, string, int>> GetSurveyByEvaluators(string GetSurveyByEvaluators)
+        public List<Tuple<string, string, string, int, int>> GetSurveyByEvaluators(string GetSurveyByEvaluators)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -348,15 +348,23 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
 
-            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty);
+            }
+            else
+            {
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email);
+            }
+            
 
-            List<Tuple<string, string, string, int>> oReturn = new List<Tuple<string, string, string, int>>();
+            List<Tuple<string, string, string, int, int>> oReturn = new List<Tuple<string, string, string, int, int>>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(Tuple.Create(x.AxisY, x.ItemName, x.AxisX, x.Count));
+                    oReturn.Add(Tuple.Create(x.AxisY, x.ItemName, x.AxisX, x.Count, x.CountX));
                     return true;
                 });
             }
@@ -397,7 +405,7 @@ namespace MarketPlace.Web.ControllersApi
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(Tuple.Create(x.ItemName, x.Count, x.AxisX, x.ItemName));
+                    oReturn.Add(Tuple.Create(x.ItemName, x.Count, x.AxisX, x.ItemType));
                     return true;
                 });
             }

@@ -70,11 +70,11 @@
 
 
                         @{
-    for (int i = 0; i < Model.RelatedSurvey.SurveyEvaluatorList.Count; i++)
-    {
-        <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
+                            for (int i = 0; i < Model.RelatedSurvey.SurveyEvaluatorList.Count; i++)
+                            {
+                                <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
 
-    }
+                            }
                         }
                     </div>
                 </div>
@@ -112,15 +112,15 @@
         <div class="POMPResultsActions">
             <div class="col-xs-12">
                 @*@if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
-                    Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
-                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
-                {
+                        Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
+                        MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                    {
 
-                    <a class="POMPEvaluationListActions" href="@strUrlEdit"> TODO: Hacer el Editar
-                            Editar
-                        </a>
+                        <a class="POMPEvaluationListActions" href="@strUrlEdit"> TODO: Hacer el Editar
+                                Editar
+                            </a>
 
-                }*@
+                    }*@
                 @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                     Model.RelatedSurvey.SurveyEvaluatorList.Contains(MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email))
                 {
