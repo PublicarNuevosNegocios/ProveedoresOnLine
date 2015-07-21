@@ -111,16 +111,16 @@
         <!--evaluation actions-->
         <div class="POMPResultsActions">
             <div class="col-xs-12">
-                @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
+                @*@if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
                     Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
 
-                    @*<a class="POMPEvaluationListActions" href="@strUrlEdit"> TODO: Hacer el Editar
+                    <a class="POMPEvaluationListActions" href="@strUrlEdit"> TODO: Hacer el Editar
                             Editar
-                        </a>*@
+                        </a>
 
-                }
+                }*@
                 @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                     Model.RelatedSurvey.SurveyEvaluatorList.Contains(MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email))
                 {
@@ -140,8 +140,7 @@
 
 
                 <div class="col-xs-2 pull-right" style="margin-top:10px;">
-                    @if (Model.RelatedSurvey.SurveyEvaluator == Model.RelatedSurvey.SurveyResponsible &&
-                        Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() == MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                    @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
                     {
                         <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
                     }
@@ -157,7 +156,6 @@
                                                             User = Model.RelatedSurvey.SurveyEvaluator
                                                         }))">Ver detalle</a>
                     }
-
                 </div>
             </div>
         </div>
