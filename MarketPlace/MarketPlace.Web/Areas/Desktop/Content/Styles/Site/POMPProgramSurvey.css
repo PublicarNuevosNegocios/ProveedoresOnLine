@@ -94,7 +94,6 @@
     border-bottom: 1px dotted #5d5d5d;*/
     border-top: medium none;
     color: #5d5d5d !important;
-    display: block;
     font-size: 1.1em !important;
     line-height: 1em !important;
     margin: 8px 0px 6px 4px !important;
@@ -102,6 +101,8 @@
     min-height: 26px !important;
     padding: 5px 0 0 !important;
     width: 99% !important;
+   
+
 }
 
 .row {
@@ -141,13 +142,13 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 
 
 
-.container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .POMPEvaluator > .col-xs-12 {
+.container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .POMPEvaluator > .col-xs-12 {
     margin: 0 0 5px 0;
     border-bottom: 1px solid #E4E4E4;
     padding-bottom: 10px;
 }
 
-    .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12, .container-fluid > .POMPEvaluator > .col-xs-12 > .col-xs-12 {
+    .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12, .container-fluid > .col-xs-12 > .col-xs-8 > .col-xs-12, .container-fluid > .POMPEvaluator > .col-xs-12 > .col-xs-12 {
         margin-top: 10px;
     }
 
@@ -155,8 +156,11 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12 {
         height: 20px;
     }
+    .container-fluid > .col-xs-12 > .col-xs-8 > .col-xs-12 {
+        height: 20px;
+    }
 
- 
+
 
 .container-fluid > .col-xs-12 > .col-xs-12 > .POMPEvaluator > .col-xs-4 {
     margin: 0 0 5px 0;
@@ -164,6 +168,9 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     padding-bottom: 10px;
 }
 
+.EvaluationPeriod > span {
+    border:none;
+}
 
 .POMPResultsBasicInfo > ul {
     list-style-type: none;
