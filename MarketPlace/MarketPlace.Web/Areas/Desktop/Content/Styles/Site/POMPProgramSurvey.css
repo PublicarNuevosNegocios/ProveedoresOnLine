@@ -168,6 +168,10 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     padding-bottom: 10px;
 }
 
+/*.container-fluid > .col-xs-12 > .row > .col-xs-4 pull-right > a{
+    color:red !important;
+}*/
+
 .EvaluationPeriod > span {
     border:none;
 }
