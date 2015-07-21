@@ -98,7 +98,7 @@
                             </div>
                             <div class="col-xs-8" style="margin-top:0;">
                                 <div class="col-xs-12">
-                                    <div id="loading" class="selProgressBar" style="width:85%; margin-bottom:4px; margin-left:30px; data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                                    <div class="selProgressBar" style="width:85%; margin-bottom:4px; margin-left:30px;" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
                                     <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             //show generic progress bar
-            Survey_SaveObject.ProgressBar_Generic_Show();
+            ProgressBar_Generic_Show();
         });
     </script>
 }
