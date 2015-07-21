@@ -358,7 +358,7 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.Weight
                                     },
-                                    Value = oDataToUpsert.SurveyConfigItemInfoWeight.Replace(" ","").Replace(".",","),
+                                    Value = oDataToUpsert.SurveyConfigItemInfoWeight.Replace(" ",""),
                                     Enable = true,
                                 },
                                 new GenericItemInfoModel()
@@ -460,7 +460,7 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight
                                     },
-                                    Value =  oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ","").Replace(".",","),
+                                    Value =  oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ",""),
                                     Enable = true,
                                 },
                             },
