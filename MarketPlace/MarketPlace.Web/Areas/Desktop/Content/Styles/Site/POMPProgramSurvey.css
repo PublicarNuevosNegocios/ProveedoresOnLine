@@ -101,8 +101,6 @@
     min-height: 26px !important;
     padding: 5px 0 0 !important;
     width: 99% !important;
-   
-
 }
 
 .row {
@@ -156,6 +154,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12 {
         height: 20px;
     }
+
     .container-fluid > .col-xs-12 > .col-xs-8 > .col-xs-12 {
         height: 20px;
     }
@@ -168,12 +167,52 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     padding-bottom: 10px;
 }
 
-/*.container-fluid > .col-xs-12 > .row > .col-xs-4 pull-right > a{
-    color:red !important;
-}*/
+
+
+.POMPbackeval{
+    text-align:right !important;
+    margin-top:10px;
+    font-size:13px;
+}
+
+#POMPevalmails{
+    text-decoration:underline; font-size:12px;  height:40px; line-height:40px;
+}
+#POMPbar1 {
+    width: 100%;
+    margin-bottom: 4px;
+    margin-left: 30px;
+}
+
+#POMPbar2 {
+    width: 81%;
+    margin-bottom: 4px;
+    margin-left: 30px;
+}
+
+#POMPbar3 {
+    width: 89%;
+    margin-bottom: 4px;
+}
+
+#POMPbar4 {
+    width: 73%;
+    margin-bottom: 4px;
+}
+#POMPviewdetail, #POMPanswereval{
+    margin-top:10px;
+}
+
+#POMPacolor a{
+   color:#337ab7 !important;
+}
+
+.container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-4, .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
+    margin-top: 0 !important;
+}
 
 .EvaluationPeriod > span {
-    border:none;
+    border: none;
 }
 
 .POMPResultsBasicInfo > ul {
