@@ -388,53 +388,28 @@ namespace ProveedoresOnLine.Company.Controller
         #region Survey
         public static MemoryStream MP_SVBuildGeneralReport(List<string> oReportToBuild)
         {
-            MemoryStream workStream = new MemoryStream();
-            
+            MemoryStream workStream = new MemoryStream();         
             if (oReportToBuild != null)
             {
-                #region Data To Report
-                    //Current Company Data report
-                    string currentCompanyObservaciones = oReportToBuild[0].ToString();
-                    string currentCompanyPlanAccion = oReportToBuild[1].ToString();
-                    string currentCompanyFechaInicio = oReportToBuild[2].ToString().Remove(10,14);
-                    string currentCompanyFechaFin = oReportToBuild[3].ToString().Remove(10, 14);
-                    string currentCompanyPromedio = oReportToBuild[4].ToString();
-                    string currentCompanyFechaCreacion = oReportToBuild[5].ToString().Remove(10, 14);
-                    string currentCompanyResponsable = oReportToBuild[6].ToString();
-                    //Current Company Data Info
-                    string currentCompanyName = oReportToBuild[7].ToString();
-                    string currentCompanyIdentificationNumber = oReportToBuild[8].ToString();
-                    string currentCompanyIdentificationType = oReportToBuild[9].ToString();
-                    string currentCompanyLogo = oReportToBuild[10].ToString();
-                    //Provider Data
-                    string providerLogo = oReportToBuild[11].ToString();
-                    string providerName = oReportToBuild[12].ToString();
-                    string providerIdType = oReportToBuild[13].ToString();    
-                    string providerIdentificationNumber = oReportToBuild[14].ToString();
-                #endregion
                 #region read xml
                     string strFile = ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_SurveyGeneralReport].Value;
-                    strFile = strFile.Replace("{providerName}", providerName);
-                    strFile = strFile.Replace("{providerTipoId}", providerIdType);
-                    strFile = strFile.Replace("{providerId}", providerIdentificationNumber);
-                    strFile = strFile.Replace("{dateStart}", currentCompanyFechaInicio);
-                    strFile = strFile.Replace("{dateEnd}", currentCompanyFechaFin);
-                    strFile = strFile.Replace("{reportDate}", currentCompanyFechaCreacion);
-                    strFile = strFile.Replace("{average}", currentCompanyPromedio);
-                    strFile = strFile.Replace("{remarks}", currentCompanyObservaciones);
-                    strFile = strFile.Replace("{actionPlan}", currentCompanyPlanAccion);
-                    strFile = strFile.Replace("{author}", currentCompanyResponsable);
-
+                    strFile = strFile.Replace("{providerName}", oReportToBuild[12].ToString());
+                    strFile = strFile.Replace("{providerTipoId}", oReportToBuild[13].ToString());
+                    strFile = strFile.Replace("{providerId}", oReportToBuild[14].ToString());
+                    strFile = strFile.Replace("{dateStart}",  Convert.ToDateTime(oReportToBuild[2]).ToString("dd/mm/yyyy"));
+                    strFile = strFile.Replace("{dateEnd}", Convert.ToDateTime(oReportToBuild[3]).ToString("dd/mm/yyyy"));
+                    strFile = strFile.Replace("{reportDate}", Convert.ToDateTime(oReportToBuild[5]).ToString("dd/mm/yyyy"));
+                    strFile = strFile.Replace("{average}", oReportToBuild[4].ToString());
+                    strFile = strFile.Replace("{remarks}", oReportToBuild[0].ToString());
+                    strFile = strFile.Replace("{actionPlan}", oReportToBuild[1].ToString());
+                    strFile = strFile.Replace("{author}", oReportToBuild[6].ToString());
                     string[] split = strFile.Split(new Char[] {'*'});
-
-
-
                 #endregion
                 #region Create PDF, send PDF to MemoryStream.
                 Document document = new Document();
                 PdfWriter.GetInstance(document, workStream).CloseStream = false;
-                iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(currentCompanyLogo);
-                    jpg.ScaleToFit(150f, 150f);
+                iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(oReportToBuild[10].ToString());
+                    jpg.ScaleToFit(130f, 130f);
                     jpg.SpacingBefore = 0f;
                     jpg.SpacingAfter = 0f;
                     jpg.Alignment = Element.ALIGN_LEFT;
@@ -443,7 +418,6 @@ namespace ProveedoresOnLine.Company.Controller
                     document.Add(jpg);
                     //document.Add(new Paragraph(currentCompanyIdentificationNumber));
                     document.Add(new Paragraph("\n\n"));
-
                     foreach (string providerInfoStr in split)
                     {
                         if (providerInfoStr.Trim().Length > 0) {
@@ -451,14 +425,12 @@ namespace ProveedoresOnLine.Company.Controller
                             document.Add(new Paragraph("\n"));
                         }
                     }
-
                     document.Close();
                     byte[] byteInfo = workStream.ToArray();
                     workStream.Write(byteInfo, 0, byteInfo.Length);
                     workStream.Position = 0;
                 #endregion
-
-            }//if
+            }
             return workStream;
         }
         #endregion Survey
