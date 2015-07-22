@@ -12,6 +12,8 @@ namespace MarketPlace.Models.General
 
         public static bool UserIsLoggedIn { get { return (CurrentLoginUser != null); } }
 
+        public static string CurrentURL { get; set; }
+
         public static SessionManager.Models.POLMarketPlace.MarketPlaceUser CurrentCompanyLoginUser
         {
             get
