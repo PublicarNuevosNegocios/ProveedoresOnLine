@@ -1,0 +1,55 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+
+.POMPErrorContainer{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 400px;
+	margin: 0 auto;
+}
+
+
+.POMPErrorMessage{
+	display: flex;
+	width: 300px;
+	height: 250px;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+#POMPImageError, #POMPTextError, #POMPLinkHome{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+
+#POMPImageError > img{
+	width: 60%;
+}
+
+#POMPTextError{
+	font-size: 1.2em;
+	font-weight: 800;
+	text-align: center;
+	color: #949494;
+}
+
+#POMPLinkHome{
+	width: 120px;
+	height: 30px;
+	background: #ff8201;
+
+}
+
+#POMPLinkHome > a{
+    color: #fff;
+	font-size: 1em;
+}

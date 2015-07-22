@@ -470,6 +470,7 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPErrorPage.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPGraphics.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPEvaluationProgram.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSurvey.css" />

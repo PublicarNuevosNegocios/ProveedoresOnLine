@@ -2,6 +2,11 @@
     ViewBag.Title = "Error";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
-
-<h2>Hoooola Andrés</h2>
-
+<div class="POMPErrorContainer">
+    <div class="POMPErrorMessage">
+        <div id="POMPImageError"><img src="https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/brokenlink.png" alt=""></div>
+        <div id="POMPTextError">La página no se encuentra disponible.</div>
+        <div id="POMPLinkHome"><a href="@(Url.Action(
+                                            MVC.Provider.ActionNames.Index,
+                                            MVC.Provider.Name))">IR A INICIO</a></div>
+    </div>
