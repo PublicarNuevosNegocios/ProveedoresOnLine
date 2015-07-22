@@ -209,6 +209,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Desktop\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Desktop\Controllers\StatsController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -245,6 +247,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Desktop.CustomerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.ErrorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Desktop.HomeController.generated.cs">
@@ -263,6 +268,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Desktop.SurveyController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -1085,6 +1093,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_CH_ProjectByMonth.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyProgram.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByName.cshtml" />
+    <Content Include="Areas\Desktop\Views\Error\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

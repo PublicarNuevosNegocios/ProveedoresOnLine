@@ -30,6 +30,7 @@ public static partial class MVC
     public static MarketPlace.Web.Controllers.BaseController Base = new MarketPlace.Web.Controllers.T4MVC_BaseController();
     public static MarketPlace.Web.Controllers.CompareController Compare = new MarketPlace.Web.Controllers.T4MVC_CompareController();
     public static MarketPlace.Web.Controllers.CustomerController Customer = new MarketPlace.Web.Controllers.T4MVC_CustomerController();
+    public static MarketPlace.Web.Controllers.ErrorController Error = new MarketPlace.Web.Controllers.T4MVC_ErrorController();
     public static MarketPlace.Web.Controllers.HomeController Home = new MarketPlace.Web.Controllers.T4MVC_HomeController();
     public static MarketPlace.Web.Controllers.ProjectController Project = new MarketPlace.Web.Controllers.T4MVC_ProjectController();
     public static MarketPlace.Web.Controllers.ProviderController Provider = new MarketPlace.Web.Controllers.T4MVC_ProviderController();
@@ -45,6 +46,7 @@ namespace T4MVC
         public readonly string Name = "Desktop";
         public MarketPlace.Web.Areas.Desktop.Controllers.CompareController Compare = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_CompareController();
         public MarketPlace.Web.Areas.Desktop.Controllers.CustomerController Customer = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_CustomerController();
+        public MarketPlace.Web.Areas.Desktop.Controllers.ErrorController Error = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ErrorController();
         public MarketPlace.Web.Areas.Desktop.Controllers.HomeController Home = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_HomeController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ProjectController Project = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProjectController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ProviderController Provider = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProviderController();
