@@ -189,7 +189,7 @@
             &lt;![CDATA[us-east-1]]&gt;
           </key>
           <key name="Subject">
-            &lt;![CDATA[Proveedores OnLine - Evaluación de desempeño]]&gt;
+            &lt;![CDATA[Proveedores OnLine - Recordatorio Evaluación de desempeño]]&gt;
           </key>
           <key name="From">
             &lt;![CDATA[Proveedores OnLine<proveedoresonline@publicar.com>]]&gt;
@@ -223,15 +223,12 @@
 						            <span style="font-size:0.9em; color:#404040; line-height:25px;">
 						             {ProviderName}
 						            <br />
-						            {ProviderIdentificationTypeName}
+						            {ProviderIdentificationTypeName} - {ProviderIdentificationNumber}
+						            <br />						            
 						            <br />
-						            {ProviderIdentificationNumber}
-						            <br />
-						            <a style="color: #0066ae;padding:6px 0 8px 0px;" href="{ProviderLink}">{ProviderLink}</a>
-						            <br><br>
 						            </span>	
 						            <span style="font-size:0.9em; color:#404040;">
-						            Le quedan 5 días para responder la evaluación, por favor ingrese en el siguiente enlace: <a target="_blank" title="{SurveyLink}" href="{SurveyLink}" style="display:block;margin:6px 0 5px 0;color:#0066ae;display:block;font-size:1em;letter-spacing:-0.8px;font-weight:bold;">{SurveyLink}</a>                     
+						            Le quedan 5 días para responder la evaluación <strong>"{SurveyName}"</strong>, por favor ingrese en el siguiente enlace: <a target="_blank" title="{SurveyLink}" href="{SurveyLink}" style="display:block;margin:6px 0 5px 0;color:#0066ae;display:block;font-size:1em;letter-spacing:-0.8px;font-weight:bold;">{SurveyLink}</a>                     
 						            </span>
 					            </td>
 				            </tr>
