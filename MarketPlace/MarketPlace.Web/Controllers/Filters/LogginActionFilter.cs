@@ -21,6 +21,7 @@ namespace MarketPlace.Web.Controllers.Filters
                         action = MVC.Home.ActionNames.Index
                     });
 
+                MarketPlace.Models.General.SessionModel.CurrentURL = HttpContext.Current.Request.Url.AbsoluteUri;
                 filterContext.HttpContext.Response.End();
             }
         }

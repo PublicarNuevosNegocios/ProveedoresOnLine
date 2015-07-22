@@ -14,7 +14,7 @@ namespace MarketPlace.Web.Controllers
             if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn)
             {
                 //get user company info
-                
+
                 List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany =
                     ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
 
@@ -23,6 +23,8 @@ namespace MarketPlace.Web.Controllers
                 //validate user authorized
                 if (MarketPlace.Models.General.SessionModel.IsUserAuthorized())
                 {
+
+
                     if (MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.Provider)
                     {
                         //redirect to provider home
@@ -36,14 +38,50 @@ namespace MarketPlace.Web.Controllers
                     }
                     else
                     {
+                        if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                        {
+                            string URL = MarketPlace.Models.General.SessionModel.CurrentURL;
+                            string[] split = URL.Split(new Char[] { '/', '=' });
+
+                            foreach (string s in split)
+                            {
+                                if (s.Trim() == "Survey")
+                                {
+                                    string SurveyPublicId = split.Last();
+                                    MarketPlace.Models.General.SessionModel.CurrentURL = null;
+                                    return RedirectToRoute
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Survey.Name,
+                                        action = MVC.Survey.ActionNames.Index,
+                                        SurveyPublicId = SurveyPublicId
+                                    });
+                                }
+                                else if (s.Trim() == "Provider")
+                                {
+                                    MarketPlace.Models.General.SessionModel.CurrentURL = null;
+                                    return RedirectToRoute
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.Search
+                                    });
+                                }
+
+                            }
+                        }
+
                         //redirect to customer home
                         return RedirectToRoute
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Customer.Name,
-                                action = MVC.Customer.ActionNames.Index
-                            });
+                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Customer.Name,
+                            action = MVC.Customer.ActionNames.Index
+                        });
+
                     }
                 }
                 else
