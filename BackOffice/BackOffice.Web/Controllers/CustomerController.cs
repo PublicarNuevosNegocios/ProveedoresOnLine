@@ -138,6 +138,21 @@ namespace BackOffice.Web.Controllers
                 }
                 return true;
             });
+
+            if (Request["OtherProvidersId"] != null)
+            {
+                oReturn.CompanyInfo.Add(new GenericItemInfoModel()
+                {
+                    ItemInfoId = !string.IsNullOrEmpty(Request["OtherProvidersId"]) ? Convert.ToInt32(Request["OtherProvidersId"]) : 0,
+                    ItemInfoType = new CatalogModel()
+                    {
+                        ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.OtherProviders,
+                    },
+                    Value = Request["OtherProviders"] == "on" ? "1" : "0",
+                    Enable = true,
+                });
+            }
+
             return oReturn;
         }
 

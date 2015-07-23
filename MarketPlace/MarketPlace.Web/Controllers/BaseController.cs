@@ -136,7 +136,7 @@ namespace MarketPlace.Web.Controllers
                     //Estadisticas
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Estadisticas",
+                        Name = "Estadísticas",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -154,7 +154,7 @@ namespace MarketPlace.Web.Controllers
                     //Evaluaciones
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Estadisticas",
+                        Name = "Estadísticas",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -172,7 +172,7 @@ namespace MarketPlace.Web.Controllers
                     //Project Stats
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Estadisticas",
+                        Name = "Estadísticas",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,

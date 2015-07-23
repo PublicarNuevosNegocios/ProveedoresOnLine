@@ -140,6 +140,7 @@
         ComercialName = 203007,
         Alert = 203008,
         ListId = 203009,
+        OtherProviders = 203010,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,

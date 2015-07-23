@@ -1374,7 +1374,7 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemInfoRol: { editable: true, validation: { required: true } },
                             SurveyConfigItemInfoRolId: { editable: false },
 
-                            SurveyConfigItemInfoRolWeight: { editable: true, validation: { required: true } },
+                            SurveyConfigItemInfoRolWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
                             SurveyConfigItemInfoRolWeightId: { editable: false },
                         }
                     }

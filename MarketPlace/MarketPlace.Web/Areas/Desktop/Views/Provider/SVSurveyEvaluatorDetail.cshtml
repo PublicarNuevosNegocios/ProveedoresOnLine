@@ -167,13 +167,13 @@
             <div class="POMPResultsActions">
 
                 @*@if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
-                            Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
-                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
-                {
-                    <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
-                        Editar
-                    </a>
-                }*@
+                                Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
+                                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                    {
+                        <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                            Editar
+                        </a>
+                    }*@
                 @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                             Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
@@ -209,6 +209,13 @@
 
                         <!--título aréa-->
                         <h1>@EvaluationArea.Order. @EvaluationArea.Name  / Calificación: (@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))) - Peso: @EvaluationArea.Weight %</h1>
+                        @if (EvaluationArea.AreaHasDescription)
+                        {
+                            <div class="POMPAreaObservation">
+                                <p>Participantes:</p>
+                                <p class="POMPDescriptionArea">@EvaluationAreaInfo.AreaDescriptionText.Trim()</p>
+                            </div>
+                        }
 
                         <!--contenedor detalle preguntas-->
                         <div class="POMPAreaDetail">
@@ -220,12 +227,37 @@
                                 var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
                                     (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
 
-                                <div class="POMPAreaQuestion">
-                                    @if (Question.IsMandatory)
-                                    {
-                                        <p><span class="PMMPMandatory">*</span> @Question.Order. @Question.Name</p>
-                                    }
-                                </div>
+
+                                if (Question.QuestionType == "118002")
+                                {
+                                    <ul id="Survey_FileUpload_FileList">
+                                        @if (Model.RelatedSurvey.SurveyFile != null && Model.RelatedSurvey.SurveyFile.Count > 0)
+                                        {
+                                            foreach (var oFile in Model.RelatedSurvey.SurveyFile)
+                                            {
+
+                                                @*<a href="javascript:Survey_File.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>*@
+                                                <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
+                                                
+                                                <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
+
+                                            }
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <span> @Question.Order. @Question.Name</span>
+                                }
+
+
+
+                                @*<div class="POMPAreaQuestion">
+                                        @if (Question.IsMandatory)
+                                        {
+                                            <p><span class="PMMPMandatory">*</span> @Question.Order. @Question.Name</p>
+                                        }
+                                    </div>*@
 
                                 <div class="POMPAreaAnswer">
                                     @foreach (var Answer in lstAnswer)
