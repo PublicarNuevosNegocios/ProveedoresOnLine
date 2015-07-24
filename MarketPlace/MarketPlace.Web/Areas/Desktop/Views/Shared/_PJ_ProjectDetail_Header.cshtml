@@ -200,7 +200,7 @@
                             @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
                             {
                                 <li>
-                                    <label>Valor estimado de la compra:</label>
+                                    <label>Valor estimado de la compra/contratación:</label>
                                     <input class="POMPProjectBidCurrencyValue" type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
                                     @if (Model.RelatedProjectConfig.ProjectConfigExperience.CurrencyEnable)
                                     {
