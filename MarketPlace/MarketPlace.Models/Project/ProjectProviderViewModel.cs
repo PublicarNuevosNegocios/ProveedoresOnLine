@@ -111,7 +111,8 @@ namespace MarketPlace.Models.Project
         public decimal GetRatting(int vEvaluationItemId)
         {
             return RelatedProjectProvider.ItemInfo.
-                Where(pjpvinf => pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
                                 pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Ratting &&
                                 !string.IsNullOrEmpty(pjpvinf.Value)).
                 Select(pjpvinf => Convert.ToDecimal(pjpvinf.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).

@@ -56,9 +56,9 @@ namespace MarketPlace.Web.Controllers
                 int oTotalRowsAux;
                 List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,true,
                     oModel.SearchParam,
-                    oModel.SearchFilter,
+                    oModel.SearchFilter, 
                     (int)oModel.SearchOrderType,
                     oModel.OrderOrientation,
                     oModel.PageNumber,
