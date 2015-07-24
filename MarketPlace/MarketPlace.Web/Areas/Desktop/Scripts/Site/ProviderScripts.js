@@ -450,7 +450,6 @@ var Provider_SearchObject = {
 
     AddProjectProvider: function (vProviderPublicId) {
         if (Provider_SearchObject.ProjectPublicId != null && Provider_SearchObject.ProjectPublicId.length > 0) {
-            debugger;
             //add company to existing compare process
             $.ajax({
                 url: BaseUrl.ApiUrl + '/ProjectApi?ProjectAddCompany=true&ProjectPublicId=' + Provider_SearchObject.ProjectPublicId + '&ProviderPublicId=' + vProviderPublicId,
