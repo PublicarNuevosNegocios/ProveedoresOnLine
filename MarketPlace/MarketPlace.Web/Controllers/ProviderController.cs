@@ -58,7 +58,7 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
-                    oModel.SearchFilter,
+                    oModel.SearchFilter, 
                     (int)oModel.SearchOrderType,
                     oModel.OrderOrientation,
                     oModel.PageNumber,

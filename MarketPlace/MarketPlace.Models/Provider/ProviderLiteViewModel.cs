@@ -60,7 +60,8 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return RelatedProvider != null &&
+
+                string pic = RelatedProvider != null &&
                         RelatedProvider.RelatedCompany != null ?
                             RelatedProvider.
                             RelatedCompany.
@@ -70,6 +71,16 @@ namespace MarketPlace.Models.Provider
                             DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value).
                             FirstOrDefault() :
                             MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value;
+
+                if (!string.IsNullOrEmpty(pic))
+                {                    
+                    return pic;
+                }
+                else
+                {
+                    return MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value;
+                }
+               
             }
         }
 
