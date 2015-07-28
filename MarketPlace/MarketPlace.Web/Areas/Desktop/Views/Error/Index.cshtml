@@ -2,11 +2,15 @@
     ViewBag.Title = "Error";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
+
+
 <div class="POMPErrorContainer">
     <div class="POMPErrorMessage">
-        <div id="POMPImageError"><img src="https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/brokenlink.png" alt=""></div>
+        <div id="POMPImageError">
+            <div id="POMPGear1"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Error_Gear1].Value" ></div>
+            <div id="POMPGear2"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Error_Gear2].Value" ></div>
+            <div id="POMPGear3"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Error_Gear3].Value"></div>            
+        </div>
         <div id="POMPTextError">La página no se encuentra disponible.</div>
-        <div id="POMPLinkHome"><a href="@(Url.Action(
-                                            MVC.Provider.ActionNames.Index,
-                                            MVC.Provider.Name))">IR A INICIO</a></div>
     </div>
+</div>
