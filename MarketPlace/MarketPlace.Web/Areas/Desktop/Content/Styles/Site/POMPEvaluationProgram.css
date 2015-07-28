@@ -59,6 +59,10 @@
     width:100% !important;
 }
 
+#Survey_ProgramSurvey_ProjectName{
+    width:100% !important;
+}
+
 .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default{
     width: 85.5% !important;
 }

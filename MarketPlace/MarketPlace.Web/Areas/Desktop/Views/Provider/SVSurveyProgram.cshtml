@@ -27,6 +27,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <label>Obra ó proyecto:</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ProjectName" placeholder="Obra o proyecto" required validationmessage="Seleccione una obra o proyecto" value="@if (Model.RelatedProject != null) { @Model.RelatedProject.ProjectName.ToString();}" />
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-xs-4">
                                 <div class="col-xs-12">
@@ -121,7 +133,7 @@
                                     <label>Fecha Final:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd"   name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyEndDate.ToString();}" />
+                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyEndDate.ToString();}" />
                                 </div>
                             </div>
                         </div>
@@ -132,28 +144,31 @@
                                     <label>Observaciones:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">@if (Model.RelatedSurvey != null){@Model.RelatedSurvey.SurveyComments.ToString();}</textarea>
+                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">@if (Model.RelatedSurvey != null)
+                                    {@Model.RelatedSurvey.SurveyComments.ToString();
+                                    }</textarea>
                                 </div>
                             </div>
                         </div>
-                    @*Hidden Inputs*@
-                    <div style="display:none">
-                        <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
-                        <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
-                        <input type="hidden" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
+                        @*Hidden Inputs*@
+                        <div style="display:none">
+                            <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
+                            <input type="hidden" id="Survey_ProgramSurvey_ProjectPublicId" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@if (Model.RelatedProject != null) { @Model.RelatedProject.ProjectPublicId.ToString();}">
+                            <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
+                            <input type="hidden" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
 
-                        <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
-                        <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
-                        <input type="hidden" id="Survey_ProgramSurvey_Progress" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Progress).ToString())_" value="0" />
-                        <input type="hidden" id="Survey_ProgramSurvey_Rating" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Rating).ToString())_" value="0" />
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12" style="text-align:right;">
-                            <input type="submit" id="buttonSubmit" value="Guardar" class="POMPSaveButton" />
+                            <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
+                            <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
+                            <input type="hidden" id="Survey_ProgramSurvey_Progress" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Progress).ToString())_" value="0" />
+                            <input type="hidden" id="Survey_ProgramSurvey_Rating" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Rating).ToString())_" value="0" />
                         </div>
-                    </div>
-                </form>
+
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:right;">
+                                <input type="submit" id="buttonSubmit" value="Guardar" class="POMPSaveButton" />
+                            </div>
+                        </div>
+                    </form>
             </div>
         </div>
     </div>

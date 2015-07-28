@@ -60,6 +60,7 @@ namespace T4MVC.Desktop
                 public readonly string _P_LI_SARLAFTInfo = "_P_LI_SARLAFTInfo";
                 public readonly string _P_ProviderLite = "_P_ProviderLite";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
+                public readonly string _P_Search_Compare_Result = "_P_Search_Compare_Result";
                 public readonly string _P_Search_Comparison = "_P_Search_Comparison";
                 public readonly string _P_Search_Filter = "_P_Search_Filter";
                 public readonly string _P_Search_Order = "_P_Search_Order";
@@ -115,6 +116,7 @@ namespace T4MVC.Desktop
             public readonly string _P_LI_SARLAFTInfo = "~/Areas/Desktop/Views/Shared/_P_LI_SARLAFTInfo.cshtml";
             public readonly string _P_ProviderLite = "~/Areas/Desktop/Views/Shared/_P_ProviderLite.cshtml";
             public readonly string _P_ProviderMenu = "~/Areas/Desktop/Views/Shared/_P_ProviderMenu.cshtml";
+            public readonly string _P_Search_Compare_Result = "~/Areas/Desktop/Views/Shared/_P_Search_Compare_Result.cshtml";
             public readonly string _P_Search_Comparison = "~/Areas/Desktop/Views/Shared/_P_Search_Comparison.cshtml";
             public readonly string _P_Search_Filter = "~/Areas/Desktop/Views/Shared/_P_Search_Filter.cshtml";
             public readonly string _P_Search_Order = "~/Areas/Desktop/Views/Shared/_P_Search_Order.cshtml";
