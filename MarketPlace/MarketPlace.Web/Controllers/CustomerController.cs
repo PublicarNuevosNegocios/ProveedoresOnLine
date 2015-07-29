@@ -10,6 +10,10 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index()
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //temporaly redirect to provider search
             return RedirectToRoute
                 (MarketPlace.Models.General.Constants.C_Routes_Default,

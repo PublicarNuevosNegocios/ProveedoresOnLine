@@ -20,6 +20,9 @@ namespace MarketPlace.Web.Controllers
             )
         {
             MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic search model
             oModel = new Models.Provider.ProviderSearchViewModel()
@@ -56,6 +59,10 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult ProjectDetail(string ProjectPublicId)
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                 ProjectGetById
                 (ProjectPublicId,
@@ -88,6 +95,10 @@ namespace MarketPlace.Web.Controllers
             string ProviderPublicId,
             string EvaluationAreaId)
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                 ProjectGetByIdProviderDetail
                 (ProjectPublicId,

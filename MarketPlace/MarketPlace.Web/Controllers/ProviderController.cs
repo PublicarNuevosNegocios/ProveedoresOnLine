@@ -17,6 +17,10 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index()
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             ProviderViewModel oModel = new ProviderViewModel();
             return View(oModel);
         }
@@ -32,6 +36,10 @@ namespace MarketPlace.Web.Controllers
             string OrderOrientation,
             string PageNumber)
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
 
             if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
@@ -158,6 +166,9 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult GIProviderInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -315,7 +326,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult GIPersonContactInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
-
+            
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -360,7 +374,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             int oTotalRows;
-
+            
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -410,6 +427,9 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult GIDistributorInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -455,6 +475,9 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -493,6 +516,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult LIChaimberOfCommerceInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -555,6 +582,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -598,7 +629,9 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult LICIFINInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
-
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -642,6 +675,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult LISARLAFTInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -689,6 +726,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -735,6 +776,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult FIBalanceSheetInfo(string ProviderPublicId, string ViewName, string Year, string Currency)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -836,6 +881,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -882,6 +931,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -925,6 +978,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult FIBankInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -970,6 +1027,9 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1166,6 +1226,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1221,6 +1285,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1270,6 +1338,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1315,6 +1387,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult HIRiskPoliciesInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1403,6 +1479,10 @@ namespace MarketPlace.Web.Controllers
             string EndDate)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1542,6 +1622,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1576,6 +1660,10 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1609,6 +1697,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult SVSurveyReport(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1653,6 +1745,10 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult SVSurveyProgram(string ProviderPublicId, string SurveyPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById

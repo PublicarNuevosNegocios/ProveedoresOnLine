@@ -13,6 +13,9 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index()
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
             return View();
         }
 

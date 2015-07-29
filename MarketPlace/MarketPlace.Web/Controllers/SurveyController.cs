@@ -15,6 +15,10 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index(string SurveyPublicId, string StepId)
         {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                 (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
