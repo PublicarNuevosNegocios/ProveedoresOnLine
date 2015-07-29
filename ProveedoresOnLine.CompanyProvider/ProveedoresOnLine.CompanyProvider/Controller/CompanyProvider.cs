@@ -1084,12 +1084,17 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchNew(CustomerPublicId, OtherProviders, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
-        #endregion
-
         public static List<Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchFilter(CustomerPublicId, SearchParam, SearchFilter);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilterNew(string CustomerPublicId, string SearchParam, string SearchFilter, bool OtherProviders)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchFilterNew(CustomerPublicId, SearchParam, SearchFilter, OtherProviders);
+        }
+
+        #endregion
 
         public static List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
         {

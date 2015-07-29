@@ -948,9 +948,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
-
-        #endregion
-
+        
         public List<GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -993,6 +991,52 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilterNew(string CustomerPublicId, string SearchParam, string SearchFilter, bool OtherProviders)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+            lstParams.Add(DataInstance.CreateTypedParameter("vOtherProviders", OtherProviders == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Provider_SearchFilter_New",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericFilterModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sf in response.DataTableResult.AsEnumerable()
+                     where !sf.IsNull("FilterTypeId")
+                     select new GenericFilterModel()
+                     {
+                         FilterType = new GenericItemModel()
+                         {
+                             ItemId = (int)sf.Field<Int64>("FilterTypeId"),
+                             ItemName = sf.Field<string>("FilterTypeName"),
+                         },
+                         FilterValue = new GenericItemModel()
+                         {
+                             ItemId = Convert.ToInt32(sf.Field<string>("FilterValueId")),
+                             ItemName = sf.Field<string>("FilterValueName"),
+                         },
+                         Quantity = Convert.ToInt32(sf.Field<Int64>("Quantity")),
+                         CustomerPublicId = sf.Field<string>("CustomerPublicId"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
 
         public List<ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
         {

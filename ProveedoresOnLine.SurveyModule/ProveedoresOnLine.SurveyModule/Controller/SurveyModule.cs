@@ -273,6 +273,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     });
                 }
 
+                //Survey Index
+                SurveyIndex();
+
                 oLog.IsSuccess = true;
             }
             catch (Exception err)

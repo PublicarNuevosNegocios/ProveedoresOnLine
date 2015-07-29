@@ -59,9 +59,19 @@ namespace MarketPlace.Web.Controllers
                 };
 
                 #region Providers
-
                 //search providers
                 int oTotalRowsAux;
+                //List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
+                //    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
+                //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
+                //    oModel.SearchParam,
+                //    oModel.SearchFilter,
+                //    (int)oModel.SearchOrderType,
+                //    oModel.OrderOrientation,
+                //    oModel.PageNumber,
+                //    oModel.RowCount,
+                //    out oTotalRowsAux);
                 List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
@@ -79,6 +89,12 @@ namespace MarketPlace.Web.Controllers
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
                     oModel.SearchFilter);
+
+                //List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
+                //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                //    oModel.SearchParam,
+                //    oModel.SearchFilter,
+                //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
 
                 if (oFilterModel != null)
                 {

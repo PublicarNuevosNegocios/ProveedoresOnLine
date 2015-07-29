@@ -163,12 +163,17 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPProviderSearchNew(CustomerPublicId, OtherProviders, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
-        #endregion
-
         public List<Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
         {
             return DataFactory.MPProviderSearchFilter(CustomerPublicId, SearchParam, SearchFilter);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilterNew(string CustomerPublicId, string SearchParam, string SearchFilter, bool OtherProviders)
+        {
+            return DataFactory.MPProviderSearchFilterNew(CustomerPublicId, SearchParam, SearchFilter, OtherProviders);
+        }
+
+        #endregion
 
         public List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
         {
