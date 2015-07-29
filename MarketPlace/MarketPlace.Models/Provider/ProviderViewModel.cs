@@ -10,6 +10,8 @@ namespace MarketPlace.Models.Provider
     {
         public bool RenderScripts { get; set; }
 
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; set; }
+
         public ProviderLiteViewModel RelatedLiteProvider { get; set; }
 
         public List<MarketPlace.Models.General.GenericMenu> ProviderMenu { get; set; }

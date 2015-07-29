@@ -293,7 +293,7 @@ var Survey_Evaluation_ProgramObject = {
     },
 
     RenderEvaluation: function () {
-        //Autocomplete        
+        //Autocomplete  Evaluación      
         $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyName').kendoAutoComplete({
             minLength: 0,            
             dataTextField: 'm_Item2',
@@ -423,6 +423,43 @@ var Survey_Evaluation_ProgramObject = {
             
         });
         
+        //Autocomplete  Project      
+        $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_ProjectName').kendoAutoComplete({
+            minLength: 0,
+            dataTextField: 'm_Item2',
+            open: function (e) {
+                valid = false;
+            },
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_ProjectPublicId').val(selectedItem.m_Item1);
+                valid = true;
+            },
+            close: function (e) {
+                // if no valid selection - clear input
+                if (!valid) this.value('');
+            },
+            dataSource: {
+                type: 'json',
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProjectApi?MP_ProjectSearch=true&SearchParam=' + options.data.filter.filters[0].value,
+                            dataType: 'json',
+                            success: function (result) {
+
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
+        })
+
         //Init DatePickers
         $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_IssueDate').kendoDatePicker({
             format: Survey_Evaluation_ProgramObject.DateFormat,

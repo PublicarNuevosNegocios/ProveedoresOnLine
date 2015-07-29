@@ -500,6 +500,7 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string SurveyPublicId = "SurveyPublicId";
+            public readonly string ProjectPublicId = "ProjectPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -837,15 +838,16 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId);
+        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId, string ProjectPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId, string SurveyPublicId)
+        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId, string SurveyPublicId, string ProjectPublicId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
-            SVSurveyProgramOverride(callInfo, ProviderPublicId, SurveyPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
+            SVSurveyProgramOverride(callInfo, ProviderPublicId, SurveyPublicId, ProjectPublicId);
             return callInfo;
         }
 

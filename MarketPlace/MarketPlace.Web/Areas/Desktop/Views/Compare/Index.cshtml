@@ -1,4 +1,5 @@
-﻿@{
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+@{
     ViewBag.Title = "Proveedores OnLine - Comparación de proveedores";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
@@ -42,3 +43,60 @@
     </script>
 }
 
+
+
+@*<div class="POMPProviderSearchBox">
+        <!--SearchBox-->
+        <input class="POMPTextField" id="Project_txtSearchBox" type="text" value="@Model.SearchParam" onkeydown="if (event.keyCode == 13) javascript:Compare_SearchObject.Search2()" placeholder="Buscar por Nombre" />
+        <a class="POMPButtons POMPSearchButtons" href="javascript:Compare_SearchObject.Search2();">
+            Encontrar
+            <span class="POMPSearchButtonsLupita"></span>
+        </a>
+    </div>
+    <div class="POMProviderSearchGreatWrapper">
+        <div class="POMPProjectBidSearchList">
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Compare_Result , Model)
+        </div>
+    </div>
+    @{
+        Model.RenderScripts = true;
+    }
+
+    @section inlinescripts
+    {
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                Compare_SearchObject.Init({
+                    ObjectId: 'Compare',
+                    SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Compare.Name,
+                                    action = MVC.Compare.ActionNames.Index
+                                }))',
+
+                    CompareStatus:'',
+                    CompareId: '@(Model.RelatedProject != null ? Model.RelatedCompare.CompareId : string.Empty)',
+                    CompareUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                            new
+                                            {
+                                                controller = MVC.Compare.Name,
+                                                action = MVC.Compare.ActionNames.CompareDetail
+                                            }))',
+
+                    SearchParam: '@Model.SearchParam',
+                    SearchFilter: '@Model.SearchFilter',
+                    SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
+                    OrderOrientation: @Model.OrderOrientation.ToString().ToLower(),
+                    PageNumber: @Model.PageNumber,
+                    RowCount: @Model.RowCount,
+
+                });
+
+                Compare_SearchObject.RenderAsync2();
+            });
+        </script>
+    }*@
