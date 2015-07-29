@@ -56,16 +56,8 @@
                                     controller = MVC.Provider.Name,
                                     action = MVC.Provider.ActionNames.GIProviderInfo,
                                     ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
-                                }))">
-                @if (string.IsNullOrEmpty(@Model.Item2.ProviderLogoUrl))
-                {
-                    <img class="POMPSearchResultProvLogo" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value" />
-                }
-                else
-                {
+                                }))">                
                     <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
-                }
-                
             </a>
         }
         else

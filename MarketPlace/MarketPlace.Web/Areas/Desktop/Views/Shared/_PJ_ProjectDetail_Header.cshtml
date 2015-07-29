@@ -12,11 +12,19 @@
     <div class="POMPProjectBidGreatWrapper">
         <!-- ESTE ES EL HEADER -->
         <div>
-            <label>@Model.ProjectName - @Model.LastModify - @Model.RelatedProjectConfig.ProjectConfigName</label>
+            <label >PROCESO: @Model.ProjectName</label>
             <ul class="POMPProjectBidMainData">
                 <li>
                     <label>Responsable</label>
                     <span>@Model.ProjectResponsible</span>
+                </li>
+                <li>
+                    <label>Fecha</label>
+                    <span>@Model.LastModify</span>
+                </li>
+                <li>
+                    <label>Tipo</label>
+                    <span>@Model.RelatedProjectConfig.ProjectConfigName</span>
                 </li>
                 <li>
                     <label>Número de proceso interno</label>
@@ -119,7 +127,7 @@
                         }
                         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
                         {
-                            <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
+                            <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Agregar Criterios</a>
                         }
                     </li>
                 }
@@ -178,11 +186,11 @@
             </ul>
             @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
             {
-                <div id="ProjectDetail_EditProjectDialog" title="Editar proceso de selección">
+                <div id="ProjectDetail_EditProjectDialog" title="Criterios de selección">
                     <form id="ProjectDetail_EditProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")">
                         <ul class="POMPProjectBidEditDialog">
                             <li>
-                                <span>Nombre del proceso de selección</span>
+                                <span>Obra o Proyecto</span>
                                 <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre del proceso de selección es obligatorio" />
                             </li>
                             <li>
@@ -200,7 +208,7 @@
                             @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
                             {
                                 <li>
-                                    <label>Valor estimado de la compra:</label>
+                                    <label>Valor estimado de la compra/contratación:</label>
                                     <input class="POMPProjectBidCurrencyValue" type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
                                     @if (Model.RelatedProjectConfig.ProjectConfigExperience.CurrencyEnable)
                                     {
@@ -276,7 +284,7 @@
                                 string strDefaultSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectDefaultEconomicActivity);
 
                                 <li class="POMPProjectBidEditDialogActivity">
-                                    <label>Actividades Económicas:</label>
+                                    <label>Maestra de actividades:</label>
                                     <select id="ProjectDetail_EditProjectDialog_DefaultEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId"></select>
                                     <input type="hidden" id="ProjectDetail_EditProjectDialog_DefaultEconomicActivityValue" value="@strDefaultSerialize" />
                                 </li>

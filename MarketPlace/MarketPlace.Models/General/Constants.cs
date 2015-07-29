@@ -58,6 +58,14 @@
 
         #endregion
 
+        #region Error
+
+        public const string C_Settings_Error_Gear1 = "Company_Error_Gear1";
+        public const string C_Settings_Error_Gear2 = "Company_Error_Gear2";
+        public const string C_Settings_Error_Gear3 = "Company_Error_Gear3";        
+
+        #endregion
+
         #region Project
 
         public const string C_Settings_Project_Approval_MailAgent = "Project_Approval_MailAgent";

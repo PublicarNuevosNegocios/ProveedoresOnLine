@@ -43,6 +43,11 @@
     <key name="Project_ApproveArea_MailAgent">POL_ProjectApproveArea_Mail</key>
     <key name="Project_RejectArea_MailAgent">POL_ProjectRejectArea_Mail</key>
 
+  <!--Error Page Img-->
+    <key name="Company_Error_Gear1">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear1.png</key>
+    <key name="Company_Error_Gear2">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear2.png</key>
+    <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
+
   </MarketPlace>
 </Settings>
 

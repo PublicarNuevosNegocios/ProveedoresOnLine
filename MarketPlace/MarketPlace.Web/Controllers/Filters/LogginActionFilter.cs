@@ -23,10 +23,10 @@ namespace MarketPlace.Web.Controllers.Filters
 
                 MarketPlace.Models.General.SessionModel.CurrentURL = HttpContext.Current.Request.Url.AbsoluteUri;
                 filterContext.HttpContext.Response.End();
-            }
+            }            
         }
         public void OnActionExecuting(System.Web.Mvc.ActionExecutingContext filterContext)
-        {
+        {           
         }
     }
 }

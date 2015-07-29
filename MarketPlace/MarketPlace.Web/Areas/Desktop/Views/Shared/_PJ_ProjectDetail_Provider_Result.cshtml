@@ -196,7 +196,14 @@
                                 {
                                     <li>
                                         <!--actions-->
-                                        <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar evaluación de desempeño</a>
+                                        <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                new
+                                                {
+                                                    controller = MVC.Provider.Name,
+                                                    action = MVC.Provider.ActionNames.SVSurveyProgram,
+                                                    ProjectPublicId = Model.ProjectPublicId,
+                                                    ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                                }))">Programar evaluación de desempeño</a>                                       
                                     </li>
                                 }
                             </ul>

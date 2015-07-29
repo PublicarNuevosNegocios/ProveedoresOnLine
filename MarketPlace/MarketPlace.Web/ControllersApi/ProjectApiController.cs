@@ -15,6 +15,39 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public List<Tuple<string, string>> MP_ProjectSearch
+            (string MP_ProjectSearch,
+            string SearchParam)
+        {
+            List<Tuple<string, string>> oReturn = new List<Tuple<string, string>>();
+            int oTotalRows;
+            if (MP_ProjectSearch == "true")
+            {
+                List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> SearchResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearch(
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    SearchParam,
+                    null,
+                    0,
+                    20,
+                    out oTotalRows);
+
+                if (SearchResult != null && SearchResult.Count > 0)
+                
+                {                    
+                    foreach (var item in SearchResult)
+	                {
+                        oReturn.Add(Tuple.Create( item.ProjectPublicId, item.ProjectName));		 
+	                }                                        
+                }
+            }
+
+            return oReturn;
+        }
+
+
+
+        [HttpPost]
+        [HttpGet]
         public string ProjectUpsert
             (string ProjectUpsert)
         {

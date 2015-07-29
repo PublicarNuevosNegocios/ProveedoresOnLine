@@ -1095,6 +1095,7 @@
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyProgram.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByName.cshtml" />
     <Content Include="Areas\Desktop\Views\Error\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Compare_Result.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

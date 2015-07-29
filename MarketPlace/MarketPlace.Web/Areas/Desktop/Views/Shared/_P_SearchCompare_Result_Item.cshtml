@@ -1,0 +1,29 @@
+﻿@model MarketPlace.Models.Compare.CompareSearchViewModel
+
+<div class="POMPSearchResultLineOne">
+    <div class="POMPSearchResultProvDataWrapper SearchProject">
+        <label class="POMPProjectBidSearchProject">
+            <span><a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Compare.Name,
+                                action = MVC.Compare.ActionNames.CompareDetail,
+                                CompareId = Model.CompareId
+                            }))">@Model.CompareName</a></span>
+        </label>
+        <label class="POMPProjectBidSearchProject"><span>Fecha: @Model.LastModify</span></label>
+
+        <div class="POMPProjectBidSearchProjectDetail">
+            <a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetail,
+                                CompareId = Model.CompareId
+                            }))">Ver detalle</a>
+        </div>
+    </div>
+
+</div>

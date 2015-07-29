@@ -17,15 +17,8 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">
-            @if(string.IsNullOrEmpty(@Model.ProviderLogoUrl))
-            {
-                <img class="POMPComparisonResultProvLogo" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value" />
-            }
-            else
-            {
+         
                 <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
-            }
-
         </a>
 
         <div class="POMPComparisonResultNameIDWrapper">
@@ -118,7 +111,7 @@ else
     <!--Comparison item template-->
     <div class="POMPComparisonResultStatusCertified">
         <!--Check certificacion-->
-        <img style="display:{ProviderIsCertified};" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
+        <img style="display:{ProviderIsCertified}" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
 
@@ -128,7 +121,7 @@ else
                     {
                         controller = MVC.Provider.Name,
                         action = MVC.Provider.ActionNames.GIProviderInfo,
-                    }) + "?ProviderPublicId={ProviderPublicId}")">
+                    }) + "?ProviderPublicId={ProviderPublicId}")">            
             <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
         </a>
         <div class="POMPComparisonResultNameIDWrapper">
@@ -166,11 +159,6 @@ else
             }
         </div>
 
-        <!--Provider rate-->
-        <div class="POMPSearchResultProvRatingComparison">
-            <div class="{ProviderRateClass}" data-rateit-value="{ProviderRate}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>({ProviderRateCount})</span>
-        </div>
 
         <!--Actions for related provider -->
         <ul class="POMPComparisonResultLineTwo">

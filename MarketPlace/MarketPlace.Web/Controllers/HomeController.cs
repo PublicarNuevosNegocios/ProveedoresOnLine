@@ -36,11 +36,9 @@ namespace MarketPlace.Web.Controllers
                     }
                     else
                     {
-                        if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                        {
-                            return Redirect(MarketPlace.Models.General.SessionModel.CurrentURL);
-                        }
-
+                        if (MarketPlace.Models.General.SessionModel.CurrentURL != null)                        
+                            return Redirect(MarketPlace.Models.General.SessionModel.CurrentURL);                            
+                        
                         //redirect to customer home
                         return RedirectToRoute
                         (MarketPlace.Models.General.Constants.C_Routes_Default,

@@ -1,0 +1,33 @@
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+
+@*@if (!Model.RenderScripts)
+{
+    if (Model.RelatedSearchProject != null && Model.RelatedSearchCompare.Count > 0)
+    {
+        <div class="POMPSearchResultsPager">
+            <!--Pager-->
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
+        </div>
+        <div class="POMPSearchResultsOrder">
+      
+        </div>
+        <!--SearchResult-->
+        <ul class="POMPSearchResultsList">
+            @foreach (var oSearchItem in Model.RelatedSearchCompare)
+            {
+                <li>
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Compare_Result_Item, oSearchItem)
+                </li>
+            }
+        </ul>
+        <div class="POMPSearchResultsPager">
+            <!--Pager-->
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
+        </div>
+    }
+    else
+    {
+        <div>No se encontraron resultados</div>
+    }
+}*@
+

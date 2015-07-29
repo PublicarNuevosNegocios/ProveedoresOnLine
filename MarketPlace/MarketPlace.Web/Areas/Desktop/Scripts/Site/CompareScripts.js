@@ -8,17 +8,92 @@ function Compare_InitMenu(InitObject) {
 }
 
 var Compare_SearchObject = {
-
     ObjectId: '',
-    RowCount: 0,
+    SearchUrl: '',
+    CompareStatus: '',
+    CompareId: '',
     CompareUrl: '',
+    SearchParam: '',
+    SearchFilter: '',
+    SearchOrderType: '',
+    OrderOrientation: false,
+    PageNumber: 0,
+    RowCount: 0,    
 
     Init: function (vInitObject) {
 
         this.ObjectId = vInitObject.ObjectId;
-        this.RowCount = vInitObject.RowCount;
+        this.SearchUrl = vInitObject.SearchUrl;
+        this.CompareId = vInitObject.CompareId;
         this.CompareUrl = vInitObject.CompareUrl;
+        this.SearchParam = vInitObject.SearchParam;
+        this.SearchFilter = vInitObject.SearchFilter;
+        this.SearchOrderType = vInitObject.SearchOrderType;
+        this.OrderOrientation = vInitObject.OrderOrientation;
+        this.PageNumber = vInitObject.PageNumber;
+        this.RowCount = vInitObject.RowCount;
     },
+
+    RenderAsync2: function () {
+
+        //init Search input
+        $('#' + Compare_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
+            if (e.keyCode == 13) {
+                //enter action search
+                Compare_SearchObject.Search2();
+            }
+        });
+
+        //init search orient controls
+        $('input[name="Search_rbOrder"]').change(function () {
+            if ($(this) != null && $(this).attr('searchordertype') != null && $(this).attr('orderorientation') != null) {
+                Compare_SearchObject.Search2({
+                    SearchOrderType: $(this).attr('searchordertype'),
+                    OrderOrientation: $(this).attr('orderorientation')
+                });
+            }
+        });
+    },
+
+    Search2: function (vSearchObject) {
+
+        /*get serach param*/
+        if (this.SearchParam != $('#' + Compare_SearchObject.ObjectId + '_txtSearchBox').val()) {
+            /*Init pager*/
+            this.PageNumber = 0;
+        }
+        this.SearchParam = $('#' + Compare_SearchObject.ObjectId + '_txtSearchBox').val();
+
+        if (vSearchObject != null) {
+            /*get filter values*/
+            if (vSearchObject.SearchFilter != null) {
+                if (vSearchObject.SearchFilter.Enable == true) {
+                    this.SearchFilter += ',' + vSearchObject.SearchFilter.Value;
+                }
+                else {
+                    this.SearchFilter = this.SearchFilter.replace(new RegExp(vSearchObject.SearchFilter.Value, 'gi'), '').replace(/,,/gi, '');
+                }
+
+                /*Init pager*/
+                this.PageNumber = 0;
+            }
+
+            /*get order*/
+            if (vSearchObject.SearchOrderType != null) {
+                this.SearchOrderType = vSearchObject.SearchOrderType;
+            }
+            if (vSearchObject.OrderOrientation != null) {
+                this.OrderOrientation = vSearchObject.OrderOrientation;
+            }
+
+            /*get page*/
+            if (vSearchObject.PageNumber != null) {
+                this.PageNumber = vSearchObject.PageNumber;
+            }
+        }
+    },
+
+
 
     RenderAsync: function () {
 

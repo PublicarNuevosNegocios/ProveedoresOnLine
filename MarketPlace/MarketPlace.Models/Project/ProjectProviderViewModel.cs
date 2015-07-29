@@ -81,13 +81,21 @@ namespace MarketPlace.Models.Project
         {
             get
             {
-                return RelatedProjectProvider.ItemInfo.
+                if(RelatedProjectProvider.ItemInfo == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return RelatedProjectProvider.ItemInfo.
                     Where(pjpvinf => pjpvinf.RelatedEvaluationItem == null &&
                                     pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus &&
                                     !string.IsNullOrEmpty(pjpvinf.Value)).
                     Select(pjpvinf => (MarketPlace.Models.General.enumApprovalStatus?)Convert.ToInt32(pjpvinf.Value.Replace(" ", ""))).
                     DefaultIfEmpty(null).
                     FirstOrDefault();
+                }
+                
             }
         }
 
@@ -95,12 +103,19 @@ namespace MarketPlace.Models.Project
         {
             get
             {
-                return RelatedProjectProvider.ItemInfo.
+                if (RelatedProjectProvider.ItemInfo == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return RelatedProjectProvider.ItemInfo.
                     Where(pjpvinf => pjpvinf.RelatedEvaluationItem == null &&
                                     pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus).
                     Select(pjpvinf => pjpvinf.ItemInfoId).
                     DefaultIfEmpty(0).
                     FirstOrDefault();
+                }
             }
         }
 
