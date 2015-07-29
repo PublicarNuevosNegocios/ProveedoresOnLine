@@ -159,5 +159,14 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.GetSurveyByMonth(CustomerPublicId, ResponsableEmail);
         }
         #endregion        
+
+        #region Index
+
+        public void SurveyIndex()
+        {
+            DataFactory.SurveyIndex();
+        }
+
+        #endregion
     }
 }

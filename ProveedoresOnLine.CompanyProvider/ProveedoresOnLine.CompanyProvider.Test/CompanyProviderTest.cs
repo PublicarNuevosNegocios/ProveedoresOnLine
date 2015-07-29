@@ -366,6 +366,8 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
         #region MarketPlace
 
+        #region SearchProviders
+
         [TestMethod]
         public void MPProviderSearch()
         {
@@ -385,6 +387,29 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             Assert.AreEqual(true, oResult.Count > 0);
 
         }
+
+
+        [TestMethod]
+        public void MPProviderSearchNew()
+        {
+            int TotalRows;
+
+            List<Models.Provider.ProviderModel> oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
+                ("1EA5A78A",
+                false,
+                null,
+                null,
+                113002,
+                false,
+                0,
+                60000,
+                out TotalRows);
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
+
+        #endregion
 
         [TestMethod]
         public void MPProviderSearchFilter()

@@ -561,9 +561,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oParentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(oCurrentSurvey.ParentSurveyPublicId);
 
             decimal? oTotalRatting = EvaluationAreaResults.Sum(ear => ((ear.EvaluationAreaRatting * ear.EvaluationAreaWeight) / 100)
-                                                                * oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204014 
+                                                                * oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204014
                                                                 && Convert.ToInt32(x.Value.Split('_')[0]) == ear.EvaluationAreaId).
-                                                                Select(x => Convert.ToDecimal(x.Value.Split('_')[1])).FirstOrDefault() / 100);            
+                                                                Select(x => Convert.ToDecimal(x.Value.Split('_')[1])).FirstOrDefault() / 100);
             #endregion
 
             #region Upsert Survey Child calculate values
@@ -714,7 +714,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     Enable = true,
                 });
             }
-            #endregion            
+            #endregion
 
             decimal? ChildCurrentProgress = 0;
             decimal? ParentProgress = 0;
@@ -740,11 +740,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     {
                         decimal? CurrentChildRate = a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value)).DefaultIfEmpty(0).FirstOrDefault();
 
-                        TotalRate += CurrentChildRate; 
+                        TotalRate += CurrentChildRate;
                         return true;
                     });
                     ParentProgress = ParentProgress + TotalRate;
-                    #endregion                   
+                    #endregion
                 }
                 //add survey progress to upsert model
                 oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -785,8 +785,8 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
                 //upsert survey item
                 oSurveyToUpsert = SurveyItemUpsert(oParentSurveyToUpsert);
-            }          
-           
+            }
+
             #endregion
 
             #region Total provider ratting
@@ -929,6 +929,15 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         {
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByEvaluator(CustomerPublicId, ResponsableEmail);
         }
+        #endregion
+
+        #region Index
+
+        public static void SurveyIndex()
+        {
+            DAL.Controller.SurveyDataController.Instance.SurveyIndex();
+        }
+
         #endregion
     }
 }

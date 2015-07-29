@@ -71,7 +71,13 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         #region MarketPlace
 
+        #region SearchProviders
+
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
+
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearchNew(string CustomerPublicId, bool OtherProviders, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
+
+        #endregion
 
         List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter);
 

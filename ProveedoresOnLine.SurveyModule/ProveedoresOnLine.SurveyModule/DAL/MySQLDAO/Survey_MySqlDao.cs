@@ -1772,5 +1772,19 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
         #endregion        
+
+        #region Survey Index
+
+        public void SurveyIndex()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "MP_CP_SurveyIndex",
+                CommandType = System.Data.CommandType.StoredProcedure,
+            });
+        }
+
+        #endregion
     }
 }

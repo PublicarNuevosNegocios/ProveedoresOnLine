@@ -41,7 +41,7 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
         int SurveyItemInfoUpsert(int? SurveyItemInfoId, int SurveyItemId, int SurveyItemInfoType, string Value, string LargeValue, bool Enable);
 
         List<SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
-                
+
         SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId);
 
         SurveyModule.Models.SurveyModel SurveyGetByUser(string ParentSurveyPublicId, string User);
@@ -63,6 +63,12 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByName(string CustomerPublicId, string ResponsableEmail);
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, string ResponsableEmail);
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, string ResponsableEmail);
+
+        #endregion
+
+        #region Index
+
+        void SurveyIndex();
 
         #endregion
     }

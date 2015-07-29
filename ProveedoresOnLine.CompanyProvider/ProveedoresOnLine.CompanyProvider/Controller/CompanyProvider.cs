@@ -1072,10 +1072,19 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region MarketPlace
 
+        #region SearchProviders
+
         public static List<Models.Provider.ProviderModel> MPProviderSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearch(CustomerPublicId, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
+
+        public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearchNew(string CustomerPublicId, bool OtherProviders, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchNew(CustomerPublicId, OtherProviders, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
+        }
+
+        #endregion
 
         public static List<Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
         {
