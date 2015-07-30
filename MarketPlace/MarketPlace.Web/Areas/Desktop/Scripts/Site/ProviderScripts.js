@@ -419,7 +419,7 @@ var Provider_SearchObject = {
                 'Cancelar': function () {
                     $(this).dialog('close');
                 },
-                'Guardar e iniciar proceso de selección': function () {
+                'Guardar': function () {
                     //validate form
                     var validator = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').data("kendoValidator");
                     if (validator.validate()) {
@@ -433,9 +433,10 @@ var Provider_SearchObject = {
                             url: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').attr('action'),
                             data: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').serialize(),
                             success: function (result) {
+                                debugger;                               
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
                                 var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, result);
-                                Dialog_ShowMessage('Crear Proceso de Selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
+                                Dialog_CreatedPS('Crear Proceso de Selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
                             },
                             error: function (result) {
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");

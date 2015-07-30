@@ -28,6 +28,9 @@
                             </div>
                         </div>
 
+                        @{List<int> oCurrentUserModules = MarketPlace.Models.General.SessionModel.CurrentUserModules();}
+                        @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate))                      
+                        {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="col-xs-12">
@@ -38,6 +41,7 @@
                                 </div>
                             </div>
                         </div>
+                        }
 
                         <div class="row">
                             <div class="col-xs-4">
@@ -144,9 +148,11 @@
                                     <label>Observaciones:</label>
                                 </div>
                                 <div class="col-xs-12">
-                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">@if (Model.RelatedSurvey != null)
-                                    {@Model.RelatedSurvey.SurveyComments.ToString();
-                                    }</textarea>
+                                    <textarea class="POMPEvaluationInput" id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_">
+                                        @if (Model.RelatedSurvey != null)
+                                        {@Model.RelatedSurvey.SurveyComments.ToString();
+                                        }
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -169,6 +175,7 @@
                             </div>
                         </div>
                     </form>
+
             </div>
         </div>
     </div>
