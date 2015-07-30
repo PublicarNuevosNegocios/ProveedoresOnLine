@@ -186,6 +186,25 @@ namespace MarketPlace.Web.Controllers
                     oPosition++;
                 }
 
+                if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ThirdKnowledge))
+                {
+                    //Conocimiento de terceros
+                    oReturn.Add(new GenericMenu()
+                    {
+                        Name = "Conocimiento de terceros",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.ThirdKnowledge.Name,
+                                action = MVC.ThirdKnowledge.ActionNames.TKSingleSearch
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.ThirdKnowledge.ActionNames.TKSingleSearch),
+                    });
+                    oPosition++;
+                }
+
             }
 
             #endregion

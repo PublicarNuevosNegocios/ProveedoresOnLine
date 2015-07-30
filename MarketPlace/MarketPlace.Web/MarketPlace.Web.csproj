@@ -217,6 +217,7 @@
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProjectController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\ThirdKnowledgeController.cs" />
     <Compile Include="Areas\Desktop\Controllers\SurveyController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="ControllersApi\CompareApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ThirdKnowledgeController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
@@ -273,6 +275,9 @@
     <Compile Include="Desktop.SurveyController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Desktop.ThirdKnowledgeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="ErrorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -298,6 +303,9 @@
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdKnowledgeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -1099,6 +1107,9 @@
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByName.cshtml" />
     <Content Include="Areas\Desktop\Views\Error\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Compare_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\ThirdKnowledge\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKSingleSearch.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_TK_SingleSearch.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

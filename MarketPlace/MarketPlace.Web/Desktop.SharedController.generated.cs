@@ -91,6 +91,7 @@ namespace T4MVC.Desktop
                 public readonly string _SV_SurveyReport = "_SV_SurveyReport";
                 public readonly string _SV_SurveySearch_Result_Item = "_SV_SurveySearch_Result_Item";
                 public readonly string _SV_SurveySearch_Result_Pager = "_SV_SurveySearch_Result_Pager";
+                public readonly string _TK_SingleSearch = "_TK_SingleSearch";
             }
             public readonly string _CH_ProjectByMonth = "~/Areas/Desktop/Views/Shared/_CH_ProjectByMonth.cshtml";
             public readonly string _CH_ProjectByState = "~/Areas/Desktop/Views/Shared/_CH_ProjectByState.cshtml";
@@ -147,6 +148,7 @@ namespace T4MVC.Desktop
             public readonly string _SV_SurveyReport = "~/Areas/Desktop/Views/Shared/_SV_SurveyReport.cshtml";
             public readonly string _SV_SurveySearch_Result_Item = "~/Areas/Desktop/Views/Shared/_SV_SurveySearch_Result_Item.cshtml";
             public readonly string _SV_SurveySearch_Result_Pager = "~/Areas/Desktop/Views/Shared/_SV_SurveySearch_Result_Pager.cshtml";
+            public readonly string _TK_SingleSearch = "~/Areas/Desktop/Views/Shared/_TK_SingleSearch.cshtml";
         }
     }
 
