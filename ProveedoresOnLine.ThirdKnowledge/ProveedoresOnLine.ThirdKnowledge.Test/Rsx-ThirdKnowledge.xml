@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <ThirdKnowledge>
+    
+    <!--WS_ThirdKnowedge-->
+    <key name="ThirdKnowedge_AuthServiceUser">W5-Pub1ic@r</key>
+
+    <!--WS_ThirdKnowedge-->
+    <key name="ThirdKnowedge_AuthServicePass">D6-E9$C3S6Q#5WW</key>
+    
+  </ThirdKnowledge>
+</Settings>
+
