@@ -409,8 +409,6 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             Assert.AreEqual(true, oResult.Count > 0);
         }
 
-        #endregion
-
         [TestMethod]
         public void MPProviderSearchFilter()
         {
@@ -424,6 +422,21 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
         }
 
+        [TestMethod]
+        public void MPProviderSearchFilterNew()
+        {
+            List<Company.Models.Util.GenericFilterModel> oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
+                    ("1EA5A78A",
+                    "",
+                    null,
+                    true);
+
+            Assert.AreEqual(true, oResult.Count > 0);
+
+        }
+
+        #endregion        
 
         [TestMethod]
         public void MPProviderSearchById()
