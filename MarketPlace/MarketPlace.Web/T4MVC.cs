@@ -36,6 +36,7 @@ public static partial class MVC
     public static MarketPlace.Web.Controllers.ProviderController Provider = new MarketPlace.Web.Controllers.T4MVC_ProviderController();
     public static MarketPlace.Web.Controllers.StatsController Stats = new MarketPlace.Web.Controllers.T4MVC_StatsController();
     public static MarketPlace.Web.Controllers.SurveyController Survey = new MarketPlace.Web.Controllers.T4MVC_SurveyController();
+    public static MarketPlace.Web.Controllers.ThirdKnowledgeController ThirdKnowledge = new MarketPlace.Web.Controllers.T4MVC_ThirdKnowledgeController();
 }
 
 namespace T4MVC
@@ -52,6 +53,7 @@ namespace T4MVC
         public MarketPlace.Web.Areas.Desktop.Controllers.ProviderController Provider = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProviderController();
         public MarketPlace.Web.Areas.Desktop.Controllers.StatsController Stats = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_StatsController();
         public MarketPlace.Web.Areas.Desktop.Controllers.SurveyController Survey = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_SurveyController();
+        public MarketPlace.Web.Areas.Desktop.Controllers.ThirdKnowledgeController ThirdKnowledge = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ThirdKnowledgeController();
         public T4MVC.Desktop.SharedController Shared = new T4MVC.Desktop.SharedController();
     }
 }
