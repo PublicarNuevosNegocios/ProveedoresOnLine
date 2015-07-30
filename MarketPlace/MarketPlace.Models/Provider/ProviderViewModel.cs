@@ -64,5 +64,7 @@ namespace MarketPlace.Models.Provider
         public MarketPlace.Models.Survey.SurveyViewModel RelatedSurvey { get; set; }
 
         public List<ProviderReportsViewModel> RelatedReportInfo { get; set; }
+
+        public List<string[]> RelatedThirdKnowledge { get; set; }
     }
 }
