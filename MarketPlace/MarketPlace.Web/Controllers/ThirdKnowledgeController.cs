@@ -16,15 +16,25 @@ namespace MarketPlace.Web.Controllers
             //Clean the season url saved
             if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
                 MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
+
             return View();
         }
 
         public virtual ActionResult TKSingleSearch()
         {
             ProviderViewModel oModel = new ProviderViewModel();
-
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
 
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
+            if (Request["UpsertRequest"] == "true")
+            {
+                oModel.RelatedThirdKnowledge = new List<string[]>();
+                oModel.RelatedThirdKnowledge = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(Request["IdentificationNumber"], Request["Name"]);   
+            }            
             return View(oModel);
         }      
 
