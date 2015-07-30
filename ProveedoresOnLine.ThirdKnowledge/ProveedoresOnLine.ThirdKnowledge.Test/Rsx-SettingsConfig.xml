@@ -1,11 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
-  <Module name="MarketPlace">
-    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\MarketPlace\Rsx-MarketPlace.xml</key>
-  </Module>
-  <Module name="FileRepository">
-    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\MarketPlace\Rsx-FileRepository.xml</key>
-  </Module>
   <Module name="Company">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
   </Module>

@@ -1828,16 +1828,8 @@ namespace MarketPlace.Web.Controllers
 
         #region Pivate Functions
 
-        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetRelatedSurvey(string SurveyPublicId)
-        {
-
-            return null;
-        }
-
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
         {
-            //Item1 = Email
-            //Item2 = 
             List<Tuple<string, int, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int, int>>();
             List<string> EvaluatorsEmail = new List<string>();
 

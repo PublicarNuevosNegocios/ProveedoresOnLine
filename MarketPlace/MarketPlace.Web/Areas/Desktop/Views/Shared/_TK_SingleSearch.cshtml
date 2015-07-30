@@ -1,0 +1,45 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+<form method="post" action="@(Url.Action(MVC.ThirdKnowledge.ActionNames.TKSingleSearch,MVC.ThirdKnowledge.Name))">
+    <div>
+        <label>Nombre</label>
+        <input type="text" name="Name" value="" />
+        <label>Número de Identificación</label>
+        <input type="text" name="IdentificationNumber" value="" />
+        <input type="hidden" name="UpsertRequest" value="true" />
+        <input type="submit" name="Consultar" value="Consultar" id="ConsultarId" />
+    </div>
+</form>
+
+
+@{
+    if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.Count > 0)
+    {
+        Model.RelatedThirdKnowledge = Model.RelatedThirdKnowledge.Where(x => x.Count() > 1).ToList();
+        if (Model.RelatedThirdKnowledge.Count != 0)
+        {
+            <ul class="POMPProviderInfoMultipleValues">
+                @foreach (var Row in Model.RelatedThirdKnowledge)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@Row[4]</span> 
+                        </label>
+                    </li>                    
+                    <li>
+                        <span>@Row[3] </span>
+                    </li>
+                    <li>
+                        <span>@Row[1]</span>
+                    </li>
+                    <li>
+                        <span>@Row[6]</span>
+                    </li>
+                }
+            </ul>
+        }
+    }
+}
+
+
+

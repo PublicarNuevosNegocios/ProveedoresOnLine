@@ -124,6 +124,9 @@
     <Reference Include="ProveedoresOnLine.SurveyModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.ThirdKnowledge">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\developer\ProveedoresOnLine.ThirdKnowledge.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -138,6 +141,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -214,6 +219,7 @@
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProjectController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\ThirdKnowledgeController.cs" />
     <Compile Include="Areas\Desktop\Controllers\SurveyController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
@@ -231,6 +237,7 @@
     <Compile Include="ControllersApi\CompareApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ThirdKnowledgeController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
@@ -270,6 +277,9 @@
     <Compile Include="Desktop.SurveyController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Desktop.ThirdKnowledgeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="ErrorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -286,6 +296,11 @@
     <Compile Include="ProviderController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service References\WS_Consulting\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="StatsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -295,6 +310,9 @@
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdKnowledgeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -1096,6 +1114,9 @@
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByName.cshtml" />
     <Content Include="Areas\Desktop\Views\Error\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Compare_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\ThirdKnowledge\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKSingleSearch.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_TK_SingleSearch.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
@@ -1104,7 +1125,18 @@
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.js" />
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js" />
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js.map" />
+    <Content Include="Service References\WS_Consulting\MarketPlace.Web.WS_Consulting.ConsultaInspektorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\WS_Consulting\wsinspektor.wsdl" />
     <None Include="T4MVC.tt.settings.xml" />
+    <None Include="Service References\WS_Consulting\wsinspektor.disco" />
+    <None Include="Service References\WS_Consulting\configuration91.svcinfo" />
+    <None Include="Service References\WS_Consulting\configuration.svcinfo" />
+    <None Include="Service References\WS_Consulting\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1202,6 +1234,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WS_Consulting\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
