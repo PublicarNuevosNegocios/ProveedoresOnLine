@@ -6,7 +6,7 @@
     if (Model.RelatedReportInfo != null && Model.RelatedReportInfo.Count > 0)
     {
         <ul class="POMPProviderInfoMultipleValues">
-            @foreach (var item in Model.RelatedReportInfo.Where(lg => lg.ReportType == MarketPlace.Models.General.enumSurveyType.SurveyReport))
+            @foreach (var item in Model.RelatedReportInfo.Where(lg => lg.ReportType == MarketPlace.Models.General.enumReportType.RP_SurveyReport))
             {
                 <li>
                     <label class="POMPProviderDataSubtitle">

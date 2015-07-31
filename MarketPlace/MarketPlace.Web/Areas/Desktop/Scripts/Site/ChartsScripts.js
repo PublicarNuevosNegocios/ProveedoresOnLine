@@ -332,7 +332,6 @@ var SurveyByMonth_ChartsObject = {
 
                 });
 
-
                 var filterMonth = new google.visualization.ControlWrapper({
                     'controlType': 'CategoryFilter',
                     'containerId': 'filter_div',
@@ -347,17 +346,13 @@ var SurveyByMonth_ChartsObject = {
                     google.visualization.events.addListener(pieChart, 'select', selectHandler);
                 });
 
-                function selectHandler() {
-                    debugger;
+                function selectHandler() {                    
                     var selectedItem = pieChart.getChart().getSelection();
                     if (selectedItem) {
                         var SearchFilter = data.getValue(selectedItem[0].row, 4);
                         window.location = SurveyByMonth_ChartsObject.GetSearchUrl(SearchFilter);
-
                     }
                 }
-
-
 
                 dashboard.draw(data);
                 function resize() {
@@ -392,8 +387,6 @@ var SurveyByMonth_ChartsObject = {
         return oUrl;
     }
 };
-
-
 
 //**** PROVIDERS CHARTS ****//
 var Providers_ChartsObject = {
@@ -486,10 +479,7 @@ var Providers_ChartsObject = {
 
         return oUrl;
     },
-
 };
-
-
 
 //**** PROJECT CHARTS ****//
 var ProjectByStatus_ChartsObject = {
@@ -538,8 +528,6 @@ var ProjectByStatus_ChartsObject = {
             }
         });
     },
-
-
 };
 
 var ProjectByMonth_ChartsObject = {
