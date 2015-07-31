@@ -29,18 +29,33 @@
                         </div>
 
                         @{List<int> oCurrentUserModules = MarketPlace.Models.General.SessionModel.CurrentUserModules();}
-                        @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate))                      
+                        @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate))
                         {
-                        <div class="row">
-                            <div class="col-xs-12">
+                            <div class="row">
                                 <div class="col-xs-12">
-                                    <label>Obra ó proyecto:</label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ProjectName" placeholder="Obra o proyecto" value="@if (Model.RelatedProject != null) { @Model.RelatedProject.ProjectName.ToString();}" />
+                                    <div class="col-xs-12">
+                                        <label>Obra ó proyecto:</label>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ProjectName" placeholder="Obra o proyecto" value="@if (Model.RelatedProject != null) { @Model.RelatedProject.ProjectName.ToString();}" />
+
+                                        @{
+                                            if (Model.RelatedProject != null)
+                                            {                                                
+                                                 <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                                        new
+                                                                        {
+                                                                            controller = MVC.Project.Name,
+                                                                            action = MVC.Project.ActionNames.ProjectDetail,
+                                                                            ProjectPublicId = Model.RelatedProject.ProjectPublicId                                                                            
+                                                                        }))"> Ver Detalle</a>
+                                            }
+                                        }
+
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         }
 
                         <div class="row">
@@ -172,10 +187,10 @@
                         </div>
                     </form>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!--loader-->
 <div id="loading" />
