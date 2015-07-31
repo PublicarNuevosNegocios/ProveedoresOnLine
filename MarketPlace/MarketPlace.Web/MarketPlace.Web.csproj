@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,6 +154,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -305,6 +308,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WS_Consulting\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="StatsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -493,6 +501,7 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPThirdKnowledge.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPErrorPage.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPGraphics.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPEvaluationProgram.css" />
@@ -1130,7 +1139,18 @@
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.js" />
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js" />
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js.map" />
+    <Content Include="Service References\WS_Consulting\MarketPlace.Web.WS_Consulting.ConsultaInspektorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\WS_Consulting\wsinspektor.wsdl" />
     <None Include="T4MVC.tt.settings.xml" />
+    <None Include="Service References\WS_Consulting\wsinspektor.disco" />
+    <None Include="Service References\WS_Consulting\configuration91.svcinfo" />
+    <None Include="Service References\WS_Consulting\configuration.svcinfo" />
+    <None Include="Service References\WS_Consulting\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1228,6 +1248,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WS_Consulting\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Areas\Desktop\Reports\SV_Report_SurveyDetail.rdlc" />

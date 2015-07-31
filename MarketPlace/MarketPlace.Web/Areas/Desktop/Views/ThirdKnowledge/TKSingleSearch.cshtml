@@ -13,16 +13,14 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <div id="POMPGraphicContainerMain">
-            <div class="POMPGraphicDynamic">
-                <div class="POMPHeaderGraphicDynamic">
-                    <h1>Busqueda</h1>
-                </div>
-                @Html.Partial(MVC.Desktop.Shared.Views._TK_SingleSearch)
-            </div>
+        <div class="POMPSearchContainer">
+            @Html.Partial(MVC.Desktop.Shared.Views._TK_SingleSearch, Model)
         </div>
     </div>
+
 </div>
+
+
 
 @{
     Model.RenderScripts = true;
