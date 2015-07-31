@@ -42,6 +42,28 @@ function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
     });
 }
 
+/*show process message*/
+function Dialog_CreatedPS(vTitle, vMessage, vRedirectUrl) {
+
+    var DialogDiv = $('#Generic_MessageDialog').html();
+    DialogDiv = DialogDiv.replace(/\${Title}/gi, vTitle);
+    DialogDiv = DialogDiv.replace(/\${Message}/gi, vMessage);
+    $(DialogDiv).dialog({
+        width: 300,
+        modal: true,
+        closeOnEscape: false,
+        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
+        buttons: {
+            'Iniciar proceso de selección': function () {
+                $(this).dialog("close");
+                if (vRedirectUrl != null && vRedirectUrl.length > 0) {
+                    window.location = vRedirectUrl;
+                }
+            },
+        },
+    });
+}
+
 /*show generic progressbar*/
 function ProgressBar_Generic_Show() {
     $('.selProgressBar').kendoProgressBar({
