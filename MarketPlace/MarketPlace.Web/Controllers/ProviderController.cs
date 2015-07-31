@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using Microsoft.Reporting.WebForms;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.SurveyModule.Models;
@@ -61,20 +62,10 @@ namespace MarketPlace.Web.Controllers
                 #region Providers
                 //search providers
                 int oTotalRowsAux;
-                //List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
-                //    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
-                //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
-                //    oModel.SearchParam,
-                //    oModel.SearchFilter,
-                //    (int)oModel.SearchOrderType,
-                //    oModel.OrderOrientation,
-                //    oModel.PageNumber,
-                //    oModel.RowCount,
-                //    out oTotalRowsAux);
                 List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
                     oModel.SearchParam,
                     oModel.SearchFilter,
                     (int)oModel.SearchOrderType,
@@ -82,19 +73,29 @@ namespace MarketPlace.Web.Controllers
                     oModel.PageNumber,
                     oModel.RowCount,
                     out oTotalRowsAux);
-
-                oModel.TotalRows = oTotalRowsAux;
-
-                List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                    oModel.SearchParam,
-                    oModel.SearchFilter);
-
-                //List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
+                //List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
+                //    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
                 //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                 //    oModel.SearchParam,
                 //    oModel.SearchFilter,
-                //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
+                //    (int)oModel.SearchOrderType,
+                //    oModel.OrderOrientation,
+                //    oModel.PageNumber,
+                //    oModel.RowCount,
+                //    out oTotalRowsAux);
+
+                oModel.TotalRows = oTotalRowsAux;
+
+                //List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
+                //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                //    oModel.SearchParam,
+                //    oModel.SearchFilter);
+
+                List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    oModel.SearchParam,
+                    oModel.SearchFilter,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
 
                 if (oFilterModel != null)
                 {
@@ -1624,13 +1625,103 @@ namespace MarketPlace.Web.Controllers
                     }
                 }
             }
-            if ((System.IO.MemoryStream)Session["reportStreamPdf"] != null)
-            {
-                System.IO.MemoryStream reportStreamReader = (System.IO.MemoryStream)Session["reportStreamPdf"];
-                Session["reportStreamPdf"] = null;
-                return File(reportStreamReader, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
-            }
+            #region report generator
+                if (Request["UpsertRequest"] == "true")
+                {
+                    List<ReportParameter> parameters = new List<ReportParameter>();
+                    ProviderModel oToInsert = new ProviderModel()
+                    {
+                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = ProviderPublicId,
+                        },
+                        RelatedReports = new List<GenericItemModel>(),
+                    };
+                    oToInsert.RelatedReports.Add(this.GetSurveyReportFilterRequest());
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
 
+                    parameters.Add(new ReportParameter("currentCompanyName", SessionModel.CurrentCompany.CompanyName));
+                    parameters.Add(new ReportParameter("currentCompanyTipoDni", SessionModel.CurrentCompany.IdentificationType.ItemName));
+                    parameters.Add(new ReportParameter("currentCompanyDni", SessionModel.CurrentCompany.IdentificationNumber));
+                    parameters.Add(new ReportParameter("currentCompanyLogo", SessionModel.CurrentCompany_CompanyLogo));
+                    parameters.Add(new ReportParameter("providerName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName.ToString()));
+                    parameters.Add(new ReportParameter("providerTipoDni", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName.ToString()));
+                    parameters.Add(new ReportParameter("providerDni", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber.ToString()));
+                    //order items reports
+                    if (oToInsert.RelatedReports != null)
+                    {
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("remarks", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_Observation).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()));
+                            return true;
+                        });
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("actionPlan", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ImprovementPlan).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()));
+                            return true;
+                        });
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("dateStart", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                    (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault()
+                            ));
+                            return true;
+                        });
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("dateEnd", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()));
+                            return true;
+                        });
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("average", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportAverage).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()));
+                            return true;
+                        });
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("reportDate", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportDate).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()));
+                            return true;
+                        });
+                        oToInsert.RelatedReports.All(x =>
+                        {
+                            parameters.Add(new ReportParameter("responsible", 
+                                x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportResponsable).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()));
+                            return true;
+                        });
+                    }
+                    parameters.Add(new ReportParameter("author", SessionModel.CurrentCompanyLoginUser.RelatedUser.Name.ToString() + " " + SessionModel.CurrentCompanyLoginUser.RelatedUser.LastName.ToString()));
+
+                    Tuple<byte[], string, string> report = PrintReport((int)enumReportType.RP_SurveyReport, enumCategoryInfoType.PDF.ToString(), parameters);
+                    parameters = null;
+                    return File(report.Item1, report.Item2, report.Item3);
+                }
+            #endregion
             return View(oModel);
         }
 
@@ -1741,7 +1832,7 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedReports = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportGetBasicInfo(ProviderPublicId, (int)enumSurveyType.SurveyReport);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedReports = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportGetBasicInfo(ProviderPublicId, (int)enumReportType.RP_SurveyReport);
                 oModel.RelatedReportInfo = new List<ProviderReportsViewModel>();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedReports != null)
@@ -1755,6 +1846,8 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+
+
             return View(oModel);
         }
 
@@ -2045,6 +2138,43 @@ namespace MarketPlace.Web.Controllers
                 });
                 #endregion
             }
+            return oReturn;
+        }
+
+        private ProveedoresOnLine.Company.Models.Util.GenericItemModel GetSurveyReportFilterRequest()
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+            {
+                ItemId = 0,
+                ItemName = "SurveyFilterReport",
+                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)enumReportType.RP_SurveyReport,
+                },
+                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+
+                Enable = true,
+
+            };
+            System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
+            {
+                string[] strSplit = req.Split('_');
+                if (strSplit.Length > 0)
+                {
+                    oReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(strSplit[1].Trim())
+                        },
+                        Value = System.Web.HttpContext.Current.Request[req],
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+
             return oReturn;
         }
 

@@ -92,10 +92,12 @@
         CH_SurveyModule = 119001,
         CH_ProjectModule = 119002,
         CH_ProvidersStateModule = 119003,
-
-        //Module Charts Info        
-        CH_SurveyStatusByRol = 120001,
-
+        
+        //Format Report Type
+        Excel = 120001,
+        PDF = 120002,
+        TXT = 120003,
+        CSV = 120004,
     }
 
     #endregion
@@ -479,12 +481,7 @@
 
     #endregion
 
-    #region Survey
-
-    public enum enumSurveyType
-    {
-       SurveyReport = 1207001,
-    }
+    #region Survey  
 
     public enum enumSurveySearchOrderType
     {
@@ -577,7 +574,16 @@
 
 
     #endregion
+    
+    #region Report
 
+    public enum enumReportType
+    {
+        RP_SurveyReport = 1411001,
+    }
+
+    #endregion
+    
     #region Project
 
     public enum enumProjectStatus

@@ -11,7 +11,7 @@ namespace MarketPlace.Models.Provider
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedReportInfo { get; set; }
 
-        public MarketPlace.Models.General.enumSurveyType ReportType { get { return (MarketPlace.Models.General.enumSurveyType)RelatedReportInfo.ItemType.ItemId; } }
+        public MarketPlace.Models.General.enumReportType ReportType { get { return (MarketPlace.Models.General.enumReportType)RelatedReportInfo.ItemType.ItemId; } }
 
         #region Survey
 
