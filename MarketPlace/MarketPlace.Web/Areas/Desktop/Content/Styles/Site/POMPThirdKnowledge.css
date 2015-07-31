@@ -85,8 +85,9 @@
 
 .POMPResultDownload > p{
        text-align:center;
-       line-height:90px;
+       line-height:20px;
        color:#337ab7;
+       margin-top:10px;
       
 }
 
