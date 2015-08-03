@@ -87,7 +87,7 @@ ul.POMPProjectBidDataActions {
 }
 
 .POMPProjectBidMainData label {
-    color: #0066ae;
+    font-weight:bold;
 }
 
 .POMPProjectBidMainData span {
