@@ -34,6 +34,7 @@ public static partial class MVC
     public static MarketPlace.Web.Controllers.HomeController Home = new MarketPlace.Web.Controllers.T4MVC_HomeController();
     public static MarketPlace.Web.Controllers.ProjectController Project = new MarketPlace.Web.Controllers.T4MVC_ProjectController();
     public static MarketPlace.Web.Controllers.ProviderController Provider = new MarketPlace.Web.Controllers.T4MVC_ProviderController();
+    public static MarketPlace.Web.Controllers.ReportController Report = new MarketPlace.Web.Controllers.T4MVC_ReportController();
     public static MarketPlace.Web.Controllers.StatsController Stats = new MarketPlace.Web.Controllers.T4MVC_StatsController();
     public static MarketPlace.Web.Controllers.SurveyController Survey = new MarketPlace.Web.Controllers.T4MVC_SurveyController();
     public static MarketPlace.Web.Controllers.ThirdKnowledgeController ThirdKnowledge = new MarketPlace.Web.Controllers.T4MVC_ThirdKnowledgeController();
@@ -51,6 +52,7 @@ namespace T4MVC
         public MarketPlace.Web.Areas.Desktop.Controllers.HomeController Home = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_HomeController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ProjectController Project = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProjectController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ProviderController Provider = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProviderController();
+        public MarketPlace.Web.Areas.Desktop.Controllers.ReportController Report = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ReportController();
         public MarketPlace.Web.Areas.Desktop.Controllers.StatsController Stats = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_StatsController();
         public MarketPlace.Web.Areas.Desktop.Controllers.SurveyController Survey = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_SurveyController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ThirdKnowledgeController ThirdKnowledge = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ThirdKnowledgeController();
@@ -1047,6 +1049,8 @@ namespace Links
                         public static readonly string POMPSurvey_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSurvey.min.css") ? Url("POMPSurvey.min.css") : Url("POMPSurvey.css");
                              
                         public static readonly string POMPTermsConditions_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPTermsConditions.min.css") ? Url("POMPTermsConditions.min.css") : Url("POMPTermsConditions.css");
+                             
+                        public static readonly string POMPThirdKnowledge_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPThirdKnowledge.min.css") ? Url("POMPThirdKnowledge.min.css") : Url("POMPThirdKnowledge.css");
                              
                         public static readonly string POMPTopSearchBar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPTopSearchBar.min.css") ? Url("POMPTopSearchBar.min.css") : Url("POMPTopSearchBar.css");
                              
