@@ -209,9 +209,3 @@ label.POMPProviderInfoContractName {
     width: 98.3% !important;
 }
 
-.POMPProviderInfoMultipleValues >li > label > span{
-    background:red;
-    width:90px;
-    display:block;
-   
-}
