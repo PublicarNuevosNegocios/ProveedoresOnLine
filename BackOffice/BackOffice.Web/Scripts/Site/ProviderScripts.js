@@ -93,29 +93,29 @@ var Provider_SearchObject = {
                 field: 'ImageUrl',
                 title: 'Logo',
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
-                width: '50px',
+                width: '100px',
                 attributes: { style: "text-align:center;" },
             }, {
                 field: 'ProviderPublicId',
                 title: 'Id',
-                width: '50px',
+                width: '70px',
             }, {
                 field: 'ProviderName',
                 title: 'Nombre',
-                width: '50px',
+                width: '200px',
             }, {
                 field: 'ProviderType',
                 title: 'Tipo',
-                width: '50px',
+                width: '90px',
             }, {
                 field: 'IdentificationType',
                 title: 'Identification',
                 template: '${IdentificationType} ${IdentificationNumber}',
-                width: '50px',
+                width: '120px',
             }, {
                 field: 'IsOnRestrictiveList',
                 title: 'Estado Listas Restrictivas',
-                width: '155px',
+                width: '75px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -130,7 +130,7 @@ var Provider_SearchObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '155px',
+                width: '75px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -863,7 +863,7 @@ var Provider_CompanyContactObject = {
                 field: 'Enable',
                 title: 'Visible en Market Place',
                 alt: 'Visible en Market Place',
-                width: '155px',
+                width: '105px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -908,7 +908,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
-                width: '200px',
+                width: '300px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.BR_Address == '') {
@@ -923,7 +923,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
-                width: '180px',
+                width: '280px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -1028,7 +1028,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Email',
                 title: 'Correo electrónico',
-                width: '200px',
+                width: '290px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.BR_Email == '') {
@@ -1042,7 +1042,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Website',
                 title: 'Página web',
-                width: '200px',
+                width: '290px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.BR_Website == '') {
@@ -1649,7 +1649,7 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'EX_Client',
                 title: 'Cliente',
-                width: '200px',
+                width: '300px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5949,7 +5949,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'RS_Description',
                 title: 'Alcance',
-                width: '300px',
+                width: '500px',
             }, {
                 field: 'RS_ResolutionFile',
                 title: 'Archivo Anexo',
