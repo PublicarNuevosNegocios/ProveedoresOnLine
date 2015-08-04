@@ -36,6 +36,7 @@
         ProviderStats = 802014,
         RelatedProvider = 802015,        
         ThirdKnowledge = 802016,
+        ProviderReports = 802017,
     }
 
     public enum enumMarketPlaceProviderModules
@@ -610,6 +611,7 @@
         File = 1407010,
         CloseText = 1407011,
         AwardText = 1407012,
+        SocialObject = 1407013,
     }
 
     public enum enumEvaluationItemType
