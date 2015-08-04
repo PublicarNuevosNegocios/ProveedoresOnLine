@@ -404,8 +404,7 @@ var Providers_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-                var data = new google.visualization.DataTable();
-
+                var data = new google.visualization.DataTable();                
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
                 $.each(result, function (item, value) {
@@ -423,7 +422,7 @@ var Providers_ChartsObject = {
                     var selectedItem = chart.getSelection()[0];
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;
+                        var SearchFilter = 0;                        
                         if (topping == "En creación") {
                             SearchFilter = 902001;
                         }
