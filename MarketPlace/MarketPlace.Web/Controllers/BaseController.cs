@@ -206,6 +206,26 @@ namespace MarketPlace.Web.Controllers
                     oPosition++;
                 }
 
+                if (oCurrentCompanyType == MarketPlace.Models.General.enumCompanyType.Buyer ||
+                oCurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+                {
+                    //Conocimiento de terceros
+                    oReturn.Add(new GenericMenu()
+                    {
+                        Name = "Reportes",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Report.Name,
+                                action = MVC.Report.ActionNames.PRGeneral
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.Report.ActionNames.PRGeneral),
+                    });
+                    oPosition++;
+                }
+
             }
 
             #endregion

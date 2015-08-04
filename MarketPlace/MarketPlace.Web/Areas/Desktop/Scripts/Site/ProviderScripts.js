@@ -432,8 +432,7 @@ var Provider_SearchObject = {
                             type: "POST",
                             url: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').attr('action'),
                             data: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').serialize(),
-                            success: function (result) {
-                                debugger;                               
+                            success: function (result) {                   
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
                                 var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, result);
                                 Dialog_CreatedPS('Crear Proceso de Selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
