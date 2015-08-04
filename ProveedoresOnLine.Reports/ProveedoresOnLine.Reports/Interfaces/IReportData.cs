@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WebForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace ProveedoresOnLine.Reports.Interfaces
         #region Reports
 
         //string ReportsUpsert(string Name, string Attributes);
-
+  
         #endregion
     }
 }

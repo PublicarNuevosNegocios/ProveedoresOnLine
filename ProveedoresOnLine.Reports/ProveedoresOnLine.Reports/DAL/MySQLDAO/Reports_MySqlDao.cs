@@ -13,7 +13,7 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
 
         public Reports_MySqlDao()
         {
-            DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.Reports.Models.Constants.C_POL_ReportsConnectionName);
+            DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.Reports.Models.Constants.R_POL_ReportsConnectionName);
         }
 
         //public string ReportsUpsert(string Name, string Attributes)
