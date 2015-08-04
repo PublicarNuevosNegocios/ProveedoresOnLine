@@ -1717,7 +1717,10 @@ namespace MarketPlace.Web.Controllers
                     }
                     parameters.Add(new ReportParameter("author", SessionModel.CurrentCompanyLoginUser.RelatedUser.Name.ToString() + " " + SessionModel.CurrentCompanyLoginUser.RelatedUser.LastName.ToString()));
 
-                    Tuple<byte[], string, string> report = PrintReport((int)enumReportType.RP_SurveyReport, enumCategoryInfoType.PDF.ToString(), parameters);
+                    Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.Reports.CP_SurveyReportDetail(
+                                                        (int)enumReportType.RP_SurveyReport, enumCategoryInfoType.PDF.ToString(),
+                                                        parameters, MarketPlace.Models.General.InternalSettings.Instance
+                                                        [MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_SurveyDetail.rdlc");
                     parameters = null;
                     return File(report.Item1, report.Item2, report.Item3);
                 }

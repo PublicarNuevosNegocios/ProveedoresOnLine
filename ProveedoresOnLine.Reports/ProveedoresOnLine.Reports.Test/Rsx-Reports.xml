@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <Reports>
-    <key name="reportsPath">
+    <key name="ReportPath">
       <![CDATA[
         C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
       ]]>

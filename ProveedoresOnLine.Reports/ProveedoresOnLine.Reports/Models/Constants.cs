@@ -6,7 +6,7 @@
 
         #region Internal Settings
         public const string R_SettingsModuleName = "Reports";
-        public const string R_Path = "reportsPath";
+        public const string R_ReportPath = "ReportPath";
         #endregion
     }
 }

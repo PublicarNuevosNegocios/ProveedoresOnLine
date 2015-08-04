@@ -10,15 +10,14 @@ namespace ProveedoresOnLine.Reports.Controller
     public class Reports
     {
         #region Reports 
-        public static Tuple<byte[], string, string> PrintReport(int ReportType, string FormatType, List<ReportParameter> ReportData)
+        public static Tuple<byte[], string, string> CP_SurveyReportDetail(int ReportType, string FormatType, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
-            localReport.EnableExternalImages = true;
-            string strFile = ProveedoresOnLine.Reports.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Reports.Models.Constants.R_Path].Value;
+            localReport.EnableExternalImages = true;           
             switch (ReportType)
             {
                 case ((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport):
-                    localReport.ReportPath = strFile.Replace("\n", string.Empty).Trim() + "SV_Report_SurveyDetail.rdlc";        
+                    localReport.ReportPath = FilePath;      
                     localReport.SetParameters(ReportData);
                     break;
                 default:
