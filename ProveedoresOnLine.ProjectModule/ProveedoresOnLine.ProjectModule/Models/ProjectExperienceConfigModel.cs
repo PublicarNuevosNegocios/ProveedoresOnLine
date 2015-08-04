@@ -16,6 +16,8 @@ namespace ProveedoresOnLine.ProjectModule.Models
 
         public bool CurrencyEnable { get; set; }
 
+        public bool SocialObject { get; set; }
+
         public List<string> YearsInterval { get; set; }
 
         public List<string> QuantityInterval { get; set; }
