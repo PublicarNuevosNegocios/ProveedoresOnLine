@@ -138,6 +138,9 @@
     <Reference Include="ProveedoresOnLine.ProjectModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.Reports">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Reports\developer\ProveedoresOnLine.Reports.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
     </Reference>
@@ -1163,6 +1166,8 @@
     <Content Include="Areas\Desktop\Views\Report\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Report\PRGeneral.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PR_General.cshtml" />
+    <Content Include="Areas\Desktop\Views\Report\RP_SV_SurveyGeneralInfoReport.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_RP_SV_SurveyGeneralInfoReport.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

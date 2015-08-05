@@ -99,5 +99,11 @@
         public const string C_Program_Compare_Value_Item = "Value_{i}:{Value},Unit_{i}:{After:{After},Before:{Before}},";
 
         #endregion
+
+        #region Report Path
+
+        public const string MP_CP_ReportPath = "MP_CP_ReportPath";
+
+        #endregion
     }
 }

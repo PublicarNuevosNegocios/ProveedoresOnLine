@@ -611,6 +611,7 @@
         File = 1407010,
         CloseText = 1407011,
         AwardText = 1407012,
+        SocialObject = 1407013,
     }
 
     public enum enumEvaluationItemType

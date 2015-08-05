@@ -75,6 +75,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string Index = "Index";
             public readonly string PRGeneral = "PRGeneral";
+            public readonly string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,6 +83,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public const string Index = "Index";
             public const string PRGeneral = "PRGeneral";
+            public const string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
         }
 
 
@@ -97,9 +99,11 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             {
                 public readonly string Index = "Index";
                 public readonly string PRGeneral = "PRGeneral";
+                public readonly string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Report/Index.cshtml";
             public readonly string PRGeneral = "~/Areas/Desktop/Views/Report/PRGeneral.cshtml";
+            public readonly string RP_SV_SurveyGeneralInfoReport = "~/Areas/Desktop/Views/Report/RP_SV_SurveyGeneralInfoReport.cshtml";
         }
     }
 
@@ -127,6 +131,17 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PRGeneral);
             PRGeneralOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RP_SV_SurveyGeneralInfoReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RP_SV_SurveyGeneralInfoReport()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RP_SV_SurveyGeneralInfoReport);
+            RP_SV_SurveyGeneralInfoReportOverride(callInfo);
             return callInfo;
         }
 

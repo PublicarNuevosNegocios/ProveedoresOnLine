@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <MarketPlace>
+    
     <!--Area domains-->
     <key name="Area_HostConfig"><![CDATA[https://localhost:44309,Desktop;http://localhost:40464,Desktop;]]></key>
 
@@ -48,6 +49,13 @@
     <key name="Company_Error_Gear2">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear2.png</key>
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
 
+
+    <!--Report Path-->
+    <key name="MP_CP_ReportPath">
+      <![CDATA[
+        C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
+      ]]>
+    </key>
   </MarketPlace>
 </Settings>
 

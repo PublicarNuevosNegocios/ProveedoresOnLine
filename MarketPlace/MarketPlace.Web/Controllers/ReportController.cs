@@ -33,6 +33,18 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult RP_SV_SurveyGeneralInfoReport()
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.ProviderMenu = GetReportControllerMenu();
+
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<GenericMenu> GetReportControllerMenu()
@@ -42,26 +54,27 @@ namespace MarketPlace.Web.Controllers
             string oCurrentController = MarketPlace.Web.Controllers.BaseController.CurrentControllerName;
             string oCurrentAction = MarketPlace.Web.Controllers.BaseController.CurrentActionName;
 
-            #region Menu Usuario
-
-            MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
-
-            //header
-            oMenuAux = new GenericMenu()
-            {
-                Name = "Mis reportes",
-                Position = 0,
-                ChildMenu = new List<GenericMenu>(),
-            };
+            #region Reports
 
             foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
             {
+                MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
+
                 if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
                 {
+                    #region Provider Report Menu
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Proveedores",
+                        Position = 0,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
+
                     //Gerencial
                     oMenuAux.ChildMenu.Add(new GenericMenu()
                     {
-                        Name = "Gerencial",
+                        Name = "Informe Gerencial",
                         Url = Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
@@ -74,39 +87,50 @@ namespace MarketPlace.Web.Controllers
                             (oCurrentAction == MVC.Report.ActionNames.PRGeneral &&
                             oCurrentController == MVC.Report.Name)
                     });
+
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                    oReturn.Add(oMenuAux);
+
+                    #endregion
                 }
                 if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                 {
-                    //Evaluacion de deseempeño
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
+                    #region Survey Report
+                    //header
+                    oMenuAux = new Models.General.GenericMenu()
                     {
-                        Name = "Evaluación de deseempeño",
-                        Url = null,
-                        Position = 0,
-                        IsSelected = false
-                    });
-                }
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
-                {
-                    //Proceso de selección
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
+                        Name = "Evaluación de Desempeño",
+                        Position = 1,
+                        ChildMenu = new List<Models.General.GenericMenu>(),
+                    };
+
+                    //Información General
+                    oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                     {
-                        Name = "Mis Consultas",
-                        Url = null,
+                        Name = "Información General",
+                        Url = Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Report.Name,
+                                    action = MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport,
+                                }),
                         Position = 0,
-                        IsSelected = false
+                        IsSelected =
+                            (oCurrentAction == MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport &&
+                            oCurrentController == MVC.Report.Name),
                     });
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                    #endregion
                 }
             }
 
-
             #endregion
-
-            //get is selected menu
-            oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-            //add menu
-            oReturn.Add(oMenuAux);
 
             return oReturn;
         }

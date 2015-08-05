@@ -155,6 +155,31 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public int ProjectSocialObjectId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.SocialObject).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public string ProjectSocialObject
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.SocialObject &&
+                          !string.IsNullOrEmpty(pjinf.Value)).
+                    Select(pjinf => pjinf.Value).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         public int ProjectDefaultEconomicActivityId
         {
             get

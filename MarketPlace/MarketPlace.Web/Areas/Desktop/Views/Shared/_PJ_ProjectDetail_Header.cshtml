@@ -12,7 +12,7 @@
     <div class="POMPProjectBidGreatWrapper">
         <!-- ESTE ES EL HEADER -->
         <div>
-            <label >PROCESO: @Model.ProjectName</label>
+            <label>PROCESO: @Model.ProjectName</label>
             <ul class="POMPProjectBidMainData">
                 <li>
                     <label>Responsable</label>
@@ -30,6 +30,13 @@
                     <label>Número de proceso interno</label>
                     <span>@Model.ProjectInternalProcessNumber</span>
                 </li>
+                @if (Model.RelatedProjectConfig.ProjectConfigExperience.SocialObject)
+                {
+                    <li>
+                        <label>Objeto social</label>
+                        <span>@Model.ProjectSocialObject</span>
+                    </li>
+                }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
                 {
                     <li>
@@ -49,7 +56,7 @@
                     <li>
                         <label>Cantidad de minima de experiencias</label>
                         <span>@Model.ProjectExperienceQuantity</span>
-                    </li><br />
+                    </li>
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
                 {
@@ -205,6 +212,13 @@
                                 <label>Número de proceso interno:</label>
                                 <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber).ToString())_@(Model.ProjectInternalProcessNumberId)" value="@Model.ProjectInternalProcessNumber" />
                             </li>
+                            @if (Model.RelatedProjectConfig.ProjectConfigExperience.SocialObject)
+                            {
+                                <li>
+                                    <label>Objeto social:</label>
+                                    <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.SocialObject).ToString())_@(Model.ProjectSocialObjectId)" value="@Model.ProjectSocialObject" />
+                                </li>
+                            }
                             @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
                             {
                                 <li>

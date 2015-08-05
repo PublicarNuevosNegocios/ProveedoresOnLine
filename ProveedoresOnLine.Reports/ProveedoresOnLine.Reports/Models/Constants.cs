@@ -2,11 +2,11 @@
 {
     public class Constants
     {
-        public const string C_POL_ReportsConnectionName = "POL_ReportsConnection";
+        public const string R_POL_ReportsConnectionName = "POL_ReportsConnection";
 
         #region Internal Settings
-
-        public const string C_SettingsModuleName = "Reports";
+        public const string R_SettingsModuleName = "Reports";
+        public const string R_ReportPath = "ReportPath";
         #endregion
     }
 }
