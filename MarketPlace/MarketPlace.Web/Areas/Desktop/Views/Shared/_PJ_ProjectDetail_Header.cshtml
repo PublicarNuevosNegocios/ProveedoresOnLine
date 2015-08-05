@@ -61,7 +61,7 @@
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
                 {
                     <li class="POMPProjectBidActivityData">
-                        <label>Actividades economicas</label>
+                        <label>Maestra de Actividades</label>
                         @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
                         {
                             <ul>
@@ -107,7 +107,7 @@
                     <!--Project actions-->
                     <li class="POMPProjectBidDataActions">
                         @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
-                        Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                    Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
                         {
                             <a href="javascript:Project_ProjectDetailObject.ShowCloseProject();">Cerrar proceso de selección</a>
                         }
@@ -121,7 +121,7 @@
                         }
 
                         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-                            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
+                        Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
                         {
 
                             <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -177,6 +177,11 @@
                         }
                     </ul>
                 }
+                else
+                {
+                    <ul id="ProjectDetail_FileUpload_FileList"></ul>
+                }
+                
             </div>
         </div>
     </div>
@@ -321,7 +326,7 @@
                 </div>
             }
             @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
-            Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                    Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
             {
                 <div id="ProjectDetail_CloseProjectDialog" title="Cierre de proceso de selección">
                     <form id="ProjectDetail_CloseProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectClose=true")">

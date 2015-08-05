@@ -13,22 +13,23 @@
         $('#' + Project_ProjectFile.ObjectId)
         .kendoUpload({
             multiple: false,
+            showFileList: false,
             async: {
                 saveUrl: BaseUrl.ApiUrl + '/ProjectApi?ProjectUploadFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId,
                 autoUpload: true
             },
             success: function (e) {
+                
                 if (e.response != null && e.response.length > 0) {
-                    //render uploaded files
+                    //render uploaded files                    
                     $.each(e.response, function (item, value) {
                         var oFileItem = $('#' + Project_ProjectFile.ObjectId + '_FileItemTemplate').html();
-
                         oFileItem = oFileItem.replace(/{ServerUrl}/gi, value.ServerUrl);
                         oFileItem = oFileItem.replace(/{FileName}/gi, value.FileName);
                         oFileItem = oFileItem.replace(/{FileObjectId}/gi, value.FileObjectId);
-
                         $('#' + Project_ProjectFile.ObjectId + '_FileList').append(oFileItem);
                     });
+                 
                     //clean file list from kendo upload
                     $('.k-upload-files.k-reset').find('li').remove();
 
