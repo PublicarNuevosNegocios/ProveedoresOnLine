@@ -46,14 +46,14 @@ var Provider_SearchObject = {
         });
 
 
-        //init grid
+        //init grid        
         $('#' + Provider_SearchObject.ObjectId).kendoGrid({
             editable: false,
             navigatable: false,
             pageable: true,
             scrollable: true,
             selectable: true,
-            dataSource: {
+            dataSource: {                
                 pageSize: Provider_SearchObject.PageSize,
                 serverPaging: true,
                 schema: {

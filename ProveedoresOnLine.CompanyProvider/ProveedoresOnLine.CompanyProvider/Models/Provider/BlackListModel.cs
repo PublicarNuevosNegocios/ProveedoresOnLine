@@ -21,5 +21,7 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
         public DateTime CreateDate { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> BlackListInfo { get; set; }
+
+        public DateTime LastInquiry { get; set; }
     }
 }

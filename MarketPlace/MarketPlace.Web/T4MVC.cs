@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -1039,6 +1041,8 @@ namespace Links
                              
                         public static readonly string POMPProviderSearchLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPProviderSearchLayout.min.css") ? Url("POMPProviderSearchLayout.min.css") : Url("POMPProviderSearchLayout.css");
                              
+                        public static readonly string POMPReports_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPReports.min.css") ? Url("POMPReports.min.css") : Url("POMPReports.css");
+                             
                         public static readonly string POMPSearchComparison_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSearchComparison.min.css") ? Url("POMPSearchComparison.min.css") : Url("POMPSearchComparison.css");
                              
                         public static readonly string POMPSearchResults_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSearchResults.min.css") ? Url("POMPSearchResults.min.css") : Url("POMPSearchResults.css");
@@ -1137,13 +1141,10 @@ namespace Links
         
         }
     }
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
     }
 }
 
@@ -1177,6 +1178,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 

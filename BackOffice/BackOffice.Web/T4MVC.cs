@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -1057,13 +1059,682 @@ namespace Links
     
     }
 
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
+        public static partial class Scripts 
+        {
+            public static partial class kendo 
+            {
+                public static partial class _2014_1_318 
+                {
+                    public static partial class cultures 
+                    {
+                        public static class Assets
+                        {
+                            public const string kendo_culture_af_ZA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.af-ZA.min.js"; 
+                            public const string kendo_culture_af_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.af.min.js"; 
+                            public const string kendo_culture_am_ET_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.am-ET.min.js"; 
+                            public const string kendo_culture_am_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.am.min.js"; 
+                            public const string kendo_culture_ar_AE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-AE.min.js"; 
+                            public const string kendo_culture_ar_BH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-BH.min.js"; 
+                            public const string kendo_culture_ar_DZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-DZ.min.js"; 
+                            public const string kendo_culture_ar_EG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-EG.min.js"; 
+                            public const string kendo_culture_ar_IQ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-IQ.min.js"; 
+                            public const string kendo_culture_ar_JO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-JO.min.js"; 
+                            public const string kendo_culture_ar_KW_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-KW.min.js"; 
+                            public const string kendo_culture_ar_LB_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-LB.min.js"; 
+                            public const string kendo_culture_ar_LY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-LY.min.js"; 
+                            public const string kendo_culture_ar_MA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-MA.min.js"; 
+                            public const string kendo_culture_ar_OM_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-OM.min.js"; 
+                            public const string kendo_culture_ar_QA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-QA.min.js"; 
+                            public const string kendo_culture_ar_SA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-SA.min.js"; 
+                            public const string kendo_culture_ar_SY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-SY.min.js"; 
+                            public const string kendo_culture_ar_TN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-TN.min.js"; 
+                            public const string kendo_culture_ar_YE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar-YE.min.js"; 
+                            public const string kendo_culture_ar_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ar.min.js"; 
+                            public const string kendo_culture_arn_CL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.arn-CL.min.js"; 
+                            public const string kendo_culture_arn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.arn.min.js"; 
+                            public const string kendo_culture_as_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.as-IN.min.js"; 
+                            public const string kendo_culture_as_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.as.min.js"; 
+                            public const string kendo_culture_az_Cyrl_AZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.az-Cyrl-AZ.min.js"; 
+                            public const string kendo_culture_az_Cyrl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.az-Cyrl.min.js"; 
+                            public const string kendo_culture_az_Latn_AZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.az-Latn-AZ.min.js"; 
+                            public const string kendo_culture_az_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.az-Latn.min.js"; 
+                            public const string kendo_culture_az_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.az.min.js"; 
+                            public const string kendo_culture_ba_RU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ba-RU.min.js"; 
+                            public const string kendo_culture_ba_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ba.min.js"; 
+                            public const string kendo_culture_be_BY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.be-BY.min.js"; 
+                            public const string kendo_culture_be_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.be.min.js"; 
+                            public const string kendo_culture_bg_BG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bg-BG.min.js"; 
+                            public const string kendo_culture_bg_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bg.min.js"; 
+                            public const string kendo_culture_bn_BD_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bn-BD.min.js"; 
+                            public const string kendo_culture_bn_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bn-IN.min.js"; 
+                            public const string kendo_culture_bn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bn.min.js"; 
+                            public const string kendo_culture_bo_CN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bo-CN.min.js"; 
+                            public const string kendo_culture_bo_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bo.min.js"; 
+                            public const string kendo_culture_br_FR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.br-FR.min.js"; 
+                            public const string kendo_culture_br_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.br.min.js"; 
+                            public const string kendo_culture_bs_Cyrl_BA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bs-Cyrl-BA.min.js"; 
+                            public const string kendo_culture_bs_Cyrl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bs-Cyrl.min.js"; 
+                            public const string kendo_culture_bs_Latn_BA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bs-Latn-BA.min.js"; 
+                            public const string kendo_culture_bs_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bs-Latn.min.js"; 
+                            public const string kendo_culture_bs_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.bs.min.js"; 
+                            public const string kendo_culture_ca_ES_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ca-ES.min.js"; 
+                            public const string kendo_culture_ca_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ca.min.js"; 
+                            public const string kendo_culture_co_FR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.co-FR.min.js"; 
+                            public const string kendo_culture_co_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.co.min.js"; 
+                            public const string kendo_culture_cs_CZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.cs-CZ.min.js"; 
+                            public const string kendo_culture_cs_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.cs.min.js"; 
+                            public const string kendo_culture_cy_GB_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.cy-GB.min.js"; 
+                            public const string kendo_culture_cy_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.cy.min.js"; 
+                            public const string kendo_culture_da_DK_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.da-DK.min.js"; 
+                            public const string kendo_culture_da_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.da.min.js"; 
+                            public const string kendo_culture_de_AT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.de-AT.min.js"; 
+                            public const string kendo_culture_de_CH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.de-CH.min.js"; 
+                            public const string kendo_culture_de_DE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.de-DE.min.js"; 
+                            public const string kendo_culture_de_LI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.de-LI.min.js"; 
+                            public const string kendo_culture_de_LU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.de-LU.min.js"; 
+                            public const string kendo_culture_de_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.de.min.js"; 
+                            public const string kendo_culture_dsb_DE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.dsb-DE.min.js"; 
+                            public const string kendo_culture_dsb_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.dsb.min.js"; 
+                            public const string kendo_culture_dv_MV_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.dv-MV.min.js"; 
+                            public const string kendo_culture_dv_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.dv.min.js"; 
+                            public const string kendo_culture_el_GR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.el-GR.min.js"; 
+                            public const string kendo_culture_el_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.el.min.js"; 
+                            public const string kendo_culture_en_029_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-029.min.js"; 
+                            public const string kendo_culture_en_AU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-AU.min.js"; 
+                            public const string kendo_culture_en_BZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-BZ.min.js"; 
+                            public const string kendo_culture_en_CA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-CA.min.js"; 
+                            public const string kendo_culture_en_GB_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-GB.min.js"; 
+                            public const string kendo_culture_en_IE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-IE.min.js"; 
+                            public const string kendo_culture_en_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-IN.min.js"; 
+                            public const string kendo_culture_en_JM_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-JM.min.js"; 
+                            public const string kendo_culture_en_MY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-MY.min.js"; 
+                            public const string kendo_culture_en_NZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-NZ.min.js"; 
+                            public const string kendo_culture_en_PH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-PH.min.js"; 
+                            public const string kendo_culture_en_SG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-SG.min.js"; 
+                            public const string kendo_culture_en_TT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-TT.min.js"; 
+                            public const string kendo_culture_en_US_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-US.min.js"; 
+                            public const string kendo_culture_en_ZA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-ZA.min.js"; 
+                            public const string kendo_culture_en_ZW_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en-ZW.min.js"; 
+                            public const string kendo_culture_en_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.en.min.js"; 
+                            public const string kendo_culture_es_AR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-AR.min.js"; 
+                            public const string kendo_culture_es_BO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-BO.min.js"; 
+                            public const string kendo_culture_es_CL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-CL.min.js"; 
+                            public const string kendo_culture_es_CO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-CO.min.js"; 
+                            public const string kendo_culture_es_CR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-CR.min.js"; 
+                            public const string kendo_culture_es_DO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-DO.min.js"; 
+                            public const string kendo_culture_es_EC_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-EC.min.js"; 
+                            public const string kendo_culture_es_ES_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-ES.min.js"; 
+                            public const string kendo_culture_es_GT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-GT.min.js"; 
+                            public const string kendo_culture_es_HN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-HN.min.js"; 
+                            public const string kendo_culture_es_MX_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-MX.min.js"; 
+                            public const string kendo_culture_es_NI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-NI.min.js"; 
+                            public const string kendo_culture_es_PA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-PA.min.js"; 
+                            public const string kendo_culture_es_PE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-PE.min.js"; 
+                            public const string kendo_culture_es_PR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-PR.min.js"; 
+                            public const string kendo_culture_es_PY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-PY.min.js"; 
+                            public const string kendo_culture_es_SV_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-SV.min.js"; 
+                            public const string kendo_culture_es_US_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-US.min.js"; 
+                            public const string kendo_culture_es_UY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-UY.min.js"; 
+                            public const string kendo_culture_es_VE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es-VE.min.js"; 
+                            public const string kendo_culture_es_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.es.min.js"; 
+                            public const string kendo_culture_et_EE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.et-EE.min.js"; 
+                            public const string kendo_culture_et_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.et.min.js"; 
+                            public const string kendo_culture_eu_ES_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.eu-ES.min.js"; 
+                            public const string kendo_culture_eu_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.eu.min.js"; 
+                            public const string kendo_culture_fa_IR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fa-IR.min.js"; 
+                            public const string kendo_culture_fa_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fa.min.js"; 
+                            public const string kendo_culture_fi_FI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fi-FI.min.js"; 
+                            public const string kendo_culture_fi_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fi.min.js"; 
+                            public const string kendo_culture_fil_PH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fil-PH.min.js"; 
+                            public const string kendo_culture_fil_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fil.min.js"; 
+                            public const string kendo_culture_fo_FO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fo-FO.min.js"; 
+                            public const string kendo_culture_fo_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fo.min.js"; 
+                            public const string kendo_culture_fr_BE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr-BE.min.js"; 
+                            public const string kendo_culture_fr_CA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr-CA.min.js"; 
+                            public const string kendo_culture_fr_CH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr-CH.min.js"; 
+                            public const string kendo_culture_fr_FR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr-FR.min.js"; 
+                            public const string kendo_culture_fr_LU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr-LU.min.js"; 
+                            public const string kendo_culture_fr_MC_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr-MC.min.js"; 
+                            public const string kendo_culture_fr_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fr.min.js"; 
+                            public const string kendo_culture_fy_NL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fy-NL.min.js"; 
+                            public const string kendo_culture_fy_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.fy.min.js"; 
+                            public const string kendo_culture_ga_IE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ga-IE.min.js"; 
+                            public const string kendo_culture_ga_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ga.min.js"; 
+                            public const string kendo_culture_gd_GB_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gd-GB.min.js"; 
+                            public const string kendo_culture_gd_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gd.min.js"; 
+                            public const string kendo_culture_gl_ES_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gl-ES.min.js"; 
+                            public const string kendo_culture_gl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gl.min.js"; 
+                            public const string kendo_culture_gsw_FR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gsw-FR.min.js"; 
+                            public const string kendo_culture_gsw_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gsw.min.js"; 
+                            public const string kendo_culture_gu_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gu-IN.min.js"; 
+                            public const string kendo_culture_gu_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.gu.min.js"; 
+                            public const string kendo_culture_ha_Latn_NG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ha-Latn-NG.min.js"; 
+                            public const string kendo_culture_ha_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ha-Latn.min.js"; 
+                            public const string kendo_culture_ha_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ha.min.js"; 
+                            public const string kendo_culture_he_IL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.he-IL.min.js"; 
+                            public const string kendo_culture_he_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.he.min.js"; 
+                            public const string kendo_culture_hi_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hi-IN.min.js"; 
+                            public const string kendo_culture_hi_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hi.min.js"; 
+                            public const string kendo_culture_hr_BA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hr-BA.min.js"; 
+                            public const string kendo_culture_hr_HR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hr-HR.min.js"; 
+                            public const string kendo_culture_hr_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hr.min.js"; 
+                            public const string kendo_culture_hsb_DE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hsb-DE.min.js"; 
+                            public const string kendo_culture_hsb_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hsb.min.js"; 
+                            public const string kendo_culture_hu_HU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hu-HU.min.js"; 
+                            public const string kendo_culture_hu_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hu.min.js"; 
+                            public const string kendo_culture_hy_AM_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hy-AM.min.js"; 
+                            public const string kendo_culture_hy_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.hy.min.js"; 
+                            public const string kendo_culture_id_ID_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.id-ID.min.js"; 
+                            public const string kendo_culture_id_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.id.min.js"; 
+                            public const string kendo_culture_ig_NG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ig-NG.min.js"; 
+                            public const string kendo_culture_ig_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ig.min.js"; 
+                            public const string kendo_culture_ii_CN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ii-CN.min.js"; 
+                            public const string kendo_culture_ii_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ii.min.js"; 
+                            public const string kendo_culture_is_IS_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.is-IS.min.js"; 
+                            public const string kendo_culture_is_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.is.min.js"; 
+                            public const string kendo_culture_it_CH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.it-CH.min.js"; 
+                            public const string kendo_culture_it_IT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.it-IT.min.js"; 
+                            public const string kendo_culture_it_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.it.min.js"; 
+                            public const string kendo_culture_iu_Cans_CA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.iu-Cans-CA.min.js"; 
+                            public const string kendo_culture_iu_Cans_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.iu-Cans.min.js"; 
+                            public const string kendo_culture_iu_Latn_CA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.iu-Latn-CA.min.js"; 
+                            public const string kendo_culture_iu_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.iu-Latn.min.js"; 
+                            public const string kendo_culture_iu_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.iu.min.js"; 
+                            public const string kendo_culture_ja_JP_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ja-JP.min.js"; 
+                            public const string kendo_culture_ja_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ja.min.js"; 
+                            public const string kendo_culture_ka_GE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ka-GE.min.js"; 
+                            public const string kendo_culture_ka_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ka.min.js"; 
+                            public const string kendo_culture_kk_KZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kk-KZ.min.js"; 
+                            public const string kendo_culture_kk_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kk.min.js"; 
+                            public const string kendo_culture_kl_GL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kl-GL.min.js"; 
+                            public const string kendo_culture_kl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kl.min.js"; 
+                            public const string kendo_culture_km_KH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.km-KH.min.js"; 
+                            public const string kendo_culture_km_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.km.min.js"; 
+                            public const string kendo_culture_kn_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kn-IN.min.js"; 
+                            public const string kendo_culture_kn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kn.min.js"; 
+                            public const string kendo_culture_ko_KR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ko-KR.min.js"; 
+                            public const string kendo_culture_ko_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ko.min.js"; 
+                            public const string kendo_culture_kok_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kok-IN.min.js"; 
+                            public const string kendo_culture_kok_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.kok.min.js"; 
+                            public const string kendo_culture_ky_KG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ky-KG.min.js"; 
+                            public const string kendo_culture_ky_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ky.min.js"; 
+                            public const string kendo_culture_lb_LU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lb-LU.min.js"; 
+                            public const string kendo_culture_lb_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lb.min.js"; 
+                            public const string kendo_culture_lo_LA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lo-LA.min.js"; 
+                            public const string kendo_culture_lo_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lo.min.js"; 
+                            public const string kendo_culture_lt_LT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lt-LT.min.js"; 
+                            public const string kendo_culture_lt_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lt.min.js"; 
+                            public const string kendo_culture_lv_LV_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lv-LV.min.js"; 
+                            public const string kendo_culture_lv_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.lv.min.js"; 
+                            public const string kendo_culture_mi_NZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mi-NZ.min.js"; 
+                            public const string kendo_culture_mi_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mi.min.js"; 
+                            public const string kendo_culture_mk_MK_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mk-MK.min.js"; 
+                            public const string kendo_culture_mk_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mk.min.js"; 
+                            public const string kendo_culture_ml_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ml-IN.min.js"; 
+                            public const string kendo_culture_ml_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ml.min.js"; 
+                            public const string kendo_culture_mn_Cyrl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mn-Cyrl.min.js"; 
+                            public const string kendo_culture_mn_MN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mn-MN.min.js"; 
+                            public const string kendo_culture_mn_Mong_CN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mn-Mong-CN.min.js"; 
+                            public const string kendo_culture_mn_Mong_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mn-Mong.min.js"; 
+                            public const string kendo_culture_mn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mn.min.js"; 
+                            public const string kendo_culture_moh_CA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.moh-CA.min.js"; 
+                            public const string kendo_culture_moh_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.moh.min.js"; 
+                            public const string kendo_culture_mr_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mr-IN.min.js"; 
+                            public const string kendo_culture_mr_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mr.min.js"; 
+                            public const string kendo_culture_ms_BN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ms-BN.min.js"; 
+                            public const string kendo_culture_ms_MY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ms-MY.min.js"; 
+                            public const string kendo_culture_ms_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ms.min.js"; 
+                            public const string kendo_culture_mt_MT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mt-MT.min.js"; 
+                            public const string kendo_culture_mt_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.mt.min.js"; 
+                            public const string kendo_culture_nb_NO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nb-NO.min.js"; 
+                            public const string kendo_culture_nb_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nb.min.js"; 
+                            public const string kendo_culture_ne_NP_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ne-NP.min.js"; 
+                            public const string kendo_culture_ne_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ne.min.js"; 
+                            public const string kendo_culture_nl_BE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nl-BE.min.js"; 
+                            public const string kendo_culture_nl_NL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nl-NL.min.js"; 
+                            public const string kendo_culture_nl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nl.min.js"; 
+                            public const string kendo_culture_nn_NO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nn-NO.min.js"; 
+                            public const string kendo_culture_nn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nn.min.js"; 
+                            public const string kendo_culture_no_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.no.min.js"; 
+                            public const string kendo_culture_nso_ZA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nso-ZA.min.js"; 
+                            public const string kendo_culture_nso_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.nso.min.js"; 
+                            public const string kendo_culture_oc_FR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.oc-FR.min.js"; 
+                            public const string kendo_culture_oc_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.oc.min.js"; 
+                            public const string kendo_culture_or_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.or-IN.min.js"; 
+                            public const string kendo_culture_or_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.or.min.js"; 
+                            public const string kendo_culture_pa_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pa-IN.min.js"; 
+                            public const string kendo_culture_pa_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pa.min.js"; 
+                            public const string kendo_culture_pl_PL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pl-PL.min.js"; 
+                            public const string kendo_culture_pl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pl.min.js"; 
+                            public const string kendo_culture_prs_AF_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.prs-AF.min.js"; 
+                            public const string kendo_culture_prs_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.prs.min.js"; 
+                            public const string kendo_culture_ps_AF_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ps-AF.min.js"; 
+                            public const string kendo_culture_ps_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ps.min.js"; 
+                            public const string kendo_culture_pt_BR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pt-BR.min.js"; 
+                            public const string kendo_culture_pt_PT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pt-PT.min.js"; 
+                            public const string kendo_culture_pt_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.pt.min.js"; 
+                            public const string kendo_culture_qut_GT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.qut-GT.min.js"; 
+                            public const string kendo_culture_qut_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.qut.min.js"; 
+                            public const string kendo_culture_quz_BO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.quz-BO.min.js"; 
+                            public const string kendo_culture_quz_EC_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.quz-EC.min.js"; 
+                            public const string kendo_culture_quz_PE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.quz-PE.min.js"; 
+                            public const string kendo_culture_quz_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.quz.min.js"; 
+                            public const string kendo_culture_rm_CH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.rm-CH.min.js"; 
+                            public const string kendo_culture_rm_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.rm.min.js"; 
+                            public const string kendo_culture_ro_RO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ro-RO.min.js"; 
+                            public const string kendo_culture_ro_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ro.min.js"; 
+                            public const string kendo_culture_ru_RU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ru-RU.min.js"; 
+                            public const string kendo_culture_ru_UA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ru-UA.min.js"; 
+                            public const string kendo_culture_ru_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ru.min.js"; 
+                            public const string kendo_culture_rw_RW_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.rw-RW.min.js"; 
+                            public const string kendo_culture_rw_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.rw.min.js"; 
+                            public const string kendo_culture_sa_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sa-IN.min.js"; 
+                            public const string kendo_culture_sa_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sa.min.js"; 
+                            public const string kendo_culture_sah_RU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sah-RU.min.js"; 
+                            public const string kendo_culture_sah_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sah.min.js"; 
+                            public const string kendo_culture_se_FI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.se-FI.min.js"; 
+                            public const string kendo_culture_se_NO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.se-NO.min.js"; 
+                            public const string kendo_culture_se_SE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.se-SE.min.js"; 
+                            public const string kendo_culture_se_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.se.min.js"; 
+                            public const string kendo_culture_si_LK_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.si-LK.min.js"; 
+                            public const string kendo_culture_si_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.si.min.js"; 
+                            public const string kendo_culture_sk_SK_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sk-SK.min.js"; 
+                            public const string kendo_culture_sk_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sk.min.js"; 
+                            public const string kendo_culture_sl_SI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sl-SI.min.js"; 
+                            public const string kendo_culture_sl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sl.min.js"; 
+                            public const string kendo_culture_sma_NO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sma-NO.min.js"; 
+                            public const string kendo_culture_sma_SE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sma-SE.min.js"; 
+                            public const string kendo_culture_sma_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sma.min.js"; 
+                            public const string kendo_culture_smj_NO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.smj-NO.min.js"; 
+                            public const string kendo_culture_smj_SE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.smj-SE.min.js"; 
+                            public const string kendo_culture_smj_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.smj.min.js"; 
+                            public const string kendo_culture_smn_FI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.smn-FI.min.js"; 
+                            public const string kendo_culture_smn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.smn.min.js"; 
+                            public const string kendo_culture_sms_FI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sms-FI.min.js"; 
+                            public const string kendo_culture_sms_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sms.min.js"; 
+                            public const string kendo_culture_sq_AL_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sq-AL.min.js"; 
+                            public const string kendo_culture_sq_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sq.min.js"; 
+                            public const string kendo_culture_sr_Cyrl_BA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Cyrl-BA.min.js"; 
+                            public const string kendo_culture_sr_Cyrl_CS_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Cyrl-CS.min.js"; 
+                            public const string kendo_culture_sr_Cyrl_ME_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Cyrl-ME.min.js"; 
+                            public const string kendo_culture_sr_Cyrl_RS_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Cyrl-RS.min.js"; 
+                            public const string kendo_culture_sr_Cyrl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Cyrl.min.js"; 
+                            public const string kendo_culture_sr_Latn_BA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Latn-BA.min.js"; 
+                            public const string kendo_culture_sr_Latn_CS_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Latn-CS.min.js"; 
+                            public const string kendo_culture_sr_Latn_ME_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Latn-ME.min.js"; 
+                            public const string kendo_culture_sr_Latn_RS_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Latn-RS.min.js"; 
+                            public const string kendo_culture_sr_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr-Latn.min.js"; 
+                            public const string kendo_culture_sr_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sr.min.js"; 
+                            public const string kendo_culture_sv_FI_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sv-FI.min.js"; 
+                            public const string kendo_culture_sv_SE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sv-SE.min.js"; 
+                            public const string kendo_culture_sv_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sv.min.js"; 
+                            public const string kendo_culture_sw_KE_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sw-KE.min.js"; 
+                            public const string kendo_culture_sw_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.sw.min.js"; 
+                            public const string kendo_culture_syr_SY_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.syr-SY.min.js"; 
+                            public const string kendo_culture_syr_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.syr.min.js"; 
+                            public const string kendo_culture_ta_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ta-IN.min.js"; 
+                            public const string kendo_culture_ta_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ta.min.js"; 
+                            public const string kendo_culture_te_IN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.te-IN.min.js"; 
+                            public const string kendo_culture_te_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.te.min.js"; 
+                            public const string kendo_culture_tg_Cyrl_TJ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tg-Cyrl-TJ.min.js"; 
+                            public const string kendo_culture_tg_Cyrl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tg-Cyrl.min.js"; 
+                            public const string kendo_culture_tg_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tg.min.js"; 
+                            public const string kendo_culture_th_TH_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.th-TH.min.js"; 
+                            public const string kendo_culture_th_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.th.min.js"; 
+                            public const string kendo_culture_tk_TM_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tk-TM.min.js"; 
+                            public const string kendo_culture_tk_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tk.min.js"; 
+                            public const string kendo_culture_tn_ZA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tn-ZA.min.js"; 
+                            public const string kendo_culture_tn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tn.min.js"; 
+                            public const string kendo_culture_tr_TR_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tr-TR.min.js"; 
+                            public const string kendo_culture_tr_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tr.min.js"; 
+                            public const string kendo_culture_tt_RU_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tt-RU.min.js"; 
+                            public const string kendo_culture_tt_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tt.min.js"; 
+                            public const string kendo_culture_tzm_Latn_DZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tzm-Latn-DZ.min.js"; 
+                            public const string kendo_culture_tzm_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tzm-Latn.min.js"; 
+                            public const string kendo_culture_tzm_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.tzm.min.js"; 
+                            public const string kendo_culture_ug_CN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ug-CN.min.js"; 
+                            public const string kendo_culture_ug_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ug.min.js"; 
+                            public const string kendo_culture_uk_UA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uk-UA.min.js"; 
+                            public const string kendo_culture_uk_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uk.min.js"; 
+                            public const string kendo_culture_ur_PK_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ur-PK.min.js"; 
+                            public const string kendo_culture_ur_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.ur.min.js"; 
+                            public const string kendo_culture_uz_Cyrl_UZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uz-Cyrl-UZ.min.js"; 
+                            public const string kendo_culture_uz_Cyrl_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uz-Cyrl.min.js"; 
+                            public const string kendo_culture_uz_Latn_UZ_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uz-Latn-UZ.min.js"; 
+                            public const string kendo_culture_uz_Latn_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uz-Latn.min.js"; 
+                            public const string kendo_culture_uz_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.uz.min.js"; 
+                            public const string kendo_culture_vi_VN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.vi-VN.min.js"; 
+                            public const string kendo_culture_vi_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.vi.min.js"; 
+                            public const string kendo_culture_wo_SN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.wo-SN.min.js"; 
+                            public const string kendo_culture_wo_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.wo.min.js"; 
+                            public const string kendo_culture_xh_ZA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.xh-ZA.min.js"; 
+                            public const string kendo_culture_xh_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.xh.min.js"; 
+                            public const string kendo_culture_yo_NG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.yo-NG.min.js"; 
+                            public const string kendo_culture_yo_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.yo.min.js"; 
+                            public const string kendo_culture_zh_CHS_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-CHS.min.js"; 
+                            public const string kendo_culture_zh_CHT_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-CHT.min.js"; 
+                            public const string kendo_culture_zh_CN_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-CN.min.js"; 
+                            public const string kendo_culture_zh_Hans_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-Hans.min.js"; 
+                            public const string kendo_culture_zh_Hant_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-Hant.min.js"; 
+                            public const string kendo_culture_zh_HK_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-HK.min.js"; 
+                            public const string kendo_culture_zh_MO_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-MO.min.js"; 
+                            public const string kendo_culture_zh_SG_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-SG.min.js"; 
+                            public const string kendo_culture_zh_TW_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh-TW.min.js"; 
+                            public const string kendo_culture_zh_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zh.min.js"; 
+                            public const string kendo_culture_zu_ZA_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zu-ZA.min.js"; 
+                            public const string kendo_culture_zu_min_js = "~/Scripts/kendo/2014.1.318/cultures/kendo.culture.zu.min.js"; 
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string jquery_min_js = "~/Scripts/kendo/2014.1.318/jquery.min.js"; 
+                        public const string kendo_autocomplete_min_js = "~/Scripts/kendo/2014.1.318/kendo.autocomplete.min.js"; 
+                        public const string kendo_binder_min_js = "~/Scripts/kendo/2014.1.318/kendo.binder.min.js"; 
+                        public const string kendo_button_min_js = "~/Scripts/kendo/2014.1.318/kendo.button.min.js"; 
+                        public const string kendo_calendar_min_js = "~/Scripts/kendo/2014.1.318/kendo.calendar.min.js"; 
+                        public const string kendo_colorpicker_min_js = "~/Scripts/kendo/2014.1.318/kendo.colorpicker.min.js"; 
+                        public const string kendo_columnmenu_min_js = "~/Scripts/kendo/2014.1.318/kendo.columnmenu.min.js"; 
+                        public const string kendo_combobox_min_js = "~/Scripts/kendo/2014.1.318/kendo.combobox.min.js"; 
+                        public const string kendo_core_min_js = "~/Scripts/kendo/2014.1.318/kendo.core.min.js"; 
+                        public const string kendo_data_min_js = "~/Scripts/kendo/2014.1.318/kendo.data.min.js"; 
+                        public const string kendo_data_odata_min_js = "~/Scripts/kendo/2014.1.318/kendo.data.odata.min.js"; 
+                        public const string kendo_data_signalr_min_js = "~/Scripts/kendo/2014.1.318/kendo.data.signalr.min.js"; 
+                        public const string kendo_data_xml_min_js = "~/Scripts/kendo/2014.1.318/kendo.data.xml.min.js"; 
+                        public const string kendo_datepicker_min_js = "~/Scripts/kendo/2014.1.318/kendo.datepicker.min.js"; 
+                        public const string kendo_datetimepicker_min_js = "~/Scripts/kendo/2014.1.318/kendo.datetimepicker.min.js"; 
+                        public const string kendo_draganddrop_min_js = "~/Scripts/kendo/2014.1.318/kendo.draganddrop.min.js"; 
+                        public const string kendo_dropdownlist_min_js = "~/Scripts/kendo/2014.1.318/kendo.dropdownlist.min.js"; 
+                        public const string kendo_editable_min_js = "~/Scripts/kendo/2014.1.318/kendo.editable.min.js"; 
+                        public const string kendo_editor_min_js = "~/Scripts/kendo/2014.1.318/kendo.editor.min.js"; 
+                        public const string kendo_filtermenu_min_js = "~/Scripts/kendo/2014.1.318/kendo.filtermenu.min.js"; 
+                        public const string kendo_fx_min_js = "~/Scripts/kendo/2014.1.318/kendo.fx.min.js"; 
+                        public const string kendo_grid_min_js = "~/Scripts/kendo/2014.1.318/kendo.grid.min.js"; 
+                        public const string kendo_groupable_min_js = "~/Scripts/kendo/2014.1.318/kendo.groupable.min.js"; 
+                        public const string kendo_imagebrowser_min_js = "~/Scripts/kendo/2014.1.318/kendo.imagebrowser.min.js"; 
+                        public const string kendo_list_min_js = "~/Scripts/kendo/2014.1.318/kendo.list.min.js"; 
+                        public const string kendo_listview_min_js = "~/Scripts/kendo/2014.1.318/kendo.listview.min.js"; 
+                        public const string kendo_maskedtextbox_min_js = "~/Scripts/kendo/2014.1.318/kendo.maskedtextbox.min.js"; 
+                        public const string kendo_menu_min_js = "~/Scripts/kendo/2014.1.318/kendo.menu.min.js"; 
+                        public const string kendo_mobile_actionsheet_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.actionsheet.min.js"; 
+                        public const string kendo_mobile_application_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.application.min.js"; 
+                        public const string kendo_mobile_loader_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.loader.min.js"; 
+                        public const string kendo_mobile_pane_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.pane.min.js"; 
+                        public const string kendo_mobile_popover_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.popover.min.js"; 
+                        public const string kendo_mobile_scroller_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.scroller.min.js"; 
+                        public const string kendo_mobile_shim_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.shim.min.js"; 
+                        public const string kendo_mobile_view_min_js = "~/Scripts/kendo/2014.1.318/kendo.mobile.view.min.js"; 
+                        public const string kendo_multiselect_min_js = "~/Scripts/kendo/2014.1.318/kendo.multiselect.min.js"; 
+                        public const string kendo_notification_min_js = "~/Scripts/kendo/2014.1.318/kendo.notification.min.js"; 
+                        public const string kendo_numerictextbox_min_js = "~/Scripts/kendo/2014.1.318/kendo.numerictextbox.min.js"; 
+                        public const string kendo_pager_min_js = "~/Scripts/kendo/2014.1.318/kendo.pager.min.js"; 
+                        public const string kendo_panelbar_min_js = "~/Scripts/kendo/2014.1.318/kendo.panelbar.min.js"; 
+                        public const string kendo_popup_min_js = "~/Scripts/kendo/2014.1.318/kendo.popup.min.js"; 
+                        public const string kendo_progressbar_min_js = "~/Scripts/kendo/2014.1.318/kendo.progressbar.min.js"; 
+                        public const string kendo_reorderable_min_js = "~/Scripts/kendo/2014.1.318/kendo.reorderable.min.js"; 
+                        public const string kendo_resizable_min_js = "~/Scripts/kendo/2014.1.318/kendo.resizable.min.js"; 
+                        public const string kendo_router_min_js = "~/Scripts/kendo/2014.1.318/kendo.router.min.js"; 
+                        public const string kendo_scheduler_agendaview_min_js = "~/Scripts/kendo/2014.1.318/kendo.scheduler.agendaview.min.js"; 
+                        public const string kendo_scheduler_dayview_min_js = "~/Scripts/kendo/2014.1.318/kendo.scheduler.dayview.min.js"; 
+                        public const string kendo_scheduler_min_js = "~/Scripts/kendo/2014.1.318/kendo.scheduler.min.js"; 
+                        public const string kendo_scheduler_monthview_min_js = "~/Scripts/kendo/2014.1.318/kendo.scheduler.monthview.min.js"; 
+                        public const string kendo_scheduler_recurrence_min_js = "~/Scripts/kendo/2014.1.318/kendo.scheduler.recurrence.min.js"; 
+                        public const string kendo_scheduler_view_min_js = "~/Scripts/kendo/2014.1.318/kendo.scheduler.view.min.js"; 
+                        public const string kendo_selectable_min_js = "~/Scripts/kendo/2014.1.318/kendo.selectable.min.js"; 
+                        public const string kendo_slider_min_js = "~/Scripts/kendo/2014.1.318/kendo.slider.min.js"; 
+                        public const string kendo_sortable_min_js = "~/Scripts/kendo/2014.1.318/kendo.sortable.min.js"; 
+                        public const string kendo_splitter_min_js = "~/Scripts/kendo/2014.1.318/kendo.splitter.min.js"; 
+                        public const string kendo_tabstrip_min_js = "~/Scripts/kendo/2014.1.318/kendo.tabstrip.min.js"; 
+                        public const string kendo_timepicker_min_js = "~/Scripts/kendo/2014.1.318/kendo.timepicker.min.js"; 
+                        public const string kendo_timezones_min_js = "~/Scripts/kendo/2014.1.318/kendo.timezones.min.js"; 
+                        public const string kendo_tooltip_min_js = "~/Scripts/kendo/2014.1.318/kendo.tooltip.min.js"; 
+                        public const string kendo_treeview_min_js = "~/Scripts/kendo/2014.1.318/kendo.treeview.min.js"; 
+                        public const string kendo_upload_min_js = "~/Scripts/kendo/2014.1.318/kendo.upload.min.js"; 
+                        public const string kendo_userevents_min_js = "~/Scripts/kendo/2014.1.318/kendo.userevents.min.js"; 
+                        public const string kendo_validator_min_js = "~/Scripts/kendo/2014.1.318/kendo.validator.min.js"; 
+                        public const string kendo_view_min_js = "~/Scripts/kendo/2014.1.318/kendo.view.min.js"; 
+                        public const string kendo_web_min_js = "~/Scripts/kendo/2014.1.318/kendo.web.min.js"; 
+                        public const string kendo_window_min_js = "~/Scripts/kendo/2014.1.318/kendo.window.min.js"; 
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static partial class Site 
+            {
+                public static class Assets
+                {
+                    public const string AdminScripts_js = "~/Scripts/Site/AdminScripts.js"; 
+                    public const string CustomerScripts_js = "~/Scripts/Site/CustomerScripts.js"; 
+                    public const string GeneralScripts_js = "~/Scripts/Site/GeneralScripts.js"; 
+                    public const string ProviderScripts_js = "~/Scripts/Site/ProviderScripts.js"; 
+                }
+            }
+            public static class Assets
+            {
+                public const string _references_js = "~/Scripts/_references.js"; 
+                public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
+                public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
+                public const string jquery_2_1_1_intellisense_js = "~/Scripts/jquery-2.1.1.intellisense.js"; 
+                public const string jquery_2_1_1_js = "~/Scripts/jquery-2.1.1.js"; 
+                public const string jquery_2_1_1_min_js = "~/Scripts/jquery-2.1.1.min.js"; 
+                public const string jquery_ui_1_11_2_js = "~/Scripts/jquery-ui-1.11.2.js"; 
+                public const string jquery_ui_1_11_2_min_js = "~/Scripts/jquery-ui-1.11.2.min.js"; 
+                public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
+                public const string jquery_validate_min_js = "~/Scripts/jquery.validate.min.js"; 
+                public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery.validate.unobtrusive.js"; 
+                public const string jquery_validate_unobtrusive_min_js = "~/Scripts/jquery.validate.unobtrusive.min.js"; 
+                public const string modernizr_2_8_3_js = "~/Scripts/modernizr-2.8.3.js"; 
+                public const string npm_js = "~/Scripts/npm.js"; 
+                public const string respond_js = "~/Scripts/respond.js"; 
+                public const string respond_matchmedia_addListener_js = "~/Scripts/respond.matchmedia.addListener.js"; 
+                public const string respond_matchmedia_addListener_min_js = "~/Scripts/respond.matchmedia.addListener.min.js"; 
+                public const string respond_min_js = "~/Scripts/respond.min.js"; 
+            }
+        }
+        public static partial class Content 
+        {
+            public static partial class Images 
+            {
+                public static class Assets
+                {
+                }
+            }
+            public static partial class kendo 
+            {
+                public static partial class _2014_1_318 
+                {
+                    public static partial class Black 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class BlueOpal 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Bootstrap 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Default 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Flat 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class HighContrast 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class images 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Metro 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class MetroBlack 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Moonlight 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Silver 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class textures 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Uniform 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string kendo_black_min_css = "~/Content/kendo/2014.1.318/kendo.black.min.css";
+                        public const string kendo_black_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.black.mobile.min.css";
+                        public const string kendo_blueopal_min_css = "~/Content/kendo/2014.1.318/kendo.blueopal.min.css";
+                        public const string kendo_blueopal_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.blueopal.mobile.min.css";
+                        public const string kendo_bootstrap_min_css = "~/Content/kendo/2014.1.318/kendo.bootstrap.min.css";
+                        public const string kendo_bootstrap_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.bootstrap.mobile.min.css";
+                        public const string kendo_common_bootstrap_core_min_css = "~/Content/kendo/2014.1.318/kendo.common-bootstrap.core.min.css";
+                        public const string kendo_common_bootstrap_min_css = "~/Content/kendo/2014.1.318/kendo.common-bootstrap.min.css";
+                        public const string kendo_common_core_min_css = "~/Content/kendo/2014.1.318/kendo.common.core.min.css";
+                        public const string kendo_common_min_css = "~/Content/kendo/2014.1.318/kendo.common.min.css";
+                        public const string kendo_default_min_css = "~/Content/kendo/2014.1.318/kendo.default.min.css";
+                        public const string kendo_default_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.default.mobile.min.css";
+                        public const string kendo_flat_min_css = "~/Content/kendo/2014.1.318/kendo.flat.min.css";
+                        public const string kendo_flat_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.flat.mobile.min.css";
+                        public const string kendo_highcontrast_min_css = "~/Content/kendo/2014.1.318/kendo.highcontrast.min.css";
+                        public const string kendo_highcontrast_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.highcontrast.mobile.min.css";
+                        public const string kendo_metro_min_css = "~/Content/kendo/2014.1.318/kendo.metro.min.css";
+                        public const string kendo_metro_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.metro.mobile.min.css";
+                        public const string kendo_metroblack_min_css = "~/Content/kendo/2014.1.318/kendo.metroblack.min.css";
+                        public const string kendo_metroblack_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.metroblack.mobile.min.css";
+                        public const string kendo_moonlight_min_css = "~/Content/kendo/2014.1.318/kendo.moonlight.min.css";
+                        public const string kendo_moonlight_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.moonlight.mobile.min.css";
+                        public const string kendo_rtl_min_css = "~/Content/kendo/2014.1.318/kendo.rtl.min.css";
+                        public const string kendo_silver_min_css = "~/Content/kendo/2014.1.318/kendo.silver.min.css";
+                        public const string kendo_silver_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.silver.mobile.min.css";
+                        public const string kendo_uniform_min_css = "~/Content/kendo/2014.1.318/kendo.uniform.min.css";
+                        public const string kendo_uniform_mobile_min_css = "~/Content/kendo/2014.1.318/kendo.uniform.mobile.min.css";
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static partial class Styles 
+            {
+                public static partial class Site 
+                {
+                    public static class Assets
+                    {
+                        public const string POBOAdmin_css = "~/Content/Styles/Site/POBOAdmin.css";
+                        public const string POBOButtons_css = "~/Content/Styles/Site/POBOButtons.css";
+                        public const string POBOCustomer_css = "~/Content/Styles/Site/POBOCustomer.css";
+                        public const string POBODialogs_css = "~/Content/Styles/Site/POBODialogs.css";
+                        public const string POBOEvaluations_css = "~/Content/Styles/Site/POBOEvaluations.css";
+                        public const string POBOFooter_css = "~/Content/Styles/Site/POBOFooter.css";
+                        public const string POBOForms_css = "~/Content/Styles/Site/POBOForms.css";
+                        public const string POBOGrids_css = "~/Content/Styles/Site/POBOGrids.css";
+                        public const string POBOHeader_css = "~/Content/Styles/Site/POBOHeader.css";
+                        public const string POBOLayout_css = "~/Content/Styles/Site/POBOLayout.css";
+                        public const string POBOLogIn_css = "~/Content/Styles/Site/POBOLogIn.css";
+                        public const string POBOLogInProviders_css = "~/Content/Styles/Site/POBOLogInProviders.css";
+                        public const string POBOProvider_css = "~/Content/Styles/Site/POBOProvider.css";
+                        public const string POBOSideFilters_css = "~/Content/Styles/Site/POBOSideFilters.css";
+                        public const string POBOSideMenu_css = "~/Content/Styles/Site/POBOSideMenu.css";
+                        public const string POBOTopSearchBar_css = "~/Content/Styles/Site/POBOTopSearchBar.css";
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static partial class themes 
+            {
+                public static partial class @base 
+                {
+                    public static partial class images 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string accordion_css = "~/Content/themes/base/accordion.css";
+                        public const string all_css = "~/Content/themes/base/all.css";
+                        public const string autocomplete_css = "~/Content/themes/base/autocomplete.css";
+                        public const string base_css = "~/Content/themes/base/base.css";
+                        public const string button_css = "~/Content/themes/base/button.css";
+                        public const string core_css = "~/Content/themes/base/core.css";
+                        public const string datepicker_css = "~/Content/themes/base/datepicker.css";
+                        public const string dialog_css = "~/Content/themes/base/dialog.css";
+                        public const string draggable_css = "~/Content/themes/base/draggable.css";
+                        public const string menu_css = "~/Content/themes/base/menu.css";
+                        public const string progressbar_css = "~/Content/themes/base/progressbar.css";
+                        public const string resizable_css = "~/Content/themes/base/resizable.css";
+                        public const string selectable_css = "~/Content/themes/base/selectable.css";
+                        public const string selectmenu_css = "~/Content/themes/base/selectmenu.css";
+                        public const string slider_css = "~/Content/themes/base/slider.css";
+                        public const string sortable_css = "~/Content/themes/base/sortable.css";
+                        public const string spinner_css = "~/Content/themes/base/spinner.css";
+                        public const string tabs_css = "~/Content/themes/base/tabs.css";
+                        public const string theme_css = "~/Content/themes/base/theme.css";
+                        public const string tooltip_css = "~/Content/themes/base/tooltip.css";
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static class Assets
+            {
+                public const string bootstrap_theme_css = "~/Content/bootstrap-theme.css";
+                public const string bootstrap_theme_min_css = "~/Content/bootstrap-theme.min.css";
+                public const string bootstrap_css = "~/Content/bootstrap.css";
+                public const string bootstrap_min_css = "~/Content/bootstrap.min.css";
+            }
+        }
     }
 }
 
@@ -1097,6 +1768,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 

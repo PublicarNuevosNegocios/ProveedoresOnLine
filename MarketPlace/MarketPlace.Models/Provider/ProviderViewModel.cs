@@ -51,7 +51,7 @@ namespace MarketPlace.Models.Provider
 
         public List<ProviderDesignationsViewModel> RelatedDesignationsInfo { get; set; }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedBlackListInfo { get; set; }
+        public List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> RelatedBlackListInfo { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedTrackingInfo { get; set; }
 
@@ -66,5 +66,7 @@ namespace MarketPlace.Models.Provider
         public List<ProviderReportsViewModel> RelatedReportInfo { get; set; }
 
         public List<string[]> RelatedThirdKnowledge { get; set; }
+
+
     }
 }

@@ -643,6 +643,69 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<BlackListModel> BlackListGetBasicInfo(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_BlackList_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<BlackListModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from l in response.DataTableResult.AsEnumerable()
+                     where !l.IsNull("BlackListId")
+                     group l by new
+                     {
+                         BlackListId = l.Field<int>("BlackListId"),
+                         BlackListSatusTypeId = l.Field<int>("BlackListSatusTypeId"),
+                         BlackListSatusTypeName = l.Field<string>("BlackListSatusTypeName"),
+                         User = l.Field<string>("User"),
+                         FileUrl = l.Field<string>("FileUrl"),
+                         
+                         LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
+                     }
+                         into cog
+                         select new BlackListModel()
+                         {
+                             BlackListId = cog.Key.BlackListId,
+                             BlackListStatus = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.BlackListSatusTypeId,
+                                 ItemName = cog.Key.BlackListSatusTypeName,
+                             },
+                             User = cog.Key.User,
+                             FileUrl = cog.Key.FileUrl,
+                             BlackListInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("BlackListInfoId") &&
+                                          coinf.Field<int>("BlackListId") == cog.Key.BlackListId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("BlackListinfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemName = coinf.Field<string>("BlacklistInfoType"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      CreateDate = coinf.Field<DateTime>("CreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Util

@@ -1370,5 +1370,13 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         }
 
         #endregion
+
+        #region Black List
+
+        public static List<BlackListModel> BlackListGetBasicInfo(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.BlackListGetBasicInfo(CompanyPublicId);
+        }
+        #endregion
     }
 }

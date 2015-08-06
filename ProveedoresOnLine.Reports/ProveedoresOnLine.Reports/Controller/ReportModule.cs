@@ -50,10 +50,20 @@ namespace ProveedoresOnLine.Reports.Controller
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
-        public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
+        #region Gerencial Report
+
+        public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
         {
-            return DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
+            return DAL.Controller.ReportsDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+
+        #endregion
+
         #endregion
     }
 }
