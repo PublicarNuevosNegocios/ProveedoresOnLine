@@ -404,7 +404,7 @@ var Customer_SurveyObject = {
         $('#' + Customer_SurveyObject.ObjectId).data('kendoGrid').dataSource.read();
     },
 
-    RenderSurveyConfig: function () {
+    RenderSurveyConfig: function () {        
         $('#' + Customer_SurveyObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -420,7 +420,7 @@ var Customer_SurveyObject = {
             dataSource: {
                 pageSize: Customer_SurveyObject.PageSize,
                 serverPaging: true,
-                schema: {
+                schema: {                    
                     total: function (data) {
                         if (data != null && data.length > 0) {
                             return data[0].TotalRows;
@@ -445,6 +445,7 @@ var Customer_SurveyObject = {
                 },
                 transport: {
                     read: function (options) {
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + Customer_SurveyObject.GetSearchParam() + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
@@ -919,7 +920,7 @@ var Customer_SurveyItemObject = {
                 { name: 'ViewEnable', template: $('#' + Customer_SurveyItemObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
-                pageSize: Customer_SurveyItemObject.PageSize,
+                pageSize: 100,
                 schema: {
                     model: {
                         id: "SurveyConfigItemId",
