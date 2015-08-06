@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.Reports.DAL.Controller
 {
-    class ReportsDataController : ProveedoresOnLine.Reports.Interfaces.IReportData
+    class ReportsDataController : Interfaces.IReportData
     {
         #region singleton instance
 
-        private static ProveedoresOnLine.Reports.Interfaces.IReportData oInstance;
-        internal static ProveedoresOnLine.Reports.Interfaces.IReportData Instance
+        private static Interfaces.IReportData oInstance;
+        internal static Interfaces.IReportData Instance
         {
             get
             {
@@ -21,7 +22,7 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
             }
         }
 
-        private ProveedoresOnLine.Reports.Interfaces.IReportData DataFactory;
+        private Interfaces.IReportData DataFactory;
 
         #endregion
 
@@ -35,9 +36,18 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
 
         #endregion
 
-        //public string ReportsUpsert(string Name, string Attributes)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        #region Gerencial Report
+
+        public Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DataFactory.MPCompanyGetBasicInfo(CompanyPublicId);
+        }
+
+        public List<GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+
+        #endregion
     }
 }

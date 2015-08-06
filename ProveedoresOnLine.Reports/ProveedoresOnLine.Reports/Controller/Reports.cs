@@ -18,7 +18,7 @@ namespace ProveedoresOnLine.Reports.Controller
             switch (ReportType)
             {
                 case ((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport):
-                    localReport.ReportPath = strFile.Replace("\n", string.Empty).Trim() + "SV_Report_SurveyDetail.rdlc";        
+                    localReport.ReportPath = strFile.Replace("\n", string.Empty).Trim() + "SV_Report_SurveyDetail.rdlc";
                     localReport.SetParameters(ReportData);
                     break;
                 default:
@@ -50,6 +50,20 @@ namespace ProveedoresOnLine.Reports.Controller
                 out warnings);
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
+
+        #region Gerencial Report
+
+        public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+
+        #endregion
 
         #endregion
     }
