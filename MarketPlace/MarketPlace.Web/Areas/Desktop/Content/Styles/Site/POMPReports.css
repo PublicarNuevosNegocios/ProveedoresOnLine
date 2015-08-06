@@ -1,0 +1,18 @@
+.POMPReportMessage{
+    width:calc(100% - 270px);
+    height:calc(100% - 60px);
+    position:absolute;
+}
+
+.POMPReportMessage > p{
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    position:absolute;
+    width:450px;
+    height:30px;
+    text-align:center;
+    font-size:1.3em;
+}

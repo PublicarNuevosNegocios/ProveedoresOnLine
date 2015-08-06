@@ -83,7 +83,7 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string PRGeneral = "PRGeneral";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
+            public readonly string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -91,7 +91,7 @@ namespace MarketPlace.Web.Controllers
         {
             public const string Index = "Index";
             public const string PRGeneral = "PRGeneral";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
+            public const string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
         }
 
 
@@ -145,14 +145,13 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+        partial void RP_SV_SurveyGeneralInfoReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        public override System.Web.Mvc.ActionResult RP_SV_SurveyGeneralInfoReport()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RP_SV_SurveyGeneralInfoReport);
+            RP_SV_SurveyGeneralInfoReportOverride(callInfo);
             return callInfo;
         }
 

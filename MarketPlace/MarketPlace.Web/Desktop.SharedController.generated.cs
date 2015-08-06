@@ -89,6 +89,7 @@ namespace T4MVC.Desktop
                 public readonly string _PJ_SearchProject_Result = "_PJ_SearchProject_Result";
                 public readonly string _PJ_SearchProject_Result_Item = "_PJ_SearchProject_Result_Item";
                 public readonly string _PR_General = "_PR_General";
+                public readonly string _RP_SV_SurveyGeneralInfoReport = "_RP_SV_SurveyGeneralInfoReport";
                 public readonly string _ST_StatsMenu = "_ST_StatsMenu";
                 public readonly string _SV_ProgramSurvey = "_SV_ProgramSurvey";
                 public readonly string _SV_SurveyReport = "_SV_SurveyReport";
@@ -147,6 +148,7 @@ namespace T4MVC.Desktop
             public readonly string _PJ_SearchProject_Result = "~/Areas/Desktop/Views/Shared/_PJ_SearchProject_Result.cshtml";
             public readonly string _PJ_SearchProject_Result_Item = "~/Areas/Desktop/Views/Shared/_PJ_SearchProject_Result_Item.cshtml";
             public readonly string _PR_General = "~/Areas/Desktop/Views/Shared/_PR_General.cshtml";
+            public readonly string _RP_SV_SurveyGeneralInfoReport = "~/Areas/Desktop/Views/Shared/_RP_SV_SurveyGeneralInfoReport.cshtml";
             public readonly string _ST_StatsMenu = "~/Areas/Desktop/Views/Shared/_ST_StatsMenu.cshtml";
             public readonly string _SV_ProgramSurvey = "~/Areas/Desktop/Views/Shared/_SV_ProgramSurvey.cshtml";
             public readonly string _SV_SurveyReport = "~/Areas/Desktop/Views/Shared/_SV_SurveyReport.cshtml";

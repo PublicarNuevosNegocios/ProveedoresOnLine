@@ -83,7 +83,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string Index = "Index";
             public readonly string PRGeneral = "PRGeneral";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
+            public readonly string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -91,7 +91,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public const string Index = "Index";
             public const string PRGeneral = "PRGeneral";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -115,9 +114,11 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             {
                 public readonly string Index = "Index";
                 public readonly string PRGeneral = "PRGeneral";
+                public readonly string RP_SV_SurveyGeneralInfoReport = "RP_SV_SurveyGeneralInfoReport";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Report/Index.cshtml";
             public readonly string PRGeneral = "~/Areas/Desktop/Views/Report/PRGeneral.cshtml";
+            public readonly string RP_SV_SurveyGeneralInfoReport = "~/Areas/Desktop/Views/Report/RP_SV_SurveyGeneralInfoReport.cshtml";
         }
     }
 
@@ -145,18 +146,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PRGeneral);
             PRGeneralOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 
