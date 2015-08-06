@@ -13,7 +13,7 @@ namespace ProveedoresOnLine.Reports.Controller
         public static Tuple<byte[], string, string> CP_SurveyReportDetail(int ReportType, string FormatType, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
-            localReport.EnableExternalImages = true;           
+            localReport.EnableExternalImages = true;
             switch (ReportType)
             {
                 case ((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport):
@@ -49,6 +49,20 @@ namespace ProveedoresOnLine.Reports.Controller
                 out warnings);
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
+
+        #region Gerencial Report
+
+        public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+
+        #endregion
 
         #endregion
     }
