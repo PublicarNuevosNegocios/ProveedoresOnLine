@@ -185,7 +185,7 @@ namespace BackOffice.Web.ControllersApi
                 {
                     oSearchResult.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Customer.SurveyConfigViewModel(x));
+                        oReturn.Add(new BackOffice.Models.Customer.SurveyConfigViewModel(x, oTotalRows));
                         return true;
                     });
                 }
