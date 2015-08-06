@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -136,6 +137,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         public int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value)
         {
             return DataFactory.BlackListInfoInsert(BlackListId, BlackListInfoType, Value);
+        }
+
+        public List<BlackListModel> BlackListGetBasicInfo(string CompanyPublicId)
+        {
+            return DataFactory.BlackListGetBasicInfo(CompanyPublicId);
         }
 
         #endregion

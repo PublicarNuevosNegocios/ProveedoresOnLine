@@ -436,7 +436,7 @@ namespace BackOffice.Web.Controllers
             string ActualProvider = "";
             List<string> ProvidersId = new List<string>();
             oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId)).All(prv =>
-            {                
+            {
                 try
                 {
                     FileName = FileName.Replace(Path.GetExtension(FileName), "");
@@ -465,29 +465,33 @@ namespace BackOffice.Web.Controllers
                     });
 
                     var Rows = from c in excel.Worksheet(page.FirstOrDefault())
-                               where c["ProviderPublicId"] == prv.ProviderPublicId
+                               where c["ProviderPublicId"] == prv.ProviderPublicId && c["IdentificationNumber"] == prv.IdentificationNumber
                                select c;
 
-                    //Load the BlackList info
-                    foreach (string item in Columns)
+                    foreach (var rw in Rows)
                     {
-                        int index = Columns.IndexOf(item);
-                        oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                        //Load the BlackList info
+                        foreach (string item in Columns)
                         {
-                            ItemInfoId = 0,
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            int indexCollumn = Columns.IndexOf(item);
+                            oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
                             {
-                                ItemName = item,
-                            },
-                            Value = Rows.First()[index].Value.ToString(),
-                            Enable = true,
-                        });
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemName = item,
+                                },
+                                Value = Rows.First()[indexCollumn].Value.ToString(),
+                                Enable = true,
+                            });
+                        }
                     }
+
                     List<ProviderModel> oProviderResultList = new List<ProviderModel>();
                     oProviderResultList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert));
-                    
+
                     var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
-                    
+
                     #region Set Provider Info
                     if (prv.BlackListStatus == "si")
                     {
@@ -504,7 +508,7 @@ namespace BackOffice.Web.Controllers
                             Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
                             Enable = true,
                         });
-                    }                  
+                    }
 
                     //Set large value With the items found
                     oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
@@ -518,8 +522,8 @@ namespace BackOffice.Web.Controllers
                         },
                         LargeValue = string.Join(",", idResult),
                         Enable = true,
-                    });                    
-                  
+                    });
+
                     #endregion
 
                     ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);

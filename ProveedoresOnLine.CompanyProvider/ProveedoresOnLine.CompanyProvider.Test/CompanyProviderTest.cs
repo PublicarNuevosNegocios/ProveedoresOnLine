@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 
 namespace ProveedoresOnLine.CompanyProvider.Test
 {
@@ -504,6 +505,14 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportGetBasicInfo("1D9B9580", null);
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void MPBlackListGetBasicInfo()
+        {
+            List<BlackListModel> oReturn =
+               ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo("50583E9D");
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
         #endregion

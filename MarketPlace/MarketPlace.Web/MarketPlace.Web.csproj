@@ -154,7 +154,8 @@
     <Reference Include="ProveedoresOnLine.ProjectModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
     </Reference>
-    <Reference Include="ProveedoresOnLine.Reports">
+    <Reference Include="ProveedoresOnLine.Reports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Reports\developer\ProveedoresOnLine.Reports.dll</HintPath>
     </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">

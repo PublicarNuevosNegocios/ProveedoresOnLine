@@ -1040,6 +1040,8 @@ namespace Links
                              
                         public static readonly string POMPProviderSearchLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPProviderSearchLayout.min.css") ? Url("POMPProviderSearchLayout.min.css") : Url("POMPProviderSearchLayout.css");
                              
+                        public static readonly string POMPReports_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPReports.min.css") ? Url("POMPReports.min.css") : Url("POMPReports.css");
+                             
                         public static readonly string POMPSearchComparison_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSearchComparison.min.css") ? Url("POMPSearchComparison.min.css") : Url("POMPSearchComparison.css");
                              
                         public static readonly string POMPSearchResults_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSearchResults.min.css") ? Url("POMPSearchResults.min.css") : Url("POMPSearchResults.css");

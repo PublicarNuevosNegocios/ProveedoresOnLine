@@ -1,4 +1,5 @@
 ﻿using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,8 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
         int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl);
 
         int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value);
+
+        List<BlackListModel> BlackListGetBasicInfo(string CompanyPublicId);
 
         #endregion
 
