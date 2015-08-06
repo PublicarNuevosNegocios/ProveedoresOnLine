@@ -118,13 +118,13 @@
 
                             @foreach (var itemBL in Model.RelatedBlackListInfo)
                             {
-                                if (itemBL.ItemType.ItemName != "ProviderPublicId" && itemBL.ItemType.ItemName != "SearchType")
+                                @*if (itemBL.ItemType.ItemName != "ProviderPublicId" && itemBL.ItemType.ItemName != "SearchType")
                                 {
                                     <label>
                                         @itemBL.ItemType.ItemName
                                         <span>@itemBL.ItemName</span>
                                     </label>
-                                }
+                                }*@
                             }
                         </li>
                     </ul>
