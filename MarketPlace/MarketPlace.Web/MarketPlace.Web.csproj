@@ -138,7 +138,8 @@
     <Reference Include="ProveedoresOnLine.ProjectModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
     </Reference>
-    <Reference Include="ProveedoresOnLine.Reports">
+    <Reference Include="ProveedoresOnLine.Reports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Reports\developer\ProveedoresOnLine.Reports.dll</HintPath>
     </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">
@@ -251,6 +252,7 @@
     <Compile Include="CompareController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\ReportApiController.cs" />
     <Compile Include="ControllersApi\CompanyApiController.cs" />
     <Compile Include="ControllersApi\ProjectApiController.cs" />
     <Compile Include="ControllersApi\SurveyApiController.cs" />
@@ -595,6 +597,7 @@
     <Content Include="Areas\Desktop\Content\themes\base\tabs.css" />
     <Content Include="Areas\Desktop\Content\themes\base\theme.css" />
     <Content Include="Areas\Desktop\Content\themes\base\tooltip.css" />
+    <Content Include="Areas\Desktop\Scripts\Site\ReportScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\ProjectScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\ChartsScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\SurveyScripts.js" />

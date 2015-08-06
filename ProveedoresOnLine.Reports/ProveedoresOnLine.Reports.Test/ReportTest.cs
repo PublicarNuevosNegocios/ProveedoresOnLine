@@ -31,8 +31,14 @@ namespace ProveedoresOnLine.Reports.Test
             parameters.Add(new ReportParameter("reportDate","01/01/2016"));
             parameters.Add(new ReportParameter("responsible","Alexander"));
             parameters.Add(new ReportParameter("author", "Autor Chino"));
-            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.Reports.CP_SurveyReportDetail((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport, "PDF", parameters, "");
+            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.CP_SurveyReportDetail((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport, "PDF", parameters, "");
             parameters = null;
+        }
+
+        [TestMethod]
+        public void SV_Report_SurveyGetAllByCustomer()
+        {
+          List<SurveyModule.Models.SurveyModel> test = ProveedoresOnLine.Reports.Controller.ReportModule.SurveyGetAllByCustomer("DA5C572E");
         }
         #endregion
     }

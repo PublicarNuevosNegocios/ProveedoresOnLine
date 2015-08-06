@@ -1,7 +1,22 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 
-<label class="POMPSectionTitles">Reporte general de Evaluación de Desempeño</label>
-
+@if (!Model.RenderScripts)
+{
+    <label class="POMPSectionTitles">Reporte general de Evaluación de Desempeño</label>
+    <div>
+        <a href="javascript:Survey_Report.ListSurveyGeneralInfoReport();">Generar Reporte</a>
+    </div>
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Survey_Report.Init({
+                ObjectId: 'Report',
+            });
+        });
+    </script>
+}
 
 
 

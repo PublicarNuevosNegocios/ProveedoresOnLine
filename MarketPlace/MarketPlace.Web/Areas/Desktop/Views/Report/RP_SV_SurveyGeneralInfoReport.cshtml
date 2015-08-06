@@ -3,7 +3,7 @@
     ViewBag.Title = "Proveedores OnLine - Reportes";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
-    //Model.RenderScripts = false;
+    Model.RenderScripts = false;
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -20,12 +20,11 @@
 
 </div>
 
-
-
 @{
     Model.RenderScripts = true;
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._RP_SV_SurveyGeneralInfoReport, Model)
 }

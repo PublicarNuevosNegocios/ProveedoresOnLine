@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Reports.DAL.Controller
 {
-    class ReportsDataFactory
+    internal class ReportsDataFactory
     {
         public ProveedoresOnLine.Reports.Interfaces.IReportData GetReportsInstance()
         {

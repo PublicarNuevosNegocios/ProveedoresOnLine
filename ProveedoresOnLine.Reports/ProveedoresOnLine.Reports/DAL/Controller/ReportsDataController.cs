@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Reports.DAL.Controller
 {
-    class ReportsDataController : ProveedoresOnLine.Reports.Interfaces.IReportData
+    internal class ReportsDataController : ProveedoresOnLine.Reports.Interfaces.IReportData
     {
         #region singleton instance
-
         private static ProveedoresOnLine.Reports.Interfaces.IReportData oInstance;
         internal static ProveedoresOnLine.Reports.Interfaces.IReportData Instance
         {
@@ -20,24 +19,24 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
                 return oInstance;
             }
         }
-
         private ProveedoresOnLine.Reports.Interfaces.IReportData DataFactory;
-
         #endregion
 
         #region Constructor
-
         public ReportsDataController()
         {
             ReportsDataFactory factory = new ReportsDataFactory();
             DataFactory = factory.GetReportsInstance();
         }
+        #endregion
+
+        #region report
+        public List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
+        {
+            return DataFactory.SurveyGetAllByCustomer(CustomerPublicId);
+        }
 
         #endregion
 
-        //public string ReportsUpsert(string Name, string Attributes)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

@@ -11,8 +11,8 @@ namespace ProveedoresOnLine.Reports.Interfaces
     {
         #region Reports
 
-        //string ReportsUpsert(string Name, string Attributes);
-  
+        List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId);
+
         #endregion
     }
 }
