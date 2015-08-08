@@ -10,7 +10,8 @@ namespace ProveedoresOnLine.Reports.Controller
 {
     public class ReportModule
     {
-        #region Reports
+        #region ReportsSurveyDetail
+
         public static Tuple<byte[], string, string> CP_SurveyReportDetail(int ReportType, string FormatType, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
@@ -51,20 +52,23 @@ namespace ProveedoresOnLine.Reports.Controller
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
-        #region report
+        #endregion
+
+        #region ReportSurveyGetAllByCustomer
+
         public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
-            List<SurveyModule.Models.SurveyModel> oSurveyModel = DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
+            List<SurveyModule.Models.SurveyModel> oSurveyModel = oGetAllSurveyByCustomer(CustomerPublicId);
             if (oSurveyModel != null)
             {
                 oSurveyModel.All(x =>
                 {
-                    List<string> childrenIdsSuvey = DAL.Controller.ReportsDataController.Instance.SurveyGetIdsChildrenByParent(x.SurveyPublicId);
+                    List<string> childrenIdsSuvey = oGetChildrenIdsByParent(x.SurveyPublicId);
                     x.ChildSurvey = new List<SurveyModel>();
                     if (childrenIdsSuvey != null)
                         childrenIdsSuvey.All(y =>
                         {
-                            x.ChildSurvey.Add(DAL.Controller.ReportsDataController.Instance.SurveyGetById(y.ToString()));
+                            x.ChildSurvey.Add(childSurvey(y.ToString()));
                             return true;
                         });
                     return true;
@@ -72,8 +76,28 @@ namespace ProveedoresOnLine.Reports.Controller
             }
             return oSurveyModel;
         }
+
+        #region Data
+        
+        public static List<SurveyModule.Models.SurveyModel> oGetAllSurveyByCustomer(string CustomerPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
+        }
+        
+        public static List<string> oGetChildrenIdsByParent(string surveyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.SurveyGetIdsChildrenByParent(surveyPublicId);
+        }
+
+        public static SurveyModel childSurvey(string surveyPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.SurveyGetById(surveyPublicId);
+        }
+
         #endregion
 
+        #endregion
+        
         #region Gerencial Report
 
         public static Tuple<byte[], string, string> CP_GerenciaReport(string FormatType, List<ReportParameter> ReportData, string FilePath)
@@ -159,6 +183,5 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #endregion
 
-        #endregion
     }
 }
