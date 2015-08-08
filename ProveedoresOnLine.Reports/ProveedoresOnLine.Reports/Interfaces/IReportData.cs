@@ -17,7 +17,9 @@ namespace ProveedoresOnLine.Reports.Interfaces
         List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId);
         
         SurveyModel SurveyGetById(string SurveyPublicId);
-        
+
+        List<string> SurveyGetIdsChildrenByParent(string vParentPublicId);
+
         #endregion
 
         #region Gerencial Report

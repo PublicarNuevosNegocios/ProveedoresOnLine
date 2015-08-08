@@ -121,6 +121,27 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
             return oReturn;
         }
 
+
+        public List<string> SurveyGetIdsChildrenByParent(string vParentPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            lstParams.Add(DataInstance.CreateTypedParameter("vParentPublicId", vParentPublicId));
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Report_Survey_GetChildrenByParent",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+            List<string> oReturn = null;
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = response.DataTableResult.AsEnumerable().Select(x => x.Field<string>("ChildSurveyPublicId")).ToList();
+            }
+            return oReturn;
+        }
+        
         public SurveyModel SurveyGetById(string SurveyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();

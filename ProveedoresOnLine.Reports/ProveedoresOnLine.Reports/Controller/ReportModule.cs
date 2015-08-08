@@ -52,25 +52,26 @@ namespace ProveedoresOnLine.Reports.Controller
         }
 
         #region report
-
         public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
             List<SurveyModule.Models.SurveyModel> oSurveyModel = DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
-            SurveyModel asd =  DAL.Controller.ReportsDataController.Instance.SurveyGetById("");
-            //Get child Survey|
             if (oSurveyModel != null)
             {
                 oSurveyModel.All(x =>
                 {
-                    x.ChildSurvey.Add(DAL.Controller.ReportsDataController.Instance.SurveyGetById(x.SurveyPublicId));
+                    List<string> childrenIdsSuvey = DAL.Controller.ReportsDataController.Instance.SurveyGetIdsChildrenByParent(x.SurveyPublicId);
+                    x.ChildSurvey = new List<SurveyModel>();
+                    if (childrenIdsSuvey != null)
+                        childrenIdsSuvey.All(y =>
+                        {
+                            x.ChildSurvey.Add(DAL.Controller.ReportsDataController.Instance.SurveyGetById(y.ToString()));
+                            return true;
+                        });
                     return true;
                 });
             }
-
             return oSurveyModel;
-            
         }
-
         #endregion
 
         #region Gerencial Report

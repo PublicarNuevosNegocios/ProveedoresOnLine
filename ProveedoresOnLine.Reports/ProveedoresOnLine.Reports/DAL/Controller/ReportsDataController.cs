@@ -41,6 +41,12 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
         {
             return DataFactory.SurveyGetAllByCustomer(CustomerPublicId);
         }
+
+        public List<string> SurveyGetIdsChildrenByParent(string vParentPublicId)
+        {
+            return DataFactory.SurveyGetIdsChildrenByParent(vParentPublicId);
+        }
+
         public SurveyModel SurveyGetById(string SurveyPublicId)
         {
             return DataFactory.SurveyGetById(SurveyPublicId);
