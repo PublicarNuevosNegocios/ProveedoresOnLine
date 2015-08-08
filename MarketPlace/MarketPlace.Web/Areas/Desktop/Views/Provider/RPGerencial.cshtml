@@ -1,4 +1,4 @@
-﻿@model MarketPlace.Models.Provider.ProviderViewModel
+﻿    @model MarketPlace.Models.Provider.ProviderViewModel
 @{
     ViewBag.Title = "Proveedores OnLine - Reporte Gerencial";
     Layout = MVC.Desktop.Shared.Views._Layout;
@@ -82,23 +82,6 @@
                             Objeto Social
                             <span><br />@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
                         </label>
-                    }
-
-                    foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
-                    {
-                        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
-                        {
-                            <label class="POMPProviderVerDetalle">
-                                <a href="@(Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.GIBranchInfo,
-                                    ProviderPublicId = Request["ProviderPublicId"]
-                                }))">Ver Detalle</a>
-                            </label>
-                        }
                     }
                 }
             </li>
@@ -225,17 +208,6 @@
                                     <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
                                 }
                             </label>
-
-                            <label class="POMPProviderVerDetalle">
-                                <a href="@(Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
-                                    ProviderPublicId = Request["ProviderPublicId"]
-                                }))">Ver Detalle</a>
-                            </label>
                         </li>
                     }
                 </ul>
@@ -340,16 +312,6 @@
                                     <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
                                 </label>
                             }
-                            <label class="POMPProviderVerDetalle">
-                                <a href="@(Url.RouteUrl
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.HIRiskPoliciesInfo,
-                                ProviderPublicId = Request["ProviderPublicId"]
-                            }))">Ver Detalle</a>
-                            </label>
                         </li>
                     }
                 </ul>

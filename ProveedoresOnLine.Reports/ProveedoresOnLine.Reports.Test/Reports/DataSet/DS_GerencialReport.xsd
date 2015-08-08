@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_GerencialReport" targetNamespace="http://tempuri.org/DS_GerencialReport.xsd" xmlns:mstns="http://tempuri.org/DS_GerencialReport.xsd" xmlns="http://tempuri.org/DS_GerencialReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_GerencialReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_GerencialReport" msprop:Generator_UserDSName="DS_GerencialReport">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DT_GerencialReport" msprop:Generator_TableClassName="DT_GerencialReportDataTable" msprop:Generator_TableVarName="tableDT_GerencialReport" msprop:Generator_TablePropName="DT_GerencialReport" msprop:Generator_RowDeletingName="DT_GerencialReportRowDeleting" msprop:Generator_RowChangingName="DT_GerencialReportRowChanging" msprop:Generator_RowEvHandlerName="DT_GerencialReportRowChangeEventHandler" msprop:Generator_RowDeletedName="DT_GerencialReportRowDeleted" msprop:Generator_UserTableName="DT_GerencialReport" msprop:Generator_RowChangedName="DT_GerencialReportRowChanged" msprop:Generator_RowEvArgName="DT_GerencialReportRowChangeEvent" msprop:Generator_RowClassName="DT_GerencialReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EvaluationCriteria" msprop:Generator_ColumnVarNameInTable="columnEvaluationCriteria" msprop:Generator_ColumnPropNameInRow="EvaluationCriteria" msprop:Generator_ColumnPropNameInTable="EvaluationCriteriaColumn" msprop:Generator_UserColumnName="EvaluationCriteria" type="xs:string" minOccurs="0" />
+              <xs:element name="Provider" msprop:Generator_ColumnVarNameInTable="columnProvider" msprop:Generator_ColumnPropNameInRow="Provider" msprop:Generator_ColumnPropNameInTable="ProviderColumn" msprop:Generator_UserColumnName="Provider" type="xs:string" minOccurs="0" />
+              <xs:element name="Consultant" msprop:Generator_ColumnVarNameInTable="columnConsultant" msprop:Generator_ColumnPropNameInRow="Consultant" msprop:Generator_ColumnPropNameInTable="ConsultantColumn" msprop:Generator_UserColumnName="Consultant" type="xs:string" minOccurs="0" />
+              <xs:element name="Builder" msprop:Generator_ColumnVarNameInTable="columnBuilder" msprop:Generator_ColumnPropNameInRow="Builder" msprop:Generator_ColumnPropNameInTable="BuilderColumn" msprop:Generator_UserColumnName="Builder" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

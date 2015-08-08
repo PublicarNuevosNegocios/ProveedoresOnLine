@@ -1725,12 +1725,12 @@ namespace MarketPlace.Web.Controllers
                     }
                     parameters.Add(new ReportParameter("author", SessionModel.CurrentCompanyLoginUser.RelatedUser.Name.ToString() + " " + SessionModel.CurrentCompanyLoginUser.RelatedUser.LastName.ToString()));
 
-                    //Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.Reports.CP_SurveyReportDetail(
-                    //                                    (int)enumReportType.RP_SurveyReport, enumCategoryInfoType.PDF.ToString(),
-                    //                                    parameters, MarketPlace.Models.General.InternalSettings.Instance
-                    //                                    [MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_SurveyDetail.rdlc");
+                    Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.CP_SurveyReportDetail(
+                                                        (int)enumReportType.RP_SurveyReport, enumCategoryInfoType.PDF.ToString(),
+                                                        parameters, 
+                                                        MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_SurveyDetail.rdlc");
                     parameters = null;
-                    //return File(report.Item1, report.Item2, report.Item3);
+                    return File(report.Item1, report.Item2, report.Item3);
                 }
             #endregion
             return View(oModel);
@@ -2095,14 +2095,13 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion
 
-                #region Black List
-
-
-
-                #endregion
-
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+
+            #region Report Generator
+
+            #endregion
+
             return View(oModel);
         }
 
