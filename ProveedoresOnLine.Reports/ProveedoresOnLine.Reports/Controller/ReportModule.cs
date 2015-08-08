@@ -76,14 +76,48 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region Gerencial Report
 
+        public static Tuple<byte[], string, string> CP_GerenciaReport(string FormatType, List<ReportParameter> ReportData, string FilePath)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.EnableExternalImages = true;
+
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo =
+                       "<DeviceInfo>" +
+                       "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                       "  <PageWidth>8.5in</PageWidth>" +
+                       "  <PageHeight>11in</PageHeight>" +
+                       "  <MarginTop>0.5in</MarginTop>" +
+                       "  <MarginLeft>1in</MarginLeft>" +
+                       "  <MarginRight>1in</MarginRight>" +
+                       "  <MarginBottom>0.5in</MarginBottom>" +
+                       "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+            renderedBytes = localReport.Render(
+                FormatType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+            return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GerencialReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+        }
+
+        #region Data
+
         public static Company.Models.Company.CompanyModel C_Report_MPCompanyGetBasicInfo(string CompanyPublicId)
         {
             return DAL.Controller.ReportsDataController.Instance.C_Report_MPCompanyGetBasicInfo(CompanyPublicId);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_BlackListGetByCompanyPublicId(string CompanyPublicId)
+        public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> C_Report_BlackListGetBasicInfo(string CompanyPublicId)
         {
-            return DAL.Controller.ReportsDataController.Instance.C_Report_BlackListGetByCompanyPublicId(CompanyPublicId);
+            return DAL.Controller.ReportsDataController.Instance.C_Report_BlackListGetBasicInfo(CompanyPublicId);
         }
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
@@ -106,9 +140,9 @@ namespace ProveedoresOnLine.Reports.Controller
             return DAL.Controller.ReportsDataController.Instance.C_Report_MPFinancialGetLastyearInfoDeta(ProviderPublicId);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
-            return DAL.Controller.ReportsDataController.Instance.C_Report_MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
+            return DAL.Controller.ReportsDataController.Instance.C_Report_FinancialGetBasicInfo(CompanyPublicId, FinancialType, Enable);
         }
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
@@ -120,6 +154,8 @@ namespace ProveedoresOnLine.Reports.Controller
         {
             return DAL.Controller.ReportsDataController.Instance.C_Report_MPCertificationGetSpecificCert(ProviderPublicId);
         }
+
+        #endregion
 
         #endregion
 

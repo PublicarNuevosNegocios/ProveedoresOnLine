@@ -60,9 +60,9 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
             return DataFactory.C_Report_MPCompanyGetBasicInfo(CompanyPublicId);
         }
 
-        public List<GenericItemModel> C_Report_BlackListGetByCompanyPublicId(string CompanyPublicId)
+        public List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> C_Report_BlackListGetBasicInfo(string CompanyPublicId)
         {
-            return DataFactory.C_Report_BlackListGetByCompanyPublicId(CompanyPublicId);
+            return DataFactory.C_Report_BlackListGetBasicInfo(CompanyPublicId);    
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
@@ -85,9 +85,9 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
             return DataFactory.C_Report_MPFinancialGetLastyearInfoDeta(ProviderPublicId);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
-            return DataFactory.C_Report_MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
+            return DataFactory.C_Report_FinancialGetBasicInfo(CompanyPublicId, FinancialType, Enable);
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)

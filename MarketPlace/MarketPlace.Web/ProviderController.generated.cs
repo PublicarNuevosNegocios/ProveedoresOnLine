@@ -209,6 +209,12 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult RPGerencial()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPGerencial);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -251,6 +257,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
             public readonly string SVSurveyReport = "SVSurveyReport";
             public readonly string SVSurveyProgram = "SVSurveyProgram";
+            public readonly string RPGerencial = "RPGerencial";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -282,6 +289,7 @@ namespace MarketPlace.Web.Controllers
             public const string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
             public const string SVSurveyReport = "SVSurveyReport";
             public const string SVSurveyProgram = "SVSurveyProgram";
+            public const string RPGerencial = "RPGerencial";
         }
 
 
@@ -503,6 +511,14 @@ namespace MarketPlace.Web.Controllers
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string SurveyPublicId = "SurveyPublicId";
             public readonly string ProjectPublicId = "ProjectPublicId";
+        }
+        static readonly ActionParamsClass_RPGerencial s_params_RPGerencial = new ActionParamsClass_RPGerencial();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RPGerencial RPGerencialParams { get { return s_params_RPGerencial; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RPGerencial
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -850,6 +866,18 @@ namespace MarketPlace.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
             SVSurveyProgramOverride(callInfo, ProviderPublicId, SurveyPublicId, ProjectPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RPGerencialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RPGerencial(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPGerencial);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            RPGerencialOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

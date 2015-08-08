@@ -26,7 +26,7 @@ namespace ProveedoresOnLine.Reports.Interfaces
 
         Company.Models.Company.CompanyModel C_Report_MPCompanyGetBasicInfo(string CompanyPublicId);
 
-        List<Company.Models.Util.GenericItemModel> C_Report_BlackListGetByCompanyPublicId(string CompanyPublicId);
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> C_Report_BlackListGetBasicInfo(string CompanyPublicId);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPContactGetBasicInfo(string CompanyPublicId, int? ContactType);
 
@@ -36,7 +36,7 @@ namespace ProveedoresOnLine.Reports.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetLastyearInfoDeta(string ProviderPublicId);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
 

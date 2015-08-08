@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Threading.Tasks;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 
 namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
 {
@@ -353,8 +354,8 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
         #endregion
 
         #region Gerencial Report
-
-        public List<GenericItemModel> C_Report_BlackListGetByCompanyPublicId(string CompanyPublicId)
+        
+        public List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> C_Report_BlackListGetBasicInfo(string CompanyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -363,35 +364,56 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "C_BlackListInfo_GetInfoByCompanyPublicId",
+                CommandText = "MP_CP_BlackList_GetBasicInfo",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
 
-            List<GenericItemModel> oReturn = null;
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
-                    (from bl in response.DataTableResult.AsEnumerable()
-                     where !bl.IsNull("BlackListId")
-                     group bl by new
+                    (from l in response.DataTableResult.AsEnumerable()
+                     where !l.IsNull("BlackListId")
+                     group l by new
                      {
-                         BlackListId = bl.Field<int>("BlackListId"),
-                         BlackListInfoId = bl.Field<int>("BlackListInfoId"),
-                         BlackListInfoType = bl.Field<string>("BlackListInfoType"),
-                         Value = bl.Field<string>("Value")
-                     } into blg
-                     select new GenericItemModel()
-                     {
-                         ItemId = blg.Key.BlackListId,
-                         ItemType = new CatalogModel()
+                         BlackListId = l.Field<int>("BlackListId"),
+                         BlackListSatusTypeId = l.Field<int>("BlackListSatusTypeId"),
+                         BlackListSatusTypeName = l.Field<string>("BlackListSatusTypeName"),
+                         User = l.Field<string>("User"),
+                         FileUrl = l.Field<string>("FileUrl"),
+
+                         LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
+                     }
+                         into cog
+                         select new BlackListModel()
                          {
-                             ItemName = blg.Key.BlackListInfoType,
-                         },
-                         ItemName = blg.Key.Value,
-                     }).ToList();
+                             BlackListId = cog.Key.BlackListId,
+                             BlackListStatus = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.BlackListSatusTypeId,
+                                 ItemName = cog.Key.BlackListSatusTypeName,
+                             },
+                             User = cog.Key.User,
+                             FileUrl = cog.Key.FileUrl,
+                             BlackListInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("BlackListInfoId") &&
+                                          coinf.Field<int>("BlackListId") == cog.Key.BlackListId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("BlackListinfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemName = coinf.Field<string>("BlacklistInfoType"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      CreateDate = coinf.Field<DateTime>("CreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
             }
             return oReturn;
         }
@@ -689,17 +711,18 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vFinancialType", FinancialType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "MP_CP_Financial_GetBasicInfo",
+                CommandText = "CP_Financial_GetBasicInfo",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
