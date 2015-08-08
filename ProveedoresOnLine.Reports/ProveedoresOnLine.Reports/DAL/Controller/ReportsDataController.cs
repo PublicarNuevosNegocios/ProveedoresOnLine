@@ -45,14 +45,49 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
 
         #region Gerencial Report
 
-        public Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        public Company.Models.Company.CompanyModel C_Report_MPCompanyGetBasicInfo(string CompanyPublicId)
         {
-            return DataFactory.MPCompanyGetBasicInfo(CompanyPublicId);
+            return DataFactory.C_Report_MPCompanyGetBasicInfo(CompanyPublicId);
         }
 
-        public List<GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        public List<GenericItemModel> C_Report_BlackListGetByCompanyPublicId(string CompanyPublicId)
         {
-            return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
+            return DataFactory.C_Report_BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DataFactory.C_Report_MPContactGetBasicInfo(CompanyPublicId, ContactType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DataFactory.C_Report_MPLegalGetBasicInfo(CompanyPublicId, LegalType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCustomerProviderGetTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.C_Report_MPCustomerProviderGetTracking(CustomerPublicId, ProviderPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
+        {
+            return DataFactory.C_Report_MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            return DataFactory.C_Report_MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DataFactory.C_Report_MPCertificationGetBasicInfo(CompanyPublicId, CertificationType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> C_Report_MPCertificationGetSpecificCert(string ProviderPublicId)
+        {
+            return DataFactory.C_Report_MPCertificationGetSpecificCert(ProviderPublicId);
         }
 
         #endregion

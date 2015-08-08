@@ -9,15 +9,15 @@ namespace ProveedoresOnLine.Reports.Controller
 {
     public class ReportModule
     {
-        #region Reports 
+        #region Reports
         public static Tuple<byte[], string, string> CP_SurveyReportDetail(int ReportType, string FormatType, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
-            localReport.EnableExternalImages = true;           
+            localReport.EnableExternalImages = true;
             switch (ReportType)
             {
                 case ((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport):
-                    localReport.ReportPath = FilePath;      
+                    localReport.ReportPath = FilePath;
                     localReport.SetParameters(ReportData);
                     break;
                 default:
@@ -61,14 +61,49 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region Gerencial Report
 
-        public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        public static Company.Models.Company.CompanyModel C_Report_MPCompanyGetBasicInfo(string CompanyPublicId)
         {
-            return DAL.Controller.ReportsDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPCompanyGetBasicInfo(CompanyPublicId);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_BlackListGetByCompanyPublicId(string CompanyPublicId)
         {
-            return DAL.Controller.ReportsDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
+            return DAL.Controller.ReportsDataController.Instance.C_Report_BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPContactGetBasicInfo(CompanyPublicId, ContactType);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPLegalGetBasicInfo(CompanyPublicId, LegalType);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCustomerProviderGetTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPCustomerProviderGetTracking(CustomerPublicId, ProviderPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPCertificationGetBasicInfo(CompanyPublicId, CertificationType);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> C_Report_MPCertificationGetSpecificCert(string ProviderPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.C_Report_MPCertificationGetSpecificCert(ProviderPublicId);
         }
 
         #endregion
