@@ -1294,6 +1294,7 @@
     <Content Include="Areas\Desktop\Views\Stats\STSurveyStats.cshtml" />
     <Content Include="Areas\Desktop\Views\Stats\STProjectStats.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyEvaluatorDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\RPGerencial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />

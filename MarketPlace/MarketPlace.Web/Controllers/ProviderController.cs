@@ -1962,9 +1962,9 @@ namespace MarketPlace.Web.Controllers
                 #region Basic Info
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCompanyGetBasicInfo(ProviderPublicId);
 
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
+                oModel.ContactCompanyInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
 
                 if (oModel.ContactCompanyInfo != null)
@@ -1980,7 +1980,7 @@ namespace MarketPlace.Web.Controllers
 
                 #region Legal Info
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
@@ -1994,7 +1994,8 @@ namespace MarketPlace.Web.Controllers
                 #endregion
 
                 #region Branch Info
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
+
+                oModel.ContactCompanyInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
 
                 if (oModel.ContactCompanyInfo != null)
                 {
@@ -2007,18 +2008,20 @@ namespace MarketPlace.Web.Controllers
                 #endregion
 
                 #region Black List Info
-                oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
 
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_BlackListGetBasicInfo(ProviderPublicId);
 
                 #endregion
 
                 #region Tracking Info
-                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+                oModel.RelatedTrackingInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
                 #endregion
 
                 #region Basic Financial Info
 
-                List<GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+                List<GenericItemModel> oFinancial = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPFinancialGetLastyearInfoDeta(ProviderPublicId);
                 oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
 
                 if (oFinancial != null)
@@ -2045,7 +2048,8 @@ namespace MarketPlace.Web.Controllers
                 #endregion
 
                 #region K_Contract Info
-                List<GenericItemModel> oRelatedKContractInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.KRecruitment, true);
+                
+                List<GenericItemModel> oRelatedKContractInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_FinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.KRecruitment, true);
 
                 oModel.RelatedKContractInfo = new List<ProviderFinancialViewModel>();
                 if (oRelatedKContractInfo != null)
@@ -2056,16 +2060,17 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
+
                 #endregion
 
                 //Get Engagement info                                
                 #region HSEQ
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null
                 && oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Count > 0)
                 {
-                    List<GenericItemModel> basicCert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
+                    List<GenericItemModel> basicCert = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
                     if (basicCert != null && basicCert.Count > 0)
                     {
                         oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(basicCert);
@@ -2086,7 +2091,7 @@ namespace MarketPlace.Web.Controllers
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
 
-                oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetSpecificCert(ProviderPublicId);
+                oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCertificationGetSpecificCert(ProviderPublicId);
 
                 #endregion
 
@@ -2825,18 +2830,17 @@ namespace MarketPlace.Web.Controllers
                         oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                         {
                             Name = "Reporte Gerencial",
-                            //Url = Url.RouteUrl
-                            //        (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            //        new
-                            //        {
-                            //            controller = MVC.Provider.Name,
-                            //            action = MVC.Provider.ActionNames.HICertificationsInfo,
-                            //            ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                            //        }),
+                            Url = Url.RouteUrl
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new{
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.RPGerencial,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
                             Position = 0,
-                            //IsSelected =
-                            //    (oCurrentAction == MVC.Provider.ActionNames.HICertificationsInfo &&
-                            //    oCurrentController == MVC.Provider.Name),
+                            IsSelected =
+                                    (oCurrentAction == MVC.Provider.ActionNames.RPGerencial &&
+                                    oCurrentController == MVC.Provider.Name),
                         });
 
                         //get is selected menu
