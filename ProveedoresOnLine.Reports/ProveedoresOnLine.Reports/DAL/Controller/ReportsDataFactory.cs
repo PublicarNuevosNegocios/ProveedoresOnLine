@@ -14,5 +14,6 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
             ProveedoresOnLine.Reports.Interfaces.IReportData oRetorno = (ProveedoresOnLine.Reports.Interfaces.IReportData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }
+
     }
 }

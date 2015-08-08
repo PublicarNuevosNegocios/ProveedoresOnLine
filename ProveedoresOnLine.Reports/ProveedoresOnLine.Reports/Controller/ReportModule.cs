@@ -1,4 +1,5 @@
 ﻿using Microsoft.Reporting.WebForms;
+using ProveedoresOnLine.SurveyModule.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,20 @@ namespace ProveedoresOnLine.Reports.Controller
 
         public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
-            return DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
+            List<SurveyModule.Models.SurveyModel> oSurveyModel = DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
+            SurveyModel asd =  DAL.Controller.ReportsDataController.Instance.SurveyGetById("");
+            //Get child Survey|
+            if (oSurveyModel != null)
+            {
+                oSurveyModel.All(x =>
+                {
+                    x.ChildSurvey.Add(DAL.Controller.ReportsDataController.Instance.SurveyGetById(x.SurveyPublicId));
+                    return true;
+                });
+            }
+
+            return oSurveyModel;
+            
         }
 
         #endregion

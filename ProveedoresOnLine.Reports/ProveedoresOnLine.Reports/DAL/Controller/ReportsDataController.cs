@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.SurveyModule.Models;
 
 namespace ProveedoresOnLine.Reports.DAL.Controller
 {
@@ -40,7 +41,10 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
         {
             return DataFactory.SurveyGetAllByCustomer(CustomerPublicId);
         }
-
+        public SurveyModel SurveyGetById(string SurveyPublicId)
+        {
+            return DataFactory.SurveyGetById(SurveyPublicId);
+        }
         #endregion
 
         #region Gerencial Report
