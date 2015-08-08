@@ -23,13 +23,13 @@ namespace ProveedoresOnLine.Reports.Test
             parameters.Add(new ReportParameter("providerName", "NombreProveedor"));
             parameters.Add(new ReportParameter("providerTipoDni", "Nit"));
             parameters.Add(new ReportParameter("providerDni", "7894596126"));
-            parameters.Add(new ReportParameter("remarks","Remarks"));
-            parameters.Add(new ReportParameter("actionPlan","Action Plan"));
-            parameters.Add(new ReportParameter("dateStart","12/12/2015"));
-            parameters.Add(new ReportParameter("dateEnd","13/12/2015"));
-            parameters.Add(new ReportParameter("average","50"));
-            parameters.Add(new ReportParameter("reportDate","01/01/2016"));
-            parameters.Add(new ReportParameter("responsible","Alexander"));
+            parameters.Add(new ReportParameter("remarks", "Remarks"));
+            parameters.Add(new ReportParameter("actionPlan", "Action Plan"));
+            parameters.Add(new ReportParameter("dateStart", "12/12/2015"));
+            parameters.Add(new ReportParameter("dateEnd", "13/12/2015"));
+            parameters.Add(new ReportParameter("average", "50"));
+            parameters.Add(new ReportParameter("reportDate", "01/01/2016"));
+            parameters.Add(new ReportParameter("responsible", "Alexander"));
             parameters.Add(new ReportParameter("author", "Autor Chino"));
             Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.CP_SurveyReportDetail((int)ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport, "PDF", parameters, "");
             parameters = null;
@@ -38,7 +38,7 @@ namespace ProveedoresOnLine.Reports.Test
         [TestMethod]
         public void SV_Report_SurveyGetAllByCustomer()
         {
-          List<SurveyModule.Models.SurveyModel> test = ProveedoresOnLine.Reports.Controller.ReportModule.SurveyGetAllByCustomer("DA5C572E");
+            List<SurveyModule.Models.SurveyModel> oModel = ProveedoresOnLine.Reports.Controller.ReportModule.SurveyGetAllByCustomer("DA5C572E");
         }
         #endregion
     }

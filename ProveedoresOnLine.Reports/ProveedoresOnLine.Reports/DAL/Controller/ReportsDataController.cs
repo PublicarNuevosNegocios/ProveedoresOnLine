@@ -35,6 +35,7 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
         #endregion
 
         #region report
+
         public List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
             return DataFactory.SurveyGetAllByCustomer(CustomerPublicId);

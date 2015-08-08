@@ -50,6 +50,15 @@ namespace ProveedoresOnLine.Reports.Controller
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
+        #region report
+
+        public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
+        }
+
+        #endregion
+
         #region Gerencial Report
 
         public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)

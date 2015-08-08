@@ -11,6 +11,11 @@ namespace ProveedoresOnLine.Reports.Interfaces
     {
         #region Reports
 
+        #region report
+        List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId);
+
+        #endregion
+
         #region Gerencial Report
 
         Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId);
