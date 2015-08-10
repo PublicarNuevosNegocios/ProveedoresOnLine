@@ -95,7 +95,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region Gerencial Report
 
-        public static Tuple<byte[], string, string> CP_GerenciaReport(string FormatType, List<ReportParameter> ReportData, string FilePath)
+        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
