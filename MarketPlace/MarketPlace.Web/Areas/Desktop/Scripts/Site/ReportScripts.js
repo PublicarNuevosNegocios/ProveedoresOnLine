@@ -8,17 +8,7 @@ var Survey_Report = {
     },
 
     ListSurveyGeneralInfoReport: function () {
-        $.ajax({
-            url: BaseUrl.ApiUrl + '/ReportApi?SurveyGeneralInfoReport=true&algo=' + "Algo",
-            dataType: "json",
-            async: false,            
-            success: function (result) {
-                alert(result);
-
-            }, error: function (result){
-                alert("Error");
-            },
-        });
+        return true;
     },
 
 };

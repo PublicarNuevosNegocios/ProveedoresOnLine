@@ -110,6 +110,7 @@
 
         public const string MP_CP_ReportPath = "MP_CP_ReportPath";
 
+        public const string MP_Report_ExcelReportIcon = "Report_ExcelReportIcon";
         #endregion
     }
 }
