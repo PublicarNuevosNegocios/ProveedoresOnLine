@@ -13,7 +13,7 @@ var Survey_Report = {
             dataType: "json",
             async: false,            
             success: function (result) {
-                alert("Listo");
+                alert(result);
 
             }, error: function (result){
                 alert("Error");
