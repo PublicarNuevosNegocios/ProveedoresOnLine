@@ -4,7 +4,14 @@
 {
 <label class="POMPSectionTitles">Reporte general de Evaluación de Desempeño</label>
     <div>
-        <a href="javascript:Survey_Report.ListSurveyGeneralInfoReport();">Generar Reporte</a>
+        <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Report.Name,
+                                    action = MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport,
+                                    SurveyGeneralInfoReport = true
+                                }))">Descargar CVS</a>
     </div>
 }
 else
