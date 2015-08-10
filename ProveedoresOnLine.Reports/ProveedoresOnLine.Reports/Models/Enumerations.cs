@@ -17,8 +17,8 @@
 
         public enum enumReportType
         {
-            RP_SurveyReport = 1411001,
-            RP_GerencialReport = 1411002,
+            RP_SurveyReport = 1501001,
+            RP_GerencialReport = 1501002,
         }
 
         #endregion
