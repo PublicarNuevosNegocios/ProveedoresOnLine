@@ -345,7 +345,7 @@
 .POMPResultInfoEvaluation{
     width:97%;
     margin:10px 0 20px 1.5%;
-    height:200px;
+    height:250px;
     background:#f9f9f9;
     position:relative;
 }
@@ -357,18 +357,18 @@
 }
 
 #POMPReportGenerator > a{
-    background:#ff8300;
-    width:150px;
-    height:30px;
-    color:#fff;
-    text-decoration:none;
-    border:1px solid #666;
     position:absolute;
     right:0;
     left:0;
-    top:140px;
+    top:135px;
     margin:auto;
     text-align:center;
-    line-height:30px;
+    line-height:40px;
+    text-decoration:none;
+    color:#337ab7;
 }
 
+#POMPReportGenerator > a > img{
+    width:45px;
+    margin-left:10px;
+}

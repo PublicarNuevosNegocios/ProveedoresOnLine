@@ -25,6 +25,8 @@
     <key name="ProviderStatus_Certified">902005</key>
     <key name="ProviderStatus_Certified_Logo">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/selloVerifSmaller.png</key>
 
+    <key name="Report_ExcelReportIcon">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/excel.png</key>
+    
     <key name="Desktop_Analytics">
       <![CDATA[
       <!--YourAnalyticsKey-->
