@@ -76,6 +76,12 @@
 
         #endregion
 
+        #region Manuals
+
+        public const string C_Manual_SurveyManual = "Manual_SurveyManual";
+
+        #endregion
+
         #endregion
 
         #region Routes
