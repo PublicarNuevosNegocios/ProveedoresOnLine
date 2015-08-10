@@ -2,6 +2,7 @@
 using ProveedoresOnLine.SurveyModule.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,7 +96,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region Gerencial Report
 
-        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, List<ReportParameter> ReportData, string FilePath)
+        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
