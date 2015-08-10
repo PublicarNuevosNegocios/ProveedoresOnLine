@@ -63,14 +63,14 @@ namespace ProveedoresOnLine.Reports.Controller
             {
                 oSurveyModel.All(x =>
                 {
-                    List<string> childrenIdsSuvey = oGetChildrenIdsByParent(x.SurveyPublicId);
-                    x.ChildSurvey = new List<SurveyModel>();
-                    if (childrenIdsSuvey != null)
-                        childrenIdsSuvey.All(y =>
-                        {
-                            x.ChildSurvey.Add(childSurvey(y.ToString()));
-                            return true;
-                        });
+                    List<string> Evaluators = x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == 1204003).Select(a => a.Value).ToList();
+
+                    Evaluators.All(y =>
+                    {
+                         x.ChildSurvey.Add(SurveyGetByPrentUser(x.SurveyPublicId, y));
+                        return true;
+                    });
+
                     return true;
                 });
             }
@@ -78,26 +78,21 @@ namespace ProveedoresOnLine.Reports.Controller
         }
 
         #region Data
-        
+
         public static List<SurveyModule.Models.SurveyModel> oGetAllSurveyByCustomer(string CustomerPublicId)
         {
             return DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
         }
-        
-        public static List<string> oGetChildrenIdsByParent(string surveyPublicId)
-        {
-            return DAL.Controller.ReportsDataController.Instance.SurveyGetIdsChildrenByParent(surveyPublicId);
-        }
 
-        public static SurveyModel childSurvey(string surveyPublicId)
+        public static SurveyModel SurveyGetByPrentUser(string ParentSurveyPublicId, string User)
         {
-            return DAL.Controller.ReportsDataController.Instance.SurveyGetById(surveyPublicId);
+            return DAL.Controller.ReportsDataController.Instance.SurveyGetByParentUser(ParentSurveyPublicId, User);
         }
-
+       
         #endregion
 
         #endregion
-        
+
         #region Gerencial Report
 
         public static Tuple<byte[], string, string> CP_GerenciaReport(string FormatType, List<ReportParameter> ReportData, string FilePath)

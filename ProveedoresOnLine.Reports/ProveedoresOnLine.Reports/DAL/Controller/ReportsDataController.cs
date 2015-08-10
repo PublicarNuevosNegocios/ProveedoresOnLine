@@ -42,15 +42,10 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
             return DataFactory.SurveyGetAllByCustomer(CustomerPublicId);
         }
 
-        public List<string> SurveyGetIdsChildrenByParent(string vParentPublicId)
-        {
-            return DataFactory.SurveyGetIdsChildrenByParent(vParentPublicId);
+        public SurveyModel SurveyGetByParentUser(string ParentSurveyPublicId, string User) {
+            return DataFactory.SurveyGetByParentUser(ParentSurveyPublicId,User);
         }
 
-        public SurveyModel SurveyGetById(string SurveyPublicId)
-        {
-            return DataFactory.SurveyGetById(SurveyPublicId);
-        }
         #endregion
 
         #region Gerencial Report
