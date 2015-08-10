@@ -672,8 +672,8 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          BlackListSatusTypeName = l.Field<string>("BlackListSatusTypeName"),
                          User = l.Field<string>("User"),
                          FileUrl = l.Field<string>("FileUrl"),
-                         
-                         LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
+
+                         BlackListCreateDate = l.Field<DateTime>("BlackListCreateDate"),
                      }
                          into cog
                          select new BlackListModel()
@@ -686,6 +686,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                              },
                              User = cog.Key.User,
                              FileUrl = cog.Key.FileUrl,
+                             CreateDate = cog.Key.BlackListCreateDate,
                              BlackListInfo =
                                  (from coinf in response.DataTableResult.AsEnumerable()
                                   where !coinf.IsNull("BlackListInfoId") &&
