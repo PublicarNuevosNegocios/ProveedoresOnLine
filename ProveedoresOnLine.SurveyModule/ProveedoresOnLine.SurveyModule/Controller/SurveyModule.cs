@@ -271,10 +271,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                         x = SurveyItemUpsert(x);
                         return true;
                     });
-                }
-
-                //Survey Index
-                SurveyIndex();
+                }                
 
                 oLog.IsSuccess = true;
             }
@@ -289,6 +286,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             {
                 oLog.LogObject = SurveyToUpsert;
                 LogManager.ClientLog.AddLog(oLog);
+
+                //Survey Index
+                SurveyIndex();
             }
 
             return SurveyToUpsert;
@@ -893,6 +893,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             }
 
             #endregion
+
+            //Survey Index
+            SurveyIndex();
         }
 
         #endregion
