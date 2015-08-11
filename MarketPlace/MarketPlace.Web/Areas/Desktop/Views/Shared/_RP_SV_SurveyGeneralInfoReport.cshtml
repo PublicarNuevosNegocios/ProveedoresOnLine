@@ -2,10 +2,23 @@
 
 @if (!Model.RenderScripts)
 {
-<label class="POMPSectionTitles">Reporte general de Evaluación de Desempeño</label>
-    <div>
-        <a href="javascript:Survey_Report.ListSurveyGeneralInfoReport();">Generar Reporte</a>
+    <label class="POMPSectionTitles">Reporte general de Evaluación de Desempeño</label>
+    <div class="POMPResultInfoEvaluation">
+        <p>Está a punto de descargar todas las evaluaciones de desempeño que usted ha programado. <br /><br /><strong>La operación podría tardar unos minutos, por favor espere.</strong></p>
+        <div id="POMPReportGenerator">
+            <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Report.Name,
+                                    action = MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport,
+                                    SurveyGeneralInfoReport = true
+                                }))"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" alt="excel evaluaciones" /> <br />Descargar</a>
+            
+        </div>
     </div>
+
+
 }
 else
 {
