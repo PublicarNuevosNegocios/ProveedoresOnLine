@@ -373,46 +373,67 @@
     margin-left:10px;
 }
 
-#POMPFloatManualEvaluation{
-    width:50px;
-    height:50px;
-    position:fixed;
-    right:1.5%;
-    bottom:110px;
-    z-index:100;
+.POMPManualLink{
+    width:250px;
+    height:90px;
+    position:absolute;
+    right:0;
+    left:0;
+    bottom:38px;
+    margin:auto;
 }
 
-#POMPFloatManualEvaluation > a > img{
-    position:absolute;
-    top:0;
+#POMPManualTitle{
+    cursor:pointer;
+    width:83px;
+    height:30px;
+    float:left;
+    background:#f9f9f9;
+    margin-left:83px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-top:1px solid #E4E4E4;
+     border-right:1px solid #E4E4E4;
+     border-left:1px solid #E4E4E4;
+}
+
+
+#POMPManualTitle > p{
+    color:#4d4d4d;
+    text-align:center;
+    line-height:30px;
+    font-size:0.7em;
+    font-weight:400;
+    
+}
+
+#POMPManualIcons{
+    width:250px;
+    height:60px;
+    float:left;
+    background:#f9f9f9;
+     border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border:1px solid #E4E4E4;
+    position:relative;
+
+}
+
+.POMPPdfContainer{
+    width:40px;
+    height:40px;
     left:0;
     right:0;
-    bottom:0;
     margin:auto;
-    width:100%;
-}
-
-#POMPFloatManualEvaluation > a:hover:after{
     top:0;
-    content: attr(title); /* este es el texto que será mostrado */
-    right:60px;
-    position: absolute;
-    z-index: 98;
-    /* el formato gráfico */
-    background: #000; /* el color de fondo */
-    color: #FFF; /* el color del texto */
-    font-size: 12px;
-    padding: 5px 25px;
-    text-align: center;
-    width: 180px;
+    bottom:0;
+    position:absolute;
 }
 
-
-
-#POMPFloatManualEvaluation > a:hover:before{
- 
-        content: "";
-
-    }
-
-
+.POMPPdfContainer > a > img{
+    height:100%;
+    position:absolute;
+    left:0;
+    right:0;
+    margin:auto;
+}

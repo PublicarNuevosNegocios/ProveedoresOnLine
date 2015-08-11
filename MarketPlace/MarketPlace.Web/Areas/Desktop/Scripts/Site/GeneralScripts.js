@@ -124,3 +124,22 @@ $('#Survey_ProgramSurvey_EndDate').focusout(function () {
         }
     }
 });
+
+
+
+
+
+
+$(document).ready(function () {
+    var position = 'expanded';
+
+    $(".POMPManualLink").click(function () {
+        if (position == 'expanded') {
+            $(this).animate({ height: '148px' });
+            position = 'collapsed';
+        } else {
+            $(this).animate({ height: '90px' });
+            position = 'expanded';
+        }
+    });
+});
