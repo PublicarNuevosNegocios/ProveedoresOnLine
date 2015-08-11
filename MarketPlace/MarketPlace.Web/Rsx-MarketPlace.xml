@@ -56,9 +56,14 @@
 
 
     <!--Report Path-->
-    <key name="MP_CP_ReportPath">
+    <!--<key name="MP_CP_ReportPath">
       <![CDATA[
         C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
+      ]]>
+    </key>-->
+    <key name="MP_CP_ReportPath">
+      <![CDATA[
+        C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
       ]]>
     </key>
   </MarketPlace>
