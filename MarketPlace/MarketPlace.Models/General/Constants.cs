@@ -79,7 +79,7 @@
         #region Manuals
 
         public const string C_Manual_SurveyManual = "Manual_SurveyManual";
-
+                
         #endregion
 
         #endregion
@@ -106,11 +106,13 @@
 
         #endregion
 
-        #region Report Path
+        #region Report
 
         public const string MP_CP_ReportPath = "MP_CP_ReportPath";
 
         public const string MP_Report_ExcelReportIcon = "Report_ExcelReportIcon";
+
+        public const string MP_Report_PdfReportIcon = "Report_PdfReportIcon";
         #endregion
     }
 }
