@@ -68,7 +68,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
                     Evaluators.All(y =>
                     {
-                         x.ChildSurvey.Add(SurveyGetByPrentUser(x.SurveyPublicId, y));
+                        x.ChildSurvey.Add(SurveyGetByPrentUser(x.SurveyPublicId, y));
                         return true;
                     });
 
@@ -89,7 +89,7 @@ namespace ProveedoresOnLine.Reports.Controller
         {
             return DAL.Controller.ReportsDataController.Instance.SurveyGetByParentUser(ParentSurveyPublicId, User);
         }
-       
+
         #endregion
 
         #endregion
@@ -100,6 +100,8 @@ namespace ProveedoresOnLine.Reports.Controller
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
+            localReport.ReportPath = FilePath;
+            localReport.SetParameters(ReportData);
 
             string mimeType;
             string encoding;
