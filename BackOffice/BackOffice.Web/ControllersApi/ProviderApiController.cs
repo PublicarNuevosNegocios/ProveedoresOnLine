@@ -827,6 +827,25 @@ namespace BackOffice.Web.ControllersApi
         {
             BackOffice.Models.Provider.ProviderHSEQViewModel oReturn = null;
 
+  
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
+
+      
+            if (HSEQType == ((int)BackOffice.Models.General.enumHSEQType.Certifications).ToString())
+            {
+                oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
+                oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
+            }
+            else if (HSEQType == ((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies).ToString())
+            {
+                oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+            }
+
+            
+
             if (HIHSEQUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
                 !string.IsNullOrEmpty(HSEQType))
@@ -1216,8 +1235,11 @@ namespace BackOffice.Web.ControllersApi
 
                 //register used files
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
-            }
 
+                oReturn = new Models.Provider.ProviderHSEQViewModel(oProvider.RelatedCertification.FirstOrDefault(), oRule, oCompanyRule, oARL );
+            }
+            
+      
             return oReturn;
         }
 
