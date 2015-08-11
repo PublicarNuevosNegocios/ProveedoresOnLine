@@ -15,14 +15,16 @@ namespace ProveedoresOnLine.Reports.Interfaces
         #region report
         
         List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId);
+
+        SurveyModel SurveyGetByParentUser(string ParentSurveyPublicId, string User);
         
-        SurveyModel SurveyGetById(string SurveyPublicId);
-
-        List<string> SurveyGetIdsChildrenByParent(string vParentPublicId);
-
         #endregion
 
         #region Gerencial Report
+
+
+
+        #region Data
 
         Company.Models.Company.CompanyModel C_Report_MPCompanyGetBasicInfo(string CompanyPublicId);
 
@@ -41,6 +43,8 @@ namespace ProveedoresOnLine.Reports.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> C_Report_MPCertificationGetSpecificCert(string ProviderPublicId);
+
+        #endregion
 
         #endregion
 

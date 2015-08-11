@@ -25,6 +25,11 @@
     <key name="ProviderStatus_Certified">902005</key>
     <key name="ProviderStatus_Certified_Logo">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/selloVerifSmaller.png</key>
 
+    <key name="Manual_SurveyManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ProveedoresOnLine_ManualEvaluaci%C3%B3nDesempe%C3%B1o.pdf</key>
+      
+    <key name="Report_ExcelReportIcon">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/excel.png</key>
+    <key name="Report_PdfReportIcon">https://s3.amazonaws.com/stgproveedoresonline/MarketPlace/SiteImages/pdfdownload.png</key>	
+
     <key name="Desktop_Analytics">
       <![CDATA[
       <!--YourAnalyticsKey-->
