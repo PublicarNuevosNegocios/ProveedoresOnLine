@@ -190,7 +190,7 @@
 
             <div style="margin-top:40px;"></div>
 
-            <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
+            <p class="POMPMandatoryMargin">Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</p>
 
             <div style="margin-top:40px;"></div>
 
@@ -213,7 +213,10 @@
                         {
                             <div class="POMPAreaObservation">
                                 <p>Participantes:</p>
-                                <p class="POMPDescriptionArea">@EvaluationAreaInfo.AreaDescriptionText.Trim()</p>
+                                @if (EvaluationAreaInfo != null)
+                                {
+                                    <p class="POMPDescriptionArea">@EvaluationAreaInfo.AreaDescriptionText.Trim()</p>
+                                }                                
                             </div>
                         }
 
@@ -247,7 +250,7 @@
                                 }
                                 else
                                 {
-                                    <span> @Question.Order. @Question.Name</span>
+                                    <p> @Question.Order. @Question.Name</p>
                                 }
 
 
