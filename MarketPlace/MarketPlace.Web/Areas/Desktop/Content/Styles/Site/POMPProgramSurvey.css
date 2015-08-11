@@ -20,8 +20,12 @@
 .PMMPMandatory {
     color: red;
     font-weight: bold;
+    
 }
 
+.POMPMandatoryMargin{
+    margin-left:2.5%;
+}
 
 /**************Listado de Evaluaciones de Desempeño****************/
 .POMPResultsOrder {
@@ -345,8 +349,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 
 
 .POMPAreaWrap {
-    width: 100%;
-    flex: 100%;
+    width: 95%;
     height: auto;
     margin: 10px 0 10px 0;
     -webkit-justify-content: center;
@@ -369,6 +372,10 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     height: auto;
     margin: 20px 0 20px 0;
     border: 1px solid #808080;
+}
+
+.POMPAreaDetail > p{
+    padding:30px 0 0 35px !important;
 }
 
 
@@ -420,8 +427,8 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 }
 
 .POMPAreaObservation > p {
-    padding: 10px 0 10px 10px;
-    font-size: 1em;
+    padding: 30px 0 10px 0;
+    font-size: 1.2em;
     text-align: justify;
 }
 
