@@ -590,10 +590,14 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     //validate file exists
                              ValidateCondition("602006_1_1409001", rlg) &&
                     //validate expired date
-                             rlg.ItemInfo.
+                             (rlg.ItemInfo.
                                 Any(rlginf => rlginf.ItemInfoType.ItemId == 602002 &&
                                              !string.IsNullOrEmpty(rlginf.Value) &&
-                                             Convert.ToDateTime(rlginf.Value) >= DateTime.Now)).
+                                             Convert.ToDateTime(rlginf.Value) >= DateTime.Now) ||
+                              rlg.ItemInfo.
+                                Any(rlginf => rlginf.ItemInfoType.ItemId == 602012 &&
+                                             !string.IsNullOrEmpty(rlginf.Value) &&
+                                             rlginf.Value.ToString() == "1"))).
                 Select(ct => (int?)ct.ItemId).
                 DefaultIfEmpty(null).
                 FirstOrDefault();
