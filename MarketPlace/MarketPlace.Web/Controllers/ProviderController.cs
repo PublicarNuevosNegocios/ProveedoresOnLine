@@ -2126,8 +2126,17 @@ namespace MarketPlace.Web.Controllers
 
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
 
+                //CustomerInfo
                 parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
                 parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+
+                //ProviderInfo
+                parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+                parameters.Add(new ReportParameter("ProviderIdentificationType", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+                parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+
                 parameters.Add(new ReportParameter("Representant", oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()));
                 parameters.Add(new ReportParameter("InscriptionNumber", oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber));
                 parameters.Add(new ReportParameter("Address", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()));
@@ -2148,6 +2157,7 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
                 parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
                 parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+                
 
                 DataTable data = new DataTable();
                 data.Columns.Add("EvaluationCriteria");
@@ -2182,7 +2192,6 @@ namespace MarketPlace.Web.Controllers
 
             return View(oModel);
         }
-
         #endregion
 
         #region Pivate Functions
