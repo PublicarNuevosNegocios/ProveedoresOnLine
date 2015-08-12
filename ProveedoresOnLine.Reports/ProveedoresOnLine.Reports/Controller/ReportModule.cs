@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Reports.Controller
@@ -103,6 +104,12 @@ namespace ProveedoresOnLine.Reports.Controller
             localReport.ReportPath = FilePath;
             localReport.SetParameters(ReportData);
 
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DS_GerencialReport";
+            source.Value = data;
+
+            localReport.DataSources.Add(source);
+
             string mimeType;
             string encoding;
             string fileNameExtension;
@@ -119,6 +126,7 @@ namespace ProveedoresOnLine.Reports.Controller
             Warning[] warnings;
             string[] streams;
             byte[] renderedBytes;
+
             renderedBytes = localReport.Render(
                 FormatType,
                 deviceInfo,

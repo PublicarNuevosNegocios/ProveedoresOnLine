@@ -2,8 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Reports.Test
@@ -42,5 +45,24 @@ namespace ProveedoresOnLine.Reports.Test
         }
         #endregion
 
+        #region GerencialReport
+
+        [TestMethod]
+        public void C_GerencialReport()
+        {
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("CustomerName", "Representante de prueba"));
+
+            DataTable data = new DataTable();
+
+            Tuple<byte[], string, string> report = 
+                ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport("PDF", 
+                                                                                     data, 
+                                                                                     parameters, 
+                                                                                     "C:\\Publicar Software\\ProveedoresOnLine\\ProveedoresOnLine.Reports\\ProveedoresOnLine.Reports.Test\\Reports\\C_Report_GerencialInfo.rdlc");
+            parameters = null;
+        }
+
+        #endregion
     }
 }

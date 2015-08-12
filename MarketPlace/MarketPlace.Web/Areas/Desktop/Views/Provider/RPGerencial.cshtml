@@ -7,16 +7,16 @@
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
-<div class="POMPProviderGreatWrapper">
+<div>
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
-    <div class="POMPProviderSideMenuWrapper">
+    <div>
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
-    <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Reporte Gerencial - Información del Proveedor</label>
-        <ul class="POMPProviderInfoMultipleValues">
+    <div>
+        <label>Reporte Gerencial - Información del Proveedor</label>
+        <ul>
             <li>
-                <label class="POMPProviderDataSubtitle">Información Básica</label>
+                <label>Información Básica</label>
                 @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
                 {
                     if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
@@ -78,7 +78,7 @@
                     }
                     if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
                     {
-                        <label class="POMPProviderObjetoSocial">
+                        <label>
                             Objeto Social
                             <span><br />@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
                         </label>
@@ -95,9 +95,9 @@
                 @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
                 if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
                 {
-                    <ul class="POMPProviderInfoMultipleValues">
+                    <ul>
                         <li>
-                            <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
+                            <label>Consulta Listas Restrictivas</label>
 
                             @foreach (var itemBL in Model.RelatedBlackListInfo)
                             {
@@ -114,11 +114,11 @@
                 }
 
                 @*AQUI ESTA EL AREA SEGUIMIENTOS*@
-                <ul class="POMPProviderInfoMultipleValues">
+                <ul>
                     @if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
                     {
                         <li>
-                            <label class="POMPProviderDataSubtitle">Seguimientos</label>
+                            <label>Seguimientos</label>
                             @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
                             {
                                 <label>
@@ -138,11 +138,11 @@
 
                 </ul>
                 @*AQUI ESTA EL AREA FINANCIERA*@
-                <ul class="POMPProviderInfoMultipleValues">
+                <ul>
                     @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
                     {
                         <li>
-                            <label class="POMPProviderDataSubtitle">Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
+                            <label>Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
                             <label>
                                 Total Activo
                                 @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
@@ -183,7 +183,7 @@
                                 Capital de Trabajo
                                 <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
                             </label>
-                            <label class="POMPProviderDataIndiceAltman">
+                            <label>
                                 <label>
                                     Indice Altman
                                     <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
@@ -213,7 +213,7 @@
                 </ul>
 
                 @*AQUI ESTA EL AREA DE K *@
-                <ul class="POMPProviderInfoMultipleValues">
+                <ul>
                     @if (Model.RelatedKContractInfo != null && Model.RelatedKContractInfo.Count > 0)
                     {
                         <li>
@@ -238,7 +238,7 @@
                             </ul>
                         </li>
                         <li>
-                            <label class="POMPProviderVerDetalle">
+                            <label>
                                 <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -253,11 +253,11 @@
                 </ul>
 
                 @*AQUI ESTA EL AREA info HSE*@
-                <ul class="POMPProviderInfoMultipleValues">
+                <ul>
                     @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
                     {
                         <li>
-                            <label class="POMPProviderDataSubtitle">Información HSEQ</label>
+                            <label>Información HSEQ</label>
 
                             <label>
                                 Empresa de sistema de riegos
@@ -317,6 +317,20 @@
                 </ul>
             }
         }
+    </div>
+    <div>
+        <form id="frmProviderUpsert"
+              method="post"
+              action="@(Url.Action
+                    (MVC.Provider.ActionNames.RPGerencial,
+                    MVC.Provider.Name,
+                    new
+                    {
+                        ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                    }))">
+            <button type="submit" title="Descargar Reporte">Descargar Reportes</button>
+            <input type="hidden" name="DownloadReport" value="true" />
+        </form>    
     </div>
 </div>
 @{
