@@ -336,14 +336,30 @@ namespace MarketPlace.Models.Provider
         public string CR_SystemOccupationalHazards
         {
             get
-            {
+            {                
                 if (oCR_SystemOccupationalHazards == null)
                 {
-                    oCR_SystemOccupationalHazards = RelatedHSEQInfo.ItemInfo.
+                    var ValueNameoSystemOccupationalHazards = RelatedHSEQInfo.ItemInfo.
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                                        Select(y => y.ValueName).FirstOrDefault();
+
+                    if(ValueNameoSystemOccupationalHazards == null)
+                    {
+                        oCR_SystemOccupationalHazards = RelatedHSEQInfo.ItemInfo.
+                                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                                     Select(y => y.LargeValue).
+                                     DefaultIfEmpty(string.Empty).
+                                     FirstOrDefault();
+                    }
+                    else
+                    {
+                        oCR_SystemOccupationalHazards = RelatedHSEQInfo.ItemInfo.
                                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
                                         Select(y => y.ValueName).
                                         DefaultIfEmpty(string.Empty).
                                         FirstOrDefault();
+                    }
+                    
                 }
                 return oCR_SystemOccupationalHazards;
             }
@@ -354,13 +370,29 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
+             
                 if (string.IsNullOrEmpty(oCR_RateARL))
                 {
-                    oCR_RateARL = RelatedHSEQInfo.ItemInfo.
+                    var ValueNameRateARL = RelatedHSEQInfo.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_RateARL).
-                        Select(y => y.ValueName).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
+                        Select(y => y.ValueName).FirstOrDefault();                   
+                    if(ValueNameRateARL == null)
+                    {
+                        oCR_RateARL = RelatedHSEQInfo.ItemInfo.
+                                                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_RateARL).
+                                                Select(y => y.LargeValue).
+                                                DefaultIfEmpty(string.Empty).
+                                                FirstOrDefault();
+                    }
+                    else
+                    {
+                        oCR_RateARL = RelatedHSEQInfo.ItemInfo.
+                                               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_RateARL).
+                                               Select(y => y.ValueName).
+                                               DefaultIfEmpty(string.Empty).
+                                               FirstOrDefault();
+                    }
+                    
                 }
                 return oCR_RateARL;
             }
