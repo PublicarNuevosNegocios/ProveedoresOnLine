@@ -106,7 +106,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
             ReportDataSource source = new ReportDataSource();
             source.Name = "DS_GerencialReport";
-            source.Value = data;
+            source.Value = data != null ? data : new DataTable();
 
             localReport.DataSources.Add(source);
 

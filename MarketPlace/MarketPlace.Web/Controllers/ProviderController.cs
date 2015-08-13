@@ -2126,6 +2126,8 @@ namespace MarketPlace.Web.Controllers
 
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
 
+                #region Set Parameters
+
                 //CustomerInfo
                 parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
                 parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
@@ -2137,27 +2139,105 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("ProviderIdentificationType", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
                 parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
 
-                parameters.Add(new ReportParameter("Representant", oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()));
-                parameters.Add(new ReportParameter("InscriptionNumber", oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber));
-                parameters.Add(new ReportParameter("Address", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()));
-                parameters.Add(new ReportParameter("City", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()));
-                parameters.Add(new ReportParameter("Phone", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()));
-                parameters.Add(new ReportParameter("Fax", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()));
-                parameters.Add(new ReportParameter("WebSite", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()));
-                parameters.Add(new ReportParameter("Email", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()));
-                parameters.Add(new ReportParameter("SocialObject", oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject));
-                parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("TotalPasive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("TotalPatrimony", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("OperationIncome", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("IncomeBeforeTaxes", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("JobCapital", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()));
-                parameters.Add(new ReportParameter("Altman", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("ExcerciseUtility", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()));
-                parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
-                parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
-                parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+                #region Basic Info
+
+                if (!string.IsNullOrEmpty(oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("Representant", oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("Representant", "NA"));
+
+                if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
+                    && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                    parameters.Add(new ReportParameter("InscriptionNumber", oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber));
+                else
+                    parameters.Add(new ReportParameter("InscriptionNumber", "N/A"));
+
+
+                if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("Address", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault();
+                else
+                    parameters.Add(new ReportParameter("Address","N/A"));
+
+                if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("City", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("City", "N/A"));
+
+                if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("Phone", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("Phone", "N/A"));
                 
+                if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("Fax", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault());
+                else
+                    parameters.Add(new ReportParameter("Fax", "N/A"));
+                
+                if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("WebSite", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("WebSite", "N/A"));
+                
+                if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
+                    parameters.Add(new ReportParameter("Email", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("Email", "N/A"));
+                
+                if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                    parameters.Add(new ReportParameter("SocialObject", oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject));
+                else
+                    parameters.Add(new ReportParameter("SocialObject", "N/A"));
+
+                #endregion
+
+                #region Finacial Info
+
+                if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
+                    parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("TotalActive", "N/A"));
+
+
+                if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
+                    parameters.Add(new ReportParameter("TotalPasive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("TotalPasive", "N/A"));
+            
+                if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
+                        parameters.Add(new ReportParameter("TotalPatrimony", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("TotalPatrimony", "N/A"));
+
+
+                if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
+                    parameters.Add(new ReportParameter("OperationIncome",oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("OperationIncome", "N/A"));
+
+
+                if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
+                    parameters.Add(new ReportParameter("IncomeBeforeTaxes", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()));
+                else
+                    parameters.Add(new ReportParameter("IncomeBeforeTaxes", "N/A"));
+
+                parameters.Add(new ReportParameter("JobCapital", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()));
+                
+                parameters.Add(new ReportParameter("Altman", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()));
+                
+                if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
+                    parameters.Add(new ReportParameter("ExcerciseUtility", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()));
+                else 
+                    parameters.Add(new ReportParameter("ExcerciseUtility", "N/A"));
+
+                #endregion
+
+                #region HSEQ Info
+
+                parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() != null ? oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards : "N/A"));
+                parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null ? "N/A" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
+                parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null ? "N/A" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+
+                #endregion
 
                 DataTable data = new DataTable();
                 data.Columns.Add("EvaluationCriteria");
@@ -2166,7 +2246,7 @@ namespace MarketPlace.Web.Controllers
                 data.Columns.Add("Builder");
 
                 DataRow row;
-                foreach (var item in oModel.RelatedKContractInfo)
+                foreach (var item in oModel.RelatedKContractInfo.Where(x => x != null))
                 {
                     row = data.NewRow();
 
@@ -2177,6 +2257,8 @@ namespace MarketPlace.Web.Controllers
 
                     data.Rows.Add(row);
                 }
+
+                #endregion
 
                 Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
                                                                 enumCategoryInfoType.PDF.ToString(),

@@ -22,8 +22,6 @@ namespace ProveedoresOnLine.Reports.Interfaces
 
         #region Gerencial Report
 
-
-
         #region Data
 
         Company.Models.Company.CompanyModel C_Report_MPCompanyGetBasicInfo(string CompanyPublicId);
@@ -43,6 +41,16 @@ namespace ProveedoresOnLine.Reports.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> C_Report_MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> C_Report_MPCertificationGetSpecificCert(string ProviderPublicId);
+
+        #endregion
+
+        #endregion
+
+        #region General Report
+
+        #region Data
+
+
 
         #endregion
 
