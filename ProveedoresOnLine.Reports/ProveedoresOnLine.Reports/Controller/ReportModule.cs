@@ -189,5 +189,54 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #endregion
 
+        #region SelectionProcess Report
+
+        public static Tuple<byte[], string, string> PJ_ProjectProviderReportAceptedDetail(string ProjectPublicId,string CustomerPublicId, string ProviderPublicId, string FormatType, string FilePath)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.EnableExternalImages = true;
+            localReport.ReportPath = FilePath;
+            //localReport.SetParameters(ReportData);
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DS_GerencialReport";
+            //source.Value = data;
+            //proceso la data
+            ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
+
+
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo =
+                       "<DeviceInfo>" +
+                       "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                       "  <PageWidth>8.5in</PageWidth>" +
+                       "  <PageHeight>11in</PageHeight>" +
+                       "  <MarginTop>0.5in</MarginTop>" +
+                       "  <MarginLeft>1in</MarginLeft>" +
+                       "  <MarginRight>1in</MarginRight>" +
+                       "  <MarginBottom>0.5in</MarginBottom>" +
+                       "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+            renderedBytes = localReport.Render(
+                FormatType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+            return Tuple.Create(renderedBytes, mimeType, ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SelectionProcess + "_" + DateTime.Now.ToString("yyyyMMddHHmm")+ "." + FormatType);
+        }
+        
+        #region Data
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.ReportsDataController.Instance.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
+        }
+        #endregion
+        #endregion
     }
 }

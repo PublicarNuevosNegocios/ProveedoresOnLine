@@ -12,8 +12,8 @@ namespace ProveedoresOnLine.Reports.Interfaces
     {
         #region Reports
 
-        #region report
-        
+        #region ReportSurveyGetAllByCustomer
+
         List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId);
 
         SurveyModel SurveyGetByParentUser(string ParentSurveyPublicId, string User);
@@ -45,6 +45,12 @@ namespace ProveedoresOnLine.Reports.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> C_Report_MPCertificationGetSpecificCert(string ProviderPublicId);
 
         #endregion
+
+        #endregion
+
+        #region SelectionProcess Report
+
+        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId);
 
         #endregion
 
