@@ -35,7 +35,7 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
         }
         #endregion
 
-        #region report
+        #region ReportSurveyGetAllByCustomer
 
         public List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
@@ -96,5 +96,13 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
         }
 
         #endregion
+
+        #region SelectionProcess Report
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
+        }
+        #endregion
+
     }
 }
