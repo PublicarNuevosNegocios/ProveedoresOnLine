@@ -189,7 +189,8 @@ namespace MarketPlace.Models.Compare
                         Replace("{Field}", "'_" + col + "'").
                         Replace("{HeaderTemplate}", "Compare_DetailObject.GetHeaderTemplate('" + col + "')").
                         Replace("{Template}", "Compare_DetailObject.GetItemTemplate('" + col + "')").
-                        Replace("{Locked}", col == "EvaluationArea" ? "true" : "false") +
+                        //Replace("{Locked}", col == "EvaluationArea" ? "true" : "false") +
+                        Replace("{Locked}", "false") +
                     "},");
                 return true;
             });
