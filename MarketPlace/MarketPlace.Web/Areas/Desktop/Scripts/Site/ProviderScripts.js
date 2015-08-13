@@ -66,8 +66,8 @@ var Provider_SearchObject = {
 
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
-        
-        
+
+
         /*get serach param*/
         if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
@@ -150,7 +150,7 @@ var Provider_SearchObject = {
                         var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_Template').html();
 
                         //replace provider info
-                        oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);                           
+                        oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);
                         oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.ProviderLogoUrl);
                         oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedCompany.CompanyName);
                         oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
@@ -432,7 +432,7 @@ var Provider_SearchObject = {
                             type: "POST",
                             url: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').attr('action'),
                             data: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').serialize(),
-                            success: function (result) {                   
+                            success: function (result) {
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
                                 var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, result);
                                 Dialog_CreatedPS('Crear Proceso de Selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
@@ -511,7 +511,7 @@ var Provider_SearchObject = {
                             var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Project_Item_Template').html();
 
                             //replace provider info
-                            
+
                             oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId);
                             oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.RelatedProvider.RelatedLiteProvider.ProviderLogoUrl);
                             oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName);
@@ -681,7 +681,7 @@ var Provider_SurveySearchObject = {
 
     },
 
-    Search: function (vSearchObject) {        
+    Search: function (vSearchObject) {
         var oUrl = this.SearchUrl;
 
         oUrl += '&SearchOrderType=' + $('#' + Provider_SurveySearchObject.ObjectId + '_Order').val().split('_')[0];
@@ -695,58 +695,57 @@ var Provider_SurveySearchObject = {
 
     Filter: function () {
         var oUrl = this.SearchUrl;
-        
+
         oUrl += '&InitDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').val();
         window.location = oUrl;
     },
-    
+
 };
 
 var Provider_SurveyReports = {
 
     ObjectId: '',
 
-    Init: function (vInitObject)
-    {       
+    Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId
     },
 
     ShowProgramReport: function (vShowObject) {
-        
-        //get base html
-            var DialogDiv = $('<div style="display:none" title="Generar Reporte">' + $('#' + Provider_SurveyReports.ObjectId).html() + '</div>');
 
-            //show dialog
-            DialogDiv.dialog({
-                width: 500,
-                minWidth: 300,
-                modal: true,
-                buttons: {
-                    'Cancelar': function () {
-                        $(this).dialog("close");
-                    },
-                    'Generar Reporte': function () {
-                        DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').submit();
-                        DialogDiv.dialog("close");
-                       /* $.ajax({
-                            type: "POST",
-                            url: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').attr('action'),
-                            data: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').serialize(),
-                            success: function (result) {
-                                alert(window.location.toString());
-                                DialogDiv.dialog("close");
-                                Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Se ha generado el reporte.', null);//window.location.toString()
-                            },
-                            error: function (result) {
-                                DialogDiv.dialog("close");
-                                Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Ha ocurrido un error generando el reporte', null);
-                            }
-                        });*/                      
-                    }
+        //get base html
+        var DialogDiv = $('<div style="display:none" title="Generar Reporte">' + $('#' + Provider_SurveyReports.ObjectId).html() + '</div>');
+
+        //show dialog
+        DialogDiv.dialog({
+            width: 500,
+            minWidth: 300,
+            modal: true,
+            buttons: {
+                'Cancelar': function () {
+                    $(this).dialog("close");
+                },
+                'Generar Reporte': function () {
+                    DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').submit();
+                    DialogDiv.dialog("close");
+                    /* $.ajax({
+                         type: "POST",
+                         url: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').attr('action'),
+                         data: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').serialize(),
+                         success: function (result) {
+                             alert(window.location.toString());
+                             DialogDiv.dialog("close");
+                             Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Se ha generado el reporte.', null);//window.location.toString()
+                         },
+                         error: function (result) {
+                             DialogDiv.dialog("close");
+                             Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Ha ocurrido un error generando el reporte', null);
+                         }
+                     });*/
                 }
-            });
-        }   
+            }
+        });
+    }
 };
 
 
