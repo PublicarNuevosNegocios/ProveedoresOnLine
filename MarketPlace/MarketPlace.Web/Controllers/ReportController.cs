@@ -106,7 +106,7 @@ namespace MarketPlace.Web.Controllers
                     return true;
                 });
                 buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
-                return File(buffer, "application/csv", "InformacionGeneral_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
+                return File(buffer, "application/vnd.ms-excel", "InformacionGeneral_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".xls");
             }       
             return View(oModel);
         }
