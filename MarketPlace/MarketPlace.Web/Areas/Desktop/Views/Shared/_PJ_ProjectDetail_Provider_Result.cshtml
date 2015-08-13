@@ -206,6 +206,22 @@
                                                 }))">Programar evaluación de desempeño</a>
                                     </li>
                                 }
+
+                                @if (oApprovalProviderStatus != null &&
+                                    oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+                                {
+                                <li>
+                                    <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                new
+                                                {
+                                                    controller = MVC.Project.Name,
+                                                    action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                                    ProjectPublicId = Model.ProjectPublicId,
+                                                    ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                                }))">Velo ha llegado el riporte pues :)</a>
+                                </li>
+                                }
+
                             </ul>
                         </li>
                     </ul>
