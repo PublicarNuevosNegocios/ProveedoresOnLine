@@ -338,7 +338,7 @@
                                 <label>
                                     Certificado de gestión OHSAS 18001
                                     @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
-                        Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
+                                            Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
                                     {
                                         <span>Si</span>
                                     }
@@ -365,13 +365,14 @@
                                     Nivel de Riesgo ARL
                                     <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
                                 </label>
-                                <label>
-                                    Guia RUC-CCS
-                                    @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
-                                    {
-                                        <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
-                                    }
-                                </label>
+                                if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().C_CCS))
+                                {
+                                    <label>
+                                        Guia RUC-CCS                              
+                                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().C_CCS</span>                                        
+                                    </label>
+                                }
+
                             }
                             @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
                             {
