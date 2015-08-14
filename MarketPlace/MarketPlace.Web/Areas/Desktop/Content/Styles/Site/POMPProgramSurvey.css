@@ -685,8 +685,8 @@ textarea#Survey_ProgramSurvey_Comments {
     color:#fff;
     height:30px;
     width:180px;
-    margin-top:2.5px;
     line-height:20px;
+    margin-right:-20px;
    
 }
 
@@ -699,3 +699,27 @@ textarea#Survey_ProgramSurvey_Comments {
 
 }
 
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child{
+    padding: 10px 0 10px 0;
+    border-bottom:1px solid #999;
+
+}
+
+
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12{
+    padding: 10px 0 10px 0;
+    border-bottom:1px solid #E4E4E4;
+
+}
+
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12:first-child{
+    padding: 12.5px 0 12.5px 0;
+    border-bottom:1px solid #999;
+
+}
+
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12{
+    padding: 12.5px 0 12.5px 0;
+    border-bottom:1px solid #E4E4E4;
+
+}

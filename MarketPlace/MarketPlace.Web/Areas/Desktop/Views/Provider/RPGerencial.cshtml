@@ -349,108 +349,159 @@
 
 
                     @*AQUI ESTA EL AREA DE K *@
-                    <ul class="POMPProviderInfoMultipleValues">
-                        @if (Model.RelatedKContractInfo != null && Model.RelatedKContractInfo.Count > 0)
-                        {
-                            <li>
-                                <label class="POMPProviderDataSubtitle">Contratación (K)</label>
-                                <ul class="POMPProviderKContratacion" style="padding:0px;">
-                                    <li>
-                                        <label>Criterio de evaluación</label>
-                                        <label>Puntuación Total</label>
-                                        <label>Capacidad Organizacional S.M.M.L.V</label>
-                                        <label>Capacidad Legal de Contratación S.M.M.L.V</label>
-                                    </li>
-                                    @foreach (var item in Model.RelatedKContractInfo)
-                                    {
-                                        <li>
-                                            <span>@item.FK_RoleType</span>
-                                            <span>@item.FK_TotalScore</span>
-                                            <span>@item.FK_TotalOrgCapacityScore</span>
-                                            <span>@item.FK_TotalKValueScore</span>
-                                        </li>
-                                    }
 
-                                </ul>
-                            </li>
-                            <li>
-                                <label class="POMPProviderVerDetalle">
-                                    <a href="@(Url.RouteUrl
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.FIKContract,
-                                ProviderPublicId = Request["ProviderPublicId"]
-                            }))">Ver Detalle</a>
-                                </label>
-                            </li>
-                        }
-                    </ul>
+
+                    if (Model.RelatedKContractInfo != null && Model.RelatedKContractInfo.Count > 0)
+                    {
+
+                        <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                            <div class="col-xs-12">
+                                <label>Contratación (K)</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="POMPProviderKContratacion" style="padding:0px;">
+                                <div class="col-xs-6">
+                                    <div class="col-xs-12"><label>Criterio de evaluación</label></div>
+                                    <div class="col-xs-12">
+                                        <label>Puntuación Total</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label>Capacidad Organizacional S.M.M.L.V</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label>Capacidad Legal de Contratación S.M.M.L.V</label>
+                                    </div>
+                                </div>
+                                @foreach (var item in Model.RelatedKContractInfo)
+                                {
+
+                                    <div class="col-xs-2">
+                                        <div class="col-xs-12">
+                                            <span>@item.FK_RoleType</span>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <span>@item.FK_TotalScore</span>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <span>@item.FK_TotalOrgCapacityScore</span>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <span>@item.FK_TotalKValueScore</span>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+
+                    }
+
 
                     @*AQUI ESTA EL AREA info HSE*@
-                    <ul class="POMPProviderInfoMultipleValues">
-                        @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
-                        {
-                            <li>
-                                <label class="POMPProviderDataSubtitle">Información HSEQ</label>
 
+                    if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
+                    {
+                        <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                            <div class="col-xs-12">
+                                <label>Información HSEQ</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
                                 <label>
                                     Empresa de sistema de riegos
-                                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
                                 </label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
+                            </div>
+                        </div>
 
-
-                                @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
-                                {
+                        if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                        {
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
                                     <label>
                                         Certificado de gestión OHSAS 18001
-                                        @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
-                    Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
-                                        {
-                                            <span>Si</span>
-                                        }
-                                        else
-                                        {
-                                            <span>No</span>
-                                        }
                                     </label>
+                                </div>
+                                @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
+                    Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
+                                {
+                                    <div class="col-xs-12">
+                                        <span>Si</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-xs-12">
+                                        <span>No</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
                                     <label>
                                         Certificados de gestión ISO
-                                        @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
+                                    </label>
+                                </div>
+                                @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
                     Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 170
                     || Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
                     Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 177)
-                                        {
-                                            <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemName</span>
-                                        }
-                                        else
-                                        {
-                                            <span>No</span>
-                                        }
-                                    </label>
+                                {
+                                    <div class="col-xs-12">
+                                        <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemName</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
                                     <label>
                                         Nivel de Riesgo ARL
-                                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
                                     </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
                                     <label>
                                         Guia RUC-CCS
-                                        @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
-                                        {
-                                            <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
-                                        }
                                     </label>
-                                }
-                                @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
                                 {
+                                    <div class="col-xs-12">
+                                        <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
+                                    </div>
+                                }
+                            </div>
+
+                        }
+                        if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
+                        {
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
                                     <label>
                                         LTIF
-                                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
                                     </label>
-                                }
-                            </li>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
+                                </div>
+                            </div>
                         }
-                    </ul>
+
+                    }
+
                 }
             }
         </div>
