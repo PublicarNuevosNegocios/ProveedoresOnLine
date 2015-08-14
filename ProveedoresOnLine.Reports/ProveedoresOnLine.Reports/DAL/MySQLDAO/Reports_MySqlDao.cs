@@ -58,7 +58,6 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
                      {
                          SurveyPublicId = svg.Key.SurveyPublicId,
                          LastModify = svg.Key.LastModify,
-
                          RelatedSurveyConfig = new SurveyConfigModel()
                          {
                              ItemId = svg.Key.SurveyConfigId,

@@ -66,12 +66,20 @@ namespace ProveedoresOnLine.Reports.Controller
                 oSurveyModel.All(x =>
                 {
                     List<string> Evaluators = x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == 1204003).Select(a => a.Value).ToList();
-                    x.ChildSurvey= new List<SurveyModel>();
+                    Evaluators = Evaluators.GroupBy(Y => Y).Select(grp => grp.First()).ToList();
+
+                    List<SurveyModel> oChildModel = new List<SurveyModel>();
                     Evaluators.All(y =>
                     {
-                        x.ChildSurvey.Add(SurveyGetByPrentUser(x.SurveyPublicId, y));
+                        SurveyModel oChild = SurveyGetByPrentUser(x.SurveyPublicId, y);
+                        if (oChild != null) {
+                            oChildModel.Add(oChild);
+                        }
                         return true;
                     });
+
+                    if (oChildModel.Count > 0)                    
+                        x.ChildSurvey = oChildModel.Where(l => l != null).ToList();
 
                     return true;
                 });
@@ -203,6 +211,7 @@ namespace ProveedoresOnLine.Reports.Controller
             //proceso la data
             ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
 
+            
 
             string mimeType;
             string encoding;

@@ -64,5 +64,13 @@ namespace ProveedoresOnLine.Reports.Test
         }
 
         #endregion
+
+        #region SelectionProcessReport
+        [TestMethod]
+        public void PJ_Report_SelectionProcess()
+        { 
+            //PJ_ProjectProviderReportAceptedDetail("ProjectPublicId","CustomerPublicId", "ProviderPublicId", "FormatType", "FilePath");
+        }
+        #endregion
     }
 }
