@@ -54,12 +54,20 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
                          SurveyConfigId = sv.Field<int>("SurveyConfigId"),
                          SurveyName = sv.Field<string>("SurveyName"),
                          ParentPublicSurveyId = sv.Field<string>("ParentPublicSurveyId"),
+                         ProviderName = sv.Field<string>("CompanyName"),
                      } into svg
                      select new SurveyModel()
                      {
                          SurveyPublicId = svg.Key.SurveyPublicId,
                          LastModify = svg.Key.LastModify,
-                         ParentSurveyPublicId = svg.Key.ParentPublicSurveyId,
+                         ParentSurveyPublicId = svg.Key.ParentPublicSurveyId,                         
+                         RelatedProvider = new ProviderModel()
+                         {
+                             RelatedCompany = new Company.Models.Company.CompanyModel() 
+                             {
+                                 CompanyName = svg.Key.ProviderName
+                             }
+                         },
                          RelatedSurveyConfig = new SurveyConfigModel()
                          {
                              ItemId = svg.Key.SurveyConfigId,
@@ -124,21 +132,22 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<SurveyModel> SurveyGetBySurveyParentPublicId(string ParentSurveyPublicId)
+        public SurveyModel SurveyGetByParentUser(string ParentSurveyPublicId, string User)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
             lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyPublicId", ParentSurveyPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataSet,
-                CommandText = "MP_CP_Report_Survey_GetById",
-                CommandType = System.Data.CommandType.StoredProcedure,
-                Parameters = lstParams
+                CommandText = "MP_CP_Survey_GetByUser",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
             });
 
-            List<SurveyModel> oReturn = null;
+            SurveyModel oReturn = null;
 
             if (response.DataSetResult != null &&
                 response.DataSetResult.Tables.Count > 1 &&
@@ -147,13 +156,14 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
                 response.DataSetResult.Tables[1] != null &&
                 response.DataSetResult.Tables[1].Rows.Count > 0)
             {
-                oReturn = new List<SurveyModel>();
-                oReturn.Add(new SurveyModel()
+                oReturn = new SurveyModel()
                 {
                     SurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("SurveyPublicId"),
                     LastModify = response.DataSetResult.Tables[1].Rows[0].Field<DateTime>("SurveyLastModify"),
-                    ParentSurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("ParentSurveyPublicId"),
+                    CreateDate = response.DataSetResult.Tables[1].Rows[0].Field<DateTime>("SurveyCreateDate"),
                     User = response.DataSetResult.Tables[1].Rows[0].Field<string>("User"),
+                    ParentSurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("ParentSurveyId"),
+
                     RelatedProvider = new CompanyProvider.Models.Provider.ProviderModel()
                     {
                         RelatedCompany = new Company.Models.Company.CompanyModel()
@@ -237,102 +247,101 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
                                      }).ToList(),
                     #endregion
 
-                    #region Survey Config
                     RelatedSurveyConfig = new SurveyConfigModel()
-                                {
-                                    ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId"),
-                                    ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("SurveyName"),
+                    {
+                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId"),
+                        ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("SurveyName"),
 
-                                    RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
+                        RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
+                        {
+                            RelatedCompany = new Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = response.DataSetResult.Tables[0].Rows[0].Field<string>("CustomerPublicId"),
+                            },
+                        },
+
+                        ItemInfo =
+                           (from scinf in response.DataSetResult.Tables[0].AsEnumerable()
+                            where !scinf.IsNull("SurveyConfigInfoId") &&
+                                   scinf.Field<int>("SurveyConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId")
+                            group scinf by new
+                            {
+                                SurveyConfigInfoId = scinf.Field<int>("SurveyConfigInfoId"),
+                                SurveyConfigInfoTypeId = scinf.Field<int>("SurveyConfigInfoTypeId"),
+                                SurveyConfigInfoTypeName = scinf.Field<string>("SurveyConfigInfoTypeName"),
+                                SurveyConfigInfoValue = scinf.Field<string>("SurveyConfigInfoValue"),
+                                SurveyConfigInfoLargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
+                                SurveyConfigInfoValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
+                            } into scinfg
+                            select new GenericItemInfoModel()
+                            {
+                                ItemInfoId = scinfg.Key.SurveyConfigInfoId,
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = scinfg.Key.SurveyConfigInfoTypeId,
+                                    ItemName = scinfg.Key.SurveyConfigInfoTypeName,
+                                },
+                                Value = scinfg.Key.SurveyConfigInfoValue,
+                                LargeValue = scinfg.Key.SurveyConfigInfoLargeValue,
+                                ValueName = scinfg.Key.SurveyConfigInfoValueName,
+                            }).ToList(),
+
+                        RelatedSurveyConfigItem =
+                            (from scit in response.DataSetResult.Tables[0].AsEnumerable()
+                             where !scit.IsNull("SurveyConfigItemId") &&
+                                    scit.Field<int>("SurveyConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId")
+                             group scit by new
+                             {
+                                 SurveyConfigItemId = scit.Field<int>("SurveyConfigItemId"),
+                                 SurveyConfigItemName = scit.Field<string>("SurveyConfigItemName"),
+                                 SurveyConfigItemTypeId = scit.Field<int>("SurveyConfigItemTypeId"),
+                                 SurveyConfigItemTypeName = scit.Field<string>("SurveyConfigItemTypeName"),
+                                 ParentSurveyConfigItem = scit.Field<int?>("ParentSurveyConfigItem"),
+                             } into scitg
+                             select new GenericItemModel()
+                             {
+                                 ItemId = scitg.Key.SurveyConfigItemId,
+                                 ItemName = scitg.Key.SurveyConfigItemName,
+                                 ItemType = new CatalogModel()
+                                 {
+                                     ItemId = scitg.Key.SurveyConfigItemTypeId,
+                                     ItemName = scitg.Key.SurveyConfigItemTypeName,
+                                 },
+                                 ParentItem = scitg.Key.ParentSurveyConfigItem == null ? null :
+                                    new GenericItemModel()
                                     {
-                                        RelatedCompany = new Company.Models.Company.CompanyModel()
-                                        {
-                                            CompanyPublicId = response.DataSetResult.Tables[0].Rows[0].Field<string>("CustomerPublicId"),
-                                        },
+                                        ItemId = scitg.Key.ParentSurveyConfigItem.Value,
                                     },
 
-                                    ItemInfo =
-                                       (from scinf in response.DataSetResult.Tables[0].AsEnumerable()
-                                        where !scinf.IsNull("SurveyConfigInfoId") &&
-                                               scinf.Field<int>("SurveyConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId")
-                                        group scinf by new
-                                        {
-                                            SurveyConfigInfoId = scinf.Field<int>("SurveyConfigInfoId"),
-                                            SurveyConfigInfoTypeId = scinf.Field<int>("SurveyConfigInfoTypeId"),
-                                            SurveyConfigInfoTypeName = scinf.Field<string>("SurveyConfigInfoTypeName"),
-                                            SurveyConfigInfoValue = scinf.Field<string>("SurveyConfigInfoValue"),
-                                            SurveyConfigInfoLargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
-                                            SurveyConfigInfoValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
-                                        } into scinfg
-                                        select new GenericItemInfoModel()
-                                        {
-                                            ItemInfoId = scinfg.Key.SurveyConfigInfoId,
-                                            ItemInfoType = new CatalogModel()
-                                            {
-                                                ItemId = scinfg.Key.SurveyConfigInfoTypeId,
-                                                ItemName = scinfg.Key.SurveyConfigInfoTypeName,
-                                            },
-                                            Value = scinfg.Key.SurveyConfigInfoValue,
-                                            LargeValue = scinfg.Key.SurveyConfigInfoLargeValue,
-                                            ValueName = scinfg.Key.SurveyConfigInfoValueName,
-                                        }).ToList(),
-
-                                    RelatedSurveyConfigItem =
-                                        (from scit in response.DataSetResult.Tables[0].AsEnumerable()
-                                         where !scit.IsNull("SurveyConfigItemId") &&
-                                                scit.Field<int>("SurveyConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId")
-                                         group scit by new
-                                         {
-                                             SurveyConfigItemId = scit.Field<int>("SurveyConfigItemId"),
-                                             SurveyConfigItemName = scit.Field<string>("SurveyConfigItemName"),
-                                             SurveyConfigItemTypeId = scit.Field<int>("SurveyConfigItemTypeId"),
-                                             SurveyConfigItemTypeName = scit.Field<string>("SurveyConfigItemTypeName"),
-                                             ParentSurveyConfigItem = scit.Field<int?>("ParentSurveyConfigItem"),
-                                         } into scitg
-                                         select new GenericItemModel()
-                                         {
-                                             ItemId = scitg.Key.SurveyConfigItemId,
-                                             ItemName = scitg.Key.SurveyConfigItemName,
-                                             ItemType = new CatalogModel()
-                                             {
-                                                 ItemId = scitg.Key.SurveyConfigItemTypeId,
-                                                 ItemName = scitg.Key.SurveyConfigItemTypeName,
-                                             },
-                                             ParentItem = scitg.Key.ParentSurveyConfigItem == null ? null :
-                                                new GenericItemModel()
-                                                {
-                                                    ItemId = scitg.Key.ParentSurveyConfigItem.Value,
-                                                },
-
-                                             ItemInfo =
-                                                 (from scitinf in response.DataSetResult.Tables[0].AsEnumerable()
-                                                  where !scitinf.IsNull("SurveyConfigItemInfoId") &&
-                                                         scitinf.Field<int>("SurveyConfigItemId") == scitg.Key.SurveyConfigItemId
-                                                  group scitinf by new
-                                                  {
-                                                      SurveyConfigItemInfoId = scitinf.Field<int>("SurveyConfigItemInfoId"),
-                                                      SurveyConfigItemInfoTypeId = scitinf.Field<int>("SurveyConfigItemInfoTypeId"),
-                                                      SurveyConfigItemInfoTypeName = scitinf.Field<string>("SurveyConfigItemInfoTypeName"),
-                                                      SurveyConfigItemInfoValue = scitinf.Field<string>("SurveyConfigItemInfoValue"),
-                                                      SurveyConfigItemInfoLargeValue = scitinf.Field<string>("SurveyConfigItemInfoLargeValue"),
-                                                  } into scitinfg
-                                                  select new GenericItemInfoModel()
-                                                  {
-                                                      ItemInfoId = scitinfg.Key.SurveyConfigItemInfoId,
-                                                      ItemInfoType = new CatalogModel()
-                                                      {
-                                                          ItemId = scitinfg.Key.SurveyConfigItemInfoTypeId,
-                                                          ItemName = scitinfg.Key.SurveyConfigItemInfoTypeName,
-                                                      },
-                                                      Value = scitinfg.Key.SurveyConfigItemInfoValue,
-                                                      LargeValue = scitinfg.Key.SurveyConfigItemInfoLargeValue,
-                                                  }).ToList(),
-                                         }).ToList(),
-                                }, 
-                    #endregion
-                });                
+                                 ItemInfo =
+                                     (from scitinf in response.DataSetResult.Tables[0].AsEnumerable()
+                                      where !scitinf.IsNull("SurveyConfigItemInfoId") &&
+                                             scitinf.Field<int>("SurveyConfigItemId") == scitg.Key.SurveyConfigItemId
+                                      group scitinf by new
+                                      {
+                                          SurveyConfigItemInfoId = scitinf.Field<int>("SurveyConfigItemInfoId"),
+                                          SurveyConfigItemInfoTypeId = scitinf.Field<int>("SurveyConfigItemInfoTypeId"),
+                                          SurveyConfigItemInfoTypeName = scitinf.Field<string>("SurveyConfigItemInfoTypeName"),
+                                          SurveyConfigItemInfoValue = scitinf.Field<string>("SurveyConfigItemInfoValue"),
+                                          SurveyConfigItemInfoLargeValue = scitinf.Field<string>("SurveyConfigItemInfoLargeValue"),
+                                      } into scitinfg
+                                      select new GenericItemInfoModel()
+                                      {
+                                          ItemInfoId = scitinfg.Key.SurveyConfigItemInfoId,
+                                          ItemInfoType = new CatalogModel()
+                                          {
+                                              ItemId = scitinfg.Key.SurveyConfigItemInfoTypeId,
+                                              ItemName = scitinfg.Key.SurveyConfigItemInfoTypeName,
+                                          },
+                                          Value = scitinfg.Key.SurveyConfigItemInfoValue,
+                                          LargeValue = scitinfg.Key.SurveyConfigItemInfoLargeValue,
+                                      }).ToList(),
+                             }).ToList(),
+                    },
+                };
             }
             return oReturn;
+
         }
 
         #endregion

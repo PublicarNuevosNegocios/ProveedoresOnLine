@@ -60,32 +60,26 @@ namespace ProveedoresOnLine.Reports.Controller
 
         public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
-            List<SurveyModule.Models.SurveyModel> oSurveyParentModel = oGetAllSurveyByCustomer(CustomerPublicId);
+            List<SurveyModule.Models.SurveyModel> oSurveyParentModel = DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);            
+
             if (oSurveyParentModel != null)
             {
-                //oSurveyParentModel.All(x =>
-                //{
-                    
-                //    x.ChildSurvey = 
-                //    return true;
-                //});
+                oSurveyParentModel.All(x =>
+                    {
+                        List<string> EvaluatorsList = x.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == 1204003).Select(inf => inf.Value).ToList();
+                        List<string> Evaluators = EvaluatorsList.GroupBy(y => y).Select(grp => grp.First()).ToList();
+                        x.ChildSurvey = new List<SurveyModel>();
+                        Evaluators.All(ev => 
+                            {
+                                x.ChildSurvey.Add(DAL.Controller.ReportsDataController.Instance.SurveyGetByParentUser(x.SurveyPublicId, ev));
+                                return true;
+                            });
+                        
+                        return true;
+                    });
             }
             return oSurveyParentModel;
-        }
-
-        #region Data
-
-        public static List<SurveyModule.Models.SurveyModel> oGetAllSurveyByCustomer(string CustomerPublicId)
-        {
-            return DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
-        }
-
-        public static SurveyModel SurveyGetByPrentUser(string ParentSurveyPublicId, string User)
-        {
-            return DAL.Controller.ReportsDataController.Instance.SurveyGetByParentUser(ParentSurveyPublicId, User);
-        }
-
-        #endregion
+        }        
 
         #endregion
 
@@ -185,7 +179,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region SelectionProcess Report
 
-        public static Tuple<byte[], string, string> PJ_ProjectProviderReportAceptedDetail(string ProjectPublicId,string CustomerPublicId, string ProviderPublicId, string FormatType, string FilePath)
+        public static Tuple<byte[], string, string> PJ_ProjectProviderReportAceptedDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId, string FormatType, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
@@ -197,7 +191,7 @@ namespace ProveedoresOnLine.Reports.Controller
             //proceso la data
             ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
 
-            
+
 
             string mimeType;
             string encoding;
@@ -223,9 +217,9 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
-            return Tuple.Create(renderedBytes, mimeType, ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SelectionProcess + "_" + DateTime.Now.ToString("yyyyMMddHHmm")+ "." + FormatType);
+            return Tuple.Create(renderedBytes, mimeType, ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SelectionProcess + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
-        
+
         #region Data
         public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
         {
