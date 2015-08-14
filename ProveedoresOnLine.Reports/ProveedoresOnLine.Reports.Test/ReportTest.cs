@@ -14,7 +14,7 @@ namespace ProveedoresOnLine.Reports.Test
     [TestClass]
     public class ReportTest
     {
-        #region Reporting
+        #region Survey Reports
         [TestMethod]
         public void SV_Report_SurveyDetail()
         {
@@ -43,6 +43,7 @@ namespace ProveedoresOnLine.Reports.Test
         {
             List<SurveyModule.Models.SurveyModel> oModel = ProveedoresOnLine.Reports.Controller.ReportModule.SurveyGetAllByCustomer("DA5C572E");
         }
+
         #endregion
 
         #region GerencialReport
@@ -63,6 +64,14 @@ namespace ProveedoresOnLine.Reports.Test
             parameters = null;
         }
 
+        #endregion
+
+        #region SelectionProcessReport
+        [TestMethod]
+        public void PJ_Report_SelectionProcess()
+        { 
+            //PJ_ProjectProviderReportAceptedDetail("ProjectPublicId","CustomerPublicId", "ProviderPublicId", "FormatType", "FilePath");
+        }
         #endregion
     }
 }

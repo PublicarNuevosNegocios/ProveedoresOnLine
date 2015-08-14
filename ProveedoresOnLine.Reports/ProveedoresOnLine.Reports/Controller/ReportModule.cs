@@ -60,23 +60,17 @@ namespace ProveedoresOnLine.Reports.Controller
 
         public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
-            List<SurveyModule.Models.SurveyModel> oSurveyModel = oGetAllSurveyByCustomer(CustomerPublicId);
-            if (oSurveyModel != null)
+            List<SurveyModule.Models.SurveyModel> oSurveyParentModel = oGetAllSurveyByCustomer(CustomerPublicId);
+            if (oSurveyParentModel != null)
             {
-                oSurveyModel.All(x =>
-                {
-                    List<string> Evaluators = x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == 1204003).Select(a => a.Value).ToList();
-                    x.ChildSurvey= new List<SurveyModel>();
-                    Evaluators.All(y =>
-                    {
-                        x.ChildSurvey.Add(SurveyGetByPrentUser(x.SurveyPublicId, y));
-                        return true;
-                    });
-
-                    return true;
-                });
+                //oSurveyParentModel.All(x =>
+                //{
+                    
+                //    x.ChildSurvey = 
+                //    return true;
+                //});
             }
-            return oSurveyModel;
+            return oSurveyParentModel;
         }
 
         #region Data
@@ -203,6 +197,7 @@ namespace ProveedoresOnLine.Reports.Controller
             //proceso la data
             ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
 
+            
 
             string mimeType;
             string encoding;
