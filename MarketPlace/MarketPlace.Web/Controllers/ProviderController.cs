@@ -1679,21 +1679,18 @@ namespace MarketPlace.Web.Controllers
                     });
                     oToInsert.RelatedReports.All(x =>
                     {
-                        parameters.Add(new ReportParameter("dateStart",
-                            x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault()
-                        ));
+                        parameters.Add(new ReportParameter("dateStart", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                 (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
+                                 DefaultIfEmpty(string.Empty).
+                                 FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
                     });
                     oToInsert.RelatedReports.All(x =>
                     {
-                        parameters.Add(new ReportParameter("dateEnd",
-                            x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                         parameters.Add(new ReportParameter("dateEnd",Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                             (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
-                            FirstOrDefault()));
+                            FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
                     });
                     oToInsert.RelatedReports.All(x =>
