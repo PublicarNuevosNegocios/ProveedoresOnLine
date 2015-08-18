@@ -61,7 +61,7 @@
         C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
       ]]>
     </key>-->
-    <key name="MP_CP_ReportPath">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\</key>
+    <key name="MP_CP_ReportPath">C:\Reports\</key>
   </MarketPlace>
 </Settings>
 

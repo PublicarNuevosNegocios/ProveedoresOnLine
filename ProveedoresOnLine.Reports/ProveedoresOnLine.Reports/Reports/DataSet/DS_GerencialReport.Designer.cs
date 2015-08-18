@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace ProveedoresOnLine.Reports.Test.Reports.DataSet {
+namespace ProveedoresOnLine.Reports.Reports.DataSet {
     
     
     /// <summary>
