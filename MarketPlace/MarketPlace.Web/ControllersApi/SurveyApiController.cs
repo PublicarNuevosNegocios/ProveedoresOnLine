@@ -28,7 +28,7 @@ namespace MarketPlace.Web.ControllersApi
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     SearchParam,
                     0,
-                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()));
+                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_AutoCompleteRow].Value.Trim()));
 
                 if (SearchResult != null && SearchResult.Count > 0)
                 {

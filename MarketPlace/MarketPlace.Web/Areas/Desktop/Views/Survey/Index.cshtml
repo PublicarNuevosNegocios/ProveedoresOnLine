@@ -268,7 +268,7 @@
                             if (Question.HasDescription)
                             {
                                 <div class="POMPAreaObservation">
-                                    <p>Obervaciones:</p>
+                                    <p>Observaciones:</p>
                                     <textarea class="POMPDescriptionArea" name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close || !isAutorized ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
                                 </div>
                             }
