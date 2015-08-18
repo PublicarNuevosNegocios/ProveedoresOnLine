@@ -170,27 +170,6 @@
             {
                 if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
                 {
-                    @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
-                    if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
-                    {
-                        <ul>
-                            <li>
-                                <label>Consulta Listas Restrictivas</label>
-
-                                @foreach (var itemBL in Model.RelatedBlackListInfo)
-                                {
-                                    @*if (itemBL.ItemType.ItemName != "ProviderPublicId" && itemBL.ItemType.ItemName != "SearchType")
-                                        {
-                                        <label>
-                                        @itemBL.ItemType.ItemName
-                                        <span>@itemBL.ItemName</span>
-                                        </label>
-                                        }*@
-                                }
-                            </li>
-                        </ul>
-                    }
-
                     @*AQUI ESTA EL AREA SEGUIMIENTOS*@
                     <ul>
                         @if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
