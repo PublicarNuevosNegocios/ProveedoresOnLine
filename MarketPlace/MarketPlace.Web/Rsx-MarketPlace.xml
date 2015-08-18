@@ -14,7 +14,6 @@
 
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
-    <key name="MP_AutoCompleteRow">50</key>
 
     <key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>
     <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
@@ -54,9 +53,16 @@
     <key name="Company_Error_Gear1">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear1.png</key>
     <key name="Company_Error_Gear2">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear2.png</key>
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
-    
+
     <key name="MP_CP_ReportPath">C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
-    
+
+    <!--Report Path-->
+    <!--<key name="MP_CP_ReportPath">
+      <![CDATA[
+        C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
+      ]]>
+    </key>-->
+    <key name="MP_CP_ReportPath">C:\Reports\</key>
   </MarketPlace>
 </Settings>
 
