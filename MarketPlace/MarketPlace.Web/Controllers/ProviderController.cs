@@ -1679,21 +1679,18 @@ namespace MarketPlace.Web.Controllers
                     });
                     oToInsert.RelatedReports.All(x =>
                     {
-                        parameters.Add(new ReportParameter("dateStart",
-                            x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault()
-                        ));
+                        parameters.Add(new ReportParameter("dateStart", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                 (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
+                                 DefaultIfEmpty(string.Empty).
+                                 FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
                     });
                     oToInsert.RelatedReports.All(x =>
                     {
-                        parameters.Add(new ReportParameter("dateEnd",
-                            x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                         parameters.Add(new ReportParameter("dateEnd",Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                             (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
-                            FirstOrDefault()));
+                            FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
                     });
                     oToInsert.RelatedReports.All(x =>
@@ -1811,6 +1808,39 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                     (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, User));
             }
+
+            #region Reports
+            //List<ReportParameter> parameters = new List<ReportParameter>();
+            //ProviderModel oToInsert = new ProviderModel()
+            //{
+            //    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+            //    {
+            //        CompanyPublicId = ProviderPublicId,
+            //    },
+            //    RelatedReports = new List<GenericItemModel>
+            //        {
+            //            new GenericItemModel(){
+            //                ItemId = 0,
+            //                ItemName = "SurveyEvaluatorReport",
+            //                ItemType = new CatalogModel(){
+            //                    ItemId = (int)MarketPlace.Models.General.enumReportType.RP_GerencialReport,
+            //                },
+            //                Enable = true,
+            //            },
+            //        },
+            //};
+            //ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
+
+
+            ////CustomerInfo
+            //parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+            //parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+            //parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+            //parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+            #endregion
+
+
+
             return View(oModel);
         }
 

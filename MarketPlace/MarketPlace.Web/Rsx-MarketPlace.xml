@@ -54,6 +54,7 @@
     <key name="Company_Error_Gear2">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear2.png</key>
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
 
+    <key name="MP_CP_ReportPath">C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
 
     <!--Report Path-->
     <!--<key name="MP_CP_ReportPath">
@@ -61,7 +62,7 @@
         C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
       ]]>
     </key>-->
-    <key name="MP_CP_ReportPath">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
+    <key name="MP_CP_ReportPath">C:\Reports\</key>
   </MarketPlace>
 </Settings>
 
