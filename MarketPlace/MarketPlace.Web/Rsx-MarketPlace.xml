@@ -14,7 +14,6 @@
 
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
-    <key name="MP_AutoCompleteRow">50</key>
 
     <key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>
     <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
@@ -62,7 +61,7 @@
         C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\
       ]]>
     </key>-->
-    <key name="MP_CP_ReportPath">C:\Reports\</key>
+    <key name="MP_CP_ReportPath">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
   </MarketPlace>
 </Settings>
 

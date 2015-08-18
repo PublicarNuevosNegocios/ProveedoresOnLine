@@ -2235,15 +2235,15 @@ namespace MarketPlace.Web.Controllers
 
                 if (oModel.RelatedHSEQlInfo != null && oModel.RelatedHSEQlInfo.Count > 0)
                 {
-                    parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() == null && oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
-                    parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null && oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
-                    parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null && oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+                    parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
+                    parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
+                    parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
                 }
                 else
                 {
-                    parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() == null && oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
-                    parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
-                    parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+                    parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
+                    parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
+                    parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
                 }
 
                 #endregion
