@@ -69,8 +69,8 @@ namespace ProveedoresOnLine.Reports.Test
         #region SelectionProcessReport
         [TestMethod]
         public void PJ_Report_SelectionProcess()
-        { 
-            //PJ_ProjectProviderReportAceptedDetail("ProjectPublicId","CustomerPublicId", "ProviderPublicId", "FormatType", "FilePath");
+        {
+            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_ProjectProviderReportAceptedDetail("BEEC4FCC", "CustomerPublicId", "123601D", "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\");
         }
         #endregion
     }
