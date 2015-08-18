@@ -70,7 +70,10 @@ namespace ProveedoresOnLine.Reports.Test
         [TestMethod]
         public void PJ_Report_SelectionProcess()
         {
-            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_ProjectProviderReportAceptedDetail("BEEC4FCC", "CustomerPublicId", "123601D", "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\");
+            //proyecto Pj_Id-> 12B70122
+            //publicar customer-> DA5C572E
+            //el tiempo provider-> 123601D3
+            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_ProjectProviderReportAceptedDetail("12B70122", "DA5C572E", "123601D3", "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\");
         }
         #endregion
     }
