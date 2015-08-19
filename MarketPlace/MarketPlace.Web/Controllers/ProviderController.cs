@@ -1810,33 +1810,77 @@ namespace MarketPlace.Web.Controllers
             }
 
             #region Reports
-            //List<ReportParameter> parameters = new List<ReportParameter>();
-            //ProviderModel oToInsert = new ProviderModel()
-            //{
-            //    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-            //    {
-            //        CompanyPublicId = ProviderPublicId,
-            //    },
-            //    RelatedReports = new List<GenericItemModel>
-            //        {
-            //            new GenericItemModel(){
-            //                ItemId = 0,
-            //                ItemName = "SurveyEvaluatorReport",
-            //                ItemType = new CatalogModel(){
-            //                    ItemId = (int)MarketPlace.Models.General.enumReportType.RP_GerencialReport,
-            //                },
-            //                Enable = true,
-            //            },
-            //        },
-            //};
-            //ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
+            List<ReportParameter> parameters = new List<ReportParameter>();
 
 
-            ////CustomerInfo
-            //parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
-            //parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
-            //parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
-            //parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+            //CustomerInfo
+            parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+            parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+            parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+            //ProviderInfo
+            parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+            parameters.Add(new ReportParameter("ProviderIdentificationType", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+
+            //SurveyInfo
+            parameters.Add(new ReportParameter("SurveyConfigName", oModel.RelatedSurvey.SurveyConfigName));
+            parameters.Add(new ReportParameter("SurveyRating", oModel.RelatedSurvey.SurveyRating.ToString()));
+            parameters.Add(new ReportParameter("SurveyStatusName", oModel.RelatedSurvey.SurveyStatusName));
+            parameters.Add(new ReportParameter("SurveyIssueDate", oModel.RelatedSurvey.SurveyIssueDate));
+            parameters.Add(new ReportParameter("SurveyEvaluator", oModel.RelatedSurvey.SurveyEvaluator));
+            parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));
+            parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
+            parameters.Add(new ReportParameter("SurveyRelatedProject", oModel.RelatedSurvey.SurveyRelatedProject));
+
+            DataTable data = new DataTable();
+            data.Columns.Add("Area");
+            data.Columns.Add("Question");
+            data.Columns.Add("Answer");
+            data.Columns.Add("QuestionRating");
+            data.Columns.Add("QuestionWeight");
+            data.Columns.Add("QuestionDescription");
+
+            DataRow row;
+            foreach (var EvaluationArea in
+                        oModel.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
+            {
+                var lstQuestion = oModel.RelatedSurvey.GetSurveyConfigItem
+                    (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+
+                row = data.NewRow();
+                row["Area"] = EvaluationArea.Name;
+
+                foreach (var Question in lstQuestion)
+                {
+                    row["Question"] = Question.Order + " " + Question.Name;
+
+                    var QuestionInfo = oModel.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+                    var lstAnswer = oModel.RelatedSurvey.GetSurveyConfigItem
+                        (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                    foreach (var Answer in lstAnswer)
+                    {
+                        if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                        {
+                            row["Answer"] = Answer.Name;
+                        }
+                    }
+
+                    row["QuestionRating"] = QuestionInfo.Ratting;
+                    row["QuestionWeight"] = Question.Weight;
+                    row["QuestionDescription"] = QuestionInfo.DescriptionText;
+                }
+
+                data.Rows.Add(row);
+            }
+
+            Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_EvaluatorDetailReport(
+                                                               enumCategoryInfoType.PDF.ToString(),
+                                                               data,
+                                                               parameters,
+                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_EvaluatorDetail.rdlc");
+
             #endregion
 
 

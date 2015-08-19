@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_EvaluatorDetailReport" targetNamespace="http://tempuri.org/DS_EvaluatorDetailReport.xsd" xmlns:mstns="http://tempuri.org/DS_EvaluatorDetailReport.xsd" xmlns="http://tempuri.org/DS_EvaluatorDetailReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_EvaluatorDetailReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_EvaluatorDetailReport" msprop:Generator_UserDSName="DS_EvaluatorDetailReport">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DS_EvaluatorDetailReport" msprop:Generator_TableClassName="DS_EvaluatorDetailReportDataTable" msprop:Generator_TableVarName="tableDS_EvaluatorDetailReport" msprop:Generator_TablePropName="_DS_EvaluatorDetailReport" msprop:Generator_RowDeletingName="DS_EvaluatorDetailReportRowDeleting" msprop:Generator_RowChangingName="DS_EvaluatorDetailReportRowChanging" msprop:Generator_RowEvHandlerName="DS_EvaluatorDetailReportRowChangeEventHandler" msprop:Generator_RowDeletedName="DS_EvaluatorDetailReportRowDeleted" msprop:Generator_UserTableName="DS_EvaluatorDetailReport" msprop:Generator_RowChangedName="DS_EvaluatorDetailReportRowChanged" msprop:Generator_RowEvArgName="DS_EvaluatorDetailReportRowChangeEvent" msprop:Generator_RowClassName="DS_EvaluatorDetailReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Area" msprop:Generator_ColumnVarNameInTable="columnArea" msprop:Generator_ColumnPropNameInRow="Area" msprop:Generator_ColumnPropNameInTable="AreaColumn" msprop:Generator_UserColumnName="Area" type="xs:string" minOccurs="0" />
+              <xs:element name="Question" msprop:Generator_ColumnVarNameInTable="columnQuestion" msprop:Generator_ColumnPropNameInRow="Question" msprop:Generator_ColumnPropNameInTable="QuestionColumn" msprop:Generator_UserColumnName="Question" type="xs:string" minOccurs="0" />
+              <xs:element name="Answer" msprop:Generator_ColumnVarNameInTable="columnAnswer" msprop:Generator_ColumnPropNameInRow="Answer" msprop:Generator_ColumnPropNameInTable="AnswerColumn" msprop:Generator_UserColumnName="Answer" type="xs:string" minOccurs="0" />
+              <xs:element name="QuestionRating" msprop:Generator_ColumnVarNameInTable="columnQuestionRating" msprop:Generator_ColumnPropNameInRow="QuestionRating" msprop:Generator_ColumnPropNameInTable="QuestionRatingColumn" msprop:Generator_UserColumnName="QuestionRating" type="xs:string" minOccurs="0" />
+              <xs:element name="QuestionWeight" msprop:Generator_ColumnVarNameInTable="columnQuestionWeight" msprop:Generator_ColumnPropNameInRow="QuestionWeight" msprop:Generator_ColumnPropNameInTable="QuestionWeightColumn" msprop:Generator_UserColumnName="QuestionWeight" type="xs:string" minOccurs="0" />
+              <xs:element name="QuestionDescription" msprop:Generator_ColumnVarNameInTable="columnQuestionDescription" msprop:Generator_ColumnPropNameInRow="QuestionDescription" msprop:Generator_ColumnPropNameInTable="QuestionDescriptionColumn" msprop:Generator_UserColumnName="QuestionDescription" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

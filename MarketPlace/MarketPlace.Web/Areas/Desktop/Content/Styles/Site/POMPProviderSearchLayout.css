@@ -29,6 +29,19 @@
     min-width:462px;
     border-right:2px solid #ff8300;
     border-left: 2px solid #ff8300;
+    padding-top:10px;
+    position:relative;
+}
+.POMPDownloadExcelButton{
+    width:130px;
+    height:25px;
+    background:#ff8300;
+    color:#fff;
+    position:absolute;
+    top:20px;
+    left:10px;
+    text-align:center;
+    line-height:25px;
 }
             .POMPProviderListWrapper tr{
                 cursor:pointer;
