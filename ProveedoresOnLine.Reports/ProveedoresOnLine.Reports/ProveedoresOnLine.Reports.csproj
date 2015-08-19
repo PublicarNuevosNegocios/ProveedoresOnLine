@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\C_Report_GerencialInfo.rdlc" />
+    <EmbeddedResource Include="Reports\PJ_Report_SelectionProcess.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_EvaluatorDetail.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_SurveyDetail.rdlc" />
   </ItemGroup>

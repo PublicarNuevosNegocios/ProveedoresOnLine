@@ -181,9 +181,10 @@ namespace ProveedoresOnLine.Reports.Controller
 
         public static Tuple<byte[], string, string> PJ_ProjectProviderReportAceptedDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId, string FormatType, string FilePath)
         {
+            //PJ_ReportProviderAcepted.rdlc
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
-            localReport.ReportPath = FilePath;
+            localReport.ReportPath = @"" + FilePath + "PJ_Report_SelectionProcess.rdlc";
             //localReport.SetParameters(ReportData);
             ReportDataSource source = new ReportDataSource();
             source.Name = "DS_GerencialReport";
@@ -191,7 +192,7 @@ namespace ProveedoresOnLine.Reports.Controller
             //proceso la data
             ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
 
-
+            //List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = objModel.RelatedProjectConfig.GetEvaluationCriteria();
 
             string mimeType;
             string encoding;
