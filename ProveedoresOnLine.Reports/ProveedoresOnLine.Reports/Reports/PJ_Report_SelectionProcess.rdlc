@@ -520,7 +520,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>1.000.000.000.000</Value>
+                <Value />
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -555,7 +555,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>1000</Value>
+                <Value />
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -590,7 +590,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Tipo:</Value>
+                <Value />
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -625,7 +625,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>1000</Value>
+                <Value />
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -695,7 +695,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Se adjudica por q es un teso</Value>
+                <Value />
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
