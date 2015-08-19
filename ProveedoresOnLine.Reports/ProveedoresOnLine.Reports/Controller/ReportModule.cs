@@ -187,12 +187,47 @@ namespace ProveedoresOnLine.Reports.Controller
             localReport.ReportPath = @"" + FilePath + "PJ_Report_SelectionProcess.rdlc";
             //localReport.SetParameters(ReportData);
             ReportDataSource source = new ReportDataSource();
-            source.Name = "DS_GerencialReport";
+            //source.Name = "DS_GerencialReport";
             //source.Value = data;
-            //proceso la data
+
             ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
 
+            //string x = objModel.RelatedProjectConfig.HasProjects.ToString();
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+
+           ProveedoresOnLine.Company.Models.Company.CompanyModel CCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId);
+
+
+
+           string logo = CCompany.CompanyInfo.Where(x => x.ItemInfoId == 203005).Select(y => y.Value).FirstOrDefault();
+
+            //genero los parametros del encabezado
+            parameters.Add(new ReportParameter("currentCompanyName",CCompany.CompanyName.ToString()));
+            parameters.Add(new ReportParameter("currentCompanyTypeId",CCompany.IdentificationType.ToString()));
+            parameters.Add(new ReportParameter("currentCompanyId",CCompany.IdentificationNumber.ToString()));
+            parameters.Add(new ReportParameter("currentCompanyLogo",logo));
+            /*
+            parameters.Add(new ReportParameter("currentProviderName",));
+            parameters.Add(new ReportParameter("currentProviderId",));
+            parameters.Add(new ReportParameter("currentProviderTypeId",));
+            parameters.Add(new ReportParameter("currentProviderLogo",));
+
+            parameters.Add(new ReportParameter("PJ_Name",));
+            parameters.Add(new ReportParameter("PJ_Type",));
+            parameters.Add(new ReportParameter("PJ_Date",));
+            parameters.Add(new ReportParameter("PJ_Price",));
+            parameters.Add(new ReportParameter("PJ_MinExperience",));
+            parameters.Add(new ReportParameter("PJ_InternalCodeProcess",));
+            parameters.Add(new ReportParameter("PJ_YearsExperince",));
+            parameters.Add(new ReportParameter("PJ_ActivityName",));
+            parameters.Add(new ReportParameter("PJ_AdjudicateNote",));
+            parameters.Add(new ReportParameter("PJ_ResponsibleName",));
+            */
+
+            
             //List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = objModel.RelatedProjectConfig.GetEvaluationCriteria();
+           
 
             string mimeType;
             string encoding;
