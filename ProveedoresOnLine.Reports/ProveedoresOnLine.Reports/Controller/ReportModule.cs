@@ -79,11 +79,52 @@ namespace ProveedoresOnLine.Reports.Controller
                     });
             }
             return oSurveyParentModel;
-        }        
+        }
 
         #endregion
 
         #region Gerencial Report
+        public static Tuple<byte[], string, string> SV_EvaluatorDetailReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.EnableExternalImages = true;
+            localReport.ReportPath = FilePath;
+            localReport.SetParameters(ReportData);
+
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DS_EvaluatorDetailReport";
+            source.Value = data != null ? data : new DataTable();
+
+            localReport.DataSources.Add(source);
+
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo =
+                       "<DeviceInfo>" +
+                       "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                       "  <PageWidth>8.5in</PageWidth>" +
+                       "  <PageHeight>11in</PageHeight>" +
+                       "  <MarginTop>0.5in</MarginTop>" +
+                       "  <MarginLeft>1in</MarginLeft>" +
+                       "  <MarginRight>1in</MarginRight>" +
+                       "  <MarginBottom>0.5in</MarginBottom>" +
+                       "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            renderedBytes = localReport.Render(
+                FormatType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+            return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyEvaluatorDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+        }
+
 
         public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
