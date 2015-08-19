@@ -147,7 +147,12 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 }
 
 .container-fluid > #POMPEvalTitleMargin > .col-xs-12{
-    margin-top:50px;
+    margin-top:30px;
+    font-weight:bold;
+}
+
+.container-fluid > #POMPEvalTitleMargin:first-child > .col-xs-12{
+    margin-top:0;
 }
 
 .container-fluid > .col-xs-12 > .col-xs-12 > .col-xs-12{
@@ -722,4 +727,11 @@ textarea#Survey_ProgramSurvey_Comments {
     padding: 12.5px 0 12.5px 0;
     border-bottom:1px solid #E4E4E4;
 
+}
+
+
+#POMPProviderVerDetalleNew{
+    font-size:1.1em;
+    font-weight:lighter;
+    padding-top:70px !important;
 }

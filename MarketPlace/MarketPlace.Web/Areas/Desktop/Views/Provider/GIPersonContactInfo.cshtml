@@ -14,79 +14,128 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información de Personas de Contacto</label>
-        <ul class="POMPProviderInfoMultipleValues">
+        <div class="container-fluid">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
-                    <li>
-                        <label class="POMPProviderDataSubtitle">
-                        @if (!string.IsNullOrEmpty(item.PC_ContactName))
-                        {
-                            <span>@item.PC_ContactName</span>
-                        }
-                        </label>
+
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                @if (!string.IsNullOrEmpty(item.PC_ContactName))
+                                {
+                                    <span>@item.PC_ContactName</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
 
                         @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
-                        {   <label>
-                                Tipo de Contacto
-                                <span>@item.PC_RepresentantType</span>
-                            </label>
+                        {
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Tipo de Contacto </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.PC_RepresentantType</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
                         {
-                            <label>
-                                Tipo de Identificación
-                                <span>@item.PC_IdentificationType</span>
-                            </label>
-                        }                        
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Tipo de Identificación </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.PC_IdentificationType</span>
+                                </div>
+                            </div>
+                        }
                         @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
                         {
-                            <label>
-                                Número de Identificación
-                                <span>@item.PC_IdentificationNumber</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Número de Identificación </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.PC_IdentificationNumber</span>
+                                </div>
+                            </div>
+
                         }
                         @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
                         {
-                            <label>
-                                Ciudad de Expedición del Documento
-                                <span>@item.PC_ExpeditionDocumentCity</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Ciudad de Expedición del Documento </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.PC_ExpeditionDocumentCity</span>
+                                </div>
+                            </div>
+
                         }
                         @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
                         {
-                            <label>
-                                Teléfono
-                                <span>@item.PC_TelephoneNumber</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Teléfono </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.PC_TelephoneNumber</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.PC_Email))
                         {
-                            <label>
-                                Email
-                                <span title="@item.PC_Email">@item.PC_Email</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Email </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span title="@item.PC_Email">@item.PC_Email</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.PC_Negotiation))
                         {
-                            <label>
-                                Capacidad de Negociación
-                                <span>@item.PC_Negotiation</span>
-                            </label>
-                        }                        
-                            @{
-                            var UlrContent = item.PC_LegalFile;
-                            if (!string.IsNullOrEmpty(UlrContent))
-                            {
-                                <label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Capacidad de Negociación</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.PC_Negotiation</span>
+                                </div>
+                            </div>
+                        }
+                        @{
+                        var UlrContent = item.PC_LegalFile;
+                        if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Archivo Representante Legal</label>
+                                </div>
+                                <div class="col-xs-12">
                                     <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
-                                </label>
-                            }
-                        }                        
-                    </li>
+                                </div>
+                            </div>
+            
+                        }
+
+
+                        }
+
+                    </div>
                 }
+
             }
-        </ul>
+
+
+        </div>
+
     </div>
 </div>
 @{
