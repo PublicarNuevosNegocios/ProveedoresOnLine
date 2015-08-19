@@ -192,7 +192,7 @@ namespace ProveedoresOnLine.Reports.Controller
             //proceso la data
             ProveedoresOnLine.ProjectModule.Models.ProjectModel objModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
 
-
+            //List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = objModel.RelatedProjectConfig.GetEvaluationCriteria();
 
             string mimeType;
             string encoding;
