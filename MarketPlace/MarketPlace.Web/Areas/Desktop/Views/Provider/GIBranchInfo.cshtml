@@ -14,74 +14,111 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Sucursales</label>
-        <ul class="POMPProviderInfoMultipleValues">
+        <div class="container-fluid">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
-                    <li>
-                        <label class="POMPProviderDataSubtitle">
-                            @if (!string.IsNullOrEmpty(item.BR_City))
-                            {
-                                <span>@item.BR_City @item.BR_Name</span>
-                            }
-                        </label>
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                @if (!string.IsNullOrEmpty(item.BR_City))
+                                {
+                                    <span>@item.BR_City @item.BR_Name</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
                         @if (!string.IsNullOrEmpty(item.BR_Representative))
                         {
-                            <label>
-                                Nombre de Contacto
-                                <span>@item.BR_Representative</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Nombre de Contacto </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.BR_Representative</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.BR_Address))
                         {
-                            <label>
-                                Dirección
-                                <span>@item.BR_Address</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Dirección </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.BR_Address</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.BR_Phone))
                         {
-                            <label>
-                                Teléfono
-                                <span> @item.BR_Phone</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Teléfono</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span> @item.BR_Phone</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.BR_Cellphone))
                         {
-                            <label>
-                                Celular
-                                <span> @item.BR_Cellphone</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Celular</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span> @item.BR_Cellphone</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.BR_Fax))
                         {
-                            <label>
-                                Fax
-                                <span> @item.BR_Fax</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Fax</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span> @item.BR_Fax</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.BR_Email))
                         {
-                            <label>
-                                Correo Electrónico
-                                <span>  @item.BR_Email</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Correo Electrónico</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>  @item.BR_Email</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.BR_Website))
                         {
-                            <label>
-                                Página Web
-                                <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Página Web</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
+                                </div>
+                            </div>
                         }
-                        <label>
-                            Principal
-                            <span>@(item.BR_IsPrincipal ? "si" : "no")</span>
-                        </label>
-                    </li>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Principal</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@(item.BR_IsPrincipal ? "si" : "no")</span>
+                            </div>
+                        </div>
+                    </div>
                 }
             }
-        </ul>
+
+        </div>
     </div>
 </div>
 @{

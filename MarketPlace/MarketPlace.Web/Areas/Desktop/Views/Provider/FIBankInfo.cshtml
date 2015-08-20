@@ -13,77 +13,115 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información Bancaria</label>
-        <ul class="POMPProviderInfoMultipleValues">
+        <div class="container-fluid">
             @{
                 foreach (var item in Model.RelatedFinancialInfo)
                 {
-                    <li>
-                        <label class="POMPProviderDataSubtitle">
-                            @if (item.IB_Bank != null && !string.IsNullOrEmpty(item.IB_AccountType))
-                            {
-                                <span>@item.IB_Bank.ItemName</span>
-                            }
-                        </label>
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                @if (item.IB_Bank != null && !string.IsNullOrEmpty(item.IB_AccountType))
+                                {
+                                    <span>@item.IB_Bank.ItemName</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
 
                         @if (!string.IsNullOrEmpty(item.IB_AccountType))
                         {
-                            <label>
-                                Tipo de cuenta
-                                <span>@item.IB_AccountType</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Tipo de Cuenta</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_AccountType</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
                         {
-                            <label>
-                                Número de Cuenta
-                                <span>@item.IB_AccountNumber</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Número de Cuenta</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_AccountNumber</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_AccountHolder))
                         {
-                            <label>
-                                Titular de la Cuenta
-                                <span>@item.IB_AccountHolder</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Titular de la Cuenta</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_AccountHolder</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_ABA))
                         {
-                            <label>
-                                ABA
-                                <span>@item.IB_ABA</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>ABA</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_ABA</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_Swift))
                         {
-                            <label>
-                                SWIFT
-                                <span>@item.IB_Swift</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>SWIFT</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_Swift</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_IBAN))
                         {
-                            <label>
-                                IBAN
-                                <span>@item.IB_IBAN</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>IBAN</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_IBAN</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_Customer))
                         {
-                            <label>
-                                Comprador
-                                <span>@item.IB_Customer</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Comprador</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.IB_Customer</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.IB_AccountFile))
                         {
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Archivo de Cuenta</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
+                                </div>
+                            </div>
                         }
-                    </li>
+                    </div>
                 }
+
             }
-        </ul>
+        </div>
     </div>
 </div>
 @{

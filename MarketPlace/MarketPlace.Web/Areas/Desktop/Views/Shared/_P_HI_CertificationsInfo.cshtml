@@ -3,71 +3,105 @@
 @if (!Model.RenderScripts)
 {
     <label class="POMPSectionTitles">Certificaciones</label>
-    <ul class="POMPProviderInfoMultipleValues">
+    <div class="container-fluid">
         @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
         {
             foreach (var item in Model.RelatedHSEQlInfo.Where(cer => cer.HSEQType == MarketPlace.Models.General.enumHSEQType.Certifications))
             {
-                <li>
-                    <label class="POMPProviderDataSubtitle">
-                        @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
-                        {
-                            <span>Norma:   @item.C_Rule.ItemName </span>
-                        }
-                    </label>
+                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
+                            {
+                                <span>Norma:   @item.C_Rule.ItemName </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
                     @if (item.C_CertificationCompany != null)
                     {
-                        <label>
-                            Empresa Certificadora
-                            <span>@item.C_CertificationCompany.ItemName</span>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label> Empresa Certificadora</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.C_CertificationCompany.ItemName</span>
+                            </div>
+                        </div>
                     }
                     @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
                     {
-                        <label>
-                            Fecha de Certificación
-                            <span>@item.C_StartDateCertification</span>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label> Fecha de Certificación</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.C_StartDateCertification</span>
+                            </div>
+                        </div>
                     }
                     @if (!string.IsNullOrEmpty(item.C_EndDateCertification))
                     {
-                        <label>
-                            Vigente Hasta
-                            <span>@item.C_EndDateCertification</span>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>  Vigente Hasta</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.C_EndDateCertification</span>
+                            </div>
+                        </div>
                     }
                     @{
                     var UlrContent = item.C_CertificationFile;
                     if (!string.IsNullOrEmpty(UlrContent))
                     {
-                        <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Archivo de Alcance</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                            </div>
+                        </div>
                     }
                     else
                     {
-                        <label>
-                            No Tiene archivo de certificación
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label> Archivo de Alcance</label>
+                            </div>
+                            <div class="col-xs-12">
+                                No Tiene archivo de certificación
+                            </div>
+                        </div>
                     }
-}
+                    }
                     @if (!string.IsNullOrEmpty(item.C_CCS))
                     {
-                        <label>
-                            % CCS
-                            <span>@item.C_CCS</span>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label> % CCS</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.C_CCS</span>
+                            </div>
+                        </div>
                     }
                     @if (item.C_Scope != null)
                     {
-                        <label class="POMPProviderObjetoSocial">
-                            Alcance
-                            <span><br />@item.C_Scope</span>
-                        </label>
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                <label> Alcance </label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.C_Scope</span>
+                            </div>
+                        </div>
                     }
 
-                </li>
+                </div>
             }
         }
-    </ul>
+    </div>
 }
