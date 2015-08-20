@@ -119,7 +119,7 @@
     padding-bottom: 15px;
 }
 
-    .container-fluid > .POMPEvalTitle > .col-xs-12 {
+    .container-fluid > .POMPEvalTitle > .col-xs-12{
         height: 35px;
         line-height: 35px;
         background: #ececec;
