@@ -15,6 +15,22 @@
     <!--Header project-->
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
     <!--Providers Project-->
+    <ul>
+        <li>
+            <form action="@(Url.Action
+                    (MVC.Project.ActionNames.ProjectDetail,
+                    MVC.Project.Name,
+                    new
+                    {
+                        ProjectPublicId = Model.ProjectPublicId
+                    }))" method="post">
+                <input type="submit" name="ProjectPrintReport" value="Generar Reporte" />
+                <input type="hidden" name="DownloadReport" value="true" />
+            </form>
+
+        </li>  
+    </ul>
+    
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
 </div>
 

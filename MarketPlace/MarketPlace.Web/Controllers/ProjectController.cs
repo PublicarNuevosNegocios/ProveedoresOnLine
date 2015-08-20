@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,17 +61,25 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult ProjectDetail(string ProjectPublicId)
         {
             //Clean the season url saved
+
             if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
                 MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
+            if (Request["DownloadReport"] == "true" && TempData["obj_Report_SelectionProcess"] != null)
+            {
+                Tuple<byte[], string, string> obj_Report_SelectionProcess = (Tuple<byte[], string, string>)TempData["obj_Report_SelectionProcess"];
+                return File(obj_Report_SelectionProcess.Item1, obj_Report_SelectionProcess.Item2, obj_Report_SelectionProcess.Item3);
+            }else
+            {
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                 ProjectGetById
                 (ProjectPublicId,
                 MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
-
             MarketPlace.Models.Project.ProjectViewModel oModel = new Models.Project.ProjectViewModel(oCurrentProject);
-
-            return View(oModel);
+                TempData["obj_Report_SelectionProcess"] = Report_SelectionProcess(oModel);
+                return View(oModel);
+            }
+            
         }
 
         public virtual ActionResult ProjectDetailRecalculate(string ProjectPublicId)
@@ -117,8 +126,45 @@ namespace MarketPlace.Web.Controllers
             {
                 oModel.RelatedProjectConfig.SetCurrentEvaluationArea(null);
             }
-
             return View(oModel);
         }
+
+        #region Private Functions
+        
+        private Tuple<byte[],string,string> Report_SelectionProcess(MarketPlace.Models.Project.ProjectViewModel oModel) {
+
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            parameters.Add(new ReportParameter("currentCompanyName", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName));
+            parameters.Add(new ReportParameter("currentCompanyTypeId",MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName.ToString()));
+            parameters.Add(new ReportParameter("currentCompanyId", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber.ToString()));
+            parameters.Add(new ReportParameter("currentCompanyLogo", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203005).Select(y => y.Value).FirstOrDefault().ToString()));
+            /*
+            parameters.Add(new ReportParameter("currentProviderName",));
+            parameters.Add(new ReportParameter("currentProviderId",));
+            parameters.Add(new ReportParameter("currentProviderTypeId",));
+            parameters.Add(new ReportParameter("currentProviderLogo",));
+            */
+            parameters.Add(new ReportParameter("PJ_Name",oModel.ProjectCurrencyTypeName.ToString()));
+            /*parameters.Add(new ReportParameter("PJ_Type",));
+            parameters.Add(new ReportParameter("PJ_Date",));
+            parameters.Add(new ReportParameter("PJ_Price",));
+            parameters.Add(new ReportParameter("PJ_MinExperience",));
+            parameters.Add(new ReportParameter("PJ_InternalCodeProcess",));
+            parameters.Add(new ReportParameter("PJ_YearsExperince",));
+            parameters.Add(new ReportParameter("PJ_ActivityName",));
+            parameters.Add(new ReportParameter("PJ_AdjudicateNote",));
+            parameters.Add(new ReportParameter("PJ_ResponsibleName",));*/
+
+            
+
+
+
+            Tuple<byte[], string, string> tpl = new Tuple<byte[], string, string>(null,"Alex","JP"); 
+
+            return tpl;
+        }
+        
+        #endregion
     }
 }
