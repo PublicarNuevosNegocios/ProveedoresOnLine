@@ -9,7 +9,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>EL TIEMPO</Value>
+                <Value>=Parameters!currentProviderName.Value</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -21,10 +21,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.47625cm</Top>
+        <Top>0.4445cm</Top>
         <Left>3.11533cm</Left>
-        <Height>0.54708cm</Height>
-        <Width>7.74209cm</Width>
+        <Height>0.61377cm</Height>
+        <Width>6.33682cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -43,7 +43,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Nit: 112313213</Value>
+                <Value>=Parameters!currentProviderTypeId.Value + ": " + Parameters!currentProviderId.Value</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -53,10 +53,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.0618cm</Top>
+        <Top>1.09355cm</Top>
         <Left>3.11533cm</Left>
         <Height>0.57354cm</Height>
-        <Width>7.74209cm</Width>
+        <Width>6.33682cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -270,7 +270,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
         <Top>2.87175cm</Top>
-        <Left>8.57777cm</Left>
+        <Left>10.61506cm</Left>
         <Height>0.57354cm</Height>
         <Width>1.34862cm</Width>
         <ZIndex>7</ZIndex>
@@ -400,7 +400,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_Name.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -435,7 +435,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_Type.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -450,7 +450,7 @@
         <Top>2.87175cm</Top>
         <Left>3.05755cm</Left>
         <Height>0.57354cm</Height>
-        <Width>5.34383cm</Width>
+        <Width>7.38112cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -470,7 +470,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_Date.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -483,9 +483,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
         <Top>2.87175cm</Top>
-        <Left>10.10278cm</Left>
+        <Left>12.14007cm</Left>
         <Height>0.57354cm</Height>
-        <Width>5.9974cm</Width>
+        <Width>3.96011cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -505,7 +505,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_Price.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -540,7 +540,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_MinExperience.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -575,7 +575,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_InternalCodeProcess.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -610,7 +610,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_YearsExperince.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -645,7 +645,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_ActivityName.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -680,7 +680,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Parameters!PJ_AdjudicateNote.Value</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -727,7 +727,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>10.02669cm</Top>
+        <Top>8.88898cm</Top>
         <Left>5.09661cm</Left>
         <Height>0.57354cm</Height>
         <Width>7.16637cm</Width>
@@ -743,14 +743,97 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Image Name="Image2">
+        <Source>External</Source>
+        <Value>=Parameters!currentProviderLogo.Value</Value>
+        <Sizing>Fit</Sizing>
+        <Top>0.3175cm</Top>
+        <Left>0.3719cm</Left>
+        <Height>1.5cm</Height>
+        <Width>2.35536cm</Width>
+        <ZIndex>21</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Textbox Name="Textbox26">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Responsable</Value>
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>0.4445cm</Top>
+        <Left>10.10278cm</Left>
+        <Height>0.54708cm</Height>
+        <Width>5.9974cm</Width>
+        <ZIndex>22</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox28">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!PJ_ResponsibleName.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>1.09355cm</Top>
+        <Left>10.10278cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>5.9974cm</Width>
+        <ZIndex>23</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>6.39583in</Height>
+    <Height>4.03125in</Height>
     <Style />
   </Body>
   <Width>6.51249in</Width>
   <Page>
     <PageHeader>
-      <Height>3.36021cm</Height>
+      <Height>3.57188cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -758,7 +841,7 @@
           <ReportItems>
             <Line Name="Line1">
               <Left>2.65875cm</Left>
-              <Height>2.5183cm</Height>
+              <Height>2.80458cm</Height>
               <Width>0cm</Width>
               <Style>
                 <Border>
@@ -808,7 +891,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Proveedores On line</Value>
+                      <Value>=Parameters!currentCompanyName.Value</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -820,7 +903,7 @@
               <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
               <Top>1.01493cm</Top>
               <Left>2.83514cm</Left>
-              <Height>0.52104cm</Height>
+              <Height>0.58101cm</Height>
               <Width>12.98486cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
@@ -841,7 +924,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Nit:45646546546546</Value>
+                      <Value>=Parameters!currentCompanyTypeId.Value + ": "+Parameters!currentCompanyId.Value</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -874,7 +957,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Generado el: 25/06/2015</Value>
+                      <Value>="Generado el: " + CDate(Today()).ToString("dd/MM/yyyy")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -900,11 +983,26 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Image Name="Image1">
+              <Source>External</Source>
+              <Value>=Parameters!currentCompanyLogo.Value</Value>
+              <Sizing>FitProportional</Sizing>
+              <Top>0.79375cm</Top>
+              <Left>0.127cm</Left>
+              <Height>1.37722cm</Height>
+              <Width>2.35536cm</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
           </ReportItems>
           <KeepTogether>true</KeepTogether>
           <Top>0.4274cm</Top>
           <Left>0.2449cm</Left>
-          <Height>2.5183cm</Height>
+          <Height>2.80458cm</Height>
           <Width>16.06695cm</Width>
           <Style>
             <Border>
@@ -929,6 +1027,95 @@
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
+  <ReportParameters>
+    <ReportParameter Name="currentCompanyName">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentCompanyId">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentCompanyTypeId">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentCompanyLogo">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentProviderName">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentProviderId">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentProviderTypeId">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="currentProviderLogo">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_Name">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_Type">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_Date">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_Price">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_MinExperience">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_InternalCodeProcess">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_YearsExperince">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_ActivityName">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_AdjudicateNote">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PJ_ResponsibleName">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>34bda26a-3e63-48f5-8110-6d3b56200131</rd:ReportID>
 </Report>

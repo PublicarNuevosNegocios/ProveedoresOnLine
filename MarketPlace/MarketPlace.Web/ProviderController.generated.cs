@@ -215,6 +215,12 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPGerencial);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult RPGeneral()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPGeneral);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -258,6 +264,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string SVSurveyReport = "SVSurveyReport";
             public readonly string SVSurveyProgram = "SVSurveyProgram";
             public readonly string RPGerencial = "RPGerencial";
+            public readonly string RPGeneral = "RPGeneral";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -290,6 +297,7 @@ namespace MarketPlace.Web.Controllers
             public const string SVSurveyReport = "SVSurveyReport";
             public const string SVSurveyProgram = "SVSurveyProgram";
             public const string RPGerencial = "RPGerencial";
+            public const string RPGeneral = "RPGeneral";
         }
 
 
@@ -519,6 +527,15 @@ namespace MarketPlace.Web.Controllers
         public class ActionParamsClass_RPGerencial
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_RPGeneral s_params_RPGeneral = new ActionParamsClass_RPGeneral();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RPGeneral RPGeneralParams { get { return s_params_RPGeneral; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RPGeneral
+        {
+            public readonly string SearchParam = "SearchParam";
+            public readonly string SearchFilter = "SearchFilter";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -878,6 +895,19 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPGerencial);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             RPGerencialOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RPGeneralOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string SearchParam, string SearchFilter);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RPGeneral(string SearchParam, string SearchFilter)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPGeneral);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
+            RPGeneralOverride(callInfo, SearchParam, SearchFilter);
             return callInfo;
         }
 
