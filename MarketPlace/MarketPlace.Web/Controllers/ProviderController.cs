@@ -2441,10 +2441,9 @@ namespace MarketPlace.Web.Controllers
                     if (oProviderResult.IndexOf(x) == 0)
                     {
                         data.AppendLine
-                        ("\"" + "Razón Social" + "\"" + strSep +
-                            "\"" + "Tipo Identificación" + "\"" + strSep +
-                            "\"" + "Número Identificación" + "\"" + strSep +
-                            "\"" + "PublicId" + "\"" + strSep +
+                        ("\"" + "Razon Social" + "\"" + strSep +
+                            "\"" + "Tipo Identificacion" + "\"" + strSep +
+                            "\"" + "Número Identificacion" + "\"" + strSep +
                             "\"" + "Sucursal" + "\"" + strSep +
                             "\"" + "Teléfono" + "\"" + strSep +
                             "\"" + "Ciudad" + "\"" + strSep +
@@ -2453,11 +2452,10 @@ namespace MarketPlace.Web.Controllers
                             ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                             "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                             "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                            "\"" + x.RelatedCompany.CompanyPublicId + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"");
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? MarketPlace.Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"");
 
                     }
                     else
@@ -2466,11 +2464,10 @@ namespace MarketPlace.Web.Controllers
                             ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                             "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                             "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                            "\"" + x.RelatedCompany.CompanyPublicId + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : "") + "\"");
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? MarketPlace.Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"");
                     }
                     return true;
                 });
