@@ -62,19 +62,21 @@
         <div class="POMPResultsOrder">
             <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->
-                <div class="container-fluid">
-                    <div class="POMPDownloadReports">
+                <div class="container-fluid">                    
+                    <div class="POMPDownloadReportsTop">
                         <form id="frmProviderUpsert"
                               method="post"
                               action="@(Url.Action
-                    (MVC.Provider.ActionNames.RPGerencial,
+                    (MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
                     MVC.Provider.Name,
                     new
                     {
                         ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
+                        User = Model.RelatedSurvey.SurveyResponsible,
                     }))">
-                            <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                            <input type="hidden" name="DownloadReport" value="true" />
+                            <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                            <input type="hidden" name="DownloadEvaluatorDetailReport" value="true" />
                         </form>
                     </div>
                     <div class="POMPEvalTitle">

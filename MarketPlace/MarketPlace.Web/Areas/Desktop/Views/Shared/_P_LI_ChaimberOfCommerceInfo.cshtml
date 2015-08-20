@@ -8,88 +8,137 @@
     {
         CurrentLegalInfo = Model.RelatedLegalInfo.Where(lg => lg.LegalType == MarketPlace.Models.General.enumLegalType.ChaimberOfCommerce).FirstOrDefault();
     }
-    
+
     <label class="POMPSectionTitles">Cámara de Comercio</label>
-    <ul class="POMPProviderInfoMultipleValues">
+    <div class="container-fluid">
         @if (CurrentLegalInfo != null)
         {
-            <li>
-                <label class="POMPProviderDataSubtitle">
-                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
-                    {
-                        <span>Fecha de Expedición del Certificado: @CurrentLegalInfo.CP_CertificateExpeditionDate</span>
-                    }
-                </label>
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
+                        {
+                            <span>Fecha de Expedición del Certificado: @CurrentLegalInfo.CP_CertificateExpeditionDate</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
                 @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
                 {
-                    <label>
-                        Ciudad
-                        <span>@CurrentLegalInfo.CP_InscriptionCity</span>
-                    </label>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>Ciudad </label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@CurrentLegalInfo.CP_InscriptionCity</span>
+                        </div>
+                    </div>
                 }
                 @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
                 {
-                    <label>
-                        Fecha de Constitución
-                        <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
-                    </label>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>Fecha de Constitución</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
+                        </div>
+                    </div>
                 }
                 @if (CurrentLegalInfo.CP_UndefinedDate == "1")
                 {
-                    <label>
-                        Indefinido
-                        <span>Si</span>
-                    </label>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>Indefinido</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>Si</span>
+                        </div>
+                    </div>
                 }
                 else if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionEndDate))
                 {
-                    <label>
-                        Vigente Hasta
-                        <span>@CurrentLegalInfo.CP_ConstitutionEndDate</span>
-                    </label>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>Vigente Hasta</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@CurrentLegalInfo.CP_ConstitutionEndDate</span>
+                        </div>
+                    </div>
                 }
                 @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
                 {
-                    <label>
-                        Número de Matricula
-                        <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
-                    </label>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label> Número de Matricula</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
+                        </div>
+                    </div>
                 }
                 @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
                 {
-                    <label>
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
-                    </label>
+                    <div class="col-xs-8">
+                        <div class="col-xs-12">
+                            <label>Certificado</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
+                        </div>
+                    </div>
                 }
                 @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
                 {
-                    <label class="POMPProviderObjetoSocial">
-                        Objeto Social
-                        <span><br />@CurrentLegalInfo.CP_SocialObject</span>
-                    </label>
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <label>Objeto Social</label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@CurrentLegalInfo.CP_SocialObject</span>
+                        </div>
+                    </div>
                 }
                 @if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
                 {
-                    <label class="POMPProviderDataSubtitle">
-                        Socios, Miembros Junta Directiva, Entre Otros
-                    </label>
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                Socios, Miembros Junta Directiva, Entre Otros
+                            </div>
+                        </div>
+                    </div>
                     foreach (var item in Model.RelatedDesignationsInfo)
                     {
-                        <label>
-                            Nombre
-                            <span>@item.CD_PartnerName</span>
-                        </label>
-                        <label>
-                            Número de Identificación
-                            <span>@item.CD_PartnerIdentificationNumber</span>
-                        </label>
-                        <label>
-                            Cargo
-                            <span>@item.CD_PartnerRank</span>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Nombre</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.CD_PartnerName</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Número de Identificación</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.CD_PartnerIdentificationNumber</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Cargo</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.CD_PartnerRank</span>
+                            </div>
+                        </div>
                     }
                 }
-            </li>
+            </div>
         }
-    </ul>
+    </div>
 }

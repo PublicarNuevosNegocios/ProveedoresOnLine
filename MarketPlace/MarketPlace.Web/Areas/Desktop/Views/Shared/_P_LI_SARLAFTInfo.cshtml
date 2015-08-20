@@ -5,31 +5,47 @@
     <label class="POMPSectionTitles">Conocimiento del Cliente Sector Asegurador Circular Básica Jurídica - Superintendencia Financiera</label>
     if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
     {
-        <ul class="POMPProviderInfoMultipleValues">
+        <div class="container-fluid">
             @foreach (var item in Model.RelatedLegalInfo.Where(lg => lg.LegalType == MarketPlace.Models.General.enumLegalType.SARLAFT))
             {
-                <li>
-                    <label class="POMPProviderDataSubtitle">
-                        @if (!string.IsNullOrEmpty(item.SF_ProcessDate))
-                        {
-                            <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
-                        }
-                    </label>
+                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            @if (!string.IsNullOrEmpty(item.SF_ProcessDate))
+                            {
+                                <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+
                     @if (!string.IsNullOrEmpty(item.SF_PersonType))
                     {
-                        <label>
-                            Tipo de Persona
-                            <span>@item.SF_PersonType</span>
-                        </label>
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Tipo de Persona</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.SF_PersonType</span>
+                            </div>
+                        </div>
                     }
                     @if (!string.IsNullOrEmpty(item.SF_SARLAFTFile))
                     {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Archivo Anexo</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
+                            </div>
+                        </div>
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
                         </label>
                     }
-                </li>
+                </div>
             }
-        </ul>
+        </div>
     }
 }

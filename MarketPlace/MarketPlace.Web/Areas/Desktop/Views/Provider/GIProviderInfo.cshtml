@@ -15,8 +15,7 @@
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Resumen del Proveedor</label>
         <div class="container-fluid">
-
-            <div class="POMPEvalTitle">
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                 <div class="col-xs-12">
                     <div class="col-xs-12">
                         <label>Información Básica</label>
@@ -348,7 +347,7 @@
                                     <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
                                 </div>
                             </div>
-                            <div class="col-xs-8">
+                            <div class="col-xs-8" id="POMPAltmanHeight">
                                 <div class="col-xs-12">
                                     <label>
                                         Indice Altman
@@ -566,6 +565,16 @@
                                 </div>
                             </div>
                         }
+                        <label class="POMPProviderVerDetalle" id="POMPProviderVerDetalleNew">
+                            <a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.HICertificationsInfo,
+                                ProviderPublicId = Request["ProviderPublicId"]
+                            }))">Ver Detalle</a>
+                        </label>
 
                     }
 

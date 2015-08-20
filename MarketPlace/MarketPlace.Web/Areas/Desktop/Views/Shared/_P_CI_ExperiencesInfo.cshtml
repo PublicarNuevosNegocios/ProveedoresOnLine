@@ -54,138 +54,202 @@
     }
 
     <label class="POMPSectionTitles">Experiencias</label>
-    <ul class="POMPProviderInfoMultipleValues">
+    <div class="container-fluid">
         @foreach (MarketPlace.Models.General.EconomicActivityViewModel dea in oDefaultActivityGorup.OrderBy(x => x.ActivityName))
         {
-            <li>
-                <label class="POMPProviderDataSubtitle">
-                    <span>@dea.ActivityName</span>
-                </label>
-                <ul class="POMPProviderExperienceList">
-                    @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_EconomicActivity.Any(ea => ea.EconomicActivityId == dea.EconomicActivityId)))
-                    {
-                    <li>
-                        <label class="POMPProviderInfoContractName">
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <span>@dea.ActivityName</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_EconomicActivity.Any(ea => ea.EconomicActivityId == dea.EconomicActivityId)))
+                {
+                    <div class="col-xs-12">
+                        <div class="col-xs-12" id="POMPSeparator">
                             <span>@item.EX_ContractType para @item.EX_Client</span>
-                        </label>
-                        @if (!string.IsNullOrEmpty(item.EX_DateIssue))
-                            {
-                            <label>
-                                Fecha Inicial
+                        </div>
+                    </div>
+                    if (!string.IsNullOrEmpty(item.EX_DateIssue))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Fecha Inicial</label>
+                            </div>
+                            <div class="col-xs-12">
                                 <span>@item.EX_DateIssue</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_DueDate))
-                            {
-                            <label>
-                                Fecha Final
-                                <span>@item.EX_DueDate</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
-                            {
-                            <label>
-                                Número de Contacto
-                                <span>@item.EX_ContractNumber</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractValue))
-                            {
-                            <label>
-                                Valor del Contrato
-                                <span>$ @item.EX_ContractValue @item.EX_Currency</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_Phone))
-                            {
-                            <label>
-                                Teléfono
-                                <span>@item.EX_Phone</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
-                            {
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
-                            {
-                            <label class="POMPProviderInfoContractObject">
-                                Objeto del Contrato
-                                <span>@item.EX_ContractSubject</span>
-                            </label>
-                            }
-                    </li>
+                            </div>
+                        </div>
                     }
-                </ul>
-            </li>
+                    if (!string.IsNullOrEmpty(item.EX_DueDate))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Fecha Final</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_DueDate</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ContractNumber))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Número de Contacto</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_ContractNumber</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ContractValue))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Valor del Contrato</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>$ @item.EX_ContractValue @item.EX_Currency</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_Phone))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Teléfono</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_Phone</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Archivo de Experiencia</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                    {
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                <label>Objeto del Contrato</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_ContractSubject</span>
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+
         }
         @foreach (MarketPlace.Models.General.EconomicActivityViewModel cea in oCustomActivityGorup.OrderBy(x => x.ActivityName))
         {
-            <li>
-                <label class="POMPProviderDataSubtitle">
-                    <span>@strCustomEconomicActivity - @cea.ActivityName</span>
-                </label>
-                <ul class="POMPProviderExperienceList">
-                    @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_CustomEconomicActivity.Any(ea => ea.EconomicActivityId == cea.EconomicActivityId)))
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                <div class="col-xs-12">
+                    <div class="col-xs-12" id="POMPSeparator">
+                        <span>@strCustomEconomicActivity - @cea.ActivityName</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_CustomEconomicActivity.Any(ea => ea.EconomicActivityId == cea.EconomicActivityId)))
+                {
+
+                    <label class="POMPProviderInfoContractName">
+                        <span>@item.EX_ContractType para @item.EX_Client</span>
+                    </label>
+                    if (!string.IsNullOrEmpty(item.EX_DateIssue))
                     {
-                    <li>
-                        <label class="POMPProviderInfoContractName">
-                            <span>@item.EX_ContractType para @item.EX_Client</span>
-                        </label>
-                        @if (!string.IsNullOrEmpty(item.EX_DateIssue))
-                            {
-                            <label>
-                                Fecha Inicial
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Fecha Inicial</label>
+                            </div>
+                            <div class="col-xs-12">
                                 <span>@item.EX_DateIssue</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_DueDate))
-                            {
-                            <label>
-                                Fecha Final
-                                <span>@item.EX_DueDate</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
-                            {
-                            <label>
-                                Número de Contacto
-                                <span>@item.EX_ContractNumber</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractValue))
-                            {
-                            <label>
-                                Valor del Contrato
-                                <span>$ @item.EX_ContractValue @item.EX_Currency</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_Phone))
-                            {
-                            <label>
-                                Teléfono
-                                <span>@item.EX_Phone</span>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
-                            {
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
-                            </label>
-                            }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
-                            {
-                            <label>
-                                Objeto del Contrato
-                                <span>@item.EX_ContractSubject</span>
-                            </label>
-                            }
-                    </li>
+                            </div>
+                        </div>
                     }
-                </ul>
-            </li>
+                    if (!string.IsNullOrEmpty(item.EX_DueDate))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Fecha Final</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_DueDate</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ContractNumber))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Número de Contacto</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_ContractNumber</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ContractValue))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Valor del Contrato</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>$ @item.EX_ContractValue @item.EX_Currency</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_Phone))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Teléfono</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_Phone</span>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
+                    {
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>Archivo de Experiencia</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
+                            </div>
+                        </div>
+                    }
+                    if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                    {
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                <label>Objeto del Contrato</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <span>@item.EX_ContractSubject</span>
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
         }
-    </ul>
+    </div>
 }
