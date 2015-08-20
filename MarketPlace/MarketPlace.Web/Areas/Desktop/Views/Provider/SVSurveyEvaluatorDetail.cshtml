@@ -62,28 +62,32 @@
         <div class="POMPResultsOrder">
             <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->
-                <div class="container-fluid">                    
-                    <div class="POMPDownloadReportsTop">
-                        <form id="frmProviderUpsert"
-                              method="post"
-                              action="@(Url.Action
-                                    (MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
-                                    MVC.Provider.Name))">
-                            <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                            <input type="hidden" name="DownloadReport" value="true" />
-                            @if (Model.SurveytReportModel != null)
-                            {
-                                <input type="hidden" name="File" value="@Convert.ToBase64String(Model.SurveytReportModel.File)" />
-                                <input type="hidden" name="MimeType" value="@Model.SurveytReportModel.MimeType" />
-                                <input type="hidden" name="FileName" value="@Model.SurveytReportModel.FileName" />
-                            }
-                        </form>
-                    </div>
+                <div class="container-fluid">
                     <div class="POMPEvalTitle">
                         <div class="col-xs-12">
-                            <a>
-                                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-                            </a>
+                            <div class="col-xs-6">
+                                <a>
+                                    @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+                                </a>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="POMPDownloadReportsTop">
+                                    <form id="frmProviderUpsert"
+                                          method="post"
+                                          action="@(Url.Action
+                                    (MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
+                                    MVC.Provider.Name))">
+                                        <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                        <input type="hidden" name="DownloadReport" value="true" />
+                                        @if (Model.SurveytReportModel != null)
+                                        {
+                                            <input type="hidden" name="File" value="@Convert.ToBase64String(Model.SurveytReportModel.File)" />
+                                            <input type="hidden" name="MimeType" value="@Model.SurveytReportModel.MimeType" />
+                                            <input type="hidden" name="FileName" value="@Model.SurveytReportModel.FileName" />
+                                        }
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xs-12">
                             <div class="col-xs-4">
@@ -180,7 +184,7 @@
                 </div>
             </div>
             <!--evaluation actions-->
-            <div class="POMPResultsActions">              
+            <div class="POMPResultsActions">
                 @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                             Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
@@ -223,7 +227,7 @@
                                 @if (EvaluationAreaInfo != null)
                                 {
                                     <p class="POMPDescriptionArea">@EvaluationAreaInfo.AreaDescriptionText.Trim()</p>
-                                }                                
+                                }
                             </div>
                         }
 
@@ -244,9 +248,9 @@
                                         @if (Model.RelatedSurvey.SurveyFile != null && Model.RelatedSurvey.SurveyFile.Count > 0)
                                         {
                                             foreach (var oFile in Model.RelatedSurvey.SurveyFile)
-                                            {                                                
+                                            {
                                                 <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
-                                                
+
                                                 <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
 
                                             }
