@@ -642,19 +642,22 @@ div.POMPProjectBidDetailGridActions {
 }
 
     .POMPProjectBidDetailData > div.POMPProviderDataWrapper > label.POMPSectionTitles {
-        background-color: #eeeeee !important;
+        background: #ececec !important;
         background-image: none !important;
-        border-top-left-radius: 1px;
-        border-top-right-radius: 1px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
         border: none !important;
-        box-shadow: 1px 1px 2px #444;
+        box-shadow: none;
         color: #5d5d5d !important;
         display: block;
         font-size: 1.3em;
         font-weight: normal;
         letter-spacing: -1px;
-        margin: 0 0px 0px !important;
-        padding: 0px 0 0 8px !important;
+        height: 35px;
+        line-height: 10px;
+        width: 98% !important;
+        margin: 0 0 5px 1%;
+        font-weight:bold;
     }
 
     .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoDisplayList {

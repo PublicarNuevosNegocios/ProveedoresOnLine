@@ -32,18 +32,21 @@
     position:relative;
 }
 .POMPDownloadExcelButton{
-    width:100px;
-    height:20px;
-    background:#ff8300;
+    width:65px;
+    height:50px;
+    /*background:#ff8300;*/
     color:#fff;
     position:relative;
-    margin:0 0 -22px calc(100% - 100px);
+    margin:-12px 0 0 calc(100% - 65px);
     text-align:center;
     line-height:15px;
    
 }
+.POMPDownloadExcelButton > a > img{
+    width:35px;
+}
 .POMPDownloadExcelButton > a{
-    color:#fff;
+    color:#337ab7;
     font-size:0.8em;
 }
             .POMPProviderListWrapper tr{

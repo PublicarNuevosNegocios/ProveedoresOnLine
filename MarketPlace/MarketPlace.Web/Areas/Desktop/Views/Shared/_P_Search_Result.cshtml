@@ -13,7 +13,7 @@
         <div class="POMPSearchResultsOrder">
              <!--Botón Descargar Excel-->
         <div class="POMPDownloadExcelButton">
-            <a class="POBOSearchButtons" href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })">Descargar Excel</a>
+            <a class="POBOSearchButtons" href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a>
         </div>
             <!--Orders-->
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Order, Model)
