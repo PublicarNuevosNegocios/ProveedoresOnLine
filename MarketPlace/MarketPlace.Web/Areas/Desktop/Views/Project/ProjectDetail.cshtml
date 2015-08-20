@@ -31,7 +31,7 @@
                     {
                         <input type="hidden" name="ReportFileName" value="@Model.ProjectReportModel.FileName" />
                         <input type="hidden" name="ReportMimeType" value="@Model.ProjectReportModel.MimeType" />
-                        <input type="hidden" name="ReportArray" value="@Model.ProjectReportModel.File" />
+                        <input type="hidden" name="ReportArray" value="@Convert.ToBase64String(Model.ProjectReportModel.File)" />
                         <input type="hidden" name="DownloadReport" value="true" />
                     }
                 }

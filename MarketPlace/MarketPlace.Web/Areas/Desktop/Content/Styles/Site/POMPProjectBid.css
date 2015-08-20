@@ -50,7 +50,7 @@ ul.POMPProjectBidDataActions {
         display: inline-block;
         width: 48.2%;
         vertical-align: top;
-        margin: 4px 0 0 4px;
+        margin: -1px 0 0 4px;
         min-height: 32px;
         height: auto;
     }

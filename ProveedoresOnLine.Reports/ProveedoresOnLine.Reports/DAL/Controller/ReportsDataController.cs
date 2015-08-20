@@ -98,10 +98,7 @@ namespace ProveedoresOnLine.Reports.DAL.Controller
         #endregion
 
         #region SelectionProcess Report
-        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
-        {
-            return DataFactory.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
-        }
+        
         #endregion
 
     }
