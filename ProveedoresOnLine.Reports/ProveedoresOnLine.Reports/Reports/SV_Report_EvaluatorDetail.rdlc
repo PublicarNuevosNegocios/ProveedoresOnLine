@@ -1147,7 +1147,7 @@
         </Textbox>
         <Image Name="CImage">
           <Source>External</Source>
-          <Value>=</Value>
+          <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>FitProportional</Sizing>
           <Top>0.60537cm</Top>
           <Left>2.49322cm</Left>
