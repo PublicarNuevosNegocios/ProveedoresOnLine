@@ -1494,10 +1494,7 @@ namespace MarketPlace.Web.Controllers
 
         #endregion
 
-        #region Survey
-
-        private Tuple<byte[], string, string> FileReport;
-
+        #region Survey        
         public virtual ActionResult SVSurveySearch
             (string ProviderPublicId,
             string SearchOrderType,
@@ -1776,25 +1773,15 @@ namespace MarketPlace.Web.Controllers
         }
 
         public virtual ActionResult SVSurveyEvaluatorDetail(string ProviderPublicId, string SurveyPublicId, string User)
-        {
-           
+        {           
             ProviderViewModel oModel = new ProviderViewModel();
-
             //Clean the season url saved
             if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
                 MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
-            if (Request["DownloadEvaluatorDetailReport"] == "true" && TempData["reporte"] != null)
+            if (Request["DownloadReport"] == "true")
             {
-                FileReport = (Tuple < byte[], string, string>)TempData["reporte"];
-                if(FileReport != null)
-                {
-                    return File(FileReport.Item1, FileReport.Item2, FileReport.Item3);
-                }
-                else
-                {
-                    return null;
-                }                                          
+                return File(Convert.FromBase64String(Request["File"]), Request["MimeType"], Request["FileName"]);
             }
             else
             {                
@@ -1812,11 +1799,7 @@ namespace MarketPlace.Web.Controllers
                     FirstOrDefault();
 
                 //validate provider permisions
-                if (oProvider == null)
-                {
-                    //return url provider not allowed
-                }
-                else
+                if (oProvider != null)                
                 {
                     //get provider view model
                     oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
@@ -1825,8 +1808,8 @@ namespace MarketPlace.Web.Controllers
                     oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                         (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(SurveyPublicId, User));
                 }
-
-                TempData["reporte"] = GetTupleReport(oModel);
+                oModel.SurveytReportModel = new GenericReportModel();
+                oModel.SurveytReportModel = Report_SurveyEvaluatorDetail(oModel);
                
                 return View(oModel);
             }
@@ -2428,9 +2411,10 @@ namespace MarketPlace.Web.Controllers
         #endregion
 
         #region Pivate Functions
-        private Tuple<byte[], string, string> GetTupleReport(ProviderViewModel oModel)
+        private GenericReportModel Report_SurveyEvaluatorDetail(ProviderViewModel oModel)
         {
             List<ReportParameter> parameters = new List<ReportParameter>();
+            GenericReportModel oReporModel = new GenericReportModel();
 
             //CustomerInfo
             parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
@@ -2448,8 +2432,10 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyStatusName", oModel.RelatedSurvey.SurveyStatusName));
             parameters.Add(new ReportParameter("SurveyIssueDate", oModel.RelatedSurvey.SurveyIssueDate));
             parameters.Add(new ReportParameter("SurveyEvaluator", oModel.RelatedSurvey.SurveyEvaluator));
-            parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));
+            parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));          
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
+            
+            
             if (oModel.RelatedSurvey.SurveyRelatedProject == null)
             {
                 parameters.Add(new ReportParameter("SurveyRelatedProject", "NA"));
@@ -2493,21 +2479,34 @@ namespace MarketPlace.Web.Controllers
                         }
                     }
 
-                    row["QuestionRating"] = QuestionInfo.Ratting;
+                    row["QuestionRating"] = QuestionInfo.Ratting;                 
                     row["QuestionWeight"] = Question.Weight;
-                    row["QuestionDescription"] = QuestionInfo.DescriptionText;
+                                        
+                    if(QuestionInfo.DescriptionText == null)
+                    {
+                        row["QuestionDescription"] = "-";
+                    }
+                    else
+                    {
+                        row["QuestionDescription"] = QuestionInfo.DescriptionText;
+                    }
+                    
                 }
 
                 data.Rows.Add(row);
             }
 
-            Tuple<byte[], string, string> SurveyEvaluatorReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_EvaluatorDetailReport(
+            Tuple<byte[], string, string> EvaluatorDetailReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_EvaluatorDetailReport(
                                                                enumCategoryInfoType.PDF.ToString(),
                                                                data,
                                                                parameters,
                                                                MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_EvaluatorDetail.rdlc");
-                  
-            return SurveyEvaluatorReport;
+
+            oReporModel.File = EvaluatorDetailReport.Item1;
+            oReporModel.MimeType = EvaluatorDetailReport.Item2;
+            oReporModel.FileName = EvaluatorDetailReport.Item3;
+
+            return oReporModel;
         }
 
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
