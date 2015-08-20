@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace MarketPlace.Models.Provider
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; set; }
 
         public ProviderLiteViewModel RelatedLiteProvider { get; set; }
+
+        public GenericReportModel SurveytReportModel { get; set; }
 
         public List<MarketPlace.Models.General.GenericMenu> ProviderMenu { get; set; }
 
