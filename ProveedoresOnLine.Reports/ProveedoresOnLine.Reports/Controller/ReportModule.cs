@@ -125,7 +125,6 @@ namespace ProveedoresOnLine.Reports.Controller
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyEvaluatorDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
-
         public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
@@ -136,7 +135,6 @@ namespace ProveedoresOnLine.Reports.Controller
             ReportDataSource source = new ReportDataSource();
             source.Name = "DS_GerencialReport";
             source.Value = data != null ? data : new DataTable();
-
             localReport.DataSources.Add(source);
 
             string mimeType;
@@ -220,18 +218,17 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region SelectionProcess Report
 
-        public static Tuple<byte[], string, string> PJ_ProjectProviderReportAceptedDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId, string FormatType, string FilePath)
+        public static Tuple<byte[], string, string> PJ_SelectionProcessReport(DataTable data, List<ReportParameter> ReportData, string FormatType, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
             localReport.ReportPath = @"" + FilePath + "PJ_Report_SelectionProcess.rdlc";
-            //localReport.SetParameters(ReportData);
+            localReport.SetParameters(ReportData);
+
             ReportDataSource source = new ReportDataSource();
-            //source.Name = "DS_GerencialReport";
-            //source.Value = data;
-
-            ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectModel = ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
-
+            source.Name = "DS_SelectionProcessReport";
+            source.Value = data != null ? data : new DataTable();
+            localReport.DataSources.Add(source);
 
             string mimeType;
             string encoding;
@@ -249,6 +246,7 @@ namespace ProveedoresOnLine.Reports.Controller
             Warning[] warnings;
             string[] streams;
             byte[] renderedBytes;
+
             renderedBytes = localReport.Render(
                 FormatType,
                 deviceInfo,
@@ -257,15 +255,10 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
-            return Tuple.Create(renderedBytes, mimeType, ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SelectionProcess + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+            return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SelectionProcess + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+
         }
 
-        #region Data
-        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
-        {
-            return DAL.Controller.ReportsDataController.Instance.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
-        }
-        #endregion
         #endregion
     }
 }

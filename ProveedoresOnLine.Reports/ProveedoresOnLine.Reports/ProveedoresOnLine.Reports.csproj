@@ -105,6 +105,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_SelectionProcessReport.cs">
+      <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DataSet\DS_SelectionProcessReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -130,10 +139,22 @@
     <None Include="Reports\DataSet\DS_GerencialReport.xss">
       <DependentUpon>DS_GerencialReport.xsd</DependentUpon>
     </None>
+    <None Include="Reports\DataSet\DS_SelectionProcessReport.xsc">
+      <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_SelectionProcessReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_SelectionProcessReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_SelectionProcessReport.xss">
+      <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\C_Report_GerencialInfo.rdlc" />
     <EmbeddedResource Include="Reports\PJ_Report_SelectionProcess.rdlc" />
+    <EmbeddedResource Include="Reports\PJ_Report_SelectionProcess_old.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_EvaluatorDetail.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_SurveyDetail.rdlc" />
   </ItemGroup>
