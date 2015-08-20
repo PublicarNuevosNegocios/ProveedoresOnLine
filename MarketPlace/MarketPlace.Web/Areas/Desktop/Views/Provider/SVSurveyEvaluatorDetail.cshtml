@@ -62,19 +62,21 @@
         <div class="POMPResultsOrder">
             <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->
-                <div class="container-fluid">
-                    <div class="POMPDownloadReports">
+                <div class="container-fluid">                    
+                    <div class="POMPDownloadReportsTop">
                         <form id="frmProviderUpsert"
                               method="post"
                               action="@(Url.Action
-                    (MVC.Provider.ActionNames.RPGerencial,
-                    MVC.Provider.Name,
-                    new
-                    {
-                        ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                    }))">
-                            <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                    (MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
+                                    MVC.Provider.Name))">
+                            <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
                             <input type="hidden" name="DownloadReport" value="true" />
+                            @if (Model.SurveytReportModel != null)
+                            {
+                                <input type="hidden" name="File" value="@Convert.ToBase64String(Model.SurveytReportModel.File)" />
+                                <input type="hidden" name="MimeType" value="@Model.SurveytReportModel.MimeType" />
+                                <input type="hidden" name="FileName" value="@Model.SurveytReportModel.FileName" />
+                            }
                         </form>
                     </div>
                     <div class="POMPEvalTitle">

@@ -280,7 +280,7 @@
                                     <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
                                 </div>
                             </div>
-                            <div class="col-xs-8">
+                            <div class="col-xs-8" id="POMPAltmanHeight">
                                 <div class="col-xs-12">
                                     <label>
                                         Indice Altman
