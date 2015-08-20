@@ -2369,9 +2369,9 @@ namespace MarketPlace.Web.Controllers
                         data.AppendLine
                         ("\"" + "Razon Social" + "\"" + strSep +
                             "\"" + "Tipo Identificacion" + "\"" + strSep +
-                            "\"" + "Número Identificacion" + "\"" + strSep +
+                            "\"" + "Numero Identificacion" + "\"" + strSep +
                             "\"" + "Sucursal" + "\"" + strSep +
-                            "\"" + "Teléfono" + "\"" + strSep +
+                            "\"" + "Telefono" + "\"" + strSep +
                             "\"" + "Ciudad" + "\"" + strSep +
                             "\"" + "Representante" + "\"");
                         data.AppendLine
