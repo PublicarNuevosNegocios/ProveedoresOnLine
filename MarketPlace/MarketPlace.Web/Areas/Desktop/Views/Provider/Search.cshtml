@@ -22,9 +22,6 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
     </div>
     <div class="POMPProviderListWrapper">
-        <div class="POMPDownloadExcelButton">
-            <a class="POBOSearchButtons" href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })">Dercargar Excel</a>                
-        </div> 
         <!--SearchResult-->
         @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
     </div>

@@ -29,19 +29,22 @@
     min-width:462px;
     border-right:2px solid #ff8300;
     border-left: 2px solid #ff8300;
-    padding-top:10px;
     position:relative;
 }
 .POMPDownloadExcelButton{
-    width:130px;
-    height:25px;
+    width:100px;
+    height:20px;
     background:#ff8300;
     color:#fff;
-    position:absolute;
-    top:20px;
-    left:10px;
+    position:relative;
+    margin:0 0 -22px calc(100% - 100px);
     text-align:center;
-    line-height:25px;
+    line-height:15px;
+   
+}
+.POMPDownloadExcelButton > a{
+    color:#fff;
+    font-size:0.8em;
 }
             .POMPProviderListWrapper tr{
                 cursor:pointer;
@@ -101,4 +104,9 @@
     background-color: #ffc9c0;
     border-color: #af1900;
     border-color: rgba(226,31,0,.5);
+}
+
+#POMPNotFoundResults{
+    margin:20px 0 0 20px;
+
 }
