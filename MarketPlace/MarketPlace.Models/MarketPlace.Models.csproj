@@ -68,6 +68,7 @@
     <Compile Include="Company\CompanyUtil.cs" />
     <Compile Include="Compare\CompareDetailViewModel.cs" />
     <Compile Include="Compare\CompareViewModel.cs" />
+    <Compile Include="General\GenericReportModel.cs" />
     <Compile Include="General\AreaModel.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\Enumerations.cs" />

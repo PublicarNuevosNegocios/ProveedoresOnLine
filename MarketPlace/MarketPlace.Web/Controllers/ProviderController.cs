@@ -1689,10 +1689,10 @@ namespace MarketPlace.Web.Controllers
                     });
                     oToInsert.RelatedReports.All(x =>
                     {
-                         parameters.Add(new ReportParameter("dateEnd",Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault()).ToString("dd/MM/yyyy")));
+                        parameters.Add(new ReportParameter("dateEnd", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                           (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
+                           DefaultIfEmpty(string.Empty).
+                           FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
                     });
                     oToInsert.RelatedReports.All(x =>
@@ -2300,6 +2300,131 @@ namespace MarketPlace.Web.Controllers
 
             return View(oModel);
         }
+
+        public virtual ActionResult RPGeneral
+            (string SearchParam,
+            string SearchFilter)
+        {
+            //Clean the season url saved
+            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
+            MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
+
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult;
+
+            if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            {
+
+                //get basic search model
+                oModel = new Models.Provider.ProviderSearchViewModel()
+                {
+                    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                    SearchParam = SearchParam,
+                    SearchFilter = SearchFilter == null ? null : (SearchFilter.Trim(new char[] { ',' }).Length > 0 ? SearchFilter.Trim(new char[] { ',' }) : null),
+                    SearchOrderType = MarketPlace.Models.General.enumSearchOrderType.Relevance,
+                    OrderOrientation = false,
+                    PageNumber = 0,
+                    ProviderSearchResult = new List<Models.Provider.ProviderLiteViewModel>(),
+                };
+
+                #region Providers
+                //search providers
+                int oTotalRowsAux;
+                oProviderResult =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
+                    oModel.SearchParam,
+                    oModel.SearchFilter,
+                    (int)oModel.SearchOrderType,
+                    oModel.OrderOrientation,
+                    oModel.PageNumber,
+                    //oModel.RowCount,
+                    65000,
+                    out oTotalRowsAux);
+
+                oModel.TotalRows = oTotalRowsAux;
+
+                List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    oModel.SearchParam,
+                    oModel.SearchFilter,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
+
+                if (oFilterModel != null)
+                {
+                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                }
+
+                //Branch Info
+
+                //parse view model
+                if (oProviderResult != null && oProviderResult.Count > 0)
+                {
+                    oProviderResult.All(prv =>
+                    {
+                        prv.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumContactType.Brach);
+                        return true;
+                    });
+                }
+
+                #endregion
+
+
+                #region Crete Excel
+
+                //Write the document
+                StringBuilder data = new StringBuilder();
+                string strSep = ";";
+
+                oProviderResult.All(x =>
+                {
+                    if (oProviderResult.IndexOf(x) == 0)
+                    {
+                        data.AppendLine
+                        ("\"" + "Razon Social" + "\"" + strSep +
+                            "\"" + "Tipo Identificacion" + "\"" + strSep +
+                            "\"" + "Número Identificacion" + "\"" + strSep +
+                            "\"" + "Sucursal" + "\"" + strSep +
+                            "\"" + "Teléfono" + "\"" + strSep +
+                            "\"" + "Ciudad" + "\"" + strSep +
+                            "\"" + "Representante" + "\"");
+                        data.AppendLine
+                            ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                            "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                            "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? MarketPlace.Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"");
+
+                    }
+                    else
+                    {
+                        data.AppendLine
+                            ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                            "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                            "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? MarketPlace.Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"");
+                    }
+                    return true;
+                });
+
+                byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
+
+                #endregion
+
+                return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
+            }
+
+            return null;
+        }
+
         #endregion
 
         #region Pivate Functions
