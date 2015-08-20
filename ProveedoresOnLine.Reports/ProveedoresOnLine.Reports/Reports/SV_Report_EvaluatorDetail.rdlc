@@ -555,22 +555,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.63423cm</Width>
+              <Width>2.41527cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.71666cm</Width>
+              <Width>3.06327cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.47089cm</Width>
+              <Width>3.29851cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.52604cm</Width>
+              <Width>2.35366cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1061cm</Width>
+              <Width>0.93372cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.03023cm</Width>
+              <Width>2.46098cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -588,7 +588,7 @@
                             <TextRun>
                               <Value>ÁREA</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -622,7 +622,7 @@
                             <TextRun>
                               <Value>PREGUNTA</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -656,7 +656,7 @@
                             <TextRun>
                               <Value>RESPUESTA</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -690,7 +690,7 @@
                             <TextRun>
                               <Value>CALIFICACIÓN</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -724,7 +724,7 @@
                             <TextRun>
                               <Value>PESO</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -758,7 +758,7 @@
                             <TextRun>
                               <Value>DESCRIPCIÓN</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -797,7 +797,7 @@
                             <TextRun>
                               <Value>=Fields!Area.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -829,7 +829,7 @@
                             <TextRun>
                               <Value>=Fields!Question.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -861,7 +861,7 @@
                             <TextRun>
                               <Value>=Fields!Answer.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -893,7 +893,7 @@
                             <TextRun>
                               <Value>=Fields!QuestionRating.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -925,7 +925,7 @@
                             <TextRun>
                               <Value>=Fields!QuestionWeight.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -957,7 +957,7 @@
                             <TextRun>
                               <Value>=Fields!QuestionDescription.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1003,10 +1003,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_EvaluatorDetailReport</DataSetName>
-        <Top>6.38405cm</Top>
-        <Left>0.06735cm</Left>
+        <Top>6.72801cm</Top>
+        <Left>0.75766cm</Left>
         <Height>1.2cm</Height>
-        <Width>16.48415cm</Width>
+        <Width>14.52541cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
@@ -1045,7 +1045,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.35416in</Height>
+    <Height>3.48958in</Height>
     <Style />
   </Body>
   <Width>6.59201in</Width>
