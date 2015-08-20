@@ -58,8 +58,6 @@ namespace ProveedoresOnLine.Reports.Interfaces
 
         #region SelectionProcess Report
 
-        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId);
-
         #endregion
 
         #endregion

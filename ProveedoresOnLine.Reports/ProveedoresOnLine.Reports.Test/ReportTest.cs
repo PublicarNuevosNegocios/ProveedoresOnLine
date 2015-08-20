@@ -70,10 +70,49 @@ namespace ProveedoresOnLine.Reports.Test
         [TestMethod]
         public void PJ_Report_SelectionProcess()
         {
-            //proyecto Pj_Id-> 12B70122
-            //publicar customer-> DA5C572E
-            //el tiempo provider-> 123601D3
-            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_ProjectProviderReportAceptedDetail("12B70122", "DA5C572E", "123601D3", "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\");
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            //current User
+            parameters.Add(new ReportParameter("reportGeneratedBy", "generado@mail.com"));
+            //CurrentCompany
+            parameters.Add(new ReportParameter("currentCompanyName", "Publicar SAS"));
+            parameters.Add(new ReportParameter("currentCompanyTypeId", "NIT"));
+            parameters.Add(new ReportParameter("currentCompanyId", "123456879"));
+            parameters.Add(new ReportParameter("currentCompanyLogo", "http://proveedoresonline.s3-website-us-east-1.amazonaws.com/BackOffice/CompanyFile/DA5C572E/CompanyFile_DA5C572E_20150311090116.png"));
+            //Header
+            parameters.Add(new ReportParameter("PJ_Name", "Nombre del proyecto"));
+            parameters.Add(new ReportParameter("PJ_Type", "tipo del proyecto"));
+            parameters.Add(new ReportParameter("PJ_Date", "18/08/2015"));
+            parameters.Add(new ReportParameter("PJ_Price", "2.000.000" + "COP"));
+            parameters.Add(new ReportParameter("PJ_MinExperience", "1"));
+            parameters.Add(new ReportParameter("PJ_InternalCodeProcess", "2"));
+            parameters.Add(new ReportParameter("PJ_YearsExperince", "3"));
+            parameters.Add(new ReportParameter("PJ_ActivityName", "Insumos de papeleria"));
+            parameters.Add(new ReportParameter("PJ_AdjudicateNote", "Nota de adjudicación que jue adjudicada por Alex-JP"));
+            parameters.Add(new ReportParameter("PJ_ResponsibleName", "responsable@mail.com"));
+            //areas
+            DataTable dtProvidersProject = new DataTable();
+            dtProvidersProject.Columns.Add("providerName");
+            dtProvidersProject.Columns.Add("TypeId");
+            dtProvidersProject.Columns.Add("providerId");
+            dtProvidersProject.Columns.Add("hsq");
+            dtProvidersProject.Columns.Add("tecnica");
+            dtProvidersProject.Columns.Add("financiera");
+            dtProvidersProject.Columns.Add("legal");
+            dtProvidersProject.Columns.Add("estado");
+            DataRow rowProvider = dtProvidersProject.NewRow();
+            //add provider info
+            rowProvider["providerName"] = "El Tiempo";
+            rowProvider["TypeId"] = "Provedor:";
+            rowProvider["providerId"] = "459698654";
+            rowProvider["hsq"] = "5 % no pasa Aprobado";
+            rowProvider["tecnica"] = "pasa Aprobado";
+            rowProvider["financiera"] = "3 % no pasa Aprobado";
+            rowProvider["legal"] = "pasa Aprobado";
+            rowProvider["estado"] = "Ajudicado";
+            
+            dtProvidersProject.Rows.Add(rowProvider);
+
+            Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_SelectionProcessReport(dtProvidersProject, parameters, "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\");
         }
         #endregion
     }
