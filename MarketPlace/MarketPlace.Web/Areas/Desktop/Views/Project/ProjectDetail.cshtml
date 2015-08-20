@@ -25,12 +25,22 @@
                         ProjectPublicId = Model.ProjectPublicId
                     }))" method="post">
                 <input type="submit" name="ProjectPrintReport" value="Generar Reporte" />
-                <input type="hidden" name="DownloadReport" value="true" />
+
+                @{
+                    if (Model.ProjectReportModel != null)
+                    {
+                        <input type="hidden" name="ReportFileName" value="@Model.ProjectReportModel.FileName" />
+                        <input type="hidden" name="ReportMimeType" value="@Model.ProjectReportModel.MimeType" />
+                        <input type="hidden" name="ReportArray" value="@Model.ProjectReportModel.File" />
+                        <input type="hidden" name="DownloadReport" value="true" />
+                    }
+                }
+
             </form>
 
-        </li>  
+        </li>
     </ul>
-    
+
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
 </div>
 

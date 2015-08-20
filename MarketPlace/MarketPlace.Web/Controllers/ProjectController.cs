@@ -41,7 +41,7 @@ namespace MarketPlace.Web.Controllers
                 !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
             {
                 //get basic search model
-                int oTotalRows;                
+                int oTotalRows;
                 List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> oProjects =
                     ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearch(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     SearchParam, null, Convert.ToInt32(!string.IsNullOrEmpty(PageNumber) ? PageNumber : "0"), 100, out oTotalRows);
@@ -61,25 +61,25 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult ProjectDetail(string ProjectPublicId)
         {
             //Clean the season url saved
-
             if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
                 MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (Request["DownloadReport"] == "true")
+            {               
+                return File(Request["ReportArray"], Request["ReportMimeType"], Request["ReportFileName"]);
+            }
+            else
+            {
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+                    ProjectGetById
+                    (ProjectPublicId,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                MarketPlace.Models.Project.ProjectViewModel oModel = new Models.Project.ProjectViewModel(oCurrentProject);
 
-            if (Request["DownloadReport"] == "true" && TempData["obj_Report_SelectionProcess"] != null)
-            {
-                Tuple<byte[], string, string> obj_Report_SelectionProcess = (Tuple<byte[], string, string>)TempData["obj_Report_SelectionProcess"];
-                return File(obj_Report_SelectionProcess.Item1, obj_Report_SelectionProcess.Item2, obj_Report_SelectionProcess.Item3);
-            }else
-            {
-            ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
-                ProjectGetById
-                (ProjectPublicId,
-                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
-            MarketPlace.Models.Project.ProjectViewModel oModel = new Models.Project.ProjectViewModel(oCurrentProject);
-                TempData["obj_Report_SelectionProcess"] = Report_SelectionProcess(oModel);
+                oModel.ProjectReportModel = new GenericReportModel();
+                oModel.ProjectReportModel = Report_SelectionProcess(oModel);
+                
                 return View(oModel);
             }
-            
         }
 
         public virtual ActionResult ProjectDetailRecalculate(string ProjectPublicId)
@@ -87,7 +87,6 @@ namespace MarketPlace.Web.Controllers
             //recalculate project values
             ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate
                 (ProjectPublicId);
-
             //return redirect to project detail
             return RedirectToRoute
                 (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -130,41 +129,41 @@ namespace MarketPlace.Web.Controllers
         }
 
         #region Private Functions
-        
-        private Tuple<byte[],string,string> Report_SelectionProcess(MarketPlace.Models.Project.ProjectViewModel oModel) {
 
+        private GenericReportModel Report_SelectionProcess(MarketPlace.Models.Project.ProjectViewModel oModel)
+        {
+            GenericReportModel oReporModel = new GenericReportModel();
 
             List<ReportParameter> parameters = new List<ReportParameter>();
             parameters.Add(new ReportParameter("currentCompanyName", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName));
-            parameters.Add(new ReportParameter("currentCompanyTypeId",MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName.ToString()));
+            parameters.Add(new ReportParameter("currentCompanyTypeId", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName.ToString()));
             parameters.Add(new ReportParameter("currentCompanyId", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber.ToString()));
             parameters.Add(new ReportParameter("currentCompanyLogo", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203005).Select(y => y.Value).FirstOrDefault().ToString()));
-            /*
-            parameters.Add(new ReportParameter("currentProviderName",));
-            parameters.Add(new ReportParameter("currentProviderId",));
-            parameters.Add(new ReportParameter("currentProviderTypeId",));
-            parameters.Add(new ReportParameter("currentProviderLogo",));
-            */
-            parameters.Add(new ReportParameter("PJ_Name",oModel.ProjectCurrencyTypeName.ToString()));
-            /*parameters.Add(new ReportParameter("PJ_Type",));
-            parameters.Add(new ReportParameter("PJ_Date",));
-            parameters.Add(new ReportParameter("PJ_Price",));
-            parameters.Add(new ReportParameter("PJ_MinExperience",));
-            parameters.Add(new ReportParameter("PJ_InternalCodeProcess",));
-            parameters.Add(new ReportParameter("PJ_YearsExperince",));
-            parameters.Add(new ReportParameter("PJ_ActivityName",));
-            parameters.Add(new ReportParameter("PJ_AdjudicateNote",));
-            parameters.Add(new ReportParameter("PJ_ResponsibleName",));*/
-
             
+            parameters.Add(new ReportParameter("PJ_Name",oModel.ProjectName.ToString()));
+            parameters.Add(new ReportParameter("PJ_Type",oModel.RelatedProjectConfig.ProjectConfigName.ToString()));
+            parameters.Add(new ReportParameter("PJ_Date",oModel.LastModify.ToString()));
+            parameters.Add(new ReportParameter("PJ_Price",oModel.RelatedProject.ProjectInfo.Where(x=>x.ItemInfoType.ItemId == 1407002).Select(y=>y.Value).FirstOrDefault().ToString()));
+            parameters.Add(new ReportParameter("PJ_MinExperience", oModel.RelatedProject.ProjectInfo.Where(x => x.ItemInfoType.ItemId == 1407004).Select(y => y.Value).FirstOrDefault().ToString()));
+            parameters.Add(new ReportParameter("PJ_InternalCodeProcess", oModel.RelatedProject.ProjectInfo.Where(x => x.ItemInfoType.ItemId == 1407009).Select(y => y.Value).FirstOrDefault().ToString()));
+            parameters.Add(new ReportParameter("PJ_YearsExperince", oModel.RelatedProject.ProjectInfo.Where(x => x.ItemInfoType.ItemId == 1407003).Select(y => y.Value).FirstOrDefault().ToString()));
+            parameters.Add(new ReportParameter("PJ_ActivityName", oModel.RelatedProject.ProjectInfo.Where(x => x.ItemInfoType.ItemId == 1407005).Select(y => y.Value).FirstOrDefault().ToString()));
+            parameters.Add(new ReportParameter("PJ_AdjudicateNote", oModel.RelatedProject.ProjectInfo.Where(x => x.ItemInfoType.ItemId == 1407012).Select(y => y.Value).FirstOrDefault().ToString()));
+            parameters.Add(new ReportParameter("PJ_ResponsibleName", oModel.RelatedProject.ProjectInfo.Where(x => x.ItemInfoType.ItemId == 1407008).Select(y => y.Value).FirstOrDefault().ToString()));
+
+            //parameters.Add(new ReportParameter("currentProviderName",));
+            //parameters.Add(new ReportParameter("currentProviderId",));
+            //parameters.Add(new ReportParameter("currentProviderTypeId",));
+            //parameters.Add(new ReportParameter("currentProviderLogo",));
 
 
+            oReporModel.File = null;
+            oReporModel.FileName = "Filefdlkjaedjkaldjlsajkd";
+            oReporModel.MimeType = "PDF";
 
-            Tuple<byte[], string, string> tpl = new Tuple<byte[], string, string>(null,"Alex","JP"); 
-
-            return tpl;
+            return oReporModel;
         }
-        
+
         #endregion
     }
 }

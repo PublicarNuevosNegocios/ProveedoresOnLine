@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace MarketPlace.Models.Project
         public bool RenderScripts { get; set; }
 
         public int TotalRows { get; set; }
+
+        public GenericReportModel ProjectReportModel { get; set; }
 
         #region Project Info
 
