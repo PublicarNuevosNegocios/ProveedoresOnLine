@@ -13,72 +13,106 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Representación y/o Distribuciones</label>
-        <ul class="POMPProviderInfoMultipleValues">
+        <div class="container-fluid">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
-                    <li>
-                        <label class="POMPProviderDataSubtitle">
-                            @if (!string.IsNullOrEmpty(item.DT_DistributorType) && !string.IsNullOrEmpty(item.DT_SocialReazon))
-                            {
-                                <span>@item.DT_DistributorType, @item.DT_SocialReazon</span>
-                            }
-                        </label>
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                @if (!string.IsNullOrEmpty(item.DT_DistributorType) && !string.IsNullOrEmpty(item.DT_SocialReazon))
+                                {
+                                    <span>@item.DT_DistributorType, @item.DT_SocialReazon</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+
                         @if (!string.IsNullOrEmpty(item.DT_Representative))
                         {
-                            <label>
-                                Representante Comercial
-                                <span>@item.DT_Representative</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Representante Comercial</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.DT_Representative</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.DT_Email))
                         {
-                            <label>
-                                Correo Electrónico
-                                <span>@item.DT_Email</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Correo Electrónico</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.DT_Email</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.DT_Phone))
                         {
-                            <label>
-                                Teléfono
-                                <span>@item.DT_Phone</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label> Teléfono</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.DT_Phone</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.DT_Country))
                         {
-                            <label>
-                                País
-                                <span>@item.DT_Country</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>País</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.DT_Country</span>
+                                </div>
+                            </div>
                         }
                         @if (!string.IsNullOrEmpty(item.DT_City))
                         {
-                            <label>
-                                Ciudad
-                                <span>@item.DT_City</span>
-                            </label>
-                        }                        
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Ciudad</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.DT_City</span>
+                                </div>
+                            </div>
+                        }
                         @if (!string.IsNullOrEmpty(item.DT_DateIssue))
                         {
-                            <label>
-                                Fecha de Expedición
-                                <span>@item.DT_DateIssue</span>
-                            </label>
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Fecha de Expedición</label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.DT_DateIssue</span>
+                                </div>
+                            </div>
                         }
                         @{
-                            var UlrContent = item.DT_DistributorFile;
-                            if (!string.IsNullOrEmpty(UlrContent))
-                            {
-                                <label>
+                        var UlrContent = item.DT_DistributorFile;
+                        if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <div class="col-xs-4">
+                                <div class="col-xs-12">
+                                    <label>Documento de Soporte</label>
+                                </div>
+                                <div class="col-xs-12">
                                     <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
-                                </label>
-                            }
+                                </div>
+                            </div>
                         }
-                    </li>
+                        }
+                    </div>
                 }
             }
-        </ul>
+        </div>
     </div>
 </div>
 @{
