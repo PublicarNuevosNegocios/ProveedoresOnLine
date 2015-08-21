@@ -22,13 +22,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.10229cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>0.59429cm</Top>
+        <Left>0.34588cm</Left>
         <Height>0.57354cm</Height>
-        <Width>1.53383cm</Width>
+        <Width>3.78279cm</Width>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -57,14 +58,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.75697cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>1.24897cm</Top>
+        <Left>0.34588cm</Left>
         <Height>0.57354cm</Height>
-        <Width>1.53383cm</Width>
+        <Width>3.78279cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -80,7 +82,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Valor estimado de la compra:</Value>
+                <Value>Valor estimado</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -88,19 +90,20 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>4.30551cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>3.64174cm</Top>
+        <Left>11.59511cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.68237cm</Width>
+        <Width>4.4473cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -116,7 +119,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Cantidad de minima de experiencias:</Value>
+                <Value>Experiencia Mínima</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -124,19 +127,20 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>2.66807cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>3.64174cm</Top>
+        <Left>4.72575cm</Left>
         <Height>0.57354cm</Height>
-        <Width>5.9683cm</Width>
+        <Width>3.13726cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -165,10 +169,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>6.67579cm</Top>
-        <Left>0.38028cm</Left>
+        <Top>5.46929cm</Top>
+        <Left>0.31678cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.49175cm</Width>
+        <Width>3.2007cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -201,14 +205,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.79225cm</Top>
-        <Left>10.58698cm</Left>
+        <Top>1.2525cm</Top>
+        <Left>10.52348cm</Left>
         <Height>0.57354cm</Height>
         <Width>1.77339cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -224,7 +229,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Número de proceso interno:</Value>
+                <Value>Número de proceso interno</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -232,19 +237,20 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>4.96019cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>3.64174cm</Top>
+        <Left>0.31678cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.68237cm</Width>
+        <Width>4.23258cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -273,14 +279,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>5.61487cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>2.63037cm</Top>
+        <Left>0.34588cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.68237cm</Width>
+        <Width>3.78279cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -296,7 +303,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Años de experiencia a tener en cuenta:</Value>
+                <Value>Años de experiencia</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -304,19 +311,20 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>3.32275cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>3.64174cm</Top>
+        <Left>8.14917cm</Left>
         <Height>0.57354cm</Height>
-        <Width>5.9683cm</Width>
+        <Width>3.26955cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -344,14 +352,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.10229cm</Top>
-        <Left>2.1196cm</Left>
+        <Top>0.59429cm</Top>
+        <Left>4.30506cm</Left>
         <Height>0.57354cm</Height>
-        <Width>13.98631cm</Width>
+        <Width>11.73735cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -379,14 +388,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.79225cm</Top>
-        <Left>2.1196cm</Left>
+        <Top>1.2525cm</Top>
+        <Left>4.30506cm</Left>
         <Height>0.57354cm</Height>
-        <Width>8.1587cm</Width>
+        <Width>5.90974cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -414,14 +424,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.79225cm</Top>
-        <Left>12.53676cm</Left>
+        <Top>1.2525cm</Top>
+        <Left>12.47326cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.56917cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -449,14 +460,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>4.30551cm</Top>
-        <Left>5.27167cm</Left>
+        <Top>4.29642cm</Top>
+        <Left>11.59511cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.17072cm</Width>
+        <Width>4.4473cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -484,14 +496,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>2.66807cm</Top>
-        <Left>6.52232cm</Left>
+        <Top>4.29642cm</Top>
+        <Left>4.72575cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.7241cm</Width>
+        <Width>3.13726cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -519,14 +532,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>4.96019cm</Top>
-        <Left>5.27167cm</Left>
+        <Top>4.29642cm</Top>
+        <Left>0.31678cm</Left>
         <Height>0.57354cm</Height>
-        <Width>1.63261cm</Width>
+        <Width>4.23258cm</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -554,14 +568,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>3.32275cm</Top>
-        <Left>6.52984cm</Left>
+        <Top>4.29642cm</Top>
+        <Left>8.14917cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.71658cm</Width>
+        <Width>3.26955cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -589,14 +604,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>5.61487cm</Top>
-        <Left>5.27167cm</Left>
+        <Top>2.63037cm</Top>
+        <Left>4.30506cm</Left>
         <Height>0.57354cm</Height>
-        <Width>10.86599cm</Width>
+        <Width>11.73737cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -624,14 +640,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>7.29872cm</Top>
-        <Left>0.38028cm</Left>
+        <Top>6.15572cm</Top>
+        <Left>0.31678cm</Left>
         <Height>0.57354cm</Height>
-        <Width>15.69654cm</Width>
+        <Width>15.72565cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -648,6 +665,7 @@
               <TextRun>
                 <Value>Responsable:</Value>
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -658,14 +676,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.22225cm</Top>
-        <Left>0.40938cm</Left>
+        <Top>1.92835cm</Top>
+        <Left>0.34588cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.4709cm</Width>
+        <Width>3.78279cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -682,7 +701,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=Parameters!PJ_ResponsibleName.Value</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -691,14 +712,15 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.22225cm</Top>
-        <Left>3.09195cm</Left>
+        <Top>1.92835cm</Top>
+        <Left>4.30506cm</Left>
         <Height>0.57354cm</Height>
-        <Width>12.94958cm</Width>
+        <Width>11.73737cm</Width>
         <ZIndex>19</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1155,8 +1177,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_SelectionProcessReport</DataSetName>
-        <Top>8.73865cm</Top>
-        <Left>0.34853cm</Left>
+        <Top>7.4369cm</Top>
+        <Left>0.28503cm</Left>
         <Height>1.2cm</Height>
         <Width>15.72828cm</Width>
         <ZIndex>20</ZIndex>
@@ -1167,264 +1189,135 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>4.5014in</Height>
+    <Height>3.5014in</Height>
     <Style />
   </Body>
-  <Width>6.48958in</Width>
+  <Width>6.39925in</Width>
   <Page>
     <PageHeader>
-      <Height>3.59834cm</Height>
+      <Height>3.78355cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Rectangle Name="Rectangle1">
-          <ReportItems>
-            <Line Name="Line1">
-              <Left>2.65875cm</Left>
-              <Height>3.20146cm</Height>
-              <Width>0cm</Width>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
-            <Textbox Name="sv_survey_tittle">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>REPORTE PROCESO DE SELECCIÓN</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-              <Top>0.15875cm</Top>
-              <Left>2.87042cm</Left>
-              <Height>0.52104cm</Height>
-              <Width>12.98486cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="sv_survey_tittle2">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Parameters!currentCompanyName.Value</Value>
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-              <Top>1.01493cm</Top>
-              <Left>2.83514cm</Left>
-              <Height>0.58101cm</Height>
-              <Width>12.98486cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="sv_survey_tittle3">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Parameters!currentCompanyTypeId.Value + ": " + Parameters!currentCompanyId.Value</Value>
-                      <Style>
-                        <FontSize>9pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-              <Top>1.77233cm</Top>
-              <Left>2.87043cm</Left>
-              <Height>0.52104cm</Height>
-              <Width>6.33682cm</Width>
-              <ZIndex>3</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="sv_survey_tittle4">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="Generado el: " + CDate(Today()).ToString("dd/MM/yyyy")</Value>
-                      <Style>
-                        <FontSize>9pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-              <Top>1.77233cm</Top>
-              <Left>9.55555cm</Left>
-              <Height>0.52104cm</Height>
-              <Width>6.26445cm</Width>
-              <ZIndex>4</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Image Name="Image1">
-              <Source>External</Source>
-              <Value>=Parameters!currentCompanyLogo.Value</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>1.04775cm</Top>
-              <Left>0.127cm</Left>
-              <Height>1.37722cm</Height>
-              <Width>2.35536cm</Width>
-              <ZIndex>5</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Image>
-            <Textbox Name="Textbox29">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Generado Por:</Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox6</rd:DefaultName>
-              <Top>2.46976cm</Top>
-              <Left>2.87042cm</Left>
-              <Height>0.54708cm</Height>
-              <Width>3.28573cm</Width>
-              <ZIndex>6</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox31">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Parameters!reportGeneratedBy.Value</Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox6</rd:DefaultName>
-              <Top>2.4433cm</Top>
-              <Left>6.33254cm</Left>
-              <Height>0.57354cm</Height>
-              <Width>9.48746cm</Width>
-              <ZIndex>7</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-          </ReportItems>
+        <Textbox Name="sv_survey_tittle3">
+          <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
-          <Top>0.1905cm</Top>
-          <Left>0.22153cm</Left>
-          <Height>3.20146cm</Height>
-          <Width>16.06695cm</Width>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!currentCompanyTypeId.Value + ": " + Parameters!currentCompanyId.Value</Value>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
+          <Top>1.96342cm</Top>
+          <Left>0.34588cm</Left>
+          <Height>0.52104cm</Height>
+          <Width>15.63075cm</Width>
           <Style>
             <Border>
-              <Style>Solid</Style>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="sv_survey_tittle2">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!currentCompanyName.Value</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
+          <Top>0.3175cm</Top>
+          <Left>0.34588cm</Left>
+          <Height>0.58101cm</Height>
+          <Width>15.63075cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="sv_survey_tittle">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>REPORTE PROCESO DE SELECCIÓN</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
+          <Top>2.9466cm</Top>
+          <Left>0.34588cm</Left>
+          <Height>0.52104cm</Height>
+          <Width>15.69655cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="Image1">
+          <Source>External</Source>
+          <Value>=Parameters!currentCompanyLogo.Value</Value>
+          <Sizing>FitProportional</Sizing>
+          <Top>1.02472cm</Top>
+          <Left>7.01807cm</Left>
+          <Height>0.90097cm</Height>
+          <Width>2.35536cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
             </Border>
           </Style>
-        </Rectangle>
+        </Image>
       </ReportItems>
       <Style>
         <Border>
@@ -1432,6 +1325,53 @@
         </Border>
       </Style>
     </PageHeader>
+    <PageFooter>
+      <Height>1.11125cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox31">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>="Geneado por: " + Parameters!reportGeneratedBy.Value + "Generado el: " + CDate(Today()).ToString("dd/MM/yyyy")</Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Right</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>0.17639cm</Top>
+          <Left>0.28503cm</Left>
+          <Height>0.57354cm</Height>
+          <Width>15.7574cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>
