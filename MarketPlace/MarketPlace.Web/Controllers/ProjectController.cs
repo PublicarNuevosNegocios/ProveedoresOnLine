@@ -182,7 +182,7 @@ namespace MarketPlace.Web.Controllers
             }
             parameters.Add(new ReportParameter("PJ_AdjudicateNote", notaAdjudicacion));
             parameters.Add(new ReportParameter("PJ_ResponsibleName", oModel.ProjectResponsible.ToString()));
-            //prividers:
+            //providers:
             DataTable dtProvidersProject = new DataTable();
             dtProvidersProject.TableName = "areas";
             dtProvidersProject.Columns.Add("providerName", typeof(string));

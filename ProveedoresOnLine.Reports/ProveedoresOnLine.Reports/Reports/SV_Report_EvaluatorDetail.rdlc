@@ -10,17 +10,20 @@
             <TextRuns>
               <TextRun>
                 <Value>=Parameters!ProviderName.Value</Value>
-                <Style />
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ProviderName</rd:DefaultName>
-        <Top>0.14111cm</Top>
-        <Left>1.21391cm</Left>
+        <Top>0.17639cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.14042cm</Width>
+        <Width>9.25806cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -46,10 +49,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationType</rd:DefaultName>
-        <Top>0.14111cm</Top>
-        <Left>8.91328cm</Left>
+        <Top>0.17639cm</Top>
+        <Left>10.08628cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.865cm</Width>
+        <Width>1.80209cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -76,10 +79,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
-        <Top>0.14111cm</Top>
-        <Left>11.32099cm</Left>
+        <Top>0.17639cm</Top>
+        <Left>11.90134cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>3.1191cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -106,10 +109,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyConfigName</rd:DefaultName>
-        <Top>1.10808cm</Top>
-        <Left>1.21391cm</Left>
+        <Top>0.95278cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>5.17639cm</Width>
+        <Width>9.86895cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -128,18 +131,20 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Calificación:</Value>
-                <Style />
+                <Value>CALIFICACIÓN</Value>
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.03412cm</Top>
-        <Left>1.21391cm</Left>
+        <Top>3.596cm</Top>
+        <Left>11.45155cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.14431cm</Width>
+        <Width>2.67348cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -159,17 +164,22 @@
             <TextRuns>
               <TextRun>
                 <Value>=Parameters!SurveyRating.Value</Value>
-                <Style />
+                <Style>
+                  <FontSize>14pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyRating</rd:DefaultName>
-        <Top>2.03412cm</Top>
-        <Left>3.8903cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Top>4.30183cm</Top>
+        <Left>11.45155cm</Left>
+        <Height>1.30416cm</Height>
+        <Width>2.67348cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -188,7 +198,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Estado</Value>
+                <Value>Estado:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -196,10 +206,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox16</rd:DefaultName>
-        <Top>2.81051cm</Top>
-        <Left>1.93946cm</Left>
+        <Top>3.07028cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>4.39383cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -226,10 +236,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyStatusName</rd:DefaultName>
-        <Top>3.58689cm</Top>
-        <Left>1.93946cm</Left>
+        <Top>3.07028cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>4.86423cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -248,7 +258,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Fecha de Programación</Value>
+                <Value>Fecha de Programación:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -256,10 +266,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>2.81051cm</Top>
-        <Left>6.51676cm</Left>
+        <Top>3.77611cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.95521cm</Width>
+        <Width>4.39383cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -286,10 +296,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyIssueDate</rd:DefaultName>
-        <Top>3.58689cm</Top>
-        <Left>6.51676cm</Left>
+        <Top>3.77611cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.95521cm</Width>
+        <Width>4.86423cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -308,7 +318,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Evaluador</Value>
+                <Value>Evaluador:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -316,10 +326,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox20</rd:DefaultName>
-        <Top>2.81051cm</Top>
-        <Left>12.04655cm</Left>
+        <Top>1.65861cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>4.39383cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -346,10 +356,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyEvaluator</rd:DefaultName>
-        <Top>3.58689cm</Top>
-        <Left>12.04655cm</Left>
+        <Top>1.65861cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>9.86895cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -368,7 +378,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Ultima Actualización</Value>
+                <Value>Ultima Actualización:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -376,10 +386,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox22</rd:DefaultName>
-        <Top>4.56502cm</Top>
-        <Left>1.38148cm</Left>
+        <Top>4.48195cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.47896cm</Width>
+        <Width>4.39383cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -398,7 +408,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Responsable</Value>
+                <Value>Responsable:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -406,10 +416,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox23</rd:DefaultName>
-        <Top>4.56502cm</Top>
-        <Left>6.12634cm</Left>
+        <Top>2.36445cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.95521cm</Width>
+        <Width>4.39383cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -428,7 +438,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Proceso de Selección</Value>
+                <Value>Proceso de Selección:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -436,10 +446,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox24</rd:DefaultName>
-        <Top>4.56502cm</Top>
-        <Left>11.48856cm</Left>
+        <Top>5.18778cm</Top>
+        <Left>0.75766cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.53188cm</Width>
+        <Width>4.39383cm</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
@@ -466,10 +476,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyLastModify</rd:DefaultName>
-        <Top>5.34141cm</Top>
-        <Left>1.38148cm</Left>
+        <Top>4.48028cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.47896cm</Width>
+        <Width>4.86423cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -496,10 +506,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyResponsible</rd:DefaultName>
-        <Top>5.34141cm</Top>
-        <Left>5.95877cm</Left>
+        <Top>2.36445cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.95521cm</Width>
+        <Width>9.86895cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -526,10 +536,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyRelatedProject</rd:DefaultName>
-        <Top>5.34141cm</Top>
-        <Left>11.48856cm</Left>
+        <Top>5.18611cm</Top>
+        <Left>5.15149cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.53188cm</Width>
+        <Width>4.86423cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -545,22 +555,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.60056cm</Width>
+              <Width>2.41527cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.60056cm</Width>
+              <Width>3.06327cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.60056cm</Width>
+              <Width>3.29851cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.91264cm</Width>
+              <Width>2.35366cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.58378cm</Width>
+              <Width>0.93372cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.58378cm</Width>
+              <Width>2.46098cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -576,11 +586,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Area</Value>
-                              <Style />
+                              <Value>ÁREA</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox28</rd:DefaultName>
@@ -606,11 +620,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Question</Value>
-                              <Style />
+                              <Value>PREGUNTA</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox30</rd:DefaultName>
@@ -636,11 +654,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Answer</Value>
-                              <Style />
+                              <Value>RESPUESTA</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox32</rd:DefaultName>
@@ -666,11 +688,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Question Rating</Value>
-                              <Style />
+                              <Value>CALIFICACIÓN</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox34</rd:DefaultName>
@@ -696,11 +722,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Question Weight</Value>
-                              <Style />
+                              <Value>PESO</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox36</rd:DefaultName>
@@ -726,11 +756,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Question Description</Value>
-                              <Style />
+                              <Value>DESCRIPCIÓN</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox38</rd:DefaultName>
@@ -762,7 +796,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Area.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -792,7 +828,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Question.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -822,7 +860,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Answer.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -852,7 +892,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!QuestionRating.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -882,7 +924,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!QuestionWeight.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -912,7 +956,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!QuestionDescription.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -957,10 +1003,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_EvaluatorDetailReport</DataSetName>
-        <Top>6.47912cm</Top>
+        <Top>6.72801cm</Top>
         <Left>0.75766cm</Left>
         <Height>1.2cm</Height>
-        <Width>14.88188cm</Width>
+        <Width>14.52541cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
@@ -968,14 +1014,44 @@
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="Textbox3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Nombre de la evaluación:</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>0.95278cm</Top>
+        <Left>0.75766cm</Left>
+        <Height>0.6cm</Height>
+        <Width>4.39383cm</Width>
+        <ZIndex>19</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>3.95833in</Height>
+    <Height>3.48958in</Height>
     <Style />
   </Body>
-  <Width>6.56076in</Width>
+  <Width>6.59201in</Width>
   <Page>
     <PageHeader>
-      <Height>2.54cm</Height>
+      <Height>3.19016cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -994,10 +1070,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>CustomerName</rd:DefaultName>
-          <Top>0.60537cm</Top>
-          <Left>4.33599cm</Left>
+          <Top>1.26697cm</Top>
+          <Left>5.50253cm</Left>
           <Height>0.6cm</Height>
-          <Width>2.5cm</Width>
+          <Width>9.51791cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1016,17 +1092,19 @@
               <TextRuns>
                 <TextRun>
                   <Value>=Parameters!CustomerIdentification.Value</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Normal</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>CustomerIdentification</rd:DefaultName>
-          <Top>1.37266cm</Top>
-          <Left>7.24641cm</Left>
+          <Top>2.00808cm</Top>
+          <Left>7.83904cm</Left>
           <Height>0.6cm</Height>
-          <Width>2.5cm</Width>
+          <Width>4.78542cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1053,10 +1131,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>CustomerIdentificationType</rd:DefaultName>
-          <Top>1.39912cm</Top>
-          <Left>11.32099cm</Left>
+          <Top>2.00808cm</Top>
+          <Left>5.50253cm</Left>
           <Height>0.6cm</Height>
-          <Width>2.5cm</Width>
+          <Width>2.33652cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
@@ -1068,26 +1146,43 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="CustomerImage">
+        <Image Name="CImage">
+          <Source>External</Source>
+          <Value>=Parameters!CustomerImage.Value</Value>
+          <Sizing>FitProportional</Sizing>
+          <Top>0.59641cm</Top>
+          <Left>2.22864cm</Left>
+          <Height>2.32021cm</Height>
+          <Width>2.92285cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
+        <Textbox Name="Textbox1">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Parameters!CustomerImage.Value</Value>
-                  <Style />
+                  <Value>Evaluación de Desempeño por Evaluador</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
             </Paragraph>
           </Paragraphs>
-          <rd:DefaultName>CustomerImage</rd:DefaultName>
-          <Top>1.26682cm</Top>
-          <Left>1.21391cm</Left>
+          <rd:DefaultName>Textbox1</rd:DefaultName>
+          <Top>0.59641cm</Top>
+          <Left>5.50253cm</Left>
           <Height>0.6cm</Height>
-          <Width>2.5cm</Width>
-          <ZIndex>3</ZIndex>
+          <Width>9.51791cm</Width>
+          <ZIndex>4</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1105,16 +1200,6 @@
         </Border>
       </Style>
     </PageHeader>
-    <PageFooter>
-      <Height>2.54cm</Height>
-      <PrintOnFirstPage>true</PrintOnFirstPage>
-      <PrintOnLastPage>true</PrintOnLastPage>
-      <Style>
-        <Border>
-          <Style>None</Style>
-        </Border>
-      </Style>
-    </PageFooter>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>
