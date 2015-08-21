@@ -1166,18 +1166,6 @@
           </Border>
         </Style>
       </Tablix>
-      <Line Name="Line2">
-        <Top>8.37882cm</Top>
-        <Left>16.06233cm</Left>
-        <Height>0cm</Height>
-        <Width>-15.7138cm</Width>
-        <ZIndex>21</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
     </ReportItems>
     <Height>4.5014in</Height>
     <Style />
