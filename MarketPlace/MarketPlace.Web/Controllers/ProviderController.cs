@@ -2477,18 +2477,31 @@ namespace MarketPlace.Web.Controllers
                         {
                             row["Answer"] = Answer.Name;
                         }
+                        else
+                        {
+                            row["Answer"] = "Sin Responder";
+                            row["QuestionRating"] = "Sin Responder"; 
+                        }
                     }
 
-                    row["QuestionRating"] = QuestionInfo.Ratting;                 
-                    row["QuestionWeight"] = Question.Weight;
-                                        
-                    if(QuestionInfo.DescriptionText == null)
+                    if (QuestionInfo != null)
                     {
-                        row["QuestionDescription"] = "-";
+                        row["QuestionRating"] = QuestionInfo.Ratting;
                     }
                     else
                     {
+                        row["QuestionRating"] = "NA";
+                    }          
+                         
+                    row["QuestionWeight"] = Question.Weight;
+                                        
+                    if(QuestionInfo != null && QuestionInfo.DescriptionText != null)
+                    {
                         row["QuestionDescription"] = QuestionInfo.DescriptionText;
+                    }
+                    else
+                    {
+                        row["QuestionDescription"] = "-";                        
                     }
                     
                 }
