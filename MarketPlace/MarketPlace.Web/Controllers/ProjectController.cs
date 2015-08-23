@@ -201,11 +201,7 @@ namespace MarketPlace.Web.Controllers
                 rowProvider["providerName"] = oProjectProvider.RelatedProjectProvider.RelatedProvider.RelatedCompany.CompanyName.ToString();
                 rowProvider["TypeId"] = oProjectProvider.RelatedProjectProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName.ToString();
                 rowProvider["providerId"] = oProjectProvider.RelatedProjectProvider.RelatedProvider.RelatedCompany.IdentificationNumber.ToString();
-                string estado = "No Adjudicado";
-                if(oProjectProvider.ApprovalStatus!=null){
-                    estado = "Adjudicado";
-                }
-                rowProvider["estado"] = estado;
+               
                 //add evaluation Areas
                 if (oModel.RelatedProjectConfig.GetEvaluationAreas() != null && oModel.RelatedProjectConfig.GetEvaluationAreas().Count > 0)
                 {
@@ -267,6 +263,9 @@ namespace MarketPlace.Web.Controllers
                             oAprobate = "Rechazado";
                         }
 
+                        rowProvider["estado"] = oAprobate;
+
+
                         switch (oAreaItem.EvaluationItemId)
                         {
                             case 1:
@@ -284,6 +283,7 @@ namespace MarketPlace.Web.Controllers
                             default:
                             break;
                         }
+
                     }
 
                 }
