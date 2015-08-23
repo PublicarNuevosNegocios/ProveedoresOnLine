@@ -343,11 +343,6 @@
     <Compile Include="ReportController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Service References\WS_Consulting\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="StatsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1197,23 +1192,12 @@
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.js" />
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js" />
     <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js.map" />
-    <Content Include="Service References\WS_Consulting\MarketPlace.Web.WS_Consulting.ConsultaInspektorResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\WS_Consulting\wsinspektor.wsdl" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml" />
-    <None Include="Service References\WS_Consulting\wsinspektor.disco" />
-    <None Include="Service References\WS_Consulting\configuration91.svcinfo" />
-    <None Include="Service References\WS_Consulting\configuration.svcinfo" />
-    <None Include="Service References\WS_Consulting\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1313,9 +1297,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\WS_Consulting\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Areas\Desktop\Reports\SV_Report_SurveyDetail.rdlc" />

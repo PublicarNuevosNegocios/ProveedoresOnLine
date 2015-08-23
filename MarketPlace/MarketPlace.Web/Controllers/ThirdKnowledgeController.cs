@@ -34,28 +34,7 @@ namespace MarketPlace.Web.Controllers
 
                 if (Request["UpsertRequest"] == "true")
                 {
-                    WS_Consulting.Autenticacion oAuth = new WS_Consulting.Autenticacion();
-                    WS_Consulting.WSInspektorSoapClient Client = new WS_Consulting.WSInspektorSoapClient();
-
-                    oAuth.UsuarioNombre = "W5-Pub1ic@r";
-                    oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
-
-                    oModel.RelatedThirdKnowledge = new List<string[]>();
-
-                    string oResutl = Client.ConsultaInspektor(oAuth, Request["IdentificationNumber"], Request["Name"]);                    
-
-                    string[] split = oResutl.Split('#');
-                    List<string[]> oReturn = new List<string[]>();
-                    if (split != null)
-                    {
-                        split.All(x =>
-                        {
-                            oReturn.Add(x.Split('|'));
-                            return true;
-                        });
-                    }
-
-                    oModel.RelatedThirdKnowledge = oReturn;
+                    oModel.RelatedThirdKnowledge = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(Request["IdentificationNumber"], Request["Name"]); ;
                 }           
             }
             catch (Exception ex)

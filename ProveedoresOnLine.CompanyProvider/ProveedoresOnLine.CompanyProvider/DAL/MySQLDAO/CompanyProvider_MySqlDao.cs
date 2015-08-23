@@ -589,6 +589,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                                           ItemName = coinf.Field<string>("LegalInfoTypeName"),
                                       },
                                       Value = coinf.Field<string>("Value"),
+                                      ValueName = coinf.Field<string>("ValueName"),
                                       LargeValue = coinf.Field<string>("LargeValue"),
                                       Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
                                       LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),

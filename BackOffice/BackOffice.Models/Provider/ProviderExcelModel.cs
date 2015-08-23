@@ -12,6 +12,7 @@ namespace BackOffice.Models.Provider
         public string BlackListStatus { get; set; }
 
         public string RazonSocial { get; set; }
-        public string IdentificationNumber { get; set; }                   
+        public string IdentificationNumber { get; set; }
+        public string Cargo { get; set; }
     }
 }

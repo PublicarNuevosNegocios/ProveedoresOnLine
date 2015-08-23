@@ -12,8 +12,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         {
             try
             {
-                WS_Consulting.Autenticacion oAuth = new WS_Consulting.Autenticacion();
-                WS_Consulting.WSInspektorSoapClient oClient = new WS_Consulting.WSInspektorSoapClient();
+                WS_Inspektor.Autenticacion oAuth = new WS_Inspektor.Autenticacion();
+                WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient();
 
                 oAuth.UsuarioNombre = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServiceUser].Value;
                 oAuth.UsuarioClave = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServicePass].Value;

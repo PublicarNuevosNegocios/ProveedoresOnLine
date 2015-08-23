@@ -1177,13 +1177,15 @@ namespace BackOffice.Web.Controllers
                         "\"" + "IdentificationType" + "\"" + strSep +
                         "\"" + "IdentificationNumber" + "\"" + strSep +
                         "\"" + "SearchType" + "\"" + strSep +
+                        "\"" + "Cargo" + "\"" + strSep +
                         "\"" + "ProviderPublicId" + "\"" + strSep +
                         "\"" + "BlackListStatus" + "\"");
                     data.AppendLine
                         ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                         "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +                        
                         "\"" + "Company" + "\"" + strSep +
+                        "\"" + "N/A" + "\"" + strSep +
                         "\"" + x.RelatedCompany.CompanyPublicId + "\"");
                     if (x.RelatedLegal != null && x.RelatedLegal.Count > 0)
                     {
@@ -1195,6 +1197,7 @@ namespace BackOffice.Web.Controllers
                                     "\"" + "CC" + "\"" + strSep +
                                     "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                     "\"" + "Person" + "\"" + strSep +
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +                       
                                     "\"" + x.RelatedCompany.CompanyPublicId + "\""
                                 );
                             return true;
@@ -1206,7 +1209,7 @@ namespace BackOffice.Web.Controllers
                     data.AppendLine
                         ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                         "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +                        
                         "\"" + "Company" + "\"" + strSep +
                         "\"" + x.RelatedCompany.CompanyPublicId + "\"");
                     if (x.RelatedLegal != null && x.RelatedLegal.Count > 0)
@@ -1219,6 +1222,7 @@ namespace BackOffice.Web.Controllers
                                     "\"" + "CC" + "\"" + strSep +
                                     "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                     "\"" + "Person" + "\"" + strSep +
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
                                     "\"" + x.RelatedCompany.CompanyPublicId + "\""
                                 );
                             return true;

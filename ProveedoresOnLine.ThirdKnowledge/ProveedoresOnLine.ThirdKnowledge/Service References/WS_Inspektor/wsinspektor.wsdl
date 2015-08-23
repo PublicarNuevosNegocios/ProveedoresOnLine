@@ -72,10 +72,10 @@
   <wsdl:service name="WS-Inspektor">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servicio de Consultas en Inspektor</wsdl:documentation>
     <wsdl:port name="WS-InspektorSoap" binding="tns:WS-InspektorSoap">
-      <soap:address location="https://wsinspektorssl.riskconsultingcolombia.com/wsinspektor.asmx" />
+      <soap:address location="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" />
     </wsdl:port>
     <wsdl:port name="WS-InspektorSoap12" binding="tns:WS-InspektorSoap12">
-      <soap12:address location="https://wsinspektorssl.riskconsultingcolombia.com/wsinspektor.asmx" />
+      <soap12:address location="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

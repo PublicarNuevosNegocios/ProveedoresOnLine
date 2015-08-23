@@ -184,6 +184,7 @@
                                 @if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
                                 {
                                     var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
+                                    
                                     <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas - Última Validación @maxDate</label>
 
                                     if (Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList() != null
@@ -213,6 +214,13 @@
                                                 {
                                                     <label>
                                                         Número de Identificación
+                                                        <span>@info.Value</span>
+                                                    </label>
+                                                }
+                                                else if (info.ItemInfoType.ItemName == "Cargo")
+                                                {
+                                                    <label>
+                                                        Cargo
                                                         <span>@info.Value</span>
                                                     </label>
                                                 }

@@ -67,11 +67,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Service References\WS_Consulting\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ThirdKnowledgeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,16 +75,6 @@
     <Content Include="Rsx-ThirdKnowledge.xml">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Service References\WS_Consulting\ProveedoresOnLine.ThirdKnowledge.Test.WS_Consulting.ConsultaInspektorResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\WS_Consulting\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\WS_Consulting\configuration.svcinfo" />
-    <None Include="Service References\WS_Consulting\configuration91.svcinfo" />
-    <None Include="Service References\WS_Consulting\wsinspektor.disco" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.csproj">
@@ -99,13 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Service References\WS_Consulting\wsinspektor.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\WS_Consulting\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
