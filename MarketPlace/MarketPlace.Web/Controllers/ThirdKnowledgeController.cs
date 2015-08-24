@@ -25,7 +25,7 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             try
-            {                
+            {
                 oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
 
                 //Clean the season url saved
@@ -34,8 +34,29 @@ namespace MarketPlace.Web.Controllers
 
                 if (Request["UpsertRequest"] == "true")
                 {
-                    oModel.RelatedThirdKnowledge = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(Request["IdentificationNumber"], Request["Name"]); ;
-                }           
+                    WS_Inspector.Autenticacion oAuth = new WS_Inspector.Autenticacion();
+                    WS_Inspector.WSInspektorSoapClient Client = new WS_Inspector.WSInspektorSoapClient();
+
+                    oAuth.UsuarioNombre = "W5-Pub1ic@r";
+                    oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
+
+                    oModel.RelatedThirdKnowledge = new List<string[]>();
+
+                    string oResutl = Client.ConsultaInspektor(oAuth, Request["IdentificationNumber"], Request["Name"]);
+
+                    string[] split = oResutl.Split('#');
+                    List<string[]> oReturn = new List<string[]>();
+                    if (split != null)
+                    {
+                        split.All(x =>
+                        {
+                            oReturn.Add(x.Split('|'));
+                            return true;
+                        });
+                    }
+
+                    oModel.RelatedThirdKnowledge = oReturn;
+                }
             }
             catch (Exception ex)
             {

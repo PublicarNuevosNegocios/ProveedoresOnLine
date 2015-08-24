@@ -523,6 +523,7 @@
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian.pubxml" />
     <None Include="Properties\PublishProfiles\SebastianHome.pubxml" />
+    <None Include="Properties\PublishProfiles\Sebastian_Home_BO.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Rsx-BackOffice.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
