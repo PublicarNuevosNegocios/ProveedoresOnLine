@@ -5,6 +5,7 @@
 
     /*Get session modules by user*/
     bool IsBasicInfo = false;
+    bool IsProcessModelEnable = false;
 
     List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
@@ -14,12 +15,14 @@
         {
             IsBasicInfo = true;
         }
+        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
+        {
+            IsProcessModelEnable = true;
+        }
         return true;
-    });
-
+    });    
+    
 }
-
-
 <div id="POMPGraphicContainerMain">
     <div class="POMPGraphicDynamic">
         <div class="POMPHeaderGraphicDynamic">
@@ -27,12 +30,15 @@
         </div>
         @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
     </div>
-    <div class="POMPGraphicDynamic">
-        <div class="POMPHeaderGraphicDynamic">
-            <h1>Procesos de Selección por estado año en curso</h1>
+    @if (IsProcessModelEnable == true)
+    {
+        <div class="POMPGraphicDynamic">
+            <div class="POMPHeaderGraphicDynamic">
+                <h1>Procesos de Selección por estado año en curso</h1>
+            </div>
+            @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
         </div>
-        @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
-    </div>
+    }    
    
     @if (!IsBasicInfo)
     {
