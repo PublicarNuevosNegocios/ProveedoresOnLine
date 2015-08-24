@@ -57,7 +57,7 @@
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
 
     <!--Report Path-->
-    <key name="MP_CP_ReportPath">C:\Reports\</key>
+    <key name="MP_CP_ReportPath">C:\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
   </MarketPlace>
 </Settings>
 
