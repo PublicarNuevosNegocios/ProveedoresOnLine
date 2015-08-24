@@ -585,11 +585,23 @@ div.POMPProjectBidDetailMenu {
 .POMPProjectBidDetailGridActions,
 div.POMPProjectBidDetailGridActions {
     list-style-type: none;
-    padding: 0;
+    padding:0;
     margin: auto;
     text-align: right;
     display: block;
     width: 95.9%;
+  
+
+}
+
+.POMPProjectBidDetailGridActions{
+     
+       
+}
+.POMPProjectBidDetailGridActions:last-child{
+      border-bottom:1px solid #ff8300 !important;
+      border-top:1px solid #ff8300 !important;
+      padding: 15px 0 15px 0;
 }
 
     .POMPProjectBidDetailGridActions li,
@@ -612,10 +624,14 @@ div.POMPProjectBidDetailGridActions {
 
 .POMPProjectBidApprovalText {
     height: auto !important;
-    margin: 0px 0 7px 0 !important;
+    margin: 10px 0 17px 0 !important;
     padding: 2px !important;
     text-align: left !important;
     width: 99% !important;
+    border:none !important;
+    /*background:red;*/
+    font-size:1.2em;
+
 }
 
 .ProviderRowes > div > div.ProveedorPendiente,
