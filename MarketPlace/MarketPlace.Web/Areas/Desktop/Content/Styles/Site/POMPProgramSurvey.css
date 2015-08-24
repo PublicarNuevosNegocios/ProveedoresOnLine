@@ -778,3 +778,9 @@ textarea#Survey_ProgramSurvey_Comments {
     font-weight:lighter;
     padding-top:70px !important;
 }
+
+#POMPSocialObject {
+    height:auto !important;
+    padding-bottom:15px;
+}
+

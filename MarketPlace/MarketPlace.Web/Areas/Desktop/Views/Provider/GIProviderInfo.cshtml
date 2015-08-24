@@ -157,7 +157,7 @@
                     {
                         if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
                         {
-                            <label class="POMPProviderVerDetalle" id="POMPProviderVerDetalleNew">
+                            @*<label class="POMPProviderVerDetalle" id="POMPProviderVerDetalleNew">
                                 <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
@@ -166,7 +166,7 @@
                                     action = MVC.Provider.ActionNames.GIBranchInfo,
                                     ProviderPublicId = Request["ProviderPublicId"]
                                 }))">Ver Detalle</a>
-                            </label>
+                            </label>*@
                         }
                     }
                 }
@@ -179,14 +179,17 @@
                     @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
                     if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
                     {
-                        <ul class="POMPProviderInfoMultipleValues">
-                            <li>
-                                @if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
+           
+                                if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
                                 {
                                     var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
-                                    
-                                    <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas - Última Validación @maxDate</label>
 
+                                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                                        <div class="col-xs-12">
+                                            <label>Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
+                                        </div>
+                                    </div>
+                
                                     if (Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList() != null
                                              && Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList().Count > 0)
                                     {
@@ -196,53 +199,85 @@
                                         {
                                             foreach (var info in item.BlackListInfo)
                                             {
+                                                
                                                 if (info.ItemInfoType.ItemName == "RazonSocial")
                                                 {
-                                                    <label>
-                                                        Razón Social/Nombre
-                                                        <span>@info.Value</span>
-                                                    </label>
+                                                    <div class="col-xs-4">
+                                                        <div class="col-xs-12">
+                                                            <label>
+                                                                Razón Social/Nombre
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-12">
+                                                            <span>@info.Value</span>
+                                                        </div>
+                                                    </div>
                                                 }
                                                 else if (info.ItemInfoType.ItemName == "IdentificationType")
                                                 {
-                                                    <label>
-                                                        Tipo de Identificación
-                                                        <span>@info.Value</span>
-                                                    </label>
+                                                    <div class="col-xs-4">
+                                                        <div class="col-xs-12">
+                                                            <label>
+                                                                Tipo de Identificación
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-12">
+                                                            <span>@info.Value</span>
+                                                        </div>
+                                                    </div>
                                                 }
                                                 else if (info.ItemInfoType.ItemName == "IdentificationNumber")
                                                 {
-                                                    <label>
-                                                        Número de Identificación
-                                                        <span>@info.Value</span>
-                                                    </label>
+                                                    <div class="col-xs-4">
+                                                        <div class="col-xs-12">
+                                                            <label>
+                                                                Número de Identificación
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-12">
+                                                            <span>@info.Value</span>
+                                                        </div>
+                                                    </div>
                                                 }
                                                 else if (info.ItemInfoType.ItemName == "Cargo")
                                                 {
-                                                    <label>
-                                                        Cargo
-                                                        <span>@info.Value</span>
-                                                    </label>
+                                                    <div class="col-xs-4">
+                                                        <div class="col-xs-12">
+                                                            <label>
+                                                                Cargo
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-12">
+                                                            <span>@info.Value</span>
+                                                        </div>
+                                                    </div>
                                                 }
                                                 else if (info.ItemInfoType.ItemName != "SearchType" &&
                                                          info.ItemInfoType.ItemName != "BlackListStatus" &&
                                                          info.ItemInfoType.ItemName != "ProviderPublicId")
                                                 {
-                                                    <label>
-                                                        @info.ItemInfoType.ItemName
-                                                        <span>@info.Value</span>
-                                                    </label>
+                                                    <div class="col-xs-4">
+                                                        <div class="col-xs-12">
+                                                            <label>
+                                                                @info.ItemInfoType.ItemName
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-12">
+                                                            <span>@info.Value</span>
+                                                        </div>
+                                                    </div>
                                                 }
                                             }
                                         }
                                     }
+                                
+                                
                                 }
                                 else
                                 {
                                     <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
                                 }
-                            </li>
-                        </ul>
+                   
                     }
 
                     @*AQUI ESTA EL AREA SEGUIMIENTOS*@
