@@ -14,6 +14,13 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">K de Contratación</label>
+        <div class="container-fluid">
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                <div class="col-xs-12">
+                    <label>Contratación (K) - Fecha de última actualización: 07 de Febrero de 2014</label>
+                </div>
+            </div>
+        </div>
         <ul class="POMPProviderKContratacion">
             @{
                 if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
@@ -36,11 +43,11 @@
                             <span>@item.FK_TotalFinancialScore</span>
                             <span>@item.FK_TotalScore</span>
                             @{
-                            string FK_TotalOrgCapacityScore = Convert.ToDecimal(item.FK_TotalOrgCapacityScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
+                        string FK_TotalOrgCapacityScore = Convert.ToDecimal(item.FK_TotalOrgCapacityScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
                             }
                             <span>@FK_TotalOrgCapacityScore</span>
                             @{
-                            string FK_TotalKValueScore = Convert.ToDecimal(item.FK_TotalKValueScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
+                        string FK_TotalKValueScore = Convert.ToDecimal(item.FK_TotalKValueScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
                             }
                             <span>@FK_TotalKValueScore</span>
                         </li>
