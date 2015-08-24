@@ -219,7 +219,7 @@ namespace MarketPlace.Web.Controllers
                             new
                             {
                                 controller = MVC.Report.Name,
-                                action = MVC.Report.ActionNames.PRGeneral
+                                action = MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport
                             }),
                         IsSelected = (CurrentControllerName == MVC.Report.ActionNames.PRGeneral),
                     });

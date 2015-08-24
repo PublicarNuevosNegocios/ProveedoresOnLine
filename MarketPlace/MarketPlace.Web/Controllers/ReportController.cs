@@ -129,10 +129,11 @@ namespace MarketPlace.Web.Controllers
             foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
             {
                 MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
-
+                /*
                 if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
                 {
                     #region Provider Report Menu
+                    
                     //header
                     oMenuAux = new GenericMenu()
                     {
@@ -161,9 +162,9 @@ namespace MarketPlace.Web.Controllers
                     oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
                     oReturn.Add(oMenuAux);
-
+                    
                     #endregion
-                }
+                }*/
                 if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                 {
                     #region Survey Report
@@ -171,7 +172,7 @@ namespace MarketPlace.Web.Controllers
                     oMenuAux = new Models.General.GenericMenu()
                     {
                         Name = "Evaluación de Desempeño",
-                        Position = 1,
+                        Position = 0,
                         ChildMenu = new List<Models.General.GenericMenu>(),
                     };
 
