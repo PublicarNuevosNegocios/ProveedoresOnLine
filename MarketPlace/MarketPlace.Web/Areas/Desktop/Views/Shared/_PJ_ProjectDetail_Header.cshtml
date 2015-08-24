@@ -319,6 +319,8 @@
                                 </li>
                             }
                         </ul>
+                        <input type="hidden" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId" value="" />
+                        <input type="hidden" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId" value="" />
                         <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
                         <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
                         <input type="hidden" name="ProjectStatus" value="@(((int)Model.ProjectStatus).ToString())" />
