@@ -20,11 +20,10 @@
 .PMMPMandatory {
     color: red;
     font-weight: bold;
-    
 }
 
-.POMPMandatoryMargin{
-    margin-left:2.5%;
+.POMPMandatoryMargin {
+    margin-left: 2.5%;
 }
 
 /**************Listado de Evaluaciones de Desempeño****************/
@@ -119,49 +118,51 @@
     padding-bottom: 15px;
 }
 
-    .container-fluid > .POMPEvalTitle > .col-xs-12{
+    .container-fluid > .POMPEvalTitle > .col-xs-12 {
         height: 35px;
         line-height: 35px;
         background: #ececec;
         width: 101% !important;
         margin: 0 0 5px -0.5%;
     }
+
     .container-fluid > .col-xs-12 > .POMPEvalTitle > .col-xs-12 {
         height: 35px;
         line-height: 35px;
         background: #ececec;
         width: 101% !important;
         margin: 0 0 5px -0.5%;
-        font-weight:bold;
-        margin-top:30px;
+        font-weight: bold;
+        margin-top: 30px;
     }
 
-        .POMPEvalTitle > .col-xs-12 > a {
-            font-size: 16px;
-            color: #4d4d4d;
-        }
-        
-        .POMPEvalTitle > .col-xs-12 > label {
-            font-size: 16px;
-            color: #4d4d4d;
-        }
-         .POMPEvalTitle > .col-xs-12 > .col-xs-12 > label, .POMPEvalTitle > .col-xs-12 > .col-xs-12 > span{
-            font-size: 16px !important;
-            color: #4d4d4d !important;
-            font-weight:bold;
-        }
+.POMPEvalTitle > .col-xs-12 > a {
+    font-size: 16px;
+    color: #4d4d4d;
+}
 
-        .POMPTitleFollow{
-        height: 35px;
-        line-height: 35px;
-        background: #ececec;
-        width: 100% !important;
-        margin: 0 0 5px 0;
-        font-weight:bold;
-        margin-top:10px;
-        padding:0 0 0 10px;
-        font-size:16px;
-    }
+.POMPEvalTitle > .col-xs-12 > label {
+    font-size: 16px;
+    color: #4d4d4d;
+}
+
+.POMPEvalTitle > .col-xs-12 > .col-xs-12 > label, .POMPEvalTitle > .col-xs-12 > .col-xs-12 > span {
+    font-size: 16px !important;
+    color: #4d4d4d !important;
+    font-weight: bold;
+}
+
+.POMPTitleFollow {
+    height: 35px;
+    line-height: 35px;
+    background: #ececec;
+    width: 100% !important;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 0 0 0 10px;
+    font-size: 16px;
+}
 
 s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     height: 35px;
@@ -172,26 +173,25 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     height: 35px;
 }
 
-.container-fluid > #POMPEvalTitleMargin > .col-xs-12{
-    margin-top:30px;
-    font-weight:bold;
+.container-fluid > #POMPEvalTitleMargin > .col-xs-12 {
+    margin-top: 30px;
+    font-weight: bold;
 }
 
-.container-fluid > #POMPEvalTitleMargin:first-child > .col-xs-12{
-    margin-top:0;
+.container-fluid > #POMPEvalTitleMargin:first-child > .col-xs-12 {
+    margin-top: 0;
 }
 
-.container-fluid > .col-xs-12 > .col-xs-12 > .col-xs-12{
-    padding-top:10px;
+.container-fluid > .col-xs-12 > .col-xs-12 > .col-xs-12 {
+    padding-top: 10px;
 }
 
 
-#POMPSeparator{
-    margin:30px 0 20px 0;
-    border-bottom:1px solid #666;
-    padding-bottom:10px;
-    font-weight:bold;
-  
+#POMPSeparator {
+    margin: 30px 0 20px 0;
+    border-bottom: 1px solid #666;
+    padding-bottom: 10px;
+    font-weight: bold;
 }
 
 
@@ -224,22 +224,26 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 }
 
 .container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-6, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .col-xs-12 > .col-xs-12 {
-    height:95px !important;
+    height: 95px;
 }
 
-#POMPAltmanHeight{
-    height:auto !important;
+#POMPAltmanHeight {
+    height: auto !important;
 }
 
-.POMPbackeval{
-    text-align:right !important;
-    margin-top:10px;
-    font-size:13px;
+.POMPbackeval {
+    text-align: right !important;
+    margin-top: 10px;
+    font-size: 13px;
 }
 
-#POMPevalmails{
-    text-decoration:underline; font-size:12px;  height:40px; line-height:40px;
+#POMPevalmails {
+    text-decoration: underline;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
 }
+
 #POMPbar1 {
     width: 100%;
     margin-bottom: 4px;
@@ -261,12 +265,13 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     width: 73%;
     margin-bottom: 4px;
 }
-#POMPviewdetail, #POMPanswereval{
-    margin-top:10px;
+
+#POMPviewdetail, #POMPanswereval {
+    margin-top: 10px;
 }
 
-#POMPacolor a{
-   color:#337ab7 !important;
+#POMPacolor a {
+    color: #337ab7 !important;
 }
 
 .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-4, .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
@@ -432,9 +437,9 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     border: 1px solid #808080;
 }
 
-.POMPAreaDetail > p{
-    padding:30px 0 0 35px !important;
-}
+    .POMPAreaDetail > p {
+        padding: 30px 0 0 35px !important;
+    }
 
 
 .POMPAreaQuestion, .POMPAreaAnswer {
@@ -706,81 +711,75 @@ textarea#Survey_ProgramSurvey_Comments {
 
 
 /**********DESCARGAR REPORTES*************/
-.POMPDownloadReports{
-    position:relative;
-    float:right;
-    margin-right:3%;
-    padding:30px 0 30px 0;
- 
+.POMPDownloadReports {
+    position: relative;
+    float: right;
+    margin-right: 3%;
+    padding: 30px 0 30px 0;
 }
 
-.POMPDownloadReportsTop{
-    position:relative;
-    float:right;
-    
- 
+.POMPDownloadReportsTop {
+    position: relative;
+    float: right;
 }
 
-#POMPButtonDownloadReports{
-    background:#ff8300;
-    color:#fff;
-    width:180px;
-    height:30px;
+#POMPButtonDownloadReports {
+    background: #ff8300;
+    color: #fff;
+    width: 180px;
+    height: 30px;
 }
 
-#POMPButtonDownloadReportsTop{
-    background:#ff8300;
-    color:#fff;
-    height:30px;
-    width:180px;
-    line-height:20px;
-    margin-right:-20px;
-   
+#POMPButtonDownloadReportsTop {
+    background: #ff8300;
+    color: #fff;
+    height: 30px;
+    width: 180px;
+    line-height: 20px;
+    margin-right: -20px;
 }
 
-.container-fluid > .POMPEvalTitle > > .col-xs-12 >.col-xs-6{
-     height: 35px;
+.container-fluid > .POMPEvalTitle > > .col-xs-12 > .col-xs-6 {
+    height: 35px;
     line-height: 35px;
     background: #ececec;
     width: 101% !important;
     margin: 0 0 5px -0.5%;
-
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child{
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child {
     padding: 10px 0 10px 0;
-    border-bottom:1px solid #999;
-
+    border-bottom: 1px solid #999;
 }
 
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12{
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12 {
     padding: 10px 0 10px 0;
-    border-bottom:1px solid #E4E4E4;
-
+    border-bottom: 1px solid #E4E4E4;
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12:first-child{
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12:first-child {
     padding: 12.5px 0 12.5px 0;
-    border-bottom:1px solid #999;
-
+    border-bottom: 1px solid #999;
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12{
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12 {
     padding: 12.5px 0 12.5px 0;
-    border-bottom:1px solid #E4E4E4;
-
+    border-bottom: 1px solid #E4E4E4;
 }
 
 
-#POMPProviderVerDetalleNew{
-    font-size:1.1em;
-    font-weight:lighter;
-    padding-top:70px !important;
+#POMPProviderVerDetalleNew {
+    font-size: 1.1em;
+    font-weight: lighter;
+    padding-top: 70px !important;
 }
 
 #POMPSocialObject {
-    height:auto !important;
-    padding-bottom:15px;
+    height: auto !important;
+    padding-bottom: 15px;
 }
 
+#POMPAutoHeight{
+    height:auto !important;
+}

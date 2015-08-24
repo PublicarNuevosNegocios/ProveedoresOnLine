@@ -87,7 +87,7 @@ ul.POMPProjectBidDataActions {
 }
 
 .POMPProjectBidMainData label {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .POMPProjectBidMainData span {
@@ -313,7 +313,7 @@ a.POMPFileUploadName {
             width: 20px;
             height: 20px;
             border: none;
-            margin: -85px 0 0 92%;
+            margin: -65px 0px 0px 92%;
             position: relative;
         }
 
@@ -585,24 +585,21 @@ div.POMPProjectBidDetailMenu {
 .POMPProjectBidDetailGridActions,
 div.POMPProjectBidDetailGridActions {
     list-style-type: none;
-    padding:0;
+    padding: 0;
     margin: auto;
     text-align: right;
     display: block;
     width: 95.9%;
-  
-
 }
 
-.POMPProjectBidDetailGridActions{
-     
-       
+.POMPProjectBidDetailGridActions {
 }
-.POMPProjectBidDetailGridActions:last-child{
-      border-bottom:1px solid #ff8300 !important;
-      border-top:1px solid #ff8300 !important;
-      padding: 15px 0 15px 0;
-}
+
+    .POMPProjectBidDetailGridActions:last-child {
+        border-bottom: 1px solid #ff8300 !important;
+        border-top: 1px solid #ff8300 !important;
+        padding: 15px 0 15px 0;
+    }
 
     .POMPProjectBidDetailGridActions li,
     div.POMPProjectBidDetailGridActions > div {
@@ -628,10 +625,9 @@ div.POMPProjectBidDetailGridActions {
     padding: 2px !important;
     text-align: left !important;
     width: 99% !important;
-    border:none !important;
+    border: none !important;
     /*background:red;*/
-    font-size:1.2em;
-
+    font-size: 1.2em;
 }
 
 .ProviderRowes > div > div.ProveedorPendiente,
@@ -673,7 +669,7 @@ div.POMPProjectBidDetailGridActions {
         line-height: 10px;
         width: 98% !important;
         margin: 0 0 5px 1%;
-        font-weight:bold;
+        font-weight: bold;
     }
 
     .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoDisplayList {

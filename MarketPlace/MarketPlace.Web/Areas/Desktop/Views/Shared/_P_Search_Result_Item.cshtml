@@ -91,15 +91,15 @@
             <div>
                 @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                 {
-                    <a class="SelGenericTooltip POMPSearchResultProvAlert" href="@(Url.RouteUrl
+                    <a class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.GIProviderInfo,
                                 ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
-                            }))">                        
-                    </a>                   
+                            }))">
+                    </a>
                 }
             </div>
             @if (Model.Item2.ProviderAddRemoveEnable)
