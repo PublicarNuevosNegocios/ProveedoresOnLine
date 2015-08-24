@@ -24,7 +24,7 @@
                     }
                     <li></li>
                 </ul>
-            </li>          
+            </li>
 
             @foreach (var oProjectProvider in Model.RelatedProjectProvider)
             {
@@ -38,24 +38,73 @@
                             @if (oApprovalProviderStatus != null &&
                                 oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                             {
-                                <div class="SelGenericTooltip ProveedorPendiente" title="Pendiente por aprobación"></div>
+                                <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+
+                                        }))">
+                                    <div class="SelGenericTooltip ProveedorPendiente" title="Pendiente por aprobación"></div>
+                                </a>
                             }
                             else if (oApprovalProviderStatus != null &&
                                     oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
                             {
-                                <div class="SelGenericTooltip ProveedorAprobado" title="Aprobado"></div>
+                                <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+
+                                        }))">
+                                    <div class="SelGenericTooltip ProveedorAprobado" title="Aprobado"></div>
+                                </a>
+
                             }
                             else if (oApprovalProviderStatus != null &&
                                     oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
                             {
-                                <div class="SelGenericTooltip ProveedorRechazado" title="Rechazado"></div>
+                                <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+
+                                        }))">
+                                    <div class="SelGenericTooltip ProveedorRechazado" title="Rechazado"></div>
+                                </a>
+
                             }
                             else if (oApprovalProviderStatus != null &&
                                     oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
                             {
-                                <div class="SelGenericTooltip ProveedorAdjudicado" title="Adjudicado"></div>
+                                <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+
+                                        }))">
+                                    <div class="SelGenericTooltip ProveedorAdjudicado" title="Adjudicado"></div>
+                                </a>
                             }
                         </li>
+
+
+
                         <!--Render evaluation areas-->
                         @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
                         {
@@ -115,17 +164,50 @@
                                     @if (oApprovalAreaStatus != null &&
                                         oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                                     {
-                                        <div class="SelGenericTooltip Pendiente" title="Pendiente por aprobación"></div>
+                                        <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            EvaluationAreaId = oAreaItem.EvaluationItemId
+                                        }))">
+                                            <div class="SelGenericTooltip Pendiente" title="Pendiente por aprobación"></div>
+                                        </a>
                                     }
                                     else if (oApprovalAreaStatus != null &&
-                                            oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+                                    oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
                                     {
-                                        <div class="SelGenericTooltip Aprobado" title="Aprobado"></div>
+                                        <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            EvaluationAreaId = oAreaItem.EvaluationItemId
+                                        }))">
+                                            <div class="SelGenericTooltip Aprobado" title="Aprobado"></div>
+                                        </a>
                                     }
                                     else if (oApprovalAreaStatus != null &&
-                                            oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
+                                    oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
                                     {
-                                        <div class="SelGenericTooltip Rechazado" title="Rechazado"></div>
+                                        <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            EvaluationAreaId = oAreaItem.EvaluationItemId
+                                        }))">
+                                            <div class="SelGenericTooltip Rechazado" title="Rechazado"></div>
+                                        </a>
                                     }
                                 </li>
                             }

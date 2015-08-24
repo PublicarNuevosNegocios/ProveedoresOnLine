@@ -25,23 +25,29 @@
                         <label>Financiera</label>
                         <label>Puntuación Total</label>
                         <label>Capacidad Organizacional S.M.M.L.V</label>
-                        <label>Capacidad Legal de Contratación S.M.M.L.V</label> 
+                        <label>Capacidad Legal de Contratación S.M.M.L.V</label>
                     </li>
                     foreach (var item in Model.RelatedFinancialInfo)
                     {
-                     <li>   
-                        <span>@item.FK_RoleType</span>
-                        <span>@item.FK_TotalTechnicScore</span>
-                        <span>@item.FK_TotalExpirienceScore</span>
-                        <span>@item.FK_TotalFinancialScore</span>
-                        <span>@item.FK_TotalScore</span>
-                        <span>@item.FK_TotalOrgCapacityScore</span>
-                        <span>@item.FK_TotalKValueScore</span>
-                    </li>
+                        <li>
+                            <span>@item.FK_RoleType</span>
+                            <span>@item.FK_TotalTechnicScore</span>
+                            <span>@item.FK_TotalExpirienceScore</span>
+                            <span>@item.FK_TotalFinancialScore</span>
+                            <span>@item.FK_TotalScore</span>
+                            @{
+                            string FK_TotalOrgCapacityScore = Convert.ToDecimal(item.FK_TotalOrgCapacityScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
+                            }
+                            <span>@FK_TotalOrgCapacityScore</span>
+                            @{
+                            string FK_TotalKValueScore = Convert.ToDecimal(item.FK_TotalKValueScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
+                            }
+                            <span>@FK_TotalKValueScore</span>
+                        </li>
                     }
 
                 }
-}
+            }
         </ul>
     </div>
 </div>
@@ -51,19 +57,19 @@
 @section inlinescripts
 {
     <script type="text/javascript">
-            $(document).ready(function () {
-                switch ($(".POMPProviderKContratacion li").length) {
-                    case 2:
-                        $(".POMPProviderKContratacion > li").addClass("KContratacionTwoColumns");
-                        break;
-                    case 3:
-                        $(".POMPProviderKContratacion > li").addClass("KContratacionThreeColumns");
-                        break;
-                    case 4:
-                        $(".POMPProviderKContratacion > li").addClass("KContratacionFourColumns");
-                        break;
-                }
-            });
+        $(document).ready(function () {
+            switch ($(".POMPProviderKContratacion li").length) {
+                case 2:
+                    $(".POMPProviderKContratacion > li").addClass("KContratacionTwoColumns");
+                    break;
+                case 3:
+                    $(".POMPProviderKContratacion > li").addClass("KContratacionThreeColumns");
+                    break;
+                case 4:
+                    $(".POMPProviderKContratacion > li").addClass("KContratacionFourColumns");
+                    break;
+            }
+        });
     </script>
 
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)

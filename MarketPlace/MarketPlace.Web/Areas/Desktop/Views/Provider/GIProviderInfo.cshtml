@@ -183,13 +183,13 @@
                                 if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
                                 {
                                     var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
-
+                                    
                                     <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                                         <div class="col-xs-12">
                                             <label>Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
                                         </div>
                                     </div>
-                
+
                                     if (Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList() != null
                                              && Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList().Count > 0)
                                     {
@@ -204,9 +204,9 @@
                                                 {
                                                     <div class="col-xs-4">
                                                         <div class="col-xs-12">
-                                                            <label>
-                                                                Razón Social/Nombre
-                                                            </label>
+                                                    <label>
+                                                        Razón Social/Nombre
+                                                    </label>
                                                         </div>
                                                         <div class="col-xs-12">
                                                             <span>@info.Value</span>
@@ -217,12 +217,12 @@
                                                 {
                                                     <div class="col-xs-4">
                                                         <div class="col-xs-12">
-                                                            <label>
-                                                                Tipo de Identificación
+                                                    <label>
+                                                        Tipo de Identificación
                                                             </label>
                                                         </div>
                                                         <div class="col-xs-12">
-                                                            <span>@info.Value</span>
+                                                        <span>@info.Value</span>
                                                         </div>
                                                     </div>
                                                 }
@@ -230,12 +230,12 @@
                                                 {
                                                     <div class="col-xs-4">
                                                         <div class="col-xs-12">
-                                                            <label>
-                                                                Número de Identificación
+                                                    <label>
+                                                        Número de Identificación
                                                             </label>
                                                         </div>
                                                         <div class="col-xs-12">
-                                                            <span>@info.Value</span>
+                                                        <span>@info.Value</span>
                                                         </div>
                                                     </div>
                                                 }
@@ -243,12 +243,12 @@
                                                 {
                                                     <div class="col-xs-4">
                                                         <div class="col-xs-12">
-                                                            <label>
-                                                                Cargo
+                                                    <label>
+                                                        Cargo
                                                             </label>
                                                         </div>
                                                         <div class="col-xs-12">
-                                                            <span>@info.Value</span>
+                                                        <span>@info.Value</span>
                                                         </div>
                                                     </div>
                                                 }
@@ -258,12 +258,12 @@
                                                 {
                                                     <div class="col-xs-4">
                                                         <div class="col-xs-12">
-                                                            <label>
-                                                                @info.ItemInfoType.ItemName
+                                                    <label>
+                                                        @info.ItemInfoType.ItemName
                                                             </label>
                                                         </div>
                                                         <div class="col-xs-12">
-                                                            <span>@info.Value</span>
+                                                        <span>@info.Value</span>
                                                         </div>
                                                     </div>
                                                 }
@@ -483,10 +483,16 @@
                                             <span>@item.FK_TotalScore</span>
                                         </div>
                                         <div class="col-xs-12">
-                                            <span>@item.FK_TotalOrgCapacityScore</span>
+                                            @{
+                                                string FK_TotalOrgCapacityScore = Convert.ToDecimal(item.FK_TotalOrgCapacityScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
+                                            }
+                                            <span>@FK_TotalOrgCapacityScore</span>
                                         </div>
                                         <div class="col-xs-12">
-                                            <span>@item.FK_TotalKValueScore</span>
+                                            @{
+                                                string FK_TotalKValueScore = Convert.ToDecimal(item.FK_TotalKValueScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
+                                            }
+                                            <span>@FK_TotalKValueScore</span>
                                         </div>
                                     </div>
                                 }
