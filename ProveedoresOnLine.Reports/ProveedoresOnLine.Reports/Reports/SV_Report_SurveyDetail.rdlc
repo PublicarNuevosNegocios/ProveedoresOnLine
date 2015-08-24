@@ -408,7 +408,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Comentarios: " + Parameters!remarks.Value</Value>
+                    <Value>="Observación: " + Parameters!remarks.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
