@@ -266,10 +266,33 @@ namespace MarketPlace.Web.Controllers
                         }
                         areas_name++;
                         rowProvider["Area_" + areas_name.ToString()] = oEvalResult + " " + oEvalValue + " " + oAprobate;
-                        rowProvider["estado"] = oAprobate;
                     }
                 }
-                
+                string pj_state = "";
+                MarketPlace.Models.General.enumApprovalStatus? oApprovalProviderStatus = oProjectProvider.ApprovalStatus;
+                if (oApprovalProviderStatus != null &&
+	                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+                {
+                    pj_state = "Pendiente por aprobación";
+                }
+                else if (oApprovalProviderStatus != null &&
+		                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+                {
+                    pj_state = "Aprobado";
+                }
+                else if (oApprovalProviderStatus != null &&
+		                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
+                {
+                    pj_state = "Rechazado";
+                }
+                else if (oApprovalProviderStatus != null &&
+		                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+                {
+                    pj_state = "Adjudicado";
+                }
+
+
+                rowProvider["estado"] = pj_state;
                 dtProvidersProject.Rows.Add(rowProvider);
             }
             Tuple<byte[], string, string> SelectionProcessReport = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_SelectionProcessReport(
