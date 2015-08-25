@@ -336,8 +336,7 @@
                                 <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CloseText).ToString())_" placeholder="Razón de cierre del proceso de selección" required validationmessage="La razón de cierre del proceso de selección es obligatoria"></textarea>
                             </li>
                         </ul>
-                        <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
-                        <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+                        <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />                        
                         <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
                         <input type="hidden" name="ProjectStatus" value="@(((int)MarketPlace.Models.General.enumProjectStatus.CloseLose).ToString())" />
                         <input type="hidden" name="ProjectName" value="@Model.ProjectName" />

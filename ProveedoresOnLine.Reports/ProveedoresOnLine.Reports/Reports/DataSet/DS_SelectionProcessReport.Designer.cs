@@ -285,15 +285,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnproviderId;
             
-            private global::System.Data.DataColumn columnhsq;
-            
-            private global::System.Data.DataColumn columntecnica;
-            
-            private global::System.Data.DataColumn columnfinanciera;
-            
-            private global::System.Data.DataColumn columnlegal;
-            
             private global::System.Data.DataColumn columnestado;
+            
+            private global::System.Data.DataColumn columnArea_1;
+            
+            private global::System.Data.DataColumn columnArea_2;
+            
+            private global::System.Data.DataColumn columnArea_3;
+            
+            private global::System.Data.DataColumn columnArea_4;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -354,41 +354,41 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn hsqColumn {
-                get {
-                    return this.columnhsq;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn tecnicaColumn {
-                get {
-                    return this.columntecnica;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn financieraColumn {
-                get {
-                    return this.columnfinanciera;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn legalColumn {
-                get {
-                    return this.columnlegal;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn estadoColumn {
                 get {
                     return this.columnestado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Area_1Column {
+                get {
+                    return this.columnArea_1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Area_2Column {
+                get {
+                    return this.columnArea_2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Area_3Column {
+                get {
+                    return this.columnArea_3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Area_4Column {
+                get {
+                    return this.columnArea_4;
                 }
             }
             
@@ -429,17 +429,17 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public areasRow AddareasRow(string providerName, string TypeId, string providerId, string hsq, string tecnica, string financiera, string legal, string estado) {
+            public areasRow AddareasRow(string providerName, string TypeId, string providerId, string estado, string Area_1, string Area_2, string Area_3, string Area_4) {
                 areasRow rowareasRow = ((areasRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         providerName,
                         TypeId,
                         providerId,
-                        hsq,
-                        tecnica,
-                        financiera,
-                        legal,
-                        estado};
+                        estado,
+                        Area_1,
+                        Area_2,
+                        Area_3,
+                        Area_4};
                 rowareasRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowareasRow);
                 return rowareasRow;
@@ -465,11 +465,11 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnproviderName = base.Columns["providerName"];
                 this.columnTypeId = base.Columns["TypeId"];
                 this.columnproviderId = base.Columns["providerId"];
-                this.columnhsq = base.Columns["hsq"];
-                this.columntecnica = base.Columns["tecnica"];
-                this.columnfinanciera = base.Columns["financiera"];
-                this.columnlegal = base.Columns["legal"];
                 this.columnestado = base.Columns["estado"];
+                this.columnArea_1 = base.Columns["Area_1"];
+                this.columnArea_2 = base.Columns["Area_2"];
+                this.columnArea_3 = base.Columns["Area_3"];
+                this.columnArea_4 = base.Columns["Area_4"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -481,16 +481,16 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnTypeId);
                 this.columnproviderId = new global::System.Data.DataColumn("providerId", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnproviderId);
-                this.columnhsq = new global::System.Data.DataColumn("hsq", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnhsq);
-                this.columntecnica = new global::System.Data.DataColumn("tecnica", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntecnica);
-                this.columnfinanciera = new global::System.Data.DataColumn("financiera", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnfinanciera);
-                this.columnlegal = new global::System.Data.DataColumn("legal", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlegal);
                 this.columnestado = new global::System.Data.DataColumn("estado", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnestado);
+                this.columnArea_1 = new global::System.Data.DataColumn("Area_1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArea_1);
+                this.columnArea_2 = new global::System.Data.DataColumn("Area_2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArea_2);
+                this.columnArea_3 = new global::System.Data.DataColumn("Area_3", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArea_3);
+                this.columnArea_4 = new global::System.Data.DataColumn("Area_4", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArea_4);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -681,70 +681,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string hsq {
-                get {
-                    try {
-                        return ((string)(this[this.tableareas.hsqColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'hsq\' in table \'areas\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableareas.hsqColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string tecnica {
-                get {
-                    try {
-                        return ((string)(this[this.tableareas.tecnicaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'tecnica\' in table \'areas\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableareas.tecnicaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string financiera {
-                get {
-                    try {
-                        return ((string)(this[this.tableareas.financieraColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'financiera\' in table \'areas\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableareas.financieraColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string legal {
-                get {
-                    try {
-                        return ((string)(this[this.tableareas.legalColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'legal\' in table \'areas\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableareas.legalColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string estado {
                 get {
                     try {
@@ -756,6 +692,70 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 }
                 set {
                     this[this.tableareas.estadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Area_1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableareas.Area_1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Area_1\' in table \'areas\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableareas.Area_1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Area_2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableareas.Area_2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Area_2\' in table \'areas\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableareas.Area_2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Area_3 {
+                get {
+                    try {
+                        return ((string)(this[this.tableareas.Area_3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Area_3\' in table \'areas\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableareas.Area_3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Area_4 {
+                get {
+                    try {
+                        return ((string)(this[this.tableareas.Area_4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Area_4\' in table \'areas\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableareas.Area_4Column] = value;
                 }
             }
             
@@ -797,54 +797,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IshsqNull() {
-                return this.IsNull(this.tableareas.hsqColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SethsqNull() {
-                this[this.tableareas.hsqColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IstecnicaNull() {
-                return this.IsNull(this.tableareas.tecnicaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SettecnicaNull() {
-                this[this.tableareas.tecnicaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsfinancieraNull() {
-                return this.IsNull(this.tableareas.financieraColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetfinancieraNull() {
-                this[this.tableareas.financieraColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IslegalNull() {
-                return this.IsNull(this.tableareas.legalColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetlegalNull() {
-                this[this.tableareas.legalColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsestadoNull() {
                 return this.IsNull(this.tableareas.estadoColumn);
             }
@@ -853,6 +805,54 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetestadoNull() {
                 this[this.tableareas.estadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsArea_1Null() {
+                return this.IsNull(this.tableareas.Area_1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetArea_1Null() {
+                this[this.tableareas.Area_1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsArea_2Null() {
+                return this.IsNull(this.tableareas.Area_2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetArea_2Null() {
+                this[this.tableareas.Area_2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsArea_3Null() {
+                return this.IsNull(this.tableareas.Area_3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetArea_3Null() {
+                this[this.tableareas.Area_3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsArea_4Null() {
+                return this.IsNull(this.tableareas.Area_4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetArea_4Null() {
+                this[this.tableareas.Area_4Column] = global::System.Convert.DBNull;
             }
         }
         

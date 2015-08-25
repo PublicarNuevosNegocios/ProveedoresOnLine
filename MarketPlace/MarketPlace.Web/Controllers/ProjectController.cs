@@ -144,41 +144,41 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("currentCompanyId", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber.ToString()));
             parameters.Add(new ReportParameter("currentCompanyLogo", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203005).Select(y => y.Value).FirstOrDefault().ToString()));
             //Header
-            parameters.Add(new ReportParameter("PJ_Name",oModel.ProjectName.ToString()));
-            parameters.Add(new ReportParameter("PJ_Type",oModel.RelatedProjectConfig.ProjectConfigName.ToString()));
-            parameters.Add(new ReportParameter("PJ_Date",oModel.LastModify.ToString()));
-            parameters.Add(new ReportParameter("PJ_Price", oModel.ProjectAmmount.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) + " " + oModel.ProjectCurrencyTypeName.ToString() ));
+            parameters.Add(new ReportParameter("PJ_Name", oModel.ProjectName.ToString()));
+            parameters.Add(new ReportParameter("PJ_Type", oModel.RelatedProjectConfig.ProjectConfigName.ToString()));
+            parameters.Add(new ReportParameter("PJ_Date", oModel.LastModify.ToString()));
+            parameters.Add(new ReportParameter("PJ_Price", oModel.ProjectAmmount.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) + " " + oModel.ProjectCurrencyTypeName.ToString()));
             parameters.Add(new ReportParameter("PJ_MinExperience", oModel.ProjectExperienceQuantity.ToString()));
             parameters.Add(new ReportParameter("PJ_InternalCodeProcess", oModel.ProjectInternalProcessNumber.ToString()));
             parameters.Add(new ReportParameter("PJ_YearsExperince", oModel.ProjectExperienceYearsValueName));
-            string actividadEconomica="";
+            string actividadEconomica = "";
             if (oModel.ProjectDefaultEconomicActivity != null && oModel.ProjectDefaultEconomicActivity.Count > 0)
             {
                 foreach (var dea in oModel.ProjectDefaultEconomicActivity)
                 {
-                    actividadEconomica= dea.ActivityName.ToString();
+                    actividadEconomica = dea.ActivityName.ToString();
                 }
             }
             else
-            if (oModel.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
-            {
-                if (oModel.ProjectCustomEconomicActivity != null && oModel.ProjectCustomEconomicActivity.Count > 0)
+                if (oModel.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
                 {
-                    foreach (var dea in oModel.ProjectCustomEconomicActivity)
+                    if (oModel.ProjectCustomEconomicActivity != null && oModel.ProjectCustomEconomicActivity.Count > 0)
                     {
-                        actividadEconomica = dea.ActivityName.ToString();
+                        foreach (var dea in oModel.ProjectCustomEconomicActivity)
+                        {
+                            actividadEconomica = dea.ActivityName.ToString();
+                        }
                     }
                 }
-            }
             parameters.Add(new ReportParameter("PJ_ActivityName", actividadEconomica));
-            string notaAdjudicacion="";
+            string notaAdjudicacion = "";
             if (oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
             {
-                notaAdjudicacion= oModel.ProjectAwardText.ToString();
+                notaAdjudicacion = oModel.ProjectAwardText.ToString();
             }
             else if (oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
             {
-                notaAdjudicacion=  oModel.ProjectCloseText.ToString();
+                notaAdjudicacion = oModel.ProjectCloseText.ToString();
             }
             parameters.Add(new ReportParameter("PJ_AdjudicateNote", notaAdjudicacion));
             parameters.Add(new ReportParameter("PJ_ResponsibleName", oModel.ProjectResponsible.ToString()));
@@ -188,12 +188,13 @@ namespace MarketPlace.Web.Controllers
             dtProvidersProject.Columns.Add("providerName", typeof(string));
             dtProvidersProject.Columns.Add("TypeId", typeof(string));
             dtProvidersProject.Columns.Add("providerId", typeof(string));
-            dtProvidersProject.Columns.Add("hsq", typeof(string));
-            dtProvidersProject.Columns.Add("tecnica", typeof(string));
-            dtProvidersProject.Columns.Add("financiera", typeof(string));
-            dtProvidersProject.Columns.Add("legal", typeof(string));
             dtProvidersProject.Columns.Add("estado", typeof(string));
-            
+            int areas_name = 0;
+            foreach (var oAreaItem in oModel.RelatedProjectConfig.GetEvaluationAreas())
+            {
+                areas_name++;
+                dtProvidersProject.Columns.Add("Area_" + areas_name.ToString(), typeof(string));
+            }
             foreach (var oProjectProvider in oModel.RelatedProjectProvider)
             {
                 DataRow rowProvider = dtProvidersProject.NewRow();
@@ -201,10 +202,11 @@ namespace MarketPlace.Web.Controllers
                 rowProvider["providerName"] = oProjectProvider.RelatedProjectProvider.RelatedProvider.RelatedCompany.CompanyName.ToString();
                 rowProvider["TypeId"] = oProjectProvider.RelatedProjectProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName.ToString();
                 rowProvider["providerId"] = oProjectProvider.RelatedProjectProvider.RelatedProvider.RelatedCompany.IdentificationNumber.ToString();
-               
+
                 //add evaluation Areas
                 if (oModel.RelatedProjectConfig.GetEvaluationAreas() != null && oModel.RelatedProjectConfig.GetEvaluationAreas().Count > 0)
                 {
+                    areas_name = 0;
                     foreach (var oAreaItem in oModel.RelatedProjectConfig.GetEvaluationAreas())
                     {
                         MarketPlace.Models.General.enumApprovalStatus? oApprovalAreaStatus = oProjectProvider.GetApprovalStatusByArea(oAreaItem.EvaluationItemId);
@@ -262,31 +264,43 @@ namespace MarketPlace.Web.Controllers
                         {
                             oAprobate = "Rechazado";
                         }
-
-                        rowProvider["estado"] = oAprobate;
-
-
-                        switch (oAreaItem.EvaluationItemId)
-                        {
-                            case 1:
-                                rowProvider["hsq"] = oEvalResult + " " + oEvalValue + " " + oAprobate;
-                            break;
-                            case 2:
-                                rowProvider["tecnica"] = oEvalResult + " " + oEvalValue + " " + oAprobate;
-                            break;
-                            case 3:
-                                rowProvider["financiera"] =  oEvalResult + " " + oEvalValue + " " + oAprobate;
-                            break;
-                            case 4:
-                                rowProvider["legal"] =  oEvalResult + " " + oEvalValue + " " + oAprobate;
-                            break;
-                            default:
-                            break;
-                        }
-
+                        areas_name++;
+                        rowProvider["Area_" + areas_name.ToString()] = oEvalResult + " " + oEvalValue + " " + oAprobate;
                     }
+                }
+                string pj_state = "";
+                MarketPlace.Models.General.enumApprovalStatus? oApprovalProviderStatus = oProjectProvider.ApprovalStatus;
+
+                if (oModel.CurrentProjectProvider == null &&
+                (oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
+                {
+                    pj_state = "Solicitar aprobación";
 
                 }
+                else if (oApprovalProviderStatus != null &&
+	                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+                {
+                    pj_state = "Pendiente por aprobación";
+                }
+                else if (oApprovalProviderStatus != null &&
+		                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+                {
+                    pj_state = "Aprobado";
+                }
+                else if (oApprovalProviderStatus != null &&
+		                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
+                {
+                    pj_state = "Rechazado";
+                }
+                else if (oApprovalProviderStatus != null &&
+		                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+                {
+                    pj_state = "Adjudicado";
+                }
+
+
+                rowProvider["estado"] = pj_state;
                 dtProvidersProject.Rows.Add(rowProvider);
             }
             Tuple<byte[], string, string> SelectionProcessReport = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_SelectionProcessReport(
@@ -300,7 +314,7 @@ namespace MarketPlace.Web.Controllers
             oReportModel.FileName = SelectionProcessReport.Item3;
             return oReportModel;
         }
-
+        
         #endregion
     }
 }
