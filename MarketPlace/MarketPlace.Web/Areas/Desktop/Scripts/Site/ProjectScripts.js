@@ -14,6 +14,9 @@
         .kendoUpload({
             multiple: false,
             showFileList: false,
+            localization: {
+                "select": "Seleccionar Archivos"
+            },
             async: {
                 saveUrl: BaseUrl.ApiUrl + '/ProjectApi?ProjectUploadFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId,
                 autoUpload: true

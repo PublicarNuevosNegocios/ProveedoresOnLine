@@ -258,182 +258,178 @@
 
 /******** NUEVOS ESTILOS - EDICIÓN********/
 
-.POMPProviderSurvey_mainFilter{
-    position:relative;
+.POMPProviderSurvey_mainFilter {
+    position: relative;
 }
 
-.SurveyOrderBy{
-    margin:0 0 20px 0;
-    height:50px;
+.SurveyOrderBy {
+    margin: 0 0 20px 0;
+    height: 50px;
 }
 
-.SurveyFilters{
-    width:50% !important;
-    margin-left:4%;
-   
+.SurveyFilters {
+    width: 50% !important;
+    margin-left: 4%;
 }
 
 .SurveyResults {
     width: 42% !important;
     height: 175px !important;
     position: relative;
-
 }
 
-.SurveyAverage{
-   width:100%;
+.SurveyAverage {
+    width: 100%;
 }
 
-#POMPPromedio{
-    position:absolute;
-    margin:auto;
-    right:15%;
-    width:auto;
-    height:50px;
-   
+#POMPPromedio {
+    position: absolute;
+    margin: auto;
+    right: 15%;
+    width: auto;
+    height: 50px;
 }
 
-#POMPSearchResultsPagerPercentage{
-    font-size:45px;
-    width:auto;
-    height:70px;
-    position:absolute;
-    margin:auto;
-    right:10%;
-   top:50px;
+#POMPSearchResultsPagerPercentage {
+    font-size: 45px;
+    width: auto;
+    height: 70px;
+    position: absolute;
+    margin: auto;
+    right: 10%;
+    top: 50px;
 }
 
-#SurveySearch_InitDateId, #SurveySearch_EndDateId{
-    height:25px !important;
-}
-.SurveyFilterDate{
-}
-#SurveySearch_Order{
-    width:100% !important;
-    max-width:325px !important;
+#SurveySearch_InitDateId, #SurveySearch_EndDateId {
+    height: 25px !important;
 }
 
-.POMPFilterBox{
-    width:163px;
-    height:auto;
-    position:relative;
-    float:left;
-
+.SurveyFilterDate {
 }
 
-.POMPButtonsSurvey{
-    margin-top:20px;
+#SurveySearch_Order {
+    width: 100% !important;
+    max-width: 325px !important;
+}
+
+.POMPFilterBox {
+    width: 163px;
+    height: auto;
+    position: relative;
+    float: left;
+}
+
+.POMPButtonsSurvey {
+    margin-top: 20px;
 }
 
 
 
 
 
-#POMPButtonSurveryNewEvaluation{
-    position:absolute;
-    bottom:0;
-    right:0;
+#POMPButtonSurveryNewEvaluation {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
-.POMPProviderDataWrapper{
-    min-width:700px !important;
+.POMPProviderDataWrapper {
+    min-width: 700px !important;
 }
 
 
 /*********INFORMACIÓN DE REPORTE DE EVALUACIONES DE DESEMPEÑO******/
 
-.POMPResultInfoEvaluation{
-    width:97%;
-    margin:10px 0 20px 1.5%;
-    height:250px;
-    background:#f9f9f9;
-    position:relative;
+.POMPResultInfoEvaluation {
+    width: 97%;
+    margin: 10px 0 20px 1.5%;
+    height: 250px;
+    background: #f9f9f9;
+    position: relative;
 }
 
-.POMPResultInfoEvaluation > p{
-    text-align:center;
-    font-size:1.1em;
-    padding:30px 0 0 0;
+    .POMPResultInfoEvaluation > p {
+        text-align: center;
+        font-size: 1.1em;
+        padding: 30px 0 0 0;
+    }
+
+#POMPReportGenerator > a {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 135px;
+    margin: auto;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    color: #337ab7;
 }
 
-#POMPReportGenerator > a{
-    position:absolute;
-    right:0;
-    left:0;
-    top:135px;
-    margin:auto;
-    text-align:center;
-    line-height:40px;
-    text-decoration:none;
-    color:#337ab7;
+    #POMPReportGenerator > a > img {
+        width: 35px;
+        margin-left: 0px;
+    }
+
+.POMPManualLink {
+    width: 250px;
+    height: 90px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 38px;
+    margin: auto;
 }
 
-#POMPReportGenerator > a > img{
-    width:45px;
-    margin-left:10px;
-}
-
-.POMPManualLink{
-    width:250px;
-    height:90px;
-    position:absolute;
-    right:0;
-    left:0;
-    bottom:38px;
-    margin:auto;
-}
-
-#POMPManualTitle{
-    cursor:pointer;
-    width:83px;
-    height:30px;
-    float:left;
-    background:#f9f9f9;
-    margin-left:83px;
-    border-top-left-radius:5px;
-    border-top-right-radius:5px;
-    border-top:1px solid #E4E4E4;
-     border-right:1px solid #E4E4E4;
-     border-left:1px solid #E4E4E4;
+#POMPManualTitle {
+    cursor: pointer;
+    width: 83px;
+    height: 30px;
+    float: left;
+    background: #f9f9f9;
+    margin-left: 83px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    border-left: 1px solid #E4E4E4;
 }
 
 
-#POMPManualTitle > p{
-    color:#4d4d4d;
-    text-align:center;
-    line-height:30px;
-    font-size:0.7em;
-    font-weight:400;
-    
+    #POMPManualTitle > p {
+        color: #4d4d4d;
+        text-align: center;
+        line-height: 30px;
+        font-size: 0.7em;
+        font-weight: 400;
+    }
+
+#POMPManualIcons {
+    width: 250px;
+    height: 60px;
+    float: left;
+    background: #f9f9f9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid #E4E4E4;
+    position: relative;
 }
 
-#POMPManualIcons{
-    width:250px;
-    height:60px;
-    float:left;
-    background:#f9f9f9;
-     border-top-left-radius:5px;
-    border-top-right-radius:5px;
-    border:1px solid #E4E4E4;
-    position:relative;
-
+.POMPPdfContainer {
+    width: 40px;
+    height: 40px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    position: absolute;
 }
 
-.POMPPdfContainer{
-    width:40px;
-    height:40px;
-    left:0;
-    right:0;
-    margin:auto;
-    top:0;
-    bottom:0;
-    position:absolute;
-}
-
-.POMPPdfContainer > a > img{
-    height:100%;
-    position:absolute;
-    left:0;
-    right:0;
-    margin:auto;
-}
+    .POMPPdfContainer > a > img {
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
