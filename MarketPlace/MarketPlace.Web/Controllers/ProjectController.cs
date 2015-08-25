@@ -270,7 +270,15 @@ namespace MarketPlace.Web.Controllers
                 }
                 string pj_state = "";
                 MarketPlace.Models.General.enumApprovalStatus? oApprovalProviderStatus = oProjectProvider.ApprovalStatus;
-                if (oApprovalProviderStatus != null &&
+
+                if (oModel.CurrentProjectProvider == null &&
+                (oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
+                {
+                    pj_state = "Solicitar aprobación";
+
+                }
+                else if (oApprovalProviderStatus != null &&
 	                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                 {
                     pj_state = "Pendiente por aprobación";
