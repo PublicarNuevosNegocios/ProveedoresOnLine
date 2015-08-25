@@ -153,14 +153,12 @@
             </ul>
             <!--Project files-->
             <div class="POMPProjectBidFileUploadWrapper">
+                <label>Archivos del proceso de selección</label>
                 @if (!IsProjectProviderDetail)
                 {
                     <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
                 }
-                else
-                {
-                    <label>Archivos del proceso de selección</label>
-                }
+              
                 @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
                 {
                     <ul id="ProjectDetail_FileUpload_FileList">
@@ -181,7 +179,7 @@
                 {
                     <ul id="ProjectDetail_FileUpload_FileList"></ul>
                 }
-                
+
             </div>
         </div>
     </div>

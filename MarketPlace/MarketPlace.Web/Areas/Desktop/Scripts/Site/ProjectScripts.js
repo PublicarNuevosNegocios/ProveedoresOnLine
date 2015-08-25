@@ -15,7 +15,7 @@
             multiple: false,
             showFileList: false,
             localization: {
-                "select": "Seleccionar Archivos"
+                "select": "Agregar"
             },
             async: {
                 saveUrl: BaseUrl.ApiUrl + '/ProjectApi?ProjectUploadFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId,
