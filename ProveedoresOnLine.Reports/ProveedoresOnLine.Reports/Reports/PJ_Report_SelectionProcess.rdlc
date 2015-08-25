@@ -994,14 +994,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="hsq1">
+                    <Textbox Name="Area_1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!hsq.Value</Value>
+                              <Value>=Fields!Area_1.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1010,7 +1010,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>hsq1</rd:DefaultName>
+                      <rd:DefaultName>Area_1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1026,14 +1026,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="tecnica1">
+                    <Textbox Name="Area_2">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!tecnica.Value</Value>
+                              <Value>=Fields!Area_2.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1042,7 +1042,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>tecnica1</rd:DefaultName>
+                      <rd:DefaultName>Area_2</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1058,14 +1058,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="financiera1">
+                    <Textbox Name="Area_3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!financiera.Value</Value>
+                              <Value>=Fields!Area_3.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1074,7 +1074,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>financiera1</rd:DefaultName>
+                      <rd:DefaultName>Area_3</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1090,14 +1090,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="legal">
+                    <Textbox Name="Area_4">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!legal.Value</Value>
+                              <Value>=Fields!Area_4.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1106,7 +1106,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>legal</rd:DefaultName>
+                      <rd:DefaultName>Area_4</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1337,7 +1337,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>="Geneado por: " + Parameters!reportGeneratedBy.Value + "Generado el: " + CDate(Today()).ToString("dd/MM/yyyy")</Value>
+                  <Value>="Geneado por: " + Parameters!reportGeneratedBy.Value + ". Generado el: " + CDate(Today()).ToString("dd/MM/yyyy")</Value>
                   <Style>
                     <FontSize>9pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1410,24 +1410,24 @@
           <DataField>providerId</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="hsq">
-          <DataField>hsq</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="tecnica">
-          <DataField>tecnica</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="financiera">
-          <DataField>financiera</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="legal">
-          <DataField>legal</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="estado">
           <DataField>estado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_1">
+          <DataField>Area_1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_2">
+          <DataField>Area_2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_3">
+          <DataField>Area_3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_4">
+          <DataField>Area_4</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
