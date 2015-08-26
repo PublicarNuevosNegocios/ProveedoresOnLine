@@ -2434,8 +2434,9 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyEvaluator", oModel.RelatedSurvey.SurveyEvaluator));
             parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));          
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
-            
-            
+            parameters.Add(new ReportParameter("SurveyAverage", oModel.RelatedSurvey.Average.ToString()));
+
+
             if (oModel.RelatedSurvey.SurveyRelatedProject == null)
             {
                 parameters.Add(new ReportParameter("SurveyRelatedProject", "NA"));

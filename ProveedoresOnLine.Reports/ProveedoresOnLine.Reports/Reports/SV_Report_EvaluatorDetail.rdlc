@@ -45,14 +45,16 @@
                 <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationType</rd:DefaultName>
         <Top>0.17639cm</Top>
-        <Left>9.41953cm</Left>
+        <Left>9.57556cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.80209cm</Width>
+        <Width>1.64606cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -75,7 +77,9 @@
                 <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
@@ -131,20 +135,22 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>CALIFICACIÓN</Value>
+                <Value>CALIFICACIÓN DEL EVALUADOR</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.596cm</Top>
-        <Left>10.7848cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.67348cm</Width>
+        <Top>3.77611cm</Top>
+        <Left>8.41411cm</Left>
+        <Height>1.30584cm</Height>
+        <Width>2.89397cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -176,10 +182,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyRating</rd:DefaultName>
-        <Top>4.30183cm</Top>
-        <Left>10.7848cm</Left>
-        <Height>1.30416cm</Height>
-        <Width>2.67348cm</Width>
+        <Top>5.18778cm</Top>
+        <Left>8.41411cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.89397cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -209,7 +215,7 @@
         <Top>3.07028cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -239,7 +245,7 @@
         <Top>3.07028cm</Top>
         <Left>4.48474cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.86423cm</Width>
+        <Width>3.75298cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -269,7 +275,7 @@
         <Top>3.77611cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -299,7 +305,7 @@
         <Top>3.77611cm</Top>
         <Left>4.48474cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.86423cm</Width>
+        <Width>3.75298cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -329,7 +335,7 @@
         <Top>1.65861cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -389,7 +395,7 @@
         <Top>4.48195cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -419,7 +425,7 @@
         <Top>2.36445cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -449,7 +455,7 @@
         <Top>5.18778cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
@@ -476,10 +482,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyLastModify</rd:DefaultName>
-        <Top>4.48028cm</Top>
+        <Top>4.48195cm</Top>
         <Left>4.48474cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.86423cm</Width>
+        <Width>3.75298cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -536,10 +542,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SurveyRelatedProject</rd:DefaultName>
-        <Top>5.18611cm</Top>
+        <Top>5.18778cm</Top>
         <Left>4.48474cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.86423cm</Width>
+        <Width>3.75298cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -1032,8 +1038,77 @@
         <Top>0.95278cm</Top>
         <Left>0.3175cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.39383cm</Width>
+        <Width>4.09668cm</Width>
         <ZIndex>19</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox15">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>CALIFICACIÓN TOTAL DE LA EVALUACIÓN</Value>
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>3.77444cm</Top>
+        <Left>11.48446cm</Left>
+        <Height>1.30584cm</Height>
+        <Width>2.86923cm</Width>
+        <ZIndex>20</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="SurveyAverage">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!SurveyAverage.Value</Value>
+                <Style>
+                  <FontSize>14pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>SurveyAverage</rd:DefaultName>
+        <Top>5.18611cm</Top>
+        <Left>11.48446cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.86923cm</Width>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1051,7 +1126,7 @@
   <Width>6.01696in</Width>
   <Page>
     <PageHeader>
-      <Height>3.20766cm</Height>
+      <Height>2.96954cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1101,7 +1176,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>CustomerIdentification</rd:DefaultName>
-          <Top>2.00808cm</Top>
+          <Top>1.93753cm</Top>
           <Left>6.88654cm</Left>
           <Height>0.6cm</Height>
           <Width>4.78542cm</Width>
@@ -1131,7 +1206,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>CustomerIdentificationType</rd:DefaultName>
-          <Top>2.00808cm</Top>
+          <Top>1.93753cm</Top>
           <Left>4.55003cm</Left>
           <Height>0.6cm</Height>
           <Width>2.33652cm</Width>
@@ -1151,9 +1226,9 @@
           <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>FitProportional</Sizing>
           <Top>0.59641cm</Top>
-          <Left>1.27614cm</Left>
-          <Height>2.32021cm</Height>
-          <Width>2.92285cm</Width>
+          <Left>1.07003cm</Left>
+          <Height>2.01167cm</Height>
+          <Width>2.81146cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -1202,10 +1277,10 @@
     </PageHeader>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
-    <LeftMargin>2cm</LeftMargin>
-    <RightMargin>2cm</RightMargin>
-    <TopMargin>2cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <LeftMargin>1cm</LeftMargin>
+    <RightMargin>1cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>
@@ -1319,6 +1394,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="ProviderIdentificationNumber">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SurveyAverage">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
