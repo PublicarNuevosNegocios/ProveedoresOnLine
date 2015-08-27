@@ -5,44 +5,6 @@
 
     Model.RenderScripts = false;
 
-    string strjsUpdateObject = string.Empty;
-    if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
-    {
-        strjsUpdateObject = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-            Serialize(new
-            {
-                SurveyStatus = (int)Model.RelatedSurvey.SurveyStatus,
-
-                SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
-                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-
-                SurveyConfigId = Model.RelatedSurvey.SurveyConfigId,
-                SurveyConfigName = Model.RelatedSurvey.SurveyConfigName,
-
-                SurveyEvaluator = Model.RelatedSurvey.SurveyEvaluator,
-                SurveyEvaluatorId = Model.RelatedSurvey.SurveyEvaluatorId,
-
-                SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
-                SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
-
-                SurveyContract = Model.RelatedSurvey.SurveyContract,
-                SurveyContractId = Model.RelatedSurvey.SurveyContractId,
-
-                SurveyStartDate = Model.RelatedSurvey.SurveyStartDate,
-                SurveyStartDateId = Model.RelatedSurvey.SurveyStartDateId,
-
-                SurveyEndDate = Model.RelatedSurvey.SurveyEndDate,
-                SurveyEndDateId = Model.RelatedSurvey.SurveyEndDateId,
-
-                SurveyComments = Model.RelatedSurvey.SurveyComments,
-                SurveyCommentsId = Model.RelatedSurvey.SurveyCommentsId,
-
-                SurveyRelatedProject = Model.RelatedSurvey.SurveyRelatedProject,
-                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,
-            });
-
-    }
-
     Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
 
     MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
@@ -127,8 +89,7 @@
                                 </div>
 
                                 }
-
-                                @*<span>@Model.RelatedSurvey.SurveyEvaluator</span>*@
+                                
 
                             </div>
                         </div>

@@ -1756,11 +1756,7 @@ namespace MarketPlace.Web.Controllers
                 FirstOrDefault();
 
             //validate provider permisions
-            if (oProvider == null)
-            {
-                //return url provider not allowed
-            }
-            else
+            if (oProvider != null)
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
@@ -1769,6 +1765,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                     (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
             }
+            Report_SurveyGeneral(oModel);
             return View(oModel);
         }
 
@@ -2411,6 +2408,30 @@ namespace MarketPlace.Web.Controllers
         #endregion
 
         #region Pivate Functions
+
+        private GenericReportModel Report_SurveyGeneral(ProviderViewModel oModel)
+        {
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            GenericReportModel oReporModel = new GenericReportModel();
+
+            //CustomerInfo
+            parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+            parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+            parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+            //ProviderInfo
+            parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+            parameters.Add(new ReportParameter("ProviderIdentificationType", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+
+
+            //foreach (var Survey in oModel.RelatedSurvey.SurveyEvaluatorIdList)
+            //{
+            //    Report_SurveyEvaluatorDetail()
+            //}
+            return null;
+        }
+
         private GenericReportModel Report_SurveyEvaluatorDetail(ProviderViewModel oModel)
         {
             List<ReportParameter> parameters = new List<ReportParameter>();
