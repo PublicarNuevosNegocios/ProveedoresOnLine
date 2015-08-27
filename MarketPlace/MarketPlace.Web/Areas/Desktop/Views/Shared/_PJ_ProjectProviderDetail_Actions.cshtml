@@ -9,49 +9,6 @@
     bool IsApprovalUser = Model.IsApprovalUser();
 
     <div>
-        <div class="POMPProjectBidDetailGridActions ProviderRowes">
-            @if (!IsApprovalUser &&
-                oCurrentEvaluationAreaStatus != null &&
-                oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
-            {
-                <!--Pending Approve-->
-                <div class="POMPProjectBidApprovalText">
-                    <div class="SelGenericTooltip ProveedorPendiente" title="Pendiente por aprobación"></div>
-                    <span>Pendiente por aprobación</span>
-                </div>
-            }
-            else if (oCurrentEvaluationAreaStatus != null &&
-                    oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
-            {
-                <!--Approved-->
-                <div class="POMPProjectBidApprovalText">
-                    <div class="SelGenericTooltip ProveedorAprobado" title="Aprobado"></div>
-                    <b>Evaluado por: </b>
-                    <span>@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
-                </div>
-            }
-            else if (oCurrentEvaluationAreaStatus != null &&
-                     oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
-            {
-                <!--Rejected-->
-                <div class="POMPProjectBidApprovalText">
-                    <div class="SelGenericTooltip ProveedorRechazado" title="Rechazado"></div>
-                    <b>Evaluado por: </b>
-                    <span>@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
-                </div>
-            }
-            else if (oCurrentEvaluationAreaStatus != null &&
-                     oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
-            {
-                <!--Award-->
-                <div class="POMPProjectBidApprovalText">
-                    <div class="SelGenericTooltip ProveedorAdjudicado" title="Adjudicado"></div>
-                    <b>Evaluado por: </b>
-                    <span>@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
-                </div>
-            }
-        </div>
-
         <ul class="POMPProjectBidDetailGridActions ProviderRowes">
             @if (Model.CurrentProjectProvider.ApprovalStatus == null &&
                 (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
@@ -167,19 +124,83 @@
                                                     ProjectPublicId = Model.ProjectPublicId,
                                                     ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                                 }))">Programar evaluación de desempeño</a>
-                </li>             
+                </li>
             }
         </ul>
+        <div class="container-fluid">
+            @if (!IsApprovalUser &&
+                oCurrentEvaluationAreaStatus != null &&
+                oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+            {
+                <!--Pending Approve-->
+                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="SelGenericTooltip ProveedorPendiente" title="Pendiente por aprobación"></div>
+                            <span class="POMPPSTitle">Pendiente por aprobación</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (oCurrentEvaluationAreaStatus != null &&
+                    oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+            {
+                <!--Approved-->
+                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="SelGenericTooltip ProveedorAprobado" title="Aprobado"></div>
+                            <b>Evaluado por: </b>
+                            <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (oCurrentEvaluationAreaStatus != null &&
+                     oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
+            {
+                <!--Rejected-->
+                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="SelGenericTooltip ProveedorRechazado" title="Rechazado"></div>
+                            <b>Evaluado por: </b>
+                            <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (oCurrentEvaluationAreaStatus != null &&
+                     oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+            {
+                <!--Award-->
+                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <div class="SelGenericTooltip ProveedorAdjudicado" title="Adjudicado"></div>
+                            <b>Evaluado por: </b>
+                            <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
     </div>
 
-    <div class="POMPProjectBidDetailGridActions providerrowes">
+    <div class="container-fluid">
         @if (oCurrentEvaluationAreaStatus != null &&
             oCurrentEvaluationAreaStatus != MarketPlace.Models.General.enumApprovalStatus.Pending)
         {
             <!--Approval text-->
-            <div class="POMPProjectBidApprovalText">
-                <b>Nota de aprobación o rechazo:</b>
-                <span>@Model.CurrentProjectProvider.GetApprovalTextByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <b>Nota de aprobación o rechazo:</b>
+                        <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetApprovalTextByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                    </div>
+                </div>
             </div>
         }
     </div>

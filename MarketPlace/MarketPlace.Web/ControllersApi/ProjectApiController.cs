@@ -1184,7 +1184,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<Tuple<string, int, string, string, int, DateTime >> GetProjectByMonth(string GetProjectByMonth)
+        public Dictionary<string, int> GetProjectByResponsible(string GetProjectByResponsible)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -1197,15 +1197,15 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
 
-            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetProjectByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetProjectByResponsible(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-            List<Tuple<string, int, string, string, int, DateTime>> oReturn = new List<Tuple<string, int, string, string, int, DateTime>>();
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(Tuple.Create(x.Title, x.CountX, x.AxisX, x.AxisY, x.Count, x.Date));
+                    oReturn.Add(x.AxisY, x.Count);
                     return true;
                 });
             }

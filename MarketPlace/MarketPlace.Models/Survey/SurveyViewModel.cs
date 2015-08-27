@@ -350,11 +350,11 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                return ((5 * RelatedSurvey.SurveyInfo.
+                return (5*(RelatedSurvey.SurveyInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Rating).
                     Select(y => Convert.ToDecimal(y.Value)).
                     DefaultIfEmpty(0).
-                    FirstOrDefault()) / 100);
+                    FirstOrDefault())/100);
             }
         }        
 

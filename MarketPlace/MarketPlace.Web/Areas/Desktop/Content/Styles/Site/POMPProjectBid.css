@@ -298,7 +298,6 @@ a.POMPFileUploadName {
         }
 
 .ProviderRowes > li {
-    border-bottom: 1px solid #ff8300;
     height: 102px;
 }
 
@@ -585,7 +584,7 @@ div.POMPProjectBidDetailMenu {
 .POMPProjectBidDetailGridActions,
 div.POMPProjectBidDetailGridActions {
     list-style-type: none;
-    padding: 0;
+    padding: 10px;
     margin: auto;
     text-align: right;
     display: block;
@@ -609,8 +608,6 @@ div.POMPProjectBidDetailGridActions {
         text-align: right;
         width: auto;
         display: inline-block;
-        border-bottom: none !important;
-        border-left: 1px solid gray;
     }
 
         .POMPProjectBidDetailGridActions li a,

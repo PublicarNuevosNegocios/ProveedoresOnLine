@@ -59,7 +59,7 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
         #region ProjectCharts
 
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByState(string CustomerPublicId, DateTime Year);
-        List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByMonth(string CustomerPublicId, DateTime Year);
+        List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByResponsible(string CustomerPublicId);
 
 
         #endregion

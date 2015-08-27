@@ -529,7 +529,7 @@ var ProjectByStatus_ChartsObject = {
     },
 };
 
-var ProjectByMonth_ChartsObject = {
+var ProjectByResponsible_ChartsObject = {
     ObjectId: '',
     DashboardId: '',
     SearchUrl: '',
@@ -540,56 +540,36 @@ var ProjectByMonth_ChartsObject = {
         this.DashboardId = vInitObject.DashboardId;
     },
 
-    RenderChatrProjectByMonth: function () {
+    RenderChart: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByMonth=true',
+            url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByResponsible=true',
             dataType: "json",
             async: false,
             success: function (result) {
 
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Estado');
-                data.addColumn('number', 'Mes');
-                data.addColumn('string', 'Meses');
+                var data = new google.visualization.DataTable();                
                 data.addColumn('string', 'Responsable');
                 data.addColumn('number', 'Cantidad');
-                data.addColumn('date', 'Fecha');
-                data.addColumn({ type: 'string', role: 'annotation' });
-                $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item5, new Date(value.m_Item6), value.m_Item1]]);
-                });
-                var dashboard = new google.visualization.Dashboard(document.getElementById(ProjectByMonth_ChartsObject.DashboardId));
-
-                var vBarChart = new google.visualization.ChartWrapper({
-                    'chartType': 'Bar',
-                    'containerId': document.getElementById(ProjectByMonth_ChartsObject.ObjectId),
-                    'options': {
-                        bars: 'horizontal',
-                        series: { 0: { color: 'orange', visibleInLegend: false }, 1: { color: 'blue', visibleInLegend: false } },
-                        chartArea: { left: 150, top: 10, width: "80%", height: "80%" },
-                        height: "100%",
-                        width: "100%"
-                    },
-
-                    'view': {
-                        'columns': [3, 4, 6]
-                    }
+                $.each(result, function (item, value) {                    
+                    data.addRows([[item, value]]);
                 });
 
-                // Create the filter
-                var barFilterMonth = new google.visualization.ControlWrapper({
-                    'controlType': 'CategoryFilter',
-                    'containerId': 'filter_month',
-                    'options': {
-                        'filterColumnLabel': 'Meses'
-                    }
-                });
+                var options = {
+                    bars: 'horizontal',
+                    legend: { position: "none" },
+                    series: { 0: { color: 'orange', visibleInLegend: false }, 1: { color: 'blue', visibleInLegend: false } },
+                    is3D: true,
+                    chartArea: { left: 200, top: 10, width: "100%", height: "90%" },
+                    height: "100%",
+                    width: "60%"
+                    
+                };
 
-                dashboard.bind(barFilterMonth, vBarChart);
+                var vBarChart = new google.visualization.BarChart(document.getElementById(ProjectByResponsible_ChartsObject.ObjectId));
 
-                dashboard.draw(data);
+                vBarChart.draw(data, options);
                 function resize() {
-                    dashboard.draw(data);
+                    vBarChart.draw(data, options);
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);
