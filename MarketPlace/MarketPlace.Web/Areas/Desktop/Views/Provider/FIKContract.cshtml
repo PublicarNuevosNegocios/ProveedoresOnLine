@@ -17,49 +17,78 @@
         <div class="container-fluid">
             <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                 <div class="col-xs-12">
-                    <label>Contratación (K) - Fecha de última actualización: 07 de Febrero de 2014</label>
+                    <label>Contratación (K)</label> <p>Decreto 4881 de 2008. Fecha de última actualización: 07 de Febrero de 2014</p>
                 </div>
             </div>
-        </div>
-        <ul class="POMPProviderKContratacion">
-            @{
-                if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
-                {
-                    <li>
-                        <label>Criterio de evaluación</label>
-                        <label>Capacidad Técnica</label>
-                        <label>Experiencias</label>
-                        <label>Financiera</label>
-                        <label>Puntuación Total</label>
-                        <label>Capacidad Organizacional S.M.M.L.V</label>
-                        <label>Capacidad Legal de Contratación S.M.M.L.V</label>
-                    </li>
-                    foreach (var item in Model.RelatedFinancialInfo)
+            <div class="col-xs-12">
+                @{
+                    if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
                     {
-                        <li>
-                            <span>@item.FK_RoleType</span>
-                            <span>@item.FK_TotalTechnicScore</span>
-                            <span>@item.FK_TotalExpirienceScore</span>
-                            <span>@item.FK_TotalFinancialScore</span>
-                            <span>@item.FK_TotalScore</span>
-                            @{
-                        string FK_TotalOrgCapacityScore = Convert.ToDecimal(item.FK_TotalOrgCapacityScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
-                            }
-                            <span>@FK_TotalOrgCapacityScore</span>
-                            @{
-                        string FK_TotalKValueScore = Convert.ToDecimal(item.FK_TotalKValueScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));
-                            }
-                            <span>@FK_TotalKValueScore</span>
-                        </li>
-                    }
+                        <div class="col-xs-10">
+                            <div class="col-xs-12">
+                                <label>Criterio de evaluación</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <label>Capacidad Técnica</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <label>Experiencias</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <label>Financiera</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <label>Puntuación Total</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <label>Capacidad Organizacional S.M.M.L.V</label>
+                            </div>
+                            <div class="col-xs-12">
+                                <label>Capacidad Legal de Contratación S.M.M.L.V</label>
+                            </div>
+                        </div>
+                        foreach (var item in Model.RelatedFinancialInfo)
+                        {
+                            <div class="col-xs-2">
+                                <div class="col-xs-12">
+                                    <span>@item.FK_RoleType</span>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.FK_TotalTechnicScore</span>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.FK_TotalExpirienceScore</span>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.FK_TotalFinancialScore</span>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span>@item.FK_TotalScore</span>
+                                </div>
 
+                                @{string FK_TotalOrgCapacityScore = Convert.ToDecimal(item.FK_TotalOrgCapacityScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));}
+
+                                <div class="col-xs-12">
+                                    <span>@FK_TotalOrgCapacityScore</span>
+                                </div>
+
+                                @{string FK_TotalKValueScore = Convert.ToDecimal(item.FK_TotalKValueScore).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("ES-co"));}
+
+                                <div class="col-xs-12">
+                                    <span>@FK_TotalKValueScore</span>
+                                </div>
+                            </div>
+
+                        }
+
+                    }
                 }
-            }
-        </ul>
+            </div>
+        </div>
     </div>
 </div>
 @{
-    Model.RenderScripts = true;
+        Model.RenderScripts = true;
 }
 @section inlinescripts
 {

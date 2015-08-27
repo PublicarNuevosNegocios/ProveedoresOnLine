@@ -224,7 +224,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 }
 
 .container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-6, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .col-xs-12 > .col-xs-12 {
-    height: 95px;
+    height: auto;
 }
 
 #POMPAltmanHeight {
@@ -739,7 +739,7 @@ textarea#Survey_ProgramSurvey_Comments {
     margin-right: -20px;
 }
 
-.container-fluid > .POMPEvalTitle > > .col-xs-12 > .col-xs-6 {
+.container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-6 {
     height: 35px;
     line-height: 35px;
     background: #ececec;
@@ -747,9 +747,35 @@ textarea#Survey_ProgramSurvey_Comments {
     margin: 0 0 5px -0.5%;
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child {
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child, .container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12:first-child {
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #999;
+}
+
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-10 > .col-xs-12:first-child{
+     padding: 10px 0 10px 0;
+    border-bottom: 1px solid #999;
+}
+
+
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-10 > .col-xs-12{
+     padding: 10px 0 10px 0;
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12{
+     padding: 10px 0 10px 0;
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.container-fluid > .col-xs-12 > .col-xs-2 > .col-xs-12:first-child{
+    padding: 12.5px 0 12.5px 0;
+    border-bottom: 1px solid #999;
+}
+.container-fluid > .col-xs-12 > .col-xs-2 > .col-xs-12{
+    padding: 12.5px 0 12.5px 0;
+    border-bottom: 1px solid #E4E4E4;
+    text-align:right;
 }
 
 
@@ -766,6 +792,7 @@ textarea#Survey_ProgramSurvey_Comments {
 .container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12 {
     padding: 12.5px 0 12.5px 0;
     border-bottom: 1px solid #E4E4E4;
+    text-align:right;
 }
 
 
@@ -782,4 +809,19 @@ textarea#Survey_ProgramSurvey_Comments {
 
 #POMPAutoHeight {
     height: auto !important;
+}
+
+.col-xs-12 > b{
+    font-size:16px;
+}
+
+.POMPPSTitle{
+    font-weight:lighter !important;
+}
+
+.POMPEvalTitle > .col-xs-12 > p{
+    float:right;
+    font-weight:lighter;
+    font-size:12px;
+    font-style:italic;
 }

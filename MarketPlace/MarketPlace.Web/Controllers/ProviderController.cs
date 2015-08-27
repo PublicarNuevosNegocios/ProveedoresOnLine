@@ -2419,8 +2419,9 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyEvaluator", oModel.RelatedSurvey.SurveyEvaluator));
             parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));          
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
-            
-            
+            parameters.Add(new ReportParameter("SurveyAverage", oModel.RelatedSurvey.Average.ToString()));
+
+
             if (oModel.RelatedSurvey.SurveyRelatedProject == null)
             {
                 parameters.Add(new ReportParameter("SurveyRelatedProject", "NA"));
@@ -2445,53 +2446,55 @@ namespace MarketPlace.Web.Controllers
                 var lstQuestion = oModel.RelatedSurvey.GetSurveyConfigItem
                     (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
 
-                row = data.NewRow();
-                row["Area"] = EvaluationArea.Name;
-
+               
                 foreach (var Question in lstQuestion)
                 {
-                    row["Question"] = Question.Order + " " + Question.Name;
-
-                    var QuestionInfo = oModel.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
-                    var lstAnswer = oModel.RelatedSurvey.GetSurveyConfigItem
-                        (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
-
-                    foreach (var Answer in lstAnswer)
+                    if(Question.QuestionType != "118002")
                     {
-                        if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                        row = data.NewRow();
+                        row["Area"] = EvaluationArea.Name;
+                        row["Question"] = Question.Order + " " + Question.Name;
+
+                        var QuestionInfo = oModel.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+                        var lstAnswer = oModel.RelatedSurvey.GetSurveyConfigItem
+                            (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                        foreach (var Answer in lstAnswer)
                         {
-                            row["Answer"] = Answer.Name;
+                            if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                            {
+                                row["Answer"] = Answer.Name;
+                            }
+                            
+                        }
+
+                        if(string.IsNullOrEmpty(row["Answer"].ToString()))
+                        {                          
+                                row["Answer"] = "Sin Responder";
+                                row["QuestionRating"] = "NA";
                         }
                         else
                         {
-                            row["Answer"] = "Sin Responder";
-                            row["QuestionRating"] = "Sin Responder"; 
+                            row["QuestionRating"] = QuestionInfo.Ratting;
                         }
-                    }
 
-                    if (QuestionInfo != null)
-                    {
-                        row["QuestionRating"] = QuestionInfo.Ratting;
-                    }
-                    else
-                    {
-                        row["QuestionRating"] = "NA";
-                    }          
-                         
-                    row["QuestionWeight"] = Question.Weight;
-                                        
-                    if(QuestionInfo != null && QuestionInfo.DescriptionText != null)
-                    {
-                        row["QuestionDescription"] = QuestionInfo.DescriptionText;
-                    }
-                    else
-                    {
-                        row["QuestionDescription"] = "-";                        
+                        row["QuestionWeight"] = Question.Weight;
+
+                        if (QuestionInfo != null && QuestionInfo.DescriptionText != null)
+                        {
+                            row["QuestionDescription"] = QuestionInfo.DescriptionText;
+                        }
+                        else
+                        {
+                            row["QuestionDescription"] = "";
+                        }
+                        data.Rows.Add(row);
                     }
                     
+
                 }
 
-                data.Rows.Add(row);
+                
             }
 
             Tuple<byte[], string, string> EvaluatorDetailReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_EvaluatorDetailReport(
