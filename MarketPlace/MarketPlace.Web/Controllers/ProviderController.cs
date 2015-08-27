@@ -2446,7 +2446,7 @@ namespace MarketPlace.Web.Controllers
                                                                data,
                                                                parameters,
                                                                enumCategoryInfoType.PDF.ToString(),
-                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_GeneralInfo.rdlc");
+                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim());
 
             oReporModel.File = SurveyGeneralReport.Item1;
             oReporModel.MimeType = SurveyGeneralReport.Item2;

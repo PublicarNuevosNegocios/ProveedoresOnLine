@@ -662,16 +662,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.92414cm</Width>
+              <Width>5.82253cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.92414cm</Width>
+              <Width>4.39378cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.92414cm</Width>
+              <Width>2.48878cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.92414cm</Width>
+              <Width>2.19774cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -680,7 +680,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox26">
+                    <Textbox Name="Textbox1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -698,7 +698,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>Textbox1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -714,7 +714,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox28">
+                    <Textbox Name="Textbox3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -732,7 +732,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox28</rd:DefaultName>
+                      <rd:DefaultName>Textbox3</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -748,7 +748,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox30">
+                    <Textbox Name="Textbox5">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -766,7 +766,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox30</rd:DefaultName>
+                      <rd:DefaultName>Textbox5</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -782,7 +782,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox32">
+                    <Textbox Name="Textbox7">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -800,7 +800,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox32</rd:DefaultName>
+                      <rd:DefaultName>Textbox7</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -829,12 +829,12 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!SurveyEvaluatorDetail.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>SurveyEvaluatorDetail</rd:DefaultName>
@@ -861,12 +861,12 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!SurveyStatusNameDetail.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>SurveyStatusNameDetail</rd:DefaultName>
@@ -893,12 +893,12 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!SurveyRatingDetail.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>SurveyRatingDetail</rd:DefaultName>
@@ -925,12 +925,12 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!SurveyProgressDetail.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>SurveyProgressDetail</rd:DefaultName>
@@ -969,11 +969,11 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSet</DataSetName>
-        <Top>6.4246cm</Top>
-        <Left>0.40673cm</Left>
+        <DataSetName>DS_SurveyGeneralInfo</DataSetName>
+        <Top>6.60981cm</Top>
+        <Left>0.64672cm</Left>
         <Height>1.2cm</Height>
-        <Width>15.69655cm</Width>
+        <Width>14.90283cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
@@ -985,7 +985,7 @@
     <Height>3.27083in</Height>
     <Style />
   </Body>
-  <Width>6.5in</Width>
+  <Width>6.48784in</Width>
   <Page>
     <PageHeader>
       <Height>3.8116cm</Height>
@@ -1134,11 +1134,11 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>e98896e1-c6ce-4343-905c-45382a6a241a</rd:DataSourceID>
+      <rd:DataSourceID>2385a80c-d9e1-4d2f-bafd-c1dc55e7679b</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet">
+    <DataSet Name="DS_SurveyGeneralInfo">
       <Query>
         <DataSourceName>DS_SurveyGeneralInfo</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -1163,8 +1163,8 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_SurveyGeneralInfo</rd:DataSetName>
-        <rd:SchemaPath>C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_SurveyGeneralInfo.xsd</rd:SchemaPath>
-        <rd:TableName>eavaluators</rd:TableName>
+        <rd:SchemaPath>D:\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_SurveyGeneralInfo.xsd</rd:SchemaPath>
+        <rd:TableName>DS_SurveyGeneralInfo</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
