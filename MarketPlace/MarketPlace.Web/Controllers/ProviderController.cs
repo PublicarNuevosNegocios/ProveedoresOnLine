@@ -74,24 +74,9 @@ namespace MarketPlace.Web.Controllers
                     oModel.PageNumber,
                     oModel.RowCount,
                     out oTotalRowsAux);
-                //List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
-                //    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
-                //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                //    oModel.SearchParam,
-                //    oModel.SearchFilter,
-                //    (int)oModel.SearchOrderType,
-                //    oModel.OrderOrientation,
-                //    oModel.PageNumber,
-                //    oModel.RowCount,
-                //    out oTotalRowsAux);
 
                 oModel.TotalRows = oTotalRowsAux;
-
-                //List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
-                //    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                //    oModel.SearchParam,
-                //    oModel.SearchFilter);
-
+                
                 List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
