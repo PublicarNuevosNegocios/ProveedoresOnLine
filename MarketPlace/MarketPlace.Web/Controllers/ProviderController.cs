@@ -2442,11 +2442,11 @@ namespace MarketPlace.Web.Controllers
                 data.Rows.Add(row);
             }
 
-            Tuple<byte[], string, string> SurveyGeneralReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_GeneralReport(
-                                                               enumCategoryInfoType.PDF.ToString(),
+            Tuple<byte[], string, string> SurveyGeneralReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_GeneralReport(                                                               
                                                                data,
                                                                parameters,
-                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_EvaluatorDetail.rdlc");
+                                                               enumCategoryInfoType.PDF.ToString(),
+                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_GeneralInfo.rdlc");
 
             oReporModel.File = SurveyGeneralReport.Item1;
             oReporModel.MimeType = SurveyGeneralReport.Item2;
