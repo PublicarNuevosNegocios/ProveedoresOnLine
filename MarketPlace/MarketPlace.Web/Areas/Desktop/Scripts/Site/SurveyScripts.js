@@ -569,6 +569,9 @@ var Survey_File = {
         $('#' + Survey_File.ObjectId)
         .kendoUpload({
             multiple: false,
+            localization: {
+                "select": "Agregar"
+            },
             async: {
                 saveUrl: BaseUrl.ApiUrl + '/SurveyApi?SurveyUploadFile=true&SurveyPublicId=' + Survey_File.SurveyPublicId + '&SurveyConfigInfoId=' + Survey_File.SurveyConfigInfoId + '&ProviderPublicId=' + Survey_File.ProviderPublicId,
                 autoUpload: true
