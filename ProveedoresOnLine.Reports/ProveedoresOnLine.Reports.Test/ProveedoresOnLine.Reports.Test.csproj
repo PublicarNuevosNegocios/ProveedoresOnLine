@@ -115,9 +115,6 @@
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.csproj">
       <Project>{eabc97fb-68c5-43c4-ac67-ac7faf6a450f}</Project>
       <Name>ProveedoresOnLine.Reports</Name>
