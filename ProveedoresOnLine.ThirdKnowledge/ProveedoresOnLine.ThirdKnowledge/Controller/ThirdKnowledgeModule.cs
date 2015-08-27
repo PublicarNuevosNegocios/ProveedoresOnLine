@@ -81,7 +81,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         public static List<PeriodModel> CalculatePeriods(PlanModel oPlanToReCalculate)
         {
-
             int DiferenceInDays;
             int TotalPeriods = 0;
             if (oPlanToReCalculate.PlanPublicId != null &&
@@ -90,6 +89,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             {
                 oPlanToReCalculate.RelatedPeriodoModel.All(x =>
                     {
+                        if (x.EndDate > oPlanToReCalculate.EndDate)
+                            x.EndDate = oPlanToReCalculate.EndDate;
+                        
                         ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(
                                                                 x.PeriodPublicId,
                                                                 x.PlanPublicId,
@@ -134,12 +136,13 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         {
                             AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
                             InitDate = EndPastPeriod,
-                            EndDate = EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod) > oPlanToReCalculate.EndDate ? oPlanToReCalculate.EndDate : EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod),
+                            EndDate = i == TotalPeriods ? oPlanToReCalculate.EndDate : EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod),
                             CreateDate = DateTime.Now,
                             LastModify = DateTime.Now,
                             PlanPublicId = oPlanToReCalculate.PlanPublicId,
                             TotalQueries = 0,
                         });
+                        EndPastPeriod = EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod);
                     }
                 }
                 oPlanToReCalculate.RelatedPeriodoModel.All(x =>
@@ -150,7 +153,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                             x.AssignedQueries,
                                                             x.TotalQueries,
                                                             x.InitDate,
-                                                            x.EndDate,
+                                                            oPlanToReCalculate.EndDate,
                                                             x.Enable);
                     return true;
                 });
