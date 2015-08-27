@@ -21,6 +21,7 @@
             RP_GerencialReport = 1501002,
             RP_SelectionProcess=1501003,
             RP_SurveyEvaluatorDetailReport = 1501004,
+            RP_SurveyGeneralReport = 1501005,
         }
 
         #endregion
