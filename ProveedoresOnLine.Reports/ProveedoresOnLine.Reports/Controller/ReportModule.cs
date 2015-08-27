@@ -270,7 +270,7 @@ namespace ProveedoresOnLine.Reports.Controller
             localReport.SetParameters(ReportData);
 
             ReportDataSource source = new ReportDataSource();
-            source.Name = "DS_SelectionProcessReport";
+            source.Name = "DS_SurveyGeneralInfo";
             source.Value = data != null ? data : new DataTable();
             localReport.DataSources.Add(source);
 
