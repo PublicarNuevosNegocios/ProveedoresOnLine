@@ -262,7 +262,7 @@ namespace ProveedoresOnLine.Reports.Controller
         #endregion
 
         #region SVGeneralReport
-        public static Tuple<byte[], string, string> SVGeneralReport(DataTable data, List<ReportParameter> ReportData, string FormatType, string FilePath)
+        public static Tuple<byte[], string, string> SV_GeneralReport(DataTable data, List<ReportParameter> ReportData, string FormatType, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
