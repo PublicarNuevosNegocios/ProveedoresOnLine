@@ -406,6 +406,7 @@
         ProviderStatus = 112001,
         ProviderRate = 112002,
         IsRelatedProvider = 112003,
+        RestrictiveListProvider = 112004,
     }
 
     public enum enumCustomerProviderInfoType

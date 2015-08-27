@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProveedoresOnLine.ThirdKnowledge.Interfaces;
+using ProveedoresOnLine.ThirdKnowledge.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,44 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 {
-    class ThirdKnowledgeDataController
+    internal class ThirdKnowledgeDataController : IThirdKnowledgeData
     {
+        private static ProveedoresOnLine.ThirdKnowledge.Interfaces.IThirdKnowledgeData oInstance;
+        internal static ProveedoresOnLine.ThirdKnowledge.Interfaces.IThirdKnowledgeData Instance
+        {
+            get
+            {
+                if (oInstance == null)
+                    oInstance = new ThirdKnowledgeDataController();
+                return oInstance;
+            }
+        }
+
+        private ProveedoresOnLine.ThirdKnowledge.Interfaces.IThirdKnowledgeData DataFactory;
+
+        #region Constructor
+
+        public ThirdKnowledgeDataController()
+        {
+            ThirdKnowledgeDataFactory factory = new ThirdKnowledgeDataFactory();
+            DataFactory = factory.GetThirdKnowledgeInstance();
+        }
+
+        #endregion
+
+        public List<Models.PlanModel> GetAllPlanByCustomer(string CustomerPublicId, bool Enable)
+        {
+            return DataFactory.GetAllPlanByCustomer(CustomerPublicId, Enable);
+        }
+
+        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, CatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
+        {
+            return DataFactory.PlanUpsert(PlanPublicId, CompanyPublicId, QueriesByPeriod, DaysByPeriod, Status, InitDate, EndDate, Enable);
+        }
+
+        public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
+        {
+            return DataFactory.PeriodUpsert(PeriodPublicId, PlanPublicId, AssignedQueries,TotalQueries, InitDate, EndDate, Enable);
+        }
     }
 }

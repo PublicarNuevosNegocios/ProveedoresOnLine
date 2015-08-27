@@ -61,8 +61,14 @@
             <div class="col-xs-12">
                 <div class="col-xs-4">
                     <label>Calificación:</label>
-                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+
+                    @{
+                        decimal rating = Convert.ToDecimal(Model.RelatedSurvey.SurveyRating);
+                        rating = ((5 * rating) / 100);
+                    }
+                    <div class="rateit" data-rateit-value="@rating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                     <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+
                 </div>
                 <div class="col-xs-8">
                     <div class="col-xs-12">

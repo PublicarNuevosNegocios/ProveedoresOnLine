@@ -137,7 +137,7 @@
                     <div class="col-xs-12">
                         <div class="col-xs-12">
                             <div class="SelGenericTooltip ProveedorPendiente" title="Pendiente por aprobación"></div>
-                            <span>Pendiente por aprobación</span>
+                            <span class="POMPPSTitle">Pendiente por aprobación</span>
                         </div>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                         <div class="col-xs-12">
                             <div class="SelGenericTooltip ProveedorAprobado" title="Aprobado"></div>
                             <b>Evaluado por: </b>
-                            <span>@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                            <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
                         <div class="col-xs-12">
                             <div class="SelGenericTooltip ProveedorRechazado" title="Rechazado"></div>
                             <b>Evaluado por: </b>
-                            <span>@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                            <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
                         </div>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                         <div class="col-xs-12">
                             <div class="SelGenericTooltip ProveedorAdjudicado" title="Adjudicado"></div>
                             <b>Evaluado por: </b>
-                            <span>@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                            <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetEvaluatorByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                 <div class="col-xs-12">
                     <div class="col-xs-12">
                         <b>Nota de aprobación o rechazo:</b>
-                        <span>@Model.CurrentProjectProvider.GetApprovalTextByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
+                        <span class="POMPPSTitle">@Model.CurrentProjectProvider.GetApprovalTextByArea(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)</span>
                     </div>
                 </div>
             </div>

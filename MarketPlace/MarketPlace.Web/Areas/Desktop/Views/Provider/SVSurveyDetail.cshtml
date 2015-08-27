@@ -34,18 +34,17 @@
                         <div class="col-xs-12">
                             <div class="col-xs-4">
                                 <label>Calificación:</label>
-                                <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                                 @{
                                     decimal rating = Convert.ToDecimal(Model.RelatedSurvey.SurveyRating);
-                                    rating = ((rating * 100) / 5);
+                                    rating = ((5*rating) / 100);
                                 }
-                                <span>(@rating.ToString("0.##").Replace(",", "."))</span>
-                                <!--<span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>-->
+                                 <div class="rateit" data-rateit-value="@rating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                             </div>
                             <div class="col-xs-8">
                                 <div class="col-xs-12">
                                     <div class="selProgressBar" id="POMPbar3" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
-                                    <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
+                                    <!--<span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>-->
                                 </div>
                             </div>
                         </div>
