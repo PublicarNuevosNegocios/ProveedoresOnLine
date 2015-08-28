@@ -1,68 +1,78 @@
-#CompareDetail_NoResult{
-    display:block;
+#CompareDetail_NoResult {
+    display: block;
     height: auto;
     margin: 32px auto 0px auto;
     min-height: 464px;
     padding: 0px;
-    width:56%;
+    width: 56%;
 }
-        #CompareDetail_NoResult label{
-            border-bottom: 1px solid #d4d4d4;
-            color: #0066ae;
-            display: block;
-            font-size: 1.4em;
-            font-weight: normal;
-            letter-spacing: -0.7px;
-            line-height: 1em;
-            margin: 12px 5px 0 12px;
-            padding: 4px 0 0;
-            vertical-align: top;
-            width:100%;
+
+    #CompareDetail_NoResult label {
+        border-bottom: 1px solid #d4d4d4;
+        color: #0066ae;
+        display: block;
+        font-size: 1.4em;
+        font-weight: normal;
+        letter-spacing: -0.7px;
+        line-height: 1em;
+        margin: 12px 5px 0 12px;
+        padding: 4px 0 0;
+        vertical-align: top;
+        width: 100%;
+    }
+
+    #CompareDetail_NoResult span {
+        color: #666;
+        display: block;
+        font-size: 1.1em;
+        font-weight: normal;
+        letter-spacing: -0.5px;
+        line-height: 1.3em;
+        margin: 12px 5px 0 12px;
+        text-align: justify;
+    }
+
+        #CompareDetail_NoResult span a {
+            font-weight: bold;
         }
-        #CompareDetail_NoResult span{
-            color: #666;
-            display: block;
-            font-size: 1.1em;
-            font-weight: normal;
-            letter-spacing: -0.5px;
-            line-height: 1.3em;
-            margin: 12px 5px 0 12px;
-            text-align: justify;
-        }
-            #CompareDetail_NoResult span a{
-                font-weight:bold;
-            }
 /*********** AQUI SE PINTA EL POPUP DE NUEVO 
     PROCESO SELECCION **********/
 .POMPCompareCreateProject {
-    margin:2px;
+    margin: 2px;
 }
-    .POMPCompareCreateProject > li{
-        display:block;
-        width:auto;
-        margin:15px 0;
+
+    .POMPCompareCreateProject > li {
+        display: block;
+        width: auto;
+        margin: 15px 0;
     }
-.POMPCompareCreateProject > li > span{
-    width:178px;
-}
-.POMPCompareCreateProject > li > span,
-.POMPCompareCreateProject > li > input,
-.POMPCompareCreateProject > li > select{
-    font-size:0.9em;
-    letter-spacing:-0.9px;
-    color:#4d4d4d;
-    text-align:left;
-    display:inline-block;    
-}
+
+        .POMPCompareCreateProject > li > span {
+            width: 178px;
+        }
+
+        .POMPCompareCreateProject > li > span,
         .POMPCompareCreateProject > li > input,
         .POMPCompareCreateProject > li > select {
-            width:225px;
+            width: 250px;
+            font-size: 0.9em;
+            letter-spacing: -0.9px;
+            color: #4d4d4d;
+            text-align: left;
+            display: inline-block;
         }
-.POMPCompareCreateProject > li > .k-invalid-msg {
-    display:block;
-    margin: 6px 0 0;
-    width: 96%;
-}
+
+        .POMPCompareCreateProject > li > input,
+        .POMPCompareCreateProject > li > select {
+            width: 250px;
+        }
+
+        .POMPCompareCreateProject > li > .k-invalid-msg {
+            display: block;
+            margin: 6px 0 0;
+            width: 96%;
+        }
+
 .ui-widget-content {
     color: #4d4d4d !important;
     letter-spacing: -0.9px !important;
@@ -70,76 +80,89 @@
 /***********  AQUI SE PINTA EL POPUP DE EDICION DE
     PRECALIFICACION  ************/
 .POMPProjectBidEditDialog {
-    margin:2px;
+    margin: 2px;
 }
-    .POMPProjectBidEditDialog > li{
-        display:block;
-        width:auto;
-        margin:7px 0;
+
+    .POMPProjectBidEditDialog > li {
+        display: block;
+        width: auto;
+        margin: 7px 0;
     }
-.POMPProjectBidEditDialog > li > span,
-.POMPProjectBidEditDialog > li > label{
-    width:222px;
-}
-.POMPProjectBidEditDialog > li > span,
-.POMPProjectBidEditDialog > li > label,
-.POMPProjectBidEditDialog > li > input,
-.POMPProjectBidEditDialog > li > select{
-    font-size:0.9em;
-    letter-spacing:-0.9px;
-    color:#4d4d4d;
-    text-align:left;
-    display:inline-block;
-    font-weight:normal;
-    vertical-align:top;
-}
-        input.POMPProjectBidCurrencyValue {
-            width:162px !important;
+
+        .POMPProjectBidEditDialog > li > span,
+        .POMPProjectBidEditDialog > li > label {
+            width: 222px;
         }
-        select.POMPProjectBidCurrency{
-            width:60px !important;
-        }
+
+        .POMPProjectBidEditDialog > li > span,
+        .POMPProjectBidEditDialog > li > label,
         .POMPProjectBidEditDialog > li > input,
         .POMPProjectBidEditDialog > li > select {
-            width:225px;
+            font-size: 0.9em;
+            letter-spacing: -0.9px;
+            color: #4d4d4d;
+            text-align: left;
+            display: inline-block;
+            font-weight: normal;
+            vertical-align: top;
         }
-        .POMPProjectBidEditDialog > li > .k-invalid-msg {
-            display: block;
-            margin: 6px 0 0;
-            width: 96%;
-        }
-.POMPProjectBidEditDialogActivity > div{
+
+input.POMPProjectBidCurrencyValue {
+    width: 162px !important;
+}
+
+select.POMPProjectBidCurrency {
+    width: 60px !important;
+}
+
+.POMPProjectBidEditDialog > li > input,
+.POMPProjectBidEditDialog > li > select {
+    width: 225px;
+}
+
+.POMPProjectBidEditDialog > li > .k-invalid-msg {
+    display: block;
+    margin: 6px 0 0;
+    width: 96%;
+}
+
+.POMPProjectBidEditDialogActivity > div {
     border-radius: 2px;
     display: inline-block;
     font-size: 1em;
     max-height: 86px;
     width: 222px;
-    overflow-y:auto;
-    overflow-x:hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     border: 1px solid gray !important;
     width: 99%;
 }
-.POMPProjectBidEditDialogActivity > label{
-    width:80% !important;
+
+.POMPProjectBidEditDialogActivity > label {
+    width: 80% !important;
 }
+
 .POMPProjectBidEditDialogActivity > div > span {
-    font-size:0.99em !important;
-    color:#4d4d4d !important;
+    font-size: 0.99em !important;
+    color: #4d4d4d !important;
 }
-.closeProjectBid > li > span{
-    width:146px !important;
+
+.closeProjectBid > li > span {
+    width: 146px !important;
 }
-.closeProjectBid > li > textarea{
-    width:306px !important;
-    font-size:0.9em;
-    letter-spacing:-0.9px;
-    color:#4d4d4d;
-    text-align:left;
-    display:inline-block;
-    font-weight:normal;
-    vertical-align:top;
+
+.closeProjectBid > li > textarea {
+    width: 306px !important;
+    font-size: 0.9em;
+    letter-spacing: -0.9px;
+    color: #4d4d4d;
+    text-align: left;
+    display: inline-block;
+    font-weight: normal;
+    vertical-align: top;
 }
-.closeProjectBid > li > span.k-invalid-msg{
-    display:block;
-    width:97% !important;
+
+.closeProjectBid > li > span.k-invalid-msg {
+    display: block;
+    width: 97% !important;
 }
