@@ -148,7 +148,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>3.77611cm</Top>
-        <Left>8.41411cm</Left>
+        <Left>11.17397cm</Left>
         <Height>1.30584cm</Height>
         <Width>2.89397cm</Width>
         <ZIndex>4</ZIndex>
@@ -183,7 +183,7 @@
         </Paragraphs>
         <rd:DefaultName>SurveyRating</rd:DefaultName>
         <Top>5.18778cm</Top>
-        <Left>8.41411cm</Left>
+        <Left>11.17397cm</Left>
         <Height>0.6cm</Height>
         <Width>2.89397cm</Width>
         <ZIndex>5</ZIndex>
@@ -1040,75 +1040,6 @@
         <Height>0.6cm</Height>
         <Width>4.09668cm</Width>
         <ZIndex>19</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox15">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>CALIFICACIÓN TOTAL DE LA EVALUACIÓN</Value>
-                <Style>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.77444cm</Top>
-        <Left>11.48446cm</Left>
-        <Height>1.30584cm</Height>
-        <Width>2.86923cm</Width>
-        <ZIndex>20</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="SurveyAverage">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!SurveyAverage.Value</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>SurveyAverage</rd:DefaultName>
-        <Top>5.18611cm</Top>
-        <Left>11.48446cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.86923cm</Width>
-        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
