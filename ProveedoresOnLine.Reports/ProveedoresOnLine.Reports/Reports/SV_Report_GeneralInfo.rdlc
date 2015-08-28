@@ -355,45 +355,8 @@
         <Top>4.70294cm</Top>
         <Left>6.02741cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.21033cm</Width>
+        <Width>8.59705cm</Width>
         <ZIndex>9</ZIndex>
-        <Style>
-          <Border>
-            <Color>LightGrey</Color>
-            <Style>Solid</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox17">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Promedio</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>4.70294cm</Top>
-        <Left>10.41413cm</Left>
-        <Height>0.57354cm</Height>
-        <Width>4.21033cm</Width>
-        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -429,7 +392,7 @@
         <Left>2.27569cm</Left>
         <Height>0.57354cm</Height>
         <Width>13.82761cm</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -465,7 +428,7 @@
         <Left>1.64069cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.21033cm</Width>
-        <ZIndex>12</ZIndex>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -501,7 +464,7 @@
         <Left>6.02741cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.21033cm</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -537,7 +500,7 @@
         <Left>10.41413cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.21033cm</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -573,7 +536,7 @@
         <Left>1.64069cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.21033cm</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -608,44 +571,8 @@
         <Top>5.28354cm</Top>
         <Left>6.02741cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.21033cm</Width>
-        <ZIndex>16</ZIndex>
-        <Style>
-          <Border>
-            <Color>LightGrey</Color>
-            <Style>Solid</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox25">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!SurveyAverage.Value</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>5.28354cm</Top>
-        <Left>10.41413cm</Left>
-        <Height>0.57354cm</Height>
-        <Width>4.21033cm</Width>
-        <ZIndex>17</ZIndex>
+        <Width>8.59705cm</Width>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -974,7 +901,7 @@
         <Left>0.64672cm</Left>
         <Height>1.2cm</Height>
         <Width>14.90283cm</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>

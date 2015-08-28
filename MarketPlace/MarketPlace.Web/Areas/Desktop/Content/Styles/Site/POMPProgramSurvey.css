@@ -752,18 +752,23 @@ textarea#Survey_ProgramSurvey_Comments {
     border-bottom: 1px solid #999;
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-10 > .col-xs-12:first-child {
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child {
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #999;
 }
 
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-10 > .col-xs-12 {
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12 {
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #E4E4E4;
 }
 
-.container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12 {
+.container-fluid > .col-xs-12 > .col-xs-6 > .col-xs-12:first-child {
+     border-bottom: 1px solid #999;
+}
+
+
+.container-fluid > .col-xs-12 > .col-xs-6 > .col-xs-12 {
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #E4E4E4;
 }
@@ -801,6 +806,12 @@ textarea#Survey_ProgramSurvey_Comments {
     font-size: 1.1em;
     font-weight: lighter;
     padding-top: 70px !important;
+}
+
+#POMPProviderVerDetalleNew2 {
+    font-size: 1.1em;
+    font-weight: lighter;
+    padding-top: 20px !important;
 }
 
 #POMPSocialObject {
