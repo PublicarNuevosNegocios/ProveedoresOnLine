@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketPlace.Models.Project
 {
@@ -108,23 +106,38 @@ namespace MarketPlace.Models.Project
                 {
                     string[] strSplit = strExpYear.Split('_');
                     if (strSplit.Length >= 3)
-                    {
+                    {                        
                         if (strSplit[1].Replace(" ", "") != "0")
                         {
-                            switch ((MarketPlace.Models.General.enumProjectOperator)Convert.ToInt32(strSplit[2].Replace(" ", "")))
+                            int years = Int32.Parse(strSplit[1]);
+
+                            if(years == 0)
                             {
-                                case MarketPlace.Models.General.enumProjectOperator.Equal:
-                                    oReturn = "Igual a " + strSplit[1];
-                                    break;
-                                case MarketPlace.Models.General.enumProjectOperator.Higher:
-                                    oReturn = "Mayor a " + strSplit[1];
-                                    break;
-                                case MarketPlace.Models.General.enumProjectOperator.GreaterOrEqual:
-                                    oReturn = "Mayor o igual a " + strSplit[1];
-                                    break;
-                                default:
-                                    break;
+                                oReturn = "";
                             }
+                            else if(years == 1)
+                            {
+                                oReturn = "el ultimo año";
+                            }
+                            else 
+                            {
+                                oReturn = "los últimos " + strSplit[1] + " años";
+                            }        
+                                               
+                            //switch ((MarketPlace.Models.General.enumProjectOperator)Convert.ToInt32(strSplit[2].Replace(" ", "")))
+                            //{
+                            //    case MarketPlace.Models.General.enumProjectOperator.Equal:
+                                    
+                            //        break;
+                            //    case MarketPlace.Models.General.enumProjectOperator.Higher:
+                            //        oReturn = "los ultimos " + strSplit[1] + " años";
+                            //        break;
+                            //    case MarketPlace.Models.General.enumProjectOperator.GreaterOrEqual:
+                            //        oReturn = "los ultimos " + strSplit[1] + " años";
+                            //        break;
+                            //    default:
+                            //        break;
+                            //}
                         }
                     }
                 }
