@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProveedoresOnLine.ThirdKnowledge.Models;
+using System.Collections.Generic;
 
 namespace ProveedoresOnLine.ThirdKnowledge.Test
 {
@@ -25,13 +26,21 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
             oToUpsert.Enable = true;
             oToUpsert.LastModify = DateTime.Now;
             oToUpsert.QueriesByPeriod = 100;
-            oToUpsert.Status = new CatalogModel()
+            oToUpsert.Status = new TDCatalogModel()
                 {
                     ItemId = 101001
                 };
             PlanModel oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PlanUpsert(oToUpsert);
 
             Assert.IsNotNull(oReturn);
+        }
+
+        [TestMethod]
+        public void GetAllPlanByCustomer()
+        {
+            List<PlanModel> oReturn = new List<PlanModel>();
+            oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("AAAAA", true);
+            Assert.IsNull(oReturn);     
         }
     }
 }

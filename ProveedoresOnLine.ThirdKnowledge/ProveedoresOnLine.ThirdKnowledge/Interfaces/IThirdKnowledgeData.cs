@@ -12,9 +12,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
         #region Config
         List<PlanModel> GetAllPlanByCustomer(string CustomerPublicId, bool Enable);
 
-        string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, CatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable);
+        string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable);
 
         string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable);
+
+        #endregion
+
+        #region Utils
+
+        List<TDCatalogModel> CatalogGetThirdKnowledgeOptions();
 
         #endregion
     }

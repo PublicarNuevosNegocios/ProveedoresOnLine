@@ -33,19 +33,29 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 
         #endregion
 
+        #region 
         public List<Models.PlanModel> GetAllPlanByCustomer(string CustomerPublicId, bool Enable)
         {
             return DataFactory.GetAllPlanByCustomer(CustomerPublicId, Enable);
         }
 
-        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, CatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
+        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
         {
             return DataFactory.PlanUpsert(PlanPublicId, CompanyPublicId, QueriesByPeriod, DaysByPeriod, Status, InitDate, EndDate, Enable);
         }
 
         public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
         {
-            return DataFactory.PeriodUpsert(PeriodPublicId, PlanPublicId, AssignedQueries,TotalQueries, InitDate, EndDate, Enable);
+            return DataFactory.PeriodUpsert(PeriodPublicId, PlanPublicId, AssignedQueries, TotalQueries, InitDate, EndDate, Enable);
         }
+        
+        #endregion
+
+        #region Utils
+        public List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()
+        {
+            return DataFactory.CatalogGetThirdKnowledgeOptions();
+        } 
+        #endregion
     }
 }

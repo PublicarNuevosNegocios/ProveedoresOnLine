@@ -77,6 +77,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             }
         }
 
+        public static List<PlanModel> GetAllPlanByCustomer(string CustomerPublicId, bool Enable)
+        {
+            return ThirdKnowledgeDataController.Instance.GetAllPlanByCustomer(CustomerPublicId, Enable);
+        }
+
         #endregion
 
         public static List<PeriodModel> CalculatePeriods(PlanModel oPlanToReCalculate)
@@ -91,7 +96,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     {
                         if (x.EndDate > oPlanToReCalculate.EndDate)
                             x.EndDate = oPlanToReCalculate.EndDate;
-                        
+
                         ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(
                                                                 x.PeriodPublicId,
                                                                 x.PlanPublicId,
@@ -99,7 +104,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                                 x.TotalQueries,
                                                                 x.InitDate,
                                                                 x.EndDate,
-                                                                x.Enable);
+                                                                oPlanToReCalculate.Enable);
                         return true;
                     });
             }
@@ -161,5 +166,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return oPlanToReCalculate.RelatedPeriodoModel;
         }
 
+        public static List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()
+        {
+            return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.CatalogGetThirdKnowledgeOptions();
+        }
     }
 }

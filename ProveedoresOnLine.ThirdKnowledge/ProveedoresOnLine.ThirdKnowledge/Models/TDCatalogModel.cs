@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.ThirdKnowledge.Models
 {
-    public class CatalogModel
+    public class TDCatalogModel
     {
         public bool CatalogEnable { get; set; }
         public int CatalogId { get; set; }

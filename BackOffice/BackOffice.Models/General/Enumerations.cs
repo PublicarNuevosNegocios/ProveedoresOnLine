@@ -470,6 +470,16 @@
  
     #endregion
 
+    #region Third Knowledge
+
+    public enum enumThirdKnowledgeType
+    {
+        Plan = 1601001,
+        Period = 1601002
+    }
+
+    #endregion
+
     #region ProjectConfig
 
     public enum enumEvaluationItemType
