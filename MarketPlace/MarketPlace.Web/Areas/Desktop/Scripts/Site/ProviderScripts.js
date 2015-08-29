@@ -412,7 +412,7 @@ var Provider_SearchObject = {
 
         //open new compare dialog
         $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog({
-            width: 455,
+            width: 555,
             minHeight: 258,
             modal: true,
             buttons: {

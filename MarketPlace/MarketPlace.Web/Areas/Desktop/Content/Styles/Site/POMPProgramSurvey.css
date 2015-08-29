@@ -208,7 +208,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 
 
     .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12 {
-        height: 20px;
+        height: auto;
     }
 
     .container-fluid > .col-xs-12 > .col-xs-8 > .col-xs-12 {
@@ -224,7 +224,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 }
 
 .container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-6, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .col-xs-12 > .col-xs-12 {
-    height: auto;
+    height: 95px;
 }
 
 #POMPAltmanHeight {
@@ -240,8 +240,8 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 #POMPevalmails {
     text-decoration: underline;
     font-size: 12px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
 }
 
 #POMPbar1 {
@@ -752,30 +752,36 @@ textarea#Survey_ProgramSurvey_Comments {
     border-bottom: 1px solid #999;
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-10 > .col-xs-12:first-child{
-     padding: 10px 0 10px 0;
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child {
+    padding: 10px 0 10px 0;
     border-bottom: 1px solid #999;
 }
 
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-10 > .col-xs-12{
-     padding: 10px 0 10px 0;
+.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12 {
+    padding: 10px 0 10px 0;
     border-bottom: 1px solid #E4E4E4;
 }
 
-.container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12{
-     padding: 10px 0 10px 0;
+.container-fluid > .col-xs-12 > .col-xs-6 > .col-xs-12:first-child {
+     border-bottom: 1px solid #999;
+}
+
+
+.container-fluid > .col-xs-12 > .col-xs-6 > .col-xs-12 {
+    padding: 10px 0 10px 0;
     border-bottom: 1px solid #E4E4E4;
 }
 
-.container-fluid > .col-xs-12 > .col-xs-2 > .col-xs-12:first-child{
+.container-fluid > .col-xs-12 > .col-xs-2 > .col-xs-12:first-child {
     padding: 12.5px 0 12.5px 0;
     border-bottom: 1px solid #999;
 }
-.container-fluid > .col-xs-12 > .col-xs-2 > .col-xs-12{
+
+.container-fluid > .col-xs-12 > .col-xs-2 > .col-xs-12 {
     padding: 12.5px 0 12.5px 0;
     border-bottom: 1px solid #E4E4E4;
-    text-align:right;
+    text-align: right;
 }
 
 
@@ -792,7 +798,7 @@ textarea#Survey_ProgramSurvey_Comments {
 .container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-2 > .col-xs-12 {
     padding: 12.5px 0 12.5px 0;
     border-bottom: 1px solid #E4E4E4;
-    text-align:right;
+    text-align: right;
 }
 
 
@@ -800,6 +806,12 @@ textarea#Survey_ProgramSurvey_Comments {
     font-size: 1.1em;
     font-weight: lighter;
     padding-top: 70px !important;
+}
+
+#POMPProviderVerDetalleNew2 {
+    font-size: 1.1em;
+    font-weight: lighter;
+    padding-top: 20px !important;
 }
 
 #POMPSocialObject {
@@ -811,17 +823,17 @@ textarea#Survey_ProgramSurvey_Comments {
     height: auto !important;
 }
 
-.col-xs-12 > b{
-    font-size:16px;
+.col-xs-12 > b {
+    font-size: 16px;
 }
 
-.POMPPSTitle{
-    font-weight:lighter !important;
+.POMPPSTitle {
+    font-weight: lighter !important;
 }
 
-.POMPEvalTitle > .col-xs-12 > p{
-    float:right;
-    font-weight:lighter;
-    font-size:12px;
-    font-style:italic;
+.POMPEvalTitle > .col-xs-12 > p {
+    float: right;
+    font-weight: lighter;
+    font-size: 12px;
+    font-style: italic;
 }

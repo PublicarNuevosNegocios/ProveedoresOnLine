@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_SurveyGeneralInfo" targetNamespace="http://tempuri.org/DS_SurveyGeneralInfo.xsd" xmlns:mstns="http://tempuri.org/DS_SurveyGeneralInfo.xsd" xmlns="http://tempuri.org/DS_SurveyGeneralInfo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_SurveyGeneralInfo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_SurveyGeneralInfo" msprop:Generator_UserDSName="DS_SurveyGeneralInfo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DS_SurveyGeneralInfo" msprop:Generator_TableClassName="DS_SurveyGeneralInfoDataTable" msprop:Generator_TableVarName="tableDS_SurveyGeneralInfo" msprop:Generator_TablePropName="_DS_SurveyGeneralInfo" msprop:Generator_RowDeletingName="DS_SurveyGeneralInfoRowDeleting" msprop:Generator_RowChangingName="DS_SurveyGeneralInfoRowChanging" msprop:Generator_RowEvHandlerName="DS_SurveyGeneralInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="DS_SurveyGeneralInfoRowDeleted" msprop:Generator_UserTableName="DS_SurveyGeneralInfo" msprop:Generator_RowChangedName="DS_SurveyGeneralInfoRowChanged" msprop:Generator_RowEvArgName="DS_SurveyGeneralInfoRowChangeEvent" msprop:Generator_RowClassName="DS_SurveyGeneralInfoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SurveyEvaluatorDetail" msprop:Generator_ColumnVarNameInTable="columnSurveyEvaluatorDetail" msprop:Generator_ColumnPropNameInRow="SurveyEvaluatorDetail" msprop:Generator_ColumnPropNameInTable="SurveyEvaluatorDetailColumn" msprop:Generator_UserColumnName="SurveyEvaluatorDetail" type="xs:string" minOccurs="0" />
+              <xs:element name="SurveyStatusNameDetail" msprop:Generator_ColumnVarNameInTable="columnSurveyStatusNameDetail" msprop:Generator_ColumnPropNameInRow="SurveyStatusNameDetail" msprop:Generator_ColumnPropNameInTable="SurveyStatusNameDetailColumn" msprop:Generator_UserColumnName="SurveyStatusNameDetail" type="xs:string" minOccurs="0" />
+              <xs:element name="SurveyRatingDetail" msprop:Generator_ColumnVarNameInTable="columnSurveyRatingDetail" msprop:Generator_ColumnPropNameInRow="SurveyRatingDetail" msprop:Generator_ColumnPropNameInTable="SurveyRatingDetailColumn" msprop:Generator_UserColumnName="SurveyRatingDetail" type="xs:string" minOccurs="0" />
+              <xs:element name="SurveyProgressDetail" msprop:Generator_ColumnVarNameInTable="columnSurveyProgressDetail" msprop:Generator_ColumnPropNameInRow="SurveyProgressDetail" msprop:Generator_ColumnPropNameInTable="SurveyProgressDetailColumn" msprop:Generator_UserColumnName="SurveyProgressDetail" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
