@@ -404,14 +404,14 @@ var Customer_SurveyObject = {
         $('#' + Customer_SurveyObject.ObjectId).data('kendoGrid').dataSource.read();
     },
 
-    RenderSurveyConfig: function () {        
+    RenderSurveyConfig: function () {
         $('#' + Customer_SurveyObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: true,
             scrollable: true,
             toolbar: [
-                { name: 'create', text: 'Nuevo' },                
+                { name: 'create', text: 'Nuevo' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'Search', template: $('#' + Customer_SurveyObject.ObjectId + '_SearchTemplate').html() },
                 { name: 'ViewEnable', template: $('#' + Customer_SurveyObject.ObjectId + '_ViewEnablesTemplate').html() },
@@ -420,7 +420,7 @@ var Customer_SurveyObject = {
             dataSource: {
                 pageSize: Customer_SurveyObject.PageSize,
                 serverPaging: true,
-                schema: {                    
+                schema: {
                     total: function (data) {
                         if (data != null && data.length > 0) {
                             return data[0].TotalRows;
@@ -445,7 +445,7 @@ var Customer_SurveyObject = {
                 },
                 transport: {
                     read: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + Customer_SurveyObject.GetSearchParam() + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
@@ -705,7 +705,7 @@ var Customer_SurveyItemObject = {
 
                             SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
                             SurveyConfigItemInfoOrderId: { editable: false },
-                            
+
                             SurveyConfigItemInfoAreaHasDescription: { editable: true, type: 'boolean', defaultValue: true },
                             SurveyConfigItemInfoAreaHasDescriptionId: { editable: false },
 
@@ -812,7 +812,7 @@ var Customer_SurveyItemObject = {
                 title: 'Orden',
                 width: '50px',
                 format: '{0:n0}'
-            },{
+            }, {
                 field: 'SurveyConfigItemInfoAreaHasDescription',
                 title: 'Descripción',
                 width: '200px',
@@ -1043,7 +1043,7 @@ var Customer_SurveyItemObject = {
                     if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
                         $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
                             if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
-                                oReturn = value.ItemName;                                
+                                oReturn = value.ItemName;
                             }
                         });
                     }
@@ -1098,7 +1098,7 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n1}',                
+                format: '{0:n1}',
             }, {
                 field: 'SurveyConfigItemInfoHasDescription',
                 title: 'Mostrar descripción',
@@ -1603,7 +1603,7 @@ var Customer_ProjectModule = {
         Customer_ProjectModule.GetSearchParam();
     },
 
-    RenderAutocomplete: function(){
+    RenderAutocomplete: function () {
         Customer_ProjectModule.AutoComplete(Customer_ProjectModule.AutoCompleteId, Customer_ProjectModule.ControlToRetornACId);
     },
 
@@ -2096,3 +2096,252 @@ var Customer_ProjectModule = {
 
     }
 };
+
+var ThirdKnowledgeObject =
+{
+    ObjectId: '',
+    CustomerPublicId: '',
+    IsEnable: '',
+    ThirdKnowledgeOptions: new Array(),
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId,
+        this.CustomerPublicId = vInitObject.CustomerPublicId,
+        this.IsEnable = vInitObject.Enable
+
+        if (vInitObject.ThirdKnowledgeOptions != null) {
+            $.each(vInitObject.ThirdKnowledgeOptions, function (item, value) {
+                ThirdKnowledgeObject.ThirdKnowledgeOptions[value.Key] = value.Value;
+             });
+         }        
+    },
+    RenderAsync: function (vRenderObject) {
+
+        if (vRenderObject.ThirdKnowledgeType == 1601001) {
+            ThirdKnowledgeObject.RenderPlan(vRenderObject);
+        }
+        //if (vRenderObject.ThirdKnowledgeType == 1601001) {
+        //    RenderPlan();
+        //}
+    },
+
+    RenderPlan: function (vRenderObject) {
+        debugger;
+        $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'cancel', text: 'Descartar' },
+                {
+                    name: 'title',
+                    template: function () {
+                        return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                    }
+                },
+                { name: 'ViewEnable', template: $('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnablesTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: ThirdKnowledgeObject.PageSize,
+                schema: {
+                    model: {
+                        id: "PlanPublicId",
+                        fields: {
+                            PlanPublicId: { editable: false, nullable: false },
+                            QueriesByPeriod: { editable: true, nullable: false, validation: { requires: true } },
+                            InitDate: { editable: true, nullable: false, validation: { requires: true } },
+                            EndDate: { editable: true, nullable: false, validation: { requires: true } },
+                            Status: { editable: true, nullable: false, validation: { requires: true } },
+                            DaysByPeriod: { editable: true, nullable: false, validation: { requires: true } },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDGetAllByCustomer=true&CustomerPublicId=' + ThirdKnowledgeObject.CustomerPublicId + '&Enable=' + ThirdKnowledgeObject.GetViewEnable(vRenderObject.ThirdKnowledgeType),
+                            dataType: 'json',
+                            success: function (result) {
+                                debugger;
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                debugger;
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+            editable: {
+                mode: "popup",
+                window: {
+                    title: "Asignación de plan",
+                }
+            },
+            edit: function (e) {
+                if (e.model.isNew()) {
+                    // set survey item type
+                    e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
+                    e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
+                }
+            },
+            columns: [{
+                field: 'QueriesByPeriod',
+                title: 'Consultas por periodo',
+                width: '100px',
+            }, {
+                field: 'InitDate',
+                title: 'Fecha Inicial',
+                width: '100px',
+            }, {
+                field: 'EndDate',
+                title: 'Fecha Final',
+                width: '100px',
+            }, {
+                field: 'Status',
+                title: 'Estado',
+                width: '200px',
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Status != null) {
+                        $.each(ThirdKnowledgeObject.ThirdKnowledgeOptions[101], function (item, value) {
+                            if (dataItem.Status.ItemId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: ThirdKnowledgeObject.ThirdKnowledgeOptions[101],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'DaysByPeriod',
+                title: 'Días por periodo',
+                width: '100',
+            }, [{
+                field: 'Enable',
+                title: 'Habilitado Marketplace',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, ],            
+                 {
+                     title: "Acciones",
+                     width: "200px",
+                     command: [{
+                         name: 'edit',
+                         text: 'Editar'
+                     }, {
+                         name: 'Detail',
+                         text: 'Ver Criterios',
+                         click: function (e) {
+                             //// e.target is the DOM element representing the button
+                             //var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                             //// get the data bound to the current table row
+                             //var data = this.dataItem(tr);
+
+                             ////validate SurveyConfigId attribute
+                             ////if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                             ////    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                             ////}
+
+                             ////validate SurveyConfigItemTypeId attribute
+                             //if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
+                             //    //is in evaluation area show question
+                             //    vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
+                             //    vRenderObject.EvaluationItemType = '1401002';
+                             //    vRenderObject.Title = data.EvaluationItemName;
+                             //    Customer_EvaluationItemObject.RenderAsync(vRenderObject);
+                             //}
+                         }
+                     }, {
+                         name: 'Add Criteria',
+                         text: 'Agregar Criterio',
+                         click: function (e) {
+                             //// e.target is the DOM element representing the button
+                             //var tr = $(e.target).closest("tr");// get the current table row (tr)
+                             //// get the data bound to the current table row
+                             //var data = this.dataItem(tr);
+
+                             ////Redirect SurveyCriteriaUpsert
+                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                             //}
+                         },
+                     }],
+                 }
+            ]
+        })
+    },
+
+    GetViewEnable: function (vThirdKnowledgeType) {
+        return $('#' + ThirdKnowledgeObject.ObjectId + '_' + vThirdKnowledgeType).find('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + ThirdKnowledgeObject.ObjectId + '_' + vThirdKnowledgeType).find('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+}

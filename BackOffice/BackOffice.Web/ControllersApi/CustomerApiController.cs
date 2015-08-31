@@ -1,6 +1,7 @@
 ﻿using BackOffice.Models.Provider;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyCustomer.Models.Customer;
+using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +103,7 @@ namespace BackOffice.Web.ControllersApi
                 ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId
                     (CustomerPublicId);
 
-                if (oCompanyModel != null && oCompanyModel.RelatedRole != null )
+                if (oCompanyModel != null && oCompanyModel.RelatedRole != null)
                 {
                     oCompanyModel.RelatedRole.All(x =>
                     {
@@ -115,7 +116,7 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        
+
 
         [HttpPost]
         [HttpGet]
@@ -474,6 +475,24 @@ namespace BackOffice.Web.ControllersApi
                 //create return object
                 oReturn = new BackOffice.Models.Customer.SurveyConfigItemViewModel
                     (oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault());
+            }
+            return oReturn;
+        }
+
+
+        #endregion
+
+        #region Third Knowledge
+
+        //Función que regresa un modelo de vista de l módulo de co. tereceros.
+        [HttpPost]
+        [HttpGet]
+        public List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> TDGetAllByCustomer(string TDGetAllByCustomer, string CustomerPublicId, bool Enable)
+        {
+            List<PlanModel> oReturn = new List<PlanModel>();
+            if (TDGetAllByCustomer == "true")
+            {
+                oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(CustomerPublicId, Enable);
             }
             return oReturn;
         }

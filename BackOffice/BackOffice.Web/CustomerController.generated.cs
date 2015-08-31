@@ -109,6 +109,18 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult TDAssignedPlan()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TDAssignedPlan);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ADAditionalDocumentsUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocumentsUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
@@ -138,6 +150,8 @@ namespace BackOffice.Web.Controllers
             public readonly string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
             public readonly string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
             public readonly string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
+            public readonly string TDAssignedPlan = "TDAssignedPlan";
+            public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -153,6 +167,8 @@ namespace BackOffice.Web.Controllers
             public const string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
             public const string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
             public const string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
+            public const string TDAssignedPlan = "TDAssignedPlan";
+            public const string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -228,6 +244,22 @@ namespace BackOffice.Web.Controllers
             public readonly string ProjectProviderId = "ProjectProviderId";
             public readonly string EvaluationItemId = "EvaluationItemId";
         }
+        static readonly ActionParamsClass_TDAssignedPlan s_params_TDAssignedPlan = new ActionParamsClass_TDAssignedPlan();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_TDAssignedPlan TDAssignedPlanParams { get { return s_params_TDAssignedPlan; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_TDAssignedPlan
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_ADAditionalDocumentsUpsert s_params_ADAditionalDocumentsUpsert = new ActionParamsClass_ADAditionalDocumentsUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ADAditionalDocumentsUpsert ADAditionalDocumentsUpsertParams { get { return s_params_ADAditionalDocumentsUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ADAditionalDocumentsUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
         static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
@@ -246,6 +278,7 @@ namespace BackOffice.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
                 public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
                 public readonly string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
@@ -255,7 +288,9 @@ namespace BackOffice.Web.Controllers
                 public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
                 public readonly string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
                 public readonly string SCSurveyConfigUpsert = "SCSurveyConfigUpsert";
+                public readonly string TDAssignedPlan = "TDAssignedPlan";
             }
+            public readonly string ADAditionalDocumentsUpsert = "~/Views/Customer/ADAditionalDocumentsUpsert.cshtml";
             public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
             public readonly string PCEvaluationCriteriaUpsert = "~/Views/Customer/PCEvaluationCriteriaUpsert.cshtml";
@@ -265,6 +300,7 @@ namespace BackOffice.Web.Controllers
             public readonly string ROCustomerUserUpsert = "~/Views/Customer/ROCustomerUserUpsert.cshtml";
             public readonly string SCSurveyConfigItemUpsert = "~/Views/Customer/SCSurveyConfigItemUpsert.cshtml";
             public readonly string SCSurveyConfigUpsert = "~/Views/Customer/SCSurveyConfigUpsert.cshtml";
+            public readonly string TDAssignedPlan = "~/Views/Customer/TDAssignedPlan.cshtml";
         }
     }
 
@@ -384,6 +420,30 @@ namespace BackOffice.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectProviderId", ProjectProviderId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EvaluationItemId", EvaluationItemId);
             PCEvaluationItemShowCriteriaOverride(callInfo, ProjectConfigId, CustomerPublicId, ProjectProviderId, EvaluationItemId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TDAssignedPlanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TDAssignedPlan(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TDAssignedPlan);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            TDAssignedPlanOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ADAditionalDocumentsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ADAditionalDocumentsUpsert(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocumentsUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ADAditionalDocumentsUpsertOverride(callInfo, CustomerPublicId);
             return callInfo;
         }
 

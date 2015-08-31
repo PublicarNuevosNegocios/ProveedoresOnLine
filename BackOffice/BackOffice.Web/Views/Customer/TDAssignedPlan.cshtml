@@ -1,0 +1,95 @@
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Comprador - Asignación de Plan";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div id="loading"></div>
+            <label>Asignación de Plan</label>
+            <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Plan).ToString())"></div>
+            <label>Periodos</label>
+            <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Period).ToString())"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridItem_TitleTemplate">
+        <label>${Title}</label>
+    </div>
+
+    <div id="divGridItem_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridSurveyConfig_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    @{
+        //get ThirKnowledge Options
+        string oThirdKnowledgeInfoOptionList = "[]";
+        if (Model.ThirdKnowledgeOptions != null &&
+            Model.ThirdKnowledgeOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.ThirdKnowledge.Models.TDCatalogModel>> oOptionThirdKnowledge =
+                Model.ThirdKnowledgeOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ThirdKnowledgeOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oThirdKnowledgeInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionThirdKnowledge.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+
+    var vThirdKnowledgeInfoOptionList = @(Html.Raw(oThirdKnowledgeInfoOptionList));
+
+    $(document).ready(function () {
+        debugger;
+        ThirdKnowledgeObject.Init({
+            ObjectId: 'divGridItem',
+            CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',            
+            ThirdKnowledgeOptions: vThirdKnowledgeInfoOptionList,                        
+        });
+
+        ThirdKnowledgeObject.RenderAsync({
+            ThirdKnowledgeType: '@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Plan).ToString())',
+            Title: 'Asignación de Plan',
+        })
+    });
+    </script>
+}

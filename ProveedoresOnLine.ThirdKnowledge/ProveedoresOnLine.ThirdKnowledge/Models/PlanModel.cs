@@ -18,7 +18,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public DateTime EndDate { get; set; }
 
-        public CatalogModel Status { get; set; }
+        public TDCatalogModel Status { get; set; }
 
         public int DaysByPeriod { get; set; }
 

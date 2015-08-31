@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("CustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -41,7 +41,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             {
                 oReturn =
                     (from cm in response.DataTableResult.AsEnumerable()
-                     where !cm.IsNull("CommercialId")
+                     where !cm.IsNull("PlanId")
                      group cm by new
                      {
                          PlanId = cm.Field<int>("PlanId"),
@@ -67,7 +67,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          QueriesByPeriod = cmg.Key.QueriesByPeriod,
                          InitDate = cmg.Key.InitDate,
                          EndDate = cmg.Key.EndDate,
-                         Status = new CatalogModel()
+                         Status = new TDCatalogModel()
                          {
                              ItemId = cmg.Key.StatusId,
                              ItemName = cmg.Key.StatusName,
@@ -107,7 +107,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod,int DaysByPeriod, CatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
+        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod,int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -161,6 +161,39 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                 return null;
         }
         
+        #endregion
+
+        #region Util
+
+        public List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetThirdKnowledgeOptions",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<TDCatalogModel> oReturn = new List<TDCatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ItemId")
+                     select new TDCatalogModel()
+                     {
+                         CatalogId = c.Field<int>("CatalogId"),
+                         CatalogName = c.Field<string>("CatalogName"),
+                         ItemId = c.Field<int>("ItemId"),
+                         ItemName = c.Field<string>("ItemName"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
     }
 }
