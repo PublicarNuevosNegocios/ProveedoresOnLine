@@ -531,4 +531,15 @@
         SpecificPerson = 1405002,
     }
     #endregion
+
+    #region Aditional Documents
+
+    public enum enumAditionalDocumentsType
+    {
+        None,
+        DocumentsGrid = 1701001,
+        SingleDocument = 1701002,
+    }
+
+    #endregion
 }
