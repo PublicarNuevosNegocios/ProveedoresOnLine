@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace MarketPlace.Web.Controllers
@@ -11,37 +8,48 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult Index()
         {
             //validate user loggin
-            if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn)
+            if (Models.General.SessionModel.UserIsLoggedIn)
             {
                 //get user company info
 
                 List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany =
-                    ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+                    ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(Models.General.SessionModel.CurrentLoginUser.Email);
 
-                MarketPlace.Models.General.SessionModel.InitCompanyLogin(UserCompany);
+                Models.General.SessionModel.InitCompanyLogin(UserCompany);
 
                 //validate user authorized
-                if (MarketPlace.Models.General.SessionModel.IsUserAuthorized())
+                if (Models.General.SessionModel.IsUserAuthorized())
                 {
-                    if (MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.Provider)
+                    if (Models.General.SessionModel.CurrentCompanyType == Models.General.enumCompanyType.Provider)
                     {
                         //redirect to provider home
                         return RedirectToRoute
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            (Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Index
                             });
                     }
+                    else if(Models.General.SessionModel.CurrentCompanyType == Models.General.enumCompanyType.BuyerProvider)
+                    {
+                        //redirect to provider home
+                        return RedirectToRoute
+                            (Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            });
+                    }                        
                     else
                     {
-                        if (MarketPlace.Models.General.SessionModel.CurrentURL != null)                        
-                            return Redirect(MarketPlace.Models.General.SessionModel.CurrentURL);                            
+                        if (Models.General.SessionModel.CurrentURL != null)                        
+                            return Redirect(Models.General.SessionModel.CurrentURL);                            
                         
                         //redirect to customer home
                         return RedirectToRoute
-                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                        (Models.General.Constants.C_Routes_Default,
                         new
                         {
                             controller = MVC.Customer.Name,
@@ -52,20 +60,20 @@ namespace MarketPlace.Web.Controllers
                 else
                 {
                     //user is not autorized
-                    ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText] =
-                        MarketPlace.Models.General.InternalSettings.Instance
-                        [MarketPlace.Models.General.Constants.C_Settings_Login_UserNotAutorized].Value.
-                        Replace("{UserName}", MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+                    ViewData[Models.General.Constants.C_ViewData_UserNotAutorizedText] =
+                        Models.General.InternalSettings.Instance
+                        [Models.General.Constants.C_Settings_Login_UserNotAutorized].Value.
+                        Replace("{UserName}", Models.General.SessionModel.CurrentLoginUser.Email);
                 }
             }
             else
             {
                 return Redirect(
-                        MarketPlace.Models.General.InternalSettings.Instance
-                            [MarketPlace.Models.General.Constants.C_Settings_Login_InternalLogin].Value.Replace(
+                        Models.General.InternalSettings.Instance
+                            [Models.General.Constants.C_Settings_Login_InternalLogin].Value.Replace(
                             "{{UrlRetorno}}",
                             Url.RouteUrl(
-                                MarketPlace.Models.General.Constants.C_Routes_Default,
+                                Models.General.Constants.C_Routes_Default,
                                 new
                                 {
                                     controller = MVC.Home.Name,
@@ -82,7 +90,7 @@ namespace MarketPlace.Web.Controllers
             SessionManager.SessionController.Logout();
 
             return RedirectToRoute(
-                MarketPlace.Models.General.Constants.C_Routes_Default,
+                Models.General.Constants.C_Routes_Default,
                     new
                     {
                         controller = MVC.Home.Name,
