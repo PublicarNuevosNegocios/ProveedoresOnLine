@@ -1595,6 +1595,35 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetAllModuleOptions",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<ProveedoresOnLine.Company.Models.Util.CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ItemId")
+                     select new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                     {
+                         CatalogId = c.Field<int>("CatalogId"),
+                         CatalogName = c.Field<string>("CatalogName"),
+                         ItemId = c.Field<int>("ItemId"),
+                         ItemName = c.Field<string>("ItemName"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Util MP

@@ -197,6 +197,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.MinimumWageSearchByYear(Year, CountryType);
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions()
+        {
+            return DataFactory.CatalogGetAllModuleOptions();
+        }
+
         #endregion
 
         #region Util MP

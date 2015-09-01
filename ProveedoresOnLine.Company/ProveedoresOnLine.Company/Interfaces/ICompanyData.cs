@@ -76,6 +76,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         ProveedoresOnLine.Company.Models.Util.MinimumWageModel MinimumWageSearchByYear(int Year, int CountryType);
 
+        List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions();
+
         #endregion
 
         #region Util MP
