@@ -102,7 +102,7 @@
                     </a>
                 }
             </div>
-            @if (Model.Item2.ProviderAddRemoveEnable)
+            @if (Model.Item2.ProviderAddRemoveEnable && MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider)
             {
                 if (Model.Item2.IsProviderCustomer &&
                 Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)

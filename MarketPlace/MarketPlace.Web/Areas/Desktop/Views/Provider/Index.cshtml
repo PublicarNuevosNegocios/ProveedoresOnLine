@@ -49,9 +49,8 @@
         </div>
     }    
    
-    @if (!IsBasicInfo)
-    {
-       
+    @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+    {       
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
                 <h1>Estado de los proveedores</h1>

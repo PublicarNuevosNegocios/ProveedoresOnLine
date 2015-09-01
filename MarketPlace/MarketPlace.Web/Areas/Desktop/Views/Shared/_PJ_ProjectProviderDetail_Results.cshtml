@@ -40,16 +40,15 @@
         case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
 
             oAreaEvalUnit = "Informativo";
+            oAreaEvalStyle = "POMP_ProjectDetail_Info";
 
             if (oAreaRatting >= 100)
             {
                 oAreaEvalResult = "Pasa";
-                oAreaEvalStyle = "POMP_ProjectDetail_Win";
             }
             else
             {
                 oAreaEvalResult = "No Pasa";
-                oAreaEvalStyle = "POMP_ProjectDetail_Lose";
             }
             break;
         default:

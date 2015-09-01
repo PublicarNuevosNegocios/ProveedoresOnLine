@@ -35,9 +35,13 @@
                     <div class="col-xs-12">
                         <label>Archivo de Afiliación</label>
                     </div>
-                    <div class="col-xs-12">
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).LastOrDefault()">Ver Archivo Afiliación ARL</a>
-                    </div>
+                    @if (@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).LastOrDefault() != "")
+                    {
+                        <div class="col-xs-12">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).LastOrDefault()">Ver Archivo Afiliación ARL</a>
+                        </div>
+                    }
+                    
                 </div>
 
                 @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
@@ -82,13 +86,5 @@
                 <label id="lblLTIFResult">Resultado LTIF: @Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()</label>
             </li>
         </ul>
-
-
-
-
-
-
-
-
     }
 }
