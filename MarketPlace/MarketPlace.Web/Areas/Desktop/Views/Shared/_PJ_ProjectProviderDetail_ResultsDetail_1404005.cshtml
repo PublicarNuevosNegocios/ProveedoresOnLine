@@ -2,6 +2,17 @@
 
 @if (!Model.Item1.RenderScripts)
 {
-
+    <div class="POMPProviderDataWrapper">
+        <!--Render detail-->
+        <label class="POMPSectionTitles">Balances Financieros</label>
+        <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver Balances Financieros</a>
+    </div>
 }
 

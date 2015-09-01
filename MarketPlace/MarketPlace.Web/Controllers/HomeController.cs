@@ -39,7 +39,7 @@ namespace MarketPlace.Web.Controllers
                             new
                             {
                                 controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Search
+                                action = MVC.Provider.ActionNames.Index
                             });
                     }                        
                     else
