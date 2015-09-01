@@ -749,6 +749,8 @@ namespace BackOffice.Web.Controllers
                 RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
             };
 
+            oModel.CatalogGetAllModuleOptions = ProveedoresOnLine.Company.Controller.Company.CatalogGetAllModuleOptions();
+
             //get provider menu
             oModel.CustomerMenu = GetCustomerMenu(oModel);
 

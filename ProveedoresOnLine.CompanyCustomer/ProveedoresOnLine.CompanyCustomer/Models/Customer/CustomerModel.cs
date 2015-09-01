@@ -8,11 +8,17 @@ namespace ProveedoresOnLine.CompanyCustomer.Models.Customer
 {
     public class CustomerModel
     {
-        public ProveedoresOnLine.Company.Models.Company.CompanyModel RelatedCompany { get; set; }
+        public Company.Models.Company.CompanyModel RelatedCompany { get; set; }
 
         #region Customer Provider
 
         public List<CustomerProviderModel> RelatedProvider { get; set; }
+
+        #endregion
+
+        #region Aditional Documents
+
+        public Company.Models.Util.GenericItemModel AditionalDocuments { get; set; }
 
         #endregion
     }

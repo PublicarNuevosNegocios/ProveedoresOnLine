@@ -42,6 +42,98 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
 
         #endregion
 
+        #region Aditional Documents
+
+        public static CustomerModel AditionalDocumentsUpsert(CustomerModel AditionalDocumentsToUpsert)
+        {
+            if (AditionalDocumentsToUpsert != null)
+            {
+                LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                try
+                {
+                    AditionalDocumentsToUpsert.AditionalDocuments.ItemId = ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.AditionalDocumentsUpsert
+                        (AditionalDocumentsToUpsert.RelatedCompany.CompanyPublicId,
+                        AditionalDocumentsToUpsert.AditionalDocuments.ItemId > 0 ? (int?)AditionalDocumentsToUpsert.AditionalDocuments.ItemId : null,
+                        AditionalDocumentsToUpsert.AditionalDocuments.ItemName,
+                        AditionalDocumentsToUpsert.AditionalDocuments.Enable);
+
+                    AditionalDocumentsInfoUpsert(AditionalDocumentsToUpsert);
+                }
+                catch (Exception err)
+                {
+                    oLog.IsSuccess = false;
+                    oLog.Message = err.Message + " - " + err.StackTrace;
+
+                    throw err;
+                }
+                finally
+                {
+                    oLog.LogObject = AditionalDocumentsToUpsert;
+
+                    oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "AditionalDocuments",
+                        Value = AditionalDocumentsToUpsert.AditionalDocuments.ItemId.ToString(),
+                    });
+
+                    LogManager.ClientLog.AddLog(oLog);
+                }
+            }
+
+            return AditionalDocumentsToUpsert;
+        }
+
+        public static CustomerModel AditionalDocumentsInfoUpsert(CustomerModel AditionalDocuementsInfoToUpsert)
+        {
+            if (AditionalDocuementsInfoToUpsert != null &&
+                AditionalDocuementsInfoToUpsert.AditionalDocuments.ItemInfo != null &&
+                AditionalDocuementsInfoToUpsert.AditionalDocuments.ItemInfo.Count > 0)
+            {
+                AditionalDocuementsInfoToUpsert.AditionalDocuments.ItemInfo.All(adinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+
+                    try
+                    {
+                        AditionalDocuementsInfoToUpsert.AditionalDocuments.ItemId = ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.AditionalDocumentsInfoUpsert(
+                            AditionalDocuementsInfoToUpsert.AditionalDocuments.ItemId,
+                            adinf.ItemInfoId > 0 ? (int?)adinf.ItemInfoId : null,
+                            adinf.ItemInfoType.ItemId,
+                            adinf.Value,
+                            adinf.LargeValue,
+                            adinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = adinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "AditionalDocumentsInfo",
+                            Value = adinf.ItemInfoId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return AditionalDocuementsInfoToUpsert;
+        }
+
+        #endregion
+
         #region Customer Provider
 
         public static CustomerModel CustomerProviderUpsert(CustomerModel CustomerToUpsert)
