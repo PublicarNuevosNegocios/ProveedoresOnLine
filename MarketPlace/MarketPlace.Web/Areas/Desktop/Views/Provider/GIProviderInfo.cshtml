@@ -126,7 +126,7 @@
                     }
                     if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
                     {
-                        <div class="col-xs-8">
+                        <div class="col-xs-12">
                             <div class="col-xs-12">
                                 <label>
                                     Email
@@ -148,7 +148,6 @@
                             </div>
                             <div class="col-xs-12">
                                 @{string CompanyInfoValueAux = string.Empty;
-
                                 CompanyInfoValueAux = Model.RelatedLiteProvider.
                                 RelatedProvider.
                                 RelatedCompany.
