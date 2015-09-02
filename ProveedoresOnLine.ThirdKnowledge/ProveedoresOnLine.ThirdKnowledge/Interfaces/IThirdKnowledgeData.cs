@@ -22,6 +22,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         List<TDCatalogModel> CatalogGetThirdKnowledgeOptions();
 
+        List<PeriodModel> GetPeriodByPlanPublicId(string PlanPublicId, bool Enable);
         #endregion
     }
 }

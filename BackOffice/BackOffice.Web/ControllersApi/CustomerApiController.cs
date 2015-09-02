@@ -1,4 +1,5 @@
-﻿using BackOffice.Models.Provider;
+﻿using BackOffice.Models.Customer;
+using BackOffice.Models.Provider;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyCustomer.Models.Customer;
 using ProveedoresOnLine.ThirdKnowledge.Models;
@@ -115,7 +116,6 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
-
 
 
         [HttpPost]
@@ -484,20 +484,90 @@ namespace BackOffice.Web.ControllersApi
 
         #region Third Knowledge
 
-        //Función que regresa un modelo de vista de l módulo de co. tereceros.
         [HttpPost]
         [HttpGet]
-        public List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> TDGetAllByCustomer(string TDGetAllByCustomer, string CustomerPublicId, bool Enable)
+        public List<ThirdKnowledgeViewModel> TDGetAllByCustomer(string TDGetAllByCustomer, string CustomerPublicId, bool Enable)
         {
-            List<PlanModel> oReturn = new List<PlanModel>();
+            List<ThirdKnowledgeViewModel> oReturn = new List<ThirdKnowledgeViewModel>();
+            List<PlanModel> oPlanModel = new List<PlanModel>();
             if (TDGetAllByCustomer == "true")
             {
-                oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(CustomerPublicId, Enable);
+                oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(CustomerPublicId, Enable);
+                if (oPlanModel != null)
+                {
+                    oPlanModel.All(x =>
+                        {
+                            oReturn.Add(new ThirdKnowledgeViewModel(x));
+                            return true;
+                        });
+                }
             }
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<ThirdKnowledgeViewModel> TDGetPeriodsByPlanPublicId(string TDGetPeriodsByPlanPublicId, string PlanPublicId, bool Enable)
+        {
+            List<ThirdKnowledgeViewModel> oReturn = new List<ThirdKnowledgeViewModel>();
+            List<PeriodModel> oPeriodModel = new List<PeriodModel>();
+            if (TDGetPeriodsByPlanPublicId == "true")
+            {
+                oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId(PlanPublicId, Enable);
+                if (oPeriodModel != null)
+                {
+                    oPeriodModel.All(x =>
+                    {
+                        oReturn.Add(new ThirdKnowledgeViewModel(x));
+                        return true;
+                    });
+                }
+            }
+            return oReturn;
+        }
 
+        [HttpPost]
+        [HttpGet]
+        public List<ThirdKnowledgeViewModel> TDPlanUpsert(string TDPlanUpsert, string PlanPublicId, string CustomerPublicId)
+        {
+            List<ThirdKnowledgeViewModel> oReturn = new List<ThirdKnowledgeViewModel>();
+            if (TDPlanUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                ThirdKnowledgeViewModel oDataToUpsert = (ThirdKnowledgeViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(ThirdKnowledgeViewModel));
+
+                PlanModel oToUpsert = new PlanModel();
+                oToUpsert.InitDate = Convert.ToDateTime(oDataToUpsert.InitDate);
+                oToUpsert.CompanyPublicId = CustomerPublicId;
+                oToUpsert.CreateDate = Convert.ToDateTime(oDataToUpsert.CreateDate);
+                oToUpsert.DaysByPeriod = oDataToUpsert.DaysByPeriod;
+                oToUpsert.Enable = oDataToUpsert.Enable;
+                oToUpsert.EndDate = Convert.ToDateTime(oDataToUpsert.EndDate);
+                oToUpsert.LastModify = DateTime.Now;
+                oToUpsert.PlanPublicId = oDataToUpsert.PlanPublicId;
+                oToUpsert.QueriesByPeriod = oDataToUpsert.QueriesByPeriod;
+                oToUpsert.Status = new TDCatalogModel()
+                {
+                    ItemId = oDataToUpsert.Status,
+                };
+
+                ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PlanUpsert(oToUpsert);
+                List<PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(CustomerPublicId, true);
+                if (oPlanModel != null)
+                {
+                    oPlanModel.All(x =>
+                    {
+                        oReturn.Add(new ThirdKnowledgeViewModel(x));
+                        return true;
+                    });
+                }
+            }
+            return oReturn;
+        }
+                
         #endregion
 
         #region Project Config

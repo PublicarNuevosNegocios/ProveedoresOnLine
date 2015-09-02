@@ -2102,33 +2102,37 @@ var ThirdKnowledgeObject =
     ObjectId: '',
     CustomerPublicId: '',
     IsEnable: '',
+    DateFormat: '',
     ThirdKnowledgeOptions: new Array(),
+    PlanPublicId:'',
 
     Init: function (vInitObject) {
+        debugger;
         this.ObjectId = vInitObject.ObjectId,
         this.CustomerPublicId = vInitObject.CustomerPublicId,
-        this.IsEnable = vInitObject.Enable
+        this.IsEnable = vInitObject.Enable,
+        this.DateFormat = vInitObject.DateFormat
 
         if (vInitObject.ThirdKnowledgeOptions != null) {
             $.each(vInitObject.ThirdKnowledgeOptions, function (item, value) {
                 ThirdKnowledgeObject.ThirdKnowledgeOptions[value.Key] = value.Value;
-             });
-         }        
+            });
+        }
     },
     RenderAsync: function (vRenderObject) {
 
         if (vRenderObject.ThirdKnowledgeType == 1601001) {
             ThirdKnowledgeObject.RenderPlan(vRenderObject);
         }
-        //if (vRenderObject.ThirdKnowledgeType == 1601001) {
-        //    RenderPlan();
-        //}
+        if (vRenderObject.ThirdKnowledgeType == 1601002) {
+            ThirdKnowledgeObject.RenderPeriods(vRenderObject);
+        }
     },
 
     RenderPlan: function (vRenderObject) {
-        debugger;
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
             editable: true,
+            
             navigatable: true,
             pageable: false,
             scrollable: true,
@@ -2166,11 +2170,11 @@ var ThirdKnowledgeObject =
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDGetAllByCustomer=true&CustomerPublicId=' + ThirdKnowledgeObject.CustomerPublicId + '&Enable=' + ThirdKnowledgeObject.GetViewEnable(vRenderObject.ThirdKnowledgeType),
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
+                                
                                 options.success(result);
                             },
                             error: function (result) {
-                                debugger;
+                                
                                 options.error(result);
                                 Message('error', result);
                             },
@@ -2178,7 +2182,228 @@ var ThirdKnowledgeObject =
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDPlanUpsert=true&PlanPublicId=' + ThirdKnowledgeObject.PlanPublicId + "&CustomerPublicId=" + ThirdKnowledgeObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data),
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        debugger;
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDPlanUpsert=true&PlanPublicId=' + ThirdKnowledgeObject.PlanPublicId + "&CustomerPublicId=" + ThirdKnowledgeObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.PlanPublicId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+            editable: {
+                mode: "popup",
+                window: {
+                    title: "Asignación de plan",
+                }
+            },
+            edit: function (e) {
+                debugger;
+                if (e.model.isNew()) {
+                    // set survey item type
+                    vRenderObject.PlanPublicId = e.model.PlanPublicId;
+                }
+            },
+            columns: [{
+                field: 'QueriesByPeriod',
+                title: 'Consultas por periodo',
+                width: '100px',
+            }, {                
+                field: 'InitDate',
+                title: 'Fecha Inicial',
+                width: '170px',
+                format: ThirdKnowledgeObject.DateFormat,
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
+                },
+            }, {
+                field: 'EndDate',
+                title: 'Fecha Final',
+                width: '170px',
+                format: ThirdKnowledgeObject.DateFormat,
+                editor:
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                    }
+            }, {
+                field: 'Status',
+                title: 'Estado',
+                width: '90px',
+                template: function (dataItem) {
+                    
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Status != null) {
+                        $.each(ThirdKnowledgeObject.ThirdKnowledgeOptions[101], function (item, value) {
+                            if (dataItem.Status == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: ThirdKnowledgeObject.ThirdKnowledgeOptions[101],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'DaysByPeriod',
+                title: 'Días por Periodo',
+                width: '100',
+            }, {
+                field: 'Enable',
+                title: 'Habilitado Marketplace',
+                width: '100px',
+                template: function (dataItem) {
+                    
+                    var oReturn = '';
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            },
+                 {
+
+                     title: "Acciones",
+                     width: "200px",
+                     command: [{
+                         name: 'edit',
+                         text: 'Editar',                         
+                     }, {
+                         name: 'Detail',
+                         text: 'Ver Detalle',
+                         click: function (e) {
+                             
+                             // e.target is the DOM element representing the button
+                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                             // get the data bound to the current table row
+                             var data = this.dataItem(tr);
+
+                             //validate SurveyConfigId attribute
+                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                             //}
+
+                             //validate Plan attribute
+                             if (data.PlanPublicId != null) {
+
+                                 vRenderObject.PlanPublicId = data.PlanPublicId;
+                                 vRenderObject.ThirdKnowledgeType = '1601002';
+                                 
+                                 ThirdKnowledgeObject.RenderAsync(vRenderObject);
+                             }
+                         }
+
+                     }, ],
+                 }
+            ]
+        })
+    },
+
+    RenderPeriods: function (vRenderObject) {
+        
+        $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [{
+                    name: 'title',
+                    template: function () {
+                        return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                    }
+                },
+                { name: 'ViewEnable', template: $('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnablesTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: ThirdKnowledgeObject.PageSize,
+                schema: {
+                    model: {
+                        id: "PeriodPublicId",
+                        fields: {
+                            PeriodPublicId: { editable: false, nullable: false },
+                            AssignedQueries: { editable: true, nullable: false, validation: { requires: true } },
+                            PeriodInitDate: { editable: true, nullable: false, validation: { requires: true } },
+                            PeriodEndDate: { editable: true, nullable: false, validation: { requires: true } },
+                            TotalQueries: { editable: true, nullable: false, validation: { requires: true } },
+                            PeriodEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            PeriodLastModify: { editable: true, nullable: false, validation: { requires: true } },
+                            PeriodCreateDate: { editable: true, nullable: false, validation: { requires: true } },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDGetPeriodsByPlanPublicId=true&PlanPublicId=' + vRenderObject.PlanPublicId + '&Enable=' + "true",
+                            dataType: 'json',
+                            success: function (result) {
+                                
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDPlanUpsert=true&PlanPublicId=' + ThirdKnowledgeObject.PlanPublicId + "&CustomerPublicId=" + ThirdKnowledgeObject.CustomerPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2196,7 +2421,7 @@ var ThirdKnowledgeObject =
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDPlanUpsert=true&PlanPublicId=' + ThirdKnowledgeObject.PlanPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2229,60 +2454,53 @@ var ThirdKnowledgeObject =
             edit: function (e) {
                 if (e.model.isNew()) {
                     // set survey item type
-                    e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
-                    e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
+                    e.model.ThirdKnowledgeType = vRenderObject.ThirdKnowledgeType;
                 }
             },
             columns: [{
-                field: 'QueriesByPeriod',
-                title: 'Consultas por periodo',
+                field: 'AssignedQueries',
+                title: 'Consultas Asignadas',
                 width: '100px',
             }, {
-                field: 'InitDate',
-                title: 'Fecha Inicial',
-                width: '100px',
-            }, {
-                field: 'EndDate',
-                title: 'Fecha Final',
-                width: '100px',
-            }, {
-                field: 'Status',
-                title: 'Estado',
-                width: '200px',
-                template: function (dataItem) {
-                    debugger;
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.Status != null) {
-                        $.each(ThirdKnowledgeObject.ThirdKnowledgeOptions[101], function (item, value) {
-                            if (dataItem.Status.ItemId == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
+                field: 'PeriodInitDate',
+                title: 'Inicio',
+                width: '170px',
+                format: ThirdKnowledgeObject.DateFormat,
+                editor:
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                     }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: ThirdKnowledgeObject.ThirdKnowledgeOptions[101],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
             }, {
-                field: 'DaysByPeriod',
-                title: 'Días por periodo',
-                width: '100',
-            }, [{
-                field: 'Enable',
+                field: 'PeriodEndDate',
+                title: 'Fin',
+                width: '170px',
+                format: ThirdKnowledgeObject.DateFormat,
+                editor:
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                    }
+            }, {
+                field: 'TotalQueries',
+                title: 'Consultas Realizadas',
+                width: '200px',
+            }, {
+                field: 'PeriodEnable',
                 title: 'Habilitado Marketplace',
                 width: '100px',
                 template: function (dataItem) {
+                    
                     var oReturn = '';
-
-                    if (dataItem.Enable == true) {
+                    if (dataItem.PeriodEnable == true) {
                         oReturn = 'Si'
                     }
                     else {
@@ -2290,52 +2508,51 @@ var ThirdKnowledgeObject =
                     }
                     return oReturn;
                 },
-            }, ],            
-                 {
-                     title: "Acciones",
-                     width: "200px",
-                     command: [{
-                         name: 'edit',
-                         text: 'Editar'
-                     }, {
-                         name: 'Detail',
-                         text: 'Ver Criterios',
-                         click: function (e) {
-                             //// e.target is the DOM element representing the button
-                             //var tr = $(e.target).closest("tr"); // get the current table row (tr)
-                             //// get the data bound to the current table row
-                             //var data = this.dataItem(tr);
+            }, {
+                field: 'PeriodLastModify',
+                title: 'Última Modificación',
+                width: '170px',
+                format: ThirdKnowledgeObject.DateFormat,
+                editor:
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                    }
+            },
+                {
+                    title: "Acciones",
+                    width: "200px",
+                    command: [
+                    {
+                        name: 'Detail',
+                        text: 'Ver Detalle',
+                        click: function (e) {
+                            
+                            // e.target is the DOM element representing the button
+                            var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                            // get the data bound to the current table row
+                            var data = this.dataItem(tr);
 
-                             ////validate SurveyConfigId attribute
-                             ////if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                             ////    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                             ////}
+                            //validate SurveyConfigId attribute
+                            //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                            //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                            //}
 
-                             ////validate SurveyConfigItemTypeId attribute
-                             //if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
-                             //    //is in evaluation area show question
-                             //    vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
-                             //    vRenderObject.EvaluationItemType = '1401002';
-                             //    vRenderObject.Title = data.EvaluationItemName;
-                             //    Customer_EvaluationItemObject.RenderAsync(vRenderObject);
-                             //}
-                         }
-                     }, {
-                         name: 'Add Criteria',
-                         text: 'Agregar Criterio',
-                         click: function (e) {
-                             //// e.target is the DOM element representing the button
-                             //var tr = $(e.target).closest("tr");// get the current table row (tr)
-                             //// get the data bound to the current table row
-                             //var data = this.dataItem(tr);
+                            //validate Plan attribute
+                            if (data.PlanPublicId != null) {
 
-                             ////Redirect SurveyCriteriaUpsert
-                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                             //}
-                         },
-                     }],
-                 }
+                                vRenderObject.PlanPublicId = data.PlanPublicId;
+                                vRenderObject.ThirdKnowledgeType = '1601002';
+                                vRenderObject.Title = "ACA VA EL TÍTULO";
+                                ThirdKnowledgeObject.RenderAsync(vRenderObject);
+                            }
+                        }
+                    }, ],
+                }
             ]
         })
     },
@@ -2343,5 +2560,4 @@ var ThirdKnowledgeObject =
     GetViewEnable: function (vThirdKnowledgeType) {
         return $('#' + ThirdKnowledgeObject.ObjectId + '_' + vThirdKnowledgeType).find('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + ThirdKnowledgeObject.ObjectId + '_' + vThirdKnowledgeType).find('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
-
 }

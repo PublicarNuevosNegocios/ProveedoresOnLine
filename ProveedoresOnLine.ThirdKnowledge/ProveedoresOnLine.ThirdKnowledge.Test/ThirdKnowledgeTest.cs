@@ -42,5 +42,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
             oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("AAAAA", true);
             Assert.IsNull(oReturn);     
         }
+
+        [TestMethod]
+        public void GetPeriodByPlanPublicId()
+        {
+            List<PeriodModel> oPeriodModel = new List<PeriodModel>();
+
+            oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("4236C169", true);
+
+            Assert.IsNull(oPeriodModel);     
+        }
     }
 }

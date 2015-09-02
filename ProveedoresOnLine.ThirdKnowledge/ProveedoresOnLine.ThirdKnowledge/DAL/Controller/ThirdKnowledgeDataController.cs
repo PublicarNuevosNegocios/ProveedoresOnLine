@@ -48,7 +48,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
         {
             return DataFactory.PeriodUpsert(PeriodPublicId, PlanPublicId, AssignedQueries, TotalQueries, InitDate, EndDate, Enable);
         }
-        
+
+        public List<PeriodModel> GetPeriodByPlanPublicId(string PlanPublicId, bool Enable)
+        {
+            return DataFactory.GetPeriodByPlanPublicId(PlanPublicId, Enable);
+        }
         #endregion
 
         #region Utils

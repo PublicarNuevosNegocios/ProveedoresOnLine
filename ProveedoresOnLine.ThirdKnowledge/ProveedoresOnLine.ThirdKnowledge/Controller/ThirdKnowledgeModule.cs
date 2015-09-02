@@ -64,9 +64,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                       oPlanModelToUpsert.InitDate,
                                                       oPlanModelToUpsert.EndDate,
                                                       oPlanModelToUpsert.Enable);
-                    oPlanModelToUpsert.RelatedPeriodoModel = CalculatePeriods(oPlanModelToUpsert);
-
-
+                    oPlanModelToUpsert.RelatedPeriodModel = CalculatePeriods(oPlanModelToUpsert);
                 }
                 return oPlanModelToUpsert;
             }
@@ -82,49 +80,47 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ThirdKnowledgeDataController.Instance.GetAllPlanByCustomer(CustomerPublicId, Enable);
         }
 
+        public static List<PeriodModel> GetPeriodByPlanPublicId(string PeriodPublicId, bool Enable)
+        {
+            return ThirdKnowledgeDataController.Instance.GetPeriodByPlanPublicId(PeriodPublicId, Enable);
+        }
         #endregion
 
         public static List<PeriodModel> CalculatePeriods(PlanModel oPlanToReCalculate)
         {
             int DiferenceInDays;
             int TotalPeriods = 0;
-            if (oPlanToReCalculate.PlanPublicId != null &&
-                oPlanToReCalculate.RelatedPeriodoModel != null &&
-                oPlanToReCalculate.RelatedPeriodoModel.Count > 0)
-            {
-                oPlanToReCalculate.RelatedPeriodoModel.All(x =>
-                    {
-                        if (x.EndDate > oPlanToReCalculate.EndDate)
-                            x.EndDate = oPlanToReCalculate.EndDate;
 
-                        ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(
-                                                                x.PeriodPublicId,
-                                                                x.PlanPublicId,
-                                                                x.AssignedQueries,
-                                                                x.TotalQueries,
-                                                                x.InitDate,
-                                                                x.EndDate,
-                                                                oPlanToReCalculate.Enable);
+            oPlanToReCalculate.RelatedPeriodModel = ThirdKnowledgeDataController.Instance.GetPeriodByPlanPublicId(oPlanToReCalculate.PlanPublicId, true);
+
+            if (oPlanToReCalculate.PlanPublicId != null &&
+                oPlanToReCalculate.RelatedPeriodModel != null &&
+                oPlanToReCalculate.RelatedPeriodModel.Count > 0)
+            {
+                oPlanToReCalculate.RelatedPeriodModel.All(x =>
+                    {
+                       //Armar el insert por actualización
                         return true;
                     });
             }
             else
             {
                 if (oPlanToReCalculate != null)
-                {
+                {                    
                     //Get Days from dates interval                                
                     DiferenceInDays = (oPlanToReCalculate.EndDate - oPlanToReCalculate.InitDate).Days;
 
                     TotalPeriods = DiferenceInDays / oPlanToReCalculate.DaysByPeriod;
-                    oPlanToReCalculate.RelatedPeriodoModel = new List<PeriodModel>();
+                    oPlanToReCalculate.RelatedPeriodModel = new List<PeriodModel>();
                 }
+
                 DateTime EndPastPeriod = new DateTime();
                 for (int i = 0; i < TotalPeriods; i++)
                 {
                     if (i == 0)
                     {
-                        oPlanToReCalculate.RelatedPeriodoModel.Add(new PeriodModel()
-                           {
+                        oPlanToReCalculate.RelatedPeriodModel.Add(new PeriodModel()
+                           {                               
                                AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
                                InitDate = oPlanToReCalculate.InitDate,
                                EndDate = oPlanToReCalculate.InitDate.AddDays(oPlanToReCalculate.DaysByPeriod),
@@ -137,7 +133,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     }
                     else
                     {
-                        oPlanToReCalculate.RelatedPeriodoModel.Add(new PeriodModel()
+                        oPlanToReCalculate.RelatedPeriodModel.Add(new PeriodModel()
                         {
                             AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
                             InitDate = EndPastPeriod,
@@ -150,7 +146,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         EndPastPeriod = EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod);
                     }
                 }
-                oPlanToReCalculate.RelatedPeriodoModel.All(x =>
+                oPlanToReCalculate.RelatedPeriodModel.All(x =>
                 {
                     ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(
                                                             x.PeriodPublicId,
@@ -158,12 +154,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                             x.AssignedQueries,
                                                             x.TotalQueries,
                                                             x.InitDate,
-                                                            oPlanToReCalculate.EndDate,
-                                                            x.Enable);
+                                                            x.EndDate,
+                                                            oPlanToReCalculate.Enable);
                     return true;
                 });
             }
-            return oPlanToReCalculate.RelatedPeriodoModel;
+            return oPlanToReCalculate.RelatedPeriodModel;
         }
 
         public static List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()

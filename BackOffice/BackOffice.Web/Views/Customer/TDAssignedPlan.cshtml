@@ -15,20 +15,14 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
-            }
+           
             <div id="loading"></div>
             <label>Asignación de Plan</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Plan).ToString())"></div>
             <label>Periodos</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Period).ToString())"></div>
             <br />
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
-            }
+           
         </div>
     </div>
 </div>
@@ -72,6 +66,15 @@
             oThirdKnowledgeInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionThirdKnowledge.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+
+        string oPeriodURL = Url.Action
+            (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
+            MVC.Customer.Name,
+            new
+            {
+                CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
+            }) + "&ProjectProviderId=${ProjectProviderId}"
+            + "&EvaluationItemId=${EvaluationItemId}";
     }
 
     <script type="text/javascript">
@@ -82,14 +85,16 @@
         debugger;
         ThirdKnowledgeObject.Init({
             ObjectId: 'divGridItem',
-            CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',            
-            ThirdKnowledgeOptions: vThirdKnowledgeInfoOptionList,                        
+            CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+            ThirdKnowledgeOptions: vThirdKnowledgeInfoOptionList,
+            DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
         });
 
         ThirdKnowledgeObject.RenderAsync({
             ThirdKnowledgeType: '@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Plan).ToString())',
             Title: 'Asignación de Plan',
+            PlanPublicId:'',
         })
     });
-    </script>
+</script>
 }

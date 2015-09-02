@@ -28,6 +28,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public DateTime CreateDate { get; set; }
 
-        public List<PeriodModel> RelatedPeriodoModel { get; set; }
+        public List<PeriodModel> RelatedPeriodModel { get; set; }
     }
 }

@@ -69,7 +69,6 @@
                 <li>
                     @{
                         //Comercial Name
-
                         CompanyInfoIdAux = 0;
                         CompanyInfoValueAux = string.Empty;
 
@@ -289,6 +288,21 @@
                         }
                     </li>
                 }
+                <li>
+                    <label>Formulario </label><br />
+                    
+                    @Html.Partial(MVC.Shared.Views._F_FileUpload)
+                    <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.FormularioPropilco).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
+                    @if (CompanyInfoValueAux != null && CompanyInfoValueAux.Length > 0)
+                    {
+                        <div>
+                            <a target="_blank" href="@CompanyInfoValueAux">Ver archivo</a>
+                        </div>
+                        <div>
+                            <img src="@CompanyInfoValueAux" style="width: 50px; height: 50px;" />
+                        </div>
+                    }
+                </li>
             </ul>
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
