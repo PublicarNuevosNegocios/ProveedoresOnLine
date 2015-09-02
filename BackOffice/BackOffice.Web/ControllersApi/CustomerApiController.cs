@@ -800,16 +800,16 @@ namespace BackOffice.Web.ControllersApi
 
         #region Aditional Documents
 
-        //[HttpPost]
-        //[HttpGet]
-        //public BackOffice.Models.Customer.AditionalDocumentsViewModel ADAditionalDocumemntsUpsert
-        //    (string ADAditionalDocumemntsUpsert,
-        //    string CustomerPublicId)
-        //{
-        //    BackOffice.Models.Customer.AditionalDocumentsViewModel oReturn = null;
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.AditionalDocumentsViewModel ADAditionalDocumemntsUpsert
+            (string ADAditionalDocumemntsUpsert,
+            string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.AditionalDocumentsViewModel oReturn = null;
 
-        //    return oReturn;
-        //}
+            return oReturn;
+        }
 
         #endregion
     }

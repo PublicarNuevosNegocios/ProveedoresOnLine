@@ -18,7 +18,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Models.Customer
 
         #region Aditional Documents
 
-        public Company.Models.Util.GenericItemModel AditionalDocuments { get; set; }
+        public List<Company.Models.Util.GenericItemModel> AditionalDocuments { get; set; }
 
         #endregion
     }
