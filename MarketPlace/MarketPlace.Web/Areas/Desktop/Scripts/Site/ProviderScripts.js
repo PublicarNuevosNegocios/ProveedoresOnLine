@@ -8,7 +8,6 @@ function Provider_InitMenu(InitObject) {
 }
 
 var Provider_SearchObject = {
-
     ObjectId: '',
     SearchUrl: '',
     CompareId: '',
@@ -25,7 +24,6 @@ var Provider_SearchObject = {
     BlackListStatusShowAlert: '',
 
     Init: function (vInitObject) {
-
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
         this.CompareId = vInitObject.CompareId;
@@ -43,7 +41,6 @@ var Provider_SearchObject = {
     },
 
     RenderAsync: function () {
-
         //init Search input
         $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
             if (e.keyCode == 13) {
@@ -51,7 +48,6 @@ var Provider_SearchObject = {
                 Provider_SearchObject.Search();
             }
         });
-
 
         //init search orient controls
         $('input[name="Search_rbOrder"]').change(function () {
@@ -66,8 +62,6 @@ var Provider_SearchObject = {
 
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
-
-
         /*get serach param*/
         if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
@@ -106,7 +100,6 @@ var Provider_SearchObject = {
     },
 
     GetSearchUrl: function () {
-
         var oUrl = this.SearchUrl;
 
         oUrl += '?CompareId=' + this.CompareId;
@@ -175,7 +168,6 @@ var Provider_SearchObject = {
                             oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, '');
                         }
 
-
                         $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').append(oItemHtml);
 
                         //remove search result add comparison button
@@ -209,7 +201,6 @@ var Provider_SearchObject = {
                     var oCompareName = $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip_Name').val();
 
                     if (oCompareName != null && oCompareName.replace(/ /gi, '') != '') {
-
                         //create new compare
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CompareApi?CMCompareUpsert=true&CompareId=&CompareName=' + oCompareName + '&ProviderPublicId=' + vProviderPublicId,
@@ -231,7 +222,6 @@ var Provider_SearchObject = {
     },
 
     ShowSearchCompare: function () {
-
         //load grid comparison
         $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').kendoGrid({
             editable: false,
@@ -322,7 +312,6 @@ var Provider_SearchObject = {
     },
 
     UpdateCompare: function (vCompareName) {
-
     },
 
     AddCompareProvider: function (vProviderPublicId) {
@@ -364,9 +353,7 @@ var Provider_SearchObject = {
     },
 
     GoToCompare: function () {
-
         if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
-
             var oUrl = this.CompareUrl;
 
             oUrl += '?CompareId=' + this.CompareId;
@@ -381,7 +368,6 @@ var Provider_SearchObject = {
 
     GoToProject: function () {
         if (Provider_SearchObject.ProjectPublicId != null && Provider_SearchObject.ProjectPublicId.length > 0) {
-
             var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, Provider_SearchObject.ProjectPublicId);
             window.location = oProjectUrl;
 
@@ -399,7 +385,6 @@ var Provider_SearchObject = {
     },
 
     ShowProjectCreate: function () {
-
         //clean input fields
         $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Name').val('');
         $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_ProjectConfig').val('');
@@ -423,7 +408,6 @@ var Provider_SearchObject = {
                     //validate form
                     var validator = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').data("kendoValidator");
                     if (validator.validate()) {
-
                         //hide dialog actions
                         $(".ui-dialog-buttonpane button").css('display', 'none');
 
@@ -494,19 +478,16 @@ var Provider_SearchObject = {
 
     OpenProject: function () {
         if (Provider_SearchObject.ProjectPublicId != null && Provider_SearchObject.ProjectPublicId.length > 0) {
-
             $.ajax({
                 url: BaseUrl.ApiUrl + '/ProjectApi?ProjectGet=true&ProjectPublicId=' + Provider_SearchObject.ProjectPublicId,
                 dataType: 'json',
                 success: function (result) {
                     if (result != null) {
-
                         //clean compare items
                         $('#' + Provider_SearchObject.ObjectId + '_Project_ItemContainer').html('');
 
                         //render compare items
                         $.each(result.RelatedProjectProvider, function (item, value) {
-
                             //get item html
                             var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Project_Item_Template').html();
 
@@ -537,7 +518,6 @@ var Provider_SearchObject = {
                                 oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, '');
                             }
 
-
                             $('#' + Provider_SearchObject.ObjectId + '_Project_ItemContainer').append(oItemHtml);
 
                             //remove search result add project button
@@ -561,18 +541,15 @@ var Provider_SearchObject = {
 };
 
 var Provider_FinancialObject = {
-
     ObjectId: '',
     QueryUrl: '',
 
     Init: function (vInitObject) {
-
         this.ObjectId = vInitObject.ObjectId;
         this.QueryUrl = vInitObject.QueryUrl;
     },
 
     BalanceSheet_Search: function (vViewName) {
-
         var oYear = $('#' + Provider_FinancialObject.ObjectId + '_Year').val();
         var oCurrency = $('#' + Provider_FinancialObject.ObjectId + '_Currency').val();
         var oUrl = Provider_FinancialObject.QueryUrl.replace(/V_ViewName/gi, vViewName).replace(/V_Year/gi, oYear).replace(/V_Currency/gi, oCurrency)
@@ -657,9 +634,7 @@ var Provider_TrackingObject = {
     },
 };
 
-
 var Provider_SurveySearchObject = {
-
     ObjectId: '',
     SearchUrl: '',
 
@@ -678,7 +653,6 @@ var Provider_SurveySearchObject = {
         $('#' + Provider_SurveySearchObject.ObjectId + '_FilterId').click(function () {
             Provider_SurveySearchObject.Filter(null);
         });
-
     },
 
     Search: function (vSearchObject) {
@@ -700,11 +674,9 @@ var Provider_SurveySearchObject = {
         oUrl += '&EndDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').val();
         window.location = oUrl;
     },
-
 };
 
 var Provider_SurveyReports = {
-
     ObjectId: '',
 
     Init: function (vInitObject) {
@@ -712,7 +684,6 @@ var Provider_SurveyReports = {
     },
 
     ShowProgramReport: function (vShowObject) {
-
         //get base html
         var DialogDiv = $('<div style="display:none" title="Generar Reporte">' + $('#' + Provider_SurveyReports.ObjectId).html() + '</div>');
 
@@ -747,5 +718,3 @@ var Provider_SurveyReports = {
         });
     }
 };
-
-

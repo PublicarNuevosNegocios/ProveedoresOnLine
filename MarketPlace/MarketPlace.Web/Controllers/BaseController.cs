@@ -1,9 +1,6 @@
 ﻿using MarketPlace.Models.General;
-using Microsoft.Reporting.WebForms;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MarketPlace.Web.Controllers
@@ -29,7 +26,7 @@ namespace MarketPlace.Web.Controllers
             }
         }
 
-        #endregion
+        #endregion public static properties
 
         #region Menu
 
@@ -37,7 +34,7 @@ namespace MarketPlace.Web.Controllers
         {
             List<GenericMenu> oReturn = new List<Models.General.GenericMenu>();
             int oPosition = 1;
-            MarketPlace.Models.General.enumCompanyType oCurrentCompanyType = MarketPlace.Models.General.SessionModel.CurrentCompanyType;
+            enumCompanyType oCurrentCompanyType = MarketPlace.Models.General.SessionModel.CurrentCompanyType;
             List<int> oCurrentUserModules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
             #region Customer
@@ -129,7 +126,6 @@ namespace MarketPlace.Web.Controllers
                     oPosition++;
                 }
 
-
                 if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderStats))
                 {
                     //Modulo de estadisticas - Proveedores
@@ -206,7 +202,7 @@ namespace MarketPlace.Web.Controllers
 
                 if (oCurrentCompanyType == MarketPlace.Models.General.enumCompanyType.Buyer)
                 {
-                    if(oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
+                    if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
                     {
                         //Modulo de Reportes
                         oReturn.Add(new GenericMenu()
@@ -223,10 +219,11 @@ namespace MarketPlace.Web.Controllers
                             IsSelected = (CurrentControllerName == MVC.Report.ActionNames.PRGeneral),
                         });
                         oPosition++;
-                    }                    
+                    }
                 }
             }
-            #endregion
+
+            #endregion Customer
 
             #region Provider
 
@@ -252,7 +249,7 @@ namespace MarketPlace.Web.Controllers
 
                 //if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceProviderModules.MarketComparison))
                 //{
-                //    //Market Comparison 
+                //    //Market Comparison
                 //    oReturn.Add(new GenericMenu()
                 //    {
                 //        Name = "Comparación de mercado",
@@ -291,12 +288,12 @@ namespace MarketPlace.Web.Controllers
                 //}
             }
 
-
-            #endregion
+            #endregion Provider
 
             #region BuyerProvider
-                if (oCurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
-                {
+
+            if (oCurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+            {
                 //Home
                 oReturn.Add(new GenericMenu()
                 {
@@ -314,33 +311,32 @@ namespace MarketPlace.Web.Controllers
                 });
                 oPosition++;
                 if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderSearch))
+                {
+                    //Modulo de Busqueda de Proveedores
+                    oReturn.Add(new GenericMenu()
                     {
-                        //Modulo de Busqueda de Proveedores
-                        oReturn.Add(new GenericMenu()
-                        {
-                            Name = "Búsqueda de Proveedores",
-                            Position = oPosition,
-                            Url = Url.RouteUrl(
-                                MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.Search
-                                }),
-                            IsSelected = (CurrentControllerName == MVC.Provider.Name &&
-                                        CurrentActionName == MVC.Provider.ActionNames.Search),
-                        });
-                        oPosition++;
-                    }
-
+                        Name = "Búsqueda de Proveedores",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.Provider.Name &&
+                                    CurrentActionName == MVC.Provider.ActionNames.Search),
+                    });
+                    oPosition++;
                 }
+            }
 
-            #endregion
+            #endregion BuyerProvider
 
             return oReturn;
         }
 
-        #endregion
+        #endregion Menu
 
         #region generic file actions
 
@@ -353,6 +349,7 @@ namespace MarketPlace.Web.Controllers
             }
             return File(bytes, "application/pdf");
         }
-        #endregion
+
+        #endregion generic file actions
     }
 }

@@ -1,5 +1,4 @@
 ﻿var Project_ProjectFile = {
-
     ObjectId: '',
     ProjectPublicId: '',
 
@@ -22,9 +21,8 @@
                 autoUpload: true
             },
             success: function (e) {
-                
                 if (e.response != null && e.response.length > 0) {
-                    //render uploaded files                    
+                    //render uploaded files
                     $.each(e.response, function (item, value) {
                         var oFileItem = $('#' + Project_ProjectFile.ObjectId + '_FileItemTemplate').html();
                         oFileItem = oFileItem.replace(/{ServerUrl}/gi, value.ServerUrl);
@@ -32,7 +30,7 @@
                         oFileItem = oFileItem.replace(/{FileObjectId}/gi, value.FileObjectId);
                         $('#' + Project_ProjectFile.ObjectId + '_FileList').append(oFileItem);
                     });
-                 
+
                     //clean file list from kendo upload
                     $('.k-upload-files.k-reset').find('li').remove();
 
@@ -47,7 +45,7 @@
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
             dataType: 'json',
-            success: function (result) {                
+            success: function (result) {
                 $('#' + Project_ProjectFile.ObjectId + '_File_' + vProjectInfoId).remove();
             },
             error: function (result) {
@@ -58,7 +56,6 @@
 };
 
 var Project_ProjectDetailObject = {
-
     ObjectId: '',
     ProjectPublicId: '',
     CustomEconomicActivity: '',
@@ -74,7 +71,6 @@ var Project_ProjectDetailObject = {
     },
 
     RenderAsync: function () {
-
         //init edit form
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').length > 0) {
             //init form validator
@@ -117,7 +113,6 @@ var Project_ProjectDetailObject = {
         }
 
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_CustomEconomicActivity').length > 0 && Project_ProjectDetailObject.CustomEconomicActivity.length > 0) {
-
             //init custom activity ac
             $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_CustomEconomicActivity').
                 kendoMultiSelect({
@@ -176,9 +171,7 @@ var Project_ProjectDetailObject = {
     },
 
     ShowEditProject: function () {
-
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog').length > 0) {
-
             //init dialog
             $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog').dialog({
                 modal: true,
@@ -191,7 +184,6 @@ var Project_ProjectDetailObject = {
                         //validate form
                         var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').data("kendoValidator");
                         if (validator.validate()) {
-
                             //hide dialog actions
                             $(".ui-dialog-buttonpane button").css('display', 'none');
 
@@ -211,7 +203,6 @@ var Project_ProjectDetailObject = {
                                     $(this).dialog('close');
                                 }
                             });
-
                         }
                     }
                 },
@@ -221,7 +212,6 @@ var Project_ProjectDetailObject = {
 
     ShowRequestApprovalProject: function (vProviderPublicId) {
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_RequestApprovalDialog').length > 0) {
-
             //init dialog
             $('#' + Project_ProjectDetailObject.ObjectId + '_RequestApprovalDialog').dialog({
                 modal: true,
@@ -256,7 +246,6 @@ var Project_ProjectDetailObject = {
 
     ShowApproveProjectProvider: function () {
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').length > 0) {
-
             //init dialog
             $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').dialog({
                 modal: true,
@@ -288,7 +277,6 @@ var Project_ProjectDetailObject = {
                                     $(this).dialog('close');
                                 }
                             });
-
                         }
                     }
                 },
@@ -298,7 +286,6 @@ var Project_ProjectDetailObject = {
 
     ShowRejectProjectProvider: function () {
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog').length > 0) {
-
             //init dialog
             $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog').dialog({
                 modal: true,
@@ -330,7 +317,6 @@ var Project_ProjectDetailObject = {
                                     $(this).dialog('close');
                                 }
                             });
-
                         }
                     }
                 },
@@ -339,9 +325,7 @@ var Project_ProjectDetailObject = {
     },
 
     ShowCloseProject: function () {
-
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').length > 0) {
-
             //init dialog
             $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').dialog({
                 modal: true,
@@ -354,7 +338,6 @@ var Project_ProjectDetailObject = {
                         //validate form
                         var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').data("kendoValidator");
                         if (validator.validate()) {
-
                             //hide dialog actions
                             $(".ui-dialog-buttonpane button").css('display', 'none');
 
@@ -374,7 +357,6 @@ var Project_ProjectDetailObject = {
                                     $(this).dialog('close');
                                 }
                             });
-
                         }
                     }
                 },
@@ -383,9 +365,7 @@ var Project_ProjectDetailObject = {
     },
 
     ShowAwardProject: function () {
-
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog').length > 0) {
-
             //init dialog
             $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog').dialog({
                 modal: true,
@@ -398,7 +378,6 @@ var Project_ProjectDetailObject = {
                         //validate form
                         var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').data("kendoValidator");
                         if (validator.validate()) {
-
                             //hide dialog actions
                             $(".ui-dialog-buttonpane button").css('display', 'none');
 
@@ -426,11 +405,10 @@ var Project_ProjectDetailObject = {
     },
 };
 
-var Project_SearchObject = {    
-
+var Project_SearchObject = {
     ObjectId: '',
     SearchUrl: '',
-    ProjectStatus:'',
+    ProjectStatus: '',
     ProjectPublicId: '',
     ProjectUrl: '',
     SearchParam: '',
@@ -443,7 +421,6 @@ var Project_SearchObject = {
     BlackListStatusShowAlert: '',
 
     Init: function (vInitObject) {
-        
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
         this.ProjectPublicId = vInitObject.ProjectPublicId;
@@ -459,7 +436,6 @@ var Project_SearchObject = {
     },
 
     RenderAsync: function () {
-        
         //init Search input
         $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
             if (e.keyCode == 13) {
@@ -481,7 +457,6 @@ var Project_SearchObject = {
 
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
-        
         /*get serach param*/
         if (this.SearchParam != $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
@@ -520,10 +495,9 @@ var Project_SearchObject = {
     },
 
     GetSearchUrl: function () {
-
         var oUrl = this.SearchUrl;
 
-        oUrl += '?ProjectStatus =' + this.ProjectStatus;        
+        oUrl += '?ProjectStatus =' + this.ProjectStatus;
         oUrl += '&SearchParam=' + this.SearchParam;
         oUrl += '&SearchFilter=' + this.SearchFilter;
         oUrl += '&SearchOrderType=' + this.SearchOrderType;
