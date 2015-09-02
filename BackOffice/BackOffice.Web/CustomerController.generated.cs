@@ -119,12 +119,6 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocumentsUpsert);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
-        {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CustomerController Actions { get { return MVC.Customer; } }
@@ -152,7 +146,6 @@ namespace BackOffice.Web.Controllers
             public readonly string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
             public readonly string TDAssignedPlan = "TDAssignedPlan";
             public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -169,7 +162,6 @@ namespace BackOffice.Web.Controllers
             public const string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
             public const string TDAssignedPlan = "TDAssignedPlan";
             public const string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -259,14 +251,6 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_ADAditionalDocumentsUpsert
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
-        }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
-        {
-            public readonly string FilePath = "FilePath";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -444,18 +428,6 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocumentsUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             ADAditionalDocumentsUpsertOverride(callInfo, CustomerPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

@@ -202,6 +202,9 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     padding-bottom: 10px;
 }
 
+.container-fluid > .col-xs-12 > .col-xs-12{
+     border-bottom: 1px solid #E4E4E4 !important;
+}
     .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12, .container-fluid > .col-xs-12 > .col-xs-8 > .col-xs-12, .container-fluid > .POMPEvaluator > .col-xs-12 > .col-xs-12 {
         margin-top: 10px;
     }

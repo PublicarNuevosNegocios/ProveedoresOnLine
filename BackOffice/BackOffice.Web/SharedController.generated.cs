@@ -40,6 +40,7 @@ namespace T4MVC
             {
                 public readonly string _C_CustomerActions = "_C_CustomerActions";
                 public readonly string _C_CustomerMenu = "_C_CustomerMenu";
+                public readonly string _F_FileTemplateFormUpload = "_F_FileTemplateFormUpload";
                 public readonly string _F_FileUpload = "_F_FileUpload";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
@@ -58,6 +59,7 @@ namespace T4MVC
             }
             public readonly string _C_CustomerActions = "~/Views/Shared/_C_CustomerActions.cshtml";
             public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
+            public readonly string _F_FileTemplateFormUpload = "~/Views/Shared/_F_FileTemplateFormUpload.cshtml";
             public readonly string _F_FileUpload = "~/Views/Shared/_F_FileUpload.cshtml";
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
