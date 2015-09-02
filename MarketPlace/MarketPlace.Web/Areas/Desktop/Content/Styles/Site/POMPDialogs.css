@@ -77,6 +77,10 @@
     color: #4d4d4d !important;
     letter-spacing: -0.9px !important;
 }
+
+#ProjectDetail_RequestApprovalDialog{
+    text-align:justify;
+}
 /***********  AQUI SE PINTA EL POPUP DE EDICION DE
     PRECALIFICACION  ************/
 .POMPProjectBidEditDialog {

@@ -289,10 +289,36 @@
                     </li>
                 }
                 <li>
-                    <label>Formulario </label><br />
-                    
-                    @Html.Partial(MVC.Shared.Views._F_FileUpload)
-                    <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.FormularioPropilco).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
+                <li>
+                    <label>Formulario Essentia</label><br />
+
+                    @{
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedProvider != null &&
+                            Model.RelatedProvider.RelatedCompany != null &&
+                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.FormularioPropilco).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.FormularioPropilco).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    @Html.Partial(MVC.Shared.Views._F_FileTemplateFormUpload)
+                    <input type="hidden" id="iptTemplateFormFile" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.FormularioPropilco).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
                     @if (CompanyInfoValueAux != null && CompanyInfoValueAux.Length > 0)
                     {
                         <div>
@@ -301,7 +327,7 @@
                         <div>
                             <img src="@CompanyInfoValueAux" style="width: 50px; height: 50px;" />
                         </div>
-                    }
+                    }                
                 </li>
             </ul>
             <div style="display:none">
@@ -325,14 +351,20 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
     <script type="text/javascript">
-        $(document).ready(function () {           
+    $(document).ready(function () {
 
-            if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
-                UploadFile({
-                    ProviderPublicId: '@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty)',
+        if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
+            UploadFile({
+                ProviderPublicId: '@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty)',
                     ControlellerResponseId: 'iptLogo'
-                });
-            }
+                });            
+        }
+        if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
+            UploadTemplateFormFile({
+                ProviderPublicId: '@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty)',
+                ControlellerResponseId: 'iptTemplateFormFile'
+            });
+        }
         });
     </script>
 }
