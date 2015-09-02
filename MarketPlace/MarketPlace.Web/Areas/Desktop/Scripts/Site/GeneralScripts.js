@@ -22,7 +22,6 @@ function Tooltip_InitGeneric() {
 
 /*show process message*/
 function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
-    
     var DialogDiv = $('#Generic_MessageDialog').html();
     DialogDiv = DialogDiv.replace(/\${Title}/gi, vTitle);
     DialogDiv = DialogDiv.replace(/\${Message}/gi, vMessage);
@@ -30,7 +29,7 @@ function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
         width: 300,
         modal: true,
         closeOnEscape: false,
-        open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
+        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
         buttons: {
             'Cerrar': function () {
                 $(this).dialog("close");
@@ -44,7 +43,6 @@ function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
 
 /*show process message*/
 function Dialog_CreatedPS(vTitle, vMessage, vRedirectUrl) {
-
     var DialogDiv = $('#Generic_MessageDialog').html();
     DialogDiv = DialogDiv.replace(/\${Title}/gi, vTitle);
     DialogDiv = DialogDiv.replace(/\${Message}/gi, vMessage);
@@ -98,7 +96,6 @@ function showModal(response) {
             modal: true,
             title: "Evaluación."
         }).data("kendoWindow").center().open();
-
     }
 }
 //date validation
@@ -124,11 +121,6 @@ $('#Survey_ProgramSurvey_EndDate').focusout(function () {
         }
     }
 });
-
-
-
-
-
 
 $(document).ready(function () {
     var position = 'expanded';

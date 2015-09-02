@@ -119,8 +119,8 @@
 }
 
     .container-fluid > .POMPEvalTitle > .col-xs-12 {
-        height: 35px;
-        line-height: 35px;
+        height: auto;
+        line-height: 40px;
         background: #ececec;
         width: 101% !important;
         margin: 0 0 5px -0.5%;
@@ -202,6 +202,9 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     padding-bottom: 10px;
 }
 
+.container-fluid > .col-xs-12 > .col-xs-12{
+     border-bottom: 1px solid #E4E4E4 !important;
+}
     .container-fluid > .col-xs-12 > .col-xs-4 > .col-xs-12, .container-fluid > .col-xs-12 > .col-xs-8 > .col-xs-12, .container-fluid > .POMPEvaluator > .col-xs-12 > .col-xs-12 {
         margin-top: 10px;
     }
@@ -731,12 +734,12 @@ textarea#Survey_ProgramSurvey_Comments {
 }
 
 #POMPButtonDownloadReportsTop {
+    margin: 8px -20px 0px 0px;
     background: #ff8300;
     color: #fff;
     height: 30px;
     width: 180px;
     line-height: 20px;
-    margin-right: -20px;
 }
 
 .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-6 {
@@ -745,6 +748,17 @@ textarea#Survey_ProgramSurvey_Comments {
     background: #ececec;
     width: 101% !important;
     margin: 0 0 5px -0.5%;
+}
+
+.POMPEvalTitle > .col-xs-12{
+    height: auto;
+    line-height: 35px;
+    background: #ececec;
+    margin: 0 0 5px -0.5%;
+}
+
+#POMPBPS{
+    margin:5px 20px 5px 0 !important;
 }
 
 .container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child, .container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12:first-child {
@@ -764,7 +778,7 @@ textarea#Survey_ProgramSurvey_Comments {
 }
 
 .container-fluid > .col-xs-12 > .col-xs-6 > .col-xs-12:first-child {
-     border-bottom: 1px solid #999;
+    border-bottom: 1px solid #999;
 }
 
 

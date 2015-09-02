@@ -2,7 +2,6 @@
 var Survey_Report = {
     ObjectId: '',
 
-
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
     },
@@ -10,5 +9,4 @@ var Survey_Report = {
     ListSurveyGeneralInfoReport: function () {
         return true;
     },
-
 };

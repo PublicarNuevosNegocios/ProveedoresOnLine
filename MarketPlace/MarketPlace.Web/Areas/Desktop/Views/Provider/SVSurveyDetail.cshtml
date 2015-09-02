@@ -27,13 +27,16 @@
                 <div class="container-fluid">
                     <div class="POMPEvalTitle">
                         <div class="col-xs-12">
-                            <a>
-                                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-                            </a>
-                            <div class="POMPDownloadReportsTop">
-                                <form id="frmProviderUpsert"
-                                      method="post"
-                                      action="@(Url.Action
+                            <div class="col-xs-9">
+                                <a>
+                                    @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+                                </a>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="POMPDownloadReportsTop">
+                                    <form id="frmProviderUpsert"
+                                          method="post"
+                                          action="@(Url.Action
                                         (MVC.Provider.ActionNames.SVSurveyDetail,
                                         MVC.Provider.Name,
                                         new
@@ -42,20 +45,20 @@
                                             SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
                                             User = Model.RelatedSurvey.SurveyResponsible,
                                         }))">
-                                    <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                    <input type="hidden" name="DownloadReport" value="true" />                                    
-                                </form>
+                                        <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                        <input type="hidden" name="DownloadReport" value="true" />
+                                    </form>
+                                </div>
                             </div>
-
                         </div>
                         <div class="col-xs-12">
                             <div class="col-xs-4">
                                 <label>Calificación:</label>
                                 @{
                                     decimal rating = Convert.ToDecimal(Model.RelatedSurvey.SurveyRating);
-                                    rating = ((5*rating) / 100);
+                                    rating = ((5 * rating) / 100);
                                 }
-                                 <div class="rateit" data-rateit-value="@rating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                <div class="rateit" data-rateit-value="@rating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                                 <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                             </div>
                             <div class="col-xs-8">
@@ -91,7 +94,7 @@
 
 
                                 @foreach (string EvaluatorUser in Model.RelatedSurvey.SurveyEvaluatorList.Distinct())
-                                {                                    
+                                {
                                     <div class="col-xs-4" id="POMPevalmails">
                                         <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new
@@ -105,7 +108,7 @@
                                 </div>
 
                                 }
-                                
+
 
                             </div>
                         </div>

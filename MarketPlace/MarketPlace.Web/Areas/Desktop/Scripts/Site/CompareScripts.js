@@ -18,10 +18,9 @@ var Compare_SearchObject = {
     SearchOrderType: '',
     OrderOrientation: false,
     PageNumber: 0,
-    RowCount: 0,    
+    RowCount: 0,
 
     Init: function (vInitObject) {
-
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
         this.CompareId = vInitObject.CompareId;
@@ -35,7 +34,6 @@ var Compare_SearchObject = {
     },
 
     RenderAsync2: function () {
-
         //init Search input
         $('#' + Compare_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
             if (e.keyCode == 13) {
@@ -56,7 +54,6 @@ var Compare_SearchObject = {
     },
 
     Search2: function (vSearchObject) {
-
         /*get serach param*/
         if (this.SearchParam != $('#' + Compare_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
@@ -93,10 +90,7 @@ var Compare_SearchObject = {
         }
     },
 
-
-
     RenderAsync: function () {
-
         //load grid comparison
         $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').kendoGrid({
             editable: false,
@@ -177,7 +171,6 @@ var Compare_SearchObject = {
     },
 };
 
-
 var Compare_DetailObject = {
     ObjectId: '',
     CompareId: '',
@@ -185,7 +178,6 @@ var Compare_DetailObject = {
     RelatedCompany: new Array(),
 
     Init: function (vInitObject) {
-
         this.ObjectId = vInitObject.ObjectId;
         this.CompareId = vInitObject.CompareId;
         this.CompareDetailUrl = vInitObject.CompareDetailUrl;
@@ -236,7 +228,7 @@ var Compare_DetailObject = {
     GetItemTemplate: function (vColumName) {
         var oReturn = '';
         if (vColumName == 'EvaluationArea') {
-            oReturn = $('#' + Compare_DetailObject .ObjectId+ '_EvaluationArea_Item_Template').html();
+            oReturn = $('#' + Compare_DetailObject.ObjectId + '_EvaluationArea_Item_Template').html();
         }
         else {
             var oReturn = $('#' + Compare_DetailObject.ObjectId + '_Company_Item_Template').html();

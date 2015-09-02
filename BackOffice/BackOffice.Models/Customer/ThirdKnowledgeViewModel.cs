@@ -52,7 +52,7 @@ namespace BackOffice.Models.Customer
             LastModify = RelatedPlan.LastModify.ToString();
             QueriesByPeriod = RelatedPlan.QueriesByPeriod;
 
-            RelatedPeriodoModel = RelatedPlan.RelatedPeriodoModel;
+            RelatedPeriodoModel = RelatedPlan.RelatedPeriodModel;
             Status = RelatedPlan.Status.ItemId;
             StatusName = RelatedPlan.Status.ItemName;
         }

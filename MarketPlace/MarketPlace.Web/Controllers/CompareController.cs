@@ -2,8 +2,6 @@
 using MarketPlace.Models.General;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MarketPlace.Web.Controllers
@@ -13,28 +11,23 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult Index()
         {
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
             return View();
         }
 
-        public virtual ActionResult CompareDetail
-            (string CompareId,
-            string CompareType,
-            string Currency,
-            string Year)
-        {
+        public virtual ActionResult CompareDetail (string CompareId, string CompareType, string Currency, string Year) {
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get compare info
             ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareGetDetailByType(
                 string.IsNullOrEmpty(CompareType) ? (int)enumCompareType.Commercial : Convert.ToInt32(CompareType.Replace(" ", "")),
                 Convert.ToInt32(CompareId.Replace(" ", "")),
-                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                SessionModel.CurrentLoginUser.Email,
                 string.IsNullOrEmpty(Year) ? null : (int?)Convert.ToInt32(Year),
-                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                SessionModel.CurrentCompany.CompanyPublicId);
 
             CompareDetailViewModel oModel = new CompareDetailViewModel(oCompareResult);
 
@@ -86,7 +79,7 @@ namespace MarketPlace.Web.Controllers
                     IsSelected = vCompareInfo.CompareType == enumCompareType.Commercial,
                 });
 
-                #endregion
+                #endregion Commercial Info
 
                 #region HSEQ Info
 
@@ -109,7 +102,7 @@ namespace MarketPlace.Web.Controllers
                     IsSelected = vCompareInfo.CompareType == enumCompareType.Certifications,
                 });
 
-                #endregion
+                #endregion HSEQ Info
 
                 #region Financial Info
 
@@ -132,7 +125,7 @@ namespace MarketPlace.Web.Controllers
                     IsSelected = vCompareInfo.CompareType == enumCompareType.Financial,
                 });
 
-                #endregion
+                #endregion Financial Info
 
                 //add menu
                 oReturn.Add(oMenuAux);
@@ -140,6 +133,6 @@ namespace MarketPlace.Web.Controllers
             return oReturn;
         }
 
-        #endregion
+        #endregion Menu
     }
 }

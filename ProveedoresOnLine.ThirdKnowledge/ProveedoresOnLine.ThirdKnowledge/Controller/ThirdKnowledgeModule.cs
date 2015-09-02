@@ -99,7 +99,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             {
                 oPlanToReCalculate.RelatedPeriodModel.All(x =>
                     {
-                       //Armar el insert por actualización
+                        ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(
+                                                            x.PeriodPublicId,
+                                                            x.PlanPublicId,
+                                                            oPlanToReCalculate.QueriesByPeriod,
+                                                            x.TotalQueries,
+                                                            x.InitDate,
+                                                            x.EndDate,
+                                                            oPlanToReCalculate.Enable);                       
                         return true;
                     });
             }
