@@ -811,6 +811,32 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.AditionalDocumentsViewModel GetAditionalDocument
+            (string GetAditionalDocument,
+            string CustomerPublicId,
+            string Enable,
+            string PageNumber,
+            string RowCount)
+        {
+            BackOffice.Models.Customer.AditionalDocumentsViewModel oModel;
+
+            int oTotalRows = 0;
+
+            ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerModel =
+                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetAditionalDocumentsByCompany
+                    (CustomerPublicId,
+                    Enable == "1" ? true : false,
+                    Convert.ToInt32(PageNumber),
+                    Convert.ToInt32(RowCount),
+                    out oTotalRows);
+
+            oModel = new AditionalDocumentsViewModel(oCustomerModel);
+
+            return oModel;
+        }
+
         #endregion
     }
 }
