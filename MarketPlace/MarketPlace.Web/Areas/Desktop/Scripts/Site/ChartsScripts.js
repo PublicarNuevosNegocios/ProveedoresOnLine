@@ -29,6 +29,7 @@ var Survey_ChartsObject = {
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                   , height: "100%"
                   , width: "100%"
+                   , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
                 };
 
                 function selectHandler() {
@@ -122,6 +123,7 @@ var SurveyByName_ChartsObject = {
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
                     height: "100%",
                     width: "100%",
+                   colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
                     
                 };
 
@@ -320,8 +322,8 @@ var SurveyByMonth_ChartsObject = {
                             color: 'black',
                         },
                         slices: {
-                            0: { color: 'orange' },
-                            1: { color: 'red' },
+                            0: { color: '#779ECB' },
+                            1: { color: '#FDFD96' },
                         },
                         pieHole: 0.4
                         , chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
@@ -416,6 +418,7 @@ var Providers_ChartsObject = {
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                   , height: "100%"
                   , width: "100%"
+                    , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
                 };
 
                 function selectHandler() {
@@ -509,6 +512,7 @@ var ProjectByStatus_ChartsObject = {
                     chartArea: { left: 30, top: 10, width: "100%", height: "80%" }
                   , height: "100%"
                   , width: "100%"
+                    , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
                 };
 
                 var chart = new google.visualization.ColumnChart(document.getElementById(ProjectByStatus_ChartsObject.ObjectId));
@@ -562,6 +566,7 @@ var ProjectByResponsible_ChartsObject = {
                     chartArea: { left: 200, top: 10, width: "100%", height: "90%" },
                     height: "100%",
                     width: "60%"
+                    , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
                     
                 };
 

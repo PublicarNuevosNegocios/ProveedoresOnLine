@@ -374,6 +374,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MinimumWageSearchByYear(Year, CountryType);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions()
+        {
+            return DAL.Controller.CompanyDataController.Instance.CatalogGetAllModuleOptions();
+        }
+
         #endregion
 
         #region Util MP
@@ -382,59 +387,6 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.MPCategorySearchByActivity(TreeId, SearchParam, RowCount);
         }
-
-        #region Reports
-
-        #region Survey
-        public static MemoryStream MP_SVBuildGeneralReport(List<string> oReportToBuild)
-        {
-            MemoryStream workStream = new MemoryStream();         
-            if (oReportToBuild != null)
-            {
-                #region read xml
-                    string strFile = ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_SurveyGeneralReport].Value;
-                    strFile = strFile.Replace("{providerName}", oReportToBuild[12].ToString());
-                    strFile = strFile.Replace("{providerTipoId}", oReportToBuild[13].ToString());
-                    strFile = strFile.Replace("{providerId}", oReportToBuild[14].ToString());
-                    strFile = strFile.Replace("{dateStart}",  Convert.ToDateTime(oReportToBuild[2]).ToString("dd/MM/yyyy"));
-                    strFile = strFile.Replace("{dateEnd}", Convert.ToDateTime(oReportToBuild[3]).ToString("dd/MM/yyyy"));
-                    strFile = strFile.Replace("{reportDate}", Convert.ToDateTime(oReportToBuild[5]).ToString("dd/MM/yyyy"));
-                    strFile = strFile.Replace("{average}", oReportToBuild[4].ToString());
-                    strFile = strFile.Replace("{remarks}", oReportToBuild[0].ToString());
-                    strFile = strFile.Replace("{actionPlan}", oReportToBuild[1].ToString());
-                    strFile = strFile.Replace("{author}", oReportToBuild[6].ToString());
-                    string[] split = strFile.Split(new Char[] {'*'});
-                #endregion
-                #region Create PDF, send PDF to MemoryStream.
-                Document document = new Document();
-                PdfWriter.GetInstance(document, workStream).CloseStream = false;
-                iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(oReportToBuild[10].ToString());
-                    jpg.ScaleToFit(130f, 130f);
-                    jpg.SpacingBefore = 0f;
-                    jpg.SpacingAfter = 0f;
-                    jpg.Alignment = Element.ALIGN_LEFT;
-                    //Create document and array
-                    document.Open();
-                    document.Add(jpg);
-                    //document.Add(new Paragraph(currentCompanyIdentificationNumber));
-                    document.Add(new Paragraph("\n\n"));
-                    foreach (string providerInfoStr in split)
-                    {
-                        if (providerInfoStr.Trim().Length > 0) {
-                            document.Add(new Paragraph(providerInfoStr));
-                            document.Add(new Paragraph("\n"));
-                        }
-                    }
-                    document.Close();
-                    byte[] byteInfo = workStream.ToArray();
-                    workStream.Write(byteInfo, 0, byteInfo.Length);
-                    workStream.Position = 0;
-                #endregion
-            }
-            return workStream;
-        }
-        #endregion Survey
-        #endregion Reports
 
         #endregion
 

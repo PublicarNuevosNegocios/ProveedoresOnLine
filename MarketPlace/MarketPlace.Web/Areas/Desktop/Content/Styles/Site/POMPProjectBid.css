@@ -250,6 +250,7 @@ a.POMPFileUploadName {
     }
 
         .POMPProjectBidGridWrapper > li:nth-child(even) > ul > li.POMP_ProjectDetail_Win,
+        .POMPProjectBidGridWrapper > li:nth-child(even) > ul > li.POMP_ProjectDetail_Info,
         .POMPProjectBidGridWrapper > li:nth-child(even) > ul > li.POMP_ProjectDetail_Lose {
             background-color: #e6e6e6;
         }
@@ -354,6 +355,7 @@ a.POMPFileUploadName {
 /**************** ESTADOS DE CRITERIOS DE SELECCION
     PASA, NO PASA ETC. ****************/
 .POMP_ProjectDetail_Win span,
+.POMP_ProjectDetail_Info span,
 .POMP_ProjectDetail_Lose span {
     display: inline-block;
     margin: 39px 0 0 5px;
@@ -362,6 +364,10 @@ a.POMPFileUploadName {
 
 .POMP_ProjectDetail_Lose {
     border-left: 12px solid #FF2A2A;
+}
+
+.POMP_ProjectDetail_Info {
+    border-left: 12px solid #e6dc26;
 }
 
 .POMP_ProjectDetail_Win {

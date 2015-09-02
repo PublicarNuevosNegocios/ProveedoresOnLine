@@ -1120,6 +1120,7 @@
     <Content Include="Views\Customer\PCEvaluationCriteriaUpsert.cshtml" />
     <Content Include="Views\Customer\PCEvaluationItemShowCriteria.cshtml" />
     <Content Include="Views\Customer\TDAssignedPlan.cshtml" />
+    <Content Include="Views\Customer\ADAditionalDocumentsUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

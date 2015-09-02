@@ -734,6 +734,31 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #region AditionalDocuments
+
+        public virtual ActionResult ADAditionalDocumentsUpsert(string CustomerPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            {
+                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                },
+                RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
+            };
+
+            oModel.CatalogGetAllModuleOptions = ProveedoresOnLine.Company.Controller.Company.CatalogGetAllModuleOptions();
+
+            //get provider menu
+            oModel.CustomerMenu = GetCustomerMenu(oModel);
+
+            return View(oModel);
+        }
+
+        #endregion
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetCustomerMenu
@@ -878,13 +903,45 @@ namespace BackOffice.Web.Controllers
 
                 #endregion
 
+                #region aditional documents
+
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Documentos Adicionales",
+                    Position = 4,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //Company User
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Agregar documentos por módulo",
+                    Url = Url.Action
+                        (MVC.Customer.ActionNames.ADAditionalDocumentsUpsert,
+                        MVC.Customer.Name,
+                        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Customer.ActionNames.ADAditionalDocumentsUpsert &&
+                        oCurrentController == MVC.Customer.Name),
+                });
+
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                //add menu
+                oReturn.Add(oMenuAux);
+
+                #endregion
+
                 #region Project config
 
                 ////header
                 //oMenuAux = new Models.General.GenericMenu()
                 //{
                 //    Name = "Configuración de Precalificaciones",
-                //    Position = 3,
+                //    Position = 5,
                 //    ChildMenu = new List<Models.General.GenericMenu>(),
                 //};
 

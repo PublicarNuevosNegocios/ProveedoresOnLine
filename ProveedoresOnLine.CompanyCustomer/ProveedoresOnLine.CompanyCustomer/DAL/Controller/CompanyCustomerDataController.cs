@@ -35,6 +35,25 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #endregion
 
+        #region Aditional Documents
+
+        public int AditionalDocumentsUpsert(string CompanyPublicId, int? AditionalDocumentsId, string Title, bool Enable)
+        {
+            return DataFactory.AditionalDocumentsUpsert(CompanyPublicId, AditionalDocumentsId, Title, Enable);
+        }
+
+        public int AditionalDocumentsInfoUpsert(int AditionalDocumentsId, int? AditionalDocumentsInfoId, int AditionalDocumentsType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.AditionalDocumentsInfoUpsert(AditionalDocumentsId, AditionalDocumentsInfoId, AditionalDocumentsType, Value, LargeValue, Enable);
+        }
+
+        public ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel GetAditionalDocumentsByCompany(string CustomerPublicId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.GetAditionalDocumentsByCompany(CustomerPublicId, Enable, PageNumber, RowCount, out TotalRows);
+        }
+
+        #endregion
+
         #region Customer Provider
 
         public int CustomerProviderUpsert(string CustomerPublicId, string ProviderPublicId, int StatusId, bool Enable)

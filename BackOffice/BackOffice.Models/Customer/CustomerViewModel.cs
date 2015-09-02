@@ -50,5 +50,7 @@ namespace BackOffice.Models.Customer
         public string GridToSave { get; set; }
 
         public List<ProveedoresOnLine.ThirdKnowledge.Models.TDCatalogModel> ThirdKnowledgeOptions { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions { get; set; }
     }
 }

@@ -17,5 +17,15 @@ namespace ProveedoresOnLine.CompanyCustomer.Interfaces
         CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable, int PageNumber, int RowCount, out int TotalRows);
 
         List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions();
+
+        #region Aditional Documents
+
+        int AditionalDocumentsUpsert(string CompanyPublicId, int? AditionalDocumentsId, string Title, bool Enable);
+
+        int AditionalDocumentsInfoUpsert(int AditionalDocumentsId, int? AditionalDocumentsInfoId, int AditionalDocumentsType, string Value, string LargeValue, bool Enable);
+
+        ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel GetAditionalDocumentsByCompany(string CustomerPublicId, bool Enable, int PageNumber, int RowCount, out int TotalRows);
+
+        #endregion
     }
 }

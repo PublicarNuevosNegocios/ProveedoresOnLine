@@ -61,7 +61,7 @@ namespace BackOffice.Web.ControllersApi
 
         #endregion
 
-        #region Customer Rules
+        #region Customer Roles
 
         [HttpPost]
         [HttpGet]
@@ -792,6 +792,21 @@ namespace BackOffice.Web.ControllersApi
                 oReturn = new BackOffice.Models.Customer.EvaluationItemViewModel
                     (oEvaluationItemConfig.RelatedEvaluationItem.FirstOrDefault());
             }
+
+            return oReturn;
+        }
+
+        #endregion
+
+        #region Aditional Documents
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.AditionalDocumentsViewModel ADAditionalDocumemntsUpsert
+            (string ADAditionalDocumemntsUpsert,
+            string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.AditionalDocumentsViewModel oReturn = null;
 
             return oReturn;
         }

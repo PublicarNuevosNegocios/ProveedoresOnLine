@@ -5,6 +5,7 @@
 
     /*Get session modules by user*/
     bool IsBasicInfo = false;
+    bool IsEvaluator = false;
     bool IsProcessModelEnable = false;
 
     List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
@@ -19,17 +20,25 @@
         {
             IsProcessModelEnable = true;
         }
+        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+        {
+            IsEvaluator = true;
+        }
         return true;
-    });    
-    
+    });
+
 }
 <div id="POMPGraphicContainerMain">
-    <div class="POMPGraphicDynamic">
-        <div class="POMPHeaderGraphicDynamic">
-            <h1>Evaluaciones de desempeño por estado año en curso</h1>
+    @if (IsEvaluator == true)
+    {
+        <div class="POMPGraphicDynamic">
+            <div class="POMPHeaderGraphicDynamic">
+                <h1>Evaluaciones de desempeño por estado año en curso</h1>
+            </div>
+            @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
         </div>
-        @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
-    </div>
+    }
+    
     @if (IsProcessModelEnable == true)
     {
         <div class="POMPGraphicDynamic">
@@ -40,8 +49,8 @@
         </div>
     }    
    
-    @if (!IsBasicInfo)
-    {
+    @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+    {       
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
                 <h1>Estado de los proveedores</h1>
