@@ -10,11 +10,11 @@ namespace BackOffice.Models.Customer
     {
         public string AditionalDataId { get; set; }
 
-        public int AditionalDataTypeId { get; set; }
+        public string AditionalDataTypeId { get; set; }
 
         public string AditionalDataType { get; set; }
 
-        public int ModuleId { get; set; }
+        public string ModuleId { get; set; }
 
         public string Module { get; set; }
 
@@ -33,8 +33,8 @@ namespace BackOffice.Models.Customer
             Title = oAditionalData.ItemName;
 
             AditionalDataTypeId = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.AditionalDocumentType).
-                Select(x => x.ItemInfoId).
-                DefaultIfEmpty(0).
+                Select(x => x.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             AditionalDataType = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.AditionalDocumentType).
@@ -43,8 +43,8 @@ namespace BackOffice.Models.Customer
                 FirstOrDefault();
 
             ModuleId = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType).
-                Select(x => x.ItemInfoId).
-                DefaultIfEmpty(0).
+                Select(x => x.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             Module = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType).

@@ -2733,29 +2733,29 @@ var Customer_AditionalDocumentsObject = {
                 field: 'Module',
                 title: 'Modulo',
                 width: '200px',
-                template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.Module != null) {
-                        $.each(Customer_AditionalDocumentsObject.ModulesList, function (item, value) {
-                            debugger;
-                            if (dataItem.Module == value.Value[0].ItemId) {
-                                oReturn = value.Value[0].ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    debugger;
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Customer_AditionalDocumentsObject.ModulesList,
-                            dataTextField: '',
-                            dataValueField: '',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
+                //template: function (dataItem) {
+                //    var oReturn = 'Seleccione una opción.';
+                //    if (dataItem != null && dataItem.Module != null) {
+                //        $.each(Customer_AditionalDocumentsObject.ModulesList, function (item, value) {
+                //            debugger;
+                //            if (dataItem.Module == value.Value[0].ItemId) {
+                //                oReturn = value.Value[0].ItemName;
+                //            }
+                //        });
+                //    }
+                //    return oReturn;
+                //},
+                //editor: function (container, options) {
+                //    debugger;
+                //    $('<input required data-bind="value:' + options.field + '"/>')
+                //        .appendTo(container)
+                //        .kendoDropDownList({
+                //            dataSource: Customer_AditionalDocumentsObject.ModulesList,
+                //            dataTextField: '',
+                //            dataValueField: '',
+                //            optionLabel: 'Seleccione una opción'
+                //        });
+                //},
             }, {
                 field: 'AditionalDataId',
                 title: 'Id',

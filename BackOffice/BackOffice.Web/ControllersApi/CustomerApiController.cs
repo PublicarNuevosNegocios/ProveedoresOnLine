@@ -833,7 +833,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 new GenericItemInfoModel()
                                 {
-                                    ItemInfoId = oDataToUpsert.ModuleId.ToString() != null ? oDataToUpsert.ModuleId : 0,
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ModuleId) ? 0 : Convert.ToInt32(oDataToUpsert.ModuleId),
                                     ItemInfoType = new CatalogModel()
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType,
@@ -844,7 +844,7 @@ namespace BackOffice.Web.ControllersApi
 
                                 new GenericItemInfoModel()
                                 {
-                                    ItemInfoId = oDataToUpsert.AditionalDataTypeId.ToString() != null ? oDataToUpsert.AditionalDataTypeId : 0,
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AditionalDataTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.AditionalDataTypeId),
                                     ItemInfoType = new CatalogModel()
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.AditionalDocumentType,
