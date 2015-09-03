@@ -101,13 +101,6 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                              AditionalDocumentId = ad.Field<int>("AditionalDocumentId"),
                              AditionalDocumentName = ad.Field<string>("AditionalDocumentName"),
                              AditionalDocumnetEnable = ad.Field<UInt64>("AditionalDocumentEnable"),
-
-                             AditionalDocumentInfoId = ad.Field<int>("AditionalDocumentInfoId"),
-                             AditionalDocumentInfoTypeId = ad.Field<int>("AditionalDocumentInfoTypeId"),
-                             AditionalDocumentInfoTypeName = ad.Field<string>("AditionalDocumentInfoTypeName"),
-                             AditionalDocumentInfoValue = ad.Field<string>("AditionalDocumentInfoValue"),
-                             AditionalDocumentInfoLargeValue = ad.Field<string>("AditionalDocumentInfoLargeValue"),
-                             AditionalDocumentInfoEnable = ad.Field<UInt64>("AditionalDocumentInfoEnable"),
                          }
                          into adi
                          select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
@@ -119,18 +112,29 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                               (from adinf in response.DataTableResult.AsEnumerable()
                                where !adinf.IsNull("AditionalDocumentInfoId") &&
                                      adinf.Field<int>("AditionalDocumentId") == adi.Key.AditionalDocumentId
+                               group adinf by new
+                               {
+                                   AditionalDocumentInfoId = adinf.Field<int>("AditionalDocumentInfoId"),
+                                   AditionalDocumentInfoTypeId = adinf.Field<int>("AditionalDocumentInfoTypeId"),
+                                   AditionalDocumentInfoTypeName = adinf.Field<string>("AditionalDocumentInfoTypeName"),
+                                   AditionalDocumentInfoValue = adinf.Field<string>("AditionalDocumentInfoValue"),
+                                   AditionalDocumentInfoLargeValue = adinf.Field<string>("AditionalDocumentInfoLargeValue"),
+                                   AditionalDocumentInfoEnable = adinf.Field<UInt64>("AditionalDocumentInfoEnable"),
+                               }
+                               into adinfi
                                select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                {
-                                   ItemInfoId = adi.Key.AditionalDocumentInfoId,
+                                   ItemInfoId = adinfi.Key.AditionalDocumentInfoId,
                                    ItemInfoType = new Company.Models.Util.CatalogModel()
                                    {
-                                       ItemId = adi.Key.AditionalDocumentInfoTypeId,
-                                       ItemName = adi.Key.AditionalDocumentInfoTypeName,
+                                       ItemId = adinfi.Key.AditionalDocumentInfoTypeId,
+                                       ItemName = adinfi.Key.AditionalDocumentInfoTypeName,
                                    },
-                                   Value = adi.Key.AditionalDocumentInfoValue,
-                                   LargeValue = adi.Key.AditionalDocumentInfoLargeValue,
-                                   Enable = adi.Key.AditionalDocumentInfoEnable == 1 ? true : false,
+                                   Value = adinfi.Key.AditionalDocumentInfoValue,
+                                   LargeValue = adinfi.Key.AditionalDocumentInfoLargeValue,
+                                   Enable = adinfi.Key.AditionalDocumentInfoEnable == 1 ? true : false,
                                }).ToList(),
+
                          }).ToList(),
                 };
             }

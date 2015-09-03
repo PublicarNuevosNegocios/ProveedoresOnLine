@@ -21,13 +21,26 @@
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
             <div id="loading"></div>
-            <div id="AditionalDocuments"></div>
+            <div id="divGridAditionalDocuments"></div>
             <br />
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
         </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    <div id="divGridAditionalDocuments_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridAditionalDocuments_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridAditionalDocuments_ViewEnable" type="checkbox" checked="checked" />
     </div>
 </div>
 
@@ -41,12 +54,12 @@
     {
         Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oModulesOptions =
             Model.CatalogGetAllModuleOptions.
-            GroupBy(x => x.CatalogId).
+            GroupBy(x => x.ItemId).
             Select(x =>
             new
             {
                 okey = x.Key,
-                ovalue = Model.CatalogGetAllModuleOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                ovalue = Model.CatalogGetAllModuleOptions.Where(y => y.ItemId == x.Key).OrderBy(y => y.ItemName).ToList(),
             }).ToDictionary(k => k.okey, v => v.ovalue);
 
         oModules = (new System.Web.Script.Serialization.JavaScriptSerializer()).
@@ -64,7 +77,7 @@
 
         $(document).ready(function () {
             Customer_AditionalDocumentsObject.Init({
-                ObjectId: 'AditionalDocuments',
+                ObjectId: 'divGridAditionalDocuments',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 Modules: vModulesOptions,
             });

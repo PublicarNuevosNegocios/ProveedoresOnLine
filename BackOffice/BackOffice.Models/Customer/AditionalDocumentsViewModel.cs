@@ -10,9 +10,13 @@ namespace BackOffice.Models.Customer
     {
         public string AditionalDataId { get; set; }
 
-        public string AditionalDataTypeId { get; set; }
+        public int AditionalDataTypeId { get; set; }
 
         public string AditionalDataType { get; set; }
+
+        public int ModuleId { get; set; }
+
+        public string Module { get; set; }
 
         public string Title { get; set; }
 
@@ -25,14 +29,28 @@ namespace BackOffice.Models.Customer
         public AditionalDocumentsViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oAditionalData)
         {
             AditionalDataId = oAditionalData.ItemId.ToString();
-            AditionalDataTypeId = oAditionalData.ItemInfo.FirstOrDefault().ItemInfoId.ToString();
-            AditionalDataType = oAditionalData.ItemInfo.FirstOrDefault().Value;
+            Enable = oAditionalData.Enable;
             Title = oAditionalData.ItemName;
-               
-            //AditionalDataId = oAditionalData.ItemId.ToString();
-            //AditionalDataTypeId = oAditionalData.ItemType.ItemId.ToString();
-            //AditionalDataType = oAditionalData.ItemType.ItemName;
-            //Title = oAditionalData.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+
+            AditionalDataTypeId = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.AditionalDocumentType).
+                Select(x => x.ItemInfoId).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+
+            AditionalDataType = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.AditionalDocumentType).
+                Select(x => x.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            ModuleId = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType).
+                Select(x => x.ItemInfoId).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+
+            Module = oAditionalData.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType).
+                Select(x => x.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
         }
     }
 }
