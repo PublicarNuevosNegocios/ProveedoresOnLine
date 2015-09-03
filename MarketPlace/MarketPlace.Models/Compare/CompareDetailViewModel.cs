@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketPlace.Models.Compare
 {
@@ -10,9 +10,11 @@ namespace MarketPlace.Models.Compare
     {
         public ProveedoresOnLine.CompareModule.Models.CompareModel RelatedCompare { get; private set; }
 
-        public List<MarketPlace.Models.Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
+        public List<Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
 
-        public List<MarketPlace.Models.General.GenericMenu> CompareMenu { get; set; }
+        public List<GenericMenu> CompareMenu { get; set; }
+
+        public GenericReportModel CompareReportModel { get; set; }
 
         public bool RenderScripts { get; set; }
 

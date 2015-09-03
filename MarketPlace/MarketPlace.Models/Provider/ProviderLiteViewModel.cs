@@ -48,8 +48,17 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return ProviderStatusId.ToString() ==
-                    MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value;
+                if(ProviderStatusId.ToString() ==
+                    MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value || 
+                    ProviderStatusId.ToString() == "902004" ||
+                    ProviderStatusId.ToString() == "902008")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
