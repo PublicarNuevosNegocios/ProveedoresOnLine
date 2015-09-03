@@ -10,7 +10,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MarketPlace.Web.Controllers
@@ -20,8 +19,8 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult Index()
         {
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             ProviderViewModel oModel = new ProviderViewModel();
             return View(oModel);
@@ -39,17 +38,16 @@ namespace MarketPlace.Web.Controllers
             string PageNumber)
         {
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
-            MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
+            ProviderSearchViewModel oModel = null;
 
-            if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
-                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            if (SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(SessionModel.CurrentCompany.CompanyPublicId))
             {
-
                 //get basic search model
-                oModel = new Models.Provider.ProviderSearchViewModel()
+                oModel = new ProviderSearchViewModel()
                 {
                     ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
                     SearchParam = SearchParam,
@@ -57,16 +55,17 @@ namespace MarketPlace.Web.Controllers
                     SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSearchOrderType.Relevance : (MarketPlace.Models.General.enumSearchOrderType)Convert.ToInt32(SearchOrderType),
                     OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
                     PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
-                    ProviderSearchResult = new List<Models.Provider.ProviderLiteViewModel>(),
+                    ProviderSearchResult = new List<ProviderLiteViewModel>(),
                 };
 
                 #region Providers
+
                 //search providers
                 int oTotalRowsAux;
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
+                List<ProviderModel> oProviderResult =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
+                    (SessionModel.CurrentCompany.CompanyPublicId,
+                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
                     oModel.SearchParam,
                     oModel.SearchFilter,
                     (int)oModel.SearchOrderType,
@@ -76,16 +75,16 @@ namespace MarketPlace.Web.Controllers
                     out oTotalRowsAux);
 
                 oModel.TotalRows = oTotalRowsAux;
-                
+
                 List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    (SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
                     oModel.SearchFilter,
-                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
+                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
 
                 if (oFilterModel != null)
                 {
-                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == SessionModel.CurrentCompany.CompanyPublicId).ToList();
                 }
 
                 //parse view model
@@ -94,13 +93,13 @@ namespace MarketPlace.Web.Controllers
                     oProviderResult.All(prv =>
                     {
                         oModel.ProviderSearchResult.Add
-                            (new MarketPlace.Models.Provider.ProviderLiteViewModel(prv));
+                            (new ProviderLiteViewModel(prv));
 
                         return true;
                     });
                 }
 
-                #endregion
+                #endregion Providers
 
                 if (!string.IsNullOrEmpty(ProjectPublicId))
                 {
@@ -110,25 +109,27 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                         ProjectGetByIdLite
                         (ProjectPublicId,
-                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                        SessionModel.CurrentCompany.CompanyPublicId);
 
                     if (oProjectResult != null && !string.IsNullOrEmpty(oProjectResult.ProjectPublicId))
                     {
                         oModel.RelatedProject = new Models.Project.ProjectViewModel(oProjectResult);
                     }
-                    #endregion
+
+                    #endregion Project
                 }
                 else
                 {
                     #region Compare
+
                     if (!string.IsNullOrEmpty(CompareId))
                     {
-                        //get current compare 
+                        //get current compare
                         ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
                             CompareGetCompanyBasicInfo
                             (Convert.ToInt32(CompareId.Replace(" ", "")),
-                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                            MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                            SessionModel.CurrentLoginUser.Email,
+                            SessionModel.CurrentCompany.CompanyPublicId);
 
                         if (oCompareResult != null && oCompareResult.CompareId > 0)
                         {
@@ -136,13 +137,13 @@ namespace MarketPlace.Web.Controllers
                         }
                     }
 
-                    #endregion
+                    #endregion Compare
 
                     #region Project config
 
                     //get project config items
                     List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oProjectConfigResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
-                        MPProjectConfigGetByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                        MPProjectConfigGetByCustomer(SessionModel.CurrentCompany.CompanyPublicId);
 
                     if (oProjectConfigResult != null && oProjectConfigResult.Count > 0)
                     {
@@ -155,14 +156,14 @@ namespace MarketPlace.Web.Controllers
                         });
                     }
 
-                    #endregion
+                    #endregion Project config
                 }
             }
 
             return View(oModel);
         }
 
-        #endregion
+        #endregion Provider search
 
         #region General Info
 
@@ -170,8 +171,8 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -194,6 +195,7 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 #region Basic Info
+
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
 
@@ -209,7 +211,7 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
 
-                #endregion
+                #endregion Basic Info
 
                 #region Legal Info
 
@@ -224,9 +226,10 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
 
-                #endregion
+                #endregion Legal Info
 
                 #region Branch Info
+
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
 
                 if (oModel.ContactCompanyInfo != null)
@@ -237,17 +240,20 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
-                #endregion
+
+                #endregion Branch Info
 
                 #region Black List Info
+
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
 
-
-                #endregion
+                #endregion Black List Info
 
                 #region Tracking Info
+
                 oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-                #endregion
+
+                #endregion Tracking Info
 
                 #region Basic Financial Info
 
@@ -259,7 +265,7 @@ namespace MarketPlace.Web.Controllers
                     decimal oExchange;
                     oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
                                 Convert.ToInt32(oFinancial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
-                                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
                                 Convert.ToInt32(oFinancial.FirstOrDefault().ItemName));
 
                     oFinancial.All(x =>
@@ -275,9 +281,11 @@ namespace MarketPlace.Web.Controllers
                             - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()))).ToString("#,0.##");
                     }
                 }
-                #endregion
+
+                #endregion Basic Financial Info
 
                 #region K_Contract Info
+
                 List<GenericItemModel> oRelatedKContractInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.KRecruitment, true);
 
                 oModel.RelatedKContractInfo = new List<ProviderFinancialViewModel>();
@@ -289,9 +297,11 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
-                #endregion
 
-                //Get Engagement info                                
+                #endregion K_Contract Info
+
+                //Get Engagement info
+
                 #region HSEQ
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
@@ -316,18 +326,12 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
                 }
 
                 oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetSpecificCert(ProviderPublicId);
 
-                #endregion
-
-                #region Black List
-
-
-
-                #endregion
+                #endregion HSEQ
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -339,8 +343,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -364,7 +368,7 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                oModel.ContactCompanyInfo = new List<GenericItemModel>();
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
 
@@ -387,8 +391,8 @@ namespace MarketPlace.Web.Controllers
             int oTotalRows;
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -412,7 +416,7 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                oModel.ContactCompanyInfo = new List<GenericItemModel>();
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
 
@@ -439,8 +443,8 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -464,7 +468,7 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                oModel.ContactCompanyInfo = new List<GenericItemModel>();
 
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
@@ -487,8 +491,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -520,7 +524,7 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        #endregion
+        #endregion General Info
 
         #region Legal Info
 
@@ -529,8 +533,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -573,7 +577,7 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
                 }
                 oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
                 if (oDesignations != null && oDesignations.Count > 0)
@@ -594,8 +598,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -641,8 +645,8 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -688,8 +692,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -716,7 +720,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
+                List<CatalogModel> oEntitieType = Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
@@ -738,8 +742,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -780,7 +784,7 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        #endregion
+        #endregion Legal Info
 
         #region Financial Info
 
@@ -789,8 +793,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -821,7 +825,7 @@ namespace MarketPlace.Web.Controllers
 
                 int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
                     Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
-                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
+                    Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
 
                 string oViewName = !string.IsNullOrEmpty(Request["ViewName"]) ?
                     Request["ViewName"].Replace(" ", "") :
@@ -832,18 +836,16 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
 
                 //get balance info
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oBalanceAux =
+                List<BalanceSheetModel> oBalanceAux =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
                     (ProviderPublicId,
                     oYear,
                     oCurrencyType);
 
-
                 //fill view models
                 oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
                 if (oBalanceAux != null && oBalanceAux.Count > 0)
                 {
-
                     oBalanceAux.All(bs =>
                     {
                         oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
@@ -855,7 +857,6 @@ namespace MarketPlace.Web.Controllers
                 if (oBalanceAux != null && oBalanceAux.Count > 0)
                 {
                     List<BalanceSheetModel> oBalancetemp = new List<BalanceSheetModel>();
-
 
                     foreach (var item in oBalanceAux)
                     {
@@ -873,8 +874,6 @@ namespace MarketPlace.Web.Controllers
                             oBalanceAux.Remove(item);
                             cont++;
                         }
-
-
                     }
 
                     oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
@@ -893,8 +892,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -943,8 +942,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -991,8 +990,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1039,8 +1038,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1084,20 +1083,20 @@ namespace MarketPlace.Web.Controllers
         #region Private Methods
 
         private List<ProviderBalanceSheetViewModel> GetBalanceSheetViewModel
-            (ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
-            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> lstBalanceSheet,
+            (GenericItemModel RelatedAccount,
+            List<BalanceSheetModel> lstBalanceSheet,
             string oViewName)
         {
             List<ProviderBalanceSheetViewModel> oReturn = new List<ProviderBalanceSheetViewModel>();
 
-            MarketPlace.Models.Company.CompanyUtil.FinancialAccount.
+            Models.Company.CompanyUtil.FinancialAccount.
                 Where(ac =>
                     RelatedAccount != null ?
                         (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
                         (ac.ParentItem == null &&
                             (oViewName == MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators ? ac.ItemId == 4915 : ac.ItemId != 4915))).
                 OrderBy(ac => ac.ItemInfo.
-                    Where(aci => aci.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Order).
+                    Where(aci => aci.ItemInfoType.ItemId == (int)enumCategoryInfoType.AI_Order).
                     Select(aci => Convert.ToInt32(aci.Value)).
                     DefaultIfEmpty(0).
                     FirstOrDefault()).
@@ -1113,7 +1112,7 @@ namespace MarketPlace.Web.Controllers
                     int oOrder = 0;
                     decimal oHorizontalValue = 0;
                     string oAccountUnit = ac.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Unit).
+                        Where(y => y.ItemInfoType.ItemId == (int)enumCategoryInfoType.AI_Unit).
                         Select(y => y.Value.Replace(" ", "")).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
@@ -1148,11 +1147,8 @@ namespace MarketPlace.Web.Controllers
                             {
                                 oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
                                 {
-
                                     RelatedAccount = ac,
                                     Value = 0,
-
-
                                 };
                             }
 
@@ -1184,7 +1180,7 @@ namespace MarketPlace.Web.Controllers
                                 oItemDetailToAdd.VerticalValue = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MathEval(strVerticalFormula);
                             }
 
-                            #endregion
+                            #endregion Eval Vertical Formula
 
                             //add balance detail value
                             oItemToAdd.RelatedBalanceSheetDetail.Add(oItemDetailToAdd);
@@ -1193,6 +1189,7 @@ namespace MarketPlace.Web.Controllers
                             if (oAccountUnit == "$" && oItemDetailToAdd.RelatedBalanceSheetDetail != null)
                             {
                                 #region Horizontal value
+
                                 //calc horizontal value
                                 if (oOrder == 1)
                                 {
@@ -1202,12 +1199,12 @@ namespace MarketPlace.Web.Controllers
                                 {
                                     oHorizontalValue = oHorizontalValue - oItemDetailToAdd.RelatedBalanceSheetDetail.Value;
                                 }
-                                #endregion
+
+                                #endregion Horizontal value
                             }
 
                             return true;
                         });
-
 
                     //add horizontal analisis value
                     oItemToAdd.HorizontalValue = oHorizontalValue;
@@ -1227,9 +1224,9 @@ namespace MarketPlace.Web.Controllers
             return oReturn;
         }
 
-        #endregion
+        #endregion Private Methods
 
-        #endregion
+        #endregion Financial Info
 
         #region Commercial Info
 
@@ -1238,8 +1235,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1268,7 +1265,7 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo
                     (ProviderPublicId,
                     (int)enumCommercialType.Experience,
-                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                    SessionModel.CurrentCompany.CompanyPublicId);
 
                 oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial != null
@@ -1288,7 +1285,7 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        #endregion
+        #endregion Commercial Info
 
         #region HSEQ Info
 
@@ -1297,8 +1294,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1336,9 +1333,8 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
                 }
-
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -1350,8 +1346,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1400,8 +1396,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1425,8 +1421,6 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
 
-
-
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
                 List<GenericItemModel> certARL = new List<GenericItemModel>();
@@ -1444,7 +1438,6 @@ namespace MarketPlace.Web.Controllers
                     }
                 }
 
-
                 certARL = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
                     (ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
 
@@ -1455,7 +1448,6 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
                     }
                 }
-
 
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
@@ -1469,7 +1461,7 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -1477,9 +1469,10 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        #endregion
+        #endregion HSEQ Info
 
-        #region Survey        
+        #region Survey
+
         public virtual ActionResult SVSurveySearch
             (string ProviderPublicId,
             string SearchOrderType,
@@ -1491,8 +1484,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1520,19 +1513,19 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedSurveySearch = new Models.Survey.SurveySearchViewModel()
                 {
-                    SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSurveySearchOrderType.LastModify : (MarketPlace.Models.General.enumSurveySearchOrderType)Convert.ToInt32(SearchOrderType),
+                    SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? enumSurveySearchOrderType.LastModify : (enumSurveySearchOrderType)Convert.ToInt32(SearchOrderType),
                     OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
                     PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
                     SurveySearchResult = new List<Models.Survey.SurveyViewModel>(),
                 };
 
-                if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
-                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+                if (SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(SessionModel.CurrentCompany.CompanyPublicId))
                 {
                     //search survey
                     int oTotalRowsAux;
-                    List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oSurveyResults = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveySearch
-                            (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    List<SurveyModel> oSurveyResults = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveySearch
+                            (SessionModel.CurrentCompany.CompanyPublicId,
                             oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                             (int)oModel.RelatedSurveySearch.SearchOrderType,
                             oModel.RelatedSurveySearch.OrderOrientation,
@@ -1552,7 +1545,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         if (oSurveyResults != null)
                         {
-                            List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
+                            List<SurveyModel> oChildSurvey = new List<SurveyModel>();
                             oSurveyResults.All(x =>
                                 {
                                     oChildSurvey.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));
@@ -1576,7 +1569,6 @@ namespace MarketPlace.Web.Controllers
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
                                                         Select(x => x).ToList();
-
                     }
                     oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
 
@@ -1586,7 +1578,7 @@ namespace MarketPlace.Web.Controllers
                         //Get the Average
                         decimal Average = 0;
                         //Get ClosedSurve
-                        List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> ClosedSurvey = oSurveyResults.Where(x => x.SurveyInfo.
+                        List<SurveyModel> ClosedSurvey = oSurveyResults.Where(x => x.SurveyInfo.
                                                         Where(y => y.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).
                                                         Select(y => y.Value == ((int)enumSurveyStatus.Close).ToString()).FirstOrDefault()).
                                                         Select(x => x).ToList();
@@ -1618,7 +1610,9 @@ namespace MarketPlace.Web.Controllers
                     }
                 }
             }
+
             #region report generator
+
             if (Request["UpsertRequest"] == "true")
             {
                 List<ReportParameter> parameters = new List<ReportParameter>();
@@ -1647,7 +1641,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         parameters.Add(new ReportParameter("remarks",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_Observation).Select(y => y.Value).
+                            (int)enumSurveyInfoType.RP_Observation).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault()));
                         return true;
@@ -1656,7 +1650,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         parameters.Add(new ReportParameter("actionPlan",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ImprovementPlan).Select(y => y.Value).
+                            (int)enumSurveyInfoType.RP_ImprovementPlan).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault()));
                         return true;
@@ -1664,7 +1658,7 @@ namespace MarketPlace.Web.Controllers
                     oToInsert.RelatedReports.All(x =>
                     {
                         parameters.Add(new ReportParameter("dateStart", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                                 (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
+                                 (int)enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
                                  DefaultIfEmpty(string.Empty).
                                  FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
@@ -1672,7 +1666,7 @@ namespace MarketPlace.Web.Controllers
                     oToInsert.RelatedReports.All(x =>
                     {
                         parameters.Add(new ReportParameter("dateEnd", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                           (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
+                           (int)enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
                            DefaultIfEmpty(string.Empty).
                            FirstOrDefault()).ToString("dd/MM/yyyy")));
                         return true;
@@ -1681,7 +1675,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         parameters.Add(new ReportParameter("average",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportAverage).Select(y => y.Value).
+                            (int)enumSurveyInfoType.RP_ReportAverage).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault()));
                         return true;
@@ -1690,7 +1684,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         parameters.Add(new ReportParameter("reportDate",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportDate).Select(y => y.Value).
+                            (int)enumSurveyInfoType.RP_ReportDate).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault()));
                         return true;
@@ -1699,7 +1693,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         parameters.Add(new ReportParameter("responsible",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportResponsable).Select(y => y.Value).
+                            (int)enumSurveyInfoType.RP_ReportResponsable).Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault()));
                         return true;
@@ -1711,11 +1705,13 @@ namespace MarketPlace.Web.Controllers
                                                     (int)enumReportType.RP_SurveyReport,
                                                     enumCategoryInfoType.PDF.ToString(),
                                                     parameters,
-                                                    MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_SurveyDetail.rdlc");
+                                                    Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_SurveyDetail.rdlc");
                 parameters = null;
                 return File(report.Item1, report.Item2, report.Item3);
             }
-            #endregion
+
+            #endregion report generator
+
             return View(oModel);
         }
 
@@ -1724,8 +1720,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1738,7 +1734,7 @@ namespace MarketPlace.Web.Controllers
                             (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
                             x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
                             x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();         
+                FirstOrDefault();
 
             //validate provider permisions
             if (oProvider != null)
@@ -1761,18 +1757,18 @@ namespace MarketPlace.Web.Controllers
         }
 
         public virtual ActionResult SVSurveyEvaluatorDetail(string ProviderPublicId, string SurveyPublicId, string User)
-        {           
+        {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             if (Request["DownloadReport"] == "true")
             {
                 return File(Convert.FromBase64String(Request["File"]), Request["MimeType"], Request["FileName"]);
             }
             else
-            {                
+            {
                 //get basic provider info
                 var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                     (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1787,7 +1783,7 @@ namespace MarketPlace.Web.Controllers
                     FirstOrDefault();
 
                 //validate provider permisions
-                if (oProvider != null)                
+                if (oProvider != null)
                 {
                     //get provider view model
                     oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
@@ -1798,7 +1794,7 @@ namespace MarketPlace.Web.Controllers
                 }
                 oModel.SurveytReportModel = new GenericReportModel();
                 oModel.SurveytReportModel = Report_SurveyEvaluatorDetail(oModel);
-               
+
                 return View(oModel);
             }
         }
@@ -1808,8 +1804,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1849,7 +1845,6 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
-
             return View(oModel);
         }
 
@@ -1858,8 +1853,8 @@ namespace MarketPlace.Web.Controllers
             ProviderViewModel oModel = new ProviderViewModel();
 
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1885,7 +1880,7 @@ namespace MarketPlace.Web.Controllers
 
                 if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
                 {
-                    ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
+                    SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
                     SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
                 }
                 if (!string.IsNullOrEmpty(SurveyPublicId))//si es editar
@@ -1905,8 +1900,6 @@ namespace MarketPlace.Web.Controllers
                                 return true;
                             });
                         }
-
-
                     }
                 }
                 else if (!string.IsNullOrEmpty(ProjectPublicId))
@@ -1919,15 +1912,17 @@ namespace MarketPlace.Web.Controllers
 
             return View(oModel);
         }
-        #endregion
+
+        #endregion Survey
 
         #region Reports
+
         public virtual ActionResult RPGerencial(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1950,6 +1945,7 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 #region Basic Info
+
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCompanyGetBasicInfo(ProviderPublicId);
@@ -1966,7 +1962,7 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
 
-                #endregion
+                #endregion Basic Info
 
                 #region Legal Info
 
@@ -1981,7 +1977,7 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
 
-                #endregion
+                #endregion Legal Info
 
                 #region Branch Info
 
@@ -1995,19 +1991,20 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
-                #endregion
+
+                #endregion Branch Info
 
                 #region Black List Info
 
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_BlackListGetBasicInfo(ProviderPublicId);
 
-                #endregion
+                #endregion Black List Info
 
                 #region Tracking Info
 
                 oModel.RelatedTrackingInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
-                #endregion
+                #endregion Tracking Info
 
                 #region Basic Financial Info
 
@@ -2019,7 +2016,7 @@ namespace MarketPlace.Web.Controllers
                     decimal oExchange;
                     oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
                                 Convert.ToInt32(oFinancial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
-                                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
                                 Convert.ToInt32(oFinancial.FirstOrDefault().ItemName));
 
                     oFinancial.All(x =>
@@ -2035,7 +2032,8 @@ namespace MarketPlace.Web.Controllers
                             - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()))).ToString("#,0.##");
                     }
                 }
-                #endregion
+
+                #endregion Basic Financial Info
 
                 #region K_Contract Info
 
@@ -2051,9 +2049,10 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
 
-                #endregion
+                #endregion K_Contract Info
 
-                //Get Engagement info                                
+                //Get Engagement info
+
                 #region HSEQ
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
@@ -2078,12 +2077,12 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
                 }
 
                 oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.Reports.Controller.ReportModule.C_Report_MPCertificationGetSpecificCert(ProviderPublicId);
 
-                #endregion
+                #endregion HSEQ
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -2140,7 +2139,6 @@ namespace MarketPlace.Web.Controllers
                 else
                     parameters.Add(new ReportParameter("InscriptionNumber", "NA"));
 
-
                 if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
                     parameters.Add(new ReportParameter("Address", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()));
                 else
@@ -2176,7 +2174,7 @@ namespace MarketPlace.Web.Controllers
                 else
                     parameters.Add(new ReportParameter("SocialObject", "NA"));
 
-                #endregion
+                #endregion Basic Info
 
                 #region Finacial Info
 
@@ -2184,7 +2182,6 @@ namespace MarketPlace.Web.Controllers
                     parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).FirstOrDefault()));
                 else
                     parameters.Add(new ReportParameter("TotalActive", "NA"));
-
 
                 if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
                     parameters.Add(new ReportParameter("TotalPasive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).FirstOrDefault()));
@@ -2196,12 +2193,10 @@ namespace MarketPlace.Web.Controllers
                 else
                     parameters.Add(new ReportParameter("TotalPatrimony", "NA"));
 
-
                 if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
                     parameters.Add(new ReportParameter("OperationIncome", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).FirstOrDefault()));
                 else
                     parameters.Add(new ReportParameter("OperationIncome", "NA"));
-
 
                 if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
                     parameters.Add(new ReportParameter("IncomeBeforeTaxes", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).FirstOrDefault()));
@@ -2217,7 +2212,7 @@ namespace MarketPlace.Web.Controllers
                 else
                     parameters.Add(new ReportParameter("ExcerciseUtility", "NA"));
 
-                #endregion
+                #endregion Finacial Info
 
                 #region HSEQ Info
 
@@ -2234,7 +2229,7 @@ namespace MarketPlace.Web.Controllers
                     parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
                 }
 
-                #endregion
+                #endregion HSEQ Info
 
                 DataTable data = new DataTable();
                 data.Columns.Add("EvaluationCriteria");
@@ -2255,19 +2250,19 @@ namespace MarketPlace.Web.Controllers
                     data.Rows.Add(row);
                 }
 
-                #endregion
+                #endregion Set Parameters
 
                 Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
                                                                 enumCategoryInfoType.PDF.ToString(),
                                                                 data,
                                                                 parameters,
-                                                                MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "C_Report_GerencialInfo.rdlc");
+                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "C_Report_GerencialInfo.rdlc");
 
                 parameters = null;
                 return File(GerencialReport.Item1, GerencialReport.Item2, GerencialReport.Item3);
             }
 
-            #endregion
+            #endregion Report Generator
 
             return View(oModel);
         }
@@ -2275,19 +2270,18 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult RPGeneral(string SearchParam, string SearchFilter)
         {
             //Clean the season url saved
-            if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
-                MarketPlace.Models.General.SessionModel.CurrentURL = null;
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
 
-            MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
+            ProviderSearchViewModel oModel = null;
 
-            List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult;
+            List<ProviderModel> oProviderResult;
 
-            if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
-                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            if (SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(SessionModel.CurrentCompany.CompanyPublicId))
             {
-
                 //get basic search model
-                oModel = new Models.Provider.ProviderSearchViewModel()
+                oModel = new ProviderSearchViewModel()
                 {
                     ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
                     SearchParam = SearchParam,
@@ -2295,16 +2289,17 @@ namespace MarketPlace.Web.Controllers
                     SearchOrderType = MarketPlace.Models.General.enumSearchOrderType.Relevance,
                     OrderOrientation = false,
                     PageNumber = 0,
-                    ProviderSearchResult = new List<Models.Provider.ProviderLiteViewModel>(),
+                    ProviderSearchResult = new List<ProviderLiteViewModel>(),
                 };
 
                 #region Providers
+
                 //search providers
                 int oTotalRowsAux;
                 oProviderResult =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
+                    (SessionModel.CurrentCompany.CompanyPublicId,
+                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
                     oModel.SearchParam,
                     oModel.SearchFilter,
                     (int)oModel.SearchOrderType,
@@ -2317,14 +2312,14 @@ namespace MarketPlace.Web.Controllers
                 oModel.TotalRows = oTotalRowsAux;
 
                 List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    (SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
                     oModel.SearchFilter,
-                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
+                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
 
                 if (oFilterModel != null)
                 {
-                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == SessionModel.CurrentCompany.CompanyPublicId).ToList();
                 }
 
                 //Branch Info
@@ -2339,8 +2334,7 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
 
-                #endregion
-
+                #endregion Providers
 
                 #region Crete Excel
 
@@ -2366,9 +2360,8 @@ namespace MarketPlace.Web.Controllers
                             "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                             "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
                             "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? MarketPlace.Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
                             "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"");
-
                     }
                     else
                     {
@@ -2378,7 +2371,7 @@ namespace MarketPlace.Web.Controllers
                             "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                             "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
                             "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
-                            "\"" + (x.RelatedCommercial != null ? MarketPlace.Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                            "\"" + (x.RelatedCommercial != null ? Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
                             "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"");
                     }
                     return true;
@@ -2386,7 +2379,7 @@ namespace MarketPlace.Web.Controllers
 
                 byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
 
-                #endregion
+                #endregion Crete Excel
 
                 return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
             }
@@ -2394,13 +2387,12 @@ namespace MarketPlace.Web.Controllers
             return null;
         }
 
-        #endregion
+        #endregion Reports
 
         #region Pivate Functions
 
         private GenericReportModel Report_SurveyGeneral(ProviderViewModel oModel)
         {
-       
             List<ReportParameter> parameters = new List<ReportParameter>();
             GenericReportModel oReporModel = new GenericReportModel();
 
@@ -2418,7 +2410,7 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyConfigName", oModel.RelatedSurvey.SurveyConfigName));
             parameters.Add(new ReportParameter("SurveyRating", oModel.RelatedSurvey.SurveyRating.ToString()));
             parameters.Add(new ReportParameter("SurveyStatusName", oModel.RelatedSurvey.SurveyStatusName));
-            parameters.Add(new ReportParameter("SurveyIssueDate", oModel.RelatedSurvey.SurveyIssueDate));            
+            parameters.Add(new ReportParameter("SurveyIssueDate", oModel.RelatedSurvey.SurveyIssueDate));
             parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
             parameters.Add(new ReportParameter("SurveyAverage", oModel.RelatedSurvey.Average.ToString()));
@@ -2442,11 +2434,11 @@ namespace MarketPlace.Web.Controllers
                 data.Rows.Add(row);
             }
 
-            Tuple<byte[], string, string> SurveyGeneralReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_GeneralReport(                                                               
+            Tuple<byte[], string, string> SurveyGeneralReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_GeneralReport(
                                                                data,
                                                                parameters,
                                                                enumCategoryInfoType.PDF.ToString(),
-                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim());
+                                                               Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim());
 
             oReporModel.File = SurveyGeneralReport.Item1;
             oReporModel.MimeType = SurveyGeneralReport.Item2;
@@ -2475,10 +2467,9 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyStatusName", oModel.RelatedSurvey.SurveyStatusName));
             parameters.Add(new ReportParameter("SurveyIssueDate", oModel.RelatedSurvey.SurveyIssueDate));
             parameters.Add(new ReportParameter("SurveyEvaluator", oModel.RelatedSurvey.SurveyEvaluator));
-            parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));          
+            parameters.Add(new ReportParameter("SurveyLastModify", oModel.RelatedSurvey.SurveyLastModify));
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
             parameters.Add(new ReportParameter("SurveyAverage", oModel.RelatedSurvey.Average.ToString()));
-
 
             if (oModel.RelatedSurvey.SurveyRelatedProject == null)
             {
@@ -2504,10 +2495,9 @@ namespace MarketPlace.Web.Controllers
                 var lstQuestion = oModel.RelatedSurvey.GetSurveyConfigItem
                     (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
 
-               
                 foreach (var Question in lstQuestion)
                 {
-                    if(Question.QuestionType != "118002")
+                    if (Question.QuestionType != "118002")
                     {
                         row = data.NewRow();
                         row["Area"] = EvaluationArea.Name;
@@ -2523,13 +2513,12 @@ namespace MarketPlace.Web.Controllers
                             {
                                 row["Answer"] = Answer.Name;
                             }
-                            
                         }
 
-                        if(string.IsNullOrEmpty(row["Answer"].ToString()))
-                        {                          
-                                row["Answer"] = "Sin Responder";
-                                row["QuestionRating"] = "NA";
+                        if (string.IsNullOrEmpty(row["Answer"].ToString()))
+                        {
+                            row["Answer"] = "Sin Responder";
+                            row["QuestionRating"] = "NA";
                         }
                         else
                         {
@@ -2548,18 +2537,14 @@ namespace MarketPlace.Web.Controllers
                         }
                         data.Rows.Add(row);
                     }
-                    
-
                 }
-
-                
             }
 
             Tuple<byte[], string, string> EvaluatorDetailReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_EvaluatorDetailReport(
                                                                enumCategoryInfoType.PDF.ToString(),
                                                                data,
                                                                parameters,
-                                                               MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_EvaluatorDetail.rdlc");
+                                                               Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "SV_Report_EvaluatorDetail.rdlc");
 
             oReporModel.File = EvaluatorDetailReport.Item1;
             oReporModel.MimeType = EvaluatorDetailReport.Item2;
@@ -2568,18 +2553,19 @@ namespace MarketPlace.Web.Controllers
             return oReporModel;
         }
 
-        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
+        private SurveyModel GetSurveyUpsertRequest()
         {
             List<Tuple<string, int, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int, int>>();
             List<string> EvaluatorsEmail = new List<string>();
 
             #region Parent Survey
+
             //Armar el Survey Model Del Papá
-            ProveedoresOnLine.SurveyModule.Models.SurveyModel oReturn = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+            SurveyModel oReturn = new SurveyModel()
             {
-                ChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>(),
+                ChildSurvey = new List<SurveyModel>(),
                 SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
-                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                RelatedProvider = new ProviderModel()
                 {
                     RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                     {
@@ -2591,7 +2577,7 @@ namespace MarketPlace.Web.Controllers
                     ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
                 },
                 Enable = true,
-                User = SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User, //Responsable               
+                User = SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User, //Responsable
                 SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
             };
 
@@ -2622,7 +2608,8 @@ namespace MarketPlace.Web.Controllers
                 }
                 return true;
             });
-            #endregion
+
+            #endregion Parent Survey
 
             if (EvaluatorsRoleObj != null && EvaluatorsRoleObj.Count > 0)
             {
@@ -2630,13 +2617,14 @@ namespace MarketPlace.Web.Controllers
                 EvaluatorsEmail = EvaluatorsRoleObj.GroupBy(x => x.Item1).Select(grp => grp.First().Item1).ToList();
 
                 #region Child Survey
+
                 //Set survey by evaluators
                 EvaluatorsEmail.All(x =>
                 {
                     oReturn.ChildSurvey.Add(new SurveyModel()
                     {
                         SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
-                        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        RelatedProvider = new ProviderModel()
                         {
                             RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                             {
@@ -2648,7 +2636,7 @@ namespace MarketPlace.Web.Controllers
                             ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
                         },
                         Enable = true,
-                        User = x,//Evaluator,                     
+                        User = x,//Evaluator,
                         SurveyInfo = new List<GenericItemInfoModel>()
                     });
                     return true;
@@ -2783,14 +2771,15 @@ namespace MarketPlace.Web.Controllers
                     }
                     return true;
                 });
-                #endregion
+
+                #endregion Child Survey
             }
             return oReturn;
         }
 
-        private ProveedoresOnLine.Company.Models.Util.GenericItemModel GetSurveyReportFilterRequest()
+        private GenericItemModel GetSurveyReportFilterRequest()
         {
-            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+            GenericItemModel oReturn = new GenericItemModel()
             {
                 ItemId = 0,
                 ItemName = "SurveyFilterReport",
@@ -2801,7 +2790,6 @@ namespace MarketPlace.Web.Controllers
                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
 
                 Enable = true,
-
             };
 
             System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
@@ -2826,7 +2814,7 @@ namespace MarketPlace.Web.Controllers
             return oReturn;
         }
 
-        #endregion
+        #endregion Pivate Functions
 
         #region Menu
 
@@ -2836,31 +2824,31 @@ namespace MarketPlace.Web.Controllers
 
             if (vProviderInfo.RelatedLiteProvider != null)
             {
-                string oCurrentController = MarketPlace.Web.Controllers.BaseController.CurrentControllerName;
-                string oCurrentAction = MarketPlace.Web.Controllers.BaseController.CurrentActionName;
+                string oCurrentController = CurrentControllerName;
+                string oCurrentAction = CurrentActionName;
 
-                foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+                foreach (var module in SessionModel.CurrentUserModules())
                 {
-                    MarketPlace.Models.General.GenericMenu oMenuAux;
+                    GenericMenu oMenuAux;
 
-                    if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
+                    if (module == (int)enumMarketPlaceCustomerModules.ProviderDetail)
                     {
                         #region GeneralInfo
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Información General",
                             Position = 0,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Basic info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Resumen del Proveedor",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -2874,11 +2862,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Company persons Contact info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Información de Personas de Contacto",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -2892,11 +2880,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Branch
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Sucursales",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -2909,13 +2897,12 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
-
                         //Distributors
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Representación y/o Distribuciones",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -2929,11 +2916,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Seguimientos
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Seguimientos",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -2952,24 +2939,24 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion GeneralInfo
 
                         #region Legal Info
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Información Legal",
                             Position = 1,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Balancesheet info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Cámara de Comercio",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -2983,11 +2970,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //RUT
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Registro Único Tributario",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3001,11 +2988,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //CIFIN
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "CIFIN",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3019,11 +3006,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //SARLAFT
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "SARLAFT",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3036,11 +3023,11 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Resoluciones",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3059,24 +3046,24 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion Legal Info
 
                         #region Financial Info
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Información Financiera",
                             Position = 2,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Balancesheet info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Estados Financieros",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3090,11 +3077,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Tax Info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Impuestos",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3108,11 +3095,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //income statement
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Declaración de Renta",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3126,11 +3113,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Bank Info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Información Bancaria",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3144,11 +3131,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //income statement
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "K Contratación",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3166,24 +3153,25 @@ namespace MarketPlace.Web.Controllers
 
                         //add menu
                         oReturn.Add(oMenuAux);
-                        #endregion
+
+                        #endregion Financial Info
 
                         #region Commercial Info
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Información Comercial",
                             Position = 3,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Experience
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Experiencias",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3202,24 +3190,24 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion Commercial Info
 
                         #region HSEQ Info
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Información HSEQ",
                             Position = 4,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Certifications
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Certificaciones",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3233,11 +3221,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Company healty politic
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Política de seguridad, salud y Medio Ambiente",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3251,11 +3239,11 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Company healty politic
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Sistema de Riesgos Laborales",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3273,24 +3261,25 @@ namespace MarketPlace.Web.Controllers
 
                         //add menu
                         oReturn.Add(oMenuAux);
-                        #endregion
+
+                        #endregion HSEQ Info
 
                         #region Reports
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Reportes",
                             Position = 6,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Gerencial Report
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Reporte Gerencial",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3309,27 +3298,27 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion Reports
                     }
 
-                    if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderBasicInfo)
+                    if (module == (int)enumMarketPlaceCustomerModules.ProviderBasicInfo)
                     {
                         #region GeneralInfo
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Información General",
                             Position = 0,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //Basic info
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Resumen del Proveedor",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3348,27 +3337,27 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion GeneralInfo
                     }
 
-                    if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+                    if (module == (int)enumMarketPlaceCustomerModules.ProviderRatingView)
                     {
                         #region Survey Info
 
                         //header
-                        oMenuAux = new Models.General.GenericMenu()
+                        oMenuAux = new GenericMenu()
                         {
                             Name = "Evaluación de desempeño",
                             Position = 5,
-                            ChildMenu = new List<Models.General.GenericMenu>(),
+                            ChildMenu = new List<GenericMenu>(),
                         };
 
                         //survey list
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Lista de evaluaciónes",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3382,13 +3371,12 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
-
                         //survey list
-                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Reportes de evaluaciónes",
                             Url = Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
@@ -3401,14 +3389,14 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
-                        if (MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
+                        if (SessionModel.CurrentUserModules().Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
                         {
                             //survey list
-                            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                            oMenuAux.ChildMenu.Add(new GenericMenu()
                             {
                                 Name = "Programar evaluación",
                                 Url = Url.RouteUrl
-                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        (Models.General.Constants.C_Routes_Default,
                                         new
                                         {
                                             controller = MVC.Provider.Name,
@@ -3420,7 +3408,6 @@ namespace MarketPlace.Web.Controllers
                                      (oCurrentAction == MVC.Provider.ActionNames.SVSurveyProgram &&
                                     oCurrentController == MVC.Provider.Name),
                             });
-
                         }
 
                         //get is selected menu
@@ -3429,14 +3416,13 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion Survey Info
                     }
                 }
-
             }
             return oReturn;
         }
 
-        #endregion
+        #endregion Menu
     }
 }
