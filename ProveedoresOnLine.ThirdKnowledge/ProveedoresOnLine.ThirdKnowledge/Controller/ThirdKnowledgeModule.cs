@@ -101,7 +101,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     {
                         ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(
                                                             x.PeriodPublicId,
-                                                            x.PlanPublicId,
+                                                            oPlanToReCalculate.PlanPublicId,
                                                             oPlanToReCalculate.QueriesByPeriod,
                                                             x.TotalQueries,
                                                             x.InitDate,
@@ -144,7 +144,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         {
                             AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
                             InitDate = EndPastPeriod,
-                            EndDate = i == TotalPeriods ? oPlanToReCalculate.EndDate : EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod),
+                            EndDate = i == TotalPeriods  ? oPlanToReCalculate.EndDate : EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod),
                             CreateDate = DateTime.Now,
                             LastModify = DateTime.Now,
                             PlanPublicId = oPlanToReCalculate.PlanPublicId,

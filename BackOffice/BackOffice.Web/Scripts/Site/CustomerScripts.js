@@ -2087,14 +2087,6 @@ var Customer_ProjectModule = {
             }, ],
         });
     },
-
-    RenderEvaluationCriteria: function () {
-
-    },
-
-    RenderProjectConfigExperiences: function () {
-
-    }
 };
 
 var ThirdKnowledgeObject = {
@@ -2103,7 +2095,7 @@ var ThirdKnowledgeObject = {
     IsEnable: '',
     DateFormat: '',
     ThirdKnowledgeOptions: new Array(),
-    PlanPublicId:'',
+    PlanPublicId: '',
 
     Init: function (vInitObject) {
         debugger;
@@ -2115,9 +2107,10 @@ var ThirdKnowledgeObject = {
         if (vInitObject.ThirdKnowledgeOptions != null) {
             $.each(vInitObject.ThirdKnowledgeOptions, function (item, value) {
                 ThirdKnowledgeObject.ThirdKnowledgeOptions[value.Key] = value.Value;
-             });
-         }        
+            });
+        }
     },
+
     RenderAsync: function (vRenderObject) {
 
         if (vRenderObject.ThirdKnowledgeType == 1601001) {
@@ -2128,10 +2121,14 @@ var ThirdKnowledgeObject = {
         }
     },
 
-    RenderPlan: function (vRenderObject) {
+    RenderPlan: function (vRenderObject) {        
+        var isEdit = true;
+        if (ThirdKnowledgeObject.PlanPublicId != "") {
+            isEdit = false;
+        }
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
             editable: true,
-            
+
             navigatable: true,
             pageable: false,
             scrollable: true,
@@ -2169,11 +2166,11 @@ var ThirdKnowledgeObject = {
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDGetAllByCustomer=true&CustomerPublicId=' + ThirdKnowledgeObject.CustomerPublicId + '&Enable=' + ThirdKnowledgeObject.GetViewEnable(vRenderObject.ThirdKnowledgeType),
                             dataType: 'json',
                             success: function (result) {
-                                
+
                                 options.success(result);
                             },
                             error: function (result) {
-                                
+
                                 options.error(result);
                                 Message('error', result);
                             },
@@ -2218,10 +2215,11 @@ var ThirdKnowledgeObject = {
                     },
                 },
                 requestStart: function () {
-                    kendo.ui.progress($("#loading"), true);
+                    debugger;
+                    kendo.ui.progress($("#TKloading"), true);
                 },
                 requestEnd: function () {
-                    kendo.ui.progress($("#loading"), false);
+                    kendo.ui.progress($("#TKloading"), false);
                 }
             },
             editable: {
@@ -2230,12 +2228,16 @@ var ThirdKnowledgeObject = {
                     title: "Asignación de plan",
                 }
             },
-            edit: function (e) {
-                debugger;
+            edit: function (e) {                
                 if (e.model.isNew()) {
                     // set survey item type
                     vRenderObject.PlanPublicId = e.model.PlanPublicId;
                 }
+                else {
+                    $('[data-container-for="InitDate"]').hide();                    
+                    $('[data-container-for="EndDate"]').hide();                    
+                    $('[data-container-for="DaysByPeriod"]').hide();
+                }   
             },
             columns: [{
                 field: 'QueriesByPeriod',
@@ -2259,8 +2261,7 @@ var ThirdKnowledgeObject = {
                 title: 'Fecha Final',
                 width: '170px',
                 format: ThirdKnowledgeObject.DateFormat,
-                editor:
-                    function timeEditor(container, options) {
+                editor: function timeEditor(container, options) {
                         var input = $('<input type="date" name="'
                             + options.field
                             + '" value="'
@@ -2273,7 +2274,7 @@ var ThirdKnowledgeObject = {
                 title: 'Estado',
                 width: '90px',
                 template: function (dataItem) {
-                    
+
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.Status != null) {
                         $.each(ThirdKnowledgeObject.ThirdKnowledgeOptions[101], function (item, value) {
@@ -2315,56 +2316,54 @@ var ThirdKnowledgeObject = {
                 },
             },
                  {
+                    title: "Acciones",
+                    width: "200px",
+                    command: [{
+                        name: 'edit',
+                        text: 'Editar',
+                    }, {
+                        name: 'Detail',
+                        text: 'Ver Detalle',
+                        click: function (e) {
 
-                     title: "Acciones",
-                     width: "200px",
-                     command: [{
-                         name: 'edit',
-                         text: 'Editar',                         
-                     }, {
-                         name: 'Detail',
-                         text: 'Ver Detalle',
-                         click: function (e) {
+                            // e.target is the DOM element representing the button
+                            var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                            // get the data bound to the current table row
+                            var data = this.dataItem(tr);
 
-                             // e.target is the DOM element representing the button
-                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
-                             // get the data bound to the current table row
-                             var data = this.dataItem(tr);
+                            //validate SurveyConfigId attribute
+                            //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                            //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                            //}
 
-                             //validate SurveyConfigId attribute
-                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                             //}
+                            //validate Plan attribute
+                            if (data.PlanPublicId != null) {
 
-                             //validate Plan attribute
-                             if (data.PlanPublicId != null) {
+                                vRenderObject.PlanPublicId = data.PlanPublicId;
+                                vRenderObject.ThirdKnowledgeType = '1601002';
 
-                                 vRenderObject.PlanPublicId = data.PlanPublicId;
-                                 vRenderObject.ThirdKnowledgeType = '1601002';
-                                 
-                                 ThirdKnowledgeObject.RenderAsync(vRenderObject);
-                             }
-                         }
-
-                     }, ],
+                                ThirdKnowledgeObject.RenderAsync(vRenderObject);
+                            }
+                        }
+                    }, ],
                  }
             ]
         })
     },
 
     RenderPeriods: function (vRenderObject) {
-        
+
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: false,
             scrollable: true,
             toolbar: [{
-                    name: 'title',
-                    template: function () {
-                        return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
-                    }
-                },
+                name: 'title',
+                template: function () {
+                    return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                }
+            },
                 { name: 'ViewEnable', template: $('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
@@ -2390,11 +2389,11 @@ var ThirdKnowledgeObject = {
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDGetPeriodsByPlanPublicId=true&PlanPublicId=' + vRenderObject.PlanPublicId + '&Enable=' + "true",
                             dataType: 'json',
                             success: function (result) {
-                                
+
                                 options.success(result);
                             },
                             error: function (result) {
-                                
+
                                 options.error(result);
                                 Message('error', result);
                             },
@@ -2473,8 +2472,8 @@ var ThirdKnowledgeObject = {
                             + options.model.get(options.field)
                             + '" />');
                         input.appendTo(container);
-                         }
-                     }, {
+                    }
+            }, {
                 field: 'PeriodEndDate',
                 title: 'Fin',
                 width: '170px',
@@ -2497,7 +2496,7 @@ var ThirdKnowledgeObject = {
                 title: 'Habilitado Marketplace',
                 width: '100px',
                 template: function (dataItem) {
-                    
+
                     var oReturn = '';
                     if (dataItem.PeriodEnable == true) {
                         oReturn = 'Si'
@@ -2529,17 +2528,17 @@ var ThirdKnowledgeObject = {
                     {
                         name: 'Detail',
                         text: 'Ver Detalle',
-                         click: function (e) {
-                            
+                        click: function (e) {
+
                             // e.target is the DOM element representing the button
                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                             // get the data bound to the current table row
                             var data = this.dataItem(tr);
 
                             //validate SurveyConfigId attribute
-                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                             //}
+                            //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                            //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                            //}
 
                             //validate Plan attribute
                             if (data.PlanPublicId != null) {
@@ -2551,7 +2550,7 @@ var ThirdKnowledgeObject = {
                             }
                         }
                     }, ],
-                 }
+                }
             ]
         })
     },
@@ -2706,7 +2705,7 @@ var Customer_AditionalDocumentsObject = {
                 },
                 requestEnd: function () {
                     kendo.ui.progress($("#loading"), false);
-}
+                }
             },
             columns: [{
                 field: 'UserCompanyEnable',
