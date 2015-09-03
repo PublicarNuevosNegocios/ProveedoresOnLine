@@ -33,6 +33,25 @@
 
 @{
     Model.RenderScripts = true;
+
+    //get all modules
+    string oModules = "[]";
+    if (Model.CatalogGetAllModuleOptions != null &&
+        Model.CatalogGetAllModuleOptions.Count > 0)
+    {
+        Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oModulesOptions =
+            Model.CatalogGetAllModuleOptions.
+            GroupBy(x => x.CatalogId).
+            Select(x =>
+            new
+            {
+                okey = x.Key,
+                ovalue = Model.CatalogGetAllModuleOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+            }).ToDictionary(k => k.okey, v => v.ovalue);
+
+        oModules = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oModulesOptions.Select(x => new { Key = x.Key, Value = x.Value }));
+    }
 }
 
 @section inlinescripts
@@ -40,8 +59,17 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
+
+        var vModulesOptions = @(Html.Raw(oModules));
+
         $(document).ready(function () {
-            
+            Customer_AditionalDocumentsObject.Init({
+                ObjectId: 'AditionalDocuments',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                Modules: vModulesOptions,
+            });
+
+            Customer_AditionalDocumentsObject.RenderAsync();
         });
     </script>
 }

@@ -38,7 +38,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
             return Convert.ToInt32(response.ScalarResult);
         }
-        
+
         public int AditionalDocumentsInfoUpsert(int AditionalDocumentsId, int? AditionalDocumentsInfoId, int AditionalDocumentsType, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -48,7 +48,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentsType", AditionalDocumentsType));
             lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentsValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentsLargeValue", LargeValue));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -61,9 +61,11 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel GetAditionalDocumentsByCompany(string CustomerPublicId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
+        public Models.Customer.CustomerModel GetAditionalDocumentsByCompany(string CustomerPublicId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+            TotalRows = 0;
+
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
@@ -78,18 +80,60 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 Parameters = lstParams,
             });
 
-            ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oReturn = null;
+            Models.Customer.CustomerModel oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("oTotalRows");
+
                 oReturn = new Models.Customer.CustomerModel()
                 {
+                    RelatedCompany = new Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = response.DataTableResult.Rows[0].Field<string>("CustomerPublicId"),
+                    },
+                    AditionalDocuments =
+                        (from ad in response.DataTableResult.AsEnumerable()
+                         where !ad.IsNull("AditionalDocumentId")
+                         group ad by new
+                         {
+                             AditionalDocumentId = ad.Field<int>("AditionalDocumentId"),
+                             AditionalDocumentName = ad.Field<string>("AditionalDocumentName"),
+                             AditionalDocumnetEnable = ad.Field<UInt64>("AditionalDocumentEnable"),
 
+                             AditionalDocumentInfoId = ad.Field<int>("AditionalDocumentInfoId"),
+                             AditionalDocumentInfoTypeId = ad.Field<int>("AditionalDocumentInfoTypeId"),
+                             AditionalDocumentInfoTypeName = ad.Field<string>("AditionalDocumentInfoTypeName"),
+                             AditionalDocumentInfoValue = ad.Field<string>("AditionalDocumentInfoValue"),
+                             AditionalDocumentInfoLargeValue = ad.Field<string>("AditionalDocumentInfoLargeValue"),
+                             AditionalDocumentInfoEnable = ad.Field<UInt64>("AditionalDocumentInfoEnable"),
+                         }
+                         into adi
+                         select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                         {
+                             ItemId = adi.Key.AditionalDocumentId,
+                             ItemName = adi.Key.AditionalDocumentName,
+                             Enable = adi.Key.AditionalDocumnetEnable == 1 ? true : false,
+                             ItemInfo =
+                              (from adinf in response.DataTableResult.AsEnumerable()
+                               where !adinf.IsNull("AditionalDocumentInfoId") &&
+                                     adinf.Field<int>("AditionalDocumentId") == adi.Key.AditionalDocumentId
+                               select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                               {
+                                   ItemInfoId = adi.Key.AditionalDocumentInfoId,
+                                   ItemInfoType = new Company.Models.Util.CatalogModel()
+                                   {
+                                       ItemId = adi.Key.AditionalDocumentInfoTypeId,
+                                       ItemName = adi.Key.AditionalDocumentInfoTypeName,
+                                   },
+                                   Value = adi.Key.AditionalDocumentInfoValue,
+                                   LargeValue = adi.Key.AditionalDocumentInfoLargeValue,
+                                   Enable = adi.Key.AditionalDocumentInfoEnable == 1 ? true : false,
+                               }).ToList(),
+                         }).ToList(),
                 };
             }
-
-            TotalRows = 0;
 
             return oReturn;
         }
@@ -108,12 +152,12 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CC_CustomerProvider_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CC_CustomerProvider_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -130,12 +174,12 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CC_CustomerProviderInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CC_CustomerProviderInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -148,12 +192,12 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerRelated", vCustomerRelated));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "CC_GetCustomerByProvider",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams,
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_GetCustomerByProvider",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
             CompanyCustomer.Models.Customer.CustomerModel oReturn = new Models.Customer.CustomerModel();
 
@@ -227,7 +271,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                     {
                         new Models.Customer.CustomerProviderModel(){
                             CustomerProviderId = response.DataTableResult.Rows[0].Field<int>("CustomerProviderId"),
-                            CustomerProviderInfo = 
+                            CustomerProviderInfo =
                             (from cpi in response.DataTableResult.AsEnumerable()
                                  where !cpi.IsNull("CustomerProviderInfoId")
                                  group cpi by new

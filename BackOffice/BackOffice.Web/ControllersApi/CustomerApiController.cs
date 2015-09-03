@@ -800,16 +800,42 @@ namespace BackOffice.Web.ControllersApi
 
         #region Aditional Documents
 
-        //[HttpPost]
-        //[HttpGet]
-        //public BackOffice.Models.Customer.AditionalDocumentsViewModel ADAditionalDocumemntsUpsert
-        //    (string ADAditionalDocumemntsUpsert,
-        //    string CustomerPublicId)
-        //{
-        //    BackOffice.Models.Customer.AditionalDocumentsViewModel oReturn = null;
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.AditionalDocumentsViewModel ADAditionalDocumemntsUpsert
+            (string ADAditionalDocumemntsUpsert,
+            string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.AditionalDocumentsViewModel oReturn = null;
 
-        //    return oReturn;
-        //}
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.AditionalDocumentsViewModel> GetAditionalDocument
+            (string GetAditionalDocument,
+            string CustomerPublicId,
+            string ViewEnable)
+        {
+            List<BackOffice.Models.Customer.AditionalDocumentsViewModel> oReturn = new List<AditionalDocumentsViewModel>();
+
+            int TotalRows = 0;
+
+            if (GetAditionalDocument == "true")
+            {
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oModel = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetAditionalDocumentsByCompany
+                    (CustomerPublicId, Convert.ToBoolean(ViewEnable), 0, 12000, out TotalRows);
+
+                oModel.AditionalDocuments.All(ad =>
+                {
+                    oReturn.Add(new AditionalDocumentsViewModel(ad));
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
 
         #endregion
     }

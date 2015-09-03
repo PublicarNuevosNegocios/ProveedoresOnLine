@@ -110,7 +110,7 @@ var SurveyByName_ChartsObject = {
             async: false,
             success: function (result) {
                 var data = new google.visualization.DataTable();
-                
+
                 data.addColumn('string', 'Tipo');
                 data.addColumn('number', 'Cantidad');
                 data.addColumn('number', 'filtro');
@@ -124,12 +124,12 @@ var SurveyByName_ChartsObject = {
                     height: "100%",
                     width: "100%",
                    colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
-                    
+
                 };
 
                 function selectHandler() {
-                    var selectedItem = chart.getSelection()[0];                    
-                    if (selectedItem) {                        
+                    var selectedItem = chart.getSelection()[0];
+                    if (selectedItem) {
                         var SearchFilter = data.getValue(selectedItem.row, 2);
                         window.location = SurveyByName_ChartsObject.GetSearchUrl(SearchFilter);
                     }
@@ -159,7 +159,6 @@ var SurveyByName_ChartsObject = {
         oUrl += '?CompareId=';
         oUrl += '&ProjectPublicId=';
         oUrl += '&SearchParam=';
-
 
         oUrl += '&SearchFilter=,111012;' + SearchFilter
 
@@ -234,7 +233,6 @@ var SurveyByEvaluators_ChartsObject = {
                 dashboard.bind(barFilterMonth, vBarChart);
                 dashboard.bind(barFilterState, vBarChart);
 
-
                 google.visualization.events.addListener(vBarChart, 'ready', function () {
                     google.visualization.events.addListener(vBarChart, 'select', selectHandler);
                 });
@@ -248,9 +246,7 @@ var SurveyByEvaluators_ChartsObject = {
                     }
                 }
 
-
                 google.visualization.events.addListener(vBarChart, 'select', selectHandler);
-
 
                 dashboard.draw(data);
                 function resize() {
@@ -274,7 +270,6 @@ var SurveyByEvaluators_ChartsObject = {
         oUrl += '?CompareId=';
         oUrl += '&ProjectPublicId=';
         oUrl += '&SearchParam=';
-
 
         oUrl += '&SearchFilter=,111014;' + SearchFilter
 
@@ -343,12 +338,11 @@ var SurveyByMonth_ChartsObject = {
                 });
                 dashboard.bind(filterMonth, pieChart);
 
-
                 google.visualization.events.addListener(pieChart, 'ready', function () {
                     google.visualization.events.addListener(pieChart, 'select', selectHandler);
                 });
 
-                function selectHandler() {                    
+                function selectHandler() {
                     var selectedItem = pieChart.getChart().getSelection();
                     if (selectedItem) {
                         var SearchFilter = data.getValue(selectedItem[0].row, 4);
@@ -372,13 +366,12 @@ var SurveyByMonth_ChartsObject = {
         });
     },
 
-    GetSearchUrl: function (SearchFilter) {        
+    GetSearchUrl: function (SearchFilter) {
         var oUrl = this.SearchUrl;
 
         oUrl += '?CompareId=';
         oUrl += '&ProjectPublicId=';
         oUrl += '&SearchParam=';
-
 
         oUrl += '&SearchFilter=,111011;' + SearchFilter
 
@@ -406,7 +399,7 @@ var Providers_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-                var data = new google.visualization.DataTable();                
+                var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
                 $.each(result, function (item, value) {
@@ -425,7 +418,7 @@ var Providers_ChartsObject = {
                     var selectedItem = chart.getSelection()[0];
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;                        
+                        var SearchFilter = 0;
                         if (topping == "En creación Nacional") {
                             SearchFilter = 902001;
                         }
@@ -450,7 +443,7 @@ var Providers_ChartsObject = {
 						else if (topping == "Validado doc. completa Extranjero") {
                             SearchFilter = 902008;
                         }
-						
+
                         window.location = Providers_ChartsObject.GetSearchUrl(SearchFilter);
 
                     }
@@ -481,7 +474,6 @@ var Providers_ChartsObject = {
         oUrl += '?CompareId=';
         oUrl += '&ProjectPublicId=';
         oUrl += '&SearchParam=';
-
 
         oUrl += '&SearchFilter=,112001;' + SearchFilter
 
@@ -561,10 +553,10 @@ var ProjectByResponsible_ChartsObject = {
             async: false,
             success: function (result) {
 
-                var data = new google.visualization.DataTable();                
+                var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Responsable');
                 data.addColumn('number', 'Cantidad');
-                $.each(result, function (item, value) {                    
+                $.each(result, function (item, value) {
                     data.addRows([[item, value]]);
                 });
 
@@ -576,7 +568,7 @@ var ProjectByResponsible_ChartsObject = {
                     chartArea: { left: 200, top: 10, width: "100%", height: "90%" },
                     height: "100%",
                     width: "60%",
-                    colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']                    
+                    colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
                 };
 
                 var vBarChart = new google.visualization.BarChart(document.getElementById(ProjectByResponsible_ChartsObject.ObjectId));

@@ -31,7 +31,7 @@ namespace MarketPlace.Web.Controllers
                                 action = MVC.Provider.ActionNames.Index
                             });
                     }
-                    else if(Models.General.SessionModel.CurrentCompanyType == Models.General.enumCompanyType.BuyerProvider)
+                    else if (Models.General.SessionModel.CurrentCompanyType == Models.General.enumCompanyType.BuyerProvider)
                     {
                         //redirect to provider home
                         return RedirectToRoute
@@ -41,12 +41,12 @@ namespace MarketPlace.Web.Controllers
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Index
                             });
-                    }                        
+                    }
                     else
                     {
-                        if (Models.General.SessionModel.CurrentURL != null)                        
-                            return Redirect(Models.General.SessionModel.CurrentURL);                            
-                        
+                        if (Models.General.SessionModel.CurrentURL != null)
+                            return Redirect(Models.General.SessionModel.CurrentURL);
+
                         //redirect to customer home
                         return RedirectToRoute
                         (Models.General.Constants.C_Routes_Default,

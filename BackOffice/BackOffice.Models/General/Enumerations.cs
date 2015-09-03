@@ -145,6 +145,9 @@
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,
+
+        AditionalDocumentType = 220003,
+        ModuleType = 220004,
     }
 
     /// <summary>

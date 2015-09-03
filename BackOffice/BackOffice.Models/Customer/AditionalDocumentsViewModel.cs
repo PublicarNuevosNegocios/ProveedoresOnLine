@@ -25,9 +25,14 @@ namespace BackOffice.Models.Customer
         public AditionalDocumentsViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oAditionalData)
         {
             AditionalDataId = oAditionalData.ItemId.ToString();
-            AditionalDataTypeId = oAditionalData.ItemType.ItemId.ToString();
-            AditionalDataType = oAditionalData.ItemType.ItemName;
-            Title = oAditionalData.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+            AditionalDataTypeId = oAditionalData.ItemInfo.FirstOrDefault().ItemInfoId.ToString();
+            AditionalDataType = oAditionalData.ItemInfo.FirstOrDefault().Value;
+            Title = oAditionalData.ItemName;
+               
+            //AditionalDataId = oAditionalData.ItemId.ToString();
+            //AditionalDataTypeId = oAditionalData.ItemType.ItemId.ToString();
+            //AditionalDataType = oAditionalData.ItemType.ItemName;
+            //Title = oAditionalData.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
         }
     }
 }
