@@ -22,11 +22,13 @@ namespace BackOffice.Models.Customer
 
         public AditionalDocumentsViewModel() { }
 
-        public AditionalDocumentsViewModel(ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oAditionalData)
+        public AditionalDocumentsViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oAditionalData)
         {
-            AditionalDataId = oAditionalData.AditionalDocuments.FirstOrDefault().ItemId.ToString();
-
-
+            AditionalDataId = oAditionalData.ItemId.ToString();
+            AditionalDataTypeId = oAditionalData.ItemInfo.FirstOrDefault().ItemInfoId.ToString();
+            AditionalDataType = oAditionalData.ItemInfo.FirstOrDefault().Value;
+            Title = oAditionalData.ItemName;
+               
             //AditionalDataId = oAditionalData.ItemId.ToString();
             //AditionalDataTypeId = oAditionalData.ItemType.ItemId.ToString();
             //AditionalDataType = oAditionalData.ItemType.ItemName;

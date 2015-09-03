@@ -813,28 +813,28 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Customer.AditionalDocumentsViewModel GetAditionalDocument
+        public List<BackOffice.Models.Customer.AditionalDocumentsViewModel> GetAditionalDocument
             (string GetAditionalDocument,
             string CustomerPublicId,
-            string Enable,
-            string PageNumber,
-            string RowCount)
+            string ViewEnable)
         {
-            BackOffice.Models.Customer.AditionalDocumentsViewModel oModel;
+            List<BackOffice.Models.Customer.AditionalDocumentsViewModel> oReturn = new List<AditionalDocumentsViewModel>();
 
-            int oTotalRows = 0;
+            int TotalRows = 0;
 
-            ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerModel =
-                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetAditionalDocumentsByCompany
-                    (CustomerPublicId,
-                    Enable == "1" ? true : false,
-                    Convert.ToInt32(PageNumber),
-                    Convert.ToInt32(RowCount),
-                    out oTotalRows);
+            if (GetAditionalDocument == "true")
+            {
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oModel = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetAditionalDocumentsByCompany
+                    (CustomerPublicId, Convert.ToBoolean(ViewEnable), 0, 12000, out TotalRows);
 
-            oModel = new AditionalDocumentsViewModel(oCustomerModel);
+                oModel.AditionalDocuments.All(ad =>
+                {
+                    oReturn.Add(new AditionalDocumentsViewModel(ad));
+                    return true;
+                });
+            }
 
-            return oModel;
+            return oReturn;
         }
 
         #endregion
