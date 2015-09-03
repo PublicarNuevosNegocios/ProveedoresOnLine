@@ -2041,10 +2041,12 @@ var Provider_CompanyHSEQObject = {
         this.DateFormat = vInitiObject.DateFormat;
         Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
+            debugger;
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
         });
         if (vInitiObject.YearOptionList != null) {
             $.each(vInitiObject.YearOptionList, function (item, value) {
+                debugger;
                 Provider_CompanyHSEQObject.YearOptionList[value.Key] = value.Value;
             });
         }
@@ -3273,6 +3275,7 @@ var Provider_CompanyHSEQObject = {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CA_Year != null) {
                         $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
+                            debugger;
                             if (dataItem.CA_Year == value) {
                                 oReturn = value;
                             }

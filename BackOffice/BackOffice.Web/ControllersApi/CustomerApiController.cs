@@ -808,6 +808,59 @@ namespace BackOffice.Web.ControllersApi
         {
             BackOffice.Models.Customer.AditionalDocumentsViewModel oReturn = null;
 
+            if (ADAditionalDocumemntsUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Customer.AditionalDocumentsViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.AditionalDocumentsViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.AditionalDocumentsViewModel));
+
+                CustomerModel oCustomerModel = new CustomerModel()
+                {
+                    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = CustomerPublicId,
+                    },
+                    AditionalDocuments = new List<GenericItemModel>()
+                    {
+                        new GenericItemModel()
+                        {
+                            ItemId = oDataToUpsert.AditionalDataId != null ? Convert.ToInt32(oDataToUpsert.AditionalDataId) : 0,
+                            ItemName = oDataToUpsert.Title,
+                            ItemInfo = new List<GenericItemInfoModel>()
+                            {
+                                new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = oDataToUpsert.ModuleId.ToString() != null ? oDataToUpsert.ModuleId : 0,
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType,
+                                    },
+                                    Value = oDataToUpsert.Module,
+                                    Enable = true,
+                                },
+
+                                new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = oDataToUpsert.AditionalDataTypeId.ToString() != null ? oDataToUpsert.AditionalDataTypeId : 0,
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.AditionalDocumentType,
+                                    },
+                                    Value = oDataToUpsert.AditionalDataType,
+                                    Enable = true,
+                                },
+                            },
+                            Enable = oDataToUpsert.Enable,
+                        }
+                    },
+                };
+
+                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.AditionalDocumentsUpsert(oCustomerModel);
+            }
+
             return oReturn;
         }
 

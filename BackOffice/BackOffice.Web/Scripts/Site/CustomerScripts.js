@@ -2098,7 +2098,6 @@ var ThirdKnowledgeObject = {
     PlanPublicId: '',
 
     Init: function (vInitObject) {
-        debugger;
         this.ObjectId = vInitObject.ObjectId,
         this.CustomerPublicId = vInitObject.CustomerPublicId,
         this.IsEnable = vInitObject.Enable,
@@ -2107,8 +2106,8 @@ var ThirdKnowledgeObject = {
         if (vInitObject.ThirdKnowledgeOptions != null) {
             $.each(vInitObject.ThirdKnowledgeOptions, function (item, value) {
                 ThirdKnowledgeObject.ThirdKnowledgeOptions[value.Key] = value.Value;
-            });
-        }
+             });
+         }        
     },
 
     RenderAsync: function (vRenderObject) {
@@ -2121,14 +2120,14 @@ var ThirdKnowledgeObject = {
         }
     },
 
-    RenderPlan: function (vRenderObject) {        
+    RenderPlan: function (vRenderObject) {
         var isEdit = true;
         if (ThirdKnowledgeObject.PlanPublicId != "") {
             isEdit = false;
         }
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
             editable: true,
-
+            
             navigatable: true,
             pageable: false,
             scrollable: true,
@@ -2166,11 +2165,11 @@ var ThirdKnowledgeObject = {
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDGetAllByCustomer=true&CustomerPublicId=' + ThirdKnowledgeObject.CustomerPublicId + '&Enable=' + ThirdKnowledgeObject.GetViewEnable(vRenderObject.ThirdKnowledgeType),
                             dataType: 'json',
                             success: function (result) {
-
+                                
                                 options.success(result);
                             },
                             error: function (result) {
-
+                                
                                 options.error(result);
                                 Message('error', result);
                             },
@@ -2195,7 +2194,6 @@ var ThirdKnowledgeObject = {
                         });
                     },
                     update: function (options) {
-                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDPlanUpsert=true&PlanPublicId=' + ThirdKnowledgeObject.PlanPublicId + "&CustomerPublicId=" + ThirdKnowledgeObject.CustomerPublicId,
                             dataType: 'json',
@@ -2228,7 +2226,7 @@ var ThirdKnowledgeObject = {
                     title: "Asignación de plan",
                 }
             },
-            edit: function (e) {                
+            edit: function (e) {
                 if (e.model.isNew()) {
                     // set survey item type
                     vRenderObject.PlanPublicId = e.model.PlanPublicId;
@@ -2274,7 +2272,7 @@ var ThirdKnowledgeObject = {
                 title: 'Estado',
                 width: '90px',
                 template: function (dataItem) {
-
+                    
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.Status != null) {
                         $.each(ThirdKnowledgeObject.ThirdKnowledgeOptions[101], function (item, value) {
@@ -2316,54 +2314,54 @@ var ThirdKnowledgeObject = {
                 },
             },
                  {
-                    title: "Acciones",
-                    width: "200px",
-                    command: [{
-                        name: 'edit',
-                        text: 'Editar',
-                    }, {
-                        name: 'Detail',
-                        text: 'Ver Detalle',
-                        click: function (e) {
+                     title: "Acciones",
+                     width: "200px",
+                     command: [{
+                         name: 'edit',
+                         text: 'Editar',                         
+                     }, {
+                         name: 'Detail',
+                         text: 'Ver Detalle',
+                         click: function (e) {
 
-                            // e.target is the DOM element representing the button
-                            var tr = $(e.target).closest("tr"); // get the current table row (tr)
-                            // get the data bound to the current table row
-                            var data = this.dataItem(tr);
+                             // e.target is the DOM element representing the button
+                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                             // get the data bound to the current table row
+                             var data = this.dataItem(tr);
 
-                            //validate SurveyConfigId attribute
-                            //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                            //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                            //}
+                             //validate SurveyConfigId attribute
+                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                             //}
 
-                            //validate Plan attribute
-                            if (data.PlanPublicId != null) {
+                             //validate Plan attribute
+                             if (data.PlanPublicId != null) {
 
-                                vRenderObject.PlanPublicId = data.PlanPublicId;
-                                vRenderObject.ThirdKnowledgeType = '1601002';
-
-                                ThirdKnowledgeObject.RenderAsync(vRenderObject);
-                            }
-                        }
-                    }, ],
+                                 vRenderObject.PlanPublicId = data.PlanPublicId;
+                                 vRenderObject.ThirdKnowledgeType = '1601002';
+                                 
+                                 ThirdKnowledgeObject.RenderAsync(vRenderObject);
+                             }
+                         }
+                     }, ],
                  }
             ]
         })
     },
 
     RenderPeriods: function (vRenderObject) {
-
+        
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: false,
             scrollable: true,
             toolbar: [{
-                name: 'title',
-                template: function () {
-                    return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
-                }
-            },
+                    name: 'title',
+                    template: function () {
+                        return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                    }
+                },
                 { name: 'ViewEnable', template: $('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
@@ -2389,11 +2387,11 @@ var ThirdKnowledgeObject = {
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDGetPeriodsByPlanPublicId=true&PlanPublicId=' + vRenderObject.PlanPublicId + '&Enable=' + "true",
                             dataType: 'json',
                             success: function (result) {
-
+                                
                                 options.success(result);
                             },
                             error: function (result) {
-
+                                
                                 options.error(result);
                                 Message('error', result);
                             },
@@ -2472,8 +2470,8 @@ var ThirdKnowledgeObject = {
                             + options.model.get(options.field)
                             + '" />');
                         input.appendTo(container);
-                    }
-            }, {
+                         }
+                     }, {
                 field: 'PeriodEndDate',
                 title: 'Fin',
                 width: '170px',
@@ -2496,7 +2494,7 @@ var ThirdKnowledgeObject = {
                 title: 'Habilitado Marketplace',
                 width: '100px',
                 template: function (dataItem) {
-
+                    
                     var oReturn = '';
                     if (dataItem.PeriodEnable == true) {
                         oReturn = 'Si'
@@ -2528,17 +2526,17 @@ var ThirdKnowledgeObject = {
                     {
                         name: 'Detail',
                         text: 'Ver Detalle',
-                        click: function (e) {
-
+                         click: function (e) {
+                            
                             // e.target is the DOM element representing the button
                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                             // get the data bound to the current table row
                             var data = this.dataItem(tr);
 
                             //validate SurveyConfigId attribute
-                            //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                            //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                            //}
+                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
+                             //}
 
                             //validate Plan attribute
                             if (data.PlanPublicId != null) {
@@ -2550,7 +2548,7 @@ var ThirdKnowledgeObject = {
                             }
                         }
                     }, ],
-                }
+                 }
             ]
         })
     },
@@ -2564,12 +2562,18 @@ var ThirdKnowledgeObject = {
 var Customer_AditionalDocumentsObject = {
     ObjectId: '',
     CustomerPublicId: '',
-    Modules: new Array(),
+    ModulesList: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
-        this.Modules = vInitObject.Modules;
+
+        this.ModulesList = vInitObject.Modules;
+        //if (vInitObject.Modules != null) {
+        //    $.each(vInitObject.Modules, function (key, value) {
+        //        Customer_AditionalDocumentsObject.ModulesList[value.Key] = value.Value;
+        //    });
+        //}
     },
 
     RenderAsync: function () {
@@ -2635,14 +2639,20 @@ var Customer_AditionalDocumentsObject = {
             dataSource: {
                 schema: {
                     model: {
-                        //id: "RoleCompanyId",
-                        //fields: {
-                        //    UserCompanyId: { editable: false, nullable: true },
+                        id: "AditionalDataId",
+                        fields: {
+                            AditionalDataId: { editable: false, nullable: true },
 
-                        //    RoleCompanyName: { editable: true, validation: { required: true } },
-                        //    User: { editable: true, validation: { required: true } },
-                        //    UserCompanyEnable: { editable: true, type: 'boolean', defaultValue: true },
-                        //},
+                            Title: { editable: true, validation: { required: true } },
+
+                            AditionalDataTypeId: { editable: false },
+                            AditionalDataType: { editable: true, validation: { required: true } },
+
+                            ModuleId: { editable: false },
+                            Module: { editable: true, validation: { required: true } },
+
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+                        },
                     }
                 },
                 transport: {
@@ -2651,7 +2661,6 @@ var Customer_AditionalDocumentsObject = {
                             url: BaseUrl.ApiUrl + '/CustomerApi?GetAditionalDocument=true&CustomerPublicId=' + Customer_AditionalDocumentsObject.CustomerPublicId + '&ViewEnable=' + Customer_AditionalDocumentsObject.GetViewEnableInfo(),
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -2660,68 +2669,95 @@ var Customer_AditionalDocumentsObject = {
                             },
                         });
                     },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/CustomerApi?UserCompanyUpsert=true&CustomerPublicId=' + Customer_AditionalDocumentsObject.CustomerPublicId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se creó el registro.');
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?ADAditionalDocumemntsUpsert=true&CustomerPublicId=' + Customer_AditionalDocumentsObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
 
-                    //            $('#' + Customer_AditionalDocumentsObject.ObjectId).data('kendoGrid').dataSource.read();
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', result);
-                    //        },
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/CustomerApi?UserCompanyUpsert=true&CustomerPublicId=' + Customer_AditionalDocumentsObject.CustomerPublicId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se editó la fila con el id ' + options.data.UserCompanyId + '.');
+                                $('#' + Customer_AditionalDocumentsObject.ObjectId).data('kendoGrid').dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?ADAditionalDocumemntsUpsert=true&CustomerPublicId=' + Customer_AditionalDocumentsObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó el registro.');
 
-                    //            $('#' + Customer_AditionalDocumentsObject.ObjectId).data('kendoGrid').dataSource.read();
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', 'Error en la fila con el id ' + options.data.UserCompanyId + '.');
-                    //        },
-                    //    });
-                    //},
+                                $('#' + Customer_AditionalDocumentsObject.ObjectId).data('kendoGrid').dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al actualizar el registro.');
+                            },
+                        });
+                    },
                 },
                 requestStart: function () {
                     kendo.ui.progress($("#loading"), true);
                 },
                 requestEnd: function () {
                     kendo.ui.progress($("#loading"), false);
-                }
+}
             },
             columns: [{
-                field: 'UserCompanyEnable',
+                field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
             }, {
-                field: 'RoleCompanyId',
-                title: 'Cargo',
+                field: 'Title',
+                title: 'Titulo',
+                width: '100px',
+            }, {
+                field: 'AditionalDataType',
+                title: 'Tipo de archivo',
                 width: '150px',
             }, {
-                field: 'User',
-                title: 'Usuario',
+                field: 'Module',
+                title: 'Modulo',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Module != null) {
+                        $.each(Customer_AditionalDocumentsObject.ModulesList, function (item, value) {
+                            debugger;
+                            if (dataItem.Module == value.Value[0].ItemId) {
+                                oReturn = value.Value[0].ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    debugger;
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_AditionalDocumentsObject.ModulesList,
+                            dataTextField: '',
+                            dataValueField: '',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
-                field: 'UserCompanyId',
+                field: 'AditionalDataId',
                 title: 'Id',
                 width: '100px',
             }, ],
