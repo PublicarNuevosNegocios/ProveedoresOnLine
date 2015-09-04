@@ -9,5 +9,10 @@ namespace MarketPlace.Models.Company
     public class ThirdKnowledgeViewModel
     {
         List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> RelatedPlanModel { get; set; }
+
+        public ThirdKnowledgeViewModel()
+        {
+
+        }
     }
 }

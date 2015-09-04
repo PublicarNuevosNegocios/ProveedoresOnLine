@@ -23,7 +23,9 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKSingleSearch()
         {
-            ProviderViewModel oModel = new ProviderViewModel();
+            ProviderViewModel oModel = new ProviderViewModel(); // TODO: Pendiente por quitar
+
+
             try
             {
                 oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
@@ -59,10 +61,10 @@ namespace MarketPlace.Web.Controllers
                 //    oModel.RelatedThirdKnowledge = oReturn;
                 //}
                 #endregion
-
-
-
+                
                 //Obtener el Plan del Comprador
+
+
                 //Realizar la búsqueda
                 //Obtener el total de consultas del periodo y sumarle
                 //Hacer el Update del periodo consultado
