@@ -859,6 +859,73 @@ namespace BackOffice.Web.ControllersApi
                 };
 
                 ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.AditionalDocumentsUpsert(oCustomerModel);
+
+                List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oModules = ProveedoresOnLine.Company.Controller.Company.CatalogGetAllModuleOptions();
+
+                int oSubModuleToUpsert = 0;
+                int oModuleToUpsert = 0;
+
+                oCustomerModel.AditionalDocuments.All(x =>
+                {
+                    oSubModuleToUpsert = x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ModuleType).Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+
+                    oModuleToUpsert = oModules.Where(z => z.ItemId == oSubModuleToUpsert).Select(z => Convert.ToInt32(z.CatalogId)).FirstOrDefault();
+
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
+
+                    switch (oModuleToUpsert)
+                    {
+                        /*Contact Info*/
+                        case 204:
+                            
+                            break;
+                        /*Commercial Info*/
+                        case 301:
+                            break;
+                        /*Financial Info*/
+                        case 501:
+                            break;
+                        /*Legal Info*/
+                        case 601:
+                            break;
+                        /*HSEQ Info*/
+                        case 701:
+
+                            oProviderModel.RelatedCertification = new List<GenericItemModel>()
+                            {
+                                new GenericItemModel()
+                                {
+                                    ItemId = 0,
+                                    ItemName = x.ItemName,
+                                    ItemType = new CatalogModel()
+                                    {
+                                        ItemId = 0,
+                                    },
+                                    ItemInfo = new List<GenericItemInfoModel>() {
+                                        new GenericItemInfoModel()
+                                        {
+                                            ItemInfoId = 0,
+                                            ItemInfoType = new CatalogModel()
+                                            {
+                                                ItemId = 0,
+                                            },
+                                            Value = "",
+                                            Enable = true,
+                                        },
+                                    },
+                                    Enable = true,
+                                },
+                            };
+
+                            
+
+                            ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProviderModel);
+
+                            break;
+                    }
+
+                    return true;
+                });
             }
 
             return oReturn;

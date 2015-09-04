@@ -16,10 +16,9 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
             try
             {
-
                 CustomerToUpsert.RelatedCompany = Company.Controller.Company.CompanyUpsert
                     (CustomerToUpsert.RelatedCompany);
-
+                
                 CustomerProviderUpsert(CustomerToUpsert);
 
                 oLog.IsSuccess = true;
