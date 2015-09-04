@@ -1211,6 +1211,7 @@ namespace BackOffice.Web.Controllers
                         "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                         "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +                        
                         "\"" + "Company" + "\"" + strSep +
+                        "\"" + "N/A" + "\"" + strSep +
                         "\"" + x.RelatedCompany.CompanyPublicId + "\"");
                     if (x.RelatedLegal != null && x.RelatedLegal.Count > 0)
                     {

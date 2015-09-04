@@ -12,17 +12,23 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 {
     public class ThirdKnowledgeModule
     {
-        public static List<string[]> SimpleRequest(string IdentificationNumber, string Name)
+        public static List<string[]> SimpleRequest(string PeriodPublicId, string IdentificationNumber, string Name)
         {
             try
             {
                 WS_Inspektor.Autenticacion oAuth = new WS_Inspektor.Autenticacion();
                 WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient();
 
+                List<PlanModel> oPlanModel = new List<PlanModel>();
+                PeriodModel oCurrentPeriod = new PeriodModel();
+
                 oAuth.UsuarioNombre = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServiceUser].Value;
                 oAuth.UsuarioClave = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServicePass].Value;
 
+                //Traes el periodo para calcular
+
                 string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
+
 
                 string[] split = oResutl.Split('#');
                 List<string[]> oReturn = new List<string[]>();
@@ -106,14 +112,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                             x.TotalQueries,
                                                             x.InitDate,
                                                             x.EndDate,
-                                                            oPlanToReCalculate.Enable);                       
+                                                            oPlanToReCalculate.Enable);
                         return true;
                     });
             }
             else
             {
                 if (oPlanToReCalculate != null)
-                {                    
+                {
                     //Get Days from dates interval                                
                     DiferenceInDays = (oPlanToReCalculate.EndDate - oPlanToReCalculate.InitDate).Days;
 
@@ -127,7 +133,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     if (i == 0)
                     {
                         oPlanToReCalculate.RelatedPeriodModel.Add(new PeriodModel()
-                           {                               
+                           {
                                AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
                                InitDate = oPlanToReCalculate.InitDate,
                                EndDate = oPlanToReCalculate.InitDate.AddDays(oPlanToReCalculate.DaysByPeriod),
@@ -144,7 +150,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         {
                             AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
                             InitDate = EndPastPeriod,
-                            EndDate = i == TotalPeriods  ? oPlanToReCalculate.EndDate : EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod),
+                            EndDate = i == TotalPeriods ? oPlanToReCalculate.EndDate : EndPastPeriod.AddDays(oPlanToReCalculate.DaysByPeriod),
                             CreateDate = DateTime.Now,
                             LastModify = DateTime.Now,
                             PlanPublicId = oPlanToReCalculate.PlanPublicId,
@@ -172,6 +178,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         public static List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()
         {
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.CatalogGetThirdKnowledgeOptions();
+        }
+
+        public static List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable)
+        {
+            return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.GetCurrenPeriod(CustomerPublicId, Enable);
         }
     }
 }

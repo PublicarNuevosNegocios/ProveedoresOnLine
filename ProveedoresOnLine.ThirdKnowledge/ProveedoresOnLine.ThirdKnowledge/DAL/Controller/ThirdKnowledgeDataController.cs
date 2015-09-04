@@ -33,7 +33,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 
         #endregion
 
-        #region 
+        #region Config
+
         public List<Models.PlanModel> GetAllPlanByCustomer(string CustomerPublicId, bool Enable)
         {
             return DataFactory.GetAllPlanByCustomer(CustomerPublicId, Enable);
@@ -53,6 +54,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
         {
             return DataFactory.GetPeriodByPlanPublicId(PlanPublicId, Enable);
         }
+
+        #endregion
+
+        #region MarketPlace
+
+        public List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable)
+        {
+            return DataFactory.GetCurrenPeriod(CustomerPublicId, Enable);
+        }
         #endregion
 
         #region Utils
@@ -60,6 +70,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
         {
             return DataFactory.CatalogGetThirdKnowledgeOptions();
         } 
-        #endregion
+        #endregion       
     }
 }

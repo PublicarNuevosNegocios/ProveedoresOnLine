@@ -32,40 +32,50 @@ namespace MarketPlace.Web.Controllers
                 if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
                     MarketPlace.Models.General.SessionModel.CurrentURL = null;
 
-                if (Request["UpsertRequest"] == "true")
-                {
-                    WS_Inspector.Autenticacion oAuth = new WS_Inspector.Autenticacion();
-                    WS_Inspector.WSInspektorSoapClient Client = new WS_Inspector.WSInspektorSoapClient();
+                #region Funcion para borrar
+                //if (Request["UpsertRequest"] == "true")
+                //{
+                //    WS_Inspector.Autenticacion oAuth = new WS_Inspector.Autenticacion();
+                //    WS_Inspector.WSInspektorSoapClient Client = new WS_Inspector.WSInspektorSoapClient();
 
-                    oAuth.UsuarioNombre = "W5-Pub1ic@r";
-                    oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
+                //    oAuth.UsuarioNombre = "W5-Pub1ic@r";
+                //    oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
 
-                    oModel.RelatedThirdKnowledge = new List<string[]>();
+                //    oModel.RelatedThirdKnowledge = new List<string[]>();
 
-                    string oResutl = Client.ConsultaInspektor(oAuth, Request["IdentificationNumber"], Request["Name"]);
+                //    string oResutl = Client.ConsultaInspektor(oAuth, Request["IdentificationNumber"], Request["Name"]);
 
-                    string[] split = oResutl.Split('#');
-                    List<string[]> oReturn = new List<string[]>();
-                    if (split != null)
-                    {
-                        split.All(x =>
-                        {
-                            oReturn.Add(x.Split('|'));
-                            return true;
-                        });
-                    }
+                //    string[] split = oResutl.Split('#');
+                //    List<string[]> oReturn = new List<string[]>();
+                //    if (split != null)
+                //    {
+                //        split.All(x =>
+                //        {
+                //            oReturn.Add(x.Split('|'));
+                //            return true;
+                //        });
+                //    }
 
-                    oModel.RelatedThirdKnowledge = oReturn;
-                }
+                //    oModel.RelatedThirdKnowledge = oReturn;
+                //}
+                #endregion
+
+
+
+                //Obtener el Plan del Comprador
+                //Realizar la búsqueda
+                //Obtener el total de consultas del periodo y sumarle
+                //Hacer el Update del periodo consultado
+
             }
             catch (Exception ex)
             {
-                
+
                 throw ex.InnerException;
             }
-           
+
             return View(oModel);
-        }      
+        }
 
         #region Menu
 
@@ -83,7 +93,7 @@ namespace MarketPlace.Web.Controllers
             //Consulta masiva
             // Mis Consultas
             // Mis reportes
-                
+
             //header
             oMenuAux = new GenericMenu()
             {
@@ -130,7 +140,7 @@ namespace MarketPlace.Web.Controllers
                         Position = 0,
                         IsSelected = false
                     });
-                }                          
+                }
             }
 
             #endregion

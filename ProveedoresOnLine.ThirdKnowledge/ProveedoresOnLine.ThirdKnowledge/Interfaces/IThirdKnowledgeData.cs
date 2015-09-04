@@ -18,6 +18,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         #endregion
 
+        #region MarketPlace
+
+        List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable);
+
+        #endregion
+
         #region Utils
 
         List<TDCatalogModel> CatalogGetThirdKnowledgeOptions();
