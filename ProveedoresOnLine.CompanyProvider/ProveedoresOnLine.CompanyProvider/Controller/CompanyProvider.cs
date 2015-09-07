@@ -968,6 +968,115 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #endregion
 
+        #region Aditional Documents
+
+        public static ProviderModel AditionalDocumentsUpsert(ProviderModel ProviderToUpsert)
+        {
+            if (ProviderToUpsert.RelatedCompany != null &&
+                !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
+                ProviderToUpsert.RelatedAditionalDocuments != null &&
+                ProviderToUpsert.RelatedAditionalDocuments.Count > 0)
+            {
+                ProviderToUpsert.RelatedAditionalDocuments.All(ad =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+
+                    try
+                    {
+                        ad.ItemId =
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.AditionalDocumentUpsert
+                            (ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                            ad.ItemId > 0 ? (int?)ad.ItemId : null,
+                            ad.ItemType.ItemId,
+                            ad.ItemName,
+                            ad.Enable);
+
+                        AditionalDocumentInfoUpsert(ad);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = ad;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CompanyPublicId",
+                            Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ProviderToUpsert;
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel AditionalDocumentInfoUpsert(ProveedoresOnLine.Company.Models.Util.GenericItemModel AditionalDocumentInfoUpsert)
+        {
+            if (AditionalDocumentInfoUpsert.ItemId > 0 &&
+                AditionalDocumentInfoUpsert.ItemInfo != null &&
+                AditionalDocumentInfoUpsert.ItemInfo.Count > 0)
+            {
+                AditionalDocumentInfoUpsert.ItemInfo.All(adinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        adinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.AditionalDocumentInfoUpsert
+                            (AditionalDocumentInfoUpsert.ItemId,
+                            adinf.ItemInfoId > 0 ? (int?)adinf.ItemInfoId : null,
+                            adinf.ItemInfoType.ItemId,
+                            adinf.Value,
+                            adinf.LargeValue,
+                            adinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = adinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "AditionalDocumentId",
+                            Value = AditionalDocumentInfoUpsert.ItemId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return AditionalDocumentInfoUpsert;
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.AditionalDocumentGetBasicInfo(CompanyPublicId, Enable);
+        }
+
+        #endregion
+
         #region Provider BlackList
 
         public static ProviderModel BlackListInsert(ProviderModel ProviderToUpsert)

@@ -53,7 +53,7 @@ var Provider_SearchObject = {
             pageable: true,
             scrollable: true,
             selectable: true,
-            dataSource: {                
+            dataSource: {
                 pageSize: Provider_SearchObject.PageSize,
                 serverPaging: true,
                 schema: {
@@ -2597,7 +2597,7 @@ var Provider_CompanyHSEQObject = {
                             optionLabel: 'Seleccione una opción'
                         });
 
-                   
+
                 },
             }, {
                 field: 'CH_PoliticsSecurity',
@@ -3795,9 +3795,9 @@ var Provider_CompanyFinancialObject = {
             //append on focus out event
             $('.' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_Selector').focusout(function () {
                 if ($.isNumeric($(this).val()) == false) {
-                        $(this).val(0);           
-                }                
-               
+                    $(this).val(0);
+                }
+
                 Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
             });
         }
@@ -3823,7 +3823,7 @@ var Provider_CompanyFinancialObject = {
 
                         if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
                             //replace input value into formula expression
-                            oFormulaToEval =  oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
+                            oFormulaToEval = oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
                         }
                     });
                     //eval formula and show in input value
@@ -3843,10 +3843,10 @@ var Provider_CompanyFinancialObject = {
 
     ValidateBalanceSheetDetail: function () {
         var oReturn = true;
-    
+
         if (Provider_CompanyFinancialObject.ValidateFormulaAccounts != null && Provider_CompanyFinancialObject.ValidateFormulaAccounts.length > 0) {
             $.each(Provider_CompanyFinancialObject.ValidateFormulaAccounts, function (item, value) {
-               
+
                 if (value.Formula != null && value.Formula.length > 0) {
                     //get formula exclude averange calc and spaces
                     var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
@@ -4643,6 +4643,246 @@ var Provider_CompanyFinancialObject = {
                 },
             }, {
                 field: 'FinancialId',
+                title: 'Id Interno',
+                width: '78px',
+            }],
+        });
+    },
+};
+
+/*AditionalDocumentsObject*/
+var Provider_AditionalDocumentObject = {
+    ObjectId: '',
+    ProviderPublicId: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.ProviderPublicId = vInitObject.ProviderPublicId;
+    },
+
+    RenderAsync: function () {
+        Provider_AditionalDocumentObject.RenderAditionalDocument();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('.divGrid_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_AditionalDocumentObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_AditionalDocumentObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_AditionalDocumentObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_AditionalDocumentObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_AditionalDocumentObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_AditionalDocumentObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+    RenderAditionalDocument: function () {
+        $('#' + Provider_AditionalDocumentObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_AditionalDocumentObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_AditionalDocumentObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "CertificationId",
+                        fields: {
+                            AditionalDocumentId: { editable: false, nullable: true },
+                            AditionalDocumentName: { editable: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            AD_Title: { editable: true },
+                            AD_FileId: { editable: false },
+                            AD_File: { editable: true, validation: { required: true } },
+
+                            AD_RelatedCustomerId: { editable: false },
+                            AD_RelatedCustomer: { editable: true },
+
+                            AD_RelatedUser: { editable: true },
+                            AD_RelatedUserId: { editable: false },
+
+                            AD_CreateDate: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó el registro');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al modificar el registro');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+            columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'AD_Title',
+                title: 'Etiqueta',
+                width: '160px',
+            }, {
+                field: 'AD_File',
+                title: 'Archivo',
+                width: '292px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.AD_File != null && dataItem.AD_File.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_AditionalDocumentObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_AditionalDocumentObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${AD_File}/gi, dataItem.AD_File);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }, {
+                field: 'AD_RelatedCustomer',
+                title: 'Comprador Relacionado',
+                width: '190px',
+            }, {
+                field: 'AD_RelatedUser',
+                title: 'Usuario',
+                width: '190px',
+            }, {
+                field: 'AD_CreateDate',
+                title: 'Fecha de cargue',
+                width: '190px',
+            }, { 
+                field: 'AditionalDocumentId',
                 title: 'Id Interno',
                 width: '78px',
             }],

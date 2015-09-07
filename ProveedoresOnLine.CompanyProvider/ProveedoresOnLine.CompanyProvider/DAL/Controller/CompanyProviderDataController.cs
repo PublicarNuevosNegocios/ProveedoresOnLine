@@ -127,6 +127,25 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
+        #region Aditional Documents
+
+        public int AditionalDocumentUpsert(string CompanyPublicId, int? AditionalDocumentId, int AditionalDocumentTypeId, string AditionalDocumentName, bool Enable)
+        {
+            return DataFactory.AditionalDocumentUpsert(CompanyPublicId, AditionalDocumentId, AditionalDocumentTypeId, AditionalDocumentName, Enable);
+        }
+
+        public int AditionalDocumentInfoUpsert(int? AditionalDocumentId, int? AditionalDocumentInfoId, int AditionalDocumentInfoTypeId, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.AditionalDocumentInfoUpsert(AditionalDocumentId, AditionalDocumentInfoId, AditionalDocumentInfoTypeId, Value, LargeValue, Enable);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable)
+        {
+            return DataFactory.AditionalDocumentGetBasicInfo(CompanyPublicId, Enable);
+        }
+
+        #endregion
+
         #region BlackList
 
         public int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl)

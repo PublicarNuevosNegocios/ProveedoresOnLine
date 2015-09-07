@@ -48,6 +48,12 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
 
         #endregion
 
+        #region Aditional Documents
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedAditionalDocuments { get; set; }
+
+        #endregion
+
         #region Related Customer Info
 
         /// <summary>

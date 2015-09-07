@@ -54,12 +54,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_CommercialInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_CommercialInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -166,12 +166,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_Certification_UpSert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_Certification_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -188,12 +188,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_CertificationInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_CertificationInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -233,39 +233,39 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          CertificationCreateDate = c.Field<DateTime>("CertificationCreateDate"),
                      }
                          into cog
-                         select new GenericItemModel()
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.CertificationId,
+                         ItemType = new CatalogModel()
                          {
-                             ItemId = cog.Key.CertificationId,
-                             ItemType = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.CertificationTypeId,
-                                 ItemName = cog.Key.CertificationTypeName
-                             },
-                             ItemName = cog.Key.CertificationName,
-                             Enable = cog.Key.CertificationEnable,
-                             LastModify = cog.Key.CertificationLastModify,
-                             CreateDate = cog.Key.CertificationCreateDate,
-                             ItemInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("CertificationInfoId") &&
-                                          coinf.Field<int>("CertificationId") == cog.Key.CertificationId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.CertificationTypeId,
+                             ItemName = cog.Key.CertificationTypeName
+                         },
+                         ItemName = cog.Key.CertificationName,
+                         Enable = cog.Key.CertificationEnable,
+                         LastModify = cog.Key.CertificationLastModify,
+                         CreateDate = cog.Key.CertificationCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("CertificationInfoId") &&
+                                      coinf.Field<int>("CertificationId") == cog.Key.CertificationId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("CertificationInfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("CertificationInfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = coinf.Field<int>("CertificationInfoTypeId"),
-                                          ItemName = coinf.Field<string>("CertificationInfoTypeName"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      LargeValue = coinf.Field<string>("LargeValue"),
-                                      ValueName = coinf.Field<string>("ValueName"),
-                                      Enable = coinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
-                                      LastModify = coinf.Field<DateTime>("CertificationInfoLastModify"),
-                                      CreateDate = coinf.Field<DateTime>("CertificationInfoCreateDate"),
-                                  }).ToList(),
+                                      ItemId = coinf.Field<int>("CertificationInfoTypeId"),
+                                      ItemName = coinf.Field<string>("CertificationInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  ValueName = coinf.Field<string>("ValueName"),
+                                  Enable = coinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("CertificationInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("CertificationInfoCreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
             }
             return oReturn;
         }
@@ -285,12 +285,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_Financial_UpSert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_Financial_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -307,12 +307,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_FinancialInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_FinancialInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -328,12 +328,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_BalanceSheet_UpSert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_BalanceSheet_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -497,12 +497,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_Legal_UpSert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_Legal_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -519,12 +519,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_LegalInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_LegalInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -564,39 +564,39 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
                      }
                          into cog
-                         select new GenericItemModel()
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.LegalId,
+                         ItemType = new CatalogModel()
                          {
-                             ItemId = cog.Key.LegalId,
-                             ItemType = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.LegalTypeId,
-                                 ItemName = cog.Key.LegalTypeName
-                             },
-                             ItemName = cog.Key.LegalName,
-                             Enable = cog.Key.LegalEnable,
-                             LastModify = cog.Key.LegalLastModify,
-                             CreateDate = cog.Key.LegalCreateDate,
-                             ItemInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("LegalInfoId") &&
-                                          coinf.Field<int>("LegalId") == cog.Key.LegalId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.LegalTypeId,
+                             ItemName = cog.Key.LegalTypeName
+                         },
+                         ItemName = cog.Key.LegalName,
+                         Enable = cog.Key.LegalEnable,
+                         LastModify = cog.Key.LegalLastModify,
+                         CreateDate = cog.Key.LegalCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("LegalInfoId") &&
+                                      coinf.Field<int>("LegalId") == cog.Key.LegalId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("LegalInfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("LegalInfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = coinf.Field<int>("LegalInfoTypeId"),
-                                          ItemName = coinf.Field<string>("LegalInfoTypeName"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      ValueName = coinf.Field<string>("ValueName"),
-                                      LargeValue = coinf.Field<string>("LargeValue"),
-                                      Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
-                                      LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),
-                                      CreateDate = coinf.Field<DateTime>("LegalInfoCreateDate"),
-                                  }).ToList(),
+                                      ItemId = coinf.Field<int>("LegalInfoTypeId"),
+                                      ItemName = coinf.Field<string>("LegalInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  ValueName = coinf.Field<string>("ValueName"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("LegalInfoCreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
             }
             return oReturn;
         }
@@ -648,7 +648,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -677,33 +677,150 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          BlackListCreateDate = l.Field<DateTime>("BlackListCreateDate"),
                      }
                          into cog
-                         select new BlackListModel()
+                     select new BlackListModel()
+                     {
+                         BlackListId = cog.Key.BlackListId,
+                         BlackListStatus = new CatalogModel()
                          {
-                             BlackListId = cog.Key.BlackListId,
-                             BlackListStatus = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.BlackListSatusTypeId,
-                                 ItemName = cog.Key.BlackListSatusTypeName,
-                             },
-                             User = cog.Key.User,
-                             FileUrl = cog.Key.FileUrl,
-                             CreateDate = cog.Key.BlackListCreateDate,
-                             BlackListInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("BlackListInfoId") &&
-                                          coinf.Field<int>("BlackListId") == cog.Key.BlackListId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.BlackListSatusTypeId,
+                             ItemName = cog.Key.BlackListSatusTypeName,
+                         },
+                         User = cog.Key.User,
+                         FileUrl = cog.Key.FileUrl,
+                         CreateDate = cog.Key.BlackListCreateDate,
+                         BlackListInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("BlackListInfoId") &&
+                                      coinf.Field<int>("BlackListId") == cog.Key.BlackListId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("BlackListinfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("BlackListinfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemName = coinf.Field<string>("BlacklistInfoType"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      CreateDate = coinf.Field<DateTime>("CreateDate"),
-                                  }).ToList(),
+                                      ItemName = coinf.Field<string>("BlacklistInfoType"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  CreateDate = coinf.Field<DateTime>("CreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
+
+        #region Aditional Documents
+
+        public int AditionalDocumentUpsert(string CompanyPublicId, int? AditionalDocumentId, int AditionalDocumentTypeId, string AditionalDocumentName, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentId", AditionalDocumentId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentTypeId", AditionalDocumentTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentName", AditionalDocumentName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_AditionalDocument_Upsert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public int AditionalDocumentInfoUpsert(int? AditionalDocumentId, int? AditionalDocumentInfoId, int AditionalDocumentInfoTypeId, string Value, string LargeValue, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+            
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentId", AditionalDocumentId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentInfoId", AditionalDocumentInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentInfoTypeId", AditionalDocumentInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_AditionalDocumnetInfo_Upsert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_AditionalDocument_GetBasicInfo",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("AditionalDocumentId")
+                     group c by new
+                     {
+                         AditionalDocumentId = c.Field<int>("AditionalDocumentId"),
+                         AditionalDocumentTypeId = c.Field<int>("AditionalDocumentTypeId"),
+                         AditionalDocumentTypeName = c.Field<string>("AditionalDocumentTypeName"),
+                         AditionalDocumentName = c.Field<string>("AditionalDocumentName"),
+                         AditionalDocumentEnable = c.Field<UInt64>("AditionalDocumentEnable") == 1 ? true : false,
+                         AditionalDocumentLastModify = c.Field<DateTime>("AditionalDocumentLastModify"),
+                         AditionalDocumentCreateDate = c.Field<DateTime>("AditionalDocumentCreateDate"),
+                     }
+                         into cog
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.AditionalDocumentId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = cog.Key.AditionalDocumentTypeId,
+                             ItemName = cog.Key.AditionalDocumentTypeName
+                         },
+                         ItemName = cog.Key.AditionalDocumentName,
+                         Enable = cog.Key.AditionalDocumentEnable,
+                         LastModify = cog.Key.AditionalDocumentLastModify,
+                         CreateDate = cog.Key.AditionalDocumentCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("AditionalDocumentInfoId") &&
+                                      coinf.Field<int>("AditionalDocumentId") == cog.Key.AditionalDocumentId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("AditionalDocumentInfoId"),
+                                  ItemInfoType = new CatalogModel()
+                                  {
+                                      ItemId = coinf.Field<int>("AditionalDocumentInfoTypeId"),
+                                      ItemName = coinf.Field<string>("AditionalDocumentInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  Enable = coinf.Field<UInt64>("AditionalDocumentInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("AditionalDocumentInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("AditionalDocumentInfoCreateDate"),
+                              }).ToList(),
+
+                     }).ToList();
             }
             return oReturn;
         }
@@ -1013,7 +1130,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
-        
+
         public List<GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -1477,39 +1594,39 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          CertificationCreateDate = c.Field<DateTime>("CertificationCreateDate"),
                      }
                          into cog
-                         select new GenericItemModel()
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.CertificationId,
+                         ItemType = new CatalogModel()
                          {
-                             ItemId = cog.Key.CertificationId,
-                             ItemType = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.CertificationTypeId,
-                                 ItemName = cog.Key.CertificationTypeName
-                             },
-                             ItemName = cog.Key.CertificationName,
-                             Enable = cog.Key.CertificationEnable,
-                             LastModify = cog.Key.CertificationLastModify,
-                             CreateDate = cog.Key.CertificationCreateDate,
-                             ItemInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("CertificationInfoId") &&
-                                          coinf.Field<int>("CertificationId") == cog.Key.CertificationId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.CertificationTypeId,
+                             ItemName = cog.Key.CertificationTypeName
+                         },
+                         ItemName = cog.Key.CertificationName,
+                         Enable = cog.Key.CertificationEnable,
+                         LastModify = cog.Key.CertificationLastModify,
+                         CreateDate = cog.Key.CertificationCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("CertificationInfoId") &&
+                                      coinf.Field<int>("CertificationId") == cog.Key.CertificationId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("CertificationInfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("CertificationInfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = coinf.Field<int>("CertificationInfoTypeId"),
-                                          ItemName = coinf.Field<string>("CertificationInfoTypeName"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      LargeValue = coinf.Field<string>("LargeValue"),
-                                      ValueName = coinf.Field<string>("ValueName"),
-                                      Enable = coinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
-                                      LastModify = coinf.Field<DateTime>("CertificationInfoLastModify"),
-                                      CreateDate = coinf.Field<DateTime>("CertificationInfoCreateDate"),
-                                  }).ToList(),
+                                      ItemId = coinf.Field<int>("CertificationInfoTypeId"),
+                                      ItemName = coinf.Field<string>("CertificationInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  ValueName = coinf.Field<string>("ValueName"),
+                                  Enable = coinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("CertificationInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("CertificationInfoCreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
             }
             return oReturn;
         }
@@ -1631,8 +1748,8 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                                  {
                                      ItemId = bsdg.Key.AccountId,
                                      ItemName = bsdg.Key.AccountName,
-                                     ItemInfo = new List<GenericItemInfoModel>() 
-                                     { 
+                                     ItemInfo = new List<GenericItemInfoModel>()
+                                     {
                                         new GenericItemInfoModel()
                                         {
                                             ItemInfoType = new CatalogModel()
@@ -1684,38 +1801,38 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
                      }
                          into cog
-                         select new GenericItemModel()
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.LegalId,
+                         ItemType = new CatalogModel()
                          {
-                             ItemId = cog.Key.LegalId,
-                             ItemType = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.LegalTypeId,
-                                 ItemName = cog.Key.LegalTypeName
-                             },
-                             ItemName = cog.Key.LegalName,
-                             Enable = cog.Key.LegalEnable,
-                             LastModify = cog.Key.LegalLastModify,
-                             CreateDate = cog.Key.LegalCreateDate,
-                             ItemInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("LegalInfoId") &&
-                                          coinf.Field<int>("LegalId") == cog.Key.LegalId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.LegalTypeId,
+                             ItemName = cog.Key.LegalTypeName
+                         },
+                         ItemName = cog.Key.LegalName,
+                         Enable = cog.Key.LegalEnable,
+                         LastModify = cog.Key.LegalLastModify,
+                         CreateDate = cog.Key.LegalCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("LegalInfoId") &&
+                                      coinf.Field<int>("LegalId") == cog.Key.LegalId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("LegalInfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("LegalInfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = coinf.Field<int>("LegalInfoTypeId"),
-                                          ItemName = coinf.Field<string>("LegalInfoTypeName"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      LargeValue = coinf.Field<string>("LargeValue"),
-                                      Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
-                                      LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),
-                                      CreateDate = coinf.Field<DateTime>("LegalInfoCreateDate"),
-                                  }).ToList(),
+                                      ItemId = coinf.Field<int>("LegalInfoTypeId"),
+                                      ItemName = coinf.Field<string>("LegalInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("LegalInfoCreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
             }
             return oReturn;
         }
@@ -1882,12 +1999,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          into trg
                      select new GenericItemModel()
                      {
-                             ItemId = trg.Key.CustomerProviderId,
+                         ItemId = trg.Key.CustomerProviderId,
                          ItemType = new CatalogModel()
                          {
-                                 ItemName = trg.Key.StatusName
+                             ItemName = trg.Key.StatusName
                          },
-                             ItemInfo =
+                         ItemInfo =
                              (from trinf in response.DataTableResult.AsEnumerable()
                               where !trinf.IsNull("CustomerProviderInfoId") &&
                                     trinf.Field<int>("CustomerProviderId") == trg.Key.CustomerProviderId
@@ -1898,13 +2015,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                                   CreateDate = trinf.Field<DateTime>("CreateDate"),
                               }
                                   into trinfg
-                                  select new GenericItemInfoModel()
-                                  {
-                                      ItemInfoId = trinfg.Key.CustomerProviderInfoId,
-                                      LargeValue = trinfg.Key.Tracking,
-                                      CreateDate = trinfg.Key.CreateDate,
-                                  }).ToList()
-                         }).FirstOrDefault();
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = trinfg.Key.CustomerProviderInfoId,
+                                  LargeValue = trinfg.Key.Tracking,
+                                  CreateDate = trinfg.Key.CreateDate,
+                              }).ToList()
+                     }).FirstOrDefault();
             }
             return oReturn;
         }
@@ -1943,42 +2060,42 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          ReportCreateDate = l.Field<DateTime>("ReportCreateDate"),
                      }
                          into cog
-                         select new GenericItemModel()
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.ReportId,
+                         ItemType = new CatalogModel()
                          {
-                             ItemId = cog.Key.ReportId,
-                             ItemType = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.ReportTypeId,
-                                 ItemName = cog.Key.ReportTypeName
-                             },
-                             ItemName = cog.Key.ReportName,
-                             Enable = cog.Key.ReportEnable,
-                             LastModify = cog.Key.ReportLastModify,
-                             CreateDate = cog.Key.ReportCreateDate,
-                             ItemInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("ReportInfoId") &&
-                                          coinf.Field<int>("ReportId") == cog.Key.ReportId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.ReportTypeId,
+                             ItemName = cog.Key.ReportTypeName
+                         },
+                         ItemName = cog.Key.ReportName,
+                         Enable = cog.Key.ReportEnable,
+                         LastModify = cog.Key.ReportLastModify,
+                         CreateDate = cog.Key.ReportCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("ReportInfoId") &&
+                                      coinf.Field<int>("ReportId") == cog.Key.ReportId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("ReportInfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("ReportInfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = coinf.Field<int>("ReportInfoTypeId"),
-                                          ItemName = coinf.Field<string>("ReportInfoTypeName"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      LargeValue = coinf.Field<string>("LargeValue"),
-                                      Enable = coinf.Field<UInt64>("ReportInfoEnable") == 1 ? true : false,
-                                      LastModify = coinf.Field<DateTime>("ReportInfoLastModify"),
-                                      CreateDate = coinf.Field<DateTime>("ReportInfoCreateDate"),
-                                  }).ToList(),
+                                      ItemId = coinf.Field<int>("ReportInfoTypeId"),
+                                      ItemName = coinf.Field<string>("ReportInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  Enable = coinf.Field<UInt64>("ReportInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("ReportInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("ReportInfoCreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
             }
             return oReturn;
         }
-        
+
         public int MPReportUpsert(string CompanyPublicId, int? ReportId, int ReportTypeId, string ReportName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -2050,28 +2167,28 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      where !p.IsNull("CompanyPublicId")
                      group p by new
                      {
-                         CompanyPublicId = p.Field<string>("CompanyPublicId"),                        
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),
                      } into pg
                      select new ProviderModel()
                      {
                          RelatedCompany = new Company.Models.Company.CompanyModel()
                          {
-                             CompanyPublicId = pg.Key.CompanyPublicId,                                                         
+                             CompanyPublicId = pg.Key.CompanyPublicId,
                          },
                      }).ToList();
             }
             return oReturn;
         }
 
-        #endregion       
-   
+        #endregion
+
         #region Charts
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

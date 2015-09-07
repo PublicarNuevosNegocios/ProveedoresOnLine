@@ -2099,6 +2099,129 @@ namespace BackOffice.Web.ControllersApi
 
         #endregion
 
+        #region Aditional Documents
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> ADGetAditionalDocument
+            (string ADGetAditionalDocument,
+            string ProviderPublicId,
+            string ViewEnable)
+        {
+            List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> oReturn = new List<ProviderAditionalDocumentViewModel>();
+            
+            if (ADGetAditionalDocument == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oAditionalDocumentInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetBasicInfo
+                    (ProviderPublicId,
+                    ViewEnable == "true" ? true : false);
+
+                if (oAditionalDocumentInfo != null)
+                {
+                    oAditionalDocumentInfo.All(ad =>
+                    {
+                        oReturn.Add(new ProviderAditionalDocumentViewModel(ad));
+                        return true;
+                    });
+                }
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Provider.ProviderAditionalDocumentViewModel ADAditionalDocumentUpsert
+            (string ADAditionalDocumentUpsert,
+            string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderAditionalDocumentViewModel oReturn = null;
+
+            if (ADAditionalDocumentUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                List<string> lstUsedFiles = new List<string>();
+
+                BackOffice.Models.Provider.ProviderAditionalDocumentViewModel oDataToUpsert =
+                    (BackOffice.Models.Provider.ProviderAditionalDocumentViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Provider.ProviderAditionalDocumentViewModel));
+
+                ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = ProviderPublicId,
+                    },
+                    RelatedAditionalDocuments = new List<GenericItemModel>()
+                    {
+                        new GenericItemModel()
+                        {
+                            ItemId = string.IsNullOrEmpty(oDataToUpsert.AditionalDocumentId) ? 0 : Convert.ToInt32(oDataToUpsert.AditionalDocumentId.Trim()),
+                            ItemType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAditionalDocumentType.AditionalDocument,
+                            },
+                            ItemName = oDataToUpsert.AD_Title,
+                            Enable = oDataToUpsert.Enable,
+                            ItemInfo = new List<GenericItemInfoModel>(),
+                        },
+                    },
+                };
+
+                oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                    new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_RelatedUserId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_RelatedUserId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_RelatedUser,
+                        },
+                        Value = oDataToUpsert.AD_RelatedUser,
+                        Enable = true,
+                    }
+                    );
+
+                oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                    new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_RelatedCustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_RelatedCustomerId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_RelatedCustomer,
+                        },
+                        Value = oDataToUpsert.AD_RelatedCustomer,
+                        Enable = true,
+                    }
+                    );
+
+                oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                    new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_FileId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_FileId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_File,
+                        },
+                        Value = oDataToUpsert.AD_File,
+                        Enable = true,
+                    }
+                );
+
+                lstUsedFiles.Add(oDataToUpsert.AD_File);
+
+                oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentsUpsert(oProvider);
+
+                LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
+
+                oReturn = new ProviderAditionalDocumentViewModel(oProvider.RelatedAditionalDocuments.FirstOrDefault());
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
         #region Customer Provider
 
         [HttpPost]

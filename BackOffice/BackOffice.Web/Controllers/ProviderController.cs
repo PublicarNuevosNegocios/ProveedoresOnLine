@@ -1239,6 +1239,33 @@ namespace BackOffice.Web.Controllers
         }
         #endregion
 
+        #region Aditional Documents
+
+        public virtual ActionResult ADAditionalDocuments(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetBasicInfo(ProviderPublicId, true),
+                };
+
+                //Get provider Menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);   
+            }
+
+            return View(oModel);
+        }
+
+        #endregion 
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetProviderMenu
@@ -1600,6 +1627,38 @@ namespace BackOffice.Web.Controllers
                     Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.HIRiskPoliciesUpsert &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                //add menu
+                oReturn.Add(oMenuAux);
+
+                #endregion
+
+                #region Aditional Document
+
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Documentación Adicional",
+                    Position = 6,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //Experience
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Agregar Documentación",
+                    Url = Url.Action
+                        (MVC.Provider.ActionNames.ADAditionalDocuments,
+                        MVC.Provider.Name,
+                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.ADAditionalDocuments &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

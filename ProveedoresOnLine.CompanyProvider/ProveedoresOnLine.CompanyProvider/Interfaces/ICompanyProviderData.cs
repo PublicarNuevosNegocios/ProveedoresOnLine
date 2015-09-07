@@ -66,6 +66,16 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         #endregion
 
+        #region Aditional Documents
+
+        int AditionalDocumentUpsert(string CompanyPublicId, int? AditionalDocumentId, int AditionalDocumentTypeId, string AditionalDocumentName, bool Enable);
+
+        int AditionalDocumentInfoUpsert(int? AditionalDocumentId, int? AditionalDocumentInfoId, int AditionalDocumentInfoTypeId, string Value, string LargeValue, bool Enable);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable);
+
+        #endregion
+
         #region Util
 
         List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions();

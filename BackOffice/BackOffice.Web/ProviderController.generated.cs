@@ -185,6 +185,18 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadFile);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ADAditionalDocuments()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocuments);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -223,6 +235,8 @@ namespace BackOffice.Web.Controllers
             public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
             public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public readonly string DownloadFile = "DownloadFile";
+            public readonly string ADAditionalDocuments = "ADAditionalDocuments";
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -250,6 +264,8 @@ namespace BackOffice.Web.Controllers
             public const string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
             public const string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public const string DownloadFile = "DownloadFile";
+            public const string ADAditionalDocuments = "ADAditionalDocuments";
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -422,6 +438,22 @@ namespace BackOffice.Web.Controllers
             public readonly string SearchParam = "SearchParam";
             public readonly string SearchFilter = "SearchFilter";
         }
+        static readonly ActionParamsClass_ADAditionalDocuments s_params_ADAditionalDocuments = new ActionParamsClass_ADAditionalDocuments();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ADAditionalDocuments ADAditionalDocumentsParams { get { return s_params_ADAditionalDocuments; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ADAditionalDocuments
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetPdfFileBytes
+        {
+            public readonly string FilePath = "FilePath";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -432,6 +464,7 @@ namespace BackOffice.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string ADAditionalDocuments = "ADAditionalDocuments";
                 public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
                 public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
                 public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
@@ -454,6 +487,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string LIRutUpsert = "LIRutUpsert";
                 public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
             }
+            public readonly string ADAditionalDocuments = "~/Views/Provider/ADAditionalDocuments.cshtml";
             public readonly string CIExperiencesUpsert = "~/Views/Provider/CIExperiencesUpsert.cshtml";
             public readonly string CPCustomerProviderStatus = "~/Views/Provider/CPCustomerProviderStatus.cshtml";
             public readonly string FIBalanceSheetUpsert = "~/Views/Provider/FIBalanceSheetUpsert.cshtml";
@@ -744,6 +778,30 @@ namespace BackOffice.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
             DownloadFileOverride(callInfo, SearchParam, SearchFilter);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ADAditionalDocumentsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ADAditionalDocuments(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocuments);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ADAditionalDocumentsOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

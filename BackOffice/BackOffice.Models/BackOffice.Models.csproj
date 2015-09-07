@@ -91,6 +91,7 @@
     <Compile Include="Provider\ProviderExcelModel.cs" />
     <Compile Include="Provider\ProviderFinancialViewModel.cs" />
     <Compile Include="Provider\ProviderCommercialViewModel.cs" />
+    <Compile Include="Provider\ProviderAditionalDocumentViewModel.cs" />
     <Compile Include="Provider\ProviderLegalViewModel.cs" />
     <Compile Include="Provider\ProviderContactViewModel.cs" />
     <Compile Include="Provider\ProviderHSEQViewModel.cs" />

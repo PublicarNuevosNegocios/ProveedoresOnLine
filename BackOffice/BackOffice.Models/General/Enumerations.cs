@@ -415,6 +415,23 @@
 
     #endregion
 
+    #region Aditional Document
+
+    public enum enumAditionalDocumentType
+    {
+        AditionalDocument = 1701001,
+    }
+
+    public enum enumAditionalDocumentInfoType
+    {
+        AD_File = 1702001,
+        AD_RelatedCustomer = 1702002,
+        AD_RelatedUser = 1702003,
+        AD_UploadDate = 1702004,
+    }
+
+    #endregion
+
     #region BlackList
     public enum enumBlackList
     {
@@ -534,16 +551,5 @@
         AnyoneRole = 1405001,
         SpecificPerson = 1405002,
     }
-    #endregion
-
-    #region Aditional Documents
-
-    public enum enumAditionalDocumentsType
-    {
-        None,
-        DocumentsGrid = 1701001,
-        SingleDocument = 1701002,
-    }
-
     #endregion
 }
