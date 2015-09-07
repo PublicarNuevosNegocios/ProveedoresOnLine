@@ -2139,6 +2139,77 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_AditionalDocument_GetBasicInfo",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("AditionalDocumentId")
+                     group c by new
+                     {
+                         AditionalDocumentId = c.Field<int>("AditionalDocumentId"),
+                         AditionalDocumentTypeId = c.Field<int>("AditionalDocumentTypeId"),
+                         AditionalDocumentTypeName = c.Field<string>("AditionalDocumentTypeName"),
+                         AditionalDocumentName = c.Field<string>("AditionalDocumentName"),
+                         AditionalDocumentEnable = c.Field<UInt64>("AditionalDocumentEnable") == 1 ? true : false,
+                         AditionalDocumentLastModify = c.Field<DateTime>("AditionalDocumentLastModify"),
+                         AditionalDocumentCreateDate = c.Field<DateTime>("AditionalDocumentCreateDate"),
+                     }
+                         into cog
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.AditionalDocumentId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = cog.Key.AditionalDocumentTypeId,
+                             ItemName = cog.Key.AditionalDocumentTypeName
+                         },
+                         ItemName = cog.Key.AditionalDocumentName,
+                         Enable = cog.Key.AditionalDocumentEnable,
+                         LastModify = cog.Key.AditionalDocumentLastModify,
+                         CreateDate = cog.Key.AditionalDocumentCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("AditionalDocumentInfoId") &&
+                                      coinf.Field<int>("AditionalDocumentId") == cog.Key.AditionalDocumentId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("AditionalDocumentInfoId"),
+                                  ItemInfoType = new CatalogModel()
+                                  {
+                                      ItemId = coinf.Field<int>("AditionalDocumentInfoTypeId"),
+                                      ItemName = coinf.Field<string>("AditionalDocumentInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  Enable = coinf.Field<UInt64>("AditionalDocumentInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("AditionalDocumentInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("AditionalDocumentInfoCreateDate"),
+                              }).ToList(),
+
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region BatchProcess

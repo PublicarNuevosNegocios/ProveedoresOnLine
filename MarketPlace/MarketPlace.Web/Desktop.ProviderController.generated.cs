@@ -181,6 +181,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ADAditionalDocument()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocument);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SVSurveySearch()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
@@ -264,6 +270,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string HICertificationsInfo = "HICertificationsInfo";
             public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
             public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
+            public readonly string ADAditionalDocument = "ADAditionalDocument";
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
             public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
@@ -298,6 +305,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string HICertificationsInfo = "HICertificationsInfo";
             public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
             public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
+            public const string ADAditionalDocument = "ADAditionalDocument";
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
             public const string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
@@ -478,6 +486,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_ADAditionalDocument s_params_ADAditionalDocument = new ActionParamsClass_ADAditionalDocument();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ADAditionalDocument ADAditionalDocumentParams { get { return s_params_ADAditionalDocument; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ADAditionalDocument
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_SVSurveySearch s_params_SVSurveySearch = new ActionParamsClass_SVSurveySearch();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SVSurveySearch SVSurveySearchParams { get { return s_params_SVSurveySearch; } }
@@ -563,6 +579,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string ADAditionalDocument = "ADAditionalDocument";
                 public readonly string CIExperiencesInfo = "CIExperiencesInfo";
                 public readonly string FIBalanceSheetInfo = "FIBalanceSheetInfo";
                 public readonly string FIBankInfo = "FIBankInfo";
@@ -591,6 +608,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string SVSurveyReport = "SVSurveyReport";
                 public readonly string SVSurveySearch = "SVSurveySearch";
             }
+            public readonly string ADAditionalDocument = "~/Areas/Desktop/Views/Provider/ADAditionalDocument.cshtml";
             public readonly string CIExperiencesInfo = "~/Areas/Desktop/Views/Provider/CIExperiencesInfo.cshtml";
             public readonly string FIBalanceSheetInfo = "~/Areas/Desktop/Views/Provider/FIBalanceSheetInfo.cshtml";
             public readonly string FIBankInfo = "~/Areas/Desktop/Views/Provider/FIBankInfo.cshtml";
@@ -883,6 +901,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             HIRiskPoliciesInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ADAditionalDocumentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ADAditionalDocument(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocument);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ADAditionalDocumentOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

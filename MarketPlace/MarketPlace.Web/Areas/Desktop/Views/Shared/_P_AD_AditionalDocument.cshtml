@@ -1,0 +1,18 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts)
+{
+    <label class="POMPSectionTitles">Documentación Adicional</label>
+    <div class="container-fluid">
+        @if (Model.RelatedAditionalDocumentBasicInfo != null && Model.RelatedAditionalDocumentBasicInfo.Count > 0)
+        {
+            foreach (var item in Model.RelatedAditionalDocumentBasicInfo)
+            {
+                <div>
+                    <label>@item.AD_Title</label>
+                    <a href="@item.AD_File" target="_blank">Ver archivo</a>
+                </div>
+            }
+        }
+    </div>
+}

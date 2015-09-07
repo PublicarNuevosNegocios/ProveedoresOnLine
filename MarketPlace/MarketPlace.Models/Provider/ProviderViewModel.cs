@@ -69,5 +69,7 @@ namespace MarketPlace.Models.Provider
         public List<ProviderReportsViewModel> RelatedReportInfo { get; set; }
 
         public List<string[]> RelatedThirdKnowledge { get; set; }
+
+        public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
     }
 }
