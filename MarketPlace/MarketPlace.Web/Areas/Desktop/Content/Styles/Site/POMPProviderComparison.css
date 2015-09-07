@@ -93,8 +93,7 @@
             padding: 6px;
             margin: 0px;
             vertical-align: bottom;
-            font-size: 1.3em;
-            line-height: 0.9em;
+            font-size: 0.80em;
             color: #666;
         }
 
@@ -117,8 +116,7 @@
                 text-align: center;
                 margin: 0px;
                 padding: 0px;
-                font-size: 1em;
-                line-height: 0.9em;
+                font-size: 0.90em;
                 color: #666;
             }
 
@@ -127,11 +125,11 @@
                 }
     /*********** PRIMERA COLUMNA CON AREA DE EVUALUACION ************/
     #CompareDetail > div > div > table > tbody > tr {
-        height: auto !important;
+        height: auto !important;        
     }
 
         #CompareDetail > div > div > table > tbody > tr > td[role="gridcell"] {
-            margin: 0px;
+            margin: 0px;            
             padding: 0px;
             height: auto !important;
         }
@@ -143,9 +141,8 @@
         height: 38px;
     }
 
-        #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div > span {
-            height: 38px;
-            text-overflow: ellipsis;
+        #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div > span {            
+            font-size: 0.90em;
             overflow: hidden;
         }
     /*********** COLUMNAs CON ProVEEDORES ************/
@@ -166,7 +163,7 @@
             margin: 0px;
             padding: 0px 10px 0px 0px;
             vertical-align: top;
-            font-size: 1em;
+            font-size: 0.9em;
             line-height: 0.9em;
             color: #666;
         }
