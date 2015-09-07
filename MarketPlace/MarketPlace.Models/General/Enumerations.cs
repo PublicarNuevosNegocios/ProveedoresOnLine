@@ -686,5 +686,11 @@
         SpecificPerson = 1405002,
     }
 
+    public enum enumProjectFilter
+    {
+        Responsible = 111015,
+        ProcessType = 111016,
+        Status = 111017,
+    }
     #endregion
 }

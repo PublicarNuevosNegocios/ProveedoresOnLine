@@ -358,6 +358,16 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return DAL.Controller.ProjectDataController.Instance.ProjectSearch(CustomerPublicId, SearchParam, ProjectStatus, PageNumber, RowCount, out  TotalRows);
         }
 
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> MPProjectSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.ProjectDataController.Instance.MPProjectSearch(CustomerPublicId, SearchParam, SearchFilter, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProjectSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
+        {
+            return DAL.Controller.ProjectDataController.Instance.MPProjectSearchFilter(CustomerPublicId, SearchParam, SearchFilter);
+        }
+
         public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId)
         {
             return DAL.Controller.ProjectDataController.Instance.ProjectGetById(ProjectPublicId, CustomerPublicId);

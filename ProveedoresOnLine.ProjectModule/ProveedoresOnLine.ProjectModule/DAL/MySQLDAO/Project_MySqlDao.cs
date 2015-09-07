@@ -447,8 +447,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
             return Convert.ToInt32(response.ScalarResult);
         }
-
-
+    
         public List<ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int? ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
         {
             TotalRows = 0;
@@ -540,6 +539,147 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              }).ToList(),
                      }).ToList();
             }
+
+            return oReturn;
+        }
+
+        public List<ProjectModel> MPProjectSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
+        {
+            TotalRows = 0;
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CC_Project_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProjectModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from pj in response.DataTableResult.AsEnumerable()
+                     where !pj.IsNull("ProjectPublicId")
+                     group pj by new
+                     {
+                         ProjectPublicId = pj.Field<string>("ProjectPublicId"),
+                         ProjectName = pj.Field<string>("ProjectName"),
+                         ProjectStatusId = pj.Field<int>("ProjectStatusId"),
+                         ProjectStatusName = pj.Field<string>("ProjectStatusName"),
+                         ProjectLastModify = pj.Field<DateTime>("ProjectLastModify"),
+
+                         ProjectConfigId = pj.Field<int>("ProjectConfigId"),
+                         ProjectConfigName = pj.Field<string>("ProjectConfigName"),
+                         CustomerPublicId = pj.Field<string>("CustomerPublicId"),
+                     } into pjg
+                     select new ProjectModel()
+                     {
+                         ProjectPublicId = pjg.Key.ProjectPublicId,
+                         ProjectName = pjg.Key.ProjectName,
+                         ProjectStatus = new Company.Models.Util.CatalogModel()
+                         {
+                             ItemId = pjg.Key.ProjectStatusId,
+                             ItemName = pjg.Key.ProjectStatusName,
+                         },
+                         LastModify = pjg.Key.ProjectLastModify,
+
+                         RelatedProjectConfig = new ProjectConfigModel()
+                         {
+                             ItemId = pjg.Key.ProjectConfigId,
+                             ItemName = pjg.Key.ProjectConfigName,
+                             RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
+                             {
+                                 RelatedCompany = new Company.Models.Company.CompanyModel()
+                                 {
+                                     CompanyPublicId = pjg.Key.CustomerPublicId,
+                                 }
+                             }
+                         },
+
+                         ProjectInfo =
+                            (from pjinf in response.DataTableResult.AsEnumerable()
+                             where !pjinf.IsNull("ProjectInfoId") &&
+                                    pjinf.Field<string>("ProjectPublicId") == pjg.Key.ProjectPublicId
+                             group pjinf by new
+                             {
+                                 ProjectInfoId = pjinf.Field<int>("ProjectInfoId"),
+                                 ProjectInfoTypeId = pjinf.Field<int>("ProjectInfoTypeId"),
+                                 ProjectInfoTypeName = pjinf.Field<string>("ProjectInfoTypeName"),
+                                 ProjectInfoValue = pjinf.Field<string>("ProjectInfoValue"),
+                                 ProjectInfoLargeValue = pjinf.Field<string>("ProjectInfoLargeValue"),
+                             } into pjinfg
+                             select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                             {
+                                 ItemInfoId = pjinfg.Key.ProjectInfoId,
+                                 ItemInfoType = new Company.Models.Util.CatalogModel()
+                                 {
+                                     ItemId = pjinfg.Key.ProjectInfoTypeId,
+                                     ItemName = pjinfg.Key.ProjectInfoTypeName,
+                                 },
+                                 Value = pjinfg.Key.ProjectInfoValue,
+                                 LargeValue = pjinfg.Key.ProjectInfoLargeValue,
+                             }).ToList(),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProjectSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
+        {
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CC_Project_SearchFilter",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericFilterModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sf in response.DataTableResult.AsEnumerable()
+                     where !sf.IsNull("FilterTypeId")
+                     select new GenericFilterModel()
+                     {
+                         FilterType = new GenericItemModel()
+                         {
+                             ItemId = (int)sf.Field<Int64>("FilterTypeId"),
+                             ItemName = sf.Field<string>("FilterTypeName"),
+                         },
+                         FilterValue = new GenericItemModel()
+                         {
+                             ItemId = (int)(sf.Field<int>("FilterValueId")),
+                             ItemName = sf.Field<string>("FilterValueName"),
+                         },
+                         Quantity = Convert.ToInt32(sf.Field<Int64>("Quantity")),
+                         CustomerPublicId = sf.Field<string>("CompanyPublicId"),
+                     }).ToList();
+            }
+
 
             return oReturn;
         }

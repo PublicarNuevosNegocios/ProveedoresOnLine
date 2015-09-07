@@ -103,5 +103,22 @@ namespace ProveedoresOnLine.ProjectModule.Test
             List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearchFilter("abie");
             Assert.IsNotNull(oResult);
         }
+
+        [TestMethod]
+        public void MPProjectSearch()
+        {
+            int oTotalRows;
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.MPProjectSearch
+                ("DA5C572E", string.Empty, null, 0, 20, out oTotalRows);
+            Assert.IsNotNull(oResult);
+        }
+
+        [TestMethod]
+        public void MPProjectSearchFilter()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.MPProjectSearchFilter
+                ("DA5C572E", "hoteles A-JP", "111015;23");
+            Assert.IsNotNull(oResult);
+        }
     }
 }
