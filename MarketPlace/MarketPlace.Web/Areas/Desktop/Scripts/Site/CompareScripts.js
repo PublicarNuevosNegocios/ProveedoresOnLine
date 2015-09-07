@@ -192,7 +192,7 @@ var Compare_DetailObject = {
     GetHeaderTemplate: function (vColumName) {
         var oItemHtml = '';
         if (vColumName == 'EvaluationArea') {
-            oItemHtml = 'Area de evaluación';
+            oItemHtml = 'ÁREA DE EVALUACIÓN';
         }
         else {
             oItemHtml = $('#' + Compare_DetailObject.ObjectId + '_Company_Header_Template').html();
