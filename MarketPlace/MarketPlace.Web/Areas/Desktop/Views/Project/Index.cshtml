@@ -11,55 +11,66 @@
         <span class="POMPSearchButtonsLupita"></span>
     </a>
 </div>
-<div class="POMProviderSearchGreatWrapper">
-    <!--SearchFilter-->
-    @*<div class="POMPProjectBidSearchFilters">
-    </div>*@
-    <!--SearchResult-->
-    <div class="POMPProjectBidSearchList">
+
+<div class="row POMProviderSearchGreatWrapper">
+    <div class="col-sm-5 POMPProviderFilterMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._PJ_Search_Filter, Model)
+    </div>
+    <div class="col-sm-7 POMPProjectBidSearchList">
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_SearchProject_Result, Model)
     </div>
 </div>
+
+
+<div class="POMProviderSearchGreatWrapper">
+
+
+
+
+
+</div>
+
 @{
     Model.RenderScripts = true;
 }
 
 @section inlinescripts
-{   
-    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
-   
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_Search_Filter, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_SearchProject_Result, Model)
+
     <script type="text/javascript">
-        $(document).ready(function () {
-            
-            Project_SearchObject.Init({
-                ObjectId: 'Project',
-                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+            $(document).ready(function () {
+
+                Project_SearchObject.Init({
+                    ObjectId: 'Project',
+                    SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Project.Name,
                                 action = MVC.Project.ActionNames.Index
                             }))',
-              
-                ProjectSatatus:'',
-                ProjectPublicId: '@(Model.RelatedProject != null ? Model.RelatedProject.ProjectPublicId : string.Empty)',
-                ProjectUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+
+                    ProjectSatatus:'',
+                    ProjectPublicId: '@(Model.RelatedProject != null ? Model.RelatedProject.ProjectPublicId : string.Empty)',
+                    ProjectUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Project.Name,
                                 action = MVC.Project.ActionNames.ProjectDetailRecalculate
                             }) + "?ProjectPublicId={ProjectPublicId}")',
 
-                SearchParam: '@Model.SearchParam',
-                SearchFilter: '@Model.SearchFilter',
-                SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
-                OrderOrientation: @Model.OrderOrientation.ToString().ToLower(),
-                PageNumber: @Model.PageNumber,
-                RowCount: @Model.RowCount,
+                    SearchParam: '@Model.SearchParam',
+                    SearchFilter: '@Model.SearchFilter',
+                    SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
+                    OrderOrientation: @Model.OrderOrientation.ToString().ToLower(),
+                    PageNumber: @Model.PageNumber,
+                    RowCount: @Model.RowCount,
 
-                BlackListStatusShowAlert: @((int)MarketPlace.Models.General.enumBlackListStatus.ShowAlert),
+                    BlackListStatusShowAlert: @((int)MarketPlace.Models.General.enumBlackListStatus.ShowAlert),
+                });
+
+                Project_SearchObject.RenderAsync();
             });
-
-            Project_SearchObject.RenderAsync();
-        });
     </script>
 }

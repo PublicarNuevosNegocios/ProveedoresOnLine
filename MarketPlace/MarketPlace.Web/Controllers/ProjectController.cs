@@ -11,13 +11,13 @@ namespace MarketPlace.Web.Controllers
     public partial class ProjectController : BaseController
     {
         public virtual ActionResult Index(
-                string ProjectStatus,
-                string SearchParam,
-                string SearchFilter,
-                string SearchOrderType,
-                string OrderOrientation,
-                string PageNumber
-            )
+                        string ProjectStatus,
+                        string SearchParam,
+                        string SearchFilter,
+                        string SearchOrderType,
+                        string OrderOrientation,
+                        string PageNumber
+                    )
         {
             MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
             //Clean the season url saved
@@ -25,6 +25,7 @@ namespace MarketPlace.Web.Controllers
                 SessionModel.CurrentURL = null;
 
             //get basic search model
+
             oModel = new Models.Provider.ProviderSearchViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
@@ -42,8 +43,8 @@ namespace MarketPlace.Web.Controllers
                 //get basic search model
                 int oTotalRows;
                 List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> oProjects =
-                    ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearch(SessionModel.CurrentCompany.CompanyPublicId,
-                    SearchParam, null, Convert.ToInt32(!string.IsNullOrEmpty(PageNumber) ? PageNumber : "0"), 100, out oTotalRows);
+                    ProveedoresOnLine.ProjectModule.Controller.ProjectModule.MPProjectSearch(SessionModel.CurrentCompany.CompanyPublicId,
+                    SearchParam, SearchFilter, Convert.ToInt32(!string.IsNullOrEmpty(PageNumber) ? PageNumber : "0"), 100, out oTotalRows);
 
                 if (oProjects != null && oProjects.Count > 0)
                 {
@@ -53,6 +54,16 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
+
+                List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> oFilterModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.MPProjectSearchFilter(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    SearchParam, SearchFilter);
+
+                if (oFilterModel != null)
+                {
+                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                }
+
+
             }
             return View(oModel);
         }
