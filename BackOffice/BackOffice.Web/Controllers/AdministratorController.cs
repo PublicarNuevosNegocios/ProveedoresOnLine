@@ -457,7 +457,7 @@ namespace BackOffice.Web.Controllers
                     {
                         BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = prv.BlackListStatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
+                            ItemId = prv.BlackListStatus == "si" || prv.BlackListStatus == "Si" || prv.BlackListStatus == "SI"  ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
                         },
                         User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
                         FileUrl = StrRemoteFile,
