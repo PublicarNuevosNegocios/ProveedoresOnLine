@@ -462,8 +462,9 @@ var Project_SearchObject = {
             /*Init pager*/
             this.PageNumber = 0;
         }
+       
         this.SearchParam = $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val();
-
+        
         if (vSearchObject != null) {
             /*get filter values*/
             if (vSearchObject.SearchFilter != null) {
