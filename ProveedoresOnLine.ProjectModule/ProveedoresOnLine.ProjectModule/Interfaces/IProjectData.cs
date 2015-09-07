@@ -36,7 +36,12 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         int ProjectCompanyInfoUpsert(int? ProjectCompanyInfoId, int ProjectCompanyId, int? EvaluationItemId, int ProjectCompanyInfoType, string Value, string LargeValue, bool Enable);
 
+        
         List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int? ProjectStatus, int PageNumber, int RowCount, out int TotalRows);
+
+        List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> MPProjectSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProjectSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter);
 
         ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId);
 

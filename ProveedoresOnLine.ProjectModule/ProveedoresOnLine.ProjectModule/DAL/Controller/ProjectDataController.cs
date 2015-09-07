@@ -101,6 +101,16 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.ProjectSearch(CustomerPublicId, SearchParam, ProjectStatus, PageNumber, RowCount, out  TotalRows);
         }
 
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> MPProjectSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.MPProjectSearch(CustomerPublicId, SearchParam, SearchFilter, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProjectSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
+        {
+            return DataFactory.MPProjectSearchFilter(CustomerPublicId, SearchParam, SearchFilter);
+        }
+
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId)
         {
             return DataFactory.ProjectGetById(ProjectPublicId, CustomerPublicId);
