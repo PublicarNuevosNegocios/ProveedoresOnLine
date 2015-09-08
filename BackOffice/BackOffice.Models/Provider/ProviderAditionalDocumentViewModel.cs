@@ -78,7 +78,7 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            AD_CreateDate = RelatedAditionalDocument.CreateDate.ToString();
+            AD_CreateDate = RelatedAditionalDocument.LastModify.ToString();
 
             AD_Title = RelatedAditionalDocument.ItemName;
 

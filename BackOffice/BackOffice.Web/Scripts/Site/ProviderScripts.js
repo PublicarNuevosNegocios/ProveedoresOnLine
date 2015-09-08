@@ -4662,6 +4662,8 @@ var Provider_AditionalDocumentObject = {
 
     RenderAsync: function () {
         Provider_AditionalDocumentObject.RenderAditionalDocument();
+
+        Provider_AditionalDocumentObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -4718,7 +4720,7 @@ var Provider_AditionalDocumentObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: "CertificationId",
+                        id: "AditionalDocumentId",
                         fields: {
                             AditionalDocumentId: { editable: false, nullable: true },
                             AditionalDocumentName: { editable: true },
@@ -4731,7 +4733,7 @@ var Provider_AditionalDocumentObject = {
                             AD_RelatedCustomerId: { editable: false },
                             AD_RelatedCustomer: { editable: true },
 
-                            AD_RelatedUser: { editable: true },
+                            AD_RelatedUser: { editable: false },
                             AD_RelatedUserId: { editable: false },
 
                             AD_CreateDate: { editable: false },
@@ -4744,6 +4746,7 @@ var Provider_AditionalDocumentObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4763,6 +4766,8 @@ var Provider_AditionalDocumentObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
+
+                                $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -4781,6 +4786,8 @@ var Provider_AditionalDocumentObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se editó el registro');
+
+                                $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
