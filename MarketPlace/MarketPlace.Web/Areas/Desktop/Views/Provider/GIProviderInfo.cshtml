@@ -192,11 +192,17 @@
                             var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
 
                             <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                                <div class="col-xs-12">
-                                    <label>Consulta Listas Restrictivas - Última Validación @maxDate</label>
+                                <div class="col-xs-12" id="POMPWarning">
+                                    <label>Consulta Listas Restrictivas - Última Validación @maxDate.ToLocalTime().ToString()</label>
                                 </div>
                             </div>
 
+                            if (Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101002).Select(x => x).ToList() != null
+                                     && Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101002).Select(x => x).ToList().Count > 0)
+                            {
+
+                                <div class="col-xs-12"><span>El proveedor no se encuentra en listas restrictivas</span></div>
+                            }
                             if (Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList() != null
                                      && Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList().Count > 0)
                             {

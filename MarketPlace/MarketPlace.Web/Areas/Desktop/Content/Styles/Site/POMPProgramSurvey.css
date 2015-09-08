@@ -856,3 +856,8 @@ textarea#Survey_ProgramSurvey_Comments {
     height:auto !important;
     line-height:50px;
 }
+
+#POMPWarning{
+    border:2px solid #ffac00 ;
+    
+}
