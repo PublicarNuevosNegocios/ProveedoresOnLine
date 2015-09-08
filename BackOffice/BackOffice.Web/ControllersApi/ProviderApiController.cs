@@ -2116,11 +2116,14 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     ViewEnable == "true" ? true : false);
 
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
+
                 if (oAditionalDocumentInfo != null)
                 {
                     oAditionalDocumentInfo.All(ad =>
                     {
-                        oReturn.Add(new ProviderAditionalDocumentViewModel(ad));
+                        oReturn.Add(new ProviderAditionalDocumentViewModel(ad, oCustomerByProvider));
                         return true;
                     });
                 }
@@ -2140,6 +2143,9 @@ namespace BackOffice.Web.ControllersApi
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
             {
                 List<string> lstUsedFiles = new List<string>();
+
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
 
                 BackOffice.Models.Provider.ProviderAditionalDocumentViewModel oDataToUpsert =
                     (BackOffice.Models.Provider.ProviderAditionalDocumentViewModel)
@@ -2211,7 +2217,7 @@ namespace BackOffice.Web.ControllersApi
 
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
 
-                oReturn = new ProviderAditionalDocumentViewModel(oProvider.RelatedAditionalDocuments.FirstOrDefault());
+                oReturn = new ProviderAditionalDocumentViewModel(oProvider.RelatedAditionalDocuments.FirstOrDefault(), oCustomerByProvider);
             }
 
             return oReturn;
