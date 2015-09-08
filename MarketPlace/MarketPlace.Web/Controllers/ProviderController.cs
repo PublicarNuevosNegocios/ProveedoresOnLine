@@ -3368,7 +3368,7 @@ namespace MarketPlace.Web.Controllers
                         //Aditional Documents
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
-                            Name = "Información Agregada",
+                            Name = "Información Anexa",
                             Url = Url.RouteUrl
                                     (Models.General.Constants.C_Routes_Default,
                                     new
