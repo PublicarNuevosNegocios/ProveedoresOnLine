@@ -280,7 +280,7 @@
                                 var oQuantityValues = Model.RelatedProjectConfig.GetExperienceQuantityValues();
 
                                 <li>
-                                    <label>Cantidad minima de experiencias:</label>
+                                    <label>Cantidad mínima de experiencias:</label>
                                     <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).ToString())_@Model.ProjectExperienceQuantityId">
                                         @foreach (var oQuantity in oQuantityValues)
                                         {
