@@ -851,3 +851,8 @@ textarea#Survey_ProgramSurvey_Comments {
     font-size: 12px;
     font-style: italic;
 }
+
+#POMPDA{
+    height:auto !important;
+    line-height:50px;
+}
