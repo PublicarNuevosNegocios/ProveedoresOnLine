@@ -13,10 +13,10 @@
 
 
 @{
-    if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.Count > 0)
+    if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.CollumnsResult != null && Model.RelatedThirdKnowledge.CollumnsResult.Count > 0)
     {
-        Model.RelatedThirdKnowledge = Model.RelatedThirdKnowledge.Where(x => x.Count() > 1).ToList();
-        if (Model.RelatedThirdKnowledge.Count != 0)
+        //Model.RelatedThirdKnowledge = Model.RelatedThirdKnowledge.CollumnsResult.Where(x => x.Count() > 1).ToList();
+        if (Model.RelatedThirdKnowledge.CollumnsResult.Count != 0)
         {
             <div class="POMPProviderInfoMultipleValues">
                 <div class="POMPWrapperColorResult">
@@ -24,7 +24,7 @@
                         Resultados de la búsqueda:
                     </span>
 
-                    @foreach (var Row in Model.RelatedThirdKnowledge)
+                    @foreach (var Row in Model.RelatedThirdKnowledge.CollumnsResult)
                     {                                                
                         <div class="POMPContainerResult">
                             <div id="POMPResultName">
