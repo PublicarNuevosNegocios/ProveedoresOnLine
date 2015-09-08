@@ -275,10 +275,15 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPReportInfoUpsert(ReportId, ReportInfoId, ReportInfoTypeId,Value,LargeValue, Enable);
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.MPAditionalDocumentGetBasicInfo(CustomerPublicId, ProviderPublicId);
+        }
+
         #endregion
 
         #region BatchProcess
-        
+
         List<Models.Provider.ProviderModel> Interfaces.ICompanyProviderData.BPGetRecruitmentProviders()
         {
             return DataFactory.BPGetRecruitmentProviders();

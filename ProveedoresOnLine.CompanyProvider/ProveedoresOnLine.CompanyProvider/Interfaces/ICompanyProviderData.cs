@@ -125,6 +125,9 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
         int MPReportUpsert(string CompanyPublicId, int? ReportId, int ReportTypeId, string ReportName, bool Enable);
 
         int MPReportInfoUpsert(int ReportId, int? ReportInfoId, int ReportInfoTypeId, string Value, string LargeValue, bool Enable);
+
+        List<GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId);
+
         #endregion
 
         #region BatchProcess
