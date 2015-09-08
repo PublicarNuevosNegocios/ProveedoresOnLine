@@ -1,6 +1,8 @@
-﻿using MarketPlace.Models.Compare;
+﻿using MarketPlace.Models.Company;
+using MarketPlace.Models.Compare;
 using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +25,9 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKSingleSearch()
         {
-            ProviderViewModel oModel = new ProviderViewModel(); // TODO: Pendiente por quitar
-
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel(); // TODO: Pendiente por quitar
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
 
             try
             {
@@ -61,22 +64,44 @@ namespace MarketPlace.Web.Controllers
                 //    oModel.RelatedThirdKnowledge = oReturn;
                 //}
                 #endregion
-                
-                //Obtener el Plan del Comprador
 
+                //Get The Active Plan By Customer 
+                oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
 
-                //Realizar la búsqueda
-                //Obtener el total de consultas del periodo y sumarle
-                //Hacer el Update del periodo consultado
+                if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
+                {
+                    //Get The Most Recently Period When Plan is More Than One
+                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
 
+                    //TODO: Put the Alert?
+                    if (Request["UpsertRequest"] == "true")
+                    {
+                        oModel.RelatedThirdKnowledge.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
+                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                                           Request["IdentificationNumber"], Request["Name"]);
+                    }
+
+                    //Set Current Sale
+                    if (oModel.RelatedThirdKnowledge != null)
+                    {
+                        oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+
+                        //Period Upsert
+                        oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
+                            oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                    }
+                }
+                else
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = false;
+                }
+                return View(oModel);
             }
             catch (Exception ex)
             {
 
                 throw ex.InnerException;
             }
-
-            return View(oModel);
         }
 
         #region Menu

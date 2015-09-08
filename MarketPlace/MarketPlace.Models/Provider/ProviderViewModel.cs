@@ -68,6 +68,6 @@ namespace MarketPlace.Models.Provider
 
         public List<ProviderReportsViewModel> RelatedReportInfo { get; set; }
 
-        public List<string[]> RelatedThirdKnowledge { get; set; }
+        public MarketPlace.Models.Company.ThirdKnowledgeViewModel RelatedThirdKnowledge { get; set; }
     }
 }
