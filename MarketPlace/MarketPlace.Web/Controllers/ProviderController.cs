@@ -3043,6 +3043,7 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //CIFIN
+                        /*
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "CIFIN",
@@ -3059,7 +3060,7 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.LICIFINInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
-
+                        */
                         //SARLAFT
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -3132,6 +3133,7 @@ namespace MarketPlace.Web.Controllers
                         });
 
                         //Tax Info
+                        /*
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Impuestos",
@@ -3148,7 +3150,7 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.FITaxInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
-
+                        */
                         //income statement
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
