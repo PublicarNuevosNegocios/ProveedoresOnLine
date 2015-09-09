@@ -81,7 +81,7 @@ var Project_ProjectDetailObject = {
             //init default activity ac
             $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_DefaultEconomicActivity').
                 kendoMultiSelect({
-                    placeholder: "Seleccione actividades economicas...",
+                    placeholder: "Seleccione actividades económicas...",
                     dataTextField: "ActivityName",
                     dataValueField: "EconomicActivityId",
                     autoBind: false,
@@ -116,7 +116,7 @@ var Project_ProjectDetailObject = {
             //init custom activity ac
             $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_CustomEconomicActivity').
                 kendoMultiSelect({
-                    placeholder: "Seleccione actividades economicas...",
+                    placeholder: "Seleccione actividades económicas...",
                     dataTextField: "ActivityName",
                     dataValueField: "EconomicActivityId",
                     autoBind: false,

@@ -128,8 +128,8 @@ namespace BackOffice.Web.ControllersApi
                 ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                 {
                     CompanyPublicId = ProviderPublicId,
-                    RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>() 
-                    { 
+                    RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
                         new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
                             ItemId = string.IsNullOrEmpty(oDataToUpsert.ContactId) ? 0 : Convert.ToInt32(oDataToUpsert.ContactId.Trim()),
@@ -147,25 +147,25 @@ namespace BackOffice.Web.ControllersApi
                 if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.CompanyContact)
                 {
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_ValueId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_ValueId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_ValueId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_ValueId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_Value
-                            },
-                            Value = oDataToUpsert.CC_Value,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_Value
+                        },
+                        Value = oDataToUpsert.CC_Value,
+                        Enable = true,
+                    });
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_CompanyContactTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_CompanyContactTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_CompanyContactTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_CompanyContactTypeId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_CompanyContactType
-                            },
-                            Value = oDataToUpsert.CC_CompanyContactType,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_CompanyContactType
+                        },
+                        Value = oDataToUpsert.CC_CompanyContactType,
+                        Enable = true,
+                    });
                 }
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.PersonContact)
                 {
@@ -499,7 +499,7 @@ namespace BackOffice.Web.ControllersApi
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
 
                 if (ContactType == ((int)BackOffice.Models.General.enumContactType.Brach).ToString() ||
-                    ContactType == ((int)BackOffice.Models.General.enumContactType.Distributor ).ToString())
+                    ContactType == ((int)BackOffice.Models.General.enumContactType.Distributor).ToString())
                 {
                     oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalCount);
                 }
@@ -574,7 +574,7 @@ namespace BackOffice.Web.ControllersApi
                         CompanyPublicId = ProviderPublicId,
                     },
 
-                    RelatedCommercial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>() 
+                    RelatedCommercial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
                     {
                         new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
@@ -664,7 +664,7 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.EX_ContractNumber,
                         Enable = true,
                     });
-                    
+
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_CurrencyId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_CurrencyId.Trim()),
@@ -827,13 +827,13 @@ namespace BackOffice.Web.ControllersApi
         {
             BackOffice.Models.Provider.ProviderHSEQViewModel oReturn = null;
 
-  
+
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
 
-      
+
             if (HSEQType == ((int)BackOffice.Models.General.enumHSEQType.Certifications).ToString())
             {
                 oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
@@ -844,7 +844,7 @@ namespace BackOffice.Web.ControllersApi
                 oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
             }
 
-            
+
 
             if (HIHSEQUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
@@ -983,15 +983,15 @@ namespace BackOffice.Web.ControllersApi
                     });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsSecurityId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsSecurityId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsSecurity
-                            },
-                            Value = oDataToUpsert.CH_PoliticsSecurity,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsSecurity
+                        },
+                        Value = oDataToUpsert.CH_PoliticsSecurity,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_PoliticsSecurity);
 
@@ -1009,215 +1009,215 @@ namespace BackOffice.Web.ControllersApi
                     lstUsedFiles.Add(oDataToUpsert.CH_PoliticIntegral);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsNoAlcoholId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsNoAlcoholId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsNoAlcoholId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsNoAlcoholId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsNoAlcohol
-                            },
-                            Value = oDataToUpsert.CH_PoliticsNoAlcohol,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsNoAlcohol
+                        },
+                        Value = oDataToUpsert.CH_PoliticsNoAlcohol,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_PoliticsNoAlcohol);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_ProgramOccupationalHealthId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_ProgramOccupationalHealthId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_ProgramOccupationalHealthId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_ProgramOccupationalHealthId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramOccupationalHealth
-                            },
-                            Value = oDataToUpsert.CH_ProgramOccupationalHealth,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramOccupationalHealth
+                        },
+                        Value = oDataToUpsert.CH_ProgramOccupationalHealth,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_ProgramOccupationalHealth);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_RuleIndustrialSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_RuleIndustrialSecurityId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_RuleIndustrialSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_RuleIndustrialSecurityId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_RuleIndustrialSecurity
-                            },
-                            Value = oDataToUpsert.CH_RuleIndustrialSecurity,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_RuleIndustrialSecurity
+                        },
+                        Value = oDataToUpsert.CH_RuleIndustrialSecurity,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_RuleIndustrialSecurity);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_MatrixRiskControlId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_MatrixRiskControlId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_MatrixRiskControlId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_MatrixRiskControlId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_MatrixRiskControl
-                            },
-                            Value = oDataToUpsert.CH_MatrixRiskControl,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_MatrixRiskControl
+                        },
+                        Value = oDataToUpsert.CH_MatrixRiskControl,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_MatrixRiskControl);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_CorporateSocialResponsabilityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_CorporateSocialResponsabilityId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_CorporateSocialResponsabilityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_CorporateSocialResponsabilityId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_CorporateSocialResponsability
-                            },
-                            Value = oDataToUpsert.CH_CorporateSocialResponsability,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_CorporateSocialResponsability
+                        },
+                        Value = oDataToUpsert.CH_CorporateSocialResponsability,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_CorporateSocialResponsability);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_ProgramEnterpriseSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_ProgramEnterpriseSecurityId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_ProgramEnterpriseSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_ProgramEnterpriseSecurityId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramEnterpriseSecurity
-                            },
-                            Value = oDataToUpsert.CH_ProgramEnterpriseSecurity,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramEnterpriseSecurity
+                        },
+                        Value = oDataToUpsert.CH_ProgramEnterpriseSecurity,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_ProgramEnterpriseSecurity);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsRecruimentId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsRecruimentId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsRecruimentId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsRecruimentId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsRecruiment
-                            },
-                            Value = oDataToUpsert.CH_PoliticsRecruiment,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsRecruiment
+                        },
+                        Value = oDataToUpsert.CH_PoliticsRecruiment,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_PoliticsRecruiment);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_CertificationsFormId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_CertificationsFormId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_CertificationsFormId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_CertificationsFormId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_CertificationsForm
-                            },
-                            Value = oDataToUpsert.CH_CertificationsForm,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_CertificationsForm
+                        },
+                        Value = oDataToUpsert.CH_CertificationsForm,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CH_CertificationsForm);
                 }
                 else if (oProvider.RelatedCertification.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)
                 {
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_SystemOccupationalHazardsId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_SystemOccupationalHazardsId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_SystemOccupationalHazardsId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_SystemOccupationalHazardsId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards
-                            },
-                            Value = oDataToUpsert.CR_SystemOccupationalHazards,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards
+                        },
+                        Value = oDataToUpsert.CR_SystemOccupationalHazards,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_RateARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_RateARLId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_RateARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_RateARLId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL
-                            },
-                            Value = oDataToUpsert.CR_RateARL,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL
+                        },
+                        Value = oDataToUpsert.CR_RateARL,
+                        Enable = true,
+                    });
 
                 }
                 else if (oProvider.RelatedCertification.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumHSEQType.CertificatesAccident)
                 {
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_CertificateAccidentARLId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_CertificateAccidentARLId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL
-                            },
-                            Value = oDataToUpsert.CA_CertificateAccidentARL,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL
+                        },
+                        Value = oDataToUpsert.CA_CertificateAccidentARL,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.CA_CertificateAccidentARL);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_YearId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_YearId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year
-                            },
-                            Value = oDataToUpsert.CA_Year,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year
+                        },
+                        Value = oDataToUpsert.CA_Year,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_ManHoursWorkedId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_ManHoursWorkedId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_ManHoursWorkedId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_ManHoursWorkedId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked
-                            },
-                            Value = oDataToUpsert.CA_ManHoursWorked,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked
+                        },
+                        Value = oDataToUpsert.CA_ManHoursWorked,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_FatalitiesId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_FatalitiesId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_FatalitiesId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_FatalitiesId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities
-                            },
-                            Value = oDataToUpsert.CA_Fatalities,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities
+                        },
+                        Value = oDataToUpsert.CA_Fatalities,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccident
-                            },
-                            Value = oDataToUpsert.CA_NumberAccident,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccident
+                        },
+                        Value = oDataToUpsert.CA_NumberAccident,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentDisablingId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentDisablingId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentDisablingId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentDisablingId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling
-                            },
-                            Value = oDataToUpsert.CA_NumberAccidentDisabling,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling
+                        },
+                        Value = oDataToUpsert.CA_NumberAccidentDisabling,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_DaysIncapacityId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_DaysIncapacityId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_DaysIncapacityId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_DaysIncapacityId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_DaysIncapacity
-                            },
-                            Value = oDataToUpsert.CA_DaysIncapacity,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_DaysIncapacity
+                        },
+                        Value = oDataToUpsert.CA_DaysIncapacity,
+                        Enable = true,
+                    });
                 }
 
                 oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProvider);
@@ -1236,10 +1236,10 @@ namespace BackOffice.Web.ControllersApi
                 //register used files
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
 
-                oReturn = new Models.Provider.ProviderHSEQViewModel(oProvider.RelatedCertification.FirstOrDefault(), oRule, oCompanyRule, oARL );
+                oReturn = new Models.Provider.ProviderHSEQViewModel(oProvider.RelatedCertification.FirstOrDefault(), oRule, oCompanyRule, oARL);
             }
-            
-      
+
+
             return oReturn;
         }
 
@@ -1393,85 +1393,85 @@ namespace BackOffice.Web.ControllersApi
                 if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.IncomeStatementInfoType)
                 {
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_YearId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_YearId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_Year,
-                            },
-                            Value = oDataToUpsert.IS_Year,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_Year,
+                        },
+                        Value = oDataToUpsert.IS_Year,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_GrossIncomeId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_GrossIncomeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_GrossIncomeId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_GrossIncomeId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossIncome,
-                            },
-                            Value = oDataToUpsert.IS_GrossIncome,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossIncome,
+                        },
+                        Value = oDataToUpsert.IS_GrossIncome,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_NetIncomeId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_NetIncomeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_NetIncomeId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_NetIncomeId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_NetIncome,
-                            },
-                            Value = oDataToUpsert.IS_NetIncome,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_NetIncome,
+                        },
+                        Value = oDataToUpsert.IS_NetIncome,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_GrossEstateId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_GrossEstateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_GrossEstateId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_GrossEstateId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossEstate,
-                            },
-                            Value = oDataToUpsert.IS_GrossEstate,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossEstate,
+                        },
+                        Value = oDataToUpsert.IS_GrossEstate,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_LiquidHeritageId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_LiquidHeritageId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_LiquidHeritageId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_LiquidHeritageId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_LiquidHeritage,
-                            },
-                            Value = oDataToUpsert.IS_LiquidHeritage,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_LiquidHeritage,
+                        },
+                        Value = oDataToUpsert.IS_LiquidHeritage,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_FileIncomeStatementId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_FileIncomeStatementId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_FileIncomeStatementId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_FileIncomeStatementId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement,
-                            },
-                            Value = oDataToUpsert.IS_FileIncomeStatement,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement,
+                        },
+                        Value = oDataToUpsert.IS_FileIncomeStatement,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.IS_FileIncomeStatement);
                 }
                 else if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.TaxInfoType)
                 {
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.TX_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.TX_YearId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.TX_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.TX_YearId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.TX_Year,
-                            },
-                            Value = oDataToUpsert.TX_Year,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.TX_Year,
+                        },
+                        Value = oDataToUpsert.TX_Year,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
@@ -1491,37 +1491,37 @@ namespace BackOffice.Web.ControllersApi
                     oBank = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank(null, 0, 0);
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_BankId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_BankId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_BankId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_BankId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Bank,
-                            },
-                            Value = oDataToUpsert.IB_Bank,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Bank,
+                        },
+                        Value = oDataToUpsert.IB_Bank,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountTypeId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountType,
-                            },
-                            Value = oDataToUpsert.IB_AccountType,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountType,
+                        },
+                        Value = oDataToUpsert.IB_AccountType,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountNumberId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountNumberId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountNumberId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountNumberId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountNumber,
-                            },
-                            Value = oDataToUpsert.IB_AccountNumber,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountNumber,
+                        },
+                        Value = oDataToUpsert.IB_AccountNumber,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
@@ -1535,59 +1535,59 @@ namespace BackOffice.Web.ControllersApi
                     });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_ABAId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_ABAId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_ABAId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_ABAId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_ABA,
-                            },
-                            Value = oDataToUpsert.IB_ABA,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_ABA,
+                        },
+                        Value = oDataToUpsert.IB_ABA,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_SwiftId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_SwiftId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_SwiftId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_SwiftId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Swift,
-                            },
-                            Value = oDataToUpsert.IB_Swift,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Swift,
+                        },
+                        Value = oDataToUpsert.IB_Swift,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_IBANId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_IBANId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_IBANId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_IBANId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_IBAN,
-                            },
-                            Value = oDataToUpsert.IB_IBAN,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_IBAN,
+                        },
+                        Value = oDataToUpsert.IB_IBAN,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_CustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_CustomerId),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_CustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_CustomerId),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Customer,
-                            },
-                            Value = oDataToUpsert.IB_Customer,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Customer,
+                        },
+                        Value = oDataToUpsert.IB_Customer,
+                        Enable = true,
+                    });
 
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountFileId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountFileId),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountFileId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountFileId),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountFile,
-                            },
-                            Value = oDataToUpsert.IB_AccountFile,
-                            Enable = true,
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountFile,
+                        },
+                        Value = oDataToUpsert.IB_AccountFile,
+                        Enable = true,
+                    });
 
                     lstUsedFiles.Add(oDataToUpsert.IB_AccountFile);
                 }
@@ -1635,13 +1635,13 @@ namespace BackOffice.Web.ControllersApi
                     string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA = null;
-               
+
                 if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
                 {
                     oICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out TotalRows);
                 }
                 if (oLegalInfo != null)
-                {                   
+                {
                     oLegalInfo.All(x =>
                     {
                         oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oICA));
@@ -2109,18 +2109,21 @@ namespace BackOffice.Web.ControllersApi
             string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> oReturn = new List<ProviderAditionalDocumentViewModel>();
-            
+
             if (ADGetAditionalDocument == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oAditionalDocumentInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetBasicInfo
                     (ProviderPublicId,
                     ViewEnable == "true" ? true : false);
 
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
+
                 if (oAditionalDocumentInfo != null)
                 {
                     oAditionalDocumentInfo.All(ad =>
                     {
-                        oReturn.Add(new ProviderAditionalDocumentViewModel(ad));
+                        oReturn.Add(new ProviderAditionalDocumentViewModel(ad, oCustomerByProvider));
                         return true;
                     });
                 }
@@ -2140,6 +2143,9 @@ namespace BackOffice.Web.ControllersApi
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
             {
                 List<string> lstUsedFiles = new List<string>();
+
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
 
                 BackOffice.Models.Provider.ProviderAditionalDocumentViewModel oDataToUpsert =
                     (BackOffice.Models.Provider.ProviderAditionalDocumentViewModel)
@@ -2177,10 +2183,9 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_RelatedUser,
                         },
-                        Value = oDataToUpsert.AD_RelatedUser,
+                        Value = BackOffice.Models.General.SessionModel.CurrentLoginUser.Email.ToString(),
                         Enable = true,
-                    }
-                    );
+                    });
 
                 oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
                     new GenericItemInfoModel()
@@ -2192,8 +2197,7 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = oDataToUpsert.AD_RelatedCustomer,
                         Enable = true,
-                    }
-                    );
+                    });
 
                 oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
                     new GenericItemInfoModel()
@@ -2205,8 +2209,7 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = oDataToUpsert.AD_File,
                         Enable = true,
-                    }
-                );
+                    });
 
                 lstUsedFiles.Add(oDataToUpsert.AD_File);
 
@@ -2214,7 +2217,7 @@ namespace BackOffice.Web.ControllersApi
 
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
 
-                oReturn = new ProviderAditionalDocumentViewModel(oProvider.RelatedAditionalDocuments.FirstOrDefault());
+                oReturn = new ProviderAditionalDocumentViewModel(oProvider.RelatedAditionalDocuments.FirstOrDefault(), oCustomerByProvider);
             }
 
             return oReturn;
@@ -2248,7 +2251,7 @@ namespace BackOffice.Web.ControllersApi
                 {
                     oCustomerByProvider =
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, "0");
-                }               
+                }
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
@@ -2299,7 +2302,7 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerProviderInfo =
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider
-                        (CustomerProviderId, 
+                        (CustomerProviderId,
                         Convert.ToBoolean(ViewEnable),
                         oPageNumber,
                         oRowCount,
@@ -2342,17 +2345,17 @@ namespace BackOffice.Web.ControllersApi
                     oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
 
                     oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                    {
+                        RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                         {
-                            RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                            {
-                                CompanyPublicId = oProviderPublicId,
-                            },
-                            Status = new CatalogModel()
-                            {
-                                ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
-                            },
-                            Enable = oEnable == 1 ? true : false,
-                        });
+                            CompanyPublicId = oProviderPublicId,
+                        },
+                        Status = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
+                        },
+                        Enable = oEnable == 1 ? true : false,
+                    });
 
                     oCustomerModel.RelatedCompany = oCompanyModel;
 
@@ -2490,7 +2493,7 @@ namespace BackOffice.Web.ControllersApi
         {
             BackOffice.Models.Provider.TrackingViewModel oReturn = null;
 
-            if (CustomerProviderId != string.Empty && CustomerProviderId != null && 
+            if (CustomerProviderId != string.Empty && CustomerProviderId != null &&
                 CPTrackingUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
             {

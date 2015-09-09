@@ -4662,6 +4662,8 @@ var Provider_AditionalDocumentObject = {
 
     RenderAsync: function () {
         Provider_AditionalDocumentObject.RenderAditionalDocument();
+
+        Provider_AditionalDocumentObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -4718,7 +4720,7 @@ var Provider_AditionalDocumentObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: "CertificationId",
+                        id: "AditionalDocumentId",
                         fields: {
                             AditionalDocumentId: { editable: false, nullable: true },
                             AditionalDocumentName: { editable: true },
@@ -4729,9 +4731,10 @@ var Provider_AditionalDocumentObject = {
                             AD_File: { editable: true, validation: { required: true } },
 
                             AD_RelatedCustomerId: { editable: false },
-                            AD_RelatedCustomer: { editable: true },
+                            AD_RelatedCustomer: { editable: false },
+                            AD_RelatedCustomerName: { editable: true },
 
-                            AD_RelatedUser: { editable: true },
+                            AD_RelatedUser: { editable: false },
                             AD_RelatedUserId: { editable: false },
 
                             AD_CreateDate: { editable: false },
@@ -4744,6 +4747,7 @@ var Provider_AditionalDocumentObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4763,6 +4767,8 @@ var Provider_AditionalDocumentObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
+
+                                $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -4781,6 +4787,8 @@ var Provider_AditionalDocumentObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se editó el registro');
+
+                                $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -4870,9 +4878,67 @@ var Provider_AditionalDocumentObject = {
                     });
                 },
             }, {
-                field: 'AD_RelatedCustomer',
+                field: 'AD_RelatedCustomerName',
                 title: 'Comprador Relacionado',
-                width: '190px',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.AD_RelatedCustomerName != null) {
+                        debugger;
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.AD_RelatedCustomerName;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var isSelected = false;
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'CP_Customer',
+                        select: function (e) {
+                            isSelected = true;
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.CP_Customer;
+                            options.model['AD_RelatedCustomer'] = selectedItem.CP_CustomerPublicId;
+                            options.model['AD_RelatedCustomerName'] = selectedItem.CP_Customer;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            debugger;
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                            Message('error', result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'AD_RelatedUser',
                 title: 'Usuario',

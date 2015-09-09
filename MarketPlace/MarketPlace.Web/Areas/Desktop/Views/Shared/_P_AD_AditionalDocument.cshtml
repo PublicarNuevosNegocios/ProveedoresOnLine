@@ -8,9 +8,26 @@
         {
             foreach (var item in Model.RelatedAditionalDocumentBasicInfo)
             {
-                <div>
-                    <label>@item.AD_Title</label>
-                    <a href="@item.AD_File" target="_blank">Ver archivo</a>
+                <div class="col-xs-6">
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12">
+                                <label>@item.AD_Title</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-xs-12" id="POMPDA">
+                            @if (!string.IsNullOrEmpty(item.AD_File))
+                            {
+                                <a href="@item.AD_File" target="_blank">Ver archivo</a>
+                            }
+                            else
+                            {
+                                <label>No se ha cargado un archivo</label>
+                            }
+                        </div>
+                    </div>
                 </div>
             }
         }

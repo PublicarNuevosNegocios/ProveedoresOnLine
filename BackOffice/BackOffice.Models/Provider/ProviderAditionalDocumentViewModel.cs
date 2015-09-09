@@ -28,6 +28,8 @@ namespace BackOffice.Models.Provider
 
         public string AD_RelatedCustomerId { get; set; }
 
+        public string AD_RelatedCustomerName { get; set; }
+
         public string AD_RelatedUser { get; set; }
 
         public string AD_RelatedUserId { get; set; }
@@ -38,7 +40,8 @@ namespace BackOffice.Models.Provider
 
         public ProviderAditionalDocumentViewModel() { }
 
-        public ProviderAditionalDocumentViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedAditionalDocument)
+        public ProviderAditionalDocumentViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedAditionalDocument,
+                                                  ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerList)
         {
             RelatedAditionalDocument = oRelatedAditionalDocument;
 
@@ -68,6 +71,11 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            AD_RelatedCustomerName = oCustomerList.RelatedProvider.Where(x => x.RelatedProvider.CompanyPublicId == AD_RelatedCustomer).
+                 Select(x => x.RelatedProvider.CompanyName).
+                 DefaultIfEmpty(string.Empty).
+                 FirstOrDefault();
+
             AD_RelatedUserId = RelatedAditionalDocument.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_RelatedUser).
                 Select(x => x.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
@@ -78,7 +86,7 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            AD_CreateDate = RelatedAditionalDocument.CreateDate.ToString();
+            AD_CreateDate = RelatedAditionalDocument.LastModify.ToString();
 
             AD_Title = RelatedAditionalDocument.ItemName;
 
