@@ -27,10 +27,25 @@ namespace MarketPlace.Models.Company
         //Temp Cols
         public List<string[]> CollumnsResult { get; set; }
 
+        //Cosl
+
+        public string NameResult { get; set; }
+        public string IdNumberResult { get; set; }
+        public string QueryId { get; set; }
+        public string Priority { get; set; }
+        public string List { get; set; }        
+
         public ThirdKnowledgeViewModel(ProveedoresOnLine.ThirdKnowledge.Models.PlanModel oCurrenPlan)
         {
             CurrentSale = oCurrenPlan.RelatedPeriodModel.FirstOrDefault().TotalQueries;
         }
+
+        public ThirdKnowledgeViewModel(string[] oCollumnsResult)
+        {
+
+
+        }
+
         public ThirdKnowledgeViewModel()
         {
 

@@ -66,6 +66,7 @@
     <Compile Include="DAL\Controller\ThirdKnowledgeDataFactory.cs" />
     <Compile Include="DAL\MySQLDAO\ThirdKnowledge_MySqlDao.cs" />
     <Compile Include="Interfaces\IThirdKnowledgeData.cs" />
+    <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\TDQueryInfoModel.cs" />
     <Compile Include="Models\TDQueryModel.cs" />
     <Compile Include="Models\TDCatalogModel.cs" />

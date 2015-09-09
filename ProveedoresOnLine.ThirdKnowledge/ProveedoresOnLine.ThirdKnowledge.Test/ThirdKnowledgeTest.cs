@@ -11,7 +11,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         [TestMethod]
         public void SimpleRequest()
         {
-            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest("Customer","70041053", "Alvaro uribe Velez");
+            TDQueryModel oQuery = new TDQueryModel();
+            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest("Customer","70041053", "Alvaro uribe Velez", oQuery );
         }
 
         [TestMethod]

@@ -34,7 +34,7 @@
         ProviderReporting = 802012,
         ProviderBasicInfo = 802013,
         ProviderStats = 802014,
-        RelatedProvider = 802015,        
+        RelatedProvider = 802015,
         ThirdKnowledge = 802016,
         ProviderReports = 802017,
     }
@@ -93,7 +93,7 @@
         CH_SurveyModule = 119001,
         CH_ProjectModule = 119002,
         CH_ProvidersStateModule = 119003,
-        
+
         //Format Report Type
         Excel = 120001,
         PDF = 120002,
@@ -483,7 +483,7 @@
 
     #endregion
 
-    #region Survey  
+    #region Survey
 
     public enum enumSurveySearchOrderType
     {
@@ -576,7 +576,7 @@
 
 
     #endregion
-    
+
     #region Report
 
     public enum enumReportType
@@ -586,7 +586,7 @@
     }
 
     #endregion
-    
+
     #region Project
 
     public enum enumProjectStatus
@@ -692,6 +692,41 @@
         ProcessType = 111016,
         Status = 111017,
     }
+    #endregion
+
+    #region ThirdKnowledge
+
+    public enum enumThirdKnowledgeQueryType
+    {
+        Simple = 201001,
+        Masive = 201002,
+    }
+
+    public enum enumThirdKnowledgeColls
+    {
+        RequestName = 301001,
+        IdNumberRequest = 301002,
+        QueryId = 301003,
+        GroupNumber = 301004,
+        GroupName = 301005,
+        Priotity = 301006,
+        TypeDocument = 301007,
+        IdNumberResult = 301008,
+        NameResult = 301009,
+        IdList = 301010,
+        ListName = 301011,
+        Alias = 301012,
+        Offense = 301013,
+        Peps = 301014,
+        Status = 301015,
+        Zone = 301016,
+        Link = 301017,
+        MoreInfo = 301018,
+        RegisterDate = 301019,
+        LastModifyDate = 301020,
+        Message = 301021,
+    }
+
     #endregion
 
     #region Aditional Document

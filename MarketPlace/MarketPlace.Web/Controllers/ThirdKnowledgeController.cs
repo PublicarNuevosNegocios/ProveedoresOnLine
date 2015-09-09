@@ -79,14 +79,25 @@ namespace MarketPlace.Web.Controllers
                     //TODO: Put the Alert?
                     if (Request["UpsertRequest"] == "true")
                     {
-                        oModel.RelatedThirdKnowledge.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
-                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
-                                           Request["IdentificationNumber"], Request["Name"]);
-
                         //Set Current Sale
-                        if (oModel.RelatedThirdKnowledge != null && oModel.RelatedThirdKnowledge.CollumnsResult.Count > 0)
+                        if (oModel.RelatedThirdKnowledge != null)
                         {
                             //Save Query 
+                            TDQueryModel oQueryToCreate = new TDQueryModel()
+                            {
+                                IsSuccess = true,
+                                PeriodPublicId = oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                                SearchType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)enumThirdKnowledgeQueryType.Simple,
+                                },
+                                User = SessionModel.CurrentLoginUser.Email,
+                                RelatedQueryInfoModel = new List<TDQueryInfoModel>(),
+                            };
+
+                            oModel.RelatedThirdKnowledge.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
+                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                                           Request["IdentificationNumber"], Request["Name"], oQueryToCreate);
 
                             //Set New Score
                             oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
@@ -97,10 +108,19 @@ namespace MarketPlace.Web.Controllers
                         }
                         else
                         {
-                            // Save whit bad status
+                            TDQueryModel oQueryToCreate = new TDQueryModel()
+                           {
+                               IsSuccess = false,
+                               PeriodPublicId = oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                               SearchType = new TDCatalogModel()
+                               {
+                                   ItemId = (int)enumThirdKnowledgeQueryType.Simple,
+                               },
+                               User = SessionModel.CurrentLoginUser.Email,
+                           };
                         }
-                    }    
-                    #endregion                 
+                    }
+                    #endregion
                 }
                 else
                 {

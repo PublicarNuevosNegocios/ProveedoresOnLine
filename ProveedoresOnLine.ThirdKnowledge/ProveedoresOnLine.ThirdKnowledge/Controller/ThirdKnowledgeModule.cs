@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 {
     public class ThirdKnowledgeModule
     {
-        public static List<string[]> SimpleRequest(string PeriodPublicId, string IdentificationNumber, string Name)
+        public static List<string[]> SimpleRequest(string PeriodPublicId, string IdentificationNumber, string Name, TDQueryModel oQueryToCreate)
         {
             try
             {
@@ -21,15 +21,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 List<PlanModel> oPlanModel = new List<PlanModel>();
                 PeriodModel oCurrentPeriod = new PeriodModel();
-
+                
                 oAuth.UsuarioNombre = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServiceUser].Value;
                 oAuth.UsuarioClave = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServicePass].Value;
 
                 //Traes el periodo para calcular
 
                 string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
-
-
+                
                 string[] split = oResutl.Split('#');
                 List<string[]> oReturn = new List<string[]>();
                 if (split != null)
@@ -41,6 +40,17 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     });
                 }
                 //oReturn = oReturn.Where(x => x.Contains("Prioridad:") == true).Select(x => x).ToList();
+
+                if (oReturn != null)
+                {
+                    oQueryToCreate = CreateQuery(oQueryToCreate, oReturn);
+                    QueryInsert(oQueryToCreate);
+                }
+                else
+                {
+                    oQueryToCreate.IsSuccess = false;
+                    QueryInsert(oQueryToCreate);
+                }
 
                 return oReturn;
             }
@@ -192,7 +202,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(oPeriodModel.PeriodPublicId,
                        oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
         }
- 
+
         #endregion
 
         #region Queries
@@ -206,18 +216,18 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             {
 
                 QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryInsert(QueryModelToUpsert.PeriodPublicId,
-                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User,QueryModelToUpsert.IsSuccess,true);
-                
+                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, true);
+
                 QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>
                 {
                     //LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        qInf.QueryInfoId = 
+                        qInf.QueryInfoId =
                            ThirdKnowledgeDataController.Instance.QueryInfoInsert
                             (QueryModelToUpsert.QueryPublicId,
-                            qInf.ItemInfoType.ItemId,qInf.Value, qInf.LargeValue, true);
-                                        
+                            qInf.ItemInfoType.ItemId, qInf.Value, qInf.LargeValue, true);
+
                         //oLog.IsSuccess = true;
                     }
                     catch (Exception err)
@@ -247,6 +257,78 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return QueryModelToUpsert;
         }
 
+        #endregion
+
+        #region Provate Functions
+        public static TDQueryModel CreateQuery(TDQueryModel oQueryToCreate, List<string[]> CollumnsResult)
+        {
+            #region CreateQuery Process
+            string QueryId = CollumnsResult[0].ToString();
+            CollumnsResult.All(col =>
+            {
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
+                    },
+                    Value = QueryId,
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Priotity,
+                    },
+                    Value = CollumnsResult[1].ToString(),
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.TypeDocument,
+                    },
+                    Value = CollumnsResult[2].ToString(),
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberResult,
+                    },
+                    Value = CollumnsResult[3].ToString(),
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.NameResult,
+                    },
+                    Value = CollumnsResult[4].ToString(),
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdList,
+                    },
+                    Value = CollumnsResult[5].ToString(),
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.ListName,
+                    },
+                    Value = CollumnsResult[6].ToString(),
+                });
+
+                return true;
+            });
+            #endregion
+
+            return oQueryToCreate;
+        }
         #endregion
     }
 }
