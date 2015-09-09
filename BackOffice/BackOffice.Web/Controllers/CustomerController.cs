@@ -902,39 +902,7 @@ namespace BackOffice.Web.Controllers
                 oReturn.Add(oMenuAux);
 
                 #endregion
-
-                #region aditional documents
-
-                //header
-                oMenuAux = new Models.General.GenericMenu()
-                {
-                    Name = "Documentos Adicionales",
-                    Position = 4,
-                    ChildMenu = new List<Models.General.GenericMenu>(),
-                };
-
-                //Company User
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Agregar documentos por módulo",
-                    Url = Url.Action
-                        (MVC.Customer.ActionNames.ADAditionalDocumentsUpsert,
-                        MVC.Customer.Name,
-                        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
-                    Position = 0,
-                    IsSelected =
-                        (oCurrentAction == MVC.Customer.ActionNames.ADAditionalDocumentsUpsert &&
-                        oCurrentController == MVC.Customer.Name),
-                });
-
-                //get is selected menu
-                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                //add menu
-                oReturn.Add(oMenuAux);
-
-                #endregion
-
+                
                 #region Project config
 
                 ////header
