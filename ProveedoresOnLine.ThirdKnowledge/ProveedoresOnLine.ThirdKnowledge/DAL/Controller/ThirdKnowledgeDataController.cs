@@ -65,6 +65,20 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
         }
         #endregion
 
+        #region Queries
+
+        public string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, bool Enable)
+        {
+            return DataFactory.QueryInsert(PeriodPublicId, SearchType, User, isSuccess, Enable);
+        }
+
+        public int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.QueryInfoInsert(QueryPublicId, ItemInfoType, Value, LargeValue, Enable);
+        }
+
+        #endregion
+
         #region Utils
         public List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()
         {

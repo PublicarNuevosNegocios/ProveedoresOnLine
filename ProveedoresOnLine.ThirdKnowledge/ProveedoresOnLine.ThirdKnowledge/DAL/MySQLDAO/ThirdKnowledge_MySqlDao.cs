@@ -275,10 +275,10 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              pinf.Field<int>("PlanId") == cmg.Key.PlanId
                              group pinf by new
                              {
-                                 PeriodPublicId = pinf.Field<string>("PeriodPublicId"),
+                                 PeriodPublicId = pinf.Field<string>("PeriodPublicId"),                                 
                                  AssignedQueries = pinf.Field<int>("AssignedQueries"),
-                                 InitDate = pinf.Field<DateTime>("InitDate"),
-                                 EndDate = pinf.Field<DateTime>("EndDate"),
+                                 InitDate = pinf.Field<DateTime>("PerInitDate"),
+                                 EndDate = pinf.Field<DateTime>("PerEndDate"),
                                  TotalQueries = pinf.Field<int>("TotalQueries"),
                                  Enable = pinf.Field<UInt64>("PeriodEnable") == 1 ? true : false,
                                  LastModify = pinf.Field<DateTime>("LastModify"),
@@ -287,6 +287,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              select new PeriodModel()
                              {
                                  AssignedQueries = pinfgr.Key.AssignedQueries,
+                                 PlanPublicId = cmg.Key.PlanPublicId,
                                  PeriodPublicId = pinfgr.Key.PeriodPublicId,
                                  InitDate = pinfgr.Key.InitDate,
                                  EndDate = pinfgr.Key.EndDate,
@@ -300,7 +301,56 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             }
             return oReturn;
         }
-        
+
+        #region Queries
+
+        public string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIsSuccess", isSuccess == true ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "MP_TK_QueryInsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            if (response.ScalarResult != null)
+                return response.ScalarResult.ToString();
+            else
+                return null;
+        }
+
+        public int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vItemInfoType", ItemInfoType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "MP_TK_QueryInfoInsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        #endregion
+
         #endregion
 
         #region Util

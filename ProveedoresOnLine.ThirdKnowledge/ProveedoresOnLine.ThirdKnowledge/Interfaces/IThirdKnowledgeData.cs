@@ -24,6 +24,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         #endregion
 
+        #region Queries
+
+        string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, bool Enable);
+
+        int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable);
+
+        #endregion
+
         #region Utils
 
         List<TDCatalogModel> CatalogGetThirdKnowledgeOptions();

@@ -92,6 +92,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         }
         #endregion
 
+        #region MarketPlace
+
         public static List<PeriodModel> CalculatePeriods(PlanModel oPlanToReCalculate)
         {
             int DiferenceInDays;
@@ -190,5 +192,61 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(oPeriodModel.PeriodPublicId,
                        oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
         }
+ 
+        #endregion
+
+        #region Queries
+
+        public static TDQueryModel QueryInsert(TDQueryModel QueryModelToUpsert)
+        {
+            if (QueryModelToUpsert != null &&
+                !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId) &&
+                QueryModelToUpsert.RelatedQueryInfoModel != null &&
+                QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
+            {
+
+                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryInsert(QueryModelToUpsert.PeriodPublicId,
+                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User,QueryModelToUpsert.IsSuccess,true);
+                
+                QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>
+                {
+                    //LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        qInf.QueryInfoId = 
+                           ThirdKnowledgeDataController.Instance.QueryInfoInsert
+                            (QueryModelToUpsert.QueryPublicId,
+                            qInf.ItemInfoType.ItemId,qInf.Value, qInf.LargeValue, true);
+                                        
+                        //oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        //oLog.IsSuccess = false;
+                        //oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        //oLog.LogObject = plegal;
+
+                        //oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        //{
+                        //    LogInfoType = "CompanyPublicId",
+                        //    Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                        //});
+
+                        //LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return QueryModelToUpsert;
+        }
+
+        #endregion
     }
 }

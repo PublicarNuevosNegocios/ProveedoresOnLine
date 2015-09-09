@@ -70,26 +70,37 @@ namespace MarketPlace.Web.Controllers
 
                 if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
                 {
+                    oModel.RelatedThirdKnowledge.HasPlan = true;
+
                     //Get The Most Recently Period When Plan is More Than One
                     oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
 
+                    #region Upsert Process
                     //TODO: Put the Alert?
                     if (Request["UpsertRequest"] == "true")
                     {
                         oModel.RelatedThirdKnowledge.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
                                            Request["IdentificationNumber"], Request["Name"]);
-                    }
 
-                    //Set Current Sale
-                    if (oModel.RelatedThirdKnowledge != null)
-                    {
-                        oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+                        //Set Current Sale
+                        if (oModel.RelatedThirdKnowledge != null && oModel.RelatedThirdKnowledge.CollumnsResult.Count > 0)
+                        {
+                            //Save Query 
 
-                        //Period Upsert
-                        oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
-                            oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
-                    }
+                            //Set New Score
+                            oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+
+                            //Period Upsert
+                            oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
+                                oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                        }
+                        else
+                        {
+                            // Save whit bad status
+                        }
+                    }    
+                    #endregion                 
                 }
                 else
                 {
