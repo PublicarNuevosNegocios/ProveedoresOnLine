@@ -11,6 +11,8 @@ namespace MarketPlace.Models.Provider
     {
         public bool RenderScripts { get; set; }
 
+        public string  ResultTest { get; set; }
+
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; set; }
 
         public ProviderLiteViewModel RelatedLiteProvider { get; set; }

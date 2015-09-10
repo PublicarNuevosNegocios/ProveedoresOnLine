@@ -64,6 +64,34 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         }
 
+        public static string TestSimpleRequest(string PeriodPublicId, string IdentificationNumber, string Name, TDQueryModel oQueryToCreate)
+        {
+            try
+            {
+                #region Set User Service
+                WS_Inspektor.Autenticacion oAuth = new WS_Inspektor.Autenticacion();
+                WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient();
+                #endregion
+
+                List<PlanModel> oPlanModel = new List<PlanModel>();
+                PeriodModel oCurrentPeriod = new PeriodModel();
+
+                oAuth.UsuarioNombre = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServiceUser].Value;
+                oAuth.UsuarioClave = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServicePass].Value;
+
+                //WS Request
+                string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
+
+                return oResutl;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         #region Config
 
         public static PlanModel PlanUpsert(PlanModel oPlanModelToUpsert)

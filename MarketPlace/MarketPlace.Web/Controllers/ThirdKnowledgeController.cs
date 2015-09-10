@@ -80,6 +80,7 @@ namespace MarketPlace.Web.Controllers
                     if (Request["UpsertRequest"] == "true")
                     {
                         //Set Current Sale
+                        #region No Borrar
                         if (oModel.RelatedThirdKnowledge != null)
                         {
                             //Save Query 
@@ -118,7 +119,13 @@ namespace MarketPlace.Web.Controllers
                                },
                                User = SessionModel.CurrentLoginUser.Email,
                            };
-                        }
+                        } 
+                        #endregion
+
+                        TDQueryModel oQueryToCreate1 = new TDQueryModel();
+                        oModel.ResultTest = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.TestSimpleRequest(oCurrentPeriodList.FirstOrDefault().
+                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                                           Request["IdentificationNumber"], Request["Name"], oQueryToCreate1);
                     }
                     #endregion
                 }

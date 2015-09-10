@@ -21,9 +21,12 @@
     </div>
 </form>
 
+<div>@Model.ResultTest</div>
 
 @{
-    if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.CollumnsResult != null && Model.RelatedThirdKnowledge.CollumnsResult.Count > 0)
+    
+    
+    @*if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.CollumnsResult != null && Model.RelatedThirdKnowledge.CollumnsResult.Count > 0)
     {
         Model.RelatedThirdKnowledge.CollumnsResult = Model.RelatedThirdKnowledge.CollumnsResult.Where(x => x.Count() > 1).ToList();
         if (Model.RelatedThirdKnowledge.CollumnsResult.Count != 0)
@@ -57,7 +60,7 @@
                 </div>
             </div>
         }
-    }
+    }*@
 }
 
 
