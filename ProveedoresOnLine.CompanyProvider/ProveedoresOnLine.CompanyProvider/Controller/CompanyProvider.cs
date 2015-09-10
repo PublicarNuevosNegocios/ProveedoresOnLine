@@ -1210,6 +1210,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchById(CustomerPublicId, lstProviderPublicId);
         }
 
+        public static ProviderModel MPGetBasicInfo(string ProviderPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPGetBasicInfo(ProviderPublicId);
+        }
+
         public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);

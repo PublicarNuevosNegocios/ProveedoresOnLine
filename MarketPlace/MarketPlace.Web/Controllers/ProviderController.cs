@@ -194,12 +194,15 @@ namespace MarketPlace.Web.Controllers
             }
             else
             {
+                // GET ALL BASIC INFO
+                ProviderModel response = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPGetBasicInfo(ProviderPublicId);
+
                 #region Basic Info
 
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = response.RelatedCompany;
 
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
+                oModel.ContactCompanyInfo = response.ContactCompanyInfo;
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
 
                 if (oModel.ContactCompanyInfo != null)
@@ -215,7 +218,7 @@ namespace MarketPlace.Web.Controllers
 
                 #region Legal Info
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = response.RelatedLegal;
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
@@ -228,36 +231,15 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion Legal Info
 
-                #region Branch Info
-
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
-
-                if (oModel.ContactCompanyInfo != null)
-                {
-                    oModel.ContactCompanyInfo.All(x =>
-                    {
-                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
-                        return true;
-                    });
-                }
-
-                #endregion Branch Info
-
                 #region Black List Info
 
-                oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
+                oModel.RelatedBlackListInfo = response.RelatedBlackList;
 
                 #endregion Black List Info
 
-                #region Tracking Info
-
-                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-
-                #endregion Tracking Info
-
                 #region Basic Financial Info
 
-                List<GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+                List<GenericItemModel> oFinancial = response.RelatedFinantial;
                 oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
 
                 if (oFinancial != null)
@@ -286,8 +268,7 @@ namespace MarketPlace.Web.Controllers
 
                 #region K_Contract Info
 
-                List<GenericItemModel> oRelatedKContractInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.KRecruitment, true);
-
+                List<GenericItemModel> oRelatedKContractInfo = response.RelatedKContractInfo;
                 oModel.RelatedKContractInfo = new List<ProviderFinancialViewModel>();
                 if (oRelatedKContractInfo != null)
                 {
@@ -300,36 +281,28 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion K_Contract Info
 
-                //Get Engagement info
-
                 #region HSEQ
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = response.RelatedCertification;
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null
                 && oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Count > 0)
                 {
-                    List<GenericItemModel> basicCert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
+                    List<GenericItemModel> basicCert = response.RelatedCertificationBasic;
                     if (basicCert != null && basicCert.Count > 0)
                     {
                         oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(basicCert);
                     }
-                }
 
-                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
-                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
-                {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
                 }
-                else
-                {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
-                }
 
-                oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetSpecificCert(ProviderPublicId);
+                oModel.RelatedCertificationBasicInfo = response.RelatedCertificationBasicInfo;
 
                 #endregion HSEQ
 
@@ -564,7 +537,6 @@ namespace MarketPlace.Web.Controllers
 
                 oDesignations = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Designations);
                 oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
-                int oTotalRows;
 
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
@@ -1471,6 +1443,8 @@ namespace MarketPlace.Web.Controllers
 
         #endregion HSEQ Info
 
+        #region Aditional Document Info
+
         public virtual ActionResult ADAditionalDocument(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
@@ -1500,7 +1474,6 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 //get provider view model
-
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPAditionalDocumentGetBasicInfo(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -1525,6 +1498,8 @@ namespace MarketPlace.Web.Controllers
 
             return View(oModel);
         }
+
+        #endregion Aditional Document Info
 
         #region Survey
 
@@ -3391,7 +3366,7 @@ namespace MarketPlace.Web.Controllers
                         //add menu
                         oReturn.Add(oMenuAux);
 
-                        #endregion
+                        #endregion Aditional Documents
                     }
 
                     if (module == (int)enumMarketPlaceCustomerModules.ProviderBasicInfo)

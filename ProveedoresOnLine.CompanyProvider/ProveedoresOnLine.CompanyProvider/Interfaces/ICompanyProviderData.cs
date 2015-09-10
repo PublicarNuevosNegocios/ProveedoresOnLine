@@ -1,10 +1,6 @@
 ﻿using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyProvider.Interfaces
 {
@@ -18,7 +14,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, bool Enable);
 
-        #endregion
+        #endregion Commercial
 
         #region Certification
 
@@ -28,7 +24,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType, bool Enable);
 
-        #endregion
+        #endregion Certification
 
         #region Financial
 
@@ -44,7 +40,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> BalanceSheetGetCompanyAverage(string CompanyPublicId, int Year);
 
-        #endregion
+        #endregion Financial
 
         #region Legal
 
@@ -54,7 +50,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable);
 
-        #endregion
+        #endregion Legal
 
         #region BlackList
 
@@ -64,7 +60,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<BlackListModel> BlackListGetBasicInfo(string CompanyPublicId);
 
-        #endregion
+        #endregion BlackList
 
         #region Aditional Documents
 
@@ -74,13 +70,13 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable);
 
-        #endregion
+        #endregion Aditional Documents
 
         #region Util
 
         List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions();
 
-        #endregion
+        #endregion Util
 
         #region MarketPlace
 
@@ -93,10 +89,12 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilterNew(string CustomerPublicId, string SearchParam, string SearchFilter, bool OtherProviders);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter);
-        
-        #endregion
+
+        #endregion SearchProviders
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId);
+
+        ProviderModel MPGetBasicInfo(string ProviderPublicId);
 
         Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId);
 
@@ -128,18 +126,18 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId);
 
-        #endregion
+        #endregion MarketPlace
 
         #region BatchProcess
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders();
 
-        #endregion
+        #endregion BatchProcess
 
         #region Charts
 
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId);
 
-        #endregion
+        #endregion Charts
     }
 }

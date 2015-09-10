@@ -1,9 +1,5 @@
 ﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 {
@@ -12,6 +8,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         #region singleton instance
 
         private static ProveedoresOnLine.CompanyProvider.Interfaces.ICompanyProviderData oInstance;
+
         internal static ProveedoresOnLine.CompanyProvider.Interfaces.ICompanyProviderData Instance
         {
             get
@@ -24,7 +21,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         private ProveedoresOnLine.CompanyProvider.Interfaces.ICompanyProviderData DataFactory;
 
-        #endregion
+        #endregion singleton instance
 
         #region Constructor
 
@@ -34,7 +31,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             DataFactory = factory.GetCompanyProviderInstance();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Commercial
 
@@ -53,7 +50,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CommercialGetBasicInfo(CompanyPublicId, CommercialType, Enable);
         }
 
-        #endregion
+        #endregion Commercial
 
         #region Certification
 
@@ -72,7 +69,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType, Enable);
         }
 
-        #endregion
+        #endregion Certification
 
         #region Financial
 
@@ -106,7 +103,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BalanceSheetGetCompanyAverage(CompanyPublicId, Year);
         }
 
-        #endregion
+        #endregion Financial
 
         #region Legal
 
@@ -125,7 +122,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType, Enable);
         }
 
-        #endregion
+        #endregion Legal
 
         #region Aditional Documents
 
@@ -144,7 +141,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.AditionalDocumentGetBasicInfo(CompanyPublicId, Enable);
         }
 
-        #endregion
+        #endregion Aditional Documents
 
         #region BlackList
 
@@ -163,7 +160,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BlackListGetBasicInfo(CompanyPublicId);
         }
 
-        #endregion
+        #endregion BlackList
 
         #region Util
 
@@ -172,7 +169,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CatalogGetProviderOptions();
         }
 
-        #endregion
+        #endregion Util
 
         #region MarketPlace
 
@@ -198,11 +195,16 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPProviderSearchFilterNew(CustomerPublicId, SearchParam, SearchFilter, OtherProviders);
         }
 
-        #endregion
+        #endregion SearchProviders
 
         public List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
         {
             return DataFactory.MPProviderSearchById(CustomerPublicId, lstProviderPublicId);
+        }
+
+        public ProviderModel MPGetBasicInfo(string ProviderPublicId)
+        {
+            return DataFactory.MPGetBasicInfo(ProviderPublicId);
         }
 
         public Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
@@ -272,7 +274,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         public int MPReportInfoUpsert(int ReportId, int? ReportInfoId, int ReportInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.MPReportInfoUpsert(ReportId, ReportInfoId, ReportInfoTypeId,Value,LargeValue, Enable);
+            return DataFactory.MPReportInfoUpsert(ReportId, ReportInfoId, ReportInfoTypeId, Value, LargeValue, Enable);
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId)
@@ -280,7 +282,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPAditionalDocumentGetBasicInfo(CustomerPublicId, ProviderPublicId);
         }
 
-        #endregion
+        #endregion MarketPlace
 
         #region BatchProcess
 
@@ -289,14 +291,15 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BPGetRecruitmentProviders();
         }
 
-        #endregion         
-    
+        #endregion BatchProcess
+
         #region Charts
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId)
         {
             return DataFactory.GetProvidersByState(CompanyPublicId);
         }
-        #endregion
+
+        #endregion Charts
     }
 }
