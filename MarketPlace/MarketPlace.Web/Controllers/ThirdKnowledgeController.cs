@@ -120,12 +120,7 @@ namespace MarketPlace.Web.Controllers
                                User = SessionModel.CurrentLoginUser.Email,
                            };
                         } 
-                        #endregion
-
-                        TDQueryModel oQueryToCreate1 = new TDQueryModel();
-                        oModel.ResultTest = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.TestSimpleRequest(oCurrentPeriodList.FirstOrDefault().
-                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
-                                           Request["IdentificationNumber"], Request["Name"], oQueryToCreate1);
+                        #endregion                       
                     }
                     #endregion
                 }
