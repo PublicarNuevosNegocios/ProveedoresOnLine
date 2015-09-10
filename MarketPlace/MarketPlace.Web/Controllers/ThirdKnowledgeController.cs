@@ -26,7 +26,7 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult TKSingleSearch()
         {
             ProviderViewModel oModel = new ProviderViewModel();
-            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel(); // TODO: Pendiente por quitar
+            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel(); 
             List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
 
             try

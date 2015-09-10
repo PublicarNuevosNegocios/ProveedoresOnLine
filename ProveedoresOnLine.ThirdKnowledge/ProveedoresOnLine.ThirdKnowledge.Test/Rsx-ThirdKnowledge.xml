@@ -6,7 +6,7 @@
     <key name="ThirdKnowedge_AuthServiceUser">W5-Pub1ic@r</key>
 
     <!--WS_ThirdKnowedge-->
-    <key name="ThirdKnowedge_AuthServicePass">D6-E9$C3S6Q#5WW</key>
+    <key name="ThirdKnowedge_AuthServicePass"><![CDATA[{D6-E9$C3S6Q#5WW&5@}]]></key>
     
   </ThirdKnowledge>
 </Settings>
