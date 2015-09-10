@@ -343,11 +343,6 @@
     <Compile Include="ReportController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Service References\WS_Inspector\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="StatsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1256,24 +1251,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Service References\WS_Inspector\MarketPlace.Web.WS_Inspector.ConsultaInspektorResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <None Include="Service References\WS_Inspector\wsinspektor.wsdl" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml" />
-    <None Include="Service References\WS_Inspector\wsinspektor.disco" />
-    <None Include="Service References\WS_Inspector\configuration91.svcinfo" />
-    <None Include="Service References\WS_Inspector\configuration.svcinfo" />
-    <None Include="Service References\WS_Inspector\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1376,9 +1360,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Areas\Desktop\Reports\SV_Report_SurveyDetail.rdlc" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\WS_Inspector\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

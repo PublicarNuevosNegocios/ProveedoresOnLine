@@ -76,9 +76,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 List<PlanModel> oPlanModel = new List<PlanModel>();
                 PeriodModel oCurrentPeriod = new PeriodModel();
 
-                oAuth.UsuarioNombre = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServiceUser].Value;
-                oAuth.UsuarioClave = ProveedoresOnLine.ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_AuthServicePass].Value;
-
+                oAuth.UsuarioNombre = "W5-Pub1ic@r";
+                oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
                 //WS Request
                 string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
 
