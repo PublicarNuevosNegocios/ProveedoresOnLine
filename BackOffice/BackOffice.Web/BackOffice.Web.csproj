@@ -1121,7 +1121,6 @@
     <Content Include="Views\Customer\PCEvaluationItemShowCriteria.cshtml" />
     <Content Include="Views\Customer\TDAssignedPlan.cshtml" />
     <Content Include="Views\Customer\ADAditionalDocumentsUpsert.cshtml" />
-    <Content Include="Views\Shared\_F_FileTemplateFormUpload.cshtml" />
     <Content Include="Views\Provider\ADAditionalDocuments.cshtml" />
   </ItemGroup>
   <ItemGroup>

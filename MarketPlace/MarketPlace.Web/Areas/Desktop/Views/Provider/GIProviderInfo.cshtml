@@ -138,30 +138,6 @@
                         </div>
 
                     }
-                    if (Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203011).Select(x => x).ToList().Count > 0)
-                    {
-                        <div class="col-xs-12">
-                            <div class="col-xs-12">
-                                <label>
-                                    Formulario Esenttia
-                                </label>
-                            </div>
-                            <div class="col-xs-12">
-                                @{string CompanyInfoValueAux = string.Empty;
-                                CompanyInfoValueAux = Model.RelatedLiteProvider.
-                                RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == 203011).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault();
-                                <a target="_blank" href="@CompanyInfoValueAux">Ver archivo</a>
-                                }
-                            </div>
-                        </div>
-
-                    }
                     if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
                     {
                         <div class="col-xs-12" id="POMPSocialObject">

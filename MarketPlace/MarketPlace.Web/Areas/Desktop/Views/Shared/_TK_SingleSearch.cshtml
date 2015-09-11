@@ -4,15 +4,15 @@
 
 @if (Model.RelatedThirdKnowledge.HasPlan)
 {
-    <label>Periodo Actual</label>
-    <label class="">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
-
-    <label>Consultas</label>
-    <label>@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
-
-    <label>De</label>
-    <label>@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
-
+    <div class="container-fluid">
+            <div class="col-xs-8" id="POMPCurrentPeriod">
+                <label>Periodo Actual @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
+            </div>
+            <div class="col-xs-4" id="POMPConsults">
+                <label>Consultas @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+                <label>De @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
+            </div>
+    </div>
 }
 
 <form id="ThirdKnowledge_Form" action="@Url.Content("~/api/ThirdKnowledgeApi?TKSingleSearch=true")" method="post">
@@ -27,10 +27,10 @@
             }
             else
             {
-                <label>Usted no tiene un plán habilitado, por favor contactenos</label>
+                <label>Usted no tiene un plán habilitado, por favor contactenos</label>   
             }
         }
-
+        
     </div>
     <div class="" >
         <ul id="ThirdKnowledge_DivResult" class="POMPProviderInfoMultipleValues"></ul>       
@@ -39,7 +39,7 @@
 
 @*Templates*@
 
-
+    
 
 <script type="text/javascript">
     $(document).ready(function () {
