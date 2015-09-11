@@ -15,7 +15,7 @@
 
 }
 
-<form method="post" action="@(Url.Action(MVC.ThirdKnowledge.ActionNames.TKSingleSearch,MVC.ThirdKnowledge.Name))">
+<form id="ThirdKnowledge_Form" action="@Url.Content("~/api/ThirdKnowledgeApi?TKSingleSearch=true")" method="post">
     <div>
         <input type="text" class="POMPNameSearch" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
         <input type="text" class="POMPIDSearch" name="IdentificationNumber" value="" placeholder="Buscar por Número de identificación" />
@@ -23,57 +23,30 @@
         @{
             if (Model.RelatedThirdKnowledge.HasPlan)
             {
-                <input type="submit" class="POMPConsultButton" name="Consultar" value="Consultar" id="ConsultarId" />
+                <a class="POMPButtons" href="javascript:Third_KnowledgeSimpleSearchObject.SimpleSearch();">Consultar</a>
             }
             else
             {
-                <label>Usted no tiene un plán habilitado, por favor contactenos</label>   
+                <label>Usted no tiene un plán habilitado, por favor contactenos</label>
             }
         }
-        
+
+    </div>
+    <div class="" >
+        <ul id="ThirdKnowledge_DivResult" class="POMPProviderInfoMultipleValues"></ul>       
     </div>
 </form>
 
-@*<div>@Model.ResultTest</div>*@
+@*Templates*@
 
-@{   
-    
-    if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.CollumnsResult != null && Model.RelatedThirdKnowledge.CollumnsResult.Count > 0)
-    {
-        Model.RelatedThirdKnowledge.CollumnsResult = Model.RelatedThirdKnowledge.CollumnsResult.Where(x => x.Count() > 1).ToList();
-        if (Model.RelatedThirdKnowledge.CollumnsResult.Count != 0)
-        {
-            <div class="POMPProviderInfoMultipleValues">
-                <div class="POMPWrapperColorResult">
-                    <span id="POMPResultText">
-                        Resultados de la búsqueda:
-                    </span>
 
-                    @foreach (var Row in Model.RelatedThirdKnowledge.CollumnsResult)
-                    {                                                
-                        <div class="POMPContainerResult">
-                            <div id="POMPResultName">
-                                <p> @Row[4] </p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <p> @Row[3]</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <p> @Row[1]</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <p> @Row[6]</p>
-                            </div>
-                            <div class="POMPResultDownload">
-                                <p>Ver Detalle</p>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-    }
-}
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        Third_KnowledgeSimpleSearchObject.Init({
+            ObjectId: 'ThirdKnowledge',
+        });
+    });
+</script>
 
 
