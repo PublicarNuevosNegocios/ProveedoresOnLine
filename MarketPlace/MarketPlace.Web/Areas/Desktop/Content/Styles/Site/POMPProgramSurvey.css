@@ -860,3 +860,19 @@ textarea#Survey_ProgramSurvey_Comments {
 .POMPWarning{
     color: #f08a24 ;
 }
+
+#POMPCurrentPeriod{
+    margin-top:20px;
+    
+}
+
+#POMPConsults{
+    text-align:right;
+    margin-top:20px;
+    
+}
+
+#POMPConsults > label{
+    font-weight:lighter;
+    font-size:1.1em;
+}

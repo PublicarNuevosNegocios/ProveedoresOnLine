@@ -2,6 +2,19 @@
 
 <label class="POMPSectionTitles">Consulta Individual de terceros</label>
 
+@if (Model.RelatedThirdKnowledge.HasPlan)
+{
+    <div class="container-fluid">
+            <div class="col-xs-8" id="POMPCurrentPeriod">
+                <label>Periodo Actual @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
+            </div>
+            <div class="col-xs-4" id="POMPConsults">
+                <label>Consultas @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+                <label>De @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
+            </div>
+    </div>
+}
+
 <form method="post" action="@(Url.Action(MVC.ThirdKnowledge.ActionNames.TKSingleSearch,MVC.ThirdKnowledge.Name))">
     <div>
         <input type="text" class="POMPNameSearch" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
@@ -14,17 +27,17 @@
             }
             else
             {
-                <label>Usted no tiene un plán habilitado, por favor contactenos</label>   
+                <label>Usted no tiene un plán habilitado, por favor contactenos</label>
             }
         }
-        
+
     </div>
 </form>
 
 @*<div>@Model.ResultTest</div>*@
 
-@{   
-    
+@{
+
     if (Model.RelatedThirdKnowledge != null && Model.RelatedThirdKnowledge.CollumnsResult != null && Model.RelatedThirdKnowledge.CollumnsResult.Count > 0)
     {
         Model.RelatedThirdKnowledge.CollumnsResult = Model.RelatedThirdKnowledge.CollumnsResult.Where(x => x.Count() > 1).ToList();
@@ -37,7 +50,7 @@
                     </span>
 
                     @foreach (var Row in Model.RelatedThirdKnowledge.CollumnsResult)
-                    {                                                
+                    {
                         <div class="POMPContainerResult">
                             <div id="POMPResultName">
                                 <p> @Row[4] </p>
