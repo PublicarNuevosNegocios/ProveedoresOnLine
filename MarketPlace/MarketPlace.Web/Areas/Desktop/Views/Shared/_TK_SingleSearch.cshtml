@@ -2,6 +2,19 @@
 
 <label class="POMPSectionTitles">Consulta Individual de terceros</label>
 
+@if (Model.RelatedThirdKnowledge.HasPlan)
+{
+    <label>Periodo Actual</label>
+    <label class="">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
+
+    <label>Consultas</label>
+    <label>@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+
+    <label>De</label>
+    <label>@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
+
+}
+
 <form method="post" action="@(Url.Action(MVC.ThirdKnowledge.ActionNames.TKSingleSearch,MVC.ThirdKnowledge.Name))">
     <div>
         <input type="text" class="POMPNameSearch" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
