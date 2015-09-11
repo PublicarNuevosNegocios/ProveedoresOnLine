@@ -1562,7 +1562,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              ProjectInfoTypeName = pjinf.Field<string>("ProjectInfoTypeName"),
                              ProjectInfoValue = pjinf.Field<string>("ProjectInfoValue"),
                              ProjectInfoLargeValue = pjinf.Field<string>("ProjectInfoLargeValue"),
-                             ProjectInfoValueName = pjinf.Field<string>("ProjectInfoValueName"),
+                             //ProjectInfoValueName = pjinf.Field<string>("ProjectInfoValueName"),
                          } into pjinfg
                          select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                          {
@@ -1574,7 +1574,13 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              },
                              Value = pjinfg.Key.ProjectInfoValue,
                              LargeValue = pjinfg.Key.ProjectInfoLargeValue,
-                             ValueName = pjinfg.Key.ProjectInfoValueName,
+                             //ValueName = pjinfg.Key.ProjectInfoValueName,
+                             ValueName = pjinfg.Key.ProjectInfoTypeId == 1407005 || pjinfg.Key.ProjectInfoTypeId == 1407006 ?
+                                string.Join(";",
+                                (from pjinfv in response.DataSetResult.Tables[0].AsEnumerable()
+                                 where !pjinfv.IsNull("ProjectInfoValueName") &&
+                                        pjinfv.Field<int>("ProjectInfoId") == pjinfg.Key.ProjectInfoId
+                                 select pjinfv.Field<string>("ProjectInfoValueName"))) : string.Empty,
                          }).ToList(),
 
                     #endregion
