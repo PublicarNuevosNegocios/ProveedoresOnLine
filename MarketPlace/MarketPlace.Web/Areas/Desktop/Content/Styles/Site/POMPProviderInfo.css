@@ -209,3 +209,10 @@ label.POMPProviderInfoContractName {
     width: 98.3% !important;
 }
 
+/**************** LISTAS RESTRICTIVAS ******************/
+.POMPProviderRestrictiveLIstSeparator {
+    height: 1px;
+    border-color: #E4E4E4;
+    width: 100%;
+}
+
