@@ -106,38 +106,23 @@ namespace MarketPlace.Models.Project
                 {
                     string[] strSplit = strExpYear.Split('_');
                     if (strSplit.Length >= 3)
-                    {                        
+                    {
                         if (strSplit[1].Replace(" ", "") != "0")
                         {
                             int years = Int32.Parse(strSplit[1]);
 
-                            if(years == 0)
+                            if (years == 0)
                             {
                                 oReturn = "";
                             }
-                            else if(years == 1)
+                            else if (years == 1)
                             {
                                 oReturn = "el ultimo año";
                             }
-                            else 
+                            else
                             {
                                 oReturn = "los últimos " + strSplit[1] + " años";
-                            }        
-                                               
-                            //switch ((MarketPlace.Models.General.enumProjectOperator)Convert.ToInt32(strSplit[2].Replace(" ", "")))
-                            //{
-                            //    case MarketPlace.Models.General.enumProjectOperator.Equal:
-                                    
-                            //        break;
-                            //    case MarketPlace.Models.General.enumProjectOperator.Higher:
-                            //        oReturn = "los ultimos " + strSplit[1] + " años";
-                            //        break;
-                            //    case MarketPlace.Models.General.enumProjectOperator.GreaterOrEqual:
-                            //        oReturn = "los ultimos " + strSplit[1] + " años";
-                            //        break;
-                            //    default:
-                            //        break;
-                            //}
+                            }
                         }
                     }
                 }

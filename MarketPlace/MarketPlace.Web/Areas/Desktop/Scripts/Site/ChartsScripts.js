@@ -43,7 +43,7 @@ var Survey_ChartsObject = {
                         else if (topping == "Enviada") {
                             SearchFilter = 1206002;
                         }
-                        else if (topping == "En progreso") {
+                        else if (topping == "En Progreso") {
                             SearchFilter = 1206003;
                         }
                         else if (topping == "Finalizada") {
@@ -419,28 +419,28 @@ var Providers_ChartsObject = {
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
                         var SearchFilter = 0;
-                        if (topping == "En creación Nacional") {
+                        if (topping == "En Creación Nacional") {
                             SearchFilter = 902001;
                         }
-                        else if (topping == "En proceso Nacional") {
+                        else if (topping == "En Proceso Nacional") {
                             SearchFilter = 902002;
                         }
-                        else if (topping == "En actualización") {
+                        else if (topping == "En Actualización") {
                             SearchFilter = 902003;
                         }
-                        else if (topping == "Validado doc. básica Nacional") {
+                        else if (topping == "Validado Documentación Básica Nacional") {
                             SearchFilter = 902004;
                         }
-                        else if (topping == "Validado doc. completa Nacional") {
+                        else if (topping == "Validado Documentación Completa Nacional") {
                             SearchFilter = 902005;
                         }
-						else if (topping == "En creación Extranjero") {
+						else if (topping == "En Creación Extranjero") {
                             SearchFilter = 902006;
                         }
-						else if (topping == "En proceso Extranjero") {
+						else if (topping == "En Proceso Extranjero") {
                             SearchFilter = 902007;
                         }
-						else if (topping == "Validado doc. completa Extranjero") {
+						else if (topping == "Validado Documentación Completa Extranjero") {
                             SearchFilter = 902008;
                         }
 

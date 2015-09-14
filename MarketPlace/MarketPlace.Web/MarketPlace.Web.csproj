@@ -272,6 +272,7 @@
     <Compile Include="ControllersApi\ReportApiController.cs" />
     <Compile Include="ControllersApi\CompanyApiController.cs" />
     <Compile Include="ControllersApi\ProjectApiController.cs" />
+    <Compile Include="ControllersApi\ThirdKnowledgeApiController.cs" />
     <Compile Include="ControllersApi\SurveyApiController.cs" />
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\CompareApiController.cs" />
@@ -613,6 +614,7 @@
     <Content Include="Areas\Desktop\Scripts\Site\ReportScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\ProjectScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\ChartsScripts.js" />
+    <Content Include="Areas\Desktop\Scripts\Site\ThirdKnowledgeScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\SurveyScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\GeneralScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\CompareScripts.js" />

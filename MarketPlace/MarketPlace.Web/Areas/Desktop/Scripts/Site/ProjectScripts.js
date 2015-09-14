@@ -192,13 +192,13 @@ var Project_ProjectDetailObject = {
                                 type: "POST",
                                 url: $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').attr('action'),
                                 data: $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').serialize(),
-                                success: function (result) {
+                                success: function (result) {                                    
                                     Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectRecalculateUrl);
                                     window.location = Project_ProjectDetailObject.ProjectRecalculateUrl;
                                     $(this).dialog('close');
                                 },
                                 error: function (result) {
-                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectRecalculateUrl);
+                                    Dialog_ShowMessage('Proceso de selección', 'Ha ocurrido un error en la actualziación', Project_ProjectDetailObject.ProjectRecalculateUrl);
                                     window.location = Project_ProjectDetailObject.ProjectRecalculateUrl;
                                     $(this).dialog('close');
                                 }
