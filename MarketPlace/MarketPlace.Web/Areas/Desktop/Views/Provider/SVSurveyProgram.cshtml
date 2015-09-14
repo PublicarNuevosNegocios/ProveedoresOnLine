@@ -61,7 +61,7 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <div class="col-xs-12">
-                                    <label>Fecha de envío:</label>
+                                    <label>Fecha de Envío:</label>
                                 </div>
                                 <div class="col-xs-12">
                                     <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyIssueDate.ToString();}" />
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-xs-4">
                                 <div class="col-xs-12">
-                                    <label>Fecha de caducidad:</label>
+                                    <label>Fecha de Caducidad:</label>
                                 </div>
                                 <div class="col-xs-12">
                                     <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ExpirationDate" placeholder="yyyy-MM-dd" required validarionmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).ToString())_" value="@if (Model.RelatedSurvey != null) { @Model.RelatedSurvey.SurveyExpirationDate.ToString();}" />

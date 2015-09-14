@@ -3255,7 +3255,7 @@ namespace MarketPlace.Web.Controllers
                         //Company healty politic
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
-                            Name = "Política de seguridad, salud y Medio Ambiente",
+                            Name = "Política de Seguridad, Salud y Medio Ambiente",
                             Url = Url.RouteUrl
                                     (Models.General.Constants.C_Routes_Default,
                                     new

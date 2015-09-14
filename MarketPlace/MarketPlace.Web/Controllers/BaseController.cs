@@ -105,7 +105,7 @@ namespace MarketPlace.Web.Controllers
                     //Modulo de Proceso de Selección
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Proceso de selección",
+                        Name = "Proceso de Selección",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -186,7 +186,7 @@ namespace MarketPlace.Web.Controllers
                     //Conocimiento de terceros
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Conocimiento de terceros",
+                        Name = "Conocimiento de Terceros",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,
