@@ -22,6 +22,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable);
 
+        List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchType, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
+
         #endregion
 
         #region Queries

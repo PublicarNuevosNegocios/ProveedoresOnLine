@@ -53,5 +53,16 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
 
             Assert.IsNull(oPeriodModel);     
         }
+
+        [TestMethod]
+        public void ThirdKnoledgeSearch()
+        {
+            int TotalRows = 0;
+
+            List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnoledgeSearch
+                ("DA5C572E", 201001, 1, true, 0, 10000, out TotalRows);
+
+            Assert.AreEqual(true, oReturn != null);
+        }
     }
 }
