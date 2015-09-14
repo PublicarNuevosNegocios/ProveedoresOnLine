@@ -103,7 +103,7 @@ namespace MarketPlace.Web.Controllers
                                     controller = MVC.Stats.Name,
                                     action = MVC.Stats.ActionNames.STSurveyStats
                                 }),
-                        Position = 0,
+                        Position = 1,
                         IsSelected =
                             (oCurrentAction == MVC.Stats.ActionNames.STSurveyStats &&
                             oCurrentController == MVC.Stats.Name)
@@ -125,7 +125,7 @@ namespace MarketPlace.Web.Controllers
                                     controller = MVC.Stats.Name,
                                     action = MVC.Stats.ActionNames.STProjectStats,
                                 }),
-                        Position = 0,
+                        Position = 2,
                         IsSelected =
                             (oCurrentAction == MVC.Stats.ActionNames.STProjectStats &&
                             oCurrentController == MVC.Stats.Name)
