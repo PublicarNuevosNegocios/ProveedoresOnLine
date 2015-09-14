@@ -3415,7 +3415,7 @@ namespace MarketPlace.Web.Controllers
                         //header
                         oMenuAux = new GenericMenu()
                         {
-                            Name = "Evaluación de desempeño",
+                            Name = "Evaluación de Desempeño",
                             Position = 5,
                             ChildMenu = new List<GenericMenu>(),
                         };
@@ -3423,7 +3423,7 @@ namespace MarketPlace.Web.Controllers
                         //survey list
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
-                            Name = "Lista de evaluaciónes",
+                            Name = "Lista de Evaluaciones",
                             Url = Url.RouteUrl
                                     (Models.General.Constants.C_Routes_Default,
                                     new
@@ -3442,7 +3442,7 @@ namespace MarketPlace.Web.Controllers
                         //survey list
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
-                            Name = "Reportes de evaluaciónes",
+                            Name = "Reportes de Evaluaciones",
                             Url = Url.RouteUrl
                                     (Models.General.Constants.C_Routes_Default,
                                     new
@@ -3462,7 +3462,7 @@ namespace MarketPlace.Web.Controllers
                             //survey list
                             oMenuAux.ChildMenu.Add(new GenericMenu()
                             {
-                                Name = "Programar evaluación",
+                                Name = "Programar Evaluación",
                                 Url = Url.RouteUrl
                                         (Models.General.Constants.C_Routes_Default,
                                         new
