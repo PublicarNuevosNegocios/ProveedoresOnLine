@@ -783,6 +783,7 @@ namespace Links
                     public static readonly string ProviderScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProviderScripts.min.js") ? Url("ProviderScripts.min.js") : Url("ProviderScripts.js");
                     public static readonly string ReportScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ReportScripts.min.js") ? Url("ReportScripts.min.js") : Url("ReportScripts.js");
                     public static readonly string SurveyScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SurveyScripts.min.js") ? Url("SurveyScripts.min.js") : Url("SurveyScripts.js");
+                    public static readonly string ThirdKnowledgeScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ThirdKnowledgeScripts.min.js") ? Url("ThirdKnowledgeScripts.min.js") : Url("ThirdKnowledgeScripts.js");
                 }
             
             }

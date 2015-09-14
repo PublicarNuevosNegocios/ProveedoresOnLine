@@ -45,7 +45,7 @@
 {
     if (Model.ProviderFilterResult != null)
     {
-        <span class="POMPSideBlockTitle">Filtrar por:</span>
+        <span class="POMPSideBlockTitle">Filtrar Por:</span>
         <ul class="POMPFilterCategoryList">
             @if (IsBasicInfo)
             {
@@ -53,7 +53,7 @@
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity))
                 {
                     <li>
-                        <span>Maestra de actividades</span>
+                        <span>Maestra de Actividades</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                             {
@@ -98,7 +98,7 @@
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.IsRelatedProvider))
                 {
                     <li>
-                        <span>Mis proveedores</span>
+                        <span>Mis Proveedores</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.IsRelatedProvider).OrderByDescending(x => x.Quantity).ToList())
                             {
@@ -122,7 +122,7 @@
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.RestrictiveListProvider))
                 {
                     <li>
-                        <span>Proveedores en listas restrictivas</span>
+                        <span>Proveedores en Listas Restrictivas</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.RestrictiveListProvider).OrderByDescending(x => x.Quantity).ToList())
                             {
@@ -172,7 +172,7 @@
             if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity))
             {
                     <li>
-                        <span>Maestra de actividades</span>
+                        <span>Maestra de Actividades</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                             {
@@ -217,7 +217,7 @@
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.IsRelatedProvider))
                 {
                     <li>
-                        <span>Mis proveedores</span>
+                        <span>Mis Proveedores</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.IsRelatedProvider).OrderByDescending(x => x.Quantity).ToList())
                             {
@@ -240,7 +240,7 @@
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.RestrictiveListProvider))
                 {
                     <li>
-                        <span>Proveedores en listas restrictivas</span>
+                        <span>Proveedores en Listas Restrictivas</span>
                         <ul>
                             @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.RestrictiveListProvider).OrderByDescending(x => x.Quantity).ToList())
                             {
@@ -433,6 +433,6 @@
     }
     else
     {
-        <div>Esta busqueda no tiene filtros</div>
+        <div>Esta Búsqueda No Tiene Filtros</div>
     }
 }

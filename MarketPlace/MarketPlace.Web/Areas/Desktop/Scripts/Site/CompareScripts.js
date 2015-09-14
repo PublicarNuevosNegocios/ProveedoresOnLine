@@ -151,7 +151,7 @@ var Compare_SearchObject = {
                 width: '50px',
             }, {
                 field: 'LastModify',
-                title: 'Última modificación',
+                title: 'Última Modificación',
                 width: '50px',
             }],
         });

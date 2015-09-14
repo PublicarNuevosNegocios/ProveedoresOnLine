@@ -26,7 +26,7 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult TKSingleSearch()
         {
             ProviderViewModel oModel = new ProviderViewModel();
-            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel(); 
+            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel();
             List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
 
             try
@@ -36,7 +36,7 @@ namespace MarketPlace.Web.Controllers
                 //Clean the season url saved
                 if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
                     MarketPlace.Models.General.SessionModel.CurrentURL = null;
-                
+
                 //Get The Active Plan By Customer 
                 oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
 
@@ -106,6 +106,11 @@ namespace MarketPlace.Web.Controllers
 
                 throw ex.InnerException;
             }
+        }
+
+        public virtual ActionResult TKThirdKnowledgeSearch()
+        {
+            return View();
         }
 
         #region Menu
