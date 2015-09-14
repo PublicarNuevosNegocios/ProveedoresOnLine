@@ -55,6 +55,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.GetPeriodByPlanPublicId(PlanPublicId, Enable);
         }
 
+        public List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable)
+        {
+            return DataFactory.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
+        }
+
         #endregion
 
         #region MarketPlace

@@ -528,6 +528,30 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public List<ThirdKnowledgeViewModel> TDGetQueriesByPeriodPublicId(string TDGetQueriesByPeriodPublicId, string PeriodPublicId, bool Enable)
+        {
+            List<ThirdKnowledgeViewModel> oReturn = new List<ThirdKnowledgeViewModel>();
+            List<TDQueryModel> oPeriodModel = new List<TDQueryModel>();
+            if (TDGetQueriesByPeriodPublicId == "true")
+            {
+                oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
+                if (oPeriodModel != null)
+                {
+                    //oPeriodModel.All(x =>
+                    //{
+                    //    oReturn.Add(new ThirdKnowledgeViewModel(x));
+                    //    return true;
+                    //});
+                }
+            }
+            return oReturn;
+        }
+
+
+
+
+        [HttpPost]
+        [HttpGet]
         public List<ThirdKnowledgeViewModel> TDPlanUpsert(string TDPlanUpsert, string PlanPublicId, string CustomerPublicId)
         {
             List<ThirdKnowledgeViewModel> oReturn = new List<ThirdKnowledgeViewModel>();

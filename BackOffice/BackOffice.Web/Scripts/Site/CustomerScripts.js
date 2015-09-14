@@ -2096,6 +2096,7 @@ var ThirdKnowledgeObject = {
     DateFormat: '',
     ThirdKnowledgeOptions: new Array(),
     PlanPublicId: '',
+    PeriodPublicId: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId,
@@ -2111,12 +2112,15 @@ var ThirdKnowledgeObject = {
     },
 
     RenderAsync: function (vRenderObject) {
-
         if (vRenderObject.ThirdKnowledgeType == 1601001) {
             ThirdKnowledgeObject.RenderPlan(vRenderObject);
         }
         if (vRenderObject.ThirdKnowledgeType == 1601002) {
             ThirdKnowledgeObject.RenderPeriods(vRenderObject);
+        }
+        if (vRenderObject.ThirdKnowledgeType == 1601003) {
+            debugger;
+            ThirdKnowledgeObject.RenderPeriodDetail(vRenderObject);
         }
     },
 
@@ -2126,8 +2130,7 @@ var ThirdKnowledgeObject = {
             isEdit = false;
         }
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
-            editable: true,
-            
+            editable: true,            
             navigatable: true,
             pageable: false,
             scrollable: true,
@@ -2212,8 +2215,7 @@ var ThirdKnowledgeObject = {
                         });
                     },
                 },
-                requestStart: function () {
-                    debugger;
+                requestStart: function () {                    
                     kendo.ui.progress($("#TKloading"), true);
                 },
                 requestEnd: function () {
@@ -2240,11 +2242,11 @@ var ThirdKnowledgeObject = {
             columns: [{
                 field: 'QueriesByPeriod',
                 title: 'Consultas por periodo',
-                width: '100px',
+                width: '160px',
             }, {
                 field: 'InitDate',
                 title: 'Fecha Inicial',
-                width: '170px',
+                width: '160px',
                 format: ThirdKnowledgeObject.DateFormat,
                 editor: function timeEditor(container, options) {
                     var input = $('<input type="date" name="'
@@ -2257,7 +2259,7 @@ var ThirdKnowledgeObject = {
             }, {
                 field: 'EndDate',
                 title: 'Fecha Final',
-                width: '170px',
+                width: '160px',
                 format: ThirdKnowledgeObject.DateFormat,
                 editor: function timeEditor(container, options) {
                         var input = $('<input type="date" name="'
@@ -2296,11 +2298,11 @@ var ThirdKnowledgeObject = {
             }, {
                 field: 'DaysByPeriod',
                 title: 'Días por Periodo',
-                width: '100',
+                width: '120px',
             }, {
                 field: 'Enable',
                 title: 'Habilitado Marketplace',
-                width: '100px',
+                width: '150px',
                 template: function (dataItem) {
 
                     var oReturn = '';
@@ -2327,19 +2329,13 @@ var ThirdKnowledgeObject = {
                              // e.target is the DOM element representing the button
                              var tr = $(e.target).closest("tr"); // get the current table row (tr)
                              // get the data bound to the current table row
-                             var data = this.dataItem(tr);
-
-                             //validate SurveyConfigId attribute
-                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                             //}
+                             var data = this.dataItem(tr);     
 
                              //validate Plan attribute
                              if (data.PlanPublicId != null) {
 
                                  vRenderObject.PlanPublicId = data.PlanPublicId;
-                                 vRenderObject.ThirdKnowledgeType = '1601002';
-                                 
+                                 vRenderObject.ThirdKnowledgeType = '1601002';                                 
                                  ThirdKnowledgeObject.RenderAsync(vRenderObject);
                              }
                          }
@@ -2456,7 +2452,7 @@ var ThirdKnowledgeObject = {
             columns: [{
                 field: 'AssignedQueries',
                 title: 'Consultas Asignadas',
-                width: '100px',
+                width: '150px',
             }, {
                 field: 'PeriodInitDate',
                 title: 'Inicio',
@@ -2525,31 +2521,109 @@ var ThirdKnowledgeObject = {
                     command: [
                     {
                         name: 'Detail',
-                        text: 'Ver Detalle',
+                        text: 'Ver Detalle42334',
                          click: function (e) {
-                            
+                             debugger;
                             // e.target is the DOM element representing the button
                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                             // get the data bound to the current table row
                             var data = this.dataItem(tr);
-
-                            //validate SurveyConfigId attribute
-                             //if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                             //    window.location = Customer_ProjectModule.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, Customer_ProjectModule.ProjectConfigId).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
-                             //}
-
+            
                             //validate Plan attribute
-                            if (data.PlanPublicId != null) {
+                            if (data.PlanPublicId != null && data.PeriodPublicId != null) {
 
                                 vRenderObject.PlanPublicId = data.PlanPublicId;
-                                vRenderObject.ThirdKnowledgeType = '1601002';
-                                vRenderObject.Title = "ACA VA EL TÍTULO";
+                                vRenderObject.ThirdKnowledgeType = '1601003';
+                                vRenderObject.Title = "Log";
+                                vRenderObject.PeriodPublicId = data.PeriodPublicId;
                                 ThirdKnowledgeObject.RenderAsync(vRenderObject);
                             }
                         }
                     }, ],
                  }
             ]
+        })
+    },
+
+    RenderPeriodDetail: function (vRenderObject) {
+
+        $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
+            editable: false,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [{
+                name: 'title',
+                template: function () {
+                    return $('#' + ThirdKnowledgeObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                }
+            },
+                { name: 'ViewEnable', template: $('#' + ThirdKnowledgeObject.ObjectId + '_ViewEnablesTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: ThirdKnowledgeObject.PageSize,
+                schema: {
+                    model: {
+                        id: "QueryPublicId",
+                        fields: {
+                            QueryPublicId: { editable: false, nullable: false },
+                            QuerySearchType: { editable: false, nullable: false },
+                            QueryUser: { editable: false, nullable: false },
+                            QueryState: { editable: false, nullable: false },
+                            QueryCreateDate: { editable: false, nullable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDGetPeriodsByPlanPublicId=true&PlanPublicId=' + vRenderObject.PlanPublicId + '&Enable=' + "true",
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    }
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+      
+            columns: [{
+                field: 'QuerySearchType',
+                title: 'Tipo de consulta',
+                width: '150px',
+            }, {
+                field: 'QueryUser',
+                title: 'Responsable',
+                width: '150px',
+            }, {
+                field: 'QueryState',
+                title: 'Resultado',
+                width: '150px',
+            }, {
+                field: 'QueryCreateDate',
+                title: 'Fecha',
+                width: '170px',
+                format: ThirdKnowledgeObject.DateFormat,
+                editor:
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                    }
+            }]
         })
     },
 

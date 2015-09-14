@@ -209,6 +209,55 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vPeriodicPublicId", PeriodPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "TD_TK_GetQueriesByPeriod",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<TDQueryModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+               response.DataTableResult.Rows.Count > 0)
+            {
+                //oReturn =
+                //     (from cm in response.DataTableResult.AsEnumerable()
+                //      where !cm.IsNull("PeriodId")
+                //      group cm by new
+                //      {
+                //          PeriodPublicId = cm.Field<string>("PeriodPublicId"),
+                //          AssignedQueries = cm.Field<int>("AssignedQueries"),
+                //          InitDate = cm.Field<DateTime>("InitDate"),
+                //          EndDate = cm.Field<DateTime>("EndDate"),
+                //          TotalQueries = cm.Field<int>("TotalQueries"),
+                //          Enable = cm.Field<UInt64>("PeriodEnable") == 1 ? true : false,
+                //          LastModify = cm.Field<DateTime>("LastModify"),
+                //          CreateDate = cm.Field<DateTime>("CreateDate"),
+                //      } into cmg
+                //      select new PeriodModel()
+                //      {
+                //          AssignedQueries = cmg.Key.AssignedQueries,
+                //          PeriodPublicId = cmg.Key.PeriodPublicId,
+                //          InitDate = cmg.Key.InitDate,
+                //          EndDate = cmg.Key.EndDate,
+                //          TotalQueries = cmg.Key.TotalQueries,
+                //          Enable = cmg.Key.Enable,
+                //          LastModify = cmg.Key.LastModify,
+                //          CreateDate = cmg.Key.CreateDate
+                //      }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
 
         #region MarketPlace

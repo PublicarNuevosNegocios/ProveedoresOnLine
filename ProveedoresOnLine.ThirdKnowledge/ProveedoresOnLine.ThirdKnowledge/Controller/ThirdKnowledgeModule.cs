@@ -129,6 +129,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         {
             return ThirdKnowledgeDataController.Instance.GetPeriodByPlanPublicId(PeriodPublicId, Enable);
         }
+
+        public static List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable)
+        {
+            return ThirdKnowledgeDataController.Instance.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
+        }
         #endregion
 
         #region MarketPlace

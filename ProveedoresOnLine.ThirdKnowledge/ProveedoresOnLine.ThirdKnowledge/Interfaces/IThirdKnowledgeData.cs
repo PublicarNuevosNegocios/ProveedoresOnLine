@@ -37,6 +37,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
         List<TDCatalogModel> CatalogGetThirdKnowledgeOptions();
 
         List<PeriodModel> GetPeriodByPlanPublicId(string PlanPublicId, bool Enable);
+        List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable);
         #endregion
     }
 }
