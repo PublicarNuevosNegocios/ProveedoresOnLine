@@ -233,7 +233,7 @@ namespace MarketPlace.Web.Controllers
                 //home provider
                 oReturn.Add(new GenericMenu()
                 {
-                    Name = "Mi empresa",
+                    Name = "Mi Empresa",
                     Position = oPosition,
                     Url = Url.RouteUrl(
                         MarketPlace.Models.General.Constants.C_Routes_Default,
