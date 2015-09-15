@@ -46,54 +46,43 @@ namespace MarketPlace.Web.Controllers
 
                     //Get The Most Recently Period When Plan is More Than One
                     oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
+                }
+                else
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = false;
+                }
+                return View(oModel);
+            }
+            catch (Exception ex)
+            {
 
-                    #region Upsert Process                    
-                    //if (Request["UpsertRequest"] == "true")
-                    //{
-                    //    //Set Current Sale
-                    //    #region No Borrar
-                    //    if (oModel.RelatedThirdKnowledge != null)
-                    //    {
-                    //        //Save Query 
-                    //        TDQueryModel oQueryToCreate = new TDQueryModel()
-                    //        {
-                    //            IsSuccess = true,
-                    //            PeriodPublicId = oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
-                    //            SearchType = new TDCatalogModel()
-                    //            {
-                    //                ItemId = (int)enumThirdKnowledgeQueryType.Simple,
-                    //            },
-                    //            User = SessionModel.CurrentLoginUser.Email,
-                    //            RelatedQueryInfoModel = new List<TDQueryInfoModel>(),
-                    //        };
+                throw ex.InnerException;
+            }
+        }
 
-                    //        oModel.RelatedThirdKnowledge.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
-                    //                        RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
-                    //                       Request["IdentificationNumber"], Request["Name"], oQueryToCreate);
+        public virtual ActionResult TKMasiveSearch()
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel();
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
 
-                    //        //Set New Score
-                    //        oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+            try
+            {
+                oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
 
-                    //        //Period Upsert
-                    //        oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
-                    //            oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
-                    //    }
-                    //    else
-                    //    {
-                    //        TDQueryModel oQueryToCreate = new TDQueryModel()
-                    //       {
-                    //           IsSuccess = false,
-                    //           PeriodPublicId = oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
-                    //           SearchType = new TDCatalogModel()
-                    //           {
-                    //               ItemId = (int)enumThirdKnowledgeQueryType.Simple,
-                    //           },
-                    //           User = SessionModel.CurrentLoginUser.Email,
-                    //       };
-                    //    } 
-                    //    #endregion                       
-                    //}
-                    #endregion
+                //Clean the season url saved
+                if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                    MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
+                //Get The Active Plan By Customer 
+                oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
+
+                if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = true;
+
+                    //Get The Most Recently Period When Plan is More Than One
+                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
                 }
                 else
                 {
@@ -119,11 +108,7 @@ namespace MarketPlace.Web.Controllers
 
             #region Menu Usuario
 
-            MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
-            //Consulta individual 
-            //Consulta masiva
-            // Mis Consultas
-            // Mis reportes
+            MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();         
 
             //header
             oMenuAux = new GenericMenu()
@@ -140,7 +125,7 @@ namespace MarketPlace.Web.Controllers
                     //Consulta individual
                     oMenuAux.ChildMenu.Add(new GenericMenu()
                     {
-                        Name = "Consulta individual",
+                        Name = "Consulta Individual",
                         Url = Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
@@ -157,10 +142,18 @@ namespace MarketPlace.Web.Controllers
                     //Consulta masiva
                     oMenuAux.ChildMenu.Add(new GenericMenu()
                     {
-                        Name = "Consulta masiva",
-                        Url = null,
-                        Position = 0,
-                        IsSelected = false
+                        Name = "Consulta Masiva",
+                        Url = Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.ThirdKnowledge.Name,
+                                    action = MVC.ThirdKnowledge.ActionNames.TKMasiveSearch
+                                }),
+                        Position = 1,
+                        IsSelected =
+                            (oCurrentAction == MVC.ThirdKnowledge.ActionNames.TKMasiveSearch &&
+                            oCurrentController == MVC.ThirdKnowledge.Name)
                     });
 
                     //Consulta individual
@@ -168,7 +161,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         Name = "Mis Consultas",
                         Url = null,
-                        Position = 0,
+                        Position = 2,
                         IsSelected = false
                     });
                 }

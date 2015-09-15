@@ -1,9 +1,10 @@
 ﻿/*init base url*/
-var BaseUrl = {
+var BaseUrl = {   
     ApiUrl: '',
     SiteUrl: '',
     PreviewPdfUrl: '',
     Init: function (vInitObject) {
+        debugger;
         this.ApiUrl = vInitObject.ApiUrl;
         this.SiteUrl = vInitObject.SiteUrl;
         this.PreviewPdfUrl = vInitObject.PreviewPdfUrl;

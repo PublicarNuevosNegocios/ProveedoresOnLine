@@ -1,13 +1,13 @@
 ﻿/*Init survey program object*/
 var Third_KnowledgeSimpleSearchObject = {
-    ObjectId: 'ThirdKnowledge',
+    ObjectId: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
     },
 
     SimpleSearch: function () {
-        
+
         Third_KnowledgeSimpleSearchObject.Loading_Generic_Show();
         if ($('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').length > 0) {
             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
@@ -20,11 +20,10 @@ var Third_KnowledgeSimpleSearchObject = {
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
                 success: function (result) {
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
-                    
+
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
-                    var resultDiv = '';                    
+                    var resultDiv = '';
                     if (result.RelatedThirdKnowledge != null && result.RelatedThirdKnowledge.CollumnsResult != null) {
-                        debugger;
                         if (result.RelatedThirdKnowledge.CollumnsResult.length == 1) {
                             resultDiv = '<div class=""><p>' + result.RelatedThirdKnowledge.CollumnsResult[0][0] + '</p></div>';
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
@@ -44,12 +43,12 @@ var Third_KnowledgeSimpleSearchObject = {
                                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
                                 }
                             });
-                        }                        
+                        }
                     }
                 },
                 error: function (result) {
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
-                    
+
                 }
             })
         }
@@ -62,4 +61,35 @@ var Third_KnowledgeSimpleSearchObject = {
         kendo.ui.progress($("#loading"), false);
     },
 };
+
+var Third_KnowledgeMasiveSearchObject = {
+    ObjectId: '',
+    CompanyPublicId:'',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId
+        this.CompanyPublicId = vInitObject.CompanyPublicId
+        Third_KnowledgeMasiveSearchObject.LoadFile();
+    },
+
+    LoadFile: function () {
+        debugger;
+        $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_FileUpload').kendoUpload({
+            multiple: false,
+            localization: {
+                "select": "Agregar"
+            },
+            async: {
+                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId + '&Algo=' + 'Algo',
+                autoUpload: true
+            },
+            success: function (e) {
+                debugger;
+            },
+            error: function (e) {
+                debugger;
+            }
+        });
+    },
+}
 

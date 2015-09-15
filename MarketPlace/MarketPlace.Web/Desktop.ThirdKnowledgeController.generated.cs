@@ -77,6 +77,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string Index = "Index";
             public readonly string TKSingleSearch = "TKSingleSearch";
+            public readonly string TKMasiveSearch = "TKMasiveSearch";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,6 +85,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public const string Index = "Index";
             public const string TKSingleSearch = "TKSingleSearch";
+            public const string TKMasiveSearch = "TKMasiveSearch";
         }
 
 
@@ -98,9 +100,11 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string TKMasiveSearch = "TKMasiveSearch";
                 public readonly string TKSingleSearch = "TKSingleSearch";
             }
             public readonly string Index = "~/Areas/Desktop/Views/ThirdKnowledge/Index.cshtml";
+            public readonly string TKMasiveSearch = "~/Areas/Desktop/Views/ThirdKnowledge/TKMasiveSearch.cshtml";
             public readonly string TKSingleSearch = "~/Areas/Desktop/Views/ThirdKnowledge/TKSingleSearch.cshtml";
         }
     }
@@ -129,6 +133,17 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKSingleSearch);
             TKSingleSearchOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TKMasiveSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TKMasiveSearch()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKMasiveSearch);
+            TKMasiveSearchOverride(callInfo);
             return callInfo;
         }
 
