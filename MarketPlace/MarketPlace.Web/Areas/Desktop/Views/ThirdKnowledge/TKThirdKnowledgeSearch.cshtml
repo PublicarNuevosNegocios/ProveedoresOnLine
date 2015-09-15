@@ -14,13 +14,43 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <div class="POMPSearchContainer">
-            @Html.Partial(MVC.Desktop.Shared.Views._TK_SingleSearch, Model)
+            <div class="SurveyFilterDate">
+                @{
+                    if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
+                  && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                    {
+                        var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
+                        var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
+                        <div class="POMPFilterBox">
+                            <span>Desde:</span>
+                            <div style="margin-bottom:10px;"></div>
+                            <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
+                        </div>
+                        <div class="POMPFilterBox">
+                            <span>Hasta:</span>
+                            <div style="margin-bottom:10px;"></div>
+                            <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="POMPFilterBox">
+                            <span>Desde:</span>
+                            <div style="margin-bottom:10px;"></div>
+                            <input class="filtrarFecha" type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
+                        </div>
+
+                        <div class="POMPFilterBox">
+                            <span>Hasta:</span>
+                            <div style="margin-bottom:10px;"></div>
+                            <input class="filtrarFecha" type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
-
 </div>
-
-
 
 @{
     Model.RenderScripts = true;

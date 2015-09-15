@@ -97,6 +97,7 @@ namespace MarketPlace.Web.ControllersApi
             }
         }
 
+
         [HttpPost]
         [HttpGet]
         public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string Algo)
@@ -150,5 +151,43 @@ namespace MarketPlace.Web.ControllersApi
             }
             return oReturn;
         }
+
+        #region ThirdKnowledge Charts
+
+        [HttpPost]
+        [HttpGet]
+        public List<Tuple<string, int, int>> GetPeriodsByPlan(string CustomerPublicId)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_ThirdKnowledgeModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+
+            List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, true);
+
+            List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
+
+            oPlanModel.All(x =>
+            {
+                x.RelatedPeriodModel.All(y =>
+                {
+
+                    oReturn.Add(Tuple.Create(y.InitDate.ToLocalTime().ToString("dd/MM/yyyy") + " - " + y.EndDate.ToLocalTime().ToString("dd/MM/yyyy")
+                        , y.TotalQueries, y.AssignedQueries));
+                    return true;
+                });
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        #endregion
+
     }
 }

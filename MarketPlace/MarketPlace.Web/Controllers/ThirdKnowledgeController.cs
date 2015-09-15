@@ -97,9 +97,29 @@ namespace MarketPlace.Web.Controllers
             }
         }
 
-        public virtual ActionResult TKThirdKnowledgeSearch()
+        public virtual ActionResult TKThirdKnowledgeSearch(
+            string ProviderPublicId,
+            string OrderOrientation,
+            string PageNumber,
+            string InitDate,
+            string EndDate)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
+            List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryModel = new List<TDQueryModel>();
+
+            int TotalRows = 0;
+
+            oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnoledgeSearch(
+                SessionModel.CurrentCompany.CompanyPublicId,
+                OrderOrientation == "1" ? true : false,
+                Convert.ToInt32(PageNumber),
+                20,
+                out TotalRows);
+
+            oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
+
+            return View(oModel);
         }
 
         #region Menu
@@ -113,7 +133,7 @@ namespace MarketPlace.Web.Controllers
 
             #region Menu Usuario
 
-            MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();         
+            MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
 
             //header
             oMenuAux = new GenericMenu()
@@ -165,9 +185,17 @@ namespace MarketPlace.Web.Controllers
                     oMenuAux.ChildMenu.Add(new GenericMenu()
                     {
                         Name = "Mis Consultas",
-                        Url = null,
+                        Url = Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.ThirdKnowledge.Name,
+                                    action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch
+                                }),
                         Position = 2,
-                        IsSelected = false
+                        IsSelected =
+                            (oCurrentAction == MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch &&
+                            oCurrentController == MVC.ThirdKnowledge.Name)
                     });
                 }
             }
