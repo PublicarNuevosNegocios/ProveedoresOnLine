@@ -2522,17 +2522,15 @@ var ThirdKnowledgeObject = {
                     {
                         name: 'Detail',
                         text: 'Ver Detalle42334',
-                         click: function (e) {
-                             debugger;
+                         click: function (e) {                             
                             // e.target is the DOM element representing the button
-                            var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
+
                             // get the data bound to the current table row
                             var data = this.dataItem(tr);
             
                             //validate Plan attribute
-                            if (data.PlanPublicId != null && data.PeriodPublicId != null) {
-
-                                vRenderObject.PlanPublicId = data.PlanPublicId;
+                            if (data.PeriodPublicId != null) {                         
                                 vRenderObject.ThirdKnowledgeType = '1601003';
                                 vRenderObject.Title = "Log";
                                 vRenderObject.PeriodPublicId = data.PeriodPublicId;
@@ -2546,7 +2544,6 @@ var ThirdKnowledgeObject = {
     },
 
     RenderPeriodDetail: function (vRenderObject) {
-
         $('#' + ThirdKnowledgeObject.ObjectId + '_' + vRenderObject.ThirdKnowledgeType).kendoGrid({
             editable: false,
             navigatable: true,
@@ -2577,7 +2574,7 @@ var ThirdKnowledgeObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?TDGetPeriodsByPlanPublicId=true&PlanPublicId=' + vRenderObject.PlanPublicId + '&Enable=' + "true",
+                            url: BaseUrl.ApiUrl + '/CustomerApi?TDGetQueriesByPeriodPublicId=true&PeriodPublicId=' + vRenderObject.PeriodPublicId + '&Enable=' + "true",
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);

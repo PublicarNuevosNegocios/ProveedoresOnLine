@@ -214,7 +214,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vPeriodicPublicId", PeriodPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -230,31 +230,29 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             if (response.DataTableResult != null &&
                response.DataTableResult.Rows.Count > 0)
             {
-                //oReturn =
-                //     (from cm in response.DataTableResult.AsEnumerable()
-                //      where !cm.IsNull("PeriodId")
-                //      group cm by new
-                //      {
-                //          PeriodPublicId = cm.Field<string>("PeriodPublicId"),
-                //          AssignedQueries = cm.Field<int>("AssignedQueries"),
-                //          InitDate = cm.Field<DateTime>("InitDate"),
-                //          EndDate = cm.Field<DateTime>("EndDate"),
-                //          TotalQueries = cm.Field<int>("TotalQueries"),
-                //          Enable = cm.Field<UInt64>("PeriodEnable") == 1 ? true : false,
-                //          LastModify = cm.Field<DateTime>("LastModify"),
-                //          CreateDate = cm.Field<DateTime>("CreateDate"),
-                //      } into cmg
-                //      select new PeriodModel()
-                //      {
-                //          AssignedQueries = cmg.Key.AssignedQueries,
-                //          PeriodPublicId = cmg.Key.PeriodPublicId,
-                //          InitDate = cmg.Key.InitDate,
-                //          EndDate = cmg.Key.EndDate,
-                //          TotalQueries = cmg.Key.TotalQueries,
-                //          Enable = cmg.Key.Enable,
-                //          LastModify = cmg.Key.LastModify,
-                //          CreateDate = cmg.Key.CreateDate
-                //      }).ToList();
+                oReturn =
+                     (from cm in response.DataTableResult.AsEnumerable()
+                      where !cm.IsNull("QueryId")
+                      group cm by new 
+                      {
+                          QueryPublicId = cm.Field<string>("QueryPublicId"),
+                          PeriodId = cm.Field<Int32>("PeriodId"),
+                          SearchType = cm.Field<Int32>("SearchType"),
+                          User = cm.Field<string>("User"),
+                          IsSuccess = cm.Field<UInt64>("IsSuccess") == 1 ? true : false,
+                          CreateDate = cm.Field<DateTime>("CreateDate"),
+                          LastModify = cm.Field<DateTime>("LastModify"),
+                          Enable = cm.Field<UInt64>("Enable") == 1 ? true : false,
+                      } into cmg
+                      select new TDQueryModel()
+                      {
+                          QueryPublicId = cmg.Key.QueryPublicId,
+                          PeriodPublicId = cmg.Key.PeriodId,
+                          SearchType = cmg.Key.SearchType,
+                          User = cmg.Key.User,
+                          IsSuccess = cmg.Key.IsSuccess,
+                          Enable = cmg.Key.Enable
+                      }).ToList();
             }
             return oReturn;
         }
