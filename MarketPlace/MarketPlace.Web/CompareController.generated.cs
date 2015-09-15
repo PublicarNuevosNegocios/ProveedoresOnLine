@@ -65,12 +65,6 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompareDetail);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
-        {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CompareController Actions { get { return MVC.Compare; } }
@@ -89,7 +83,6 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string CompareDetail = "CompareDetail";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -97,7 +90,6 @@ namespace MarketPlace.Web.Controllers
         {
             public const string Index = "Index";
             public const string CompareDetail = "CompareDetail";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -111,14 +103,6 @@ namespace MarketPlace.Web.Controllers
             public readonly string CompareType = "CompareType";
             public readonly string Currency = "Currency";
             public readonly string Year = "Year";
-        }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
-        {
-            public readonly string FilePath = "FilePath";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -162,18 +146,6 @@ namespace MarketPlace.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
             CompareDetailOverride(callInfo, CompareId, CompareType, Currency, Year);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 
