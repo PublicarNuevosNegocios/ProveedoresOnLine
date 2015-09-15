@@ -95,7 +95,7 @@ namespace MarketPlace.Web.Controllers
                     //Evalutaion Stats
                     oMenuAux.ChildMenu.Add(new GenericMenu()
                     {
-                        Name = "Evaluación de desempeño",
+                        Name = "Evaluación de Desempeño",
                         Url = Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new

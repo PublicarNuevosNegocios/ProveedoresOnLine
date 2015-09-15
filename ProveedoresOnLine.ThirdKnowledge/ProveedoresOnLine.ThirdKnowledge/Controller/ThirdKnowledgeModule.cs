@@ -129,6 +129,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         {
             return ThirdKnowledgeDataController.Instance.GetPeriodByPlanPublicId(PeriodPublicId, Enable);
         }
+
+        public static List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable)
+        {
+            return ThirdKnowledgeDataController.Instance.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
+        }
         #endregion
 
         #region MarketPlace
@@ -230,6 +235,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         {
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(oPeriodModel.PeriodPublicId,
                        oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
+        }
+
+        public static List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchType, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return ThirdKnowledgeDataController.Instance.ThirdKnoledgeSearch(CustomerPublicId, SearchType, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion

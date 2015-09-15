@@ -59,6 +59,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ThirdKnowledgeController Actions { get { return MVC.Desktop.ThirdKnowledge; } }
@@ -78,6 +84,8 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string Index = "Index";
             public readonly string TKSingleSearch = "TKSingleSearch";
             public readonly string TKMasiveSearch = "TKMasiveSearch";
+            public readonly string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -86,9 +94,19 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string Index = "Index";
             public const string TKSingleSearch = "TKSingleSearch";
             public const string TKMasiveSearch = "TKMasiveSearch";
+            public const string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
+        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetPdfFileBytes
+        {
+            public readonly string FilePath = "FilePath";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -102,10 +120,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string Index = "Index";
                 public readonly string TKMasiveSearch = "TKMasiveSearch";
                 public readonly string TKSingleSearch = "TKSingleSearch";
+                public readonly string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
             }
             public readonly string Index = "~/Areas/Desktop/Views/ThirdKnowledge/Index.cshtml";
             public readonly string TKMasiveSearch = "~/Areas/Desktop/Views/ThirdKnowledge/TKMasiveSearch.cshtml";
             public readonly string TKSingleSearch = "~/Areas/Desktop/Views/ThirdKnowledge/TKSingleSearch.cshtml";
+            public readonly string TKThirdKnowledgeSearch = "~/Areas/Desktop/Views/ThirdKnowledge/TKThirdKnowledgeSearch.cshtml";
         }
     }
 
@@ -144,6 +164,29 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKMasiveSearch);
             TKMasiveSearchOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TKThirdKnowledgeSearch()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeSearch);
+            TKThirdKnowledgeSearchOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

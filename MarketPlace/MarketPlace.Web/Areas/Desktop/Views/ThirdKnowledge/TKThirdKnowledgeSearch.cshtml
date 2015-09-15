@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Proveedores OnLine - Estadísticas de Proveedores";
+    ViewBag.Title = "Proveedores OnLine - Consulta Individual";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -13,16 +13,14 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <div id="POMPGraphicContainerMain">
-            <div class="POMPGraphicDynamic">
-                <div class="POMPHeaderGraphicDynamic">
-                    <h1>Estado De Los Proveedores</h1>
-                </div>
-                @Html.Partial(MVC.Desktop.Shared.Views._CH_StateProviders)
-            </div>
+        <div class="POMPSearchContainer">
+            @Html.Partial(MVC.Desktop.Shared.Views._TK_SingleSearch, Model)
         </div>
     </div>
+
 </div>
+
+
 
 @{
     Model.RenderScripts = true;

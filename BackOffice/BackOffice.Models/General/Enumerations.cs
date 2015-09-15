@@ -494,7 +494,8 @@
     public enum enumThirdKnowledgeType
     {
         Plan = 1601001,
-        Period = 1601002
+        Period = 1601002,
+        PeriodDetail = 1601003
     }
 
     #endregion

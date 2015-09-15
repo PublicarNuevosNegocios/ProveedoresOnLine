@@ -14,15 +14,15 @@
         @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <div id="POBOProviderUpsertForm">
-           
+        <div id="POBOProviderUpsertForm">           
             <div id="TKloading"></div>
             <label>Asignación de Plan</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Plan).ToString())"></div>
             <label>Periodos</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.Period).ToString())"></div>
-            <br />
-           
+            <label>Log del Periodo</label>
+            <div id="divGridItem_@(((int)BackOffice.Models.General.enumThirdKnowledgeType.PeriodDetail).ToString())"></div>
+            <br />           
         </div>
     </div>
 </div>
