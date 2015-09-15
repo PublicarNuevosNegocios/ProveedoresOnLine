@@ -1,0 +1,54 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+<label class="POMPSectionTitles">Consulta Masiva de Terceros</label>
+
+@if (Model.RelatedThirdKnowledge.HasPlan)
+{
+    <div class="container-fluid">
+        <div class="col-xs-8" id="POMPCurrentPeriod">
+            <label>Periodo Actual @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
+        </div>
+        <div class="col-xs-4" id="POMPConsults">
+            <label>Consultas </label>
+            <label id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+
+            <label>De @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
+        </div>
+    </div>
+    <div class="">
+        <input type="file" name="ThirdKnowledge_FileUpload" id="ThirdKnowledge_FileUpload" value="" />
+    </div>
+}
+else
+{
+    <label>Usted no tiene ningún plan habilitado, Por favor comuniquese con nosotros al Tel: 6465555 Ext: 16602</label>
+}
+
+@*Templates*@
+<div id="loading"></div>
+    
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        BaseUrl.Init({
+            ApiUrl: '@(Url.Content("~/api"))',
+            SiteUrl: '@(Url.Content("~/"))',
+            PreviewPdfUrl: '@(Server.UrlDecode(
+                                   Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                   new
+                                   {
+                                       controller = MVC.Base.Name,
+                                       action = MVC.Base.ActionNames.GetPdfFileBytes,
+                                       FilePath = "${FilePath}"
+                                   })))',
+        });
+
+        Third_KnowledgeMasiveSearchObject.Init({
+            ObjectId: 'ThirdKnowledge',
+            CompanyPublicId: '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId',
+        });
+        
+    });
+</script>
+
+

@@ -1232,6 +1232,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\Desktop\Views\Provider\ADAditionalDocument.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDocument.cshtml" />
+    <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKMasiveSearch.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_TK_MasiveSearch.cshtml" />
     <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKThirdKnowledgeSearch.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
