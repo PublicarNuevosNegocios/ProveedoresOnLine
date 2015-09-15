@@ -99,6 +99,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKThirdKnowledgeSearch(
             string ProviderPublicId,
+            string SearchOrderType,
             string OrderOrientation,
             string PageNumber,
             string InitDate,
@@ -108,10 +109,11 @@ namespace MarketPlace.Web.Controllers
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryModel = new List<TDQueryModel>();
 
-            int TotalRows = 0;
+            int TotalRows;
 
             oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnoledgeSearch(
                 SessionModel.CurrentCompany.CompanyPublicId,
+                Convert.ToInt32(SearchOrderType),
                 OrderOrientation == "1" ? true : false,
                 Convert.ToInt32(PageNumber),
                 20,

@@ -112,6 +112,7 @@ namespace MarketPlace.Web.Controllers
         public class ActionParamsClass_TKThirdKnowledgeSearch
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SearchOrderType = "SearchOrderType";
             public readonly string OrderOrientation = "OrderOrientation";
             public readonly string PageNumber = "PageNumber";
             public readonly string InitDate = "InitDate";
@@ -178,18 +179,19 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
+        partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TKThirdKnowledgeSearch(string ProviderPublicId, string OrderOrientation, string PageNumber, string InitDate, string EndDate)
+        public override System.Web.Mvc.ActionResult TKThirdKnowledgeSearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeSearch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "InitDate", InitDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
-            TKThirdKnowledgeSearchOverride(callInfo, ProviderPublicId, OrderOrientation, PageNumber, InitDate, EndDate);
+            TKThirdKnowledgeSearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, InitDate, EndDate);
             return callInfo;
         }
 

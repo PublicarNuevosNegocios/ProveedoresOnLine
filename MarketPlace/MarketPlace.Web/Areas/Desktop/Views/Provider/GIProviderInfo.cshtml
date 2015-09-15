@@ -161,15 +161,10 @@
                 {
                     @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
                     if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
-                    {
-
-                        if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
-                        {
-
+                    {                                       
                             var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
                            
-                            if (Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList() != null
-                                     && Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList().Count > 0)
+                            if (Model.RelatedBlackListInfo != null)
                             {
                                 
                                 <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
@@ -260,7 +255,7 @@
 
                                 <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                                     <div class="col-xs-12">
-                                        <label>Consulta Listas Restrictivas - Última Validación @maxDate.ToLocalTime().ToString()</label><p>No se encuentra registrado en listas restrictivas.</p>
+                                        <label>Consulta Listas Restrictivas - Última Validación @maxDate.-().ToString()</label><p>No se encuentra registrado en listas restrictivas.</p>
                                     </div>
                                 </div>
 
