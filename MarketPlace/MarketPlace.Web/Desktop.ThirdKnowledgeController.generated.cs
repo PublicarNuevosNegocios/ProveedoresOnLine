@@ -91,6 +91,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string TKSingleSearch = "TKSingleSearch";
             public readonly string TKMasiveSearch = "TKMasiveSearch";
             public readonly string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -100,6 +101,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string TKSingleSearch = "TKSingleSearch";
             public const string TKMasiveSearch = "TKMasiveSearch";
             public const string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -173,6 +175,17 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
+        partial void TKMasiveSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TKMasiveSearch()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKMasiveSearch);
+            TKMasiveSearchOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
 
         [NonAction]
@@ -189,13 +202,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TKThirdKnowledgeSearch()
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeSearch);
-            TKThirdKnowledgeSearchOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

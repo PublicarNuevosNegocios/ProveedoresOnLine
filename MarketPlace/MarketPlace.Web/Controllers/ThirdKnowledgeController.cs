@@ -192,7 +192,7 @@ namespace MarketPlace.Web.Controllers
                                     controller = MVC.ThirdKnowledge.Name,
                                     action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch
                                 }),
-                        Position = 0,
+                        Position = 2,
                         IsSelected =
                             (oCurrentAction == MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch &&
                             oCurrentController == MVC.ThirdKnowledge.Name)
