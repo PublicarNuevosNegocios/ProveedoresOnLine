@@ -72,6 +72,8 @@ namespace MarketPlace.Models.Provider
 
         public MarketPlace.Models.Company.ThirdKnowledgeViewModel RelatedThirdKnowledge { get; set; }        
 
+        public MarketPlace.Models.Company.ThirdKnowledgeViewModel RelatedThidKnowledgeSearch { get; set; }
+
         public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
     }
 }

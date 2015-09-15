@@ -351,12 +351,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchType, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        public List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchOrderType", SearchOrderType));
             lstParams.Add(DataInstance.CreateTypedParameter("vOrderOrientation", OrderOrientation == true ? 1 : 0));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));

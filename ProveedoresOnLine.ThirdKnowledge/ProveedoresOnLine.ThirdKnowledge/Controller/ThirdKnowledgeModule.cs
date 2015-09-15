@@ -237,9 +237,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                        oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
         }
 
-        public static List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchType, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        public static List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
-            return ThirdKnowledgeDataController.Instance.ThirdKnoledgeSearch(CustomerPublicId, SearchType, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
+            return ThirdKnowledgeDataController.Instance.ThirdKnoledgeSearch(CustomerPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion
