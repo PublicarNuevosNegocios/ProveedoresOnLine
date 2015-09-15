@@ -1,9 +1,5 @@
 ﻿using ProveedoresOnLine.ThirdKnowledge.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BackOffice.Models.Customer
 {
@@ -25,7 +21,8 @@ namespace BackOffice.Models.Customer
         public List<PeriodModel> RelatedPeriodoModel { get; set; }
         public int Status { get; set; }
         public string StatusName { get; set; }
-        #endregion
+
+        #endregion Plan Model
 
         #region Period
 
@@ -38,7 +35,19 @@ namespace BackOffice.Models.Customer
         public string PeriodLastModify { get; set; }
         public string PeriodCreateDate { get; set; }
 
-        #endregion
+        #endregion Period
+
+        #region Query
+
+        public string QueryCreateDate { get; set; }
+
+        public string QueryStatus { get; set; }
+
+        public string QueryType { get; set; }
+
+        public string QueryUser { get; set; }
+
+        #endregion Query
 
         public ThirdKnowledgeViewModel(PlanModel RelatedPlan)
         {
@@ -67,12 +76,21 @@ namespace BackOffice.Models.Customer
             PeriodEnable = RelatedPeriodModel.Enable;
             PeriodLastModify = RelatedPeriodModel.LastModify.ToString();
             PeriodCreateDate = RelatedPeriodModel.CreateDate.ToString();
+        }
 
+        public ThirdKnowledgeViewModel(TDQueryModel RelatedQuery)
+        {
+            this.QueryCreateDate = RelatedQuery.CreateDate.ToString();
+
+            this.QueryStatus = RelatedQuery.IsSuccess.ToString();
+
+            this.QueryType = RelatedQuery.SearchType.ItemName;
+
+            this.QueryUser = RelatedQuery.User;
         }
 
         public ThirdKnowledgeViewModel()
         {
-
         }
     }
 }

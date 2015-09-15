@@ -20,6 +20,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public bool Enable { get; set; }
 
+        public DateTime CreateDate { get; set; }
+
         public List<TDQueryInfoModel> RelatedQueryInfoModel { get; set; }
     }
 }

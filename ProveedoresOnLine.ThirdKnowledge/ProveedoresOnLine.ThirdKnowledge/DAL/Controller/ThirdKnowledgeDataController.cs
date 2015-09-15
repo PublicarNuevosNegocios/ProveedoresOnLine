@@ -2,15 +2,13 @@
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 {
     internal class ThirdKnowledgeDataController : IThirdKnowledgeData
     {
         private static ProveedoresOnLine.ThirdKnowledge.Interfaces.IThirdKnowledgeData oInstance;
+
         internal static ProveedoresOnLine.ThirdKnowledge.Interfaces.IThirdKnowledgeData Instance
         {
             get
@@ -31,7 +29,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             DataFactory = factory.GetThirdKnowledgeInstance();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Config
 
@@ -60,7 +58,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
         }
 
-        #endregion
+        #endregion Config
 
         #region MarketPlace
 
@@ -74,7 +72,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.ThirdKnoledgeSearch(CustomerPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
-        #endregion
+        #endregion MarketPlace
 
         #region Queries
 
@@ -88,13 +86,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.QueryInfoInsert(QueryPublicId, ItemInfoType, Value, LargeValue, Enable);
         }
 
-        #endregion
+        #endregion Queries
 
         #region Utils
+
         public List<TDCatalogModel> CatalogGetThirdKnowledgeOptions()
         {
             return DataFactory.CatalogGetThirdKnowledgeOptions();
-        } 
-        #endregion       
+        }
+
+        #endregion Utils
     }
 }

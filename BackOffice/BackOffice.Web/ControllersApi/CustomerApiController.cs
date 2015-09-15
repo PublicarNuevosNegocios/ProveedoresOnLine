@@ -1,13 +1,10 @@
 ﻿using BackOffice.Models.Customer;
-using BackOffice.Models.Provider;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyCustomer.Models.Customer;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BackOffice.Web.ControllersApi
@@ -59,7 +56,7 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion Search Methods
 
         #region Customer Roles
 
@@ -117,7 +114,6 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-
         [HttpPost]
         [HttpGet]
         public List<BackOffice.Models.Customer.CustomerRoleViewModel> UserCompanyUpsert
@@ -152,7 +148,7 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion Customer Roles
 
         #region Survey Config
 
@@ -224,8 +220,8 @@ namespace BackOffice.Web.ControllersApi
                     ItemId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigId.Trim()),
                     ItemName = oDataToUpsert.SurveyName,
                     Enable = oDataToUpsert.SurveyEnable,
-                    ItemInfo = new List<GenericItemInfoModel>() 
-                    { 
+                    ItemInfo = new List<GenericItemInfoModel>()
+                    {
                         new GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GroupId) ? 0 : Convert.ToInt32(oDataToUpsert.GroupId.Trim()),
@@ -235,7 +231,7 @@ namespace BackOffice.Web.ControllersApi
                             },
                             Value = oDataToUpsert.Group,
                             ValueName = oDataToUpsert.GroupName,
-                            Enable = true,                            
+                            Enable = true,
                         },
                         new GenericItemInfoModel()
                         {
@@ -245,7 +241,7 @@ namespace BackOffice.Web.ControllersApi
                                 ItemId = (int)BackOffice.Models.General.enumSurveyConfigInfoType.StepEnable
                             },
                             Value = oDataToUpsert.StepEnable.ToString().ToLower().Trim(),
-                            Enable = true,                            
+                            Enable = true,
                         }
                     },
                 };
@@ -336,14 +332,14 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(oDataToUpsert.SurveyConfigItemTypeId.Trim()),
                             },
-                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentSurveyConfigItem) ? null : 
+                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentSurveyConfigItem) ? null :
                                 new GenericItemModel(){ ItemId = Convert.ToInt32(oDataToUpsert.ParentSurveyConfigItem.Trim())},
-                            Enable = oDataToUpsert.SurveyConfigItemEnable,                           
+                            Enable = oDataToUpsert.SurveyConfigItemEnable,
 
                             ItemInfo = new List<GenericItemInfoModel>()
                             {
                                 new GenericItemInfoModel()
-                                {                                   
+                                {
                                     ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoOrderId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoOrderId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
@@ -413,7 +409,7 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
-                        #endregion
+                        #endregion get question
                     }
                 }
                 else
@@ -438,14 +434,14 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(oDataToUpsert.SurveyConfigItemTypeId.Trim()),
                             },
-                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentSurveyConfigItem) ? null : 
+                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentSurveyConfigItem) ? null :
                                 new GenericItemModel(){ ItemId = Convert.ToInt32(oDataToUpsert.ParentSurveyConfigItem.Trim())},
-                            Enable = oDataToUpsert.SurveyConfigItemEnable,                           
+                            Enable = oDataToUpsert.SurveyConfigItemEnable,
 
                             ItemInfo = new List<GenericItemInfoModel>()
                             {
                                 new GenericItemInfoModel()
-                                {                                   
+                                {
                                     ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoRolId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
@@ -479,8 +475,7 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-
-        #endregion
+        #endregion Survey Config
 
         #region Third Knowledge
 
@@ -531,24 +526,21 @@ namespace BackOffice.Web.ControllersApi
         public List<ThirdKnowledgeViewModel> TDGetQueriesByPeriodPublicId(string TDGetQueriesByPeriodPublicId, string PeriodPublicId, bool Enable)
         {
             List<ThirdKnowledgeViewModel> oReturn = new List<ThirdKnowledgeViewModel>();
-            List<TDQueryModel> oPeriodModel = new List<TDQueryModel>();
+            List<TDQueryModel> oQueryModel = new List<TDQueryModel>();
             if (TDGetQueriesByPeriodPublicId == "true")
             {
-                oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
-                if (oPeriodModel != null)
+                oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
+                if (oQueryModel != null)
                 {
-                    //oPeriodModel.All(x =>
-                    //{
-                    //    oReturn.Add(new ThirdKnowledgeViewModel(x));
-                    //    return true;
-                    //});
+                    oQueryModel.All(x =>
+                    {
+                        oReturn.Add(new ThirdKnowledgeViewModel(x));
+                        return true;
+                    });
                 }
             }
             return oReturn;
         }
-
-
-
 
         [HttpPost]
         [HttpGet]
@@ -591,8 +583,8 @@ namespace BackOffice.Web.ControllersApi
             }
             return oReturn;
         }
-                
-        #endregion
+
+        #endregion Third Knowledge
 
         #region Project Config
 
@@ -753,7 +745,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(oDataToUpsert.EvaluationItemTypeId.Trim()),
                             },
-                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentEvaluationItem) ? null : 
+                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentEvaluationItem) ? null :
                                 new GenericItemModel(){ ItemId = Convert.ToInt32(oDataToUpsert.ParentEvaluationItem.Trim())},
                             Enable = oDataToUpsert.EvaluationItemEnable,
                             ItemInfo = new List<GenericItemInfoModel>(){
@@ -820,7 +812,7 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion Project Config
 
         #region Aditional Documents
 
@@ -901,7 +893,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         /*Contact Info*/
                         case 204:
-                            
+
                             break;
                         /*Commercial Info*/
                         case 301:
@@ -941,8 +933,6 @@ namespace BackOffice.Web.ControllersApi
                                 },
                             };
 
-                            
-
                             ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProviderModel);
 
                             break;
@@ -981,6 +971,6 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion Aditional Documents
     }
 }

@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Web;
-using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.ThirdKnowledge.Controller
 {
@@ -17,9 +14,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             try
             {
                 #region Set User Service
+
                 WS_Inspektor.Autenticacion oAuth = new WS_Inspektor.Autenticacion();
-                WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient(); 
-                #endregion
+                WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient();
+
+                #endregion Set User Service
 
                 List<PlanModel> oPlanModel = new List<PlanModel>();
                 PeriodModel oCurrentPeriod = new PeriodModel();
@@ -29,7 +28,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 //WS Request
                 string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
-                
+
                 string[] split = oResutl.Split('#');
                 List<string[]> oReturn = new List<string[]>();
                 if (split != null)
@@ -58,10 +57,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
 
         public static string TestSimpleRequest(string PeriodPublicId, string IdentificationNumber, string Name, TDQueryModel oQueryToCreate)
@@ -69,9 +66,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             try
             {
                 #region Set User Service
+
                 WS_Inspektor.Autenticacion oAuth = new WS_Inspektor.Autenticacion();
                 WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient();
-                #endregion
+
+                #endregion Set User Service
 
                 List<PlanModel> oPlanModel = new List<PlanModel>();
                 PeriodModel oCurrentPeriod = new PeriodModel();
@@ -85,10 +84,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
 
         #region Config
@@ -115,7 +112,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -134,7 +130,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         {
             return ThirdKnowledgeDataController.Instance.GetQueriesByPeriodPublicId(PeriodPublicId, Enable);
         }
-        #endregion
+
+        #endregion Config
 
         #region MarketPlace
 
@@ -166,7 +163,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             {
                 if (oPlanToReCalculate != null)
                 {
-                    //Get Days from dates interval                                
+                    //Get Days from dates interval
                     DiferenceInDays = (oPlanToReCalculate.EndDate - oPlanToReCalculate.InitDate).Days;
 
                     TotalPeriods = DiferenceInDays / oPlanToReCalculate.DaysByPeriod;
@@ -179,15 +176,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     if (i == 0)
                     {
                         oPlanToReCalculate.RelatedPeriodModel.Add(new PeriodModel()
-                           {
-                               AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
-                               InitDate = oPlanToReCalculate.InitDate,
-                               EndDate = oPlanToReCalculate.InitDate.AddDays(oPlanToReCalculate.DaysByPeriod),
-                               CreateDate = DateTime.Now,
-                               LastModify = DateTime.Now,
-                               PlanPublicId = oPlanToReCalculate.PlanPublicId,
-                               TotalQueries = 0,
-                           });
+                        {
+                            AssignedQueries = oPlanToReCalculate.QueriesByPeriod,
+                            InitDate = oPlanToReCalculate.InitDate,
+                            EndDate = oPlanToReCalculate.InitDate.AddDays(oPlanToReCalculate.DaysByPeriod),
+                            CreateDate = DateTime.Now,
+                            LastModify = DateTime.Now,
+                            PlanPublicId = oPlanToReCalculate.PlanPublicId,
+                            TotalQueries = 0,
+                        });
                         EndPastPeriod = oPlanToReCalculate.InitDate.AddDays(oPlanToReCalculate.DaysByPeriod);
                     }
                     else
@@ -242,7 +239,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ThirdKnowledgeDataController.Instance.ThirdKnoledgeSearch(CustomerPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
-        #endregion
+        #endregion MarketPlace
 
         #region Queries
 
@@ -253,7 +250,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 QueryModelToUpsert.RelatedQueryInfoModel != null &&
                 QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
             {
-
                 QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryInsert(QueryModelToUpsert.PeriodPublicId,
                     QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, true);
 
@@ -296,12 +292,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return QueryModelToUpsert;
         }
 
-        #endregion
+        #endregion Queries
 
         #region Provate Functions
+
         public static TDQueryModel CreateQuery(TDQueryModel oQueryToCreate, List<string[]> CollumnsResult)
         {
             #region CreateQuery Process
+
             string QueryId = CollumnsResult.FirstOrDefault()[0];
 
             CollumnsResult = CollumnsResult.Where(x => x.Count() > 1).ToList();
@@ -367,10 +365,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 return true;
             });
-            #endregion
+
+            #endregion CreateQuery Process
 
             return oQueryToCreate;
         }
-        #endregion
+
+        #endregion Provate Functions
     }
 }

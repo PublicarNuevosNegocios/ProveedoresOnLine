@@ -1,10 +1,8 @@
 ﻿using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 {
@@ -21,7 +19,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public List<Models.PlanModel> GetAllPlanByCustomer(string CustomerPublicId, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
@@ -101,7 +99,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                                  LastModify = pinfgr.Key.LastModify,
                                  CreateDate = pinfgr.Key.CreateDate,
                              }).ToList(),
-
                      }).ToList();
             }
             return oReturn;
@@ -109,7 +106,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPlanPublicId", PlanPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
@@ -136,7 +133,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vPlanPublicId", PlanPublicId));
@@ -145,7 +142,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vInitDate", InitDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vEndDate", EndDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
-
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -163,7 +159,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public List<PeriodModel> GetPeriodByPlanPublicId(string PlanPublicId, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPlanPublicId", PlanPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
@@ -212,7 +208,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
@@ -233,36 +229,42 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                 oReturn =
                      (from cm in response.DataTableResult.AsEnumerable()
                       where !cm.IsNull("QueryId")
-                      group cm by new 
+                      group cm by new
                       {
                           QueryPublicId = cm.Field<string>("QueryPublicId"),
                           PeriodId = cm.Field<Int32>("PeriodId"),
                           SearchType = cm.Field<Int32>("SearchType"),
+                          SearhTypeName = cm.Field<string>("SearchTypeName"),
                           User = cm.Field<string>("User"),
                           IsSuccess = cm.Field<UInt64>("IsSuccess") == 1 ? true : false,
                           CreateDate = cm.Field<DateTime>("CreateDate"),
-                          LastModify = cm.Field<DateTime>("LastModify"),
-                          Enable = cm.Field<UInt64>("Enable") == 1 ? true : false,
+                          Enable = cm.Field<UInt64>("QueryEnable") == 1 ? true : false,
                       } into cmg
                       select new TDQueryModel()
                       {
                           QueryPublicId = cmg.Key.QueryPublicId,
-                          PeriodPublicId = cmg.Key.PeriodId,
-                          SearchType = cmg.Key.SearchType,
+                          PeriodPublicId = cmg.Key.PeriodId.ToString(),
+                          SearchType = new TDCatalogModel()
+                          {
+                              ItemId = cmg.Key.SearchType,
+                              ItemName = cmg.Key.SearhTypeName,
+                          },
                           User = cmg.Key.User,
                           IsSuccess = cmg.Key.IsSuccess,
+                          CreateDate = cmg.Key.CreateDate,
                           Enable = cmg.Key.Enable
                       }).ToList();
             }
             return oReturn;
         }
-        #endregion
+
+        #endregion Config
 
         #region MarketPlace
 
         public List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
@@ -322,7 +324,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              pinf.Field<int>("PlanId") == cmg.Key.PlanId
                              group pinf by new
                              {
-                                 PeriodPublicId = pinf.Field<string>("PeriodPublicId"),                                 
+                                 PeriodPublicId = pinf.Field<string>("PeriodPublicId"),
                                  AssignedQueries = pinf.Field<int>("AssignedQueries"),
                                  InitDate = pinf.Field<DateTime>("PerInitDate"),
                                  EndDate = pinf.Field<DateTime>("PerEndDate"),
@@ -343,7 +345,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                                  LastModify = pinfgr.Key.LastModify,
                                  CreateDate = pinfgr.Key.CreateDate,
                              }).ToList(),
-
                      }).ToList();
             }
             return oReturn;
@@ -351,7 +352,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchOrderType", SearchOrderType));
@@ -439,7 +440,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
@@ -463,11 +464,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         public int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vItemInfoType", ItemInfoType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
@@ -482,9 +483,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        #endregion
+        #endregion Queries
 
-        #endregion
+        #endregion MarketPlace
 
         #region Util
 
@@ -517,6 +518,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        #endregion
+        #endregion Util
     }
 }

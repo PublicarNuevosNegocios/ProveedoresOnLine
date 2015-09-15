@@ -2040,13 +2040,11 @@ var Provider_CompanyHSEQObject = {
         this.CompanyRiskType = vInitiObject.CompanyRiskType;
         this.DateFormat = vInitiObject.DateFormat;
         Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
-        $.each(vInitiObject.HSEQOptionList, function (item, value) {
-            debugger;
+        $.each(vInitiObject.HSEQOptionList, function (item, value) {            
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
         });
         if (vInitiObject.YearOptionList != null) {
-            $.each(vInitiObject.YearOptionList, function (item, value) {
-                debugger;
+            $.each(vInitiObject.YearOptionList, function (item, value) {                
                 Provider_CompanyHSEQObject.YearOptionList[value.Key] = value.Value;
             });
         }
@@ -3274,8 +3272,7 @@ var Provider_CompanyHSEQObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CA_Year != null) {
-                        $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
-                            debugger;
+                        $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {                            
                             if (dataItem.CA_Year == value) {
                                 oReturn = value;
                             }
@@ -4746,8 +4743,7 @@ var Provider_AditionalDocumentObject = {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
                             dataType: 'json',
-                            success: function (result) {
-                                debugger;
+                            success: function (result) {                                
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4883,8 +4879,7 @@ var Provider_AditionalDocumentObject = {
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.AD_RelatedCustomerName != null) {
-                        debugger;
+                    if (dataItem != null && dataItem.AD_RelatedCustomerName != null) {                        
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -4907,8 +4902,7 @@ var Provider_AditionalDocumentObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'CP_Customer',
                         select: function (e) {
-                            isSelected = true;
-                            debugger;
+                            isSelected = true;                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.CP_Customer;
@@ -4925,8 +4919,7 @@ var Provider_AditionalDocumentObject = {
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
                                         dataType: 'json',
-                                        success: function (result) {
-                                            debugger;
+                                        success: function (result) {                                            
                                             options.success(result);
                                         },
                                         error: function (result) {
