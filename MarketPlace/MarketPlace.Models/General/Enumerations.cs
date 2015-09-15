@@ -93,6 +93,7 @@
         CH_SurveyModule = 119001,
         CH_ProjectModule = 119002,
         CH_ProvidersStateModule = 119003,
+        CH_ThirdKnowledgeModule = 401001,
 
         //Format Report Type
         Excel = 120001,
