@@ -40,7 +40,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         public void GetAllPlanByCustomer()
         {
             List<PlanModel> oReturn = new List<PlanModel>();
-            oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("AAAAA", true);
+            oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("DA5C572E", true);
             Assert.IsNull(oReturn);     
         }
 
@@ -49,7 +49,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         {
             List<PeriodModel> oPeriodModel = new List<PeriodModel>();
 
-            oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("4236C169", true);
+            oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("DA5C572E", true);
 
             Assert.IsNull(oPeriodModel);     
         }

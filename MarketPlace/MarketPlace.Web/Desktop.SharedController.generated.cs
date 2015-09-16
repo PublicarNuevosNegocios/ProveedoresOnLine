@@ -45,6 +45,7 @@ namespace T4MVC.Desktop
                 public readonly string _CH_SurveyByEvaluators = "_CH_SurveyByEvaluators";
                 public readonly string _CH_SurveyByMonth = "_CH_SurveyByMonth";
                 public readonly string _CH_SurveyByName = "_CH_SurveyByName";
+                public readonly string _CH_TK_GetPeriodsByPlan = "_CH_TK_GetPeriodsByPlan";
                 public readonly string _CM_CompareMenu = "_CM_CompareMenu";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
@@ -106,6 +107,7 @@ namespace T4MVC.Desktop
             public readonly string _CH_SurveyByEvaluators = "~/Areas/Desktop/Views/Shared/_CH_SurveyByEvaluators.cshtml";
             public readonly string _CH_SurveyByMonth = "~/Areas/Desktop/Views/Shared/_CH_SurveyByMonth.cshtml";
             public readonly string _CH_SurveyByName = "~/Areas/Desktop/Views/Shared/_CH_SurveyByName.cshtml";
+            public readonly string _CH_TK_GetPeriodsByPlan = "~/Areas/Desktop/Views/Shared/_CH_TK_GetPeriodsByPlan.cshtml";
             public readonly string _CM_CompareMenu = "~/Areas/Desktop/Views/Shared/_CM_CompareMenu.cshtml";
             public readonly string _L_Footer = "~/Areas/Desktop/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";

@@ -1235,6 +1235,7 @@
     <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKMasiveSearch.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_TK_MasiveSearch.cshtml" />
     <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKThirdKnowledgeSearch.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_TK_GetPeriodsByPlan.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
