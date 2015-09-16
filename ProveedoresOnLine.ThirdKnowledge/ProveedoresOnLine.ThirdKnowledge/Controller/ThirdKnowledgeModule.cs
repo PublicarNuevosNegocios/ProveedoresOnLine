@@ -41,8 +41,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 }
 
                 if (oReturn != null)
-                {
-                    oQueryToCreate = CreateQuery(oQueryToCreate, oReturn);
+                {   
+                    
+                    oQueryToCreate = CreateQuery(oQueryToCreate, oReturn,Name, IdentificationNumber);
 
                     //TODO: INDEXAR
                     QueryInsert(oQueryToCreate);
@@ -60,34 +61,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 throw;
             }
         }
-
-        public static string TestSimpleRequest(string PeriodPublicId, string IdentificationNumber, string Name, TDQueryModel oQueryToCreate)
-        {
-            try
-            {
-                #region Set User Service
-
-                WS_Inspektor.Autenticacion oAuth = new WS_Inspektor.Autenticacion();
-                WS_Inspektor.WSInspektorSoapClient oClient = new WS_Inspektor.WSInspektorSoapClient();
-
-                #endregion Set User Service
-
-                List<PlanModel> oPlanModel = new List<PlanModel>();
-                PeriodModel oCurrentPeriod = new PeriodModel();
-
-                oAuth.UsuarioNombre = "W5-Pub1ic@r";
-                oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
-                //WS Request
-                string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
-
-                return oResutl;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
+        
         #region Config
 
         public static PlanModel PlanUpsert(PlanModel oPlanModelToUpsert)
@@ -294,9 +268,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         #endregion Queries
 
-        #region Provate Functions
+        #region Private Functions
 
-        public static TDQueryModel CreateQuery(TDQueryModel oQueryToCreate, List<string[]> CollumnsResult)
+        public static TDQueryModel CreateQuery(TDQueryModel oQueryToCreate, List<string[]> CollumnsResult, string CurrentSearchName, string CurrentSearchId)
         {
             #region CreateQuery Process
 
@@ -306,6 +280,22 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
             CollumnsResult.All(col =>
             {
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
+                    },
+                    Value = CurrentSearchName,
+                });
+                oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                {
+                    ItemInfoType = new TDCatalogModel()
+                    {
+                        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                    },
+                    Value = CurrentSearchId,
+                });
                 oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
                 {
                     ItemInfoType = new TDCatalogModel()
