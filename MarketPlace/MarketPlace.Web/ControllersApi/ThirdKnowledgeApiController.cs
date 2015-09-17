@@ -39,8 +39,7 @@ namespace MarketPlace.Web.ControllersApi
                     //TODO: Put the Alert?
                     if (System.Web.HttpContext.Current.Request["UpsertRequest"] == "true")
                     {
-                        //Set Current Sale
-                        #region No Borrar
+                        //Set Current Sale                        
                         if (oModel.RelatedThirdKnowledge != null)
                         {
                             //Save Query 
@@ -79,8 +78,7 @@ namespace MarketPlace.Web.ControllersApi
                                 },
                                 User = SessionModel.CurrentLoginUser.Email,
                             };
-                        }
-                        #endregion
+                        }                       
                     }
                     #endregion
                 }
