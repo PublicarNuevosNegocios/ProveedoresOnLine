@@ -1,0 +1,46 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts && Model.RelatedThidKnowledgeSearch != null)
+{
+    <ul>
+
+        @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+        {
+            var QueryPublicId = item.QueryPublicId;
+            
+            //results basic info
+            <li>
+                <div>
+                    <div>
+                        <span>Tipo de consulta: </span>
+                        <span>@item.SearchType.ItemName</span> <!--Title-->
+                    </div>
+                    <div>
+                        <span>Usuario:</span>
+                        <span>@item.User</span>
+                    </div>
+                    <div>
+                        <span>Fecha de consulta:</span>
+                        <span>@item.CreateDate</span>
+                    </div>
+                    <div>
+                        <span>Estado:</span>
+                        <span>@item.IsSuccess</span>
+                    </div>
+                    <div>
+                        <a href="@(Url.RouteUrl
+                              (MarketPlace.Models.General.Constants.C_Routes_Default,
+                              new
+                              {
+                                  controller = MVC.ThirdKnowledge.Name,
+                                  action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
+                                  QueryPublicId = QueryPublicId,
+                                  Enable = "1",
+                                    }))">Ver Detalle</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}
+

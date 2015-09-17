@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         public void SimpleRequest()
         {
             TDQueryModel oQuery = new TDQueryModel();
-            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest("Customer","70041053", "Alvaro uribe Velez", oQuery );
+            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest("Customer", "70041053", "Alvaro uribe Velez", oQuery);
         }
 
         [TestMethod]
@@ -28,9 +28,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
             oToUpsert.LastModify = DateTime.Now;
             oToUpsert.QueriesByPeriod = 100;
             oToUpsert.Status = new TDCatalogModel()
-                {
-                    ItemId = 101001
-                };
+            {
+                ItemId = 101001
+            };
             PlanModel oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PlanUpsert(oToUpsert);
 
             Assert.IsNotNull(oReturn);
@@ -41,7 +41,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         {
             List<PlanModel> oReturn = new List<PlanModel>();
             oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("AAAAA", true);
-            Assert.IsNull(oReturn);     
+            Assert.IsNull(oReturn);
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
 
             oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("4236C169", true);
 
-            Assert.IsNull(oPeriodModel);     
+            Assert.IsNull(oPeriodModel);
         }
 
         [TestMethod]
@@ -59,8 +59,17 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         {
             int TotalRows = 0;
 
-            List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnoledgeSearch
+            List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch
                 ("DA5C572E", 1, true, 0, 10000, out TotalRows);
+
+            Assert.AreEqual(true, oReturn != null);
+        }
+
+        [TestMethod]
+        public void ThirdKnowledgeDetailByPublicId()
+        {
+            List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
+                ("DA5C572E", "30F9DB46", true);
 
             Assert.AreEqual(true, oReturn != null);
         }

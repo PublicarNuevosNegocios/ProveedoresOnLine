@@ -64,7 +64,7 @@ var Third_KnowledgeSimpleSearchObject = {
 
 var Third_KnowledgeMasiveSearchObject = {
     ObjectId: '',
-    CompanyPublicId:'',
+    CompanyPublicId: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId
@@ -73,7 +73,6 @@ var Third_KnowledgeMasiveSearchObject = {
     },
 
     LoadFile: function () {
-        debugger;
         $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_FileUpload').kendoUpload({
             multiple: false,
             localization: {
@@ -84,12 +83,40 @@ var Third_KnowledgeMasiveSearchObject = {
                 autoUpload: true
             },
             success: function (e) {
-                debugger;
             },
             error: function (e) {
-                debugger;
             }
         });
     },
-}
+};
+
+var Third_KnowledgeSearchObject = {
+    ObjectId: '',
+    SearchUrl: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+    },
+
+    RenderAsync: function () {
+        //Change event
+        $('#' + Third_KnowledgeSearchObject.ObjectId + '_FilterId').click(function () {
+            Third_KnowledgeSearchObject.Search(null);
+        });
+    },
+
+    Search: function (vSearchObject) {
+        var oUrl = this.SearchUrl;
+
+        debugger;
+        oUrl += '?InitDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_InitDateId').val();
+        oUrl += '&EndDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_EndDateId').val();
+
+        if (vSearchObject != null && vSearchObject.PageNumber != null) {
+            oUrl += '&PageNumber=' + vSearchObject.PageNumber;
+        }
+        window.location = oUrl;
+    },
+};
 
