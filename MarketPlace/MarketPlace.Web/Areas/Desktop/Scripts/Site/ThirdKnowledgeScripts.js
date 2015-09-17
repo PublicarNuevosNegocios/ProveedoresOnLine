@@ -109,7 +109,6 @@ var Third_KnowledgeSearchObject = {
     Search: function (vSearchObject) {
         var oUrl = this.SearchUrl;
 
-        debugger;
         oUrl += '?InitDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_EndDateId').val();
 
