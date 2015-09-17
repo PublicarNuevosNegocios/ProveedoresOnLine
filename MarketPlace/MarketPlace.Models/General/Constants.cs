@@ -116,5 +116,11 @@
 
         public const string MP_Report_PdfReportIcon = "Report_PdfReportIcon";
         #endregion
+
+        #region ThirdKnowledge
+
+        public const string MP_CP_UploadTemplate = "MP_CP_UploadTemplate";
+
+        #endregion
     }
 }
