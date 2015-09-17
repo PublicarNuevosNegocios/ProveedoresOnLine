@@ -1,0 +1,21 @@
+﻿ 
+    <div id="TKGetPeriodsByPlanChartId" class="ResponsiveChartsClass"></div>
+
+
+<script type="text/javascript">
+    google.load('visualization', '1', { packages: ['corechart', 'bar'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(TK_GetPeriodsByPlan_ChartsObject.RenderChart);
+
+        TK_GetPeriodsByPlan_ChartsObject.Init({
+            ObjectId: 'TKGetPeriodsByPlanChartId',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        })
+    })
+</script>

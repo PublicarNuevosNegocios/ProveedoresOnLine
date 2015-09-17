@@ -81,8 +81,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              {
                                  PeriodPublicId = pinf.Field<string>("PeriodPublicId"),
                                  AssignedQueries = pinf.Field<int>("AssignedQueries"),
-                                 InitDate = pinf.Field<DateTime>("InitDate"),
-                                 EndDate = pinf.Field<DateTime>("EndDate"),
+                                 InitDate = pinf.Field<DateTime>("InfoInitDate"),
+                                 EndDate = pinf.Field<DateTime>("InfoEndDate"),
                                  TotalQueries = pinf.Field<int>("TotalQueries"),
                                  Enable = pinf.Field<UInt64>("PeriodEnable") == 1 ? true : false,
                                  LastModify = pinf.Field<DateTime>("LastModify"),
@@ -350,7 +350,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<Models.TDQueryModel> ThirdKnoledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -389,6 +389,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          QueryEnable = q.Field<UInt64>("QueryEnable"),
                          PeriodPublicId = q.Field<string>("PeriodPublicId"),
                          QueryPublicId = q.Field<string>("QueryPublicId"),
+                         QueryCreateDate = q.Field<DateTime>("QueryCreateDate"),
                      }
                      into qg
                      select new Models.TDQueryModel()
@@ -403,33 +404,89 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          User = qg.Key.User,
                          Enable = qg.Key.QueryEnable == 1 ? true : false,
                          PeriodPublicId = qg.Key.PeriodPublicId,
-                         RelatedQueryInfoModel =
-                             (from qinf in response.DataTableResult.AsEnumerable()
-                              where !qinf.IsNull("QueriesInfoId") &&
+                         CreateDate = qg.Key.QueryCreateDate,
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublicId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_TK_GetQueryByPublicId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<Models.TDQueryModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from q in response.DataTableResult.AsEnumerable()
+                     where !q.IsNull("QueryPublicId")
+                     group q by new
+                     {
+                         SearchTypeId = q.Field<int>("SearchTypeId"),
+                         SearchTypeName = q.Field<string>("SearchTypeName"),
+                         User = q.Field<string>("User"),
+                         IsSuccess = q.Field<UInt64>("IsSuccess"),
+                         QueryEnable = q.Field<UInt64>("QueryEnable"),
+                         PeriodPublicId = q.Field<string>("PeriodPublicId"),
+                         QueryPublicId = q.Field<string>("QueryPublicId"),
+                         QueryCreateDate = q.Field<DateTime>("QueryCreateDate"),
+                     }
+                     into qg
+                     select new Models.TDQueryModel()
+                     {
+                         QueryPublicId = qg.Key.QueryPublicId,
+                         IsSuccess = qg.Key.IsSuccess == 1 ? true : false,
+                         SearchType = new TDCatalogModel()
+                         {
+                             ItemId = qg.Key.SearchTypeId,
+                             ItemName = qg.Key.SearchTypeName,
+                         },
+                         User = qg.Key.User,
+                         Enable = qg.Key.QueryEnable == 1 ? true : false,
+                         PeriodPublicId = qg.Key.PeriodPublicId,
+                         CreateDate = qg.Key.QueryCreateDate,
+                         RelatedQueryInfoModel = 
+                            (from qinf in response.DataTableResult.AsEnumerable()
+                             where !qinf.IsNull("QueryInfoId") &&
                                     qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
-                              group qinf by new
-                              {
-                                  QueriesInfoId = qinf.Field<int>("QueriesInfoId"),
-                                  QueryInfoTypeId = qinf.Field<int>("QueryInfoTypeId"),
-                                  QueryInfoTypeName = qinf.Field<string>("QueryInfoTypeName"),
-                                  QueryInfoValue = qinf.Field<string>("QueryInfoValue"),
-                                  QueryInfoLargeValue = qinf.Field<string>("QueryInfoLargeValue"),
-                                  QueryInfoEnable = qinf.Field<UInt64>("QueryInfoEnable") == 1 ? true : false,
-                              }
-                              into qinfg
-                              select new Models.TDQueryInfoModel()
-                              {
-                                  QueryInfoId = qinfg.Key.QueriesInfoId,
-                                  Enable = qinfg.Key.QueryInfoEnable,
-                                  ItemInfoType = new TDCatalogModel()
-                                  {
-                                      ItemId = qinfg.Key.QueryInfoTypeId,
-                                      ItemName = qinfg.Key.QueryInfoTypeName,
-                                  },
-                                  Value = qinfg.Key.QueryInfoValue,
-                                  LargeValue = qinfg.Key.QueryInfoLargeValue,
-                                  QueryPublicId = qg.Key.QueryPublicId,
-                              }).ToList(),
+                                    group qinf by new
+                                    {
+                                        QueryInfoId = qinf.Field<int>("QueryInfoId"),
+                                        QueryInfoTypeId = qinf.Field<int>("QueryInfoTypeId"),
+                                        QueryInfoTypeName = qinf.Field<string>("QueryInfoTypeName"),
+                                        QueryInfoValue = qinf.Field<string>("QueryInfoValue"),
+                                        QueryInfoLargeValue = qinf.Field<string>("QueryInfoLargeValue"),
+                                        QueryInfoEnable = qinf.Field<UInt64>("QueryInfoEnable") == 1 ? true : false,
+                                    }
+                                    into qinfg
+                                    select new Models.TDQueryInfoModel()
+                                    {
+                                        QueryPublicId = qg.Key.QueryPublicId,
+                                        QueryInfoId = qinfg.Key.QueryInfoId,
+                                        ItemInfoType = new TDCatalogModel()
+                                        {
+                                            ItemId = qinfg.Key.QueryInfoTypeId,
+                                            ItemName = qinfg.Key.QueryInfoTypeName,
+                                        },
+                                        Value = qinfg.Key.QueryInfoValue,
+                                        LargeValue = qinfg.Key.QueryInfoLargeValue,
+                                        Enable = qinfg.Key.QueryInfoEnable,
+                                    }).ToList()
                      }).ToList();
             }
 

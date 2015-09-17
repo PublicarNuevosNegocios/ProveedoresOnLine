@@ -669,7 +669,7 @@ var Provider_SurveySearchObject = {
 
     Filter: function () {
         var oUrl = this.SearchUrl;
-
+        debugger;
         oUrl += '&InitDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').val();
         window.location = oUrl;

@@ -1,0 +1,58 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Consulta Individual";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <div class="POMPSearchContainer">
+            @if (Model.RelatedThidKnowledgeSearch != null &&
+                    Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
+                    Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
+            {
+                foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+                {
+
+                    <span>@item.User</span>
+                    <span>@item.CreateDate</span>
+                    <span>@item.SearchType.ItemName</span>
+
+                    <span>Consultas:</span>
+                    <br />
+                    <ul>
+                        @foreach (var query in item.RelatedQueryInfoModel)
+                        {
+                            <li>
+                                <div>
+                                    <span>@query.Value</span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}

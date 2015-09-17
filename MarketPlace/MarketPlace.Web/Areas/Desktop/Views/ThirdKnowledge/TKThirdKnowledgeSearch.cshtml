@@ -16,37 +16,38 @@
         <div class="POMPSearchContainer">
             <div class="SurveyFilterDate">
                 @{
-                    if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
-                  && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                    if (Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
+                        Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
                     {
-                        var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
-                        var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
-                        <div class="POMPFilterBox">
+                        var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
+                        var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
+
+                        <div>
                             <span>Desde:</span>
-                            <div style="margin-bottom:10px;"></div>
-                            <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
+                            <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="@InitDate"/>
                         </div>
-                        <div class="POMPFilterBox">
+                        <div>
                             <span>Hasta:</span>
-                            <div style="margin-bottom:10px;"></div>
-                            <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                            <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="@EndDate"/>
                         </div>
                     }
                     else
                     {
-                        <div class="POMPFilterBox">
+                        <div>
                             <span>Desde:</span>
-                            <div style="margin-bottom:10px;"></div>
-                            <input class="filtrarFecha" type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
+                            <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="" />
                         </div>
-
-                        <div class="POMPFilterBox">
+                        <div>
                             <span>Hasta:</span>
-                            <div style="margin-bottom:10px;"></div>
-                            <input class="filtrarFecha" type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
+                            <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="" />
                         </div>
                     }
+
+                    <input class="POMPButtonsSurvey" type="button" name="ThirdKnowledge_Filter" id="ThirdKnowledge_FilterId" value="Filtrar" />
                 }
+            </div>
+            <div id="ResultSearch">
+                @Html.Partial(MVC.Desktop.Shared.Views._TK_Search_Result_Item, Model)
             </div>
         </div>
     </div>
@@ -58,4 +59,20 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Third_KnowledgeSearchObject.Init({
+                ObjectId: 'ThirdKnowledge',
+                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.ThirdKnowledge.Name,
+                                action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch
+                            }))',
+            });
+
+            Third_KnowledgeSearchObject.RenderAsync();
+        });
+    </script>
 }

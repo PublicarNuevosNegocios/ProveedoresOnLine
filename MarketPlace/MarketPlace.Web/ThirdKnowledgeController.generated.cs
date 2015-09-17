@@ -67,9 +67,9 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        public virtual System.Web.Mvc.ActionResult TKThirdKnowledgeDetail()
         {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeDetail);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -91,7 +91,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string TKSingleSearch = "TKSingleSearch";
             public readonly string TKMasiveSearch = "TKMasiveSearch";
             public readonly string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
+            public readonly string TKThirdKnowledgeDetail = "TKThirdKnowledgeDetail";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -101,7 +101,7 @@ namespace MarketPlace.Web.Controllers
             public const string TKSingleSearch = "TKSingleSearch";
             public const string TKMasiveSearch = "TKMasiveSearch";
             public const string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
+            public const string TKThirdKnowledgeDetail = "TKThirdKnowledgeDetail";
         }
 
 
@@ -111,20 +111,20 @@ namespace MarketPlace.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_TKThirdKnowledgeSearch
         {
-            public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string SearchOrderType = "SearchOrderType";
             public readonly string OrderOrientation = "OrderOrientation";
             public readonly string PageNumber = "PageNumber";
             public readonly string InitDate = "InitDate";
             public readonly string EndDate = "EndDate";
         }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        static readonly ActionParamsClass_TKThirdKnowledgeDetail s_params_TKThirdKnowledgeDetail = new ActionParamsClass_TKThirdKnowledgeDetail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        public ActionParamsClass_TKThirdKnowledgeDetail TKThirdKnowledgeDetailParams { get { return s_params_TKThirdKnowledgeDetail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
+        public class ActionParamsClass_TKThirdKnowledgeDetail
         {
-            public readonly string FilePath = "FilePath";
+            public readonly string QueryPublicId = "QueryPublicId";
+            public readonly string Enable = "Enable";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -179,31 +179,31 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
+        partial void TKThirdKnowledgeSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TKThirdKnowledgeSearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate)
+        public override System.Web.Mvc.ActionResult TKThirdKnowledgeSearch(string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeSearch);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "InitDate", InitDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
-            TKThirdKnowledgeSearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, InitDate, EndDate);
+            TKThirdKnowledgeSearchOverride(callInfo, SearchOrderType, OrderOrientation, PageNumber, InitDate, EndDate);
             return callInfo;
         }
 
         [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+        partial void TKThirdKnowledgeDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryPublicId, string Enable);
 
         [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        public override System.Web.Mvc.ActionResult TKThirdKnowledgeDetail(string QueryPublicId, string Enable)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "QueryPublicId", QueryPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Enable", Enable);
+            TKThirdKnowledgeDetailOverride(callInfo, QueryPublicId, Enable);
             return callInfo;
         }
 

@@ -8,6 +8,7 @@ namespace MarketPlace.Models.Company
 {
     public class ThirdKnowledgeViewModel
     {
+
         public bool RenderScripts { get; set; }
 
         public List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> RelatedPlanModel { get; set; }
@@ -33,7 +34,17 @@ namespace MarketPlace.Models.Company
         public string IdNumberResult { get; set; }
         public string QueryId { get; set; }
         public string Priority { get; set; }
-        public string List { get; set; }        
+        public string List { get; set; }
+
+        #region Third Knowledge Search
+
+        public List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> ThirdKnowledgeResult { get; set; }
+
+        public DateTime InitDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
+        #endregion
 
         public ThirdKnowledgeViewModel(ProveedoresOnLine.ThirdKnowledge.Models.PlanModel oCurrenPlan)
         {

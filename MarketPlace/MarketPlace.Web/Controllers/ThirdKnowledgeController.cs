@@ -98,7 +98,6 @@ namespace MarketPlace.Web.Controllers
         }
 
         public virtual ActionResult TKThirdKnowledgeSearch(
-            string ProviderPublicId,
             string SearchOrderType,
             string OrderOrientation,
             string PageNumber,
@@ -111,13 +110,50 @@ namespace MarketPlace.Web.Controllers
 
             int TotalRows;
 
-            oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnoledgeSearch(
+            oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch(
                 SessionModel.CurrentCompany.CompanyPublicId,
                 Convert.ToInt32(SearchOrderType),
                 OrderOrientation == "1" ? true : false,
                 Convert.ToInt32(PageNumber),
                 20,
                 out TotalRows);
+
+            if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate) &&
+                oQueryModel != null && oQueryModel.Count > 0)
+            {
+                oQueryModel = oQueryModel.Where(x =>
+                                                    Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
+                                                    Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
+                                                    Select(x => x).ToList();
+
+                oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
+                oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
+            }
+
+            oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel;
+
+            oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult TKThirdKnowledgeDetail(
+            string QueryPublicId
+            ,string Enable)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
+            oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
+
+            List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
+                (SessionModel.CurrentCompany.CompanyPublicId
+                ,QueryPublicId
+                ,Enable == "1" ? true : false);
+
+            if (oQueryResult != null && oQueryResult.Count > 0)
+            {
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
+            }
 
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
 

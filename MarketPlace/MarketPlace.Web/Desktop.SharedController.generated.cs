@@ -45,6 +45,7 @@ namespace T4MVC.Desktop
                 public readonly string _CH_SurveyByEvaluators = "_CH_SurveyByEvaluators";
                 public readonly string _CH_SurveyByMonth = "_CH_SurveyByMonth";
                 public readonly string _CH_SurveyByName = "_CH_SurveyByName";
+                public readonly string _CH_TK_GetPeriodsByPlan = "_CH_TK_GetPeriodsByPlan";
                 public readonly string _CM_CompareMenu = "_CM_CompareMenu";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
@@ -97,6 +98,7 @@ namespace T4MVC.Desktop
                 public readonly string _SV_SurveySearch_Result_Item = "_SV_SurveySearch_Result_Item";
                 public readonly string _SV_SurveySearch_Result_Pager = "_SV_SurveySearch_Result_Pager";
                 public readonly string _TK_MasiveSearch = "_TK_MasiveSearch";
+                public readonly string _TK_Search_Result_Item = "_TK_Search_Result_Item";
                 public readonly string _TK_SingleSearch = "_TK_SingleSearch";
             }
             public readonly string _CH_ProjectByResponsible = "~/Areas/Desktop/Views/Shared/_CH_ProjectByResponsible.cshtml";
@@ -106,6 +108,7 @@ namespace T4MVC.Desktop
             public readonly string _CH_SurveyByEvaluators = "~/Areas/Desktop/Views/Shared/_CH_SurveyByEvaluators.cshtml";
             public readonly string _CH_SurveyByMonth = "~/Areas/Desktop/Views/Shared/_CH_SurveyByMonth.cshtml";
             public readonly string _CH_SurveyByName = "~/Areas/Desktop/Views/Shared/_CH_SurveyByName.cshtml";
+            public readonly string _CH_TK_GetPeriodsByPlan = "~/Areas/Desktop/Views/Shared/_CH_TK_GetPeriodsByPlan.cshtml";
             public readonly string _CM_CompareMenu = "~/Areas/Desktop/Views/Shared/_CM_CompareMenu.cshtml";
             public readonly string _L_Footer = "~/Areas/Desktop/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
@@ -158,6 +161,7 @@ namespace T4MVC.Desktop
             public readonly string _SV_SurveySearch_Result_Item = "~/Areas/Desktop/Views/Shared/_SV_SurveySearch_Result_Item.cshtml";
             public readonly string _SV_SurveySearch_Result_Pager = "~/Areas/Desktop/Views/Shared/_SV_SurveySearch_Result_Pager.cshtml";
             public readonly string _TK_MasiveSearch = "~/Areas/Desktop/Views/Shared/_TK_MasiveSearch.cshtml";
+            public readonly string _TK_Search_Result_Item = "~/Areas/Desktop/Views/Shared/_TK_Search_Result_Item.cshtml";
             public readonly string _TK_SingleSearch = "~/Areas/Desktop/Views/Shared/_TK_SingleSearch.cshtml";
         }
     }
