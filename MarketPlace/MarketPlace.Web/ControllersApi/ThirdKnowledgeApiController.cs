@@ -169,18 +169,20 @@ namespace MarketPlace.Web.ControllersApi
             List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, true);
 
              List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
-
-            oPlanModel.All(x =>
+            if (oPlanModel != null)
             {
-                x.RelatedPeriodModel.All(y =>
+                oPlanModel.All(x =>
                 {
-                    
-                    oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
-                        , y.TotalQueries, y.AssignedQueries));
+                    x.RelatedPeriodModel.All(y =>
+                    {
+
+                        oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
+                            , y.TotalQueries, y.AssignedQueries));
+                        return true;
+                    });
                     return true;
                 });
-                return true;
-            });
+            }          
 
             return oReturn;
         }

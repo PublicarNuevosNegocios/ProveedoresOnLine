@@ -6,7 +6,8 @@
     /*Get session modules by user*/
     bool IsBasicInfo = false;
     bool IsEvaluator = false;
-    bool IsProcessModelEnable = false;
+    bool IsProcessModuleEnable = false;
+    bool IsThirdKnowledgeModeuleEnable = false;
 
     List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
@@ -18,18 +19,22 @@
         }
         else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
         {
-            IsProcessModelEnable = true;
+            IsProcessModuleEnable = true;
         }
         else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
         {
             IsEvaluator = true;
+        }
+        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ThirdKnowledge)
+        {
+            IsThirdKnowledgeModeuleEnable = true;
         }
         return true;
     });
 
 }
 <div id="POMPGraphicContainerMain">
-    @if (IsEvaluator == true)
+    @if (IsEvaluator)
     {
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
@@ -39,7 +44,7 @@
         </div>
     }
     
-    @if (IsProcessModelEnable == true)
+    @if (IsProcessModuleEnable)
     {
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
@@ -60,7 +65,7 @@
     }    
     
 
-    @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+    @if (IsThirdKnowledgeModeuleEnable)
     {
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
