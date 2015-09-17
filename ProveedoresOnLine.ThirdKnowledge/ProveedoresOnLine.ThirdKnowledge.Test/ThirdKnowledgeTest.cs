@@ -28,9 +28,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
             oToUpsert.LastModify = DateTime.Now;
             oToUpsert.QueriesByPeriod = 100;
             oToUpsert.Status = new TDCatalogModel()
-            {
-                ItemId = 101001
-            };
+                {
+                    ItemId = 101001
+                };
             PlanModel oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PlanUpsert(oToUpsert);
 
             Assert.IsNotNull(oReturn);
@@ -40,8 +40,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         public void GetAllPlanByCustomer()
         {
             List<PlanModel> oReturn = new List<PlanModel>();
-            oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("AAAAA", true);
-            Assert.IsNull(oReturn);
+            oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("DA5C572E", true);
+            Assert.IsNull(oReturn);     
         }
 
         [TestMethod]
@@ -49,9 +49,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         {
             List<PeriodModel> oPeriodModel = new List<PeriodModel>();
 
-            oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("4236C169", true);
+            oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("DA5C572E", true);
 
-            Assert.IsNull(oPeriodModel);
+            Assert.IsNull(oPeriodModel);     
         }
 
         [TestMethod]

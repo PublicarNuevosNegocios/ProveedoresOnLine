@@ -81,8 +81,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              {
                                  PeriodPublicId = pinf.Field<string>("PeriodPublicId"),
                                  AssignedQueries = pinf.Field<int>("AssignedQueries"),
-                                 InitDate = pinf.Field<DateTime>("InitDate"),
-                                 EndDate = pinf.Field<DateTime>("EndDate"),
+                                 InitDate = pinf.Field<DateTime>("InfoInitDate"),
+                                 EndDate = pinf.Field<DateTime>("InfoEndDate"),
                                  TotalQueries = pinf.Field<int>("TotalQueries"),
                                  Enable = pinf.Field<UInt64>("PeriodEnable") == 1 ? true : false,
                                  LastModify = pinf.Field<DateTime>("LastModify"),
