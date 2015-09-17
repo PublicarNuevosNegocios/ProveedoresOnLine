@@ -139,6 +139,8 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKThirdKnowledgeDetail(
             string QueryPublicId
+            ,string InitDate
+            ,string EndDate
             ,string Enable)
         {
             ProviderViewModel oModel = new ProviderViewModel();
@@ -152,7 +154,13 @@ namespace MarketPlace.Web.Controllers
 
             if (oQueryResult != null && oQueryResult.Count > 0)
             {
-                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;   
+            }
+
+            if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate))
+            {
+                oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
+                oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
             }
 
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();

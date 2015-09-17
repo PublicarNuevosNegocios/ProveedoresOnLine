@@ -14,6 +14,21 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <div class="POMPSearchContainer">
+            @*Return Buttom*@
+            @if (!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd")) && 
+                !string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")))
+            {
+                <a href="@(Url.RouteUrl
+                              (MarketPlace.Models.General.Constants.C_Routes_Default,
+                              new
+                              {
+                                  controller = MVC.ThirdKnowledge.Name,
+                                  action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch,
+                                  InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
+                                  EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+                                    }))">Regresar a la búsqueda</a>
+            }
+
             @if (Model.RelatedThidKnowledgeSearch != null &&
                     Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
                     Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
