@@ -81,6 +81,8 @@
         #region Manuals
 
         public const string C_Manual_SurveyManual = "Manual_SurveyManual";
+
+        public const string C_Manual_ProjectManual = "Manual_ProjectManual";
                 
         #endregion
 

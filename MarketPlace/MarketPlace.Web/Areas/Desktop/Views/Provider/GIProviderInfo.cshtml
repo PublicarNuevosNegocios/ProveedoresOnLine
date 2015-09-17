@@ -260,14 +260,18 @@
                                 </div>
 
                             }
-                        }
-                        else
-                        {
-                            <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas </label> 
-                        }
+                    }
+                    else
+                    {
+                        <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                            <div class="col-xs-12">
+                                <label>Consulta Listas Restrictivas - Última Validación 04-09-2015</label><p>No se encontraron coincidencias en listas restrictivas.</p>
+                            </div>
+                        </div>
+                    }
 
 
-                    
+
                     @*AQUI ESTA EL AREA SEGUIMIENTOS*@
                     <ul class="POMPProviderInfoMultipleValues">
                         @if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
