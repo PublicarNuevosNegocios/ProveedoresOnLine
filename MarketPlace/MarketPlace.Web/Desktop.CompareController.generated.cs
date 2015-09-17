@@ -59,6 +59,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CompareDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompareDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CompareController Actions { get { return MVC.Desktop.Compare; } }
@@ -75,14 +87,39 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Index = "Index";
+            public readonly string CompareDetail = "CompareDetail";
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Index = "Index";
+            public const string CompareDetail = "CompareDetail";
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
+        static readonly ActionParamsClass_CompareDetail s_params_CompareDetail = new ActionParamsClass_CompareDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CompareDetail CompareDetailParams { get { return s_params_CompareDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CompareDetail
+        {
+            public readonly string CompareId = "CompareId";
+            public readonly string CompareType = "CompareType";
+            public readonly string Currency = "Currency";
+            public readonly string Year = "Year";
+        }
+        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetPdfFileBytes
+        {
+            public readonly string FilePath = "FilePath";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -105,6 +142,44 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
     public partial class T4MVC_CompareController : MarketPlace.Web.Areas.Desktop.Controllers.CompareController
     {
         public T4MVC_CompareController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CompareDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string CompareType, string Currency, string Year);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CompareDetail(string CompareId, string CompareType, string Currency, string Year)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompareDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareId", CompareId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareType", CompareType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
+            CompareDetailOverride(callInfo, CompareId, CompareType, Currency, Year);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
+            return callInfo;
+        }
 
     }
 }
