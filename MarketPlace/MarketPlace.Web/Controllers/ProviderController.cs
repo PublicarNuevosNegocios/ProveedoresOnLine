@@ -526,7 +526,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedTrackingInfo = new List<GenericItemModel>();
 
-                oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(SessionModel.CurrentCompany.CompanyPublicId);
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
