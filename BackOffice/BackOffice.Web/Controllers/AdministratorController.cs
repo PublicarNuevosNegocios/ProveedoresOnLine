@@ -435,7 +435,35 @@ namespace BackOffice.Web.Controllers
             List<ProviderExcelResultModel> oPrvToProcessResult = new List<ProviderExcelResultModel>();
             string ActualProvider = "";
             List<string> ProvidersId = new List<string>();
-            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId)).All(prv =>
+
+            ProvidersId = oPrvToProcess.Where(x => x.ProviderPublicId != null).Select(x => x.ProviderPublicId).Distinct().ToList();
+
+            foreach (string ProviderPublicId in ProvidersId)
+            {           
+                    ProviderModel oProvider = new ProviderModel();
+                    oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
+
+                    if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(ProviderPublicId))
+                    {
+                        int AlertId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert).
+                        Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault();
+
+                        oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert,
+                            },
+                            ItemInfoId = AlertId,
+                            Enable = true,
+                            Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                        });
+
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
+                    }                    
+            }         
+
+            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId) && prv.BlackListStatus == "Si").All(prv =>
             {
                 try
                 {
