@@ -420,12 +420,18 @@
     top: 0;
     bottom: 0;
     position: absolute;
+    float: right;
 }
 
-    .POMPPdfContainer > a > img {
-        height: 100%;
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-    }
+.POMPPdfContainer > a > img {
+    height: 30%;
+    width:30%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.POMPPdfIcon {
+    width:68%;
+    margin-top:-5px;
+}

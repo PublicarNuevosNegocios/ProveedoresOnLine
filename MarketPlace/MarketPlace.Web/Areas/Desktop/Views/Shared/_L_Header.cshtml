@@ -11,6 +11,8 @@
         DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Login_DefaultUserUrl].Value).
         FirstOrDefault();
 
+    List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+
     //get header menu
     List<MarketPlace.Models.General.GenericMenu> oHeaderMenu = (ViewContext.Controller as MarketPlace.Web.Controllers.BaseController).GetHeaderMenu();
 

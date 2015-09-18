@@ -169,7 +169,7 @@
                                 
                                 <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                                     <div class="col-xs-12">
-                                        <label>Consulta Listas Restrictivas - Última Validación @maxDate.ToLocalTime().ToString()</label><p class ="POMPWarning">Se encuentra registrado en listas restrictivas.</p>
+                                        <label>Consulta Listas Restrictivas - Última Validación @maxDate.ToLocalTime().ToString()</label><p class ="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
                                     </div>
                                 </div>
 
@@ -255,18 +255,22 @@
 
                                 <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                                     <div class="col-xs-12">
-                                        <label>Consulta Listas Restrictivas - Última Validación @maxDate.-().ToString()</label><p>No se encuentra registrado en listas restrictivas.</p>
+                                        <label>Consulta Listas Restrictivas - Última Validación @maxDate.-().ToString()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
                                     </div>
                                 </div>
 
                             }
-                        }
-                        else
-                        {
-                            <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
-                        }
-
                     }
+                    else
+                    {
+                        <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                            <div class="col-xs-12">
+                                <label>Consulta Listas Restrictivas - Última Validación 04-09-2015</label><p>No se encontraron coincidencias en listas restrictivas.</p>
+                            </div>
+                        </div>
+                    }
+
+
 
                     @*AQUI ESTA EL AREA SEGUIMIENTOS*@
                     <ul class="POMPProviderInfoMultipleValues">

@@ -6,7 +6,8 @@
     /*Get session modules by user*/
     bool IsBasicInfo = false;
     bool IsEvaluator = false;
-    bool IsProcessModelEnable = false;
+    bool IsProcessModuleEnable = false;
+    bool IsThirdKnowledgeModeuleEnable = false;
 
     List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
@@ -18,18 +19,22 @@
         }
         else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
         {
-            IsProcessModelEnable = true;
+            IsProcessModuleEnable = true;
         }
         else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
         {
             IsEvaluator = true;
+        }
+        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ThirdKnowledge)
+        {
+            IsThirdKnowledgeModeuleEnable = true;
         }
         return true;
     });
 
 }
 <div id="POMPGraphicContainerMain">
-    @if (IsEvaluator == true)
+    @if (IsEvaluator)
     {
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
@@ -39,7 +44,7 @@
         </div>
     }
     
-    @if (IsProcessModelEnable == true)
+    @if (IsProcessModuleEnable)
     {
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
@@ -60,7 +65,7 @@
     }    
     
 
-    @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+    @if (IsThirdKnowledgeModeuleEnable)
     {
         <div class="POMPGraphicDynamic">
             <div class="POMPHeaderGraphicDynamic">
@@ -71,11 +76,17 @@
     }
 
 
+
+
+
     <div class="POMPManualLink">
         <div id="POMPManualTitle"><p>MANUALES</p></div>
         <div id="POMPManualIcons">
-            <div class="POMPPdfContainer"><a title="Manual de evaluación de desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>           
-        </div>
+            <div class="row POMPPdfContainer">
+                <div class="col-xs-6 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                <div class="col-xs-6 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+            </div>
+        </div>        
     </div>
 </div>
 
