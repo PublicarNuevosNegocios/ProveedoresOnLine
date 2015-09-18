@@ -728,6 +728,12 @@
         Message = 301021,
     }
 
+    public enum enumThirdKnowledgeQueryStatus
+    {
+        Finalized = 501001,
+        InProcess = 501002,
+    }
+
     #endregion
 
     #region Aditional Document

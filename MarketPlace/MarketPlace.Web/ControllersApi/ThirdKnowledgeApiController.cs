@@ -40,7 +40,7 @@ namespace MarketPlace.Web.ControllersApi
                     oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
 
                     #region Upsert Process
-                    //TODO: Put the Alert?
+                    
                     if (System.Web.HttpContext.Current.Request["UpsertRequest"] == "true")
                     {
                         //Set Current Sale                        
@@ -56,6 +56,10 @@ namespace MarketPlace.Web.ControllersApi
                                     ItemId = (int)enumThirdKnowledgeQueryType.Simple,
                                 },
                                 User = SessionModel.CurrentLoginUser.Email,
+                                QueryStatus = new TDCatalogModel()
+                                {
+                                    ItemId = (int)enumThirdKnowledgeQueryStatus.Finalized
+                                },
                                 RelatedQueryInfoModel = new List<TDQueryInfoModel>(),
                             };
 
@@ -156,7 +160,7 @@ namespace MarketPlace.Web.ControllersApi
             }
             return oReturn;
         }
-
+        
         #region ThirdKnowledge Charts
 
         [HttpPost]
@@ -224,9 +228,8 @@ namespace MarketPlace.Web.ControllersApi
                 CurrentBook.Close();
                 return false;
             }            
-        }
+        }        
 
         #endregion
-
     }
 }
