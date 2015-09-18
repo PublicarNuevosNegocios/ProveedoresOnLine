@@ -490,7 +490,43 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedTrackingInfo = new List<GenericItemModel>();
 
-                //oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetAllTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
+        }
+
+        public virtual ActionResult GIBlackList(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                ////get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.RelatedTrackingInfo = new List<GenericItemModel>();
+
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(SessionModel.CurrentCompany.CompanyPublicId);
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -2944,7 +2980,25 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
-
+                        
+                        //Listas Restrictivas
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
+                        {
+                            Name = "Listas Restrictivas",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.GIBlackList,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 4,
+                            IsSelected =
+                                (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
+                        
                         //Seguimientos
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -2957,7 +3011,7 @@ namespace MarketPlace.Web.Controllers
                                         action = MVC.Provider.ActionNames.GITrackingInfo,
                                         ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                     }),
-                            Position = 3,
+                            Position = 5,
                             IsSelected =
                                 (oCurrentAction == MVC.Provider.ActionNames.GITrackingInfo &&
                                 oCurrentController == MVC.Provider.Name),
