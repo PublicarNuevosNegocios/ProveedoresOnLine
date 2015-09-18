@@ -82,7 +82,7 @@ namespace MarketPlace.Web.ControllersApi
                                 },
                                 User = SessionModel.CurrentLoginUser.Email,
                             };
-                        }                       
+                        }
                     }
                     #endregion
                 }
@@ -115,38 +115,40 @@ namespace MarketPlace.Web.ControllersApi
                 if (!System.IO.Directory.Exists(strFolder))
                     System.IO.Directory.CreateDirectory(strFolder);
 
-                    //get File
+                //get File
                 var UploadFile = System.Web.HttpContext.Current.Request.Files["ThirdKnowledge_FileUpload"];
 
-                    if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
-                    {
-                        string strFile = strFolder.TrimEnd('\\') +
-                        "\\ThirdKnowledgeFile_" +
-                            CompanyPublicId + "_" +
-                            DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                            UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
+                if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
+                {
+                    string strFile = strFolder.TrimEnd('\\') +
+                    "\\ThirdKnowledgeFile_" +
+                        CompanyPublicId + "_" +
+                        DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
 
-                        UploadFile.SaveAs(strFile);
+                    UploadFile.SaveAs(strFile);
 
-                        //load file to s3
-                        string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                            (strFile,
-                            MarketPlace.Models.General.InternalSettings.Instance
-                                [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                            "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");
+                    //load file to s3
+                    string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                        (strFile,
+                        MarketPlace.Models.General.InternalSettings.Instance
+                            [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                        "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");
 
                     bool isValidFile = this.FileVerify(strFile);
 
-                        //remove temporal file
-                        if (System.IO.File.Exists(strFile))
-                            System.IO.File.Delete(strFile);
-
-                        oReturn = new MarketPlace.Models.General.FileModel()
-                        {
-                            FileName = UploadFile.FileName,
-                            ServerUrl = strRemoteFile,
-                        };
-                    }
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFile))
+                        System.IO.File.Delete(strFile);
+                    
+                    oReturn = new MarketPlace.Models.General.FileModel()
+                    {
+                        FileName = UploadFile.FileName,
+                        ServerUrl = strRemoteFile,
+                        LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
+                                                    "El Archivo " + UploadFile.FileName + " no es correto, por favor verifique el nombre de las columnas y el formato." 
+                    };
+                }
             }
             return oReturn;
         }
@@ -169,21 +171,21 @@ namespace MarketPlace.Web.ControllersApi
 
             List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, true);
 
-             List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
+            List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
             if (oPlanModel != null)
             {
-            oPlanModel.All(x =>
-            {
-                x.RelatedPeriodModel.All(y =>
+                oPlanModel.All(x =>
                 {
-                    
-                    oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
-                        , y.TotalQueries, y.AssignedQueries));
+                    x.RelatedPeriodModel.All(y =>
+                    {
+
+                        oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
+                            , y.TotalQueries, y.AssignedQueries));
+                        return true;
+                    });
                     return true;
                 });
-                return true;
-            });
-            }          
+            }
 
             return oReturn;
         }
@@ -202,15 +204,20 @@ namespace MarketPlace.Web.ControllersApi
 
             object[,] values = (object[,])workSheet.Range("A1:C1").Value;
 
-            if (values != null)
-            {               
-                foreach (string item in values)
-                {
-                    
-                }
+            string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
+            if (UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+                            [MarketPlace.Models.General.Constants.MP_CP_ColPersonType].Value)
+                && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+                            [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
+                && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+                            [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
+            {
+                return true;
             }
-
-            return true;
+            else
+            {
+                return false;
+            }            
         }
 
         #endregion
