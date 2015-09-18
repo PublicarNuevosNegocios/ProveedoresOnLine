@@ -128,14 +128,18 @@ namespace MarketPlace.Web.ControllersApi
 
                     UploadFile.SaveAs(strFile);
 
-                    //load file to s3
-                    string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                        (strFile,
-                        MarketPlace.Models.General.InternalSettings.Instance
-                            [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                        "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");
-
                     bool isValidFile = this.FileVerify(strFile);
+
+                    string strRemoteFile = string.Empty;
+                    if (isValidFile)
+                    {
+                        //load file to s3
+                        strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                            (strFile,
+                            MarketPlace.Models.General.InternalSettings.Instance
+                                [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                            "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");                    
+                    }                    
 
                     //remove temporal file
                     if (System.IO.File.Exists(strFile))
@@ -212,10 +216,12 @@ namespace MarketPlace.Web.ControllersApi
                 && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
                             [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
             {
+                CurrentBook.Close();
                 return true;
             }
             else
             {
+                CurrentBook.Close();
                 return false;
             }            
         }
