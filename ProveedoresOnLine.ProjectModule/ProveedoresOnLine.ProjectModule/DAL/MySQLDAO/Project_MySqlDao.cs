@@ -558,7 +558,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "MP_CC_Project_Search",
+                CommandText = "MP_CC_Project_Search_Filters",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
