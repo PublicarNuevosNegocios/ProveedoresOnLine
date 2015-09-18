@@ -1254,6 +1254,8 @@
     <Content Include="Areas\Desktop\Views\Shared\_TK_Search_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKThirdKnowledgeDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_TK_GetPeriodsByPlan.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GIBlackList.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_BlackList.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
