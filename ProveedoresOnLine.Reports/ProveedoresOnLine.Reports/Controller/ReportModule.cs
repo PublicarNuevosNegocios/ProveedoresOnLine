@@ -60,7 +60,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         public static List<SurveyModule.Models.SurveyModel> SurveyGetAllByCustomer(string CustomerPublicId)
         {
-            List<SurveyModule.Models.SurveyModel> oSurveyParentModel = DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);            
+            List<SurveyModule.Models.SurveyModel> oSurveyParentModel = DAL.Controller.ReportsDataController.Instance.SurveyGetAllByCustomer(CustomerPublicId);
 
             if (oSurveyParentModel != null)
             {
@@ -69,12 +69,12 @@ namespace ProveedoresOnLine.Reports.Controller
                         List<string> EvaluatorsList = x.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == 1204003).Select(inf => inf.Value).ToList();
                         List<string> Evaluators = EvaluatorsList.GroupBy(y => y).Select(grp => grp.First()).ToList();
                         x.ChildSurvey = new List<SurveyModel>();
-                        Evaluators.All(ev => 
+                        Evaluators.All(ev =>
                             {
                                 x.ChildSurvey.Add(DAL.Controller.ReportsDataController.Instance.SurveyGetByParentUser(x.SurveyPublicId, ev));
                                 return true;
                             });
-                        
+
                         return true;
                     });
             }
@@ -301,9 +301,52 @@ namespace ProveedoresOnLine.Reports.Controller
                 out warnings);
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyGeneralReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
-        }    
+        }
 
         #endregion
 
+        #region ThirdKnowledge Reports
+
+        public static Tuple<byte[], string, string> TK_QueryReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.EnableExternalImages = true;
+            localReport.ReportPath = FilePath;
+            localReport.SetParameters(ReportData);
+
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DS_ThirdKnowledgeReport";
+            source.Value = data != null ? data : new DataTable();
+            localReport.DataSources.Add(source);
+
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo =
+                       "<DeviceInfo>" +
+                       "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                       "  <PageWidth>8.5in</PageWidth>" +
+                       "  <PageHeight>11in</PageHeight>" +
+                       "  <MarginTop>0.5in</MarginTop>" +
+                       "  <MarginLeft>1in</MarginLeft>" +
+                       "  <MarginRight>1in</MarginRight>" +
+                       "  <MarginBottom>0.5in</MarginBottom>" +
+                       "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            renderedBytes = localReport.Render(
+                FormatType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+            return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_ThirdKnowledgeQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+
+            #endregion
+        }
     }
 }
