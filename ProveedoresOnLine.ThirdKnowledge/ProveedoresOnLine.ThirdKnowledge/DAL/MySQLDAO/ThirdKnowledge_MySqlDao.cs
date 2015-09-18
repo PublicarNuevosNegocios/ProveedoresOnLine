@@ -236,6 +236,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                           SearchType = cm.Field<Int32>("SearchType"),
                           SearhTypeName = cm.Field<string>("SearchTypeName"),
                           User = cm.Field<string>("User"),
+                          QueryStatusId = cm.Field<Int32>("QueryStatusId"),
+                          QueryStatusName = cm.Field<string>("QueryStatusName"),
                           IsSuccess = cm.Field<UInt64>("IsSuccess") == 1 ? true : false,
                           CreateDate = cm.Field<DateTime>("CreateDate"),
                           Enable = cm.Field<UInt64>("QueryEnable") == 1 ? true : false,
@@ -250,6 +252,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                               ItemName = cmg.Key.SearhTypeName,
                           },
                           User = cmg.Key.User,
+                          QueryStatus = new TDCatalogModel()
+                          {
+                              ItemId = cmg.Key.QueryStatusId,
+                              ItemName = cmg.Key.QueryStatusName,
+                          },
                           IsSuccess = cmg.Key.IsSuccess,
                           CreateDate = cmg.Key.CreateDate,
                           Enable = cmg.Key.Enable
@@ -385,6 +392,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          SearchTypeId = q.Field<int>("SearchTypeId"),
                          SearchTypeName = q.Field<string>("SearchTypeName"),
                          User = q.Field<string>("User"),
+                         QueryStatusId = q.Field<int>("QueryStatusId"),
+                         QueryStatusName = q.Field<string>("QueryStatusName"),
                          IsSuccess = q.Field<UInt64>("IsSuccess"),
                          QueryEnable = q.Field<UInt64>("QueryEnable"),
                          PeriodPublicId = q.Field<string>("PeriodPublicId"),
@@ -402,12 +411,16 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              ItemName = qg.Key.SearchTypeName,
                          },
                          User = qg.Key.User,
+                         QueryStatus = new TDCatalogModel()
+                         {
+                             ItemId = qg.Key.QueryStatusId,
+                             ItemName = qg.Key.QueryStatusName,
+                         },
                          Enable = qg.Key.QueryEnable == 1 ? true : false,
                          PeriodPublicId = qg.Key.PeriodPublicId,
                          CreateDate = qg.Key.QueryCreateDate,
                      }).ToList();
             }
-
             return oReturn;
         }
 
@@ -440,6 +453,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          SearchTypeId = q.Field<int>("SearchTypeId"),
                          SearchTypeName = q.Field<string>("SearchTypeName"),
                          User = q.Field<string>("User"),
+                         QueryStatusId = q.Field<int>("QueryStatusId"),
+                         QueryStatusName = q.Field<string>("QueryStatusName"),
                          IsSuccess = q.Field<UInt64>("IsSuccess"),
                          QueryEnable = q.Field<UInt64>("QueryEnable"),
                          PeriodPublicId = q.Field<string>("PeriodPublicId"),
@@ -457,6 +472,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              ItemName = qg.Key.SearchTypeName,
                          },
                          User = qg.Key.User,
+                         QueryStatus = new TDCatalogModel()
+                         {
+                             ItemId = qg.Key.QueryStatusId,
+                             ItemName = qg.Key.QueryStatusName,
+                         },
                          Enable = qg.Key.QueryEnable == 1 ? true : false,
                          PeriodPublicId = qg.Key.PeriodPublicId,
                          CreateDate = qg.Key.QueryCreateDate,
@@ -495,12 +515,13 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         #region Queries
 
-        public string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, bool Enable)
+        public string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, int QueryStatusId, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryStatusId", QueryStatusId));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
             lstParams.Add(DataInstance.CreateTypedParameter("vIsSuccess", isSuccess == true ? 1 : 0));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));

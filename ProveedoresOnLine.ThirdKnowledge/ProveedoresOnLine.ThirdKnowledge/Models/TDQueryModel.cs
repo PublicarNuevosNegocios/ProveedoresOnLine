@@ -16,6 +16,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public string  User { get; set; }
 
+        public TDCatalogModel QueryStatus { get; set; }
+
         public bool IsSuccess { get; set; }
 
         public bool Enable { get; set; }
