@@ -141,6 +141,8 @@
         Alert = 203008,
         ListId = 203009,
         OtherProviders = 203010,
+        AditionalInfo = 203011,
+        UpdateAlert = 203012,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,

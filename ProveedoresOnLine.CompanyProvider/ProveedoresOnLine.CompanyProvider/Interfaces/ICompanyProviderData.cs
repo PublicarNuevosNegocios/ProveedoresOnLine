@@ -60,6 +60,8 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<BlackListModel> BlackListGetBasicInfo(string CompanyPublicId);
 
+        bool BlackListClearProvider(string CompanyPublicId);
+
         #endregion BlackList
 
         #region Aditional Documents

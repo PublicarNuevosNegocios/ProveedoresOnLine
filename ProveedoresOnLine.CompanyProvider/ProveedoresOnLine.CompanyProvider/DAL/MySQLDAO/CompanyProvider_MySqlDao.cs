@@ -702,6 +702,22 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public bool BlackListClearProvider(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_CleanBlakListByProviderId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+           
+            return true;
+        }
         #endregion Black List
 
         #region Aditional Documents
