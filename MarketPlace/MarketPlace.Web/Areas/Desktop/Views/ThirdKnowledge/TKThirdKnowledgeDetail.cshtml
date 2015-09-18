@@ -13,6 +13,22 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
+        <div>
+            <form id="frmThirdKnowledgeUpsert"
+                  method="post"
+                  action="@(Url.Action
+                    (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
+                    MVC.ThirdKnowledge.Name,
+                    new
+                    {
+                        QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
+                        InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
+                        EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+                    }))">
+                <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                <input type="hidden" name="DownloadReport" value="true" />
+            </form>
+        </div>
         <div class="POMPSearchContainer">
             @*Return Buttom*@
             @if (!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&

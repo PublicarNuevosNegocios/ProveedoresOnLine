@@ -2,9 +2,11 @@
 using MarketPlace.Models.Compare;
 using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using Microsoft.Reporting.WebForms;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -139,9 +141,9 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKThirdKnowledgeDetail(
             string QueryPublicId
-            ,string InitDate
-            ,string EndDate
-            ,string Enable)
+            , string InitDate
+            , string EndDate
+            , string Enable)
         {
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
@@ -149,18 +151,95 @@ namespace MarketPlace.Web.Controllers
 
             List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
                 (SessionModel.CurrentCompany.CompanyPublicId
-                ,QueryPublicId
-                ,Enable == "1" ? true : false);
+                , QueryPublicId
+                , Enable == "1" ? true : false);
 
             if (oQueryResult != null && oQueryResult.Count > 0)
             {
-                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;   
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
             }
 
             if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate))
             {
                 oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
                 oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
+            }
+
+            //Get report generator
+            if (Request["DownloadReport"] == "true")
+            {
+                #region Set Parameters
+
+                List<ReportParameter> parameters = new List<ReportParameter>();
+
+                //Customer Info
+                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+
+                //Query Info
+                parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+                parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+                //TODO -> agregar estado al reporte
+
+                DataTable data = new DataTable();
+                data.Columns.Add("ColumnNumber");
+                data.Columns.Add("Name");
+                data.Columns.Add("ListName");
+                data.Columns.Add("IdentificationType");
+                data.Columns.Add("IdentificationNumber");
+                data.Columns.Add("Priority");
+
+                DataRow row;
+                foreach (var query in oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x != null))
+                {
+                    row = data.NewRow();
+
+                    row["ColumnNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupNumber).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    row["Name"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.NameResult).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    row["ListName"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    data.Rows.Add(row);
+                }
+
+                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryReport(
+                                                                enumCategoryInfoType.PDF.ToString(),
+                                                                data,
+                                                                parameters,
+                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_ThirdKnowledgeQuery.rdlc");
+
+                parameters = null;
+                return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
+
+                #endregion
             }
 
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
