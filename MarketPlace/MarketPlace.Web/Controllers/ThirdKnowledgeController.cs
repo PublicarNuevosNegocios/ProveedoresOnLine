@@ -179,9 +179,9 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
 
                 //Query Info
-                parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty(string.Empty).FirstOrDefault()));
-                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty(string.Empty).FirstOrDefault()));
-                parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+                parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 //TODO -> agregar estado al reporte
 
                 DataTable data = new DataTable();
@@ -199,32 +199,32 @@ namespace MarketPlace.Web.Controllers
 
                     row["ColumnNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupNumber).
                         Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
                     row["Name"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.NameResult).
                         Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
                     row["ListName"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
                         Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
                     row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
                         Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
                     row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).
                         Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
                     row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
                         Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
                     data.Rows.Add(row);

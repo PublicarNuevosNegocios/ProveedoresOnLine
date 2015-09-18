@@ -16,7 +16,8 @@
         <div class="POMPSearchContainer">
             <div class="SurveyFilterDate">
                 @{
-                    if (Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
+                    if (Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
+                        Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
                         Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
                     {
                         var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
