@@ -230,7 +230,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
             {
                 QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryInsert(QueryModelToUpsert.PeriodPublicId,
-                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, true);
+                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
                 QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>
                 {

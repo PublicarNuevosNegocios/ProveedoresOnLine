@@ -83,6 +83,9 @@ var Third_KnowledgeMasiveSearchObject = {
                 autoUpload: true
             },
             success: function (e) {
+                $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').html('');
+                $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').append(e.response.LoadMessage);
+                debugger;
             },
             error: function (e) {
             }

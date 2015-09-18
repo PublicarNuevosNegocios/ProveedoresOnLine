@@ -26,5 +26,7 @@ namespace MarketPlace.Models.General
                 return oReturn;
             }
         }
+
+        public string LoadMessage { get; set; }
     }
 }
