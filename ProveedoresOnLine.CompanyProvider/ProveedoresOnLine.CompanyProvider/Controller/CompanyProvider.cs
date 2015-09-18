@@ -1496,6 +1496,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.BlackListGetBasicInfo(CompanyPublicId);
         }
+        public static bool BlackListClearProvider(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.BlackListClearProvider(CompanyPublicId);
+        }
         #endregion
     }
 }

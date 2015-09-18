@@ -51,6 +51,7 @@ namespace T4MVC.Desktop
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
                 public readonly string _P_AD_AditionalDocument = "_P_AD_AditionalDocument";
+                public readonly string _P_BlackList = "_P_BlackList";
                 public readonly string _P_CI_ExperiencesInfo = "_P_CI_ExperiencesInfo";
                 public readonly string _P_FI_Balance = "_P_FI_Balance";
                 public readonly string _P_FI_BalanceItem = "_P_FI_BalanceItem";
@@ -114,6 +115,7 @@ namespace T4MVC.Desktop
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Areas/Desktop/Views/Shared/_Layout.cshtml";
             public readonly string _P_AD_AditionalDocument = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalDocument.cshtml";
+            public readonly string _P_BlackList = "~/Areas/Desktop/Views/Shared/_P_BlackList.cshtml";
             public readonly string _P_CI_ExperiencesInfo = "~/Areas/Desktop/Views/Shared/_P_CI_ExperiencesInfo.cshtml";
             public readonly string _P_FI_Balance = "~/Areas/Desktop/Views/Shared/_P_FI_Balance.cshtml";
             public readonly string _P_FI_BalanceItem = "~/Areas/Desktop/Views/Shared/_P_FI_BalanceItem.cshtml";

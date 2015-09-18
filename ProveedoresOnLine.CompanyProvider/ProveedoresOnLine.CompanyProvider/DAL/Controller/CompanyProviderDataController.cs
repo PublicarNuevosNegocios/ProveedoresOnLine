@@ -159,6 +159,10 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.BlackListGetBasicInfo(CompanyPublicId);
         }
+        public bool BlackListClearProvider(string CompanyPublicId)
+        {
+            return DataFactory.BlackListClearProvider(CompanyPublicId);
+        }
 
         #endregion BlackList
 
