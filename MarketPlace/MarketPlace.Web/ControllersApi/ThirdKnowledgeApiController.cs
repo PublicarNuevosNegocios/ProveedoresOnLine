@@ -10,6 +10,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Script.Serialization;
+using NetOffice.ExcelApi.Enums;
+using Excel = NetOffice.ExcelApi;
+using System.Text.RegularExpressions;
+using NetOffice.ExcelApi;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -78,7 +82,7 @@ namespace MarketPlace.Web.ControllersApi
                                 },
                                 User = SessionModel.CurrentLoginUser.Email,
                             };
-                        }                       
+                        }
                     }
                     #endregion
                 }
@@ -94,7 +98,6 @@ namespace MarketPlace.Web.ControllersApi
                 throw ex.InnerException;
             }
         }
-
 
         [HttpPost]
         [HttpGet]
@@ -112,40 +115,38 @@ namespace MarketPlace.Web.ControllersApi
                 if (!System.IO.Directory.Exists(strFolder))
                     System.IO.Directory.CreateDirectory(strFolder);
 
-                System.Web.HttpContext.Current.Request.Files.AllKeys.All(reqFile =>
+                //get File
+                var UploadFile = System.Web.HttpContext.Current.Request.Files["ThirdKnowledge_FileUpload"];
+
+                if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                 {
-                    //get File
-                    var UploadFile = System.Web.HttpContext.Current.Request.Files[reqFile];
+                    string strFile = strFolder.TrimEnd('\\') +
+                        "\\ThirdKnowledgeFile_" +
+                        CompanyPublicId + "_" +
+                        DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
 
-                    if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
+                    UploadFile.SaveAs(strFile);
+
+                    //load file to s3
+                    string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                        (strFile,
+                        MarketPlace.Models.General.InternalSettings.Instance
+                            [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                            "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");
+
+                    bool isValidFile = this.FileVerify(strFile);
+
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFile))
+                        System.IO.File.Delete(strFile);
+
+                    oReturn = new MarketPlace.Models.General.FileModel()
                     {
-                        string strFile = strFolder.TrimEnd('\\') +
-                            "\\CompanyFile_" +
-                            CompanyPublicId + "_" +
-                            DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                            UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
-
-                        UploadFile.SaveAs(strFile);
-
-                        //load file to s3
-                        string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                            (strFile,
-                            MarketPlace.Models.General.InternalSettings.Instance
-                                [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                                "\\ThirdKnowledge\\" + CompanyPublicId + "_"+ DateTime.Now +"\\");
-
-                        //remove temporal file
-                        if (System.IO.File.Exists(strFile))
-                            System.IO.File.Delete(strFile);
-
-                        oReturn = new MarketPlace.Models.General.FileModel()
-                        {
-                            FileName = UploadFile.FileName,
-                            ServerUrl = strRemoteFile,
-                        };
-                    }
-                    return true;
-                });
+                        FileName = UploadFile.FileName,
+                        ServerUrl = strRemoteFile,
+                    };
+                }
             }
             return oReturn;
         }
@@ -168,13 +169,13 @@ namespace MarketPlace.Web.ControllersApi
 
             List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, true);
 
-             List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
+            List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
 
             oPlanModel.All(x =>
             {
                 x.RelatedPeriodModel.All(y =>
                 {
-                    
+
                     oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
                         , y.TotalQueries, y.AssignedQueries));
                     return true;
@@ -183,6 +184,31 @@ namespace MarketPlace.Web.ControllersApi
             });
 
             return oReturn;
+        }
+
+        #endregion
+
+        #region Private Functions
+
+        public bool FileVerify(string FilePath)
+        {
+            Excel.Application Aplication = new Excel.Application();
+
+            Excel.Workbook CurrentBook;
+            CurrentBook = Aplication.Workbooks.Open(FilePath);
+            Excel.Worksheet workSheet = (Excel.Worksheet)CurrentBook.Worksheets[1];
+
+            object[,] values = (object[,])workSheet.Range("A1:C1").Value;
+
+            if (values != null)
+            {               
+                foreach (string item in values)
+                {
+                    
+                }
+            }
+
+            return true;
         }
 
         #endregion
