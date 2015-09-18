@@ -57,8 +57,8 @@ namespace MarketPlace.Web.Controllers
                         "\"" + "PROYECTO" + "\"" + strSep +
                         "\"" + "OBSERVACIONES" + "\"" + strSep +
                         "\"" + "ESTADO" + "\"" + strSep +
-                        "\"" + "FECHA ASIGNACION" + "\"" + strSep +
-                        "\"" + "FECHA VENCIMIENTO" + "\"" + strSep +
+                        "\"" + "FECHA DE ENVIO" + "\"" + strSep +
+                        "\"" + "FECHA DE CADUCIDAD" + "\"" + strSep +
                         "\"" + "EVALUADORES" + "\"" + strSep +
                         "\"" + "CALIFICACION" + "\"" + strSep +
                         "\"" + "ULTIMA MODIFICACION" + "\"");
