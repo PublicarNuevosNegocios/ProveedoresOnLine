@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 
 namespace ProveedoresOnLine.ThirdKnowledge.Controller
 {
@@ -216,6 +217,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         public static List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublic, bool Enable)
         {
             return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearchByPublicId(CustomerPublicId, QueryPublic, Enable);
+        }
+
+        public static bool AccessFTPClient(string File)
+        {
+            FtpWebRequest oFTPClient = new FtpWebRequest();
+ 
+            
+            return true;
         }
 
         #endregion MarketPlace
