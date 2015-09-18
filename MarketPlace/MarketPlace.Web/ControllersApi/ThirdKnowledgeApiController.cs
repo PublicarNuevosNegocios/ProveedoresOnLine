@@ -10,6 +10,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Script.Serialization;
+using NetOffice.ExcelApi.Enums;
+using Excel = NetOffice.ExcelApi;
+using System.Text.RegularExpressions;
+using NetOffice.ExcelApi;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -95,7 +99,6 @@ namespace MarketPlace.Web.ControllersApi
             }
         }
 
-
         [HttpPost]
         [HttpGet]
         public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string Algo)
@@ -112,15 +115,13 @@ namespace MarketPlace.Web.ControllersApi
                 if (!System.IO.Directory.Exists(strFolder))
                     System.IO.Directory.CreateDirectory(strFolder);
 
-                System.Web.HttpContext.Current.Request.Files.AllKeys.All(reqFile =>
-                {
                     //get File
-                    var UploadFile = System.Web.HttpContext.Current.Request.Files[reqFile];
+                var UploadFile = System.Web.HttpContext.Current.Request.Files["ThirdKnowledge_FileUpload"];
 
                     if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                     {
                         string strFile = strFolder.TrimEnd('\\') +
-                            "\\CompanyFile_" +
+                        "\\ThirdKnowledgeFile_" +
                             CompanyPublicId + "_" +
                             DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                             UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
@@ -132,7 +133,9 @@ namespace MarketPlace.Web.ControllersApi
                             (strFile,
                             MarketPlace.Models.General.InternalSettings.Instance
                                 [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                                "\\ThirdKnowledge\\" + CompanyPublicId + "_"+ DateTime.Now +"\\");
+                            "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");
+
+                    bool isValidFile = this.FileVerify(strFile);
 
                         //remove temporal file
                         if (System.IO.File.Exists(strFile))
@@ -144,8 +147,6 @@ namespace MarketPlace.Web.ControllersApi
                             ServerUrl = strRemoteFile,
                         };
                     }
-                    return true;
-                });
             }
             return oReturn;
         }
@@ -171,20 +172,45 @@ namespace MarketPlace.Web.ControllersApi
              List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
             if (oPlanModel != null)
             {
-                oPlanModel.All(x =>
+            oPlanModel.All(x =>
+            {
+                x.RelatedPeriodModel.All(y =>
                 {
-                    x.RelatedPeriodModel.All(y =>
-                    {
-
-                        oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
-                            , y.TotalQueries, y.AssignedQueries));
-                        return true;
-                    });
+                    
+                    oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
+                        , y.TotalQueries, y.AssignedQueries));
                     return true;
                 });
+                return true;
+            });
             }          
 
             return oReturn;
+        }
+
+        #endregion
+
+        #region Private Functions
+
+        public bool FileVerify(string FilePath)
+        {
+            Excel.Application Aplication = new Excel.Application();
+
+            Excel.Workbook CurrentBook;
+            CurrentBook = Aplication.Workbooks.Open(FilePath);
+            Excel.Worksheet workSheet = (Excel.Worksheet)CurrentBook.Worksheets[1];
+
+            object[,] values = (object[,])workSheet.Range("A1:C1").Value;
+
+            if (values != null)
+            {               
+                foreach (string item in values)
+                {
+                    
+                }
+            }
+
+            return true;
         }
 
         #endregion
