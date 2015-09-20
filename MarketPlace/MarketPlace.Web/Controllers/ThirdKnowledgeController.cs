@@ -176,28 +176,37 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
                 parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
                 parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
-                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
 
                 //Query Info
                 parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryStatus != null).Select(x => x.QueryStatus.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 //TODO -> agregar estado al reporte
 
                 DataTable data = new DataTable();
-                data.Columns.Add("ColumnNumber");
-                data.Columns.Add("Name");
-                data.Columns.Add("ListName");
+                data.Columns.Add("Priority");
                 data.Columns.Add("IdentificationType");
                 data.Columns.Add("IdentificationNumber");
-                data.Columns.Add("Priority");
+                data.Columns.Add("Name");
+                data.Columns.Add("RelatedList");
 
                 DataRow row;
                 foreach (var query in oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x != null))
                 {
                     row = data.NewRow();
 
-                    row["ColumnNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupNumber).
+                    row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
+                        Select(x => x.Value).
+                        DefaultIfEmpty("No hay campo").
+                        FirstOrDefault();
+
+                    row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.TypeDocument).
+                        Select(x => x.Value).
+                        DefaultIfEmpty("No hay campo").
+                        FirstOrDefault();
+
+                    row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
                         Select(x => x.Value).
                         DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
@@ -207,22 +216,7 @@ namespace MarketPlace.Web.Controllers
                         DefaultIfEmpty("No hay campo").
                         FirstOrDefault();
 
-                    row["ListName"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
-
-                    row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
-
-                    row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
-
-                    row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
+                    row["RelatedList"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
                         Select(x => x.Value).
                         DefaultIfEmpty("No hay campo").
                         FirstOrDefault();

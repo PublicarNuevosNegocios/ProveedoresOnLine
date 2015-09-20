@@ -126,9 +126,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.cs">
-      <DependentUpon>DS_ThirdKnowledgeReport.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

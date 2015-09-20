@@ -314,10 +314,10 @@ namespace ProveedoresOnLine.Reports.Controller
             localReport.ReportPath = FilePath;
             localReport.SetParameters(ReportData);
 
-            //ReportDataSource source = new ReportDataSource();
-            //source.Name = "DS_ThirdKnowledgeReport";
-            //source.Value = data != null ? data : new DataTable();
-            //localReport.DataSources.Add(source);
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DS_ThirdKnowledgeReport";
+            source.Value = data != null ? data : new DataTable();
+            localReport.DataSources.Add(source);
 
             string mimeType;
             string encoding;
