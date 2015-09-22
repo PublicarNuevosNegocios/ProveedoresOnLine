@@ -25,7 +25,7 @@
                         {
                             <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                                 <div class="col-xs-12">
-                                    <label>Consulta Listas Restrictivas - Última Validación @maxDate.ToLocalTime().ToString()</label><p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
+                                    <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label><p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
                                 </div>
                             </div>
                             List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
@@ -109,20 +109,13 @@
                         {
                             <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                                 <div class="col-xs-12">
-                                    <label>Consulta Listas Restrictivas - Última Validación @maxDate.-().ToString()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
+                                    <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
                                 </div>
                             </div>
 
                         }
                     }
-                    else
-                    {
-                        <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                            <div class="col-xs-12">
-                                <label>Consulta Listas Restrictivas - Última Validación 04-09-2015</label><p>No se encontraron coincidencias en listas restrictivas.</p>
-                            </div>
-                        </div>
-                    }
+
                 }
             }
         </div>

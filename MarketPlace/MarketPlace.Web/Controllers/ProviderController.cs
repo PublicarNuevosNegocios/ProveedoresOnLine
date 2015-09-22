@@ -231,12 +231,6 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion Legal Info
 
-                #region Black List Info
-
-                oModel.RelatedBlackListInfo = response.RelatedBlackList;
-
-                #endregion Black List Info
-
                 #region Basic Financial Info
 
                 List<GenericItemModel> oFinancial = response.RelatedFinantial;
@@ -2980,24 +2974,29 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
-                        
-                        //Listas Restrictivas
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
+
+                        if(vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
                         {
-                            Name = "Listas Restrictivas",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GIBlackList,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 4,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
+                            //Listas Restrictivas
+                            oMenuAux.ChildMenu.Add(new GenericMenu()
+                            {
+                                Name = "Listas Restrictivas",
+                                Url = Url.RouteUrl
+                                        (Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Provider.Name,
+                                            action = MVC.Provider.ActionNames.GIBlackList,
+                                            ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                        }),
+                                Position = 4,
+                                IsSelected =
+                                    (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
+                                    oCurrentController == MVC.Provider.Name),
+                            });
+                        }
+
+                       
                         
                         //Seguimientos
                         oMenuAux.ChildMenu.Add(new GenericMenu()

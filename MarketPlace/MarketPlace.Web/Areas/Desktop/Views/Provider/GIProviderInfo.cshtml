@@ -166,8 +166,14 @@
                 <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
                     <div class="col-xs-12">
                         <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
-                        <p class="POMPWarning">
-                            <a href="@(Url.RouteUrl
+                        @if(Model.RelatedLiteProvider.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+                        {
+                        <p>No se encontraron coincidencias en listas restrictivas.</p>
+                        }
+                        else
+                        {
+                            <p class="POMPWarning">
+                                <a href="@(Url.RouteUrl
                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new
                                     {
@@ -175,7 +181,9 @@
                                         action = MVC.Provider.ActionNames.GIBlackList,
                                         ProviderPublicId = Request["ProviderPublicId"]
                                     }))">Ver Detalle</a>
-                        </p>
+                            </p>
+                        }
+                        
                     </div>
                 </div>
             }
@@ -184,23 +192,23 @@
                     <ul class="POMPProviderInfoMultipleValues">
                         @if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
                         {
-                        <li>
-                            <label class="POMPProviderDataSubtitle">Seguimientos</label>
-                            @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
+                            <li>
+                                <label class="POMPProviderDataSubtitle">Seguimientos</label>
+                                @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
                                 {
-                                <label>
-                                    Seguimiento
-                                    <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
-                                </label>
+                                    <label>
+                                        Seguimiento
+                                        <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
+                                    </label>
                                 }
-                            @if (Model.RelatedTrackingInfo.FirstOrDefault().CreateDate != null)
+                                @if (Model.RelatedTrackingInfo.FirstOrDefault().CreateDate != null)
                                 {
-                                <label>
-                                    Fecha
-                                    <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
-                                </label>
+                                    <label>
+                                        Fecha
+                                        <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
+                                    </label>
                                 }
-                        </li>
+                            </li>
                         }
                     </ul>
                     @*AQUI ESTA EL AREA FINANCIERA*@
@@ -247,9 +255,9 @@
                         </div>
                         <div class="col-xs-12">
                             @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
+                            {
+                                <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
+                            }
                         </div>
                     </div>
                     <div class="col-xs-4">
@@ -260,10 +268,10 @@
                         </div>
                         <div class="col-xs-12">
                             @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
+                            {
 
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
+                                <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
+                            }
                         </div>
                     </div>
                     <div class="col-xs-4">
@@ -274,9 +282,9 @@
                         </div>
                         <div class="col-xs-12">
                             @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
+                            {
+                                <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
+                            }
                         </div>
                     </div>
                     <div class="col-xs-4">
@@ -327,9 +335,9 @@
                         </div>
                         <div class="col-xs-12">
                             @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
+                            {
+                                <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
+                            }
                         </div>
                     </div>
                     <label class="POMPProviderVerDetalle" id="POMPProviderVerDetalleNew">
@@ -441,7 +449,7 @@
                             </label>
                         </div>
                         @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
-                            Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
+                                            Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
                         {
                             <div class="col-xs-12">
                                 <span>Si</span>
@@ -461,9 +469,9 @@
                             </label>
                         </div>
                         @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
-                    Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 170
-                    || Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
-                    Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 177)
+                                    Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 170
+                                    || Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
+                                    Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 177)
                         {
                             <div class="col-xs-12">
                                 <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemName</span>
@@ -474,29 +482,29 @@
                             <span>No</span>
                         }
                     </div>
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>
-                                        Nivel de Riesgo ARL
-                                    </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
-                                </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>
+                                Nivel de Riesgo ARL
+                            </label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>
+                                Guia RUC-CCS
+                            </label>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
+                        {
+                            <div class="col-xs-12">
+                                <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
                             </div>
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>
-                                        Guia RUC-CCS
-                                    </label>
-                                </div>
-                                @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
-                                {
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
-                                    </div>
-                                }
-                            </div>
+                        }
+                    </div>
 
                 }
                 if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
