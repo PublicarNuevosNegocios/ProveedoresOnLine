@@ -11,7 +11,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         [TestMethod]
         public void SimpleRequest()
         {
-            TDQueryModel oQuery = new TDQueryModel();
+            TDQueryModel oQuery = new TDQueryModel(); 
             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest("Customer", "70041053", "Alvaro uribe Velez", oQuery);
         }
 
@@ -72,6 +72,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
                 ("DA5C572E", "30F9DB46", true);
 
             Assert.AreEqual(true, oReturn != null);
+        }
+
+        [TestMethod]
+        public void AccessFTPTest()
+        {
+            Assert.IsFalse(ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient("ThirdKnowledgeFile_DA5C572E_20150921112019.xlsx", "C:\\Users\\JOHMARVA\\Source\\Repos\\ProveedoresOnLine\\MarketPlace\\MarketPlace.Web\\TempDirectory\\ThirdKnowledgeFile_DA5C572E_20150921112019.xlsx"));
         }
     }
 }

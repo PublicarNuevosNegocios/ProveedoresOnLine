@@ -3,6 +3,7 @@ using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 
@@ -219,10 +220,24 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearchByPublicId(CustomerPublicId, QueryPublic, Enable);
         }
 
-        public static bool AccessFTPClient(string File)
+        public static bool AccessFTPClient(string FileName, string FilePath)
         {
-            FtpWebRequest oFTPClient = new FtpWebRequest();
- 
+            FtpWebRequest request = ((FtpWebRequest)FtpWebRequest.Create("ftp://"+ FileName));
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+            request.Credentials = new NetworkCredential("FTP_PUBLICAR", "p1u2b3l415c6@778*", "67.210.244.157");
+            request.UsePassive = true;
+            request.UseBinary = true;
+            request.KeepAlive = true;
+            ////RUTA DONDE ESTA HUBICADO EL VIDEO
+            FileStream stream = File.OpenRead(FilePath);
+            byte[] buffer = new byte[stream.Length];
+            stream.Read(buffer, 0, buffer.Length);
+            stream.Close();
+            Stream reqStream = request.GetRequestStream();
+            reqStream.Write(buffer, 0, buffer.Length);
+            reqStream.Flush();
+            reqStream.Close();
+
             
             return true;
         }
