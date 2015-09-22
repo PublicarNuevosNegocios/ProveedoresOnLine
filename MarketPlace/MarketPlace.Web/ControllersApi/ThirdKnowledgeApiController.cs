@@ -219,8 +219,9 @@ namespace MarketPlace.Web.ControllersApi
                             [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
                 && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
                             [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
-            {
+            {                
                 CurrentBook.Close();
+                bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient("001_Example", FilePath);                
                 return true;
             }
             else
