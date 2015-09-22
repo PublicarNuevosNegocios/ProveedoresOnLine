@@ -105,7 +105,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string Algo)
+        public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId)
         {
             FileModel oReturn = new FileModel();
 

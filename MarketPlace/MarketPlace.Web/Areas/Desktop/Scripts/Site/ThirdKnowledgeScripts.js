@@ -79,7 +79,7 @@ var Third_KnowledgeMasiveSearchObject = {
                 "select": "Agregar"
             },
             async: {
-                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId + '&Algo=' + 'Algo',
+                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId,
                 autoUpload: true
             },
             success: function (e) {
