@@ -30,7 +30,7 @@
                 @if (Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                 {
                     <a class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas" href="@(Url.RouteUrl (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new { controller = MVC.Provider.Name, action = MVC.Provider.ActionNames.GIProviderInfo, ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId } ))">
+                            new { controller = MVC.Provider.Name, action = MVC.Provider.ActionNames.GIBlackList, ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId } ))">
                     </a>
                 }
             </div>
