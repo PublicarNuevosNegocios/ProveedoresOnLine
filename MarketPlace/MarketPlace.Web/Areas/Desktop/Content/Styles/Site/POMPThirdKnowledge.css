@@ -97,3 +97,75 @@
     font-weight:bold;
 
 }
+
+#POMPDateSearch {
+    -moz-box-shadow: 0 0 2px black;
+    -webkit-box-shadow: 0 0 2px black;
+    box-shadow: 0 0 2px black;
+}
+
+.POMPTKSearchButton {
+    background: #ff8300;
+    height: 30px;
+    text-transform: uppercase;
+    padding:5px 30px;
+    margin: 0px 0px 0px -30px;
+    vertical-align: -15.6px;
+    display: inline-block;
+    border-radius: 0;
+    border:0;
+
+}
+    .POMPTKSearchButton:hover, .POMPTKSearchButton:hover{
+        background-color:#ffb362;
+        text-decoration:underline;
+        color:#fff;
+    }
+
+#ThirdKnowledge_InitDateId {
+    width: 70%;
+    border-radius: 0;
+    height: 30px;
+    padding-left: 20px;
+    margin: 10px 0 0 2%;
+}
+#ThirdKnowledge_EndDateId {
+    width: 70%;
+    border-radius: 0;
+    height: 30px;
+    padding-left: 20px;
+    margin: 10px 0 0 2%;
+}
+.ThirdKnowledge_Detail {
+    float: right;
+    font-weight: lighter;
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 10px;
+}
+.ThirdKnowledge_ListDetail {
+    float: right;
+    font-weight: lighter;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 100px;
+    padding-top: 20px;
+}
+.ThirdKnowledge_FilterDetail {
+    font-weight: lighter;
+    font-size: 12px;
+}
+    .ThirdKnowledge_FilterDetail, p {
+        margin-bottom: -15px;
+    }
+.ThirdKnowledge_marginBottom{
+    margin-bottom: 0px;
+}
+.ThirdKnowledge_GoBack{
+    padding-top: 10px;
+}
+.row, hr {
+    border-color: #E4E4E4;
+    margin: 6px auto;
+    width: 100%;
+}

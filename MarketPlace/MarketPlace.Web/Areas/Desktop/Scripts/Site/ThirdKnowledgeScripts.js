@@ -111,7 +111,7 @@ var Third_KnowledgeSearchObject = {
 
     Search: function (vSearchObject) {
         var oUrl = this.SearchUrl;
-
+        alert("Alexane");
         oUrl += '?InitDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_EndDateId').val();
 

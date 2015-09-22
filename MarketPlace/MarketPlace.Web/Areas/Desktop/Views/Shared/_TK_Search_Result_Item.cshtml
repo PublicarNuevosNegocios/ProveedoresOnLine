@@ -2,32 +2,18 @@
 
 @if (!Model.RenderScripts && Model.RelatedThidKnowledgeSearch != null)
 {
-    <ul>
+    
+    <div class="container-fluid">
 
         @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
         {
             var QueryPublicId = item.QueryPublicId;
-            
-            //results basic info
-            <li>
-                <div>
-                    <div>
-                        <span>Tipo de consulta: </span>
-                        <span>@item.SearchType.ItemName</span> <!--Title-->
+            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                <div class="col-xs-12">
+                    <div class="col-xs-10">
+                        <span>Tipo de consulta:</span>&nbsp;@item.SearchType.ItemName
                     </div>
-                    <div>
-                        <span>Usuario:</span>
-                        <span>@item.User</span>
-                    </div>
-                    <div>
-                        <span>Fecha de consulta:</span>
-                        <span>@item.CreateDate</span>
-                    </div>
-                    <div>
-                        <span>Estado:</span>
-                        <span>@item.IsSuccess</span>
-                    </div>
-                    <div>
+                    <div class="col-xs-2 text-right ThirdKnowledge_Detail">
                         <a href="@(Url.RouteUrl
                               (MarketPlace.Models.General.Constants.C_Routes_Default,
                               new
@@ -41,8 +27,47 @@
                                     }))">Ver Detalle</a>
                     </div>
                 </div>
-            </li>
+            </div>
+            <div class="col-xs-12">
+                <div class="col-xs-4">
+                    <div class="col-xs-12">
+                        <label>
+                            Usuario
+                        </label>
+                    </div>
+                    <div class="col-xs-12">
+                        <span>@item.User</span>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="col-xs-12">
+                        <label>
+                            Fecha de Consulta
+                        </label>
+                    </div>
+                    <div class="col-xs-12">
+                        <span>@item.CreateDate</span>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="col-xs-12">
+                        <label>
+                            Estado
+                        </label>
+                    </div>
+                    <div class="col-xs-12">
+                        <span>@item.IsSuccess</span>
+                    </div>
+                </div>
+
+            </div>
+
         }
-    </ul>
+
+    </div>
+
 }
+
+
+
 
