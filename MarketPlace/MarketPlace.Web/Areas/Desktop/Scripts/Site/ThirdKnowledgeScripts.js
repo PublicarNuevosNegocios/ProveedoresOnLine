@@ -101,7 +101,7 @@ var Third_KnowledgeSearchObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
     },
-
+  
     RenderAsync: function () {
         //Change event
         $('#' + Third_KnowledgeSearchObject.ObjectId + '_FilterId').click(function () {
