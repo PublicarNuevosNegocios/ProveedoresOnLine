@@ -85,7 +85,7 @@
 
                         oEvalUnit = "Pasa / No Pasa";
 
-                        if (oRatting >= 100)
+                        if (oRatting > oCriteria.EvaluationWeight)
                         {
                             oEvalResult = "Pasa";
                         }
@@ -93,17 +93,42 @@
                         {
                             oEvalResult = "No Pasa";
                         }
+                        <li>
+                            <ul class="POMPProjectBidDetailGridRowes">
+                                <li>
+                                    <span>@oCriteria.EvaluationItemName</span>
+                                </li>
+                                <li>
+                                    <span>@oEvalUnit</span>
+                                </li>
+                                <li>
+                                    <span>@oEvalResult  </span>
+                                </li>
+                            </ul>
+                        </li>
                         break;
                     case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
                         oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
 
                         oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
-
+                        <li>
+                            <ul class="POMPProjectBidDetailGridRowes">
+                                <li>
+                                    <span>@oCriteria.EvaluationItemName</span>
+                                </li>
+                                <li>
+                                    <span>@oEvalUnit</span>
+                                </li>
+                                <li>
+                                    <span>@oEvalResult  </span>
+                                </li>
+                            </ul>
+                        </li>
                         break;
                     case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
 
                         oEvalUnit = "Informativo";
-                        if (oRatting >= 100)
+                        if (oRatting > oCriteria.EvaluationWeight)
                         {
                             oEvalResult = "Pasa";
                         }
@@ -111,25 +136,27 @@
                         {
                             oEvalResult = "No Pasa";
                         }
+
+                        <li>
+                            <ul class="POMPProjectBidDetailGridRowes">
+                                <li>
+                                    <span>@oCriteria.EvaluationItemName</span>
+                                </li>
+                                <li>
+                                    <span>@oEvalUnit</span>
+                                </li>
+                                <li>
+                                    <span>@oEvalResult  </span>
+                                </li>
+                            </ul>
+                        </li>
 
                         break;
                     default:
                         break;
                 }
 
-                <li>
-                    <ul class="POMPProjectBidDetailGridRowes">
-                        <li>
-                            <span>@oCriteria.EvaluationItemName</span>
-                        </li>
-                        <li>
-                            <span>@oEvalUnit</span>
-                        </li>
-                        <li>
-                            <span>@oEvalResult</span>
-                        </li>
-                    </ul>
-                </li>
+               
             }
             <li class="finalrowe">
                 <ul class="POMPProjectBidDetailGridResultRowes">
