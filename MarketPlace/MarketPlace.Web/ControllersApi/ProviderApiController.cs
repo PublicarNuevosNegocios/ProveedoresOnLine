@@ -89,6 +89,89 @@ namespace MarketPlace.Web.ControllersApi
       
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetNationalProvidersByState(string GetNationalProvidersByState)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_ProvidersStateModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = new List<GenericChartsModelInfo>();
+            foreach (ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo var in ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            {
+                if (var.ItemType.CompareTo("902006") != 0 && var.ItemType.CompareTo("902007") != 0 && var.ItemType.CompareTo("902008") != 0)
+                {
+                    nazi.Add(var);
+                }
+            }
+            //Get Providers of the Company
+            oRelatedChart.GenericChartsInfoModel = nazi;
+            nazi = null;
+
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(x.ItemName, x.Count);
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetAlienProvidersByState(string GetAlienProvidersByState)
+        {
+            //Get Charts By Module 
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_ProvidersStateModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> alien = new List<GenericChartsModelInfo>();
+            foreach (ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo var in ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            {
+                if (var.ItemType.CompareTo("902001") != 0 && var.ItemType.CompareTo("902002") != 0 && var.ItemType.CompareTo("902003") != 0 && var.ItemType.CompareTo("902004") != 0 && var.ItemType.CompareTo("902005") != 0)
+                {
+                    alien.Add(var);
+                }
+            }
+            //Get Providers of the Company
+            oRelatedChart.GenericChartsInfoModel = alien;
+            alien = null;
+
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(x.ItemName, x.Count);
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+        
         #endregion
     }
 }

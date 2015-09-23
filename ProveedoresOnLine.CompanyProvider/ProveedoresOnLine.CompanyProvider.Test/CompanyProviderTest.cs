@@ -516,5 +516,15 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
         #endregion
+
+        #region Charts
+
+        [TestMethod]
+        public void GetProvidersByState()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = new List<GenericChartsModelInfo>();
+        }
+            
+        #endregion
     }
 }
