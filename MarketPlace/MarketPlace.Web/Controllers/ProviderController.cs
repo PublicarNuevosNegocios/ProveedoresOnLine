@@ -2475,23 +2475,28 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
             parameters.Add(new ReportParameter("SurveyAverage", oModel.RelatedSurvey.Average.ToString()));
 
+            // DataSet Evaluators table
             DataTable data = new DataTable();
             data.Columns.Add("SurveyEvaluatorDetail");
             data.Columns.Add("SurveyStatusNameDetail");
             data.Columns.Add("SurveyRatingDetail");
             data.Columns.Add("SurveyProgressDetail");
 
+            List<Models.Survey.SurveyViewModel> EvaluatorDetailList = new List<Models.Survey.SurveyViewModel>();
+
             foreach (var Evaluator in oModel.RelatedSurvey.SurveyEvaluatorList.Distinct())
             {
                 Models.Survey.SurveyViewModel SurveyEvaluatorDetail = new Models.Survey.SurveyViewModel
                         (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(oModel.RelatedSurvey.SurveyPublicId, Evaluator));
+
+                EvaluatorDetailList.Add(SurveyEvaluatorDetail);
 
                 DataRow row;
                 row = data.NewRow();
                 row["SurveyEvaluatorDetail"] = SurveyEvaluatorDetail.SurveyEvaluator;
                 row["SurveyStatusNameDetail"] = SurveyEvaluatorDetail.SurveyStatusName;
                 row["SurveyRatingDetail"] = SurveyEvaluatorDetail.SurveyRating;
-                row["SurveyProgressDetail"] = SurveyEvaluatorDetail.SurveyProgress;
+                row["SurveyProgressDetail"] = SurveyEvaluatorDetail.SurveyProgress.ToString() + "%";
                 data.Rows.Add(row);
             }
 
@@ -2504,23 +2509,25 @@ namespace MarketPlace.Web.Controllers
             foreach (var EvaluationArea in
                         oModel.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
             {
-                var EvaluationAreaInfo = oModel.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+                int RatingforArea = 0;
+
+                foreach (Models.Survey.SurveyViewModel SurveyDetailInfo in EvaluatorDetailList)
+                {
+                    var EvaluationAreaInf = SurveyDetailInfo.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+
+                    if (EvaluationAreaInf != null)
+                    {
+                        RatingforArea = RatingforArea + (int)EvaluationAreaInf.Ratting;
+                    }
+                }
+
+                RatingforArea = RatingforArea / EvaluatorDetailList.Count();
 
                 DataRow row;
                 row = data2.NewRow();
-                row["SurveyAreaName"] = EvaluationArea.AreaName;
-
-                if(EvaluationAreaInfo != null)
-                {
-                    row["SurveyAreaRating"] = EvaluationAreaInfo.Ratting;
-
-                }
-                else
-                {
-                    row["SurveyAreaRating"] = "";
-                }
-                
-                row["SurveyAreaWeight"] = EvaluationArea.Weight;
+                row["SurveyAreaName"] = EvaluationArea.Name;
+                row["SurveyAreaRating"] = RatingforArea;
+                row["SurveyAreaWeight"] = EvaluationArea.Weight.ToString() + "%";
                 data2.Rows.Add(row);
             }
 

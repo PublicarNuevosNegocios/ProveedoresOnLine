@@ -912,18 +912,18 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>9.90283cm</Width>
+              <Width>10.21631cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.48878cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.19774cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.54708cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -941,7 +941,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -968,14 +968,14 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Calificación</Value>
+                              <Value>Promedio</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -1009,19 +1009,8 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
-                        </Paragraph>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value />
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -1054,7 +1043,7 @@
                             <TextRun>
                               <Value>=Fields!SurveyAreaName.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1086,7 +1075,7 @@
                             <TextRun>
                               <Value>=Fields!SurveyAreaRating.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1118,7 +1107,7 @@
                             <TextRun>
                               <Value>=Fields!SurveyAreaWeight.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1163,7 +1152,7 @@
         <DataSetName>DS_SurveyGeneralInfoAreas</DataSetName>
         <Top>8.9646cm</Top>
         <Left>0.64672cm</Left>
-        <Height>1.2cm</Height>
+        <Height>1.14708cm</Height>
         <Width>14.90283cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
@@ -1181,6 +1170,7 @@
               <TextRun>
                 <Value>DETALLE DE LAS AREAS DE EVALUACIÓN</Value>
                 <Style>
+                  <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
