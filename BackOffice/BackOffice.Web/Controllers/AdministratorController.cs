@@ -463,7 +463,7 @@ namespace BackOffice.Web.Controllers
                     }                    
             }         
 
-            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId) && prv.BlackListStatus == "SI").All(prv =>
+            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId) && (prv.BlackListStatus == "SI" || prv.BlackListStatus == "si" || prv.BlackListStatus == "Si")).All(prv =>
             {
                 try
                 {
@@ -485,7 +485,7 @@ namespace BackOffice.Web.Controllers
                     {
                         BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = prv.BlackListStatus == "si" || prv.BlackListStatus == "Si" || prv.BlackListStatus == "SI"  ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
+                            ItemId = (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert,
                         },
                         User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
                         FileUrl = StrRemoteFile,
@@ -521,22 +521,21 @@ namespace BackOffice.Web.Controllers
                     var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
 
                     #region Set Provider Info
-                    if (prv.BlackListStatus == "si")
-                    {
+               
 
-                        oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                    oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                    .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                    .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                        ItemInfoType = new CatalogModel()
                         {
-                            ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                        .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                        .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
-                            ItemInfoType = new CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
-                            },
-                            Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
-                            Enable = true,
-                        });
-                    }
+                            ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
+                        },
+                        Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
+                        Enable = true,
+                    });
+                    
 
                     //Set large value With the items found
                     oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
