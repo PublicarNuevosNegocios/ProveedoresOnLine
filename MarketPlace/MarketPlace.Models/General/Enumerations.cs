@@ -37,6 +37,7 @@
         RelatedProvider = 802015,
         ThirdKnowledge = 802016,
         ProviderReports = 802017,
+        MyClients = 802018,
     }
 
     public enum enumMarketPlaceProviderModules
