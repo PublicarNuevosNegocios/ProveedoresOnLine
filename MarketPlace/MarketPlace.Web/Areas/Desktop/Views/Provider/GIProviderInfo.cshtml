@@ -172,16 +172,7 @@
                         }
                         else
                         {
-                            <p class="POMPWarning">
-                                <a href="@(Url.RouteUrl
-                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GIBlackList,
-                                        ProviderPublicId = Request["ProviderPublicId"]
-                                    }))">Ver Detalle</a>
-                            </p>
+                            <p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
                         }
                         
                     </div>
