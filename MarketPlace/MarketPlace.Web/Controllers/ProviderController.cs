@@ -2480,6 +2480,7 @@ namespace MarketPlace.Web.Controllers
             data.Columns.Add("SurveyStatusNameDetail");
             data.Columns.Add("SurveyRatingDetail");
             data.Columns.Add("SurveyProgressDetail");
+
             foreach (var Evaluator in oModel.RelatedSurvey.SurveyEvaluatorList.Distinct())
             {
                 Models.Survey.SurveyViewModel SurveyEvaluatorDetail = new Models.Survey.SurveyViewModel
@@ -2494,11 +2495,41 @@ namespace MarketPlace.Web.Controllers
                 data.Rows.Add(row);
             }
 
+            // DataSet Area's Table
+            DataTable data2 = new DataTable();
+            data2.Columns.Add("SurveyAreaName");
+            data2.Columns.Add("SurveyAreaRating");
+            data2.Columns.Add("SurveyAreaWeight");
+
+            foreach (var EvaluationArea in
+                        oModel.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
+            {
+                var EvaluationAreaInfo = oModel.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+
+                DataRow row;
+                row = data2.NewRow();
+                row["SurveyAreaName"] = EvaluationArea.AreaName;
+
+                if(EvaluationAreaInfo != null)
+                {
+                    row["SurveyAreaRating"] = EvaluationAreaInfo.Ratting;
+
+                }
+                else
+                {
+                    row["SurveyAreaRating"] = "";
+                }
+                
+                row["SurveyAreaWeight"] = EvaluationArea.Weight;
+                data2.Rows.Add(row);
+            }
+
             Tuple<byte[], string, string> SurveyGeneralReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_GeneralReport(
-                                                               data,
-                                                               parameters,
-                                                               enumCategoryInfoType.PDF.ToString(),
-                                                               Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim());
+                                                           data,
+                                                           data2,
+                                                           parameters,
+                                                           enumCategoryInfoType.PDF.ToString(),
+                                                           Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim());
 
             oReporModel.File = SurveyGeneralReport.Item1;
             oReporModel.MimeType = SurveyGeneralReport.Item2;
@@ -2975,7 +3006,7 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
-                        if(vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+                        if (vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
                         {
                             //Listas Restrictivas
                             oMenuAux.ChildMenu.Add(new GenericMenu()
@@ -2996,8 +3027,6 @@ namespace MarketPlace.Web.Controllers
                             });
                         }
 
-                       
-                        
                         //Seguimientos
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
