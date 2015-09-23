@@ -79,7 +79,7 @@ var Third_KnowledgeMasiveSearchObject = {
                 "select": "Agregar"
             },
             async: {
-                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId + '&Algo=' + 'Algo',
+                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId,
                 autoUpload: true
             },
             success: function (e) {
@@ -101,7 +101,7 @@ var Third_KnowledgeSearchObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
     },
-
+  
     RenderAsync: function () {
         //Change event
         $('#' + Third_KnowledgeSearchObject.ObjectId + '_FilterId').click(function () {

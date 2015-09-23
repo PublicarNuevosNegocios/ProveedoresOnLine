@@ -105,7 +105,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string Algo)
+        public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId)
         {
             FileModel oReturn = new FileModel();
 
@@ -132,7 +132,8 @@ namespace MarketPlace.Web.ControllersApi
 
                     UploadFile.SaveAs(strFile);
 
-                    bool isValidFile = this.FileVerify(strFile);
+                    bool isValidFile = this.FileVerify(strFile, "ThirdKnowledgeFile_" + 
+                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls");
 
                     string strRemoteFile = string.Empty;
                     if (isValidFile)
@@ -202,7 +203,7 @@ namespace MarketPlace.Web.ControllersApi
 
         #region Private Functions
 
-        public bool FileVerify(string FilePath)
+        public bool FileVerify(string FilePath, string FileName)
         {
             Excel.Application Aplication = new Excel.Application();
 
@@ -221,7 +222,7 @@ namespace MarketPlace.Web.ControllersApi
                             [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
             {                
                 CurrentBook.Close();
-                bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient("001_Example", FilePath);                
+                bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);                
                 return true;
             }
             else
