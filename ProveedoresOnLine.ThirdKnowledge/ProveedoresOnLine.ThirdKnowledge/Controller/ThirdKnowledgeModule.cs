@@ -43,9 +43,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 }
 
                 if (oReturn != null)
-                {   
-                    
-                    oQueryToCreate = CreateQuery(oQueryToCreate, oReturn,Name, IdentificationNumber);
+                {
+
+                    oQueryToCreate = CreateQuery(oQueryToCreate, oReturn, Name, IdentificationNumber);
 
                     //TODO: INDEXAR
                     QueryInsert(oQueryToCreate);
@@ -63,7 +63,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 throw;
             }
         }
-        
+
         #region Config
 
         public static PlanModel PlanUpsert(PlanModel oPlanModelToUpsert)
@@ -222,23 +222,44 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         public static bool AccessFTPClient(string FileName, string FilePath)
         {
+            string ftpServerIP = "67.210.244.157:27";        
+            string uploadToFolder = "UploadTest";
             
-            FtpWebRequest request = ((FtpWebRequest)FtpWebRequest.Create("ftp://" + FileName));
+            FileInfo FileInf = new FileInfo(FilePath);
+
+            string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + FileInf.Name;
+
+            FtpWebRequest request = ((FtpWebRequest)FtpWebRequest.Create(new Uri(uri)));
             request.Method = WebRequestMethods.Ftp.UploadFile;
-            request.Credentials = new NetworkCredential("FTP_PUBLICAR", "p1u2b3l415c6@778*", "67.210.244.157");
+            request.Credentials = new NetworkCredential("FTP_PUBLICAR", "p1u2b3l415c6@778*", "67.210.244.157:27");
             request.UsePassive = true;
             request.UseBinary = true;
-            request.KeepAlive = true;
-            ////RUTA DONDE ESTA HUBICADO EL VIDEO
-            FileStream stream = File.OpenRead(FilePath);
-            byte[] buffer = new byte[stream.Length];
-            stream.Read(buffer, 0, buffer.Length);
-            stream.Close();
-            Stream reqStream = request.GetRequestStream();
-            reqStream.Write(buffer, 0, buffer.Length);
-            reqStream.Flush();
-            reqStream.Close();            
-            
+            request.KeepAlive = false;
+            request.ContentLength = FileInf.Length;
+
+            int buffLength = 2048;
+            byte[] buff = new byte[buffLength];
+            int contentLen;
+
+            FileStream fs = FileInf.OpenRead();
+            try
+            {
+                Stream strm = request.GetRequestStream();
+                contentLen = fs.Read(buff, 0, buffLength);
+
+                while (contentLen != 0)
+                {
+                    strm.Write(buff, 0, contentLen);
+                    contentLen = fs.Read(buff, 0, buffLength);
+                }
+
+                strm.Close();
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             return true;
         }
 
