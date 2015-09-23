@@ -485,6 +485,186 @@ var Providers_ChartsObject = {
     },
 };
 
+//-National Providers-//
+var NationalProviders_ChartsObject = {
+    ObjectId: '',
+    SearchUrl: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+    },
+
+    RenderChatrNationalProvidersByStatus: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?GetNationalProvidersByState=true',
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Estado');
+                data.addColumn('number', 'Cantidad');
+                $.each(result, function (item, value) {
+                    data.addRows([[item, value]]);
+                });
+                var options = {
+                    opacity: 0.2,
+                    is3D: true,
+                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
+                  , height: "100%"
+                  , width: "100%"
+                    , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
+                };
+
+                function selectHandler() {
+                    var selectedItem = chart.getSelection()[0];
+                    if (selectedItem) {
+                        var topping = data.getValue(selectedItem.row, 0);
+                        var SearchFilter = 0;
+                        if (topping == "En Creación Nacional") {
+                            SearchFilter = 902001;
+                        }
+                        else if (topping == "En Proceso Nacional") {
+                            SearchFilter = 902002;
+                        }
+                        else if (topping == "En Actualización") {
+                            SearchFilter = 902003;
+                        }
+                        else if (topping == "Validado Documentación Básica Nacional") {
+                            SearchFilter = 902004;
+                        }
+                        else if (topping == "Validado Documentación Completa Nacional") {
+                            SearchFilter = 902005;
+                        }
+
+                        window.location = NationalProviders_ChartsObject.GetSearchUrl(SearchFilter);
+
+                    }
+                }
+
+                var chart = new google.visualization.PieChart(document.getElementById(NationalProviders_ChartsObject.ObjectId));
+                google.visualization.events.addListener(chart, 'select', selectHandler);
+                chart.draw(data, options);
+                function resize() {
+                    // change dimensions if necessary
+                    chart.draw(data, options);
+                }
+                if (window.addEventListener) {
+                    window.addEventListener('resize', resize);
+                }
+                else {
+                    window.attachEvent('onresize', resize);
+                }
+
+            }
+        });
+    },
+
+    GetSearchUrl: function (SearchFilter) {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+        oUrl += '&SearchFilter=,112001;' + SearchFilter
+
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
+    },
+};
+
+//-Alien Providers-//
+var AlienProviders_ChartsObject = {
+    ObjectId: '',
+    SearchUrl: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+    },
+
+    RenderChatrAlienProvidersByStatus: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?GetAlienProvidersByState=true',
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Estado');
+                data.addColumn('number', 'Cantidad');
+                $.each(result, function (item, value) {
+                    data.addRows([[item, value]]);
+                });
+                var options = {
+                    opacity: 0.2,
+                    is3D: true,
+                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
+                    , height: "100%"
+                    , width: "100%"
+                    , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
+                };
+
+                function selectHandler() {
+                    var selectedItem = chart.getSelection()[0];
+                    if (selectedItem) {
+                        var topping = data.getValue(selectedItem.row, 0);
+                        var SearchFilter = 0;
+                        if (topping == "En Creación Extranjero") {
+                            SearchFilter = 902006;
+                        }
+                        else if (topping == "En Proceso Extranjero") {
+                            SearchFilter = 902007;
+                        }
+                        else if (topping == "Validado Documentación Completa Extranjero") {
+                            SearchFilter = 902008;
+                        }
+
+                        window.location = AlienProviders_ChartsObject.GetSearchUrl(SearchFilter);
+
+                    }
+                }
+
+                var chart = new google.visualization.PieChart(document.getElementById(AlienProviders_ChartsObject.ObjectId));
+                google.visualization.events.addListener(chart, 'select', selectHandler);
+                chart.draw(data, options);
+                function resize() {
+                    // change dimensions if necessary
+                    chart.draw(data, options);
+                }
+                if (window.addEventListener) {
+                    window.addEventListener('resize', resize);
+                }
+                else {
+                    window.attachEvent('onresize', resize);
+                }
+
+            }
+        });
+    },
+
+    GetSearchUrl: function (SearchFilter) {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+        oUrl += '&SearchFilter=,112001;' + SearchFilter
+
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
+    },
+};
+
 //**** PROJECT CHARTS ****//
 var ProjectByStatus_ChartsObject = {
     ObjectId: '',

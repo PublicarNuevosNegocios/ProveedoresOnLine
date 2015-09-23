@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_SurveyGeneralInfoAreas" targetNamespace="http://tempuri.org/DS_SurveyGeneralInfoAreas.xsd" xmlns:mstns="http://tempuri.org/DS_SurveyGeneralInfoAreas.xsd" xmlns="http://tempuri.org/DS_SurveyGeneralInfoAreas.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_SurveyGeneralInfoAreas" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_SurveyGeneralInfoAreas" msprop:Generator_UserDSName="DS_SurveyGeneralInfoAreas">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DS_SurveyGeneralInfoAreas" msprop:Generator_TableClassName="DS_SurveyGeneralInfoAreasDataTable" msprop:Generator_TableVarName="tableDS_SurveyGeneralInfoAreas" msprop:Generator_RowChangedName="DS_SurveyGeneralInfoAreasRowChanged" msprop:Generator_TablePropName="_DS_SurveyGeneralInfoAreas" msprop:Generator_RowDeletingName="DS_SurveyGeneralInfoAreasRowDeleting" msprop:Generator_RowChangingName="DS_SurveyGeneralInfoAreasRowChanging" msprop:Generator_RowEvHandlerName="DS_SurveyGeneralInfoAreasRowChangeEventHandler" msprop:Generator_RowDeletedName="DS_SurveyGeneralInfoAreasRowDeleted" msprop:Generator_RowClassName="DS_SurveyGeneralInfoAreasRow" msprop:Generator_UserTableName="DS_SurveyGeneralInfoAreas" msprop:Generator_RowEvArgName="DS_SurveyGeneralInfoAreasRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SurveyAreaName" msprop:Generator_ColumnVarNameInTable="columnSurveyAreaName" msprop:Generator_ColumnPropNameInRow="SurveyAreaName" msprop:Generator_ColumnPropNameInTable="SurveyAreaNameColumn" msprop:Generator_UserColumnName="SurveyAreaName" type="xs:string" minOccurs="0" />
+              <xs:element name="SurveyAreaRating" msprop:Generator_ColumnVarNameInTable="columnSurveyAreaRating" msprop:Generator_ColumnPropNameInRow="SurveyAreaRating" msprop:Generator_ColumnPropNameInTable="SurveyAreaRatingColumn" msprop:Generator_UserColumnName="SurveyAreaRating" type="xs:string" minOccurs="0" />
+              <xs:element name="SurveyAreaWeight" msprop:Generator_ColumnVarNameInTable="columnSurveyAreaWeight" msprop:Generator_ColumnPropNameInRow="SurveyAreaWeight" msprop:Generator_ColumnPropNameInTable="SurveyAreaWeightColumn" msprop:Generator_UserColumnName="SurveyAreaWeight" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

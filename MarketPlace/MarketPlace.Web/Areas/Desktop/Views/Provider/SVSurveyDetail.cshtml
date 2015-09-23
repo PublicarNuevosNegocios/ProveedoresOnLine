@@ -92,7 +92,6 @@
                                     <label>Evaluador:</label>
                                 </div>
 
-
                                 @foreach (string EvaluatorUser in Model.RelatedSurvey.SurveyEvaluatorList.Distinct())
                                 {
                                     <div class="col-xs-4" id="POMPevalmails">
@@ -108,8 +107,6 @@
                                 </div>
 
                                 }
-
-
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -158,7 +155,6 @@
     <div style="display:none;">
 
         @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
-
     </div>
 
     @{
@@ -177,4 +173,3 @@
             });
         </script>
     }
-

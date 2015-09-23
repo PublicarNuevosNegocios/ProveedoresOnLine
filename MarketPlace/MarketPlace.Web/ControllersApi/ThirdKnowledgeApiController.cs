@@ -203,8 +203,12 @@ namespace MarketPlace.Web.ControllersApi
 
         #region Private Functions
 
+        [HttpPost]
+        [HttpGet]
         public bool FileVerify(string FilePath, string FileName)
         {
+            //bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
+            //return true;
             Excel.Application Aplication = new Excel.Application();
 
             Excel.Workbook CurrentBook;
@@ -220,9 +224,9 @@ namespace MarketPlace.Web.ControllersApi
                             [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
                 && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
                             [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
-            {                
+            {
                 CurrentBook.Close();
-                bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);                
+                //bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
                 return true;
             }
             else

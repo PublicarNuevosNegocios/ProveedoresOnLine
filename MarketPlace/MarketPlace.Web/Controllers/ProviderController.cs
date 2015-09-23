@@ -2475,30 +2475,68 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("SurveyResponsible", oModel.RelatedSurvey.SurveyResponsible));
             parameters.Add(new ReportParameter("SurveyAverage", oModel.RelatedSurvey.Average.ToString()));
 
+            // DataSet Evaluators table
             DataTable data = new DataTable();
             data.Columns.Add("SurveyEvaluatorDetail");
             data.Columns.Add("SurveyStatusNameDetail");
             data.Columns.Add("SurveyRatingDetail");
             data.Columns.Add("SurveyProgressDetail");
+
+            List<Models.Survey.SurveyViewModel> EvaluatorDetailList = new List<Models.Survey.SurveyViewModel>();
+
             foreach (var Evaluator in oModel.RelatedSurvey.SurveyEvaluatorList.Distinct())
             {
                 Models.Survey.SurveyViewModel SurveyEvaluatorDetail = new Models.Survey.SurveyViewModel
                         (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(oModel.RelatedSurvey.SurveyPublicId, Evaluator));
+
+                EvaluatorDetailList.Add(SurveyEvaluatorDetail);
 
                 DataRow row;
                 row = data.NewRow();
                 row["SurveyEvaluatorDetail"] = SurveyEvaluatorDetail.SurveyEvaluator;
                 row["SurveyStatusNameDetail"] = SurveyEvaluatorDetail.SurveyStatusName;
                 row["SurveyRatingDetail"] = SurveyEvaluatorDetail.SurveyRating;
-                row["SurveyProgressDetail"] = SurveyEvaluatorDetail.SurveyProgress;
+                row["SurveyProgressDetail"] = SurveyEvaluatorDetail.SurveyProgress.ToString() + "%";
                 data.Rows.Add(row);
             }
 
+            // DataSet Area's Table
+            DataTable data2 = new DataTable();
+            data2.Columns.Add("SurveyAreaName");
+            data2.Columns.Add("SurveyAreaRating");
+            data2.Columns.Add("SurveyAreaWeight");
+
+            foreach (var EvaluationArea in
+                        oModel.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
+            {
+                int RatingforArea = 0;
+
+                foreach (Models.Survey.SurveyViewModel SurveyDetailInfo in EvaluatorDetailList)
+                {
+                    var EvaluationAreaInf = SurveyDetailInfo.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+
+                    if (EvaluationAreaInf != null)
+                    {
+                        RatingforArea = RatingforArea + (int)EvaluationAreaInf.Ratting;
+                    }
+                }
+
+                RatingforArea = RatingforArea / EvaluatorDetailList.Count();
+
+                DataRow row;
+                row = data2.NewRow();
+                row["SurveyAreaName"] = EvaluationArea.Name;
+                row["SurveyAreaRating"] = RatingforArea;
+                row["SurveyAreaWeight"] = EvaluationArea.Weight.ToString() + "%";
+                data2.Rows.Add(row);
+            }
+
             Tuple<byte[], string, string> SurveyGeneralReport = ProveedoresOnLine.Reports.Controller.ReportModule.SV_GeneralReport(
-                                                               data,
-                                                               parameters,
-                                                               enumCategoryInfoType.PDF.ToString(),
-                                                               Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim());
+                                                           data,
+                                                           data2,
+                                                           parameters,
+                                                           enumCategoryInfoType.PDF.ToString(),
+                                                           Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim());
 
             oReporModel.File = SurveyGeneralReport.Item1;
             oReporModel.MimeType = SurveyGeneralReport.Item2;
@@ -2975,7 +3013,7 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
-                        if(vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+                        if (vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
                         {
                             //Listas Restrictivas
                             oMenuAux.ChildMenu.Add(new GenericMenu()
@@ -2996,8 +3034,6 @@ namespace MarketPlace.Web.Controllers
                             });
                         }
 
-                       
-                        
                         //Seguimientos
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {

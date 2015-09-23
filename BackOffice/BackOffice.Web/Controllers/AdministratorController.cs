@@ -443,7 +443,7 @@ namespace BackOffice.Web.Controllers
                     ProviderModel oProvider = new ProviderModel();
                     oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
 
-                    if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(ProviderPublicId))
+                    if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(ProviderPublicId) && oProvider.RelatedCompany != null)
                     {
                         int AlertId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert).
                         Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault();
@@ -463,7 +463,7 @@ namespace BackOffice.Web.Controllers
                     }                    
             }         
 
-            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId) && prv.BlackListStatus == "Si").All(prv =>
+            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId) && prv.BlackListStatus == "SI").All(prv =>
             {
                 try
                 {

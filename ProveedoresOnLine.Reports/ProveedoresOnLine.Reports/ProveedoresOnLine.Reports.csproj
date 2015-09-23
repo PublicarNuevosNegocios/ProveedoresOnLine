@@ -126,6 +126,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.cs">
+      <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -177,6 +185,17 @@
     </None>
     <None Include="Reports\DataSet\DS_SurveyGeneralInfo.xss">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.xsc">
+      <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_SurveyGeneralInfoAreas.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.xss">
+      <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
     </None>
     <None Include="Reports\DataSet\DS_ThirdKnowledgeReport.xsc">
       <DependentUpon>DS_ThirdKnowledgeReport.xsd</DependentUpon>
