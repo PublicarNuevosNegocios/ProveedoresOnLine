@@ -12,7 +12,7 @@ using System.Web.Http;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using NetOffice.ExcelApi;
-using LinqToExcel;
+//using LinqToExcel;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -206,10 +206,10 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public bool FileVerify(string FilePath, string FileName)
         {
-            var excel = new ExcelQueryFactory(FilePath);
+            //var excel = new ExcelQueryFactory(FilePath);
 
-            //get excel rows
-            LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
+            ////get excel rows
+            //LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
 
             //List<ProveedoresOnLine.ThirdKnowledge.Models.> oPrvToProcess =
              //(from x in XlsInfo.Worksheet<ProviderExcelModel>(0)
