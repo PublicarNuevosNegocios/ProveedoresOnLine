@@ -25,8 +25,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 List<PlanModel> oPlanModel = new List<PlanModel>();
                 PeriodModel oCurrentPeriod = new PeriodModel();
 
-                oAuth.UsuarioNombre = "W5-Pub1ic@r";
-                oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
+                oAuth.UsuarioNombre = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_AuthServiceUser].Value; 
+                oAuth.UsuarioClave = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_AuthServicePass].Value;
 
                 //WS Request
                 string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
@@ -222,22 +222,24 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         public static bool AccessFTPClient(string FileName, string FilePath)
         {
-            string ftpServerIP = "67.210.244.157:27";        
-            string uploadToFolder = "UploadTest";
-            
+            string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
+            string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
+            string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
+            string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
+
             FileInfo FileInf = new FileInfo(FilePath);
 
             string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + FileInf.Name;
 
             FtpWebRequest request = ((FtpWebRequest)FtpWebRequest.Create(new Uri(uri)));
             request.Method = WebRequestMethods.Ftp.UploadFile;
-            request.Credentials = new NetworkCredential("FTP_PUBLICAR", "p1u2b3l415c6@778*", "67.210.244.157:27");
+            request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
             request.UsePassive = true;
             request.UseBinary = true;
             request.KeepAlive = false;
             request.ContentLength = FileInf.Length;
 
-            int buffLength = 2048;
+            int buffLength = 64000;
             byte[] buff = new byte[buffLength];
             int contentLen;
 

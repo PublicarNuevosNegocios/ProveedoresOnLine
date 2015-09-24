@@ -422,7 +422,7 @@ namespace BackOffice.Web.Controllers
         #region Private Functions
 
         private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile, string FileName)
-        {
+        { 
             var excel = new ExcelQueryFactory(FilePath);
 
             //get excel rows

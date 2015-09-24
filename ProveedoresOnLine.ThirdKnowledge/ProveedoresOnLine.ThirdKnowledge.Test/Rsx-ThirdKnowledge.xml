@@ -1,13 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <ThirdKnowledge>
-    
+
     <!--WS_ThirdKnowedge-->
     <key name="ThirdKnowedge_AuthServiceUser">W5-Pub1ic@r</key>
 
     <!--WS_ThirdKnowedge-->
     <key name="ThirdKnowedge_AuthServicePass"><![CDATA[{D6-E9$C3S6Q#5WW&5@}]]></key>
+
+    <!--FTP_ServerIp-->
+    <key name="ThirdKnowedge_FTPServerIP">67.210.244.157:27</key>
+
+    <!--FTP_FTPFIleName-->
+    <key name="ThirdKnowedge_UploadFTPFileName">FTP_ThirdKnowledge</key>
+        
+    <!--WS_UserName-->
+    <key name="ThirdKnowedge_FTPUserName">FTP_PUBLICAR</key>
     
+    <!--WS_Password-->
+    <key name="ThirdKnowedge_FTPPassworUser">p1u2b3l415c6@778*</key>    
+
   </ThirdKnowledge>
 </Settings>
 

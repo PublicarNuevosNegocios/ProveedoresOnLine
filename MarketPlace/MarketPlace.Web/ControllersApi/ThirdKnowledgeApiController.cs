@@ -10,10 +10,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using NetOffice.ExcelApi.Enums;
-using Excel = NetOffice.ExcelApi;
 using System.Text.RegularExpressions;
 using NetOffice.ExcelApi;
+using LinqToExcel;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -207,33 +206,42 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public bool FileVerify(string FilePath, string FileName)
         {
-            //bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
-            //return true;
-            Excel.Application Aplication = new Excel.Application();
+            var excel = new ExcelQueryFactory(FilePath);
 
-            Excel.Workbook CurrentBook;
-            CurrentBook = Aplication.Workbooks.Open(FilePath);
-            Excel.Worksheet workSheet = (Excel.Worksheet)CurrentBook.Worksheets[1];
+            //get excel rows
+            LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
 
-            object[,] values = (object[,])workSheet.Range("A1:C1").Value;
+            //List<ProveedoresOnLine.ThirdKnowledge.Models.> oPrvToProcess =
+             //(from x in XlsInfo.Worksheet<ProviderExcelModel>(0)
+             // select x).ToList();
 
-            string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
-            if (UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-                            [MarketPlace.Models.General.Constants.MP_CP_ColPersonType].Value)
-                && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-                            [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
-                && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-                            [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
-            {
-                CurrentBook.Close();
-                //bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
-                return true;
-            }
-            else
-            {
-                CurrentBook.Close();
-                return false;
-            }            
+            bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
+            return true;
+            //Excel.Application Aplication = new Excel.Application();
+
+            //Excel.Workbook CurrentBook;
+            //CurrentBook = Aplication.Workbooks.Open(FilePath);
+            //Excel.Worksheet workSheet = (Excel.Worksheet)CurrentBook.Worksheets[1];
+
+            //object[,] values = (object[,])workSheet.Range("A1:C1").Value;
+
+            //string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
+            //if (UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+            //                [MarketPlace.Models.General.Constants.MP_CP_ColPersonType].Value)
+            //    && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+            //                [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
+            //    && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+            //                [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
+            //{
+            //    CurrentBook.Close();
+            //    bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
+            //    return true;
+            //}
+            //else
+            //{
+            //    CurrentBook.Close();
+            //    return false;
+            //}            
         }        
 
         #endregion
