@@ -2055,7 +2055,7 @@ public partial class ProviderController : BaseController
 
             #region Finacial Info
 
-            if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0 && string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()))
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()))
                 parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).FirstOrDefault()));
             else
                 parameters.Add(new ReportParameter("TotalActive", "NA"));
