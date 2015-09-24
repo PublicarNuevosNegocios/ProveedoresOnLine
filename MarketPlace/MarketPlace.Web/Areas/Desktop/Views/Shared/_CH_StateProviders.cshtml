@@ -1,15 +1,28 @@
 ﻿
-<div id="ProvidersStatusChartId" class="ResponsiveChartsClass" ></div>
+<div class="ResponsiveChartsClass" >
+    <div class="row">
+        <div class="col-md-6">
+            <div><b>Proveedores Nacionales</b></div><br />
+            <div id="NaziProvidersStatusChartId"></div>
+        </div>
+        <div class="col-md-6">
+            <div><b>Proveedores Internacionales</b></div><br />
+            <div id="AlienProvidersStatusChartId"></div>
+        </div>
+    </div>
+
+
+</div>
 
 
 <script type="text/javascript">
     google.load('visualization', '1.0', { 'packages': ['corechart'] });
     $(document).ready(function () {
 
-        google.setOnLoadCallback(Providers_ChartsObject.RenderChatrProvidersByStatus);
+        google.setOnLoadCallback(NationalProviders_ChartsObject.RenderChatrNationalProvidersByStatus);
 
-        Providers_ChartsObject.Init({
-            ObjectId: 'ProvidersStatusChartId',
+        NationalProviders_ChartsObject.Init({
+            ObjectId: 'NaziProvidersStatusChartId',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -18,6 +31,18 @@
                             }))',
         });
         
+
+        google.setOnLoadCallback(AlienProviders_ChartsObject.RenderChatrAlienProvidersByStatus);
+
+        AlienProviders_ChartsObject.Init({
+            ObjectId: 'AlienProvidersStatusChartId',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+        {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+        }))',
+    });
         
     })
 </script>

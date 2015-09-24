@@ -34,6 +34,37 @@
 
 }
 <div id="POMPGraphicContainerMain">
+    @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+    {
+        <div class="POMPGraphicDynamic">
+            <div class="POMPHeaderGraphicDynamic">
+                <h1>Estado De Los Proveedores</h1>
+            </div>
+            @Html.Partial(MVC.Desktop.Shared.Views._CH_StateProviders)
+        </div>
+    }
+</div>
+<div id="POMPGraphicContainerMain">
+    @if (IsProcessModuleEnable)
+    {
+        <div class="POMPGraphicDynamic">
+            <div class="POMPHeaderGraphicDynamic">
+                <h1>Procesos De Selección Por Estado Año En Curso</h1>
+            </div>
+            @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
+        </div>
+    }
+    @if (IsThirdKnowledgeModeuleEnable)
+    {
+        <div class="POMPGraphicDynamic">
+            <div class="POMPHeaderGraphicDynamic">
+                <h1>Conocimiento De Terceros Consultas Por Periodo</h1>
+            </div>
+
+            @Html.Partial(MVC.Desktop.Shared.Views._CH_TK_GetPeriodsByPlan)
+        </div>
+
+    }
     @if (IsEvaluator)
     {
         <div class="POMPGraphicDynamic">
@@ -43,48 +74,18 @@
             @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
         </div>
     }
-    
-    @if (IsProcessModuleEnable)
-    {
-        <div class="POMPGraphicDynamic">
-            <div class="POMPHeaderGraphicDynamic">
-                <h1>Procesos De Selección Por Estado Año En Curso</h1>
-            </div>
-            @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
-        </div>
-    }    
-   
-    @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
-    {       
-        <div class="POMPGraphicDynamic">
-            <div class="POMPHeaderGraphicDynamic">
-                <h1>Estado De Los Proveedores</h1>
-            </div>
-            @Html.Partial(MVC.Desktop.Shared.Views._CH_StateProviders)
-        </div>    
-    }    
-    
 
-    @if (IsThirdKnowledgeModeuleEnable)
-    {
-        <div class="POMPGraphicDynamic">
-            <div class="POMPHeaderGraphicDynamic">
-                <h1>Conocimiento De Terceros Consultas Por Periodo</h1>
-            </div>
-            @Html.Partial(MVC.Desktop.Shared.Views._CH_TK_GetPeriodsByPlan)
+</div>
+<div class="POMPManualLink">
+    <div id="POMPManualTitle"><p>MANUALES</p></div>
+    <div id="POMPManualIcons">
+        <div class="row POMPPdfContainer">
+            <div class="col-xs-6 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+            <div class="col-xs-6 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
         </div>
-    }
-    
-    <div class="POMPManualLink">
-        <div id="POMPManualTitle"><p>MANUALES</p></div>
-        <div id="POMPManualIcons">
-            <div class="row POMPPdfContainer">
-                <div class="col-xs-6 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                <div class="col-xs-6 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-            </div>
-        </div>        
     </div>
 </div>
+
 
 
 
