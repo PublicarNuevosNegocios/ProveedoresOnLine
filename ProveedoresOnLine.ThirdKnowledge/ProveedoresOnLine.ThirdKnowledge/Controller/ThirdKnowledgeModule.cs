@@ -25,8 +25,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 List<PlanModel> oPlanModel = new List<PlanModel>();
                 PeriodModel oCurrentPeriod = new PeriodModel();
 
-                oAuth.UsuarioNombre = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_AuthServiceUser].Value; 
-                oAuth.UsuarioClave = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_AuthServicePass].Value;
+                oAuth.UsuarioNombre = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_AuthServiceUser].Value;
+                oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
 
                 //WS Request
                 string oResutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
@@ -46,8 +46,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 {
 
                     oQueryToCreate = CreateQuery(oQueryToCreate, oReturn, Name, IdentificationNumber);
-
-                    //TODO: INDEXAR
                     QueryInsert(oQueryToCreate);
                 }
                 else
@@ -220,7 +218,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearchByPublicId(CustomerPublicId, QueryPublic, Enable);
         }
 
-        public static bool AccessFTPClient(string FileName, string FilePath)
+        public static bool AccessFTPClient(string FileName, string FilePath, string PeriodPublicId)
         {
             string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
             string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;

@@ -12,7 +12,9 @@ using System.Web.Http;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using NetOffice.ExcelApi;
-//using LinqToExcel;
+using LinqToExcel;
+using System.IO;
+using OfficeOpenXml;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -39,7 +41,7 @@ namespace MarketPlace.Web.ControllersApi
                     oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
 
                     #region Upsert Process
-                    
+
                     if (System.Web.HttpContext.Current.Request["UpsertRequest"] == "true")
                     {
                         //Set Current Sale                        
@@ -104,7 +106,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId)
+        public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string PeriodPublicId)
         {
             FileModel oReturn = new FileModel();
 
@@ -131,7 +133,7 @@ namespace MarketPlace.Web.ControllersApi
 
                     UploadFile.SaveAs(strFile);
 
-                    bool isValidFile = this.FileVerify(strFile, "ThirdKnowledgeFile_" + 
+                    bool isValidFile = this.FileVerify(strFile, "ThirdKnowledgeFile_" +
                             CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls");
 
                     string strRemoteFile = string.Empty;
@@ -142,25 +144,56 @@ namespace MarketPlace.Web.ControllersApi
                             (strFile,
                             MarketPlace.Models.General.InternalSettings.Instance
                                 [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                            "\\ThirdKnowledge\\" + CompanyPublicId + "_" + DateTime.Now + "\\");                    
-                    }                    
+                                 CompanyPublicId + "_" + DateTime.Now + "\\");
+
+                        TDQueryModel oQueryToCreate = new TDQueryModel()
+                        {
+
+                            IsSuccess = isValidFile,
+                            PeriodPublicId = PeriodPublicId,
+                            QueryStatus = new TDCatalogModel()
+                            {
+                                ItemId = (int)enumThirdKnowledgeQueryStatus.InProcess
+                            },
+                            SearchType = new TDCatalogModel()
+                            {
+                                ItemId = (int)enumThirdKnowledgeQueryType.Masive,
+                            },
+                            User = SessionModel.CurrentLoginUser.Email,
+                            RelatedQueryInfoModel = new List<TDQueryInfoModel>(),
+                        };
+                        oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                        {
+                            ItemInfoType = new TDCatalogModel()
+                            {
+                             ItemId =  (int)enumThirdKnowledgeColls.FileURL,
+                             ItemName = strRemoteFile,
+                            },
+                            Value = strRemoteFile
+                        });
+
+                        oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryInsert(oQueryToCreate);
+
+                        //TODO: ENVIAR EMAIL--JOSÉ
+                        //TODO: ENVIAR NOTIFICACIÓN--DAVID
+                    }
 
                     //remove temporal file
                     if (System.IO.File.Exists(strFile))
                         System.IO.File.Delete(strFile);
-                    
+
                     oReturn = new MarketPlace.Models.General.FileModel()
                     {
                         FileName = UploadFile.FileName,
                         ServerUrl = strRemoteFile,
                         LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
-                                                    "El Archivo " + UploadFile.FileName + " no es correto, por favor verifique el nombre de las columnas y el formato." 
+                                                    "El Archivo " + UploadFile.FileName + " no es correto, por favor verifique el nombre de las columnas y el formato."
                     };
                 }
             }
             return oReturn;
         }
-        
+
         #region ThirdKnowledge Charts
 
         [HttpPost]
@@ -206,44 +239,40 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public bool FileVerify(string FilePath, string FileName)
         {
+            var Excel = new FileInfo(FilePath);
 
-            //var excel = new ExcelQueryFactory(FilePath);
+            using (var package = new ExcelPackage(Excel))
+            {
+                // Get the work book in the file
+                ExcelWorkbook workBook = package.Workbook;
+                if (workBook != null)
+                {
+                    //workBook.Worksheets.First().Cells["A1:C1"].Value
 
-            ////get excel rows
-            //LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
+                    object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
-            //List<ProveedoresOnLine.ThirdKnowledge.Models.> oPrvToProcess =
-             //(from x in XlsInfo.Worksheet<ProviderExcelModel>(0)
-             // select x).ToList();
+                    string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
+                    if (UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+                                    [MarketPlace.Models.General.Constants.MP_CP_ColPersonType].Value)
+                        && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+                                    [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
+                        && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
+                                    [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
+                    {
+                        bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
 
-            bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
-            return true;
-            //Excel.Application Aplication = new Excel.Application();
-
-            //Excel.Workbook CurrentBook;
-            //CurrentBook = Aplication.Workbooks.Open(FilePath);
-            //Excel.Worksheet workSheet = (Excel.Worksheet)CurrentBook.Worksheets[1];
-
-            //object[,] values = (object[,])workSheet.Range("A1:C1").Value;
-
-            //string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
-            //if (UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-            //                [MarketPlace.Models.General.Constants.MP_CP_ColPersonType].Value)
-            //    && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-            //                [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
-            //    && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-            //                [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
-            //{
-            //    CurrentBook.Close();
-            //    bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
-            //    return true;
-            //}
-            //else
-            //{
-            //    CurrentBook.Close();
-            //    return false;
-            //}            
-        }        
+                    //bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
+                    //return true;
+                }
+            }
+            return false;
+        }
 
         #endregion
     }
