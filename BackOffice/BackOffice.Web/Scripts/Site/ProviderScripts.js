@@ -443,7 +443,7 @@ var Provider_CompanyContactObject = {
                             CP_PersonContactType: { editable: true },
                             CP_PersonContactTypeId: { editable: false },
 
-                            CP_IdentificationType: { editable: true },
+                            CP_IdentificationType: { editable: true, validation: { required: false } },
                             CP_IdentificationTypeId: { editable: false },
 
                             CP_IdentificationNumber: { editable: true, validation: { required: false } },
