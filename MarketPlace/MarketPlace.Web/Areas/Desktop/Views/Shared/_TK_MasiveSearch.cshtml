@@ -50,8 +50,9 @@ else
         Third_KnowledgeMasiveSearchObject.Init({
             ObjectId: 'ThirdKnowledge',
             CompanyPublicId: '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId',
+            PeriodPublicId: '@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId',
         });
-        
+
     });
 </script>
 

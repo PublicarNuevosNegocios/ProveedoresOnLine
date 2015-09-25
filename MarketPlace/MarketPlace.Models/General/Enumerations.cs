@@ -728,6 +728,7 @@
         RegisterDate = 301019,
         LastModifyDate = 301020,
         Message = 301021,
+        FileURL = 301022,
     }
 
     public enum enumThirdKnowledgeQueryStatus

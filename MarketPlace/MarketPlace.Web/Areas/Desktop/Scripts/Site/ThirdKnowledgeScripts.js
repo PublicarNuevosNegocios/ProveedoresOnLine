@@ -65,10 +65,12 @@ var Third_KnowledgeSimpleSearchObject = {
 var Third_KnowledgeMasiveSearchObject = {
     ObjectId: '',
     CompanyPublicId: '',
+    PeriodPublicId: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId
         this.CompanyPublicId = vInitObject.CompanyPublicId
+        this.PeriodPublicId = vInitObject.PeriodPublicId,
         Third_KnowledgeMasiveSearchObject.LoadFile();
     },
 
@@ -79,7 +81,7 @@ var Third_KnowledgeMasiveSearchObject = {
                 "select": "Agregar"
             },
             async: {
-                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId,
+                saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId + '&PeriodPublicId=' + Third_KnowledgeMasiveSearchObject.PeriodPublicId,
                 autoUpload: true
             },
             success: function (e) {

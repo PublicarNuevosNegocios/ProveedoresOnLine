@@ -61,8 +61,11 @@
     <key name="MP_CP_ReportPath">\\192.168.0.4\d$\SitesReports\</key>
     
     <!--ThirdKnowledge-->
-    <key name="MP_CP_UploadTemplate">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/PlantillaCargueMasivoPOL.xlsx</key>  
-
+    <key name="MP_CP_UploadTemplate">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/PlantillaCargueMasivoPOL.xlsx</key>
+    <key name="MP_CP_ColPersonType">TIPOPERSONA</key>
+    <key name="MP_CP_ColIdNumber">NUMEIDEN</key>
+    <key name="MP_CP_ColIdName">NOMBRES</key>
+    
   </MarketPlace>
 </Settings>
 
