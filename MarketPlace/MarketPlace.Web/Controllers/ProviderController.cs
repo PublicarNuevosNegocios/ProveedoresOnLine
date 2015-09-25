@@ -3200,41 +3200,7 @@ public partial class ProviderController : BaseController
 
                     #endregion HSEQ Info
 
-                    #region Reports
-
-                    //header
-                    oMenuAux = new GenericMenu()
-                    {
-                        Name = "Reportes",
-                        Position = 6,
-                        ChildMenu = new List<GenericMenu>(),
-                    };
-
-                    //Gerencial Report
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
-                    {
-                        Name = "Reporte Gerencial",
-                        Url = Url.RouteUrl
-                                (Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Provider.Name,
-                                    //action = MVC.Provider.ActionNames.RPGerencial,
-                                    ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                }),
-                        Position = 0,
-                        //IsSelected =
-                        //        (oCurrentAction == MVC.Provider.ActionNames.RPGerencial &&
-                        //        oCurrentController == MVC.Provider.Name),
-                    });
-
-                    //get is selected menu
-                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                    //add menu
-                    oReturn.Add(oMenuAux);
-
-                    #endregion Reports
+                    
 
                     #region Aditional Documents
 

@@ -436,6 +436,10 @@ namespace BackOffice.Web.Controllers
             string ActualProvider = "";
             List<string> ProvidersId = new List<string>();
 
+            FileName = FileName.Replace(Path.GetExtension(FileName), "");
+            var page = excel.GetWorksheetNames();
+            List<string> Columns = excel.GetColumnNames(page.FirstOrDefault()).ToList();
+
             ProvidersId = oPrvToProcess.Where(x => x.ProviderPublicId != null).Select(x => x.ProviderPublicId).Distinct().ToList();
 
             foreach (string ProviderPublicId in ProvidersId)
@@ -459,128 +463,131 @@ namespace BackOffice.Web.Controllers
                             Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                         });
 
-                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
-                    }                    
-            }         
+                    #region New Data
 
-            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId) && (prv.BlackListStatus == "SI" || prv.BlackListStatus == "si" || prv.BlackListStatus == "Si")).All(prv =>
-            {
-                try
-                {
-                    FileName = FileName.Replace(Path.GetExtension(FileName), "");
-                    var page = excel.GetWorksheetNames();
-                    List<string> Columns = excel.GetColumnNames(page.FirstOrDefault()).ToList();
-
-                    #region Operation
-
-                    ProviderModel oProviderToInsert = new ProviderModel();
-                    oProviderToInsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
-                    oProviderToInsert.RelatedCompany.CompanyInfo = new List<GenericItemInfoModel>();
-                    oProviderToInsert.RelatedCompany.CompanyPublicId = prv.ProviderPublicId;
-                    oProviderToInsert.RelatedBlackList = new List<BlackListModel>();
-
-                    CompanyModel BasicInfo = new CompanyModel();
-                    BasicInfo = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.ProviderPublicId);
-                    oProviderToInsert.RelatedBlackList.Add(new BlackListModel
+                    oPrvToProcess.Where(prv => (!string.IsNullOrEmpty(prv.ProviderPublicId) && prv.ProviderPublicId == ProviderPublicId) &&
+                    (prv.BlackListStatus == "SI" || prv.BlackListStatus == "si" || prv.BlackListStatus == "Si")).All(prv =>
                     {
-                        BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        try
                         {
-                            ItemId = (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert,
-                        },
-                        User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
-                        FileUrl = StrRemoteFile,
-                        BlackListInfo = new List<GenericItemInfoModel>()
-                    });
+                            #region Operation
 
-                    var Rows = from c in excel.Worksheet(page.FirstOrDefault())
-                               where c["ProviderPublicId"] == prv.ProviderPublicId && c["IdentificationNumber"] == prv.IdentificationNumber
-                               select c;
+                            ProviderModel oProviderToInsert = new ProviderModel();
+                            oProviderToInsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
+                            oProviderToInsert.RelatedCompany.CompanyInfo = new List<GenericItemInfoModel>();
+                            oProviderToInsert.RelatedCompany.CompanyPublicId = prv.ProviderPublicId;
+                            oProviderToInsert.RelatedBlackList = new List<BlackListModel>();
 
-                    foreach (var rw in Rows)
-                    {
-                        //Load the BlackList info
-                        foreach (string item in Columns)
-                        {
-                            int indexCollumn = Columns.IndexOf(item);
-                            oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                            CompanyModel BasicInfo = new CompanyModel();
+                            BasicInfo = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.ProviderPublicId);
+                            oProviderToInsert.RelatedBlackList.Add(new BlackListModel
                             {
-                                ItemInfoId = 0,
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                    ItemName = item,
+                                    ItemId = (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert,
                                 },
-                                Value = Rows.First()[indexCollumn].Value.ToString(),
+                                User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
+                                FileUrl = StrRemoteFile,
+                                BlackListInfo = new List<GenericItemInfoModel>()
+                            });
+
+                            var Rows = from c in excel.Worksheet(page.FirstOrDefault())
+                                       where c["ProviderPublicId"] == prv.ProviderPublicId && c["IdentificationNumber"] == prv.IdentificationNumber
+                                       select c;
+
+                            foreach (var rw in Rows)
+                            {
+                                //Load the BlackList info
+                                foreach (string item in Columns)
+                                {
+                                    int indexCollumn = Columns.IndexOf(item);
+                                    oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoId = 0,
+                                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemName = item,
+                                        },
+                                        Value = Rows.First()[indexCollumn].Value.ToString(),
+                                        Enable = true,
+                                    });
+                                }
+                            }
+
+                            List<ProviderModel> oProviderResultList = new List<ProviderModel>();
+                            oProviderResultList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert));
+
+                            var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
+
+                            #region Set Provider Info
+
+
+                            oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                            .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                            .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
+                                },
+                                Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
                                 Enable = true,
                             });
+
+
+                            //Set large value With the items found
+                            oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                            .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                            .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ListId,
+                                },
+                                LargeValue = string.Join(",", idResult),
+                                Enable = true,
+                            });
+
+                            #endregion
+
+                            ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
+
+                            oPrvToProcessResult.Add(new ProviderExcelResultModel()
+                            {
+                                PrvModel = prv,
+                                Success = true,
+                                Error = "Se ha validado el Proveedor '" + oProviderToInsert.RelatedCompany.CompanyPublicId + "'",
+                            });
+
+                            ActualProvider = prv.ProviderPublicId;
+                            FileName = FileName + ".xls";
+                            #endregion
                         }
-                    }
-
-                    List<ProviderModel> oProviderResultList = new List<ProviderModel>();
-                    oProviderResultList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert));
-
-                    var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
-
-                    #region Set Provider Info
-               
-
-                    oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                    .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                    .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
-                        ItemInfoType = new CatalogModel()
+                        catch (Exception err)
                         {
-                            ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
-                        },
-                        Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
-                        Enable = true,
-                    });
-                    
-
-                    //Set large value With the items found
-                    oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
-                                    .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
-                                    .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
-                        ItemInfoType = new CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ListId,
-                        },
-                        LargeValue = string.Join(",", idResult),
-                        Enable = true,
+                            oPrvToProcessResult.Add(new ProviderExcelResultModel()
+                            {
+                                PrvModel = prv,
+                                Success = false,
+                                Error = "Error :: " + err.Message + " :: " +
+                                            err.StackTrace +
+                                            (err.InnerException == null ? string.Empty :
+                                            " :: " + err.InnerException.Message + " :: " +
+                                            err.InnerException.StackTrace),
+                            });
+                        }
+                        return true;
                     });
 
-                    #endregion
+                    #endregion New Data
 
-                    ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
+                    //Save DateTime of last Update Data
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
 
-                    oPrvToProcessResult.Add(new ProviderExcelResultModel()
-                    {
-                        PrvModel = prv,
-                        Success = true,
-                        Error = "Se ha validado el Proveedor '" + oProviderToInsert.RelatedCompany.CompanyPublicId + "'",
-                    });
-
-                    ActualProvider = prv.ProviderPublicId;
-                    FileName = FileName + ".xls";
-                    #endregion
-                }
-                catch (Exception err)
-                {
-                    oPrvToProcessResult.Add(new ProviderExcelResultModel()
-                    {
-                        PrvModel = prv,
-                        Success = false,
-                        Error = "Error :: " + err.Message + " :: " +
-                                    err.StackTrace +
-                                    (err.InnerException == null ? string.Empty :
-                                    " :: " + err.InnerException.Message + " :: " +
-                                    err.InnerException.StackTrace),
-                    });
-                }
-                return true;
-            });
+                    }                    
+            }            
 
             //save log file
             #region Error log file
