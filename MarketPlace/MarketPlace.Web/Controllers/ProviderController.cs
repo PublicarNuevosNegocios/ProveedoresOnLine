@@ -2222,31 +2222,40 @@ public partial class ProviderController : BaseController
                 if (oProviderResult.IndexOf(x) == 0)
                 {
                     data.AppendLine
-                    ("\"" + "Razon Social" + "\"" + strSep +
-                        "\"" + "Tipo Identificacion" + "\"" + strSep +
+                    ("\"" + "Tipo Identificacion" + "\"" + strSep +
                         "\"" + "Numero Identificacion" + "\"" + strSep +
-                        "\"" + "Sucursal" + "\"" + strSep +
-                        "\"" + "Telefono" + "\"" + strSep +
+                        "\"" + "Razon Social" + "\"" + strSep +
+                        "\"" + "País" + "\"" + strSep +
+                      
                         "\"" + "Ciudad" + "\"" + strSep +
+                        "\"" + "Estado" + "\"" + strSep +
+
+                        "\"" + "Dirección" + "\"" + strSep +
+                        "\"" + "Telefono" + "\"" + strSep +
+                        
                         "\"" + "Representante" + "\"");
                     data.AppendLine
-                        ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
+                        ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep + 
+                        "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                        "\"" + "_____________" + "\"" + "" + strSep +
                         "\"" + (x.RelatedCommercial != null ? Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                        "\"" + "_____________" + "\"" + "" + strSep +
+                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
+                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +                        
                         "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"");
                 }
                 else
                 {
                     data.AppendLine
-                        ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                        ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                         "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
+                        "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                        "\"" + "_____________" + "\"" + "" + strSep +
                         "\"" + (x.RelatedCommercial != null ? Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
+                        "\"" + "_____________" + "\"" + "" + strSep +
+                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
+                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +                        
                         "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"");
                 }
                 return true;
