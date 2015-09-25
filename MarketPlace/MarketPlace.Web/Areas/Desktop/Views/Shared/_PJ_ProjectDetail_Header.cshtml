@@ -54,7 +54,7 @@
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval.Count > 0)
                 {
                     <li>
-                        <label>Cantidad de minima de experiencias</label>
+                        <label>Cantidad mínima de experiencias</label>
                         <span>@Model.ProjectExperienceQuantity</span>
                     </li>
                 }
@@ -76,7 +76,7 @@
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
                 {
                     <li class="POMPProjectBidActivityData">
-                        <label>Actividades economicas personalizadas</label>
+                        <label>Maestra de actividades personalizadas</label>
                         @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
                         {
                             <ul>
@@ -311,7 +311,7 @@
                                 string strCustomSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectCustomEconomicActivity);
 
                                 <li class="POMPProjectBidEditDialogActivity">
-                                    <label>Actividades Económicas Personalizadas:</label>
+                                    <label>Maestra de Actividades Personalizadas:</label>
                                     <select id="ProjectDetail_EditProjectDialog_CustomEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId"></select>
                                     <input type="hidden" id="ProjectDetail_EditProjectDialog_CustomEconomicActivityValue" value="@strCustomSerialize" />
                                 </li>

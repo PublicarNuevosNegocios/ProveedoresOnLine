@@ -3208,16 +3208,14 @@ public partial class ProviderController : BaseController
                     oReturn.Add(oMenuAux);
 
                     #endregion HSEQ Info
-
                     
-
                     #region Aditional Documents
 
                     //header
                     oMenuAux = new GenericMenu()
                     {
-                        Name = "Documentación Adicional",
-                        Position = 7,
+                        Name = "Información Adicional",
+                        Position = 5,
                         ChildMenu = new List<GenericMenu>(),
                     };
 
@@ -3295,7 +3293,7 @@ public partial class ProviderController : BaseController
                     oMenuAux = new GenericMenu()
                     {
                         Name = "Evaluación de Desempeño",
-                        Position = 5,
+                        Position = 6,
                         ChildMenu = new List<GenericMenu>(),
                     };
 
