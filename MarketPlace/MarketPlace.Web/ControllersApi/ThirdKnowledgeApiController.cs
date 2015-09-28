@@ -148,7 +148,6 @@ namespace MarketPlace.Web.ControllersApi
 
                         TDQueryModel oQueryToCreate = new TDQueryModel()
                         {
-
                             IsSuccess = isValidFile,
                             PeriodPublicId = PeriodPublicId,
                             QueryStatus = new TDCatalogModel()
