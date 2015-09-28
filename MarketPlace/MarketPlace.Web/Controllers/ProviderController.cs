@@ -2219,6 +2219,32 @@ public partial class ProviderController : BaseController
 
             oProviderResult.All(x =>
             {
+                string Address = string.Empty;
+                string Telephone = string.Empty;
+                string Representative = string.Empty;
+                string Country = string.Empty;
+                string City = string.Empty;
+                string Dept = string.Empty;
+
+                x.RelatedCommercial.Where(y => y != null).All(y =>
+                {
+                    bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                    z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                    if (isPrincipal)
+                    {
+                        Address = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                        Telephone = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                        Representative = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                        Country = "";
+                        City = Models.Company.CompanyUtil.GetCityName(y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault());
+                        Dept = "";
+                    }
+
+                    return true;
+                });
+
+
                 if (oProviderResult.IndexOf(x) == 0)
                 {
                     data.AppendLine
@@ -2238,12 +2264,12 @@ public partial class ProviderController : BaseController
                         ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                         "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep + 
                         "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                        "\"" + "_____________" + "\"" + "" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
-                        "\"" + "_____________" + "\"" + "" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"" + strSep +                        
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() : string.Empty) + "\"");
+                        "\"" + Country + "\"" + "" + strSep +
+                        "\"" + City + "\"" + strSep +
+                        "\"" + Dept + "\"" + "" + strSep +
+                        "\"" + Address + "\"" + strSep +
+                        "\"" + Telephone + "\"" + strSep +                        
+                        "\"" + Representative + "\"");
                 }
                 else
                 {
@@ -2251,12 +2277,12 @@ public partial class ProviderController : BaseController
                         ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                         "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                         "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                        "\"" + "_____________" + "\"" + "" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? Models.Company.CompanyUtil.GetCityName(x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(y => y.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()) : string.Empty) + "\"" + strSep +
-                        "\"" + "_____________" + "\"" + "" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"" + strSep +                        
-                        "\"" + (x.RelatedCommercial != null ? x.RelatedCommercial.FirstOrDefault().ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(y => y.Value).DefaultIfEmpty("").FirstOrDefault() : string.Empty) + "\"");
+                        "\"" + Country + "\"" + "" + strSep +
+                        "\"" + City + "\"" + strSep +
+                        "\"" + Dept + "\"" + "" + strSep +
+                        "\"" + Address + "\"" + strSep +
+                        "\"" + Telephone + "\"" + strSep +                        
+                        "\"" + Representative + "\"");
                 }
                 return true;
             });
