@@ -457,14 +457,14 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                if (string.IsNullOrEmpty(oDT_City))
+                if (string.IsNullOrEmpty(oDT_Country))
                 {
-                    oDT_Country = MarketPlace.Models.Company.CompanyUtil.GetCountryName(
+                    oDT_Country = //MarketPlace.Models.Company.CompanyUtil.GetCountryName();
                         RelatedContactInfo.ItemInfo.
-                                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_City).
-                                 Select(y => y.Value).
+                                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).
+                                 Select(y => y.LargeValue).
                                  DefaultIfEmpty(string.Empty).
-                                 FirstOrDefault());
+                                 FirstOrDefault();
                 }
                 return oDT_Country;
             }
