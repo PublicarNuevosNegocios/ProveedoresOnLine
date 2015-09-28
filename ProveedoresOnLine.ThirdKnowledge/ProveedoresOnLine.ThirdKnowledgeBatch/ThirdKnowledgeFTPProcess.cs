@@ -14,7 +14,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             {
                 //Get query masive, in process, file name
                 //Connect to FTP for the ftp file
-
+                ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
 
             }
             catch (Exception)

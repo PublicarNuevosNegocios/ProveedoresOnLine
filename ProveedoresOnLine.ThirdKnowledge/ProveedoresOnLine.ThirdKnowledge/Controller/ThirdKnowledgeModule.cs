@@ -415,7 +415,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         #region BatchProcess
 
-        public static List<TDQueryModel> GetQueriesInProgress()        
+        public static List<TDQueryModel> GetQueriesInProgress()
         {
             return ThirdKnowledgeDataController.Instance.GetQueriesInProgress();
         }
