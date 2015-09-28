@@ -175,6 +175,15 @@ namespace MarketPlace.Web.ControllersApi
                         oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryInsert(oQueryToCreate);
 
                         //TODO: ENVIAR EMAIL--JOSÉ
+                        //MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel();
+
+                        //oMessageToSend = GetProjectMessage(oProject, oProjectProvider, ea);  
+
+                        ////send message
+                        //MessageModule.Client.Controller.ClientController.CreateMessage(msg);
+                
+
+                        
                         //TODO: ENVIAR NOTIFICACIÓN--DAVID
                     }
 
