@@ -60,7 +60,7 @@ namespace BackOffice.Web.Controllers
             }
 
             //eval upsert action
-            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true" )
             {
                 //get provider request info
                 ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
@@ -72,22 +72,26 @@ namespace BackOffice.Web.Controllers
                 CustomerModel oCustomerModel = new CustomerModel();
                 oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
 
-                oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                if (string.IsNullOrEmpty(ProviderPublicId))
                 {
-                    RelatedProvider = new CompanyModel()
+                    oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
                     {
-                        CompanyPublicId = CompanyToUpsert.CompanyPublicId,
-                    },
-                    Status = new CatalogModel()
-                    {
-                        ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
-                    },
-                    Enable = true,
-                });
+                        RelatedProvider = new CompanyModel()
+                        {
+                            CompanyPublicId = CompanyToUpsert.CompanyPublicId,
+                        },
+                        Status = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
+                        },
+                        Enable = true,
+                    });
 
-                oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
 
-                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
+                    oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
+
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
+                }
 
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
