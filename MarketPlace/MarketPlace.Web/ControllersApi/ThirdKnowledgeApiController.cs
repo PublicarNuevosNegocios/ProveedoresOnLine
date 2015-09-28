@@ -134,7 +134,7 @@ namespace MarketPlace.Web.ControllersApi
                     UploadFile.SaveAs(strFile);
 
                     bool isValidFile = this.FileVerify(strFile, "ThirdKnowledgeFile_" +
-                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls");
+                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", PeriodPublicId);
 
                     string strRemoteFile = string.Empty;
                     if (isValidFile)
@@ -169,7 +169,8 @@ namespace MarketPlace.Web.ControllersApi
                              ItemId =  (int)enumThirdKnowledgeColls.FileURL,
                              ItemName = strRemoteFile,
                             },
-                            Value = strRemoteFile
+                            Value = "ThirdKnowledgeFile_" + CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault(),
+                            LargeValue = strRemoteFile,
                         });
 
                         oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryInsert(oQueryToCreate);
@@ -237,7 +238,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public bool FileVerify(string FilePath, string FileName)
+        public bool FileVerify(string FilePath, string FileName, string PeriodPublicId)
         {
             var Excel = new FileInfo(FilePath);
 
@@ -247,8 +248,6 @@ namespace MarketPlace.Web.ControllersApi
                 ExcelWorkbook workBook = package.Workbook;
                 if (workBook != null)
                 {
-                    //workBook.Worksheets.First().Cells["A1:C1"].Value
-
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
                     string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
@@ -259,16 +258,13 @@ namespace MarketPlace.Web.ControllersApi
                         && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
                                     [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
                     {
-                        bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
+                        bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath, PeriodPublicId);
                         return true;
                     }
                     else
                     {
                         return false;
                     }
-
-                    //bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath);
-                    //return true;
                 }
             }
             return false;
