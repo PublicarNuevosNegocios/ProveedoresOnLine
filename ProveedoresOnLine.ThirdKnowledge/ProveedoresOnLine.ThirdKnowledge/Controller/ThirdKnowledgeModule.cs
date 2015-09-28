@@ -412,5 +412,13 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         }
 
         #endregion Provate Functions
+
+        #region BatchProcess
+
+        public static List<TDQueryModel> GetQueriesInProgress()        
+        {
+            return ThirdKnowledgeDataController.Instance.GetQueriesInProgress();
+        }
+        #endregion
     }
 }

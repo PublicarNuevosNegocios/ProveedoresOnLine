@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.ThirdKnowledgeBatch
 {
-    public class ThirdKnowledgeFTPProcess
+    public static class ThirdKnowledgeFTPProcess
     {
+        public static void StartProcess()
+        {
+            try
+            {
+                //Get query masive, in process, file name
+                //Connect to FTP for the ftp file
+
+
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
     }
 }

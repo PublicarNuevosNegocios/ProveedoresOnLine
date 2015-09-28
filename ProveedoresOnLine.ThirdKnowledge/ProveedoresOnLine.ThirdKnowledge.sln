@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.ThirdKnow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.ThirdKnowledge.Test", "ProveedoresOnLine.ThirdKnowledge.Test\ProveedoresOnLine.ThirdKnowledge.Test.csproj", "{A2B8776A-970B-4975-9CF3-ED065675D618}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.ThirdKnowledgeBatch", "ProveedoresOnLine.ThirdKnowledgeBatch\ProveedoresOnLine.ThirdKnowledgeBatch.csproj", "{CE1C2AB5-F2A8-4A2F-9686-F5C7E25BF5CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A2B8776A-970B-4975-9CF3-ED065675D618}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2B8776A-970B-4975-9CF3-ED065675D618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2B8776A-970B-4975-9CF3-ED065675D618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE1C2AB5-F2A8-4A2F-9686-F5C7E25BF5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE1C2AB5-F2A8-4A2F-9686-F5C7E25BF5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE1C2AB5-F2A8-4A2F-9686-F5C7E25BF5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE1C2AB5-F2A8-4A2F-9686-F5C7E25BF5CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

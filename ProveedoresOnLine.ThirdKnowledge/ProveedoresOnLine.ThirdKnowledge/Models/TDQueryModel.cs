@@ -24,6 +24,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public DateTime CreateDate { get; set; }
 
+        public DateTime LastModify{ get; set; }
+
         public List<TDQueryInfoModel> RelatedQueryInfoModel { get; set; }
     }
 }

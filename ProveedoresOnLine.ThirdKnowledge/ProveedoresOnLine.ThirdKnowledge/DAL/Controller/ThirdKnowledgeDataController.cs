@@ -101,5 +101,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
         }
 
         #endregion Utils
+
+        #region BatchProcess
+
+        public List<TDQueryModel> GetQueriesInProgress()
+        {
+            return DataFactory.GetQueriesInProgress();
+        }
+        
+        #endregion
+
     }
 }

@@ -43,5 +43,10 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
         List<TDQueryModel> GetQueriesByPeriodPublicId(string PeriodPublicId, bool Enable);
 
         #endregion Utils
+
+        #region BatchProcess
+
+        List<TDQueryModel> GetQueriesInProgress();
+        #endregion
     }
 }
