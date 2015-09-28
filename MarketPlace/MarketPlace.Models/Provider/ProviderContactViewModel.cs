@@ -251,6 +251,25 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        private string oBR_Country;
+        public string BR_Country
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oBR_Country))
+                {
+                    oBR_Country = //MarketPlace.Models.Company.CompanyUtil.GetCountryName();
+                        RelatedContactInfo.ItemInfo.
+                                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).
+                                 Select(y => y.LargeValue).
+                                 DefaultIfEmpty(string.Empty).
+                                 FirstOrDefault();
+                }
+                return oBR_Country;
+            }
+        }
+
+
         private string oBR_Phone;
         public string BR_Phone
         {
@@ -452,6 +471,7 @@ namespace MarketPlace.Models.Provider
                 return oDT_City;
             }
         }
+        
         private string oDT_Country;
         public string DT_Country
         {
