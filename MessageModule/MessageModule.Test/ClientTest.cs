@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MessageModule.Client.Models;
+using System.Collections.Generic;
 
 namespace MessageModule.Test
 {
@@ -24,6 +26,32 @@ namespace MessageModule.Test
                 });
 
             Assert.AreEqual(true, oMessageId > 0);
+        }
+
+        [TestMethod]
+        public void NotificationUpsert()
+        {
+            int oNotification = MessageModule.Client.Controller.ClientController.NotificationUpsert(
+                null,
+                1,
+                "url google",
+                "david.moncayo@publicar.com",
+                "www.google.com.co",
+                1801001,
+                true);
+
+            Assert.AreEqual(true, oNotification > 0);
+        }
+
+        [TestMethod]
+        public void NotificationGetByUser()
+        {
+            List<NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(
+                1,
+                "david.moncayo@publicar.com",
+                true);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
     }
 }
