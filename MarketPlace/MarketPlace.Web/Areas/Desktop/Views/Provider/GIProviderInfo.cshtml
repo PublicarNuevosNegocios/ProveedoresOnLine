@@ -81,6 +81,8 @@
                             </div>
                         </div>
                     }
+                    
+                    
                     if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
                     {
 
@@ -96,6 +98,35 @@
                         </div>
 
                     }
+
+                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Country).FirstOrDefault()))
+                    {
+                        
+                        string tmpPais = Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Country).FirstOrDefault();
+                            if (tmpPais != null)
+                            {
+                                string[] pais_estado = tmpPais.Split(',');
+                                <div class="col-xs-4">
+                                    <div class="col-xs-12">
+                                        <label>Pais</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span>@pais_estado[1]</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="col-xs-12">
+                                        <label>Estado</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span>@pais_estado[0]</span>
+                                    </div>
+                                </div>
+
+                            }
+                    }
+
+
                     if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
                     {
 

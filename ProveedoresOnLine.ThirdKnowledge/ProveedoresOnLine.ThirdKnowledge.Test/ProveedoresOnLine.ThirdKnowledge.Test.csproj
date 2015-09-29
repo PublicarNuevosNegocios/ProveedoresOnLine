@@ -67,6 +67,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ThirdKnowledgeBatchTest.cs" />
     <Compile Include="ThirdKnowledgeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +78,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.ThirdKnowledgeBatch\ProveedoresOnLine.ThirdKnowledgeBatch.csproj">
+      <Project>{ce1c2ab5-f2a8-4a2f-9686-f5c7e25bf5ca}</Project>
+      <Name>ProveedoresOnLine.ThirdKnowledgeBatch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.csproj">
       <Project>{dd514276-29e3-4b4f-b837-d99100c666d6}</Project>
       <Name>ProveedoresOnLine.ThirdKnowledge</Name>

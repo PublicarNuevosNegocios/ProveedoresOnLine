@@ -114,7 +114,8 @@
                                 <span>@(item.BR_IsPrincipal ? "si" : "no")</span>
                             </div>
                         </div>
-                        @{ string tmp_pais = item.DT_Country;
+                        @{ 
+                         string tmp_pais = item.DT_Country;
                          if (tmp_pais != null)
                          {
                             string[] pais_estado = tmp_pais.Split(',');

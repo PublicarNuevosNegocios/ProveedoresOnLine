@@ -2223,8 +2223,9 @@ public partial class ProviderController : BaseController
                 string Telephone = string.Empty;
                 string Representative = string.Empty;
                 string Country = string.Empty;
+                int CityId = 0;
                 string City = string.Empty;
-                string Dept = string.Empty;
+                string State = string.Empty;
 
                 x.RelatedCommercial.Where(y => y != null).All(y =>
                 {
@@ -2236,9 +2237,14 @@ public partial class ProviderController : BaseController
                         Address = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
                         Telephone = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
                         Representative = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
-                        Country = "";
-                        City = Models.Company.CompanyUtil.GetCityName(y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault());
-                        Dept = "";
+
+                        int oTotalRows = 0;
+                        CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                        List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
+
+                        Country = oGeographyModel.FirstOrDefault().Country.ItemName;
+                        City = oGeographyModel.FirstOrDefault().City.ItemName;
+                        State = oGeographyModel.FirstOrDefault().State.ItemName;
                     }
 
                     return true;
@@ -2266,7 +2272,7 @@ public partial class ProviderController : BaseController
                         "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                         "\"" + Country + "\"" + "" + strSep +
                         "\"" + City + "\"" + strSep +
-                        "\"" + Dept + "\"" + "" + strSep +
+                        "\"" + State + "\"" + "" + strSep +
                         "\"" + Address + "\"" + strSep +
                         "\"" + Telephone + "\"" + strSep +                        
                         "\"" + Representative + "\"");
@@ -2279,7 +2285,7 @@ public partial class ProviderController : BaseController
                         "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                         "\"" + Country + "\"" + "" + strSep +
                         "\"" + City + "\"" + strSep +
-                        "\"" + Dept + "\"" + "" + strSep +
+                        "\"" + State + "\"" + "" + strSep +
                         "\"" + Address + "\"" + strSep +
                         "\"" + Telephone + "\"" + strSep +                        
                         "\"" + Representative + "\"");
