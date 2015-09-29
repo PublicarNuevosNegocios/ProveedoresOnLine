@@ -8,6 +8,10 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
     [TestClass]
     public class ThirdKnowledgeBatchTest
     {
-
+        [TestMethod]
+        public void GetQueriesInProgress()
+        {
+            ProveedoresOnLine.ThirdKnowledgeBatch.ThirdKnowledgeFTPProcess.StartProcess();            
+        }
     }
 }
