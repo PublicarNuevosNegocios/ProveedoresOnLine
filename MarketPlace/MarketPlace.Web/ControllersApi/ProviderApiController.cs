@@ -108,7 +108,16 @@ namespace MarketPlace.Web.ControllersApi
             List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = new List<GenericChartsModelInfo>();
             foreach (ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo var in ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
             {
-                if (var.ItemType.CompareTo("902006") != 0 && var.ItemType.CompareTo("902007") != 0 && var.ItemType.CompareTo("902008") != 0)
+                if (
+                    var.ItemType.CompareTo("902001") == 0 ||
+                    var.ItemType.CompareTo("902002") == 0 ||
+                    var.ItemType.CompareTo("902003") == 0 ||
+                    var.ItemType.CompareTo("902004") == 0 ||
+                    var.ItemType.CompareTo("902005") == 0 ||
+                    var.ItemType.CompareTo("902009") == 0 ||
+                    var.ItemType.CompareTo("902011") == 0
+                    )
+
                 {
                     nazi.Add(var);
                 }
@@ -149,7 +158,13 @@ namespace MarketPlace.Web.ControllersApi
             List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> alien = new List<GenericChartsModelInfo>();
             foreach (ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo var in ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
             {
-                if (var.ItemType.CompareTo("902001") != 0 && var.ItemType.CompareTo("902002") != 0 && var.ItemType.CompareTo("902003") != 0 && var.ItemType.CompareTo("902004") != 0 && var.ItemType.CompareTo("902005") != 0)
+                if (
+                    var.ItemType.CompareTo("902006") == 0 ||
+                    var.ItemType.CompareTo("902007") == 0 ||
+                    var.ItemType.CompareTo("902008") == 0 ||
+                    var.ItemType.CompareTo("902010") == 0 ||
+                    var.ItemType.CompareTo("902012") == 0
+                    )
                 {
                     alien.Add(var);
                 }
