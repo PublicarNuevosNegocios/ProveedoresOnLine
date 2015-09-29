@@ -65,6 +65,7 @@
     <key name="MP_CP_ColPersonType">TIPOPERSONA</key>
     <key name="MP_CP_ColIdNumber">NUMEIDEN</key>
     <key name="MP_CP_ColIdName">NOMBRES</key>
+    <key name="TK_UploadSuccessFileAgent">POL_UploadSuccessFile_Mail</key>
     
   </MarketPlace>
 </Settings>

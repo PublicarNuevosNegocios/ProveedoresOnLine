@@ -1,20 +1,14 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using OfficeOpenXml;
 using ProveedoresOnLine.Company.Models.Util;
-using ProveedoresOnLine.SurveyModule.Models;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using System.Text.RegularExpressions;
-using NetOffice.ExcelApi;
-using LinqToExcel;
-using System.IO;
-using OfficeOpenXml;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -30,7 +24,7 @@ namespace MarketPlace.Web.ControllersApi
 
             try
             {
-                //Get The Active Plan By Customer 
+                //Get The Active Plan By Customer
                 oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
 
                 if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
@@ -44,10 +38,10 @@ namespace MarketPlace.Web.ControllersApi
 
                     if (System.Web.HttpContext.Current.Request["UpsertRequest"] == "true")
                     {
-                        //Set Current Sale                        
+                        //Set Current Sale
                         if (oModel.RelatedThirdKnowledge != null)
                         {
-                            //Save Query 
+                            //Save Query
                             TDQueryModel oQueryToCreate = new TDQueryModel()
                             {
                                 IsSuccess = true,
@@ -89,7 +83,8 @@ namespace MarketPlace.Web.ControllersApi
                             };
                         }
                     }
-                    #endregion
+
+                    #endregion Upsert Process
                 }
                 else
                 {
@@ -99,7 +94,6 @@ namespace MarketPlace.Web.ControllersApi
             }
             catch (Exception ex)
             {
-
                 throw ex.InnerException;
             }
         }
@@ -114,8 +108,8 @@ namespace MarketPlace.Web.ControllersApi
             {
                 //get folder
                 string strFolder = System.Web.HttpContext.Current.Server.MapPath
-                    (MarketPlace.Models.General.InternalSettings.Instance
-                    [MarketPlace.Models.General.Constants.C_Settings_File_TempDirectory].Value);
+                    (Models.General.InternalSettings.Instance
+                    [Models.General.Constants.C_Settings_File_TempDirectory].Value);
 
                 if (!System.IO.Directory.Exists(strFolder))
                     System.IO.Directory.CreateDirectory(strFolder);
@@ -142,13 +136,12 @@ namespace MarketPlace.Web.ControllersApi
                         //load file to s3
                         strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                             (strFile,
-                            MarketPlace.Models.General.InternalSettings.Instance
-                                [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                            Models.General.InternalSettings.Instance
+                                [Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
                                  CompanyPublicId + "_" + DateTime.Now + "\\");
 
                         TDQueryModel oQueryToCreate = new TDQueryModel()
                         {
-
                             IsSuccess = isValidFile,
                             PeriodPublicId = PeriodPublicId,
                             QueryStatus = new TDCatalogModel()
@@ -166,8 +159,8 @@ namespace MarketPlace.Web.ControllersApi
                         {
                             ItemInfoType = new TDCatalogModel()
                             {
-                             ItemId =  (int)enumThirdKnowledgeColls.FileURL,
-                             ItemName = strRemoteFile,
+                                ItemId = (int)enumThirdKnowledgeColls.FileURL,
+                                ItemName = strRemoteFile,
                             },
                             Value = "ThirdKnowledgeFile_" + CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault(),
                             LargeValue = strRemoteFile,
@@ -176,15 +169,13 @@ namespace MarketPlace.Web.ControllersApi
                         oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryInsert(oQueryToCreate);
 
                         //TODO: ENVIAR EMAIL--JOSÉ
-                        //MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel();
+                        MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel();
 
-                        //oMessageToSend = GetProjectMessage(oProject, oProjectProvider, ea);  
+                        oMessageToSend = GetUploadSuccessFileMessage();
 
                         ////send message
-                        //MessageModule.Client.Controller.ClientController.CreateMessage(msg);
-                
+                        MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
 
-                        
                         //TODO: ENVIAR NOTIFICACIÓN--DAVID
                     }
 
@@ -192,7 +183,7 @@ namespace MarketPlace.Web.ControllersApi
                     if (System.IO.File.Exists(strFile))
                         System.IO.File.Delete(strFile);
 
-                    oReturn = new MarketPlace.Models.General.FileModel()
+                    oReturn = new FileModel()
                     {
                         FileName = UploadFile.FileName,
                         ServerUrl = strRemoteFile,
@@ -220,7 +211,7 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
 
-            List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, true);
+            List<ProveedoresOnLine.ThirdKnowledge.Models.PlanModel> oPlanModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(SessionModel.CurrentCompany.CompanyPublicId, true);
 
             List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
             if (oPlanModel != null)
@@ -229,7 +220,6 @@ namespace MarketPlace.Web.ControllersApi
                 {
                     x.RelatedPeriodModel.All(y =>
                     {
-
                         oReturn.Add(Tuple.Create(y.InitDate.ToString("dd/MM/yy") + " - " + y.EndDate.ToString("dd/MM/yy")
                             , y.TotalQueries, y.AssignedQueries));
                         return true;
@@ -241,7 +231,7 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion ThirdKnowledge Charts
 
         #region Private Functions
 
@@ -260,12 +250,12 @@ namespace MarketPlace.Web.ControllersApi
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
                     string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
-                    if (UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-                                    [MarketPlace.Models.General.Constants.MP_CP_ColPersonType].Value)
-                        && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-                                    [MarketPlace.Models.General.Constants.MP_CP_ColIdNumber].Value)
-                        && UncodifiedObj.Contains(MarketPlace.Models.General.InternalSettings.Instance
-                                    [MarketPlace.Models.General.Constants.MP_CP_ColIdName].Value))
+                    if (UncodifiedObj.Contains(Models.General.InternalSettings.Instance
+                                    [Models.General.Constants.MP_CP_ColPersonType].Value)
+                        && UncodifiedObj.Contains(Models.General.InternalSettings.Instance
+                                    [Models.General.Constants.MP_CP_ColIdNumber].Value)
+                        && UncodifiedObj.Contains(Models.General.InternalSettings.Instance
+                                    [Models.General.Constants.MP_CP_ColIdName].Value))
                     {
                         bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath, PeriodPublicId);
                         return true;
@@ -279,6 +269,35 @@ namespace MarketPlace.Web.ControllersApi
             return false;
         }
 
-        #endregion
+        private MessageModule.Client.Models.ClientMessageModel GetUploadSuccessFileMessage()
+        {
+            //Create message object
+            MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
+            {
+                Agent = Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_TK_UploadSuccessFileAgent].Value,
+                User = SessionModel.CurrentLoginUser.Email,
+                ProgramTime = DateTime.Now,
+                MessageQueueInfo = new List<Tuple<string, string>>(),
+            };
+
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>("To", SessionModel.CurrentLoginUser.Email));
+
+            //get customer info
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerLogo", SessionModel.CurrentCompany_CompanyLogo));
+
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerName", SessionModel.CurrentCompany.CompanyName));
+
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerIdentificationTypeName", SessionModel.CurrentCompany.IdentificationType.ItemName));
+
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerIdentificationNumber", SessionModel.CurrentCompany.IdentificationNumber));
+
+            return oReturn;
+        }
+
+        #endregion Private Functions
     }
 }
