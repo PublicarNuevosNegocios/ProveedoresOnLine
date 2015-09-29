@@ -17,10 +17,11 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
         {
             try
             {
+                //Get queries to process
                 List<TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
-                if (oQueryResult  != null)
+                if (oQueryResult != null)
                 {
-                    //Buscar el archivo
+                    //Set access
                     string ftpServerIP = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
                     string uploadToFolder = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
                     string UserName = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
@@ -28,70 +29,85 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
                     string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/";
 
-                    oQueryResult.All(query => 
+                    oQueryResult.All(query =>
                     {
-                        //using (FileStream fs = new FileStream("Res_ThirdKnowledgeFile_DA5C572E_20150928092624.xml", FileMode.OpenOrCreate)) //Create or open a local file
-                        //{
-                        //    FtpWebRequest request = (FtpWebRequest)WebRequest.Create(uri);
-                        //    request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
-                        //    request.Proxy = null;
-                        //    request.KeepAlive = false;//Command execution after closing the connection
-                        //    request.UseBinary = true;
-                        //    request.UsePassive = false;
-                        //    request.EnableSsl = false;                            
+                        try
+                        {
+                            byte[] buffer = new byte[1024];
+                            uri = uri + "Res_" + query.RelatedQueryInfoModel.FirstOrDefault().Value;
 
-                        //    using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-                        //    {
-                        //        fs.Position = fs.Length;
-                        //        byte[] buffer = new byte[4096];//4K
-                        //        int count = response.GetResponseStream().Read(buffer, 0, buffer.Length);
-                        //        while (count > 0)
-                        //        {
-                        //            fs.Write(buffer, 0, count);
-                        //            count = response.GetResponseStream().Read(buffer, 0, buffer.Length);
-                        //        }
-                        //        response.GetResponseStream().Close();
-                        //    }
-                        //}
-                        int bytesRead = 0;
-                        byte[] buffer = new byte[1024];
+                            FtpWebRequest request = ((FtpWebRequest)WebRequest.Create(new Uri(uri)));
+                            request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
+                            request.UsePassive = true;
+                            request.UseBinary = true;
+                            request.KeepAlive = true;
+                            request.Method = WebRequestMethods.Ftp.DownloadFile;
+                            //Connect to ftp
+                            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 
-                        uri = uri + "Res_" + query.RelatedQueryInfoModel.FirstOrDefault().Value;
+                            //Download xml result
+                            Stream responseStream = response.GetResponseStream();
+                            StreamReader reader = new StreamReader(responseStream);
+                            string xml = reader.ReadToEnd();
+                            XDocument CurrentXMLAnswer = XDocument.Parse(xml);
+                            List<BatchXMLResultModel> oResult = new List<BatchXMLResultModel>();
 
-                        FtpWebRequest request = ((FtpWebRequest)WebRequest.Create(new Uri(uri)));
-                        request.Proxy = null;
-                        request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
-                        request.UsePassive = false;
-                        request.UseBinary = true;
-                        request.KeepAlive = false;
+                            //Set results to model
+                            CurrentXMLAnswer.Descendants("Resultados").All(
+                                x =>
+                                {
+                                    BatchXMLResultModel item = new BatchXMLResultModel()
+                                    {
+                                        NumeroConsulta = x.Element("NumeroConsulta").Value,
+                                        IdentificacionConsulta = x.Element("IdentificacionConsulta").Value,
+                                        NombreConsulta = x.Element("NombreConsulta").Value,
+                                        IdGrupoLista = x.Element("IdGrupoLista").Value,
+                                        NombreGrupoLista = x.Element("NombreGrupoLista").Value,
+                                        Prioridad = x.Element("Prioridad").Value,
+                                        TipoDocumento = x.Element("TipoDocumento").Value,
+                                        DocumentoIdentidad = x.Element("DocumentoIdentidad").Value,
+                                        NombreCompleto = x.Element("NombreCompleto").Value,
+                                        IdTipoLista = x.Element("IdTipoLista").Value,
+                                        NombreTipoLista = x.Element("NombreTipoLista").Value,
+                                        Alias = x.Element("Alias").Value,
+                                        CargoDelito = x.Element("CargoDelito").Value,
+                                        Peps = x.Element("Peps").Value,
+                                        Zona = x.Element("Zona").Value,
+                                        Link = x.Element("Link").Value,
+                                        OtraInformacion = x.Element("OtraInformacion").Value,
+                                        FechaRegistro = x.Element("FechaRegistro").Value,
+                                        FechaActualizacion = x.Element("FechaActualizacion").Value,
+                                        Estado = x.Element("Estado").Value,
+                                    };
+                                    oResult.Add(item);
+                                    return true;
+                                });
+                        }
+                        catch (Exception)
+                        {
 
-                        request.Method = WebRequestMethods.Ftp.DownloadFile;
-
-                        FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-                        
-                        Stream responseStream = response.GetResponseStream();
-                        StreamReader reader = new StreamReader(responseStream);
-                        string xml = reader.ReadToEnd();
-                        XDocument thisXmlDoc = new XDocument();
-                        thisXmlDoc.Add(xml);
+                            throw;
+                        }
 
                         return true;
-                    });                    
+                    });
                 }
-                else
-                {
-
-                }               
-                
-                //Get query masive, in process, file name
-                //Connect to FTP for the ftp file
-
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
+        }
+
+        private static TDQueryInfoModel UpsertQueryInfo(List<TDQueryInfoModel> oQueryInfoToUpsert)
+        {
+            oQueryInfoToUpsert.All(x =>
+                {
+                    //ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.
+                    return true;
+                });
+            return null;
         }
     }
 }

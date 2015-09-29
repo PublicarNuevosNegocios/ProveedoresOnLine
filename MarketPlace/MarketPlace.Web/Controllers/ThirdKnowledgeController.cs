@@ -84,7 +84,7 @@ namespace MarketPlace.Web.Controllers
                     oModel.RelatedThirdKnowledge.HasPlan = true;
 
                     //Get The Most Recently Period When Plan is More Than One
-                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
+                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();                    
                 }
                 else
                 {

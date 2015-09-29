@@ -419,64 +419,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         public static List<TDQueryModel> GetQueriesInProgress()
         {
             return ThirdKnowledgeDataController.Instance.GetQueriesInProgress();
-        }
-
-        public static XDocument GetXML()
-        {
-            try
-            {
-                XDocument thisXmlDoc = new XDocument();
-                List<TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
-                if (oQueryResult != null)
-                {
-                    //Buscar el archivo
-                    string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
-                    string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
-                    string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
-                    string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
-
-                    string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/";
-                    
-
-                    oQueryResult.All(query =>
-                    {
-                        byte[] buffer = new byte[1024];
-
-                        uri = uri + "Res_" + query.RelatedQueryInfoModel.FirstOrDefault().Value;
-
-                        FtpWebRequest request = ((FtpWebRequest)WebRequest.Create(new Uri(uri)));
-                        request.Proxy = null;
-                        request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
-                        request.UsePassive = false;
-                        request.UseBinary = true;
-                        request.KeepAlive = false;
-
-                        request.Method = WebRequestMethods.Ftp.DownloadFile;
-
-                        FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-
-                        Stream responseStream = response.GetResponseStream();
-                        StreamReader reader = new StreamReader(responseStream);
-                        string xml = reader.ReadToEnd();
-                        thisXmlDoc.Add(xml);
-
-                        return true;
-                    });
-                }
-                else
-                {
-
-                }
-                return thisXmlDoc;
-                //Get query masive, in process, file name
-                //Connect to FTP for the ftp file
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        }      
 
         #endregion
     }

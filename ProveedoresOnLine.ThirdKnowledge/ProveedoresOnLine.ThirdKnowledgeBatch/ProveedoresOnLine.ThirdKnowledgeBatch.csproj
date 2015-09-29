@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BatchXMLResultModel.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\InternalSettings.cs" />
     <Compile Include="ThirdKnowledgeFTPProcess.cs" />
