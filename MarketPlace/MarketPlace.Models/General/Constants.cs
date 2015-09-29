@@ -128,6 +128,8 @@
         public const string MP_CP_ColIdNumber = "MP_CP_ColIdNumber";
 
         public const string MP_CP_ColIdName = "MP_CP_ColIdName";
+
+        public const string C_Settings_TK_UploadSuccessFileAgent = "TK_UploadSuccessFileAgent";
         #endregion
     }
 }

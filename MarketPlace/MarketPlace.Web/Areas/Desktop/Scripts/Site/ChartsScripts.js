@@ -536,7 +536,12 @@ var NationalProviders_ChartsObject = {
                         else if (topping == "Validado Documentación Completa Nacional") {
                             SearchFilter = 902005;
                         }
-
+                        else if (topping == "Imposible Contactar Nacional") {
+                            SearchFilter = 902009;
+                        }
+                        else if (topping == "Inactivo Nacional") {
+                            SearchFilter = 902011;
+                        }
                         window.location = NationalProviders_ChartsObject.GetSearchUrl(SearchFilter);
 
                     }
@@ -622,6 +627,12 @@ var AlienProviders_ChartsObject = {
                         }
                         else if (topping == "Validado Documentación Completa Extranjero") {
                             SearchFilter = 902008;
+                        }
+                        else if (topping == "Imposible Contactar Extranjero") {
+                            SearchFilter = 902010;
+                        }
+                        else if (topping == "Inactivo Extranjero") {
+                            SearchFilter = 902012;
                         }
 
                         window.location = AlienProviders_ChartsObject.GetSearchUrl(SearchFilter);
