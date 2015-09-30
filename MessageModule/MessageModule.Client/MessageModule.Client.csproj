@@ -60,6 +60,7 @@
     <Compile Include="Interfaces\IClientData.cs" />
     <Compile Include="Models\ClientMessageModel.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
