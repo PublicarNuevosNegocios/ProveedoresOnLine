@@ -119,16 +119,15 @@ namespace MarketPlace.Web.ControllersApi
 
                 if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                 {
+                    string oFileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
                     string strFile = strFolder.TrimEnd('\\') +
                     "\\ThirdKnowledgeFile_" +
-                        CompanyPublicId + "_" +
-                        DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
+                        CompanyPublicId + "_" + oFileName;
 
                     UploadFile.SaveAs(strFile);
 
-                    bool isValidFile = this.FileVerify(strFile, "ThirdKnowledgeFile_" +
-                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", PeriodPublicId);
+                    bool isValidFile = this.FileVerify(strFile, oFileName, PeriodPublicId);
 
                     string strRemoteFile = string.Empty;
                     if (isValidFile)
@@ -162,7 +161,7 @@ namespace MarketPlace.Web.ControllersApi
                                 ItemId = (int)enumThirdKnowledgeColls.FileURL,
                                 ItemName = strRemoteFile,
                             },
-                            Value = "ThirdKnowledgeFile_" + CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + UploadFile.FileName.Split('.').DefaultIfEmpty("xml").LastOrDefault(),
+                            Value = oFileName,
                             LargeValue = strRemoteFile,
                         });
 
