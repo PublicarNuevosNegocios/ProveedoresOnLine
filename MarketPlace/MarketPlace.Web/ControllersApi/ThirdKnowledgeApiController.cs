@@ -162,7 +162,7 @@ namespace MarketPlace.Web.ControllersApi
                                 ItemId = (int)enumThirdKnowledgeColls.FileURL,
                                 ItemName = strRemoteFile,
                             },
-                            Value = "ThirdKnowledgeFile_" + CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault(),
+                            Value = "ThirdKnowledgeFile_" + CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + UploadFile.FileName.Split('.').DefaultIfEmpty("xml").LastOrDefault(),
                             LargeValue = strRemoteFile,
                         });
 

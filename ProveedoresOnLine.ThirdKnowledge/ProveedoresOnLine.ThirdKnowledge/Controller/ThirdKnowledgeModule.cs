@@ -47,12 +47,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 {
 
                     oQueryToCreate = CreateQuery(oQueryToCreate, oReturn, Name, IdentificationNumber);
-                    QueryInsert(oQueryToCreate);
+                    QueryUpsert(oQueryToCreate);
                 }
                 else
                 {
                     oQueryToCreate.IsSuccess = false;
-                    QueryInsert(oQueryToCreate);
+                    QueryUpsert(oQueryToCreate);
                 }
 
                 return oReturn;
@@ -268,14 +268,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         #region Queries
 
-        public static TDQueryModel QueryInsert(TDQueryModel QueryModelToUpsert)
+        public static TDQueryModel QueryUpsert(TDQueryModel QueryModelToUpsert)
         {
             if (QueryModelToUpsert != null &&
                 !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId) &&
                 QueryModelToUpsert.RelatedQueryInfoModel != null &&
                 QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
             {
-                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryInsert(QueryModelToUpsert.PeriodPublicId,
+                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId,QueryModelToUpsert.PeriodPublicId,
                     QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
                 QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Models\BatchXMLResultModel.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\InternalSettings.cs" />
     <Compile Include="ThirdKnowledgeFTPProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
