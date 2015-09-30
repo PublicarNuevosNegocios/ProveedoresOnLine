@@ -755,4 +755,13 @@
     }
 
     #endregion
+
+    #region Notifications
+
+    public enum enumNotificationType
+    {
+        ThirdKnowledgeNotification = 1801001,
+    }
+
+    #endregion
 }

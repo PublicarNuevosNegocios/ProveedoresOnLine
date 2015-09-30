@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessageModule.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,5 +79,37 @@ namespace MessageModule.Client.Controller
 
             return oReturn;
         }
+
+        #region Notifications
+
+        public static int NotificationUpsert(NotificationModel NotificationUpsert)
+        {
+            int oReturn = 0;
+
+            if (NotificationUpsert != null)
+            {
+                try
+                {
+                    oReturn = DAL.Controller.ClientDataController.Instance.NotificationUpsert(
+                    NotificationUpsert.NotificationId,
+                    NotificationUpsert.CompanyPublicId,
+                    NotificationUpsert.Label,
+                    NotificationUpsert.User,
+                    NotificationUpsert.Url,
+                    NotificationUpsert.NotificationType,
+                    NotificationUpsert.Enable);
+                }
+                catch { }                
+            }
+
+            return oReturn;
+        }
+
+        public static List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
+        {
+            return DAL.Controller.ClientDataController.Instance.NotificationGetByUser(CompanyPublicId, User, Enable);
+        }
+
+        #endregion
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MarketPlace.Models.Provider
 {
@@ -74,6 +75,6 @@ namespace MarketPlace.Models.Provider
 
         public MarketPlace.Models.Company.ThirdKnowledgeViewModel RelatedThidKnowledgeSearch { get; set; }
 
-        public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
+        public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }        
     }
 }

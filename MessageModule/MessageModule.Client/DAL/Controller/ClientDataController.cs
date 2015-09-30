@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessageModule.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,5 +45,19 @@ namespace MessageModule.Client.DAL.Controller
         {
             DataFactory.MessageQueueInfoCreate(MessageQueueId, Parameter, Value);
         }
+
+        #region Notifications
+
+        public int NotificationUpsert(int? NotificationId, string CompanyPublicId, string Label, string User, string Url, int NotificationType, bool Enable)
+        {
+            return DataFactory.NotificationUpsert(NotificationId, CompanyPublicId, Label, User, Url, NotificationType, Enable);
+        }
+
+        public List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
+        {
+            return DataFactory.NotificationGetByUser(CompanyPublicId, User, Enable);
+        }
+
+        #endregion
     }
 }

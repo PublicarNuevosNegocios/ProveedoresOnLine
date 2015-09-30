@@ -7,7 +7,7 @@ namespace ProveedoresOnLine.Process.Test
     public class ThirdKnowledgeProcessJobTest
     {
         [TestMethod]
-        public void SurveySendProcessJob_Execute()
+        public void ThirdKnowledgeProcessJob_Execute()
         {
             ProveedoresOnLine.Process.Implement.ThirdKnowledgeProcessJob SBJOb = new Implement.ThirdKnowledgeProcessJob();
             SBJOb.Execute(null);

@@ -8,6 +8,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 {
     public class Constants
     {
+        #region AppSettings
+
+        public const string C_AppSettings_LogFile = "LogFile";
+
+        #endregion
+
         public const string C_SettingsModuleName = "ThirdKnowledge";
 
         public const string C_POL_ThirdKnowledgeConnectionName = "POL_ThirdKnowledgeConnection";

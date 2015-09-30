@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessageModule.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,13 @@ namespace MessageModule.Client.Interfaces
         int MessageQueueCreate(string Agent, DateTime ProgramTime, string User);
 
         void MessageQueueInfoCreate(int MessageQueueId, string Parameter, string Value);
+
+        #region Notifications
+
+        int NotificationUpsert(int? NotificationId, string CompanyPublicId, string Label, string User, string Url, int NotificationType, bool Enable);
+
+        List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable);
+
+        #endregion
     }
 }

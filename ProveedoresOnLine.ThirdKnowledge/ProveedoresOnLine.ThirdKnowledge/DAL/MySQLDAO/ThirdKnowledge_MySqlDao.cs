@@ -515,11 +515,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         #region Queries
 
-        public string QueryInsert(string PeriodPublicId, int SearchType, string User, bool isSuccess, int QueryStatusId, bool Enable)
+        public string QueryUsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, bool isSuccess, int QueryStatusId, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
             lstParams.Add(DataInstance.CreateTypedParameter("vQueryStatusId", QueryStatusId));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
@@ -529,7 +530,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "MP_TK_QueryInsert",
+                CommandText = "MP_TK_QueryUpsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });

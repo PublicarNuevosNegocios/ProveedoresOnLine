@@ -47,12 +47,12 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 {
 
                     oQueryToCreate = CreateQuery(oQueryToCreate, oReturn, Name, IdentificationNumber);
-                    QueryInsert(oQueryToCreate);
+                    QueryUpsert(oQueryToCreate);
                 }
                 else
                 {
                     oQueryToCreate.IsSuccess = false;
-                    QueryInsert(oQueryToCreate);
+                    QueryUpsert(oQueryToCreate);
                 }
 
                 return oReturn;
@@ -256,6 +256,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 strm.Close();
                 fs.Close();
+
             }
             catch (Exception ex)
             {
@@ -268,14 +269,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         #region Queries
 
-        public static TDQueryModel QueryInsert(TDQueryModel QueryModelToUpsert)
+        public static TDQueryModel QueryUpsert(TDQueryModel QueryModelToUpsert)
         {
             if (QueryModelToUpsert != null &&
                 !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId) &&
                 QueryModelToUpsert.RelatedQueryInfoModel != null &&
                 QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
             {
-                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryInsert(QueryModelToUpsert.PeriodPublicId,
+                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId, QueryModelToUpsert.PeriodPublicId,
                     QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
                 QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>
@@ -421,61 +422,42 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ThirdKnowledgeDataController.Instance.GetQueriesInProgress();
         }
 
-        public static XDocument GetXML()
+        #endregion
+
+        #region Messenger
+
+        public static void CreateUploadNotification()
         {
-            try
-            {
-                XDocument thisXmlDoc = new XDocument();
-                List<TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
-                if (oQueryResult != null)
-                {
-                    //Buscar el archivo
-                    string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
-                    string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
-                    string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
-                    string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
+            #region Email
+            //Create message object
+            //MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
+            //{
+            //    Agent = Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_TK_UploadSuccessFileAgent].Value,
+            //    User = SessionModel.CurrentLoginUser.Email,
+            //    ProgramTime = DateTime.Now,
+            //    MessageQueueInfo = new List<Tuple<string, string>>(),
+            //};
 
-                    string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/";
-                    
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>("To", SessionModel.CurrentLoginUser.Email));
 
-                    oQueryResult.All(query =>
-                    {
-                        byte[] buffer = new byte[1024];
+            ////get customer info
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerLogo", SessionModel.CurrentCompany_CompanyLogo));
 
-                        uri = uri + "Res_" + query.RelatedQueryInfoModel.FirstOrDefault().Value;
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerName", SessionModel.CurrentCompany.CompanyName));
 
-                        FtpWebRequest request = ((FtpWebRequest)WebRequest.Create(new Uri(uri)));
-                        request.Proxy = null;
-                        request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
-                        request.UsePassive = false;
-                        request.UseBinary = true;
-                        request.KeepAlive = false;
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerIdentificationTypeName", SessionModel.CurrentCompany.IdentificationType.ItemName));
 
-                        request.Method = WebRequestMethods.Ftp.DownloadFile;
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerIdentificationNumber", SessionModel.CurrentCompany.IdentificationNumber));
+            
+            #endregion
 
-                        FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-
-                        Stream responseStream = response.GetResponseStream();
-                        StreamReader reader = new StreamReader(responseStream);
-                        string xml = reader.ReadToEnd();
-                        thisXmlDoc.Add(xml);
-
-                        return true;
-                    });
-                }
-                else
-                {
-
-                }
-                return thisXmlDoc;
-                //Get query masive, in process, file name
-                //Connect to FTP for the ftp file
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            #region Notification
+            
+            #endregion
         }
 
         #endregion
