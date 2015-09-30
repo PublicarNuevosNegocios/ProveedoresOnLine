@@ -31,16 +31,19 @@ namespace MessageModule.Test
         [TestMethod]
         public void NotificationUpsert()
         {
-            int oNotification = MessageModule.Client.Controller.ClientController.NotificationUpsert(
-                null,
-                "DA5C572E",
-                "url de prueba google",
-                "david.moncayo@publicar.com",
-                "www.google.com.co",
-                1801001,
-                true);
+            NotificationModel oReturn = new NotificationModel()
+            {
+                CompanyPublicId = "DA5C572E",
+                Label = "pruebas",
+                User = "david.moncayo@publicar.com",
+                Url = "www.google.com.co",
+                NotificationType = 1801001,
+                Enable = true,
+            };
 
-            Assert.AreEqual(true, oNotification > 0);
+            oReturn.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oReturn);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.NotificationId > 0);
         }
 
         [TestMethod]

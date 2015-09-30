@@ -82,9 +82,27 @@ namespace MessageModule.Client.Controller
 
         #region Notifications
 
-        public static int NotificationUpsert(int? NotificationId, string CompanyPublicId, string Label, string User, string Url, int NotificationType, bool Enable)
+        public static int NotificationUpsert(NotificationModel NotificationUpsert)
         {
-            return DAL.Controller.ClientDataController.Instance.NotificationUpsert(NotificationId, CompanyPublicId, Label, User, Url, NotificationType, Enable);
+            int oReturn = 0;
+
+            if (NotificationUpsert != null)
+            {
+                try
+                {
+                    oReturn = DAL.Controller.ClientDataController.Instance.NotificationUpsert(
+                    NotificationUpsert.NotificationId,
+                    NotificationUpsert.CompanyPublicId,
+                    NotificationUpsert.Label,
+                    NotificationUpsert.User,
+                    NotificationUpsert.Url,
+                    NotificationUpsert.NotificationType,
+                    NotificationUpsert.Enable);
+                }
+                catch { }                
+            }
+
+            return oReturn;
         }
 
         public static List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)

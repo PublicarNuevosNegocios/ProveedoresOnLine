@@ -103,7 +103,7 @@ namespace MarketPlace.Web.ControllersApi
         public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string PeriodPublicId)
         {
             FileModel oReturn = new FileModel();
-            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
+
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
             {
                 //get folder
@@ -173,15 +173,18 @@ namespace MarketPlace.Web.ControllersApi
                         oMessageToSend = GetUploadSuccessFileMessage();
                         MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
 
+                        MessageModule.Client.Models.NotificationModel oNotification = new MessageModule.Client.Models.NotificationModel()
+                        {
+                            CompanyPublicId = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                            Label = "",
+                            User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                            Url = "",
+                            NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification,
+                            Enable = true,
+                        };
+
                         //TODO: ENVIAR NOTIFICACIÓN--DAVID                
-                        //MessageModule.Client.Controller.ClientController.NotificationUpsert(
-                        //    null,
-                        //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                        //    "Notificación nueva",
-                        //    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                        //    "www.google.com",
-                        //    (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification,
-                        //    true);
+                        oNotification.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);        
                     }
 
                     //remove temporal file
