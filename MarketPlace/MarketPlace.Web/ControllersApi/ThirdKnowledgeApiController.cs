@@ -166,7 +166,7 @@ namespace MarketPlace.Web.ControllersApi
                             LargeValue = strRemoteFile,
                         });
 
-                        oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryInsert(oQueryToCreate);
+                        oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQueryToCreate);
 
                         // Send Mail
                         MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel();
@@ -250,6 +250,8 @@ namespace MarketPlace.Web.ControllersApi
             {
                 // Get the work book in the file
                 ExcelWorkbook workBook = package.Workbook;
+                //TODO: Ajusta acá el numero de consultas a realizar
+                //workBook.Worksheets[1].Dimension.End.Row;
                 if (workBook != null)
                 {
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
