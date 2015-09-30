@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+
 namespace ProveedoresOnLine.ThirdKnowledgeBatch
 {
     public static class ThirdKnowledgeFTPProcess
@@ -18,23 +19,26 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             try
             {
                 //Get queries to process
-                List<TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
+                List<TDQueryModel> oQueryResult = new List<TDQueryModel>();
+                oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
                 if (oQueryResult != null)
                 {
                     //Set access
-                    string ftpServerIP = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
-                    string uploadToFolder = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
-                    string UserName = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
-                    string UserPass = ThirdKnowledgeBatch.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
-
-                    string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/";
-
+                    string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
+                    string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
+                    string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
+                    string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
+                    
                     oQueryResult.All(oQuery =>
                     {
                         try
                         {
+                            if (oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xls") || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xlsx")
+                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))	                        
+		                        oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");	                        
+                            
+                            string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + "Res_" + oQuery.RelatedQueryInfoModel.FirstOrDefault().Value;
                             byte[] buffer = new byte[1024];
-                            uri = uri + "Res_" + oQuery.RelatedQueryInfoModel.FirstOrDefault().Value;
 
                             FtpWebRequest request = ((FtpWebRequest)WebRequest.Create(new Uri(uri)));
                             request.Credentials = new NetworkCredential(UserName, UserPass, ftpServerIP);
@@ -258,30 +262,62 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                     });
                                     return true;
                                 });
-                            
+
                             //Update Status query
                             oQuery.QueryStatus = new TDCatalogModel()
                             {
                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeQueryStatus.Finalized,
                             };
 
+                            //TODO: Acá va la notificacion de respuesta DAVID
+                            //TODO: Acá va el envio del Email JOSE
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
                         }
-                        catch (Exception ex)
+                        catch (Exception err)
                         {
-
-                            throw;
-                        }
+                            LogFile("Error:: QueryPublicId '" + oQuery.QueryPublicId + "' :: " + err.Message);
+                        }                      
 
                         return true;
                     });
                 }
+                else
+                {
+                    //log file
+                    LogFile("End send " + oQueryResult.Count.ToString());
+                }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-
-                throw;
+                //log file for fatal error
+                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
         }
+
+        #region Log File
+
+        private static void LogFile(string LogMessage)
+        {
+            try
+            {
+                //get file Log
+                string LogFile = AppDomain.CurrentDomain.BaseDirectory.Trim().TrimEnd(new char[] { '\\' }) + "\\" +
+                    System.Configuration.ConfigurationManager.AppSettings[ProveedoresOnLine.ThirdKnowledgeBacth.Models.Constants.C_AppSettings_LogFile].Trim().TrimEnd(new char[] { '\\' });
+
+                if (!System.IO.Directory.Exists(LogFile))
+                    System.IO.Directory.CreateDirectory(LogFile);
+
+                LogFile += "\\" + "Log_ThirdKnowledgeProcess_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+
+                using (System.IO.StreamWriter sw = System.IO.File.AppendText(LogFile))
+                {
+                    sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "::" + LogMessage);
+                    sw.Close();
+                }
+            }
+            catch { }
+        }
+
+        #endregion
     }
 }

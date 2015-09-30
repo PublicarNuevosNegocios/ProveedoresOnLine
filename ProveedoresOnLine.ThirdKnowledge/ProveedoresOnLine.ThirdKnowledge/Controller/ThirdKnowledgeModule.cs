@@ -256,6 +256,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 strm.Close();
                 fs.Close();
+
             }
             catch (Exception ex)
             {
@@ -275,7 +276,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 QueryModelToUpsert.RelatedQueryInfoModel != null &&
                 QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
             {
-                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId,QueryModelToUpsert.PeriodPublicId,
+                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId, QueryModelToUpsert.PeriodPublicId,
                     QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
                 QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>
@@ -419,7 +420,45 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         public static List<TDQueryModel> GetQueriesInProgress()
         {
             return ThirdKnowledgeDataController.Instance.GetQueriesInProgress();
-        }      
+        }
+
+        #endregion
+
+        #region Messenger
+
+        public static void CreateUploadNotification()
+        {
+            #region Email
+            //Create message object
+            //MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
+            //{
+            //    Agent = Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_TK_UploadSuccessFileAgent].Value,
+            //    User = SessionModel.CurrentLoginUser.Email,
+            //    ProgramTime = DateTime.Now,
+            //    MessageQueueInfo = new List<Tuple<string, string>>(),
+            //};
+
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>("To", SessionModel.CurrentLoginUser.Email));
+
+            ////get customer info
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerLogo", SessionModel.CurrentCompany_CompanyLogo));
+
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerName", SessionModel.CurrentCompany.CompanyName));
+
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerIdentificationTypeName", SessionModel.CurrentCompany.IdentificationType.ItemName));
+
+            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+            //    ("CustomerIdentificationNumber", SessionModel.CurrentCompany.IdentificationNumber));
+            
+            #endregion
+
+            #region Notification
+            
+            #endregion
+        }
 
         #endregion
     }

@@ -103,7 +103,7 @@ namespace MarketPlace.Web.ControllersApi
         public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string PeriodPublicId)
         {
             FileModel oReturn = new FileModel();
-
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
             {
                 //get folder
@@ -174,14 +174,14 @@ namespace MarketPlace.Web.ControllersApi
                         MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
 
                         //TODO: ENVIAR NOTIFICACIÓN--DAVID                
-                        MessageModule.Client.Controller.ClientController.NotificationUpsert(
-                            null,
-                            MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                            "Notificación nueva",
-                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                            "www.google.com",
-                            (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification,
-                            true);        
+                        //MessageModule.Client.Controller.ClientController.NotificationUpsert(
+                        //    null,
+                        //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                        //    "Notificación nueva",
+                        //    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                        //    "www.google.com",
+                        //    (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification,
+                        //    true);
                     }
 
                     //remove temporal file
@@ -265,6 +265,14 @@ namespace MarketPlace.Web.ControllersApi
                                     [Models.General.Constants.MP_CP_ColIdName].Value))
                     {
                         bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath, PeriodPublicId);
+                        if (isLoaded)
+                        {
+                            //Get The Active Plan By Customer
+                            List<PlanModel> oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
+                            oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries += (workBook.Worksheets[1].Dimension.End.Row - 1);
+                            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                        }
+
                         return true;
                     }
                     else
