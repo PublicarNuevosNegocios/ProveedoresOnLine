@@ -16,7 +16,7 @@ namespace MessageModule.Client.Models
 
         public int NotificationType { get; set; }
 
-        public int CompanyId { get; set; }
+        public string CompanyPublicId { get; set; }
 
         public string User { get; set; }
 

@@ -33,8 +33,8 @@ namespace MessageModule.Test
         {
             int oNotification = MessageModule.Client.Controller.ClientController.NotificationUpsert(
                 null,
-                1,
-                "url google",
+                "DA5C572E",
+                "url de prueba google",
                 "david.moncayo@publicar.com",
                 "www.google.com.co",
                 1801001,
@@ -47,7 +47,7 @@ namespace MessageModule.Test
         public void NotificationGetByUser()
         {
             List<NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(
-                1,
+                "DA5C572E",
                 "david.moncayo@publicar.com",
                 true);
 

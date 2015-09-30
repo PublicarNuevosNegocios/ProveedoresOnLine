@@ -15,9 +15,9 @@ namespace MessageModule.Client.Interfaces
 
         #region Notifications
 
-        int NotificationUpsert(int? NotificationId, int CompanyId, string Label, string User, string Url, int NotificationType, bool Enable);
+        int NotificationUpsert(int? NotificationId, string CompanyPublicId, string Label, string User, string Url, int NotificationType, bool Enable);
 
-        List<NotificationModel> NotificationGetByUser(int CompanyId, string User, bool Enable);
+        List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable);
 
         #endregion
     }
