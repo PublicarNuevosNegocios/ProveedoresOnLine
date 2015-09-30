@@ -173,7 +173,15 @@ namespace MarketPlace.Web.ControllersApi
                         oMessageToSend = GetUploadSuccessFileMessage();
                         MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
 
-                        //TODO: ENVIAR NOTIFICACIÓN--DAVID                        
+                        //TODO: ENVIAR NOTIFICACIÓN--DAVID                
+                        MessageModule.Client.Controller.ClientController.NotificationUpsert(
+                            null,
+                            MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                            "Notificación nueva",
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                            "www.google.com",
+                            (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification,
+                            true);        
                     }
 
                     //remove temporal file
