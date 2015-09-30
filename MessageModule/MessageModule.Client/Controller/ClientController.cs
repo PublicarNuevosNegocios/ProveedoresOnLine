@@ -82,14 +82,14 @@ namespace MessageModule.Client.Controller
 
         #region Notifications
 
-        public static int NotificationUpsert(int? NotificationId, int CompanyId, string Label, string User, string Url, int NotificationType, bool Enable)
+        public static int NotificationUpsert(int? NotificationId, string CompanyPublicId, string Label, string User, string Url, int NotificationType, bool Enable)
         {
-            return DAL.Controller.ClientDataController.Instance.NotificationUpsert(NotificationId, CompanyId, Label, User, Url, NotificationType, Enable);
+            return DAL.Controller.ClientDataController.Instance.NotificationUpsert(NotificationId, CompanyPublicId, Label, User, Url, NotificationType, Enable);
         }
 
-        public static List<NotificationModel> NotificationGetByUser(int CompanyId, string User, bool Enable)
+        public static List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
         {
-            return DAL.Controller.ClientDataController.Instance.NotificationGetByUser(CompanyId, User, Enable);
+            return DAL.Controller.ClientDataController.Instance.NotificationGetByUser(CompanyPublicId, User, Enable);
         }
 
         #endregion

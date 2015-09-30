@@ -55,12 +55,12 @@ namespace MessageModule.Client.DAL.MySQLDAO
 
         #region Notifications
 
-        public int NotificationUpsert(int? NotificationId, int CompanyId, string Label, string User, string Url, int NotificationType, bool Enable)
+        public int NotificationUpsert(int? NotificationId, string CompanyPublicId, string Label, string User, string Url, int NotificationType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vNotificationId", NotificationId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyId", CompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vLabel", Label));
             lstParams.Add(DataInstance.CreateTypedParameter("vUrl", Url));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
@@ -78,11 +78,11 @@ namespace MessageModule.Client.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<NotificationModel> NotificationGetByUser(int CompanyId, string User, bool Enable)
+        public List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyId", CompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
@@ -105,7 +105,7 @@ namespace MessageModule.Client.DAL.MySQLDAO
                      group n by new
                      {
                          NotificationId = n.Field<int>("NotificationId"),
-                         CompanyId = n.Field<int>("CompanyId"),
+                         CompanyPublicId = n.Field<string>("CompanyPublicId"),
                          Label = n.Field<string>("Label"),
                          Url = n.Field<string>("Url"),
                          User = n.Field<string>("User"),
@@ -118,7 +118,7 @@ namespace MessageModule.Client.DAL.MySQLDAO
                      select new NotificationModel()
                      {
                          NotificationId = ng.Key.NotificationId,
-                         CompanyId = ng.Key.CompanyId,
+                         CompanyPublicId = ng.Key.CompanyPublicId,
                          Label = ng.Key.Label,
                          Url = ng.Key.Url,
                          User = ng.Key.User,
