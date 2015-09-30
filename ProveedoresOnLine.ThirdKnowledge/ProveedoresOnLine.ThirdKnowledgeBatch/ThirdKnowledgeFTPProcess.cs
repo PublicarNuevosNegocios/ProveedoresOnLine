@@ -284,7 +284,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                 else
                 {
                     //log file
-                    LogFile("End send " + oQueryResult.Count.ToString());
+                    LogFile("End Process No Files to Vaildate");
                 }
             }
             catch (Exception err)

@@ -13,6 +13,6 @@
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\CompanyProvider\Rsx-CompanyProviderBatch.xml</key>
   </Module>
   <Module name="ThirdKnowledge">
-    <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\Rsx-ThirdKnowledge.xml</key>
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ThirdKnowledge\Rsx-ThirdKnowledge.xml</key>
   </Module>
 </SettingsConfig>

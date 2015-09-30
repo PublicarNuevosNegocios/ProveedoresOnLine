@@ -10,6 +10,6 @@
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
   </Module>
   <Module name="ThirdKnowledge">
-    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ThirdKnowledge\Rsx-ThirdKnowledgeBatch.xml</key>
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ThirdKnowledge\Rsx-ThirdKnowledge.xml</key>
   </Module>
 </SettingsConfig>
