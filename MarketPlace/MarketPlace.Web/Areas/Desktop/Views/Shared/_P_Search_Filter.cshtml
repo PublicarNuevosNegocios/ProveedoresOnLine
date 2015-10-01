@@ -225,7 +225,7 @@
                     <li>
                         <span>Pais</span>
                         <ul>
-                            @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.City).OrderByDescending(x => x.Quantity).ToList())
+                            @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.Country).OrderByDescending(x => x.Quantity).ToList())
                             {
                                 <li>
                                     @if (lstSearchFilter.Any(x => x.Item1 == oFilterItem.FilterType.ItemId.ToString() && x.Item2 == oFilterItem.FilterValue.ItemId.ToString()))
