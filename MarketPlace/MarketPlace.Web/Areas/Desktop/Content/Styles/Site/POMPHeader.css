@@ -1,59 +1,66 @@
 /*****************UserInfo************************/
 .POMPHeaderWrapper {
-    display:block;
+    display: block;
     width: 100%;
-    min-width:960px;
+    min-width: 960px;
     height: auto;
     margin: 0px;
     text-align: left;
-    border-bottom:2px solid #ff8300;
+    border-bottom: 2px solid #ff8300;
 }
 /****************Logo*******************/
-.POMPLogo{
+.POMPLogo {
     display: inline-block;
-    width:auto;
-    height:78px;
+    width: auto;
+    height: 78px;
     vertical-align: top;
-    margin:9px 0px 6px 14px;
-        border:none;
+    margin: 9px 0px 6px 14px;
+    border: none;
 }
 /*************** USER MENU ***************/
 .POMPMenusGrandWrapper {
-        border:none;
+    border: none;
     float: right;
     margin: 2px 0 0 2px;
     text-align: right;
 }
+
 .POMPUserMenu {
-        border:none;
-    width:auto; height:auto;
-    display:block;
-    padding:0px 8px 0px 0px;
+    border: none;
+    width: auto;
+    height: auto;
+    display: block;
+    padding: 0px 8px 0px 0px;
 }
-    .POMPUserMenu img{
+
+    .POMPUserMenu img {
         width: 22px;
         height: 22px;
-        border:0.7px solid #4d4d4d;
-        vertical-align:top;
+        border: 0.7px solid #4d4d4d;
+        vertical-align: top;
     }
-    .POMPUserMenu label{
-        line-height:12px;
-        color:#666;
-        font-weight:normal;
-        vertical-align:top;
+
+    .POMPUserMenu label {
+        line-height: 12px;
+        color: #666;
+        font-weight: normal;
+        vertical-align: top;
         margin: 5px 0 0;
     }
-    .POMPUserMenu div{
-        display:inline-block;
-        width:22px; height:22px;
-        background-image:url(../../Images/POMPsprite.png);
-        background-size:470px auto;
-        background-position:-245px -3px;
-        background-repeat:no-repeat;
-        vertical-align:top;
+
+    .POMPUserMenu div {
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        background-image: url(../../Images/POMPsprite.png);
+        background-size: 470px auto;
+        background-position: -245px -3px;
+        background-repeat: no-repeat;
+        vertical-align: top;
         margin: 0 0 0 6px;
     }
-.POMPUserMenuOptions{
+
+.POMPUserMenuOptions {
     background-color: #f5f5f5;
     border: 1px solid #ececec;
     height: auto;
@@ -65,66 +72,97 @@
     width: auto;
     z-index: 5;
 }
-    .POMPUserMenuOptions ul{
-        margin:0px !important;
-        padding:0 !important;
+
+    .POMPUserMenuOptions ul {
+        margin: 0px !important;
+        padding: 0 !important;
     }
-    .POMPUserMenuOptions ul li{
-            border-top:1px solid #3f3f3f;
-        display: block;
-        margin:0px;
-        text-align:left;
-        min-width:140px;
-    }
-        .POMPUserMenuOptions ul li:first-child {
-            border-top:none;
+
+        .POMPUserMenuOptions ul li {
+            border-top: 1px solid #3f3f3f;
+            display: block;
+            margin: 0px;
+            text-align: left;
+            min-width: 140px;
         }
-        .POMPUserMenuOptions ul li:hover{
-            background-color:#ececec;
-            cursor:pointer;
-        }
-        .POMPUserMenuOptions ul li a,
-        .POMPUserMenuOptions ul li a:hover{
-            margin:0px 0px 0px 8px;
-            color:#666;
-            text-decoration:none;
-        }
+
+            .POMPUserMenuOptions ul li:first-child {
+                border-top: none;
+            }
+
+            .POMPUserMenuOptions ul li:hover {
+                background-color: #ececec;
+                cursor: pointer;
+            }
+
+            .POMPUserMenuOptions ul li a,
+            .POMPUserMenuOptions ul li a:hover {
+                margin: 0px 0px 0px 8px;
+                color: #666;
+                text-decoration: none;
+            }
 /*************** MAIN MENU *************/
 .POMPMainMenuWrapper {
-        border:none;
-    height:auto;
-    margin:18px 0px 0px 0px;
-    display:block;
+    border: none;
+    height: auto;
+    margin: 18px 0px 0px 0px;
+    display: block;
     width: auto;
-    padding:0;
+    padding: 0;
 }
-    .POMPMainMenuWrapper li{
-        display:inline-block;
-        padding:0px;
-        text-align:center;            
-            border:none;
-        height:35px;
-        vertical-align:top;
-    }
-    .POMPMainMenuWrapper li a{
-            border:none;
-        color: #666;
+
+    .POMPMainMenuWrapper li {
         display: inline-block;
-        font-size: 1em;
-        height: 28px;
-        margin: 7px 0;
+        padding: 0px;
+        text-align: center;
+        border: none;
+        height: 35px;
+        vertical-align: top;
+    }
+
+        .POMPMainMenuWrapper li a {
+            border: none;
+            color: #666;
+            display: inline-block;
+            font-size: 1em;
+            height: 28px;
+            margin: 7px 0;
             padding: 0 5px;
-        vertical-align: bottom;
-        letter-spacing:-0.4px;
-    }
-        .POMPMainMenuWrapper li a:hover, .POMPMainMenuWrapper > li.selected{
-            text-decoration:none;
-            border-bottom:5px solid #ff8300;
-            font-weight:normal !important;
+            vertical-align: bottom;
+            letter-spacing: -0.4px;
         }
-    li.spacers {
-        border-left: 1px solid #727276;
-        height: 36px;
-        margin-top: 1px;
-        width: 2px;
-    }
+
+            .POMPMainMenuWrapper li a:hover, .POMPMainMenuWrapper > li.selected {
+                text-decoration: none;
+                border-bottom: 5px solid #ff8300;
+                font-weight: normal !important;
+            }
+
+li.spacers {
+    border-left: 1px solid #727276;
+    height: 36px;
+    margin-top: 1px;
+    width: 2px;
+}
+
+/**********************Notifications***********************/
+div#POMPNotifications {
+    width: 22px;
+    position: absolute;
+    margin-left: 44%;
+    height: 24px;
+}
+
+div#Notification img {
+    width: 20px;
+    height: 20px;
+}
+
+#POMPNotificationsList {
+    width: 150px;
+    margin-left: 34%;
+    position: absolute;
+    margin-top: 22px;
+    background-color: #ECECEC;
+    border: none !important;
+}

@@ -460,6 +460,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
             #region Notification
 
+            DataMessage.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(DataMessage);
+
             #endregion
         }
 

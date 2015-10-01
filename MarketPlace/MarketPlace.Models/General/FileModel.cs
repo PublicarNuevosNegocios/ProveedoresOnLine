@@ -28,5 +28,7 @@ namespace MarketPlace.Models.General
         }
 
         public string LoadMessage { get; set; }
+
+        public string AdditionalInfo { get; set; }
     }
 }

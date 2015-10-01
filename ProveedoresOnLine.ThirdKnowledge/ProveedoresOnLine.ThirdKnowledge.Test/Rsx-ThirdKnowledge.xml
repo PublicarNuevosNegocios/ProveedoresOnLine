@@ -19,7 +19,7 @@
     
     <!--WS_Password-->
     <key name="ThirdKnowedge_FTPPassworUser">p1u2b3l415c6@778*</key>
-    
+
     <key name="TK_UploadSuccessFileAgent">POL_UploadSuccessFile_Mail</key>
 
     <key name="TK_ReadyResultAgent">POL_ReadyResult_Mail</key>
@@ -28,4 +28,5 @@
 
   </ThirdKnowledge>
 </Settings>
+
 
