@@ -26,16 +26,14 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     //Set access
                     string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
                     string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
-                    string UserName =  ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
+                    string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
                     string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
 
                     oQueryResult.All(oQuery =>
                     {
                         try
                         {
-                            if (oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xls") || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xlsx")
-                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))
-                                oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");
+                            oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");
 
                             string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + "Res_" + oQuery.RelatedQueryInfoModel.FirstOrDefault().Value;
                             byte[] buffer = new byte[1024];
@@ -274,6 +272,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             //TODO: Acá va la notificacion de respuesta DAVID
                             //TODO: Acá va el envio del Email JOSE
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
+
+                            LogFile("Success:: QueryPublicId '" + oQuery.QueryPublicId + "' :: Validation is success");
                         }
                         catch (Exception err)
                         {
