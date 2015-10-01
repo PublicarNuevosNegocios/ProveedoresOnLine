@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProveedoresOnLine.ThirdKnowledge.Models
+﻿namespace ProveedoresOnLine.ThirdKnowledge.Models
 {
     public class Constants
     {
@@ -12,7 +6,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public const string C_AppSettings_LogFile = "LogFile";
 
-        #endregion
+        #endregion AppSettings
 
         public const string C_SettingsModuleName = "ThirdKnowledge";
 
@@ -31,5 +25,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
         public const string C_Settings_FTPPassworUser = "ThirdKnowedge_FTPPassworUser";
 
         public const string C_Settings_TK_UploadSuccessFileAgent = "TK_UploadSuccessFileAgent";
+
+        public const string C_Settings_TK_ReadyResultAgent = "TK_ReadyResultAgent";
+
+        public const string C_Settings_TK_QueryUrl = "TK_QueryUrl";
     }
 }

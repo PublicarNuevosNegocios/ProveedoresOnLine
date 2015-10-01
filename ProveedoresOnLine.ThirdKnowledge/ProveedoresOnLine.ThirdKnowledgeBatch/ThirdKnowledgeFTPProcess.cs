@@ -28,15 +28,15 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
                     string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
                     string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
-                    
+
                     oQueryResult.All(oQuery =>
                     {
                         try
                         {
                             if (oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xls") || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xlsx")
-                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))	                        
-		                        oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");	                        
-                            
+                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))
+                                oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");
+
                             string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + "Res_" + oQuery.RelatedQueryInfoModel.FirstOrDefault().Value;
                             byte[] buffer = new byte[1024];
 
@@ -61,15 +61,15 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                 x =>
                                 {
                                     oQuery.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                    {
+                                        QueryPublicId = oQuery.QueryPublicId,
+                                        ItemInfoType = new TDCatalogModel()
                                         {
-                                            QueryPublicId = oQuery.QueryPublicId,
-                                            ItemInfoType = new TDCatalogModel()
-                                            {
-                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
-                                            },
-                                            Value = x.Element("NumeroConsulta").Value,
-                                            Enable = true,
-                                        });
+                                            ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
+                                        },
+                                        Value = x.Element("NumeroConsulta").Value,
+                                        Enable = true,
+                                    });
                                     oQuery.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
                                     {
                                         QueryPublicId = oQuery.QueryPublicId,
@@ -271,12 +271,16 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
                             //TODO: Acá va la notificacion de respuesta DAVID
                             //TODO: Acá va el envio del Email JOSE
+
+                            CreateReadyResultNotification(oQuery);
+
+
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
                         }
                         catch (Exception err)
                         {
                             LogFile("Error:: QueryPublicId '" + oQuery.QueryPublicId + "' :: " + err.Message);
-                        }                      
+                        }
 
                         return true;
                     });
@@ -319,5 +323,34 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
         }
 
         #endregion
+
+        #region Message
+
+        public static void CreateReadyResultNotification(TDQueryModel oQuery)
+        {
+            #region Email
+            //Create message object
+
+            MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel()
+            {
+                Agent = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_TK_ReadyResultAgent].Value,
+                User = oQuery.User,
+                ProgramTime = DateTime.Now,
+                MessageQueueInfo = new List<Tuple<string, string>>(),
+            };
+
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>("To", oQuery.User));
+
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>
+                ("URLToRedirect", ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_TK_QueryUrl].Value.Replace("{QueryPublicId}", oQuery.QueryPublicId)));
+
+
+            MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
+            #endregion
+
+        }
+
+        #endregion
+
     }
 }

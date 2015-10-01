@@ -33,6 +33,10 @@
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
+    <Reference Include="MessageModule.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\MessageModule.Client\developer\MessageModule.Client.dll</HintPath>
+    </Reference>
     <Reference Include="SettingsManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
