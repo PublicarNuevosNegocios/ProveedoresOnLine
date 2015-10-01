@@ -652,6 +652,21 @@
     
     
 
+      <!--Notifications-->
+    <!--Message-->
+    <key name="NotificationMessage">
+      <![CDATA[
+      Mensaje de Prueba
+      ]]>
+    </key>
+
+<!--URL Redirect-->
+    <key name="UrlRedirect_ProviderBasicInfo"><![CDATA[https://www.proveedoresonline.co/Marketplace/Provider/GIProviderInfo?ProviderPublicId={{ProviderPublicId}}]]></key>
+    <key name="UrlRedirect_Survey"></key>
+    <key name="UrlRedirect_ThirdKnowledge"></key>
+    <key name="UrlRedirect_"></key>
+    
+
   </MessageModule>
 </Settings>
 
