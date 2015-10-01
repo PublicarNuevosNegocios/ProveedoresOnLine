@@ -85,8 +85,11 @@ var Third_KnowledgeMasiveSearchObject = {
                 autoUpload: true
             },
             success: function (e) {
+                debugger;
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').html('');
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').append(e.response.LoadMessage);
+                $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').html('');
+                $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').append(e.response.AdditionalInfo);
                 debugger;
             },
             error: function (e) {
