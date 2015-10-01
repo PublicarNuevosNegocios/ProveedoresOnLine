@@ -12,31 +12,31 @@ using System.Xml.Linq;
 
 namespace ProveedoresOnLine.ThirdKnowledgeBatch
 {
-    public static class ThirdKnowledgeFTPProcess
+    public class ThirdKnowledgeFTPProcess
     {
         public static void StartProcess()
         {
             try
             {
                 //Get queries to process
-                List<TDQueryModel> oQueryResult = new List<TDQueryModel>();
+                List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel>();
                 oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
                 if (oQueryResult != null)
                 {
                     //Set access
                     string ftpServerIP = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPServerIP].Value;
                     string uploadToFolder = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_UploadFTPFileName].Value;
-                    string UserName = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
+                    string UserName =  ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPUserName].Value;
                     string UserPass = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_FTPPassworUser].Value;
-                    
+
                     oQueryResult.All(oQuery =>
                     {
                         try
                         {
                             if (oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xls") || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xlsx")
-                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))	                        
-		                        oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");	                        
-                            
+                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))
+                                oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");
+
                             string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + "Res_" + oQuery.RelatedQueryInfoModel.FirstOrDefault().Value;
                             byte[] buffer = new byte[1024];
 
@@ -60,16 +60,17 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             CurrentXMLAnswer.Descendants("Resultados").All(
                                 x =>
                                 {
+                                    #region QueryInfo
                                     oQuery.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                        {
-                                            QueryPublicId = oQuery.QueryPublicId,
-                                            ItemInfoType = new TDCatalogModel()
-                                            {
-                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
-                                            },
-                                            Value = x.Element("NumeroConsulta").Value,
-                                            Enable = true,
-                                        });
+                                                                    {
+                                                                        QueryPublicId = oQuery.QueryPublicId,
+                                                                        ItemInfoType = new TDCatalogModel()
+                                                                        {
+                                                                            ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
+                                                                        },
+                                                                        Value = x.Element("NumeroConsulta").Value,
+                                                                        Enable = true,
+                                                                    });
                                     oQuery.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
                                     {
                                         QueryPublicId = oQuery.QueryPublicId,
@@ -260,6 +261,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         Value = x.Element("Estado").Value,
                                         Enable = true,
                                     });
+                                    #endregion
                                     return true;
                                 });
 
@@ -276,7 +278,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                         catch (Exception err)
                         {
                             LogFile("Error:: QueryPublicId '" + oQuery.QueryPublicId + "' :: " + err.Message);
-                        }                      
+                        }
 
                         return true;
                     });

@@ -119,7 +119,8 @@ namespace MarketPlace.Web.ControllersApi
 
                 if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                 {
-                    string oFileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                    string oFileName = "ThirdKnowledgeFile_" +
+                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                         UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
                     string strFile = strFolder.TrimEnd('\\') +
                     "\\ThirdKnowledgeFile_" +
@@ -127,7 +128,8 @@ namespace MarketPlace.Web.ControllersApi
 
                     UploadFile.SaveAs(strFile);
 
-                    bool isValidFile = this.FileVerify(strFile, oFileName, PeriodPublicId);
+                    Tuple<bool, string> oVerifyResult = this.FileVerify(strFile, oFileName, PeriodPublicId);
+                    bool isValidFile = oVerifyResult.Item1;
 
                     string strRemoteFile = string.Empty;
                     if (isValidFile)
@@ -189,7 +191,7 @@ namespace MarketPlace.Web.ControllersApi
                         };
 
                         //TODO: ENVIAR NOTIFICACIÓN--DAVID                
-                        oNotification.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);        
+                        oNotification.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);
                     }
 
                     //remove temporal file
@@ -201,7 +203,8 @@ namespace MarketPlace.Web.ControllersApi
                         FileName = UploadFile.FileName,
                         ServerUrl = strRemoteFile,
                         LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
-                                                    "El Archivo " + UploadFile.FileName + " no es correto, por favor verifique el nombre de las columnas y el formato."
+                                                    "El Archivo " + UploadFile.FileName + " no es correto, por favor verifique el nombre de las columnas y el formato.",
+                        AdditionalInfo = oVerifyResult.Item2,
                     };
                 }
             }
@@ -250,18 +253,17 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public bool FileVerify(string FilePath, string FileName, string PeriodPublicId)
+        public Tuple<bool,string> FileVerify(string FilePath, string FileName, string PeriodPublicId)
         {
             var Excel = new FileInfo(FilePath);
-
+            List<PlanModel> oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
             using (var package = new ExcelPackage(Excel))
             {
                 // Get the work book in the file
                 ExcelWorkbook workBook = package.Workbook;
-                //TODO: Ajusta acá el numero de consultas a realizar
-                //workBook.Worksheets[1].Dimension.End.Row;
+                                
                 if (workBook != null)
-                {
+                {                    
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
                     string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
@@ -271,26 +273,25 @@ namespace MarketPlace.Web.ControllersApi
                                     [Models.General.Constants.MP_CP_ColIdNumber].Value)
                         && UncodifiedObj.Contains(Models.General.InternalSettings.Instance
                                     [Models.General.Constants.MP_CP_ColIdName].Value))
-                    {
+                    {                        
                         bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath, PeriodPublicId);
                         if (isLoaded)
                         {
-                            //Get The Active Plan By Customer
-                            List<PlanModel> oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
+                            //Get The Active Plan By Customer                            
                             oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries += (workBook.Worksheets[1].Dimension.End.Row - 1);
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
                         }
 
-                        return true;
+                        return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString());
                     }
                     else
                     {
-                        return false;
+                        return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString());
                     }
                 }
             }
-            return false;
-        }    
+            return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString());;
+        }
 
         #endregion Private Functions
     }
