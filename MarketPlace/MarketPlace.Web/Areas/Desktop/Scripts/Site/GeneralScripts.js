@@ -18,7 +18,6 @@ function Header_ShowHideUserMenu(divId) {
 /*Show notifications*/
 function Header_ShowHideNotifications(DivId, User, companyPublicId) {
     $('#' + DivId).text('');
-    Header_NewNotification();
     $.ajax({
         url: BaseUrl.ApiUrl + '/CompanyApi?NGetNotifications=true&User=' + User + '&CompanyPublicId=' + companyPublicId + '&Enable=true',
         dataType: 'json',
