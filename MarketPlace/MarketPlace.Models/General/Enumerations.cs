@@ -396,6 +396,7 @@
     {
         EconomicActivity = 111006,
         CustomEconomicActivity = 111007,
+        Country = 111018,
         City = 111008,
 
         StartDateSurvey = 111009,

@@ -119,16 +119,15 @@ namespace MarketPlace.Web.ControllersApi
 
                 if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                 {
+                    string oFileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
                     string strFile = strFolder.TrimEnd('\\') +
                     "\\ThirdKnowledgeFile_" +
-                        CompanyPublicId + "_" +
-                        DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
+                        CompanyPublicId + "_" + oFileName;
 
                     UploadFile.SaveAs(strFile);
 
-                    bool isValidFile = this.FileVerify(strFile, "ThirdKnowledgeFile_" +
-                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", PeriodPublicId);
+                    bool isValidFile = this.FileVerify(strFile, oFileName, PeriodPublicId);
 
                     string strRemoteFile = string.Empty;
                     if (isValidFile)
@@ -162,16 +161,22 @@ namespace MarketPlace.Web.ControllersApi
                                 ItemId = (int)enumThirdKnowledgeColls.FileURL,
                                 ItemName = strRemoteFile,
                             },
-                            Value = "ThirdKnowledgeFile_" + CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + UploadFile.FileName.Split('.').DefaultIfEmpty("xml").LastOrDefault(),
+                            Value = oFileName,
                             LargeValue = strRemoteFile,
                         });
 
                         oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQueryToCreate);
 
-                        // Send Mail
-                        MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel();
-                        oMessageToSend = GetUploadSuccessFileMessage();
-                        MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
+                        //Send Message
+                        MessageModule.Client.Models.NotificationModel oDataMessage = new MessageModule.Client.Models.NotificationModel();
+                        oDataMessage.CompanyPublicId = CompanyPublicId;
+                        oDataMessage.User = SessionModel.CurrentLoginUser.Email;
+                        oDataMessage.CompanyLogo = SessionModel.CurrentCompany_CompanyLogo;
+                        oDataMessage.CompanyName = SessionModel.CurrentCompany.CompanyName;
+                        oDataMessage.IdentificationType = SessionModel.CurrentCompany.IdentificationType.ItemName;
+                        oDataMessage.IdentificationNumber = SessionModel.CurrentCompany.IdentificationNumber;
+
+                        ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.CreateUploadNotification(oDataMessage);
 
                         MessageModule.Client.Models.NotificationModel oNotification = new MessageModule.Client.Models.NotificationModel()
                         {
@@ -285,36 +290,7 @@ namespace MarketPlace.Web.ControllersApi
                 }
             }
             return false;
-        }
-
-        private MessageModule.Client.Models.ClientMessageModel GetUploadSuccessFileMessage()
-        {
-            //Create message object
-            MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
-            {
-                Agent = Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_TK_UploadSuccessFileAgent].Value,
-                User = SessionModel.CurrentLoginUser.Email,
-                ProgramTime = DateTime.Now,
-                MessageQueueInfo = new List<Tuple<string, string>>(),
-            };
-
-            oReturn.MessageQueueInfo.Add(new Tuple<string, string>("To", SessionModel.CurrentLoginUser.Email));
-
-            //get customer info
-            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("CustomerLogo", SessionModel.CurrentCompany_CompanyLogo));
-
-            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("CustomerName", SessionModel.CurrentCompany.CompanyName));
-
-            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("CustomerIdentificationTypeName", SessionModel.CurrentCompany.IdentificationType.ItemName));
-
-            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("CustomerIdentificationNumber", SessionModel.CurrentCompany.IdentificationNumber));
-
-            return oReturn;
-        }
+        }    
 
         #endregion Private Functions
     }

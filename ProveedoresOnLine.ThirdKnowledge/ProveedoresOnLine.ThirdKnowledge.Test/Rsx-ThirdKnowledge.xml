@@ -18,7 +18,8 @@
     <key name="ThirdKnowedge_FTPUserName">FTP_PUBLICAR</key>
     
     <!--WS_Password-->
-    <key name="ThirdKnowedge_FTPPassworUser">p1u2b3l415c6@778*</key>    
+    <key name="ThirdKnowedge_FTPPassworUser">p1u2b3l415c6@778*</key>
+    <key name="TK_UploadSuccessFileAgent">POL_UploadSuccessFile_Mail</key>
 
   </ThirdKnowledge>
 </Settings>

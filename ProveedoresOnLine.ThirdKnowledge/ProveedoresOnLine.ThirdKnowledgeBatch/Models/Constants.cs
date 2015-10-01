@@ -29,5 +29,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBacth.Models
         public const string C_Settings_FTPUserName = "ThirdKnowedge_FTPUserName";
 
         public const string C_Settings_FTPPassworUser = "ThirdKnowedge_FTPPassworUser";
+
+        public const string C_Settings_TK_UploadSuccessFileAgent = "TK_UploadSuccessFileAgent";
     }
 }

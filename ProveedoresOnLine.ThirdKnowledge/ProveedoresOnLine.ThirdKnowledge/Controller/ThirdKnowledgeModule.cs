@@ -426,37 +426,40 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         #region Messenger
 
-        public static void CreateUploadNotification()
+        public static void CreateUploadNotification( MessageModule.Client.Models.NotificationModel DataMessage )
         {
             #region Email
             //Create message object
-            //MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
-            //{
-            //    Agent = Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_TK_UploadSuccessFileAgent].Value,
-            //    User = SessionModel.CurrentLoginUser.Email,
-            //    ProgramTime = DateTime.Now,
-            //    MessageQueueInfo = new List<Tuple<string, string>>(),
-            //};
 
-            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>("To", SessionModel.CurrentLoginUser.Email));
+            MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel()
+            {
+                Agent = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_TK_UploadSuccessFileAgent].Value,
+                User = DataMessage.User,
+                ProgramTime = DateTime.Now,
+                MessageQueueInfo = new List<Tuple<string, string>>(),
+            };
 
-            ////get customer info
-            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-            //    ("CustomerLogo", SessionModel.CurrentCompany_CompanyLogo));
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>("To", DataMessage.User));
 
-            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-            //    ("CustomerName", SessionModel.CurrentCompany.CompanyName));
+            //get customer info
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerLogo", DataMessage.CompanyLogo));
 
-            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-            //    ("CustomerIdentificationTypeName", SessionModel.CurrentCompany.IdentificationType.ItemName));
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerName", DataMessage.CompanyName));
 
-            //oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-            //    ("CustomerIdentificationNumber", SessionModel.CurrentCompany.IdentificationNumber));
-            
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerIdentificationTypeName", DataMessage.IdentificationType));
+
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerIdentificationNumber", DataMessage.IdentificationNumber));
+
+            MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
+
             #endregion
 
             #region Notification
-            
+
             #endregion
         }
 
