@@ -17,21 +17,36 @@ function Header_ShowHideUserMenu(divId) {
 
 /*Show notifications*/
 function Header_ShowHideNotifications(DivId, User, companyPublicId) {
-    $('#' + DivId).toggle('slow');
-
+    $('#' + DivId).text('');
+    Header_NewNotification();
     $.ajax({
         url: BaseUrl.ApiUrl + '/CompanyApi?NGetNotifications=true&User=' + User + '&CompanyPublicId=' + companyPublicId + '&Enable=true',
         dataType: 'json',
         success: function (result) {
-            debugger;
             if (result != null) {
-
+                $('#' + DivId).text('');
+                for (var i = 0; i < result.length; i++) {
+                    debugger;
+                    $('#' + DivId).append('<div><a href="' + result[i].Url + '">' + result[i].Label + '</a></div>');
+                }
             }
         },
         error: function (result) {
-            debugger;
+            $('#' + DivId).text('');
         }
     });
+
+    $('#' + DivId).toggle('slow');
+}
+
+function Header_NewNotification() {
+    $('#OldNotification').hide();
+    $('#NewNotification').show();
+}
+
+function Header_OldNotification() {
+    $('#OldNotification').show();
+    $('#NewNotification').hide();
 }
 
 /*init generic tooltip*/
