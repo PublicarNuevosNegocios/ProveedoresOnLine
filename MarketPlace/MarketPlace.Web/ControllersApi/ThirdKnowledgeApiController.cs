@@ -178,20 +178,16 @@ namespace MarketPlace.Web.ControllersApi
                         oDataMessage.IdentificationType = SessionModel.CurrentCompany.IdentificationType.ItemName;
                         oDataMessage.IdentificationNumber = SessionModel.CurrentCompany.IdentificationNumber;
 
+                        #region Notification
+
+                        oDataMessage.Label = "";
+                        oDataMessage.Url = "";
+                        oDataMessage.NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification;
+                        oDataMessage.Enable = true;
+
+                        #endregion
+
                         ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.CreateUploadNotification(oDataMessage);
-
-                        MessageModule.Client.Models.NotificationModel oNotification = new MessageModule.Client.Models.NotificationModel()
-                        {
-                            CompanyPublicId = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                            Label = "",
-                            User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                            Url = "",
-                            NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification,
-                            Enable = true,
-                        };
-
-                        //TODO: ENVIAR NOTIFICACIÓN--DAVID                
-                        oNotification.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);
                     }
 
                     //remove temporal file
