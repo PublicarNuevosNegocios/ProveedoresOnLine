@@ -15,6 +15,25 @@ function Header_ShowHideUserMenu(divId) {
     $('#' + divId).toggle('slow');
 }
 
+/*Show notifications*/
+function Header_ShowHideNotifications(DivId, User, companyPublicId) {
+    $('#' + DivId).toggle('slow');
+
+    $.ajax({
+        url: BaseUrl.ApiUrl + '/CompanyApi?NGetNotifications=true&User=' + User + '&CompanyPublicId=' + companyPublicId + '&Enable=true',
+        dataType: 'json',
+        success: function (result) {
+            debugger;
+            if (result != null) {
+
+            }
+        },
+        error: function (result) {
+            debugger;
+        }
+    });
+}
+
 /*init generic tooltip*/
 function Tooltip_InitGeneric() {
     $('.SelGenericTooltip').tooltip();

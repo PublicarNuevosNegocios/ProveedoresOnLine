@@ -66,7 +66,7 @@ namespace MarketPlace.Web.ControllersApi
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
             GenericChartsModel oRelatedChart = null;
 
- 
+
             oRelatedChart = new GenericChartsModel()
             {
                 ChartModuleType = ((int)enumCategoryInfoType.CH_ProvidersStateModule).ToString(),
@@ -75,7 +75,7 @@ namespace MarketPlace.Web.ControllersApi
 
             //Get Providers of the Company
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
-  
+
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
@@ -86,7 +86,7 @@ namespace MarketPlace.Web.ControllersApi
                     return true;
                 });
             }
-      
+
             return oReturn;
         }
 
@@ -186,7 +186,9 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
-        
+
         #endregion
+
+        
     }
 }
