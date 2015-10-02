@@ -24,15 +24,9 @@ var Third_KnowledgeSimpleSearchObject = {
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
                     if (result.RelatedThirdKnowledge != null && result.RelatedThirdKnowledge.CollumnsResult != null) {
-                        if (result.RelatedThirdKnowledge.CollumnsResult.length == 1) {
-                            resultDiv = '<div class=""><p>' + result.RelatedThirdKnowledge.CollumnsResult[0][0] + '</p></div>';
-                            $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
-                            $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
-                            $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
-                        }
-                        else {
+                        {
+                            debugger;
                             $.each(result.RelatedThirdKnowledge.CollumnsResult, function (item, value) {
-
                                 if (item != 0 && item != 1) {
                                     resultDiv = '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value[4] + '</p></div>' +
                                      '<div class="POMPResultSection"><p>' + value[3] + '</p></div>' +
@@ -85,8 +79,11 @@ var Third_KnowledgeMasiveSearchObject = {
                 autoUpload: true
             },
             success: function (e) {
+                debugger;
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').html('');
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').append(e.response.LoadMessage);
+                $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').html('');
+                $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').append(e.response.AdditionalInfo);
                 debugger;
             },
             error: function (e) {
@@ -103,7 +100,7 @@ var Third_KnowledgeSearchObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
     },
-  
+
     RenderAsync: function () {
         //Change event
         $('#' + Third_KnowledgeSearchObject.ObjectId + '_FilterId').click(function () {

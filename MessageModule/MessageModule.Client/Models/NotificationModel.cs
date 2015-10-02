@@ -20,10 +20,16 @@ namespace MessageModule.Client.Models
 
         public string User { get; set; }
 
+        public string CompanyLogo { get; set; }
+        public string CompanyName { get; set; }
+        public string IdentificationType { get; set; }
+        public string IdentificationNumber { get; set; }
+
         public bool Enable { get; set; }
 
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }
+
     }
 }

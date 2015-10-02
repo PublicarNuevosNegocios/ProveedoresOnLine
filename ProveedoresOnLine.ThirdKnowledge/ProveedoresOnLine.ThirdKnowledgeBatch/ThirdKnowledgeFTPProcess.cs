@@ -12,14 +12,13 @@ using System.Xml.Linq;
 
 namespace ProveedoresOnLine.ThirdKnowledgeBatch
 {
-    public static class ThirdKnowledgeFTPProcess
+    public class ThirdKnowledgeFTPProcess
     {
         public static void StartProcess()
-        {
-            try
+        {try
             {
                 //Get queries to process
-                List<TDQueryModel> oQueryResult = new List<TDQueryModel>();
+                List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel>();
                 oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
                 if (oQueryResult != null)
                 {
@@ -33,8 +32,6 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     {
                         try
                         {
-                            if (oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xls") || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("xlsx")
-                                || oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Contains("csv"))	                        
 		                        oQuery.RelatedQueryInfoModel.FirstOrDefault().Value = oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Replace(oQuery.RelatedQueryInfoModel.FirstOrDefault().Value.Split('.').LastOrDefault(), "xml");	                        
                             
                             string uri = "ftp://" + ftpServerIP + "/" + uploadToFolder + "/" + "Res_" + oQuery.RelatedQueryInfoModel.FirstOrDefault().Value;
@@ -60,6 +57,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             CurrentXMLAnswer.Descendants("Resultados").All(
                                 x =>
                                 {
+                                    #region QueryInfo
                                     oQuery.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
                                         {
                                             QueryPublicId = oQuery.QueryPublicId,
@@ -260,6 +258,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         Value = x.Element("Estado").Value,
                                         Enable = true,
                                     });
+                                    #endregion
                                     return true;
                                 });
 
@@ -271,7 +270,13 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
                             //TODO: Acá va la notificacion de respuesta DAVID
                             //TODO: Acá va el envio del Email JOSE
+
+                            CreateReadyResultNotification(oQuery);
+
+
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
+
+                            LogFile("Success:: QueryPublicId '" + oQuery.QueryPublicId + "' :: Validation is success");
                         }
                         catch (Exception err)
                         {
@@ -319,5 +324,34 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
         }
 
         #endregion
+
+        #region Message
+
+        public static void CreateReadyResultNotification(TDQueryModel oQuery)
+        {
+            #region Email
+            //Create message object
+
+            MessageModule.Client.Models.ClientMessageModel oMessageToSend = new MessageModule.Client.Models.ClientMessageModel()
+            {
+                Agent = ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_TK_ReadyResultAgent].Value,
+                User = oQuery.User,
+                ProgramTime = DateTime.Now,
+                MessageQueueInfo = new List<Tuple<string, string>>(),
+            };
+
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>("To", oQuery.User));
+
+            oMessageToSend.MessageQueueInfo.Add(new Tuple<string, string>
+                ("URLToRedirect", ThirdKnowledge.Models.InternalSettings.Instance[Constants.C_Settings_TK_QueryUrl].Value.Replace("{QueryPublicId}", oQuery.QueryPublicId)));
+
+
+            MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
+            #endregion
+
+        }
+
+        #endregion
+
     }
 }
