@@ -78,7 +78,7 @@ var Third_KnowledgeMasiveSearchObject = {
         $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_FileUpload').kendoUpload({
             multiple: false,
             localization: {
-                "select": "Agregar"
+                "select": "Selecionar Archivos"
             },
             async: {
                 saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId + '&PeriodPublicId=' + Third_KnowledgeMasiveSearchObject.PeriodPublicId,
