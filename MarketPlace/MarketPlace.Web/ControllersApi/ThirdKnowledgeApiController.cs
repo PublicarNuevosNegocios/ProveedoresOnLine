@@ -1,4 +1,5 @@
-﻿using MarketPlace.Models.General;
+﻿using MarketPlace.Models.Company;
+using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
 using OfficeOpenXml;
 using ProveedoresOnLine.Company.Models.Util;
@@ -56,18 +57,23 @@ namespace MarketPlace.Web.ControllersApi
                                     ItemId = (int)enumThirdKnowledgeQueryStatus.Finalized
                                 },
                                 RelatedQueryInfoModel = new List<TDQueryInfoModel>(),
-                            };
-
-                            oModel.RelatedThirdKnowledge.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
+                            };                            
+                            TDQueryModel oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
                                            System.Web.HttpContext.Current.Request["IdentificationNumber"], System.Web.HttpContext.Current.Request["Name"], oQueryToCreate);
+                            if (oQueryResult != null && oQueryResult.RelatedQueryInfoModel != null)
+                            {
+                                oModel.CollsResult = this.SetCollumnsResult(oQueryResult);
+                            }
+                            if (oQueryResult.IsSuccess == true)
+                            {
+                                //Set New Score
+                                oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
 
-                            //Set New Score
-                            oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
-
-                            //Period Upsert
-                            oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
-                                oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                                //Period Upsert
+                                oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
+                                    oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                            }
                         }
                         else
                         {
@@ -249,7 +255,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Tuple<bool,string> FileVerify(string FilePath, string FileName, string PeriodPublicId)
+        public Tuple<bool, string> FileVerify(string FilePath, string FileName, string PeriodPublicId)
         {
             var Excel = new FileInfo(FilePath);
             List<PlanModel> oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
@@ -257,9 +263,9 @@ namespace MarketPlace.Web.ControllersApi
             {
                 // Get the work book in the file
                 ExcelWorkbook workBook = package.Workbook;
-                                
+
                 if (workBook != null)
-                {                    
+                {
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
                     string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
@@ -269,7 +275,7 @@ namespace MarketPlace.Web.ControllersApi
                                     [Models.General.Constants.MP_CP_ColIdNumber].Value)
                         && UncodifiedObj.Contains(Models.General.InternalSettings.Instance
                                     [Models.General.Constants.MP_CP_ColIdName].Value))
-                    {                        
+                    {
                         bool isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(FileName, FilePath, PeriodPublicId);
                         if (isLoaded)
                         {
@@ -286,9 +292,93 @@ namespace MarketPlace.Web.ControllersApi
                     }
                 }
             }
-            return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString());;
+            return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString()); ;
         }
 
+
+        public List<Tuple<string, string>> SetCollumnsResult(TDQueryModel oCollumnsResult)
+        {
+            List<Tuple<string, string>> oReturn = new List<Tuple<string, string>>();
+
+            if (oCollumnsResult != null && oCollumnsResult.RelatedQueryInfoModel != null)
+            {
+                oCollumnsResult.RelatedQueryInfoModel.All(inf =>
+                    {
+                        #region Set Collumns
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Nombre Consultado", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Identificación Consultada", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.QueryId)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Id Consulta", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Priotity)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Prioridad", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.TypeDocument)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Tipo De Documento", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberResult)
+                        {
+                            oReturn.Add(new Tuple<string, string>("númer de Identificación", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Nombre Completo", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Nombre Lista", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Alias)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Alias", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Offense)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Cargo o Delito", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Peps)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Peps", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Status)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Estado", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Zone)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Zona", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.MoreInfo)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Otra Información", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RegisterDate)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Fecha de Registro", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.LastModifyDate)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Fecha Última Modificación", inf.Value));
+                        }
+                        if (inf.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Link)
+                        {
+                            oReturn.Add(new Tuple<string, string>("Link", inf.Value));
+                        }   
+                        #endregion                      
+                        return true;
+                    });
+            }
+            return oReturn;
+        }
         #endregion Private Functions
     }
 }
