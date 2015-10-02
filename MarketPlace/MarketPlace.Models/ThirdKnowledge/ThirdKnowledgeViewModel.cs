@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.ThirdKnowledge.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace MarketPlace.Models.Company
         public bool HasPlan { get; set; }
 
         //Temp Cols
-        public List<string[]> CollumnsResult { get; set; }
+        public TDQueryModel CollumnsResult { get; set; }
 
         //Cosl
 

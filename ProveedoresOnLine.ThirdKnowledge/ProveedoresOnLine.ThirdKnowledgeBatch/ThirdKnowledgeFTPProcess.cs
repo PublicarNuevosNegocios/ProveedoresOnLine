@@ -15,8 +15,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
     public class ThirdKnowledgeFTPProcess
     {
         public static void StartProcess()
-        {
-            try
+        {try
             {
                 //Get queries to process
                 List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel>();
