@@ -78,6 +78,21 @@ namespace MessageModule.Client.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public void NotificationDeleteById(int NotificationId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vNotificationId", NotificationId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "N_Notification_DeleteById",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+        }
+
         public List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();

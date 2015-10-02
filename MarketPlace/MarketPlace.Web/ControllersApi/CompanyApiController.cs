@@ -142,6 +142,17 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public void NDeleteNotifications
+            (string NDeleteNotifications, string NotificationId)
+        {
+            if (NDeleteNotifications == "true")
+            {
+                MessageModule.Client.Controller.ClientController.NotificationDeleteById(Convert.ToInt32(NotificationId));
+            }
+        }
+
         #endregion
     }
 }

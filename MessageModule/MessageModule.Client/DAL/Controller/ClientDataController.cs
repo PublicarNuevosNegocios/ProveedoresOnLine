@@ -53,6 +53,11 @@ namespace MessageModule.Client.DAL.Controller
             return DataFactory.NotificationUpsert(NotificationId, CompanyPublicId, Label, User, Url, NotificationType, Enable);
         }
 
+        public void NotificationDeleteById(int NotificationId)
+        {
+            DataFactory.NotificationDeleteById(NotificationId);
+        }
+
         public List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
         {
             return DataFactory.NotificationGetByUser(CompanyPublicId, User, Enable);

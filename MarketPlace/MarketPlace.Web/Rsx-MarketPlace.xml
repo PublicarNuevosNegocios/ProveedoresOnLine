@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <MarketPlace>
-    
+
     <!--Area domains-->
     <key name="Area_HostConfig"><![CDATA[https://localhost:44309,Desktop;http://localhost:40464,Desktop;]]></key>
 
@@ -9,12 +9,12 @@
     <key name="Login_InternalLogin">https://localhost:44305/InternalLogin/Index?UrlRetorno={{UrlRetorno}}</key>
 
     <key name="Login_UserNotAutorized">El usuario {UserName} no esta autorizado para ingresar a la plataforma.</key>
-    
+
     <key name="Login_DefaultUserUrl">http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/dafaultProvider.png</key>
 
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
-    
+
     <key name="MP_AutoCompleteRow">50</key>
 
     <key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>
@@ -27,18 +27,18 @@
     <key name="ProviderStatus_Certified">902005</key>
     <key name="ProviderStatus_Certified_Logo">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/selloVerifSmaller.png</key>
 
-    <key name="Manual_SurveyManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ProveedoresOnLine_ManualEvaluaci%C3%B3nDesempe%C3%B1o.pdf</key>    
+    <key name="Manual_SurveyManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ProveedoresOnLine_ManualEvaluaci%C3%B3nDesempe%C3%B1o.pdf</key>
     <key name="Manual_ProjectManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/Manual+Busqueda+de+Proveedores.pdf</key>
-      
+
     <key name="Report_ExcelReportIcon">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/excel.png</key>
-    <key name="Report_PdfReportIcon">https://s3.amazonaws.com/stgproveedoresonline/MarketPlace/SiteImages/pdfdownload.png</key>	
+    <key name="Report_PdfReportIcon">https://s3.amazonaws.com/stgproveedoresonline/MarketPlace/SiteImages/pdfdownload.png</key>
 
     <key name="Desktop_Analytics">
       <![CDATA[
       <!--YourAnalyticsKey-->
-      ]]>      
+      ]]>
     </key>
-    
+
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\MarketPlace\</key>
@@ -46,27 +46,36 @@
     <!--Company params-->
     <key name="Company_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/dafaultProvider.png</key>
     <key name="Company_Customer_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoSmall.png</key>
-    
+
     <!--Project params-->
     <key name="Project_Approval_MailAgent">POL_ProjectApprovalRequest_Mail</key>
     <key name="Project_ApproveArea_MailAgent">POL_ProjectApproveArea_Mail</key>
     <key name="Project_RejectArea_MailAgent">POL_ProjectRejectArea_Mail</key>
 
-  <!--Error Page Img-->
+    <!--Error Page Img-->
     <key name="Company_Error_Gear1">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear1.png</key>
     <key name="Company_Error_Gear2">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear2.png</key>
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
 
     <!--Report Path-->
     <key name="MP_CP_ReportPath">\\192.168.0.4\d$\SitesReports\</key>
-    
+
     <!--ThirdKnowledge-->
     <key name="MP_CP_UploadTemplate">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/PlantillaCargueMasivoPOL.xlsx</key>
     <key name="MP_CP_ColPersonType">TIPOPERSONA</key>
     <key name="MP_CP_ColIdNumber">NUMEIDEN</key>
     <key name="MP_CP_ColIdName">NOMBRES</key>
     <key name="TK_UploadSuccessFileAgent">POL_UploadSuccessFile_Mail</key>
-    
+
+    <!--Notifications-->
+    <!--Message-->
+    <key name="N_ThirdKnowledgeUploadMassiveMessage"><![CDATA[Cargue de consultas masivas en proceso]]></key>
+    <key name="N_ThirdKnowledgeEndMassiveMessage"><![CDATA[Cargue de consultas masiva correctamente]]></key>
+    <key name="N_ThirdKnowledgeSingleMessage"><![CDATA[Se realizó la consulta]]></key>
+
+    <!--Url redirect-->
+    <key name="N_UrlThirdKnowledgeQuery"><![CDATA[https://localhost:44309/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={{QueryPublicId}}]]></key>
+
   </MarketPlace>
 </Settings>
 
