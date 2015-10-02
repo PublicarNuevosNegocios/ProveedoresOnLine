@@ -1,36 +1,60 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 
+
+
+
 <label class="POMPSectionTitles">Consulta Masiva de Terceros</label>
 
-@if (Model.RelatedThirdKnowledge.HasPlan)
-{
-    <div class="container-fluid">
-        <div class="col-xs-8" id="POMPCurrentPeriod">
-            <label>Periodo Actual @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
-        </div>
-        <div class="col-xs-4" id="POMPConsults">
-            <label>Consultas </label>
-            <label id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+<div class="container-fluid">
+    @if (Model.RelatedThirdKnowledge.HasPlan)
+    {
+        <div class="row ThirdKnowledge_title">
+            <div class="col-md-6">
+                <span>Periodo Actual: @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy/MM/dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy/MM/dd")</span>
+            </div>
+            <div class="col-md-4 text-right">
+                <span>Consultas:</span> <span id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</span><span> De: @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</span>
+            </div>
 
-            <label>De @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
-        </div>
-    </div>
-    <div class="">
-        <input type="file" name="ThirdKnowledge_FileUpload" id="ThirdKnowledge_FileUpload" value="" />
-    </div>
-    <div>
-        <a href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_UploadTemplate].Value">Descargar Plantilla</a>
-    </div>
-    <div id="ThirdKnowledge_MessageResult"></div>
-}
-else
-{
-    <label>Usted no tiene ningún plan habilitado, Por favor comuniquese con nosotros al Tel: 6465555 Ext: 16602</label>
-}
+            <div class="col-md-2 text-right">
+                <a title="Plantilla para Consulta Masiva" class="TK-DownloadFile-a" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_UploadTemplate].Value" target="_new">
+                    <img style="width:18px;" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" />
+                    <p class="TK-DownloadFile-p">download</p>
+                </a>
+            </div>
 
-@*Templates*@
-<div id="loading"></div>
-    
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12 text-center TK-Uploadpanel">
+
+                <div class="row TK-UploadpanelText">
+                    Carga de Archivos
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-left thumbnail">
+                        <input type="file" name="ThirdKnowledge_FileUpload" id="ThirdKnowledge_FileUpload" value="" />
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center ">             
+                        <div id="ThirdKnowledge_MessageResult"></div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row ThirdKnowledge_title">
+            <div class="col-md-12 text-left">
+                <span>Usted no tiene ningún plan habilitado, Por favor comuniquese con nosotros al Tel: 6465555 Ext: 16602</span>
+            </div>
+        </div>
+    }
+</div>
+
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -38,13 +62,13 @@ else
             ApiUrl: '@(Url.Content("~/api"))',
             SiteUrl: '@(Url.Content("~/"))',
             PreviewPdfUrl: '@(Server.UrlDecode(
-                                   Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                   new
-                                   {
-                                       controller = MVC.Base.Name,
-                                       action = MVC.Base.ActionNames.GetPdfFileBytes,
-                                       FilePath = "${FilePath}"
-                                   })))',
+                    Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Base.Name,
+                        action = MVC.Base.ActionNames.GetPdfFileBytes,
+                        FilePath = "${FilePath}"
+                    })))',
         });
 
         Third_KnowledgeMasiveSearchObject.Init({
