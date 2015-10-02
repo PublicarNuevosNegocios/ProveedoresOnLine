@@ -22,8 +22,10 @@
 
     <key name="TK_UploadSuccessFileAgent">POL_UploadSuccessFile_Mail</key>
 
-    <key name="TK_UploadSuccessResultURL">https://localhost:44309//ThirdKnowledge//TKThirdKnowledgeDetail?QueryPublicId={QueryPublicId}</key>
-  
+    <key name="TK_ReadyResultAgent">POL_ReadyResult_Mail</key>
+
+    <key name="TK_QueryUrl">https://localhost:44309/MarketPlace/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={QueryPublicId}</key>
+
   </ThirdKnowledge>
 </Settings>
 

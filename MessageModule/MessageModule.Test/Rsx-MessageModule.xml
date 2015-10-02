@@ -3,7 +3,7 @@
   <MessageModule>
     <!--Generic agents-->
     <key name="Agent">
-      <![CDATA[POL_RememberPassword_Mail,POL_ProjectRejectArea_Mail,POL_ProjectApproveArea_Mail,POL_ProjectApprovalRequest_Mail,POL_SurveyWriteBackNotification_Mail,POL_SurveyReminder_Mail,POL_UploadSuccessFile_Mail]]>
+      <![CDATA[POL_RememberPassword_Mail,POL_ProjectRejectArea_Mail,POL_ProjectApproveArea_Mail,POL_ProjectApprovalRequest_Mail,POL_SurveyWriteBackNotification_Mail,POL_SurveyReminder_Mail,POL_UploadSuccessFile_Mail,POL_ReadyResult_Mail]]>
     </key>
 
     <!--Proveedores on line remember password email agent-->
@@ -649,8 +649,67 @@
         </POL_UploadSuccessFile_Mail>
       ]]>
     </key>
-    
-    
+
+    <!--Proveedores on line project reject email agent-->
+    <key name="AgentConfig_POL_ReadyResult_Mail">
+      <![CDATA[
+        <POL_ReadyResult_Mail>
+          <key name="Assemblie">
+            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
+          </key>
+          <key name="AccessKeyId">
+            &lt;![CDATA[My AccesKeyId]]&gt;
+          </key>
+          <key name="SecretAccessKey">
+            &lt;![CDATA[My SecretAccessKey]]&gt;
+          </key>
+          <key name="RegionEndpoint">
+            &lt;![CDATA[us-east-1]]&gt;
+          </key>
+          <key name="Subject">
+            &lt;![CDATA[Carga exitosa de archivo - Proveedores OnLine]]&gt;
+          </key>
+          <key name="From">
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+          </key>
+          <key name="MessageBody">
+            &lt;![CDATA[
+            <table>
+	            <tbody>
+		            <table  width="628" height="90" cellspacing="0" cellpadding="0" style="border-top:1px solid #C0C0C0;">
+				            <tr>
+					            <td>
+						            <span style="font-size:0.9em; color:#404040; padding:0 0 0 20px; display:inline-block;">
+						            El archivo enviado ya fue procesado y podras consultar el detalle a en el siguiente link: <br>                        
+					              </span>
+                        <a target="_blank" href="{CustomerIdentificationTypeName}" style="color:#fff;font-size:0.8em">Resultados de la consulta másiva de terceros</a>									  
+					            </td>
+				            </tr>
+		            </table>
+	            </tbody>
+	            <tfoot>
+		            <table width="628" cellspacing="0" cellpadding="0">
+			             <tr>
+				            <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
+					            <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
+					            <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
+				            </td>
+			             </tr>
+			            <tr>
+				             <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
+					            <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+					             <a target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>									  
+					             </td>
+			             </tr>
+		            </table>
+	            </tfoot>
+            </table>
+
+            ]]&gt;
+          </key>
+        </POL_ReadyResult_Mail>
+      ]]>
+    </key>
 
       <!--Notifications-->
     <!--Message-->

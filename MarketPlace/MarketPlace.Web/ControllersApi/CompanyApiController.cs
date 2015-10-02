@@ -120,7 +120,7 @@ namespace MarketPlace.Web.ControllersApi
         public List<MarketPlace.Models.General.NotificationViewModel> NGetNotifications
             (string NGetNotifications, string User, string CompanyPublicId, string Enable)
         {
-            List<MarketPlace.Models.General.NotificationViewModel> oReturn = null;
+            List<MarketPlace.Models.General.NotificationViewModel> oReturn = new List<NotificationViewModel>();
 
             if (NGetNotifications == "true")
             {
