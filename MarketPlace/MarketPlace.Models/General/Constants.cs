@@ -131,5 +131,26 @@
 
         public const string C_Settings_TK_UploadSuccessFileAgent = "TK_UploadSuccessFileAgent";
         #endregion
+
+        #region Notifications
+
+        #region Messages
+
+        public const string N_ThirdKnowledgeUploadMassiveMessage = "N_ThirdKnowledgeUploadMassiveMessage";
+
+        public const string N_ThirdKnowledgeEndMassiveMessage = "N_ThirdKnowledgeEndMassiveMessage";
+
+        public const string N_ThirdKnowledgeSingleMessage = "N_ThirdKnowledgeSingleMessage";
+
+        #endregion
+
+        #region Url redirect
+
+        public const string N_UrlThirdKnowledgeQuery = "N_UrlThirdKnowledgeQuery";
+
+        #endregion
+
+        #endregion
+
     }
 }

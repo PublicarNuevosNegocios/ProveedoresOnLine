@@ -56,5 +56,13 @@ namespace MessageModule.Test
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
+
+        [TestMethod]
+        public void NotificationDeleteById()
+        {
+            MessageModule.Client.Controller.ClientController.NotificationDeleteById(26);
+
+            Assert.AreEqual(true, true);
+        }
     }
 }

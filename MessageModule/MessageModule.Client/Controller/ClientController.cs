@@ -105,6 +105,11 @@ namespace MessageModule.Client.Controller
             return oReturn;
         }
 
+        public static void NotificationDeleteById(int NotificationId)
+        {
+            DAL.Controller.ClientDataController.Instance.NotificationDeleteById(NotificationId);
+        }
+
         public static List<NotificationModel> NotificationGetByUser(string CompanyPublicId, string User, bool Enable)
         {
             return DAL.Controller.ClientDataController.Instance.NotificationGetByUser(CompanyPublicId, User, Enable);

@@ -180,8 +180,10 @@ namespace MarketPlace.Web.ControllersApi
 
                         #region Notification
 
-                        oDataMessage.Label = "";
-                        oDataMessage.Url = "";
+                        oDataMessage.Label = Models.General.InternalSettings.Instance
+                                [Models.General.Constants.N_ThirdKnowledgeUploadMassiveMessage].Value;
+                        oDataMessage.Url = Models.General.InternalSettings.Instance
+                                [Models.General.Constants.N_UrlThirdKnowledgeQuery].Value.Replace("{{QueryPublicId}}", oQueryToCreate.QueryPublicId);
                         oDataMessage.NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification;
                         oDataMessage.Enable = true;
 
