@@ -22,12 +22,15 @@ function Header_ShowHideNotifications(DivId, User, companyPublicId) {
         url: BaseUrl.ApiUrl + '/CompanyApi?NGetNotifications=true&User=' + User + '&CompanyPublicId=' + companyPublicId + '&Enable=true',
         dataType: 'json',
         success: function (result) {
-            if (result != null) {
+            if (result != null && result.length > 0) {
                 $('#' + DivId).text('');
-                for (var i = 0; i < result.length; i++) {
-                    debugger;
-                    $('#' + DivId).append('<div><a href="' + result[i].Url + '">' + result[i].Label + '</a></div>');
-                }
+                $.each(result, function (item, value) {
+                    $('#' + DivId).append('<div><a onclick="javascript: DeleteNotifications(' + value.NotificationId + ', \'' + value.Url  + '\')">' + value.Label + '</a></div>');
+                });
+            }
+            else {
+                $('#' + DivId).text('');
+                $('#' + DivId).append('<div>Usted no tiene notificaciones</div>');
             }
         },
         error: function (result) {
@@ -35,7 +38,7 @@ function Header_ShowHideNotifications(DivId, User, companyPublicId) {
         }
     });
 
-    $('#' + DivId).toggle('slow');
+    $('#' + DivId).toggle();
 }
 
 function Header_NewNotification() {
@@ -46,6 +49,19 @@ function Header_NewNotification() {
 function Header_OldNotification() {
     $('#OldNotification').show();
     $('#NewNotification').hide();
+}
+
+function DeleteNotifications(NotificationId, UrlRedirect) {
+    if (NotificationId > 0) {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/CompanyApi?NDeleteNotifications=true&NotificationId=' + NotificationId,
+            dataType: 'json',
+            success: function (result) {},
+            error: function (result) {}
+        });
+
+        window.location.replace(UrlRedirect);
+    }
 }
 
 /*init generic tooltip*/

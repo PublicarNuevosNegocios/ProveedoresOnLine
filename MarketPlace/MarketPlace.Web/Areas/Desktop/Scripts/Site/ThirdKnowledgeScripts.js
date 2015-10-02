@@ -18,32 +18,26 @@ var Third_KnowledgeSimpleSearchObject = {
                 type: "POST",
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
-                success: function (result) {
+                success: function (result) {                    
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
 
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
-                    if (result.RelatedThirdKnowledge != null && result.RelatedThirdKnowledge.CollumnsResult != null) {
-                        {
-                            debugger;
-                            $.each(result.RelatedThirdKnowledge.CollumnsResult, function (item, value) {
-                                if (item != 0 && item != 1) {
-                                    resultDiv = '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value[4] + '</p></div>' +
-                                     '<div class="POMPResultSection"><p>' + value[3] + '</p></div>' +
-                                     '<div class="POMPResultSection"><p>' + value[1] + '</p></div>' +
-                                     '<div class="POMPResultSection"><p>' + value[6] + '</p></div></div>'
-                                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
-                                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
-                                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
-                                }
-                            });
-                        }
+                    if (result.CollsResult != null) {                        
+                        $.each(result.CollsResult, function (item, value) {                            
+                            resultDiv += 
+                            '<div class="POMPResultSection"><label>' + value.m_Item1 + "</label><p>" + value.m_Item2 + '</p></div>'
+                        });
+                        debugger;
+                        //resultDiv += "</div>"
+                        $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
+                        $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
+                        $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
                     }
                 },
                 error: function (result) {
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
-
-                }
+                },
             })
         }
     },
@@ -72,7 +66,7 @@ var Third_KnowledgeMasiveSearchObject = {
         $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_FileUpload').kendoUpload({
             multiple: false,
             localization: {
-                "select": "Agregar"
+                "select": "Selecionar Archivos"
             },
             async: {
                 saveUrl: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKLoadFile=true&CompanyPublicId=' + Third_KnowledgeMasiveSearchObject.CompanyPublicId + '&PeriodPublicId=' + Third_KnowledgeMasiveSearchObject.PeriodPublicId,
