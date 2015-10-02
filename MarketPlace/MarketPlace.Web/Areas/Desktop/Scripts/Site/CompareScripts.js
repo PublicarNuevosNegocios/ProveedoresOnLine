@@ -116,6 +116,7 @@ var Compare_SearchObject = {
                         fields: {
                             CompareId: { editable: false, nullable: true },
                             CompareName: { editable: false, nullable: true },
+                            //CreateDate: { editable: false, nullable: true },
                             LastModify: { editable: false, nullable: true },
                         }
                     }
@@ -153,7 +154,12 @@ var Compare_SearchObject = {
                 field: 'LastModify',
                 title: 'Última Modificación',
                 width: '50px',
-            }],
+            }//, {
+            //    field: 'CreateDate',
+            //    title: 'Fecha de Creación',
+            //    width: '50px',
+            //}
+            ],
         });
 
         //add search methods

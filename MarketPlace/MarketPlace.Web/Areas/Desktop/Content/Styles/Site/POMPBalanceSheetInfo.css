@@ -3,8 +3,9 @@
     border: 1px solid #c5c5c5;
     margin: 10px 0 0 8px;
     width: calc(100% - 16px);
-    min-width:682px;
+    min-width: 682px;
 }
+
 .POMPBalanceSheet_mainFilter {
     background-color: #f9f9f9;
     border-bottom: 1px solid #c5c5c5;
@@ -12,45 +13,65 @@
     margin: 0 !important;
     padding: 6px 0 6px 16px;
 }
-    .POMPBalanceSheet_mainFilter li{
+
+    .POMPBalanceSheet_mainFilter li {
         display: inline-block;
         height: auto;
-        vertical-align:middle;
+        vertical-align: middle;
     }
+
         .POMPBalanceSheet_mainFilter li label {
             display: inline-block;
             font-size: 0.9em;
             font-weight: normal;
             margin: 0;
         }
-    .POMPBalanceSheet_mainFilter li:first-child{
-        display:block; margin: 0 0 5px;
-    }
-    .POMPBalanceSheet_mainFilter li:nth-child(2){width: 22%;}
-    .POMPBalanceSheet_mainFilter li:nth-child(3){width: 26%;}
+
+        .POMPBalanceSheet_mainFilter li:first-child {
+            display: block;
+            margin: 0 0 5px;
+        }
+
+        .POMPBalanceSheet_mainFilter li:nth-child(2) {
+            width: 22%;
+        }
+
+        .POMPBalanceSheet_mainFilter li:nth-child(3) {
+            width: 26%;
+        }
+
         .POMPBalanceSheet_mainFilter li span {
             color: #4d4d4d;
             font-size: 1em;
         }
+
         .POMPBalanceSheet_mainFilter li select {
-            display:inline-block;
+            display: inline-block;
             color: #666;
             font-size: 1.05em;
-            border:1px solid #727276;            
-            background-color:#ddd;
+            border: 1px solid #727276;
+            background-color: #ddd;
         }
-            .POMPBalanceSheet_mainFilter li:nth-child(2) select {width: 74%;}
-            .POMPBalanceSheet_mainFilter li:nth-child(3) select {width: 62%;}
+
+        .POMPBalanceSheet_mainFilter li:nth-child(2) select {
+            width: 74%;
+        }
+
+        .POMPBalanceSheet_mainFilter li:nth-child(3) select {
+            width: 62%;
+        }
+
         .POMPBalanceSheet_mainFilter li a {
-            border-radius:2px;
+            border-radius: 2px;
         }
 /************** AQUI VAN LOS TABS DE INDICADORES Y BALANCEE **************/
 .POMPBalanceSheet_tabs {
-    margin:12px 0 0 9px;
-    padding:0px;
-    width:100%;
+    margin: 12px 0 0 9px;
+    padding: 0px;
+    width: 100%;
 }
-    .POMPBalanceSheet_tabs li{
+
+    .POMPBalanceSheet_tabs li {
         background-color: #ddd;
         border: 1px solid #727276;
         border-top-right-radius: 7px;
@@ -58,260 +79,313 @@
         padding: 3px 10px 1px 10px;
         height: 27px;
     }
-        .POMPBalanceSheet_tabs li a{
-            display:inline-block;
+
+        .POMPBalanceSheet_tabs li a {
+            display: inline-block;
             /*border:1px solid green;*/
-            color:#333;
+            color: #333;
         }
-.POMPBalanceSheet_tabs li.selected{
-    border-top-right-radius: 7px;
-    border-bottom:1px solid #fff;
-    padding:5px 10px 1px 10px;
-    margin:0px; height: 29px;
-    background-color:#fff;
-}
+
+        .POMPBalanceSheet_tabs li.selected {
+            border-top-right-radius: 7px;
+            border-bottom: 1px solid #fff;
+            padding: 5px 10px 1px 10px;
+            margin: 0px;
+            height: 29px;
+            background-color: #fff;
+        }
 
 /************** AQUI VA EL CONTENIDO DE CADA TAB OSEA LAS TABLAS DE CUENTAS *************/
 
 .POMPBalanceSheetContent {
-    border-top:1px solid #727276;
-    margin:-1px 0px 0px 0px;
-    width:auto;
-    padding:0px;
+    border-top: 1px solid #727276;
+    margin: -1px 0px 0px 0px;
+    width: auto;
+    padding: 0px;
 }
-    .POMPBalanceSheetContent ul{
+
+    .POMPBalanceSheetContent ul {
         /*border:1px solid pink;*/
-        margin:0px; padding:0px;
-        list-style-type:none;
+        margin: 0px;
+        padding: 0px;
+        list-style-type: none;
     }
-        .POMPBalanceSheetContent ul li{
+
+        .POMPBalanceSheetContent ul li {
             /*border:1px solid green;*/
-            background-color:#fff;
+            background-color: #fff;
         }
-            .POMPBalanceSheetContent ul li ul{
+
+            .POMPBalanceSheetContent ul li ul {
                 /*border:1px solid blue;*/
-                background-color:#ddd;
+                background-color: #ddd;
             }
+
             .POMPBalanceSheetContent ul li label {
-                font-size:1.08em;
-                font-weight:bold;
-                color:#333; background-color:#fff;
-                display:block;
-                width:100%;
-                margin:0px auto; padding:4px 0px;
-                text-align:center; border-top:1px solid grey;
+                font-size: 1.08em;
+                font-weight: bold;
+                color: #333;
+                background-color: #fff;
+                display: block;
+                width: 100%;
+                margin: 0px auto;
+                padding: 4px 0px;
+                text-align: center;
+                border-top: 1px solid grey;
             }
 /********************** HEADER COLUMNAS *********************/
-                .POMPBalanceSheetColumnHeaderColumn {
-                    margin:0px; padding:0px; background-color:#fff !important;
-                }
-                .POMPBalanceSheetColumnHeaderColumn span{
-                    font-size:0.86em;
-                    margin:3px 0px;
-                    text-align:right;
-                }
-            .POMPBalanceSheetContent ul > li > ul > li > span{
-                font-size:0.86em;
-            }
+.POMPBalanceSheetColumnHeaderColumn {
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff !important;
+}
+
+    .POMPBalanceSheetColumnHeaderColumn span {
+        font-size: 0.86em;
+        margin: 3px 0px;
+        text-align: right;
+    }
+
+.POMPBalanceSheetContent ul > li > ul > li > span {
+    font-size: 0.86em;
+}
 /********************** HEADER COLUMNAS spans y spans de los datos *********************/
-                .POMPBalanceSheetColumnOne,
-                .POMPBalanceSheetColumnTwo,
-                .POMPBalanceSheetColumnThree,
-                .POMPBalanceSheetColumnFour,
-                .POMPBalanceSheetColumnDataOne,
-                .POMPBalanceSheetColumnDataTwo,
-                .POMPBalanceSheetColumnDataThree,
-                .POMPBalanceSheetColumnDataFour{
-                    display:inline-block;
-                    letter-spacing:-0.5px;
-                    padding:3px 2px 3px 2px;
-                    line-height:1.06em;                    
-                }
-                    .POMPBalanceSheetColumnDataTwo,
-                    .POMPBalanceSheetColumnDataThree,
-                    .POMPBalanceSheetColumnDataFour{
-                        text-align:right;
-                        height:28px !important;
-                    }
-                    .POMPBalanceSheetColumnOne {
-                        width:22%;
-                        font-weight:normal;
-                        text-align:center !important;
-                    }
-                        .POMPBalanceSheetColumnDataOne {
-                            width:22%;
-                            text-align:left !important;
-                            height:28px !important;
-                            padding:0px 2px 0px 4px !important;
-                        }
-                    .POMPBalanceSheetColumnTwo,
-                    .POMPBalanceSheetColumnDataTwo {
-                        width:16%;
-                    }
-                    .POMPBalanceSheetColumnThree,
-                    .POMPBalanceSheetColumnDataThree {
-                        width:14%;  
-                    }
-                    .POMPBalanceSheetColumnFour,
-                    .POMPBalanceSheetColumnDataFour {
-                        width:15.1%;
-                    }
-                    /******* CURRENCY *******/
-                    .POMPBalanceSheetColumnDataTwo > span, .POMPBalanceSheetColumnDataFour > span{
-                        font-size:0.74em;
-                    }
+.POMPBalanceSheetColumnOne,
+.POMPBalanceSheetColumnTwo,
+.POMPBalanceSheetColumnThree,
+.POMPBalanceSheetColumnFour,
+.POMPBalanceSheetColumnDataOne,
+.POMPBalanceSheetColumnDataTwo,
+.POMPBalanceSheetColumnDataThree,
+.POMPBalanceSheetColumnDataFour {
+    display: inline-block;
+    letter-spacing: -0.5px;
+    padding: 3px 2px 3px 2px;
+    line-height: 1.06em;
+}
+
+.POMPBalanceSheetColumnDataTwo,
+.POMPBalanceSheetColumnDataThree,
+.POMPBalanceSheetColumnDataFour {
+    text-align: right;
+    height: 28px !important;
+}
+
+.POMPBalanceSheetColumnOne {
+    width: 22%;
+    font-weight: normal;
+    text-align: center !important;
+}
+
+.POMPBalanceSheetColumnDataOne {
+    width: 22%;
+    text-align: left !important;
+    height: 28px !important;
+    padding: 0px 2px 0px 4px !important;
+}
+
+.POMPBalanceSheetColumnTwo,
+.POMPBalanceSheetColumnDataTwo {
+    width: 16%;
+}
+
+.POMPBalanceSheetColumnThree,
+.POMPBalanceSheetColumnDataThree {
+    width: 14%;
+}
+
+.POMPBalanceSheetColumnFour,
+.POMPBalanceSheetColumnDataFour {
+    width: 15.1%;
+}
+    /******* CURRENCY *******/
+    .POMPBalanceSheetColumnDataTwo > span, .POMPBalanceSheetColumnDataFour > span {
+        font-size: 0.74em;
+    }
 /********** DATOS DE LAS CELDAS **********/
-                    .POMPBalanceSheetContent > ul > li > ul > li > ul > li > ul > li > span{
-                        border:none;
-                        background-color:none !important;
-                        font-size:0.85em;
-                        margin:3px 0px;
-                        vertical-align:top;
-                    }
-                    .POMPBalanceSheetContent > ul > li > ul > li > ul > li > ul > li > ul > li> span:first-child {
-                        font-size: 0.78em;
-                        text-indent: 12px;
-                    }
-                        .POMPBalanceSheetContent ul li:nth-child(odd){
-                            background-color:#eee;
-                        }
-                        .POMPBalanceSheetContent ul li:nth-child(even) {
-                            background-color:#fff;
-                        }
+.POMPBalanceSheetContent > ul > li > ul > li > ul > li > ul > li > span {
+    border: none;
+    background-color: none !important;
+    font-size: 0.85em;
+    margin: 3px 0px;
+    vertical-align: top;
+}
+
+.POMPBalanceSheetContent > ul > li > ul > li > ul > li > ul > li > ul > li > span:first-child {
+    font-size: 0.78em;
+    text-indent: 12px;
+}
+
+.POMPBalanceSheetContent ul li:nth-child(odd) {
+    background-color: #eee;
+}
+
+.POMPBalanceSheetContent ul li:nth-child(even) {
+    background-color: #fff;
+}
 
 /********** DATOS DE LAS CELDAS QUE SON RESULTADO DE FORMULAS *********/
 
-    
-        .POMPBalanceSheetContentFormulaFields {
-            display:block;
-            background-color:#FFF !important;
-            width:100%; height:auto; 
-            border-top: 2px solid grey;
-        }
-            .POMPBalanceSheetContentFormulaFields > span{
-                letter-spacing:-0.5px;
-                background-color:#fff !important;
-                padding:5px 1px 5px 1px;
-                line-height:1.06em;
-                display:inline-block;
-                margin:3px 0px 3px 0px !important;
-                font-weight:bold;
-            }
-                .FormulaFieldsColumnOne{
-                    width: 22%;
-                    height: 28px !important;
-                    padding:5px 2px 0 4px !important;
-                    text-transform:uppercase;
-                }
-                .FormulaFieldsColumnTwo,
-                .FormulaFieldsColumnThree,
-                .FormulaFieldsColumnFour{
-                    text-align:right;
-                    height: 28px !important;
-                    vertical-align:top;
-                }
-                    .FormulaFieldsColumnTwo{
-                        width:16%;
-                    }
-                    .FormulaFieldsColumnThree{
-                        width:14%;
-                    }
-                    .FormulaFieldsColumnFour{
-                        width:15.1%; 
-                    }
-                    /********* CURRENCY ********/
-                    .FormulaFieldsColumnTwo > span, .FormulaFieldsColumnFour > span{
-                        font-size:0.74em;
-                    }
-        /********** ESTE PINTA EL ULTIMO GRUPO DE VALORES ***********/
 
-                .POMPBalanceSheetContent > ul > li > ul > li > ul > li > span{
-                    border:none;
-                    font-size:0.85em;
-                    margin:2px 0px;
-                    background-color:none;
-                    vertical-align:top;
-                    height: 24px;
-                }
+.POMPBalanceSheetContentFormulaFields {
+    display: block;
+    background-color: #FFF !important;
+    width: 100%;
+    height: auto;
+    border-top: 2px solid grey;
+}
+
+    .POMPBalanceSheetContentFormulaFields > span {
+        letter-spacing: -0.5px;
+        background-color: #fff !important;
+        padding: 5px 1px 5px 1px;
+        line-height: 1.06em;
+        display: inline-block;
+        margin: 3px 0px 3px 0px !important;
+        font-weight: bold;
+    }
+
+.FormulaFieldsColumnOne {
+    width: 22%;
+    height: 28px !important;
+    padding: 5px 2px 0 4px !important;
+    text-transform: uppercase;
+}
+
+.FormulaFieldsColumnTwo,
+.FormulaFieldsColumnThree,
+.FormulaFieldsColumnFour {
+    text-align: right;
+    height: 28px !important;
+    vertical-align: top;
+}
+
+.FormulaFieldsColumnTwo {
+    width: 16%;
+}
+
+.FormulaFieldsColumnThree {
+    width: 14%;
+}
+
+.FormulaFieldsColumnFour {
+    width: 15.1%;
+}
+    /********* CURRENCY ********/
+    .FormulaFieldsColumnTwo > span, .FormulaFieldsColumnFour > span {
+        font-size: 0.74em;
+    }
+/********** ESTE PINTA EL ULTIMO GRUPO DE VALORES ***********/
+
+.POMPBalanceSheetContent > ul > li > ul > li > ul > li > span {
+    border: none;
+    font-size: 0.85em;
+    margin: 2px 0px;
+    background-color: none;
+    vertical-align: top;
+    height: 24px;
+}
 /********** EN ESTE LADITO SE PINTA INDICADORES FINANCIEROS ***********/
 .POMPBalanceSheetFinanceIndex {
-    margin:0px;
-    text-align:left;
-    padding:8px 0px 0px 0px;
+    margin: 0px;
+    text-align: left;
+    padding: 8px 0px 0px 0px;
     background-color: #fff !important;
 }
-    .POMPBalanceSheetFinanceIndex span{
-        background-color:#fff;
+
+    .POMPBalanceSheetFinanceIndex span {
+        background-color: #fff;
         /*border:1px solid grey;*/
-        font-size:0.9em;
-        padding:3px 2px;
-        display:inline-block;
+        font-size: 0.9em;
+        padding: 0px 0px 10px;
+        display: inline-block;
     }
-        .POMPBalanceSheetFinanceCellOne{
-            width:21%;
-            text-align:center !important;
-        }
-        .POMPBalanceSheetFinanceCellTwo{
-            width:11%;
-            text-align:right !important;
-        }
-        .POMPBalanceSheetFinanceCellThree{
-            width:8%;
-            text-align:right !important;
-        }
-        .POMPBalanceSheetFinanceCellFour{
-            width:23%;
-            text-align:center !important;
-        }
-        .POMPBalanceSheetFinanceCellFive{
-            width:23%;
-            text-align:center !important;
-        }
+
+.POMPBalanceSheetFinanceCellOne {
+    width: 21%;
+    text-align: center !important;
+}
+
+.POMPBalanceSheetFinanceCellTwo {
+    width: 11%;
+    text-align: right !important;
+}
+
+.POMPBalanceSheetFinanceCellThree {
+    width: 8%;
+    text-align: right !important;
+}
+
+.POMPBalanceSheetFinanceCellFour {
+    width: 23%;
+    text-align: center !important;
+}
+
+.POMPBalanceSheetFinanceCellFive {
+    width: 23%;
+    text-align: center !important;
+}
+
 .POMPBalanceSheetFinanceIndexData {
-    margin:0px; padding:0px; width:auto; height:auto;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+    height: auto;
 }
-        .POMPBalanceSheetFinanceIndexData ul > li:nth-child(odd){
-            background-color:#eee;
+
+    .POMPBalanceSheetFinanceIndexData ul > li:nth-child(odd) {
+        background-color: #eee;
+    }
+
+    .POMPBalanceSheetFinanceIndexData ul > li:nth-child(even) {
+        background-color: #fff;
+    }
+
+    .POMPBalanceSheetFinanceIndexData ul > li > label {
+        border-top: 1px solid grey;
+        width: 100%;
+        margin: 0px;
+        padding: 4px 0px;
+        background-color: #fff;
+    }
+
+    .POMPBalanceSheetFinanceIndexData ul > li > ul > li {
+        border-top: 1px solid grey;
+        display: block;
+    }
+
+        .POMPBalanceSheetFinanceIndexData ul > li > ul > li > span {
+            padding: 2px;
+            height: auto !important;
+            display: inline-block;
+            border: none !important;
+            min-height: 35px;
+            line-height: 1.21em;
         }
-        .POMPBalanceSheetFinanceIndexData ul > li:nth-child(even) {
-            background-color:#fff;
-        }
-.POMPBalanceSheetFinanceIndexData ul > li > label{
-    border-top:1px solid grey;
-    width:100%;
-    margin:0px; padding:4px 0px;
-    background-color:#fff;
-}
-.POMPBalanceSheetFinanceIndexData ul > li > ul > li {
-    border-top:1px solid grey;
-    display:block;
-}
-.POMPBalanceSheetFinanceIndexData ul > li > ul > li > span{
-       padding:2px;
-       height:auto !important;
-       display:inline-block;
-       border:none !important;
-       min-height:35px;
-       line-height: 1.21em;
-}
+
 .IndexDataAccountTypeColumnOne {
-    width:20.9%;
+    width: 20.9%;
     font-weight: bold;
 }
+
 .IndexDataAccountTypeColumnTwo {
-    width:11.1%;
+    width: 11.1%;
 }
-                .IndexDataAccountTypeColumnTwo,
-                .IndexDataAccountTypeColumnThree {
-                    text-align:right;
-                }
+
+.IndexDataAccountTypeColumnTwo,
 .IndexDataAccountTypeColumnThree {
-    width:8%;
+    text-align: right;
 }
+
+.IndexDataAccountTypeColumnThree {
+    width: 8%;
+}
+
 .IndexDataAccountTypeColumnFour {
-    width:23.1%;
+    width: 23.1%;
 }
+
 .IndexDataAccountTypeColumnFive {
-    text-align:justify;
-    width:22.9%;
+    text-align: justify;
+    width: 22.9%;
 }
