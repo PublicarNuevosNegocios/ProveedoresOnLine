@@ -33,6 +33,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 //WS Request
                 var Resutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
                 oQueryToCreate.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
+                oQueryToCreate.PeriodPublicId = PeriodPublicId;
 
                 if (Resutl != null)
                 {
@@ -53,15 +54,16 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            oInfoCreate.QueryPublicId = oQueryToCreate.QueryPublicId;
                                            oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
+                                           #region Create Detail
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
-                                               },
-                                               Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
-                                               Enable = true,
-                                           });
+                                                                              {
+                                                                                  ItemInfoType = new TDCatalogModel()
+                                                                                  {
+                                                                                      ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                                                                                  },
+                                                                                  Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
+                                                                                  Enable = true,
+                                                                              });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
@@ -178,8 +180,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                },
                                                Value = !string.IsNullOrEmpty(x.Zona) ? x.Zona : string.Empty,
                                                Enable = true,
-                                           });
-                                       }
+                                           }); 
+                                           #endregion
+
+                                           oQueryToCreate.RelatedQueryBasicInfoModel.Add(oInfoCreate);
+                                       }                                       
                                        return true;
                                    });
                     #endregion

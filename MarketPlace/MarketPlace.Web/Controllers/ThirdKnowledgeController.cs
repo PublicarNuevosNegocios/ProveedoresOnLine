@@ -196,30 +196,30 @@ namespace MarketPlace.Web.Controllers
                 {
                     row = data.NewRow();
 
-                    row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
+                    //row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
+                    //    Select(x => x.Value).
+                    //    DefaultIfEmpty("No hay campo").
+                    //    FirstOrDefault();
 
-                    row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.TypeDocument).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
+                    //row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.TypeDocument).
+                    //    Select(x => x.Value).
+                    //    DefaultIfEmpty("No hay campo").
+                    //    FirstOrDefault();
 
-                    row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
+                    //row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
+                    //    Select(x => x.Value).
+                    //    DefaultIfEmpty("No hay campo").
+                    //    FirstOrDefault();
 
-                    row["Name"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.NameResult).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
+                    //row["Name"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.NameResult).
+                    //    Select(x => x.Value).
+                    //    DefaultIfEmpty("No hay campo").
+                    //    FirstOrDefault();
 
-                    row["RelatedList"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
-                        Select(x => x.Value).
-                        DefaultIfEmpty("No hay campo").
-                        FirstOrDefault();
+                    //row["RelatedList"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
+                    //    Select(x => x.Value).
+                    //    DefaultIfEmpty("No hay campo").
+                    //    FirstOrDefault();
 
                     data.Rows.Add(row);
                 }

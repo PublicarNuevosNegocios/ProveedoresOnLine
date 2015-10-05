@@ -70,48 +70,48 @@ namespace MarketPlace.Models.Company
 
         public ThirdKnowledgeViewModel(List<TDQueryInfoModel> oCollumnsResult)
         {
-            this.RequestName = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.IdNumberRequest = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.QueryId = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.QueryId)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.GroupName = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Priority = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Priotity)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.TypeDocument = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.TypeDocument)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.IdentificationNumberResult = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberResult)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.NameResult = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.IdList = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdList)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.ListName = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Alias = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Alias)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Offense = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Offense)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Peps = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Peps)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Status = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Status)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Zone = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Zone)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Link = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Link)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.MoreInfo = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.MoreInfo)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.RegisterDate = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RegisterDate)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.LastModifyDate = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.LastModifyDate)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.Message = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Message)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            this.FileURL = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.FileURL)
-                .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.RequestName = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.IdNumberRequest = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.QueryId = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.QueryId)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.GroupName = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Priority = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Priotity)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.TypeDocument = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.TypeDocument)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.IdentificationNumberResult = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberResult)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.NameResult = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.IdList = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdList)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.ListName = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Alias = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Alias)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Offense = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Offense)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Peps = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Peps)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Status = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Status)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Zone = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Zone)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Link = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Link)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.MoreInfo = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.MoreInfo)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.RegisterDate = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RegisterDate)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.LastModifyDate = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.LastModifyDate)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.Message = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Message)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            //this.FileURL = oCollumnsResult.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.FileURL)
+            //    .Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
         }
 
         public ThirdKnowledgeViewModel()
