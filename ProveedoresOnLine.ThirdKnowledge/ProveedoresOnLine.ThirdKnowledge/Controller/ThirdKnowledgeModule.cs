@@ -33,7 +33,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 //WS Request
                 var Resutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
                 oQueryToCreate.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
-                oQueryToCreate.PeriodPublicId = PeriodPublicId;
 
                 if (Resutl != null)
                 {

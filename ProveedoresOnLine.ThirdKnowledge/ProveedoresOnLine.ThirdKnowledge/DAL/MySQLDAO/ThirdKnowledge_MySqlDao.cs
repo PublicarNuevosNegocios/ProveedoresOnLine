@@ -559,6 +559,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationResult", IdentificationResult));
             lstParams.Add(DataInstance.CreateTypedParameter("vPriority", Priority));
             lstParams.Add(DataInstance.CreateTypedParameter("vPeps", Peps));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAlias", Alias));
             lstParams.Add(DataInstance.CreateTypedParameter("vOffense", Offense));
             lstParams.Add(DataInstance.CreateTypedParameter("vStatus", Status));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));

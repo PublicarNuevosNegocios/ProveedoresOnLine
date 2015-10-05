@@ -18,7 +18,8 @@ var Third_KnowledgeSimpleSearchObject = {
                 type: "POST",
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
-                success: function (result) {                    
+                success: function (result) {
+                    debugger;
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
 
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')

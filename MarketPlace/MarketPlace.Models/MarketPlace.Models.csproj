@@ -73,7 +73,6 @@
   <ItemGroup>
     <Compile Include="General\NotificationViewModel.cs" />
     <Compile Include="Provider\ProviderAditionalDocumentViewModel.cs" />
-    <Compile Include="ThirdKnowledge\ThirdKnowledgeQueryResultViewModel.cs" />
     <Compile Include="ThirdKnowledge\ThirdKnowledgeViewModel.cs" />
     <Compile Include="Company\CompanyUtil.cs" />
     <Compile Include="Compare\CompareDetailViewModel.cs" />

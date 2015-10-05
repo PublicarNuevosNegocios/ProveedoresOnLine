@@ -57,10 +57,12 @@ namespace MarketPlace.Web.ControllersApi
                                     ItemId = (int)enumThirdKnowledgeQueryStatus.Finalized
                                 },
                             };
-                            TDQueryModel oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
+                            oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
+                            oModel.RelatedThidKnowledgeSearch.CollumnsResult = new TDQueryModel();
+                            oModel.RelatedThidKnowledgeSearch.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
-                                           System.Web.HttpContext.Current.Request["IdentificationNumber"], System.Web.HttpContext.Current.Request["Name"], oQueryToCreate);                       
-                            if (oQueryResult.IsSuccess == true)
+                                           System.Web.HttpContext.Current.Request["IdentificationNumber"], System.Web.HttpContext.Current.Request["Name"], oQueryToCreate);
+                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess == true)
                             {
                                 //Set New Score
                                 oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
