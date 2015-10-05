@@ -173,8 +173,8 @@
 .ThirdKnowledge_title
 {
     background: #ececec;
-    line-height: 40px;
-    width: 101% !important;
+    line-height: 50px;
+    width: 100% !important;
     font-weight: bold;
 }
 .TK-Uploadpanel
@@ -186,22 +186,21 @@
     font-size : 1.3em;
     padding-bottom: 5px;
 }
-.TK-UploadPanelIcon {
-    width:25px;
+.TK-DownloadIcon {
+    width:20px;
 }
 .TK-DownloadFile {
-
+    line-height: 15px;
+    padding-left:82px;
+    padding-top:5px;
 }
 .TK-DownloadFile-p{
-    font-size: 0.8em;
+    font-size: 0.6em;
     float: inherit;
-    width: 115px;
-    padding: 12px -10px 0px 96px;
-    color:#D47212;
+    color: #D47212;
 }
 .TK-DownloadFile-a{
     font-size: 1.5em;
-    left: -7px; 
 }
 .TK-DownloadFile-a ,a:link{
     text-decoration: none;
