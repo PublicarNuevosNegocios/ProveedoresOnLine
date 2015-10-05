@@ -1,101 +1,108 @@
 
-.POMPSearchContainer{
-    width:100%;
-    height:auto;
+.POMPSearchContainer {
+    width: 100%;
+    height: auto;
 }
 
-.POMPNameSearch{
-    width:35%;
-    border-radius:0;
-    height:35px;
-    padding-left:20px;
-    margin:10px 0 0 2%;
+.POMPNameSearch {
+    width: 35%;
+    border-radius: 0;
+    height: 35px;
+    padding-left: 20px;
+    margin: 10px 0 0 2%;
 }
 
-.POMPIDSearch{
-    width:30%;
-    border-radius:0;
-    height:35px;
-    padding-left:20px;
-    margin:10px 0 0 1.2%;
+.POMPIDSearch {
+    width: 30%;
+    border-radius: 0;
+    height: 35px;
+    padding-left: 20px;
+    margin: 10px 0 0 1.2%;
 }
 
-.POMPConsultButton{
+.POMPConsultButton {
     width: 100px;
-    height:35px;
-    background:#ff8300;
+    height: 35px;
+    background: #ff8300;
     margin-left: 1.2%;
-    border:none;
-    border-radius:0;
-    color:#fff;
+    border: none;
+    border-radius: 0;
+    color: #fff;
 }
 
-.POMPWrapperColorResult{
-     width:98%;
-    height:auto;
-    background:#f9f9f9;
-    margin:10px 0 0 2%;
-    float:left;
+.POMPWrapperColorResult {
+    width: 98%;
+    height: auto;
+    background: #f9f9f9;
+    margin: 10px 0 0 2%;
+    float: left;
 }
 
-.POMPContainerResult{
-    width:98%;
-    height:100px;
-    border-bottom:1px solid #E4E4E4;
-    margin:0 0 20px 1%;
-    float:left;
+.POMPContainerResult {
+    width: 98%;
+    height: auto;
+    border-bottom: 1px solid #E4E4E4;
+    margin: 2% 0 20px 1%;
+    float: left;
 }
 
-#POMPResultName{
-    width:100%;
-    height:30px;
-    background:#ececec;
-   
+#POMPResultName {
+    width: 100%;
+    height: 30px;
+    background: #ececec;
 }
 
-#POMPResultName > p{
-   line-height:30px;
-   color:#4d4d4d;
-   text-align:left;
-   font-size:1.2em;
-   padding-left:15px;
+    #POMPResultName > a {
+        margin-left: 89%;
+        /* font-size: 1.1em; */
+    }
 
+    #POMPResultName > p {
+        line-height: 30px;
+        color: #4d4d4d;
+        text-align: left;
+        font-size: 1.2em;
+        padding-left: 15px;
+        /* display: block; */
+        width: 80%;
+        /* height: auto; */
+    }
+
+
+.POMPResultSection {
+    width: 25%;
+    height: 70px;
+    float: left;
+    display: inline-block;
+    border: 1px solid;
+    S;
 }
 
 
-.POMPResultSection{
-    width:28%;
-    height:70px;
-    float:left;
+
+    .POMPResultSection > p {
+        text-align: center;
+        padding: 0px 5px 10px 0;
+    }
+
+
+.POMPResultDownload {
+    width: 16%;
+    height: 70px;
+    float: left;
 }
 
+    .POMPResultDownload > p {
+        text-align: center;
+        line-height: 60px;
+        color: #337ab7;
+    }
 
-
-.POMPResultSection > p{
-       text-align:center;
-       padding:15px 5px 10px 0;
-}
-
-
-.POMPResultDownload{
-    width:16%;
-    height:70px;
-    float:left;
-}
-
-.POMPResultDownload > p{
-       text-align:center;
-       line-height:60px;
-       color:#337ab7;
-      
-}
-
-#POMPResultText{
-    margin:10px 0 20px 2%;
+#POMPResultText {
+    margin: 10px 0 20px 2%;
     font-size: 1.2em;
-    float:left;
-    font-weight:bold;
-
+    float: left;
+    font-weight: bold;
 }
 
 #POMPDateSearch {
@@ -108,18 +115,18 @@
     background: #ff8300;
     height: 30px;
     text-transform: uppercase;
-    padding:5px 30px;
+    padding: 5px 30px;
     margin: 0px 0px 0px -30px;
     vertical-align: -15.6px;
     display: inline-block;
     border-radius: 0;
-    border:0;
-
+    border: 0;
 }
-    .POMPTKSearchButton:hover, .POMPTKSearchButton:hover{
-        background-color:#ffb362;
-        text-decoration:underline;
-        color:#fff;
+
+    .POMPTKSearchButton:hover, .POMPTKSearchButton:hover {
+        background-color: #ffb362;
+        text-decoration: underline;
+        color: #fff;
     }
 
 #ThirdKnowledge_InitDateId {
@@ -129,6 +136,7 @@
     padding-left: 20px;
     margin: 10px 0 0 2%;
 }
+
 #ThirdKnowledge_EndDateId {
     width: 70%;
     border-radius: 0;
@@ -136,6 +144,7 @@
     padding-left: 20px;
     margin: 10px 0 0 2%;
 }
+
 .ThirdKnowledge_Detail {
     float: right;
     font-weight: lighter;
@@ -143,6 +152,7 @@
     line-height: 20px;
     padding-top: 10px;
 }
+
 .ThirdKnowledge_ListDetail {
     float: right;
     font-weight: lighter;
@@ -151,57 +161,67 @@
     padding-left: 100px;
     padding-top: 20px;
 }
+
 .ThirdKnowledge_FilterDetail {
     font-weight: lighter;
     font-size: 12px;
 }
-    .ThirdKnowledge_FilterDetail, p {
-        margin-bottom: -15px;
-    }
-.ThirdKnowledge_marginBottom{
+
+.ThirdKnowledge_FilterDetail, p {
+    margin-bottom: -15px;
+}
+
+.ThirdKnowledge_marginBottom {
     margin-bottom: 0px;
 }
-.ThirdKnowledge_GoBack{
+
+.ThirdKnowledge_GoBack {
     padding-top: 10px;
 }
+
 .row, hr {
     border-color: #E4E4E4;
     margin: 6px auto;
     width: 100%;
 }
 
-.ThirdKnowledge_title
-{
+.ThirdKnowledge_title {
     background: #ececec;
     line-height: 50px;
     width: 100% !important;
     font-weight: bold;
 }
-.TK-Uploadpanel
-{
-  padding-top: 5px;
+
+.TK-Uploadpanel {
+    padding-top: 5px;
 }
+
 .TK-UploadpanelText {
     font-weight: bold;
-    font-size : 1.3em;
+    font-size: 1.3em;
     padding-bottom: 5px;
 }
+
 .TK-DownloadIcon {
-    width:20px;
+    width: 20px;
 }
+
 .TK-DownloadFile {
     line-height: 15px;
-    padding-left:82px;
-    padding-top:5px;
+    padding-left: 82px;
+    padding-top: 5px;
 }
-.TK-DownloadFile-p{
+
+.TK-DownloadFile-p {
     font-size: 0.6em;
     float: inherit;
     color: #D47212;
 }
-.TK-DownloadFile-a{
+
+.TK-DownloadFile-a {
     font-size: 1.5em;
 }
-.TK-DownloadFile-a ,a:link{
+
+.TK-DownloadFile-a, a:link {
     text-decoration: none;
 }

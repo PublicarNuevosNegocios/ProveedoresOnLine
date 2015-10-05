@@ -24,14 +24,33 @@ var Third_KnowledgeSimpleSearchObject = {
 
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
-                    if (result.CollsResult != null) {                        
-                        $.each(result.CollsResult, function (item, value) {                            
-                            resultDiv += 
-                            '<div class="POMPResultSection"><label>' + value.m_Item1 + "</label><p>" + value.m_Item2 + '</p></div>'
+                    if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel != null) {
+                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {
+                            debugger;
+                            resultDiv = 
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a href="">' + "Ver Detalle" + '</a></div>'
+                            if (value.IdentificationResult != null) {
+                                resultDiv +=  '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
+                            }
+                            if (value.Offense != null) {
+                                resultDiv += '<div class="POMPResultSection"><label>' + "Cargo o Delito " + "</label><p>" + value.Offense + '</p></div>'
+                            }
+                            if (value.Peps != null) {
+                                resultDiv += '<div class="POMPResultSection"><label>' + "Peps " + "</label><p>" + value.Peps + '</p></div>'
+                            }
+                            if (value.Priority != null) {
+                                resultDiv += '<div class="POMPResultSection"><label>' + "Prioridad " + "</label><p>" + value.Priority + '</p></div>'
+                            }
+                            if (value.Status != null) {
+                                resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + value.Status + '</p></div>'
+                            }                            
+                            //resultDiv += '<div class="POMPResultSection"><p><a href="">' + "Ver Detalle" + '</a></p></div>'
+
+                            debugger;
+                            //resultDiv += "</div></div>"
+                            $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                         });
-                        debugger;
-                        //resultDiv += "</div>"
-                        $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
+                       
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
                     }
