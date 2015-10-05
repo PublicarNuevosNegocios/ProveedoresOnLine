@@ -26,7 +26,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 
         public DateTime LastModify{ get; set; }
 
-        public List<TDQueryInfoModel> RelatedQueryInfoModel { get; set; }
+        public List<TDQueryInfoModel> RelatedQueryBasicInfoModel { get; set; }
 
         public WS_Inspekt.Resultado[] Results { get; set; }
     }

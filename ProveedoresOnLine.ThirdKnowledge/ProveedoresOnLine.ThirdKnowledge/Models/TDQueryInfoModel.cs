@@ -8,16 +8,28 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 {
     public class TDQueryInfoModel
     {
-        public int QueryInfoId { get; set; }
+        public int QueryBasicInfoId { get; set; }
+
+        public string QueryBasicPublicId { get; set; }
 
         public string QueryPublicId { get; set; }
 
-        public TDCatalogModel ItemInfoType { get; set; }
+        public string NameResult { get; set; }
 
-        public string Value { get; set; }
+        public string IdentificationResult { get; set; }
 
-        public string LargeValue { get; set; }
+        public string Priority { get; set; }
+
+        public string Peps { get; set; }
+
+        public string Status { get; set; }
+
+        public string Alias { get; set; }
+
+        public string Offense { get; set; }
 
         public bool Enable { get; set; }
+
+        public List<TDQueryDetailInfoModel> DetailInfo { get; set; }
     }
 }

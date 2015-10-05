@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\IThirdKnowledgeData.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\TDExcelFileModel.cs" />
+    <Compile Include="Models\TDQueryDetailInfoModel.cs" />
     <Compile Include="Models\TDQueryInfoModel.cs" />
     <Compile Include="Models\TDQueryModel.cs" />
     <Compile Include="Models\TDCatalogModel.cs" />

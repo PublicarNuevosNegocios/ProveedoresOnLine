@@ -480,7 +480,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              Enable = qg.Key.QueryEnable == 1 ? true : false,
                              PeriodPublicId = qg.Key.PeriodPublicId,
                              CreateDate = qg.Key.QueryCreateDate,
-                             RelatedQueryInfoModel =
+                             RelatedQueryBasicInfoModel =
                                 (from qinf in response.DataTableResult.AsEnumerable()
                                  where !qinf.IsNull("QueryInfoId") &&
                                         qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
@@ -541,11 +541,38 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                 return null;
         }
 
-        public int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
+        public string QueryBasicInfoInsert(string QueryPublicId, string NameResult, string IdentificationResult, string Priority, string Peps, string Status, string Alias, string Offense ,bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vNameResult", NameResult));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationResult", IdentificationResult));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPriority", Priority));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPeps", Peps));
+            lstParams.Add(DataInstance.CreateTypedParameter("vOffense", Offense));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStatus", Status));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "MP_TK_QueryBasicInfoInsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            if (response.ScalarResult != null)
+                return response.ScalarResult.ToString();
+            else
+                return null;
+        }
+		
+        public int QueryDetailInfoInsert(string QueryBasicPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
+        {
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryBasicPublicId", QueryBasicPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vItemInfoType", ItemInfoType));
             lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
@@ -554,12 +581,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "MP_TK_QueryInfoInsert",
+                CommandText = "MP_TK_QueryDetailInfoInsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
 
-            return Convert.ToInt32(response.ScalarResult);
+            if (response.ScalarResult != null)
+                return Convert.ToInt32(response.ScalarResult);
+            else
+                return 0;           
         }
 
         #endregion Queries
@@ -650,7 +680,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                               ItemId = cmg.Key.QueryStatusId,
                               ItemName = cmg.Key.QueryStatusName,
                           },
-                          RelatedQueryInfoModel =
+                          RelatedQueryBasicInfoModel =
                           (from cmInf in response.DataTableResult.AsEnumerable()
                            where !cmInf.IsNull("QueryInfoId") &&
                            cmInf.Field<int>("RelatedId") == cmg.Key.QueryId

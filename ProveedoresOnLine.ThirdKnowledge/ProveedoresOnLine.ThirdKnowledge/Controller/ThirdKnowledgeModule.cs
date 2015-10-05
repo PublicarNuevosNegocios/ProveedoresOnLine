@@ -32,7 +32,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 //WS Request
                 var Resutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
-                oQueryToCreate.RelatedQueryInfoModel = new List<TDQueryInfoModel>();
+                oQueryToCreate.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
 
                 if (Resutl != null)
                 {
@@ -41,170 +41,148 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                    {
                                        if (x != null)
                                        {
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
-                                               },
-                                               Value = !string.IsNullOrEmpty(Name) ? Name : string.Empty,
-                                           });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
+                                           oInfoCreate.Alias = x.Alias;
+                                           oInfoCreate.IdentificationResult = x.DocumentoIdentidad;
+                                           oInfoCreate.Offense = x.CargoDelito;
+                                           oInfoCreate.NameResult = x.NombreCompleto;
+                                           oInfoCreate.Peps = x.Peps;
+                                           oInfoCreate.Priority = x.Prioridad;
+                                           oInfoCreate.Status = x.Estado;
+                                           oInfoCreate.Enable = true;
+                                           oInfoCreate.QueryPublicId = oQueryToCreate.QueryPublicId;
+                                           oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
+
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
                                                },
                                                Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
+                                               Enable = true,                                               
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Alias,
                                                },
                                                Value = !string.IsNullOrEmpty(x.Alias) ? x.Alias : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Offense,
                                                },
                                                Value = !string.IsNullOrEmpty(x.CargoDelito) ? x.CargoDelito : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdentificationNumberResult,
                                                },
                                                Value = !string.IsNullOrEmpty(x.DocumentoIdentidad) ? x.DocumentoIdentidad : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Status,
                                                },
                                                Value = !string.IsNullOrEmpty(x.Estado) ? x.Estado : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.LastModifyDate,
                                                },
                                                Value = !string.IsNullOrEmpty(x.FechaActualizacion) ? x.FechaActualizacion : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RegisterDate,
-                                               },
-                                               Value = !string.IsNullOrEmpty(x.FechaRegistro) ? x.FechaRegistro : string.Empty,
-                                           });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
                                                },
                                                Value = !string.IsNullOrEmpty(x.IdConsulta) ? x.IdConsulta : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdGroup,
-                                               },
-                                               Value = !string.IsNullOrEmpty(x.IdGrupo) ? x.IdGrupo : string.Empty,
-                                           });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
                                                },
                                                Value = !string.IsNullOrEmpty(x.NombreGrupo) ? x.NombreGrupo : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdList,
                                                },
                                                Value = !string.IsNullOrEmpty(x.IdLista) ? x.IdLista : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Link,
                                                },
                                                Value = !string.IsNullOrEmpty(x.Link) ? x.Link : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.NameResult,
                                                },
                                                Value = !string.IsNullOrEmpty(x.NombreCompleto) ? x.NombreCompleto : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.ListName,
                                                },
                                                Value = !string.IsNullOrEmpty(x.NombreTipoLista) ? x.NombreTipoLista : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.MoreInfo,
                                                },
                                                Value = !string.IsNullOrEmpty(x.OtraInformacion) ? x.OtraInformacion : string.Empty,
+                                               Enable = true,
                                            });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Peps,
-                                               },
-                                               Value = !string.IsNullOrEmpty(x.Peps) ? x.Peps : string.Empty,
-                                           });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Priotity,
-                                               },
-                                               Value = !string.IsNullOrEmpty(x.Prioridad) ? x.Prioridad : string.Empty,
-                                           });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.TypeDocument,
-                                               },
-                                               Value = !string.IsNullOrEmpty(x.TipoDocumento) ? x.TipoDocumento : string.Empty,
-                                           });
-                                           oQueryToCreate.RelatedQueryInfoModel.Add(new TDQueryInfoModel()
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Zone,
                                                },
                                                Value = !string.IsNullOrEmpty(x.Zona) ? x.Zona : string.Empty,
+                                               Enable = true,
                                            });
-                                       }                                       
+                                       }
                                        return true;
-                                   }); 
-                    #endregion                    
+                                   });
+                    #endregion
                     oQueryToCreate.IsSuccess = true;
                     QueryUpsert(oQueryToCreate);
                 }
@@ -432,21 +410,28 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         {
             if (QueryModelToUpsert != null &&
                 !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId) &&
-                QueryModelToUpsert.RelatedQueryInfoModel != null &&
-                QueryModelToUpsert.RelatedQueryInfoModel.Count > 0)
+                QueryModelToUpsert.RelatedQueryBasicInfoModel != null &&
+                QueryModelToUpsert.RelatedQueryBasicInfoModel.Count > 0)
             {
                 QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId, QueryModelToUpsert.PeriodPublicId,
                     QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
-                QueryModelToUpsert.RelatedQueryInfoModel.All(qInf =>
+                QueryModelToUpsert.RelatedQueryBasicInfoModel.All(qInf =>
                 {
                     //LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        qInf.QueryInfoId =
-                           ThirdKnowledgeDataController.Instance.QueryInfoInsert
+                        qInf.QueryBasicPublicId =
+                           ThirdKnowledgeDataController.Instance.QueryBasicInfoInsert
                             (QueryModelToUpsert.QueryPublicId,
-                            qInf.ItemInfoType.ItemId, qInf.Value, qInf.LargeValue, true);
+                            qInf.NameResult, qInf.IdentificationResult, qInf.Priority, qInf.Peps, qInf.Status, qInf.Alias
+                            , qInf.Offense, true);
+
+                        qInf.DetailInfo.All(det =>
+                        {
+                            ThirdKnowledgeDataController.Instance.QueryDetailInfoInsert(qInf.QueryBasicPublicId, det.ItemInfoType.ItemId, det.Value, det.LargeValue, det.Enable);
+                            return true;
+                        });
 
                         //oLog.IsSuccess = true;
                     }
@@ -481,7 +466,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
         #region Private Functions
 
-    
+
         #endregion Private Functions
 
         #region BatchProcess
@@ -537,9 +522,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             }
             catch (Exception)
             {
-                
+
                 throw;
-            }        
+            }
         }
 
         #endregion

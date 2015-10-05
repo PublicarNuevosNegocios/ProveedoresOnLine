@@ -30,7 +30,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         string QueryUsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, bool isSuccess, int QueryStatusId, bool Enable);
 
-        int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable);
+        string QueryBasicInfoInsert(string QueryPublicId, string NameResult, string IdentificationResult, string Priority, string Peps, string Status, string Alias, string Offense, bool Enable);
+
+        int QueryDetailInfoInsert(string QueryBasicPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable);
 
         #endregion Queries
 

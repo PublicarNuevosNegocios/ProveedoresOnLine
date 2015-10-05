@@ -86,9 +86,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.QueryUsert(QueryPublicId, PeriodPublicId, SearchType, User, isSuccess, QueryStatusId, Enable);
         }
 
-        public int QueryInfoInsert(string QueryPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
+        public string QueryBasicInfoInsert(string QueryPublicId, string NameResult, string IdentificationResult, string Priority, string Peps, string Status, string Alias, string Offense, bool Enable)
         {
-            return DataFactory.QueryInfoInsert(QueryPublicId, ItemInfoType, Value, LargeValue, Enable);
+            return DataFactory.QueryBasicInfoInsert(QueryPublicId, NameResult, IdentificationResult, Priority, Peps, Status, Alias,Offense, Enable);
+        }
+
+        public int QueryDetailInfoInsert(string QueryBasicPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.QueryDetailInfoInsert(QueryBasicPublicId, ItemInfoType, Value, LargeValue, Enable); ;
         }
 
         #endregion Queries
@@ -107,8 +112,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
         public List<TDQueryModel> GetQueriesInProgress()
         {
             return DataFactory.GetQueriesInProgress();
-        }
-        
+        }      
+
         #endregion
 
     }
