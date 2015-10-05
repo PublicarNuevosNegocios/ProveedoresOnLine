@@ -36,7 +36,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 if (Resutl != null)
                 {
-                    #region Answer Procces 
+                    #region Answer Procces
                     Resutl.All(x =>
                                    {
                                        if (x != null)
@@ -60,7 +60,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
                                                },
                                                Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
-                                               Enable = true,                                               
+                                               Enable = true,
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
@@ -409,65 +409,62 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         public static TDQueryModel QueryUpsert(TDQueryModel QueryModelToUpsert)
         {
             if (QueryModelToUpsert != null &&
-                !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId) &&
-                QueryModelToUpsert.RelatedQueryBasicInfoModel != null &&
-                QueryModelToUpsert.RelatedQueryBasicInfoModel.Count > 0)
+                !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId))
             {
                 QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId, QueryModelToUpsert.PeriodPublicId,
                     QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
-                QueryModelToUpsert.RelatedQueryBasicInfoModel.All(qInf =>
+                if (QueryModelToUpsert.RelatedQueryBasicInfoModel != null)
                 {
-                    //LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-                    try
+                    QueryModelToUpsert.RelatedQueryBasicInfoModel.All(qInf =>
                     {
-                        qInf.QueryBasicPublicId =
-                           ThirdKnowledgeDataController.Instance.QueryBasicInfoInsert
-                            (QueryModelToUpsert.QueryPublicId,
-                            qInf.NameResult, qInf.IdentificationResult, qInf.Priority, qInf.Peps, qInf.Status, qInf.Alias
-                            , qInf.Offense, true);
-
-                        qInf.DetailInfo.All(det =>
+                        LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                        try
                         {
-                            ThirdKnowledgeDataController.Instance.QueryDetailInfoInsert(qInf.QueryBasicPublicId, det.ItemInfoType.ItemId, det.Value, det.LargeValue, det.Enable);
-                            return true;
-                        });
+                            qInf.QueryBasicPublicId =
+                               ThirdKnowledgeDataController.Instance.QueryBasicInfoInsert
+                                (QueryModelToUpsert.QueryPublicId,
+                                qInf.NameResult, qInf.IdentificationResult, qInf.Priority, qInf.Peps, qInf.Status, qInf.Alias
+                                , qInf.Offense, true);
 
-                        //oLog.IsSuccess = true;
-                    }
-                    catch (Exception err)
-                    {
-                        //oLog.IsSuccess = false;
-                        //oLog.Message = err.Message + " - " + err.StackTrace;
+                            if (qInf.DetailInfo != null)
+                            {
+                                qInf.DetailInfo.All(det =>
+                                {
+                                    ThirdKnowledgeDataController.Instance.QueryDetailInfoInsert(qInf.QueryBasicPublicId, det.ItemInfoType.ItemId, det.Value, det.LargeValue, det.Enable);
+                                    return true;
+                                });
+                            }
+                            oLog.IsSuccess = true;
+                        }
+                        catch (Exception err)
+                        {
+                            oLog.IsSuccess = false;
+                            oLog.Message = err.Message + " - " + err.StackTrace;
 
-                        throw err;
-                    }
-                    finally
-                    {
-                        //oLog.LogObject = plegal;
+                            throw err;
+                        }
+                        finally
+                        {
+                            oLog.LogObject = qInf;
 
-                        //oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        //{
-                        //    LogInfoType = "CompanyPublicId",
-                        //    Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                        //});
+                            oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                            {
+                                LogInfoType = "PeriodPublicId",
+                                Value = QueryModelToUpsert.PeriodPublicId,
+                            });
 
-                        //LogManager.ClientLog.AddLog(oLog);
-                    }
-
-                    return true;
-                });
+                            LogManager.ClientLog.AddLog(oLog);
+                        }
+                        return true;
+                    });
+                }
             }
 
             return QueryModelToUpsert;
         }
 
         #endregion Queries
-
-        #region Private Functions
-
-
-        #endregion Private Functions
 
         #region BatchProcess
 

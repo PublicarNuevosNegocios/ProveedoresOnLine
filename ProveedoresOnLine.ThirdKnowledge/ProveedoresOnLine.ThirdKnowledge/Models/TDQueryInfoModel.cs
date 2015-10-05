@@ -31,5 +31,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
         public bool Enable { get; set; }
 
         public List<TDQueryDetailInfoModel> DetailInfo { get; set; }
+
+        public DateTime LastModify { get; set; }
+
+        public DateTime CreateDate { get; set; }
     }
 }

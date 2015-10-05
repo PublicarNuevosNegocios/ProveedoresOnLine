@@ -486,26 +486,35 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                                         qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
                                  group qinf by new
                                  {
-                                     QueryInfoId = qinf.Field<int>("QueryInfoId"),
-                                     QueryInfoTypeId = qinf.Field<int>("QueryInfoTypeId"),
-                                     QueryInfoTypeName = qinf.Field<string>("QueryInfoTypeName"),
-                                     QueryInfoValue = qinf.Field<string>("QueryInfoValue"),
-                                     QueryInfoLargeValue = qinf.Field<string>("QueryInfoLargeValue"),
+                                     QueryBasicInfoId = qinf.Field<int>("QueryBasicInfoId"),
+                                     QueryBasicPublicId = qinf.Field<string>("QueryBasicPublicId"),
+                                     QueryPublicId = qinf.Field<string>("QueryPublicId"),
+                                     NameResult = qinf.Field<string>("NameResult"),
+                                     IdentificationResult = qinf.Field<string>("IdentificationResult"),
+                                     Priority = qinf.Field<string>("Priority"),
+                                     Peps = qinf.Field<string>("Peps"),
+                                     Status = qinf.Field<string>("Status"),
+                                     Alias = qinf.Field<string>("Alias"),
+                                     Offense = qinf.Field<string>("Offense"),
+                                     InfoLastModify = qinf.Field<DateTime>("InfoLastModify"),
+                                     InfoCreateDate = qinf.Field<DateTime>("InfoCreateDate"),
                                      QueryInfoEnable = qinf.Field<UInt64>("QueryInfoEnable") == 1 ? true : false,
                                  }
                                      into qinfg
                                      select new Models.TDQueryInfoModel()
                                      {
-                                         QueryPublicId = qg.Key.QueryPublicId,
-                                         QueryInfoId = qinfg.Key.QueryInfoId,
-                                         ItemInfoType = new TDCatalogModel()
-                                         {
-                                             ItemId = qinfg.Key.QueryInfoTypeId,
-                                             ItemName = qinfg.Key.QueryInfoTypeName,
-                                         },
-                                         Value = qinfg.Key.QueryInfoValue,
-                                         LargeValue = qinfg.Key.QueryInfoLargeValue,
-                                         Enable = qinfg.Key.QueryInfoEnable,
+                                         QueryBasicInfoId = qinfg.Key.QueryBasicInfoId,
+                                         QueryBasicPublicId = qinfg.Key.QueryBasicPublicId,
+                                         QueryPublicId = qinfg.Key.QueryPublicId,
+                                         NameResult = qinfg.Key.NameResult,
+                                         IdentificationResult = qinfg.Key.IdentificationResult,
+                                         Priority = qinfg.Key.Priority,
+                                         Peps = qinfg.Key.Peps,
+                                         Status = qinfg.Key.Status,
+                                         Alias = qinfg.Key.Alias,
+                                         Offense = qinfg.Key.Offense,
+                                         LastModify = qinfg.Key.InfoLastModify,
+                                         CreateDate = qinfg.Key.InfoCreateDate,
                                      }).ToList()
                          }).ToList();
             }
@@ -656,6 +665,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                           SearchTypeId = cm.Field<int>("SearchTypeId"),
                           SearchTypeName = cm.Field<string>("SearchTypeName"),
                           User = cm.Field<string>("User"),
+                          FileName = cm.Field<string>("FileName"),
                           QueryStatusId = cm.Field<int>("QueryStatusId"),
                           QueryStatusName = cm.Field<string>("QueryStatusName"),
                           CreateDate = cm.Field<DateTime>("QueryCreateDate"),
@@ -673,47 +683,18 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                               ItemName = cmg.Key.SearchTypeName,
                           },
                           CreateDate = cmg.Key.CreateDate,
+                          FileName = cmg.Key.FileName,
                           LastModify = cmg.Key.LastModify,
                           IsSuccess = cmg.Key.IsSuccess,
                           QueryStatus = new TDCatalogModel()
                           {
                               ItemId = cmg.Key.QueryStatusId,
                               ItemName = cmg.Key.QueryStatusName,
-                          },
-                          RelatedQueryBasicInfoModel =
-                          (from cmInf in response.DataTableResult.AsEnumerable()
-                           where !cmInf.IsNull("QueryInfoId") &&
-                           cmInf.Field<int>("RelatedId") == cmg.Key.QueryId
-                           group cmInf by new
-                           {
-                               QueriInfoId = cmInf.Field<int>("QueryInfoId"),
-                               ItemInfoTypeId = cmInf.Field<int>("ItemInfoTypeId"),
-                               ItemInfoTypeName = cmInf.Field<string>("ItemInfoTypeName"),
-                               Value = cmInf.Field<string>("Value"),
-                               LargeValue = cmInf.Field<string>("LargeValue"),
-                               InfoLastModify = cmInf.Field<DateTime>("InfoLastModify"),
-                               InfoCreateDate = cmInf.Field<DateTime>("InfoCreateDate"),
-                               Enable = cmInf.Field<UInt64>("InfoEnable") == 1 ? true : false,
-
-                           } into pinfgr
-                           select new TDQueryInfoModel()
-                           {
-                               QueryInfoId = pinfgr.Key.QueriInfoId,
-                               ItemInfoType = new TDCatalogModel()
-                               {
-                                   ItemId = pinfgr.Key.ItemInfoTypeId,
-                                   ItemName = pinfgr.Key.ItemInfoTypeName,
-                               },
-                               QueryPublicId = cmg.Key.QueryPublicId,
-                               Value = pinfgr.Key.Value,
-                               LargeValue = pinfgr.Key.LargeValue,
-                               Enable = pinfgr.Key.Enable,
-                           }).ToList(),
+                          },                          
                       }).ToList();
             }
             return oReturn;
         }
-
 
         #endregion
     }
