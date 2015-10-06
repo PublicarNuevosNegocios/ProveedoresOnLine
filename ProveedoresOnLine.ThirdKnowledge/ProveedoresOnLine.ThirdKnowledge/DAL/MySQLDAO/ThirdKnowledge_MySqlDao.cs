@@ -515,6 +515,36 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                                          Offense = qinfg.Key.Offense,
                                          LastModify = qinfg.Key.InfoLastModify,
                                          CreateDate = qinfg.Key.InfoCreateDate,
+                                         DetailInfo =
+                                         (from qdinf in response.DataTableResult.AsEnumerable()
+                                          where !qdinf.IsNull("QueryDetailInfoId") &&
+                                          qdinf.Field<int>("QueryBasicInfoId") == qinfg.Key.QueryBasicInfoId
+                                          group qdinf by new{
+                                              QueryDetailInfoId = qdinf.Field<int>("QueryDetailInfoId"),
+                                              QueryDetailInfoTypeId = qdinf.Field<int>("QueryDetailInfoTypeId"),
+                                              QueryDetailInfoTypeName = qdinf.Field<string>("QueryDetailInfoTypeName"),
+                                              QueryDetailInfoValue = qdinf.Field<string>("QueryDetailInfoValue"),
+                                              QueryDetailInfoLargeValue = qdinf.Field<string>("QueryDetailInfoLargeValue"),
+                                              QueryDetailInfoCreateDate = qdinf.Field<DateTime>("QueryDetailInfoCreateDate"),
+                                              QueryDetailInfoLastModify = qdinf.Field<DateTime>("QueryDetailInfoLastModify"),
+                                              QueryDetailInfoEnable = qdinf.Field<UInt64>("QueryDetailInfoEnable"),
+                                          }
+                                          into qdinfg
+                                          select new TDQueryDetailInfoModel()
+                                          {
+                                              QueryDetailInfoId = qdinfg.Key.QueryDetailInfoId,
+                                              QueryBasicPublicId = qinfg.Key.QueryBasicPublicId,
+                                              ItemInfoType = new TDCatalogModel()
+                                              {
+                                                  ItemId = qdinfg.Key.QueryDetailInfoTypeId,
+                                                  ItemName = qdinfg.Key.QueryDetailInfoTypeName,
+                                              },
+                                              Value = qdinfg.Key.QueryDetailInfoValue,
+                                              LargeValue = qdinfg.Key.QueryDetailInfoLargeValue,
+                                              LastModify = qdinfg.Key.QueryDetailInfoLastModify,
+                                              CreateDate = qdinfg.Key.QueryDetailInfoCreateDate,
+                                              Enable = qdinfg.Key.QueryDetailInfoEnable == 1 ? true : false,
+                                          }).ToList(),
                                      }).ToList()
                          }).ToList();
             }

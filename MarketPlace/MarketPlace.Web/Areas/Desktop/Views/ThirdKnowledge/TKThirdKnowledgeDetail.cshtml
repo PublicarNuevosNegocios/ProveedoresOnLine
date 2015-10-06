@@ -50,7 +50,7 @@
                                 <div class="row text-center ThirdKnowledge_GoBack">
                                     @*Return Buttom*@
                                     @if (!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
-                                     !string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
                                     {
                                         <a href="@(Url.RouteUrl
                                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -82,8 +82,8 @@
 
             <div>
                 @if (Model.RelatedThidKnowledgeSearch != null &&
-                                    Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
-                                    Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
+                        Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
+                        Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
                 {
                     bool isfirst = true;
                     <div class="container-fluid">
@@ -92,26 +92,84 @@
                             <div class="row">
                                 @foreach (var query in item.RelatedQueryBasicInfoModel)
                                 {
-                                    @*if (@query.ItemInfoType.ItemId == 301001 && isfirst == false)
+                                    <div>
+                                        <label>Peps</label>
+                                        <label>@query.Peps</label>
+                                    </div>
+                                    <div>
+                                        <label>Offense</label>
+                                        <label>@query.Offense</label>
+                                    </div>
+                                    <div>
+                                        <label>Priority</label>
+                                        <label>@query.Priority</label>
+                                    </div>
+                                    <div>
+                                        <label>Status</label>
+                                        <label>@query.Status</label>
+                                    </div>
+                                    <div>
+                                        <label>Alias</label>
+                                        <label>@query.Alias</label>
+                                    </div>
+                                    <div>
+                                        <label>IdentificationResult</label>
+                                        <label>@query.IdentificationResult</label>
+                                    </div>
+                                    <div>
+                                        <label>NameResult</label>
+                                        <label>@query.NameResult</label>
+                                    </div>
+                                    <div>
+                                        <label>CreateDate</label>
+                                        <label>@query.CreateDate</label>
+                                    </div>
+
+                                    if (query.DetailInfo != null)
                                     {
-                                        <hr />
+                                        foreach (var qinf in query.DetailInfo)
+                                        {
+                                            if (qinf.ItemInfoType.ItemId == 301001 && isfirst == false)
+                                            {
+                                                <hr />
+                                            }
+                                            <div class="col-xs-4">
+                                                <div class="row">
+                                                    <label>
+                                                        @qinf.ItemInfoType.ItemName
+                                                    </label>
+                                                </div>
+                                                <div class="row">
+                                                    <span>@qinf.Value</span>
+                                                </div>
+                                            </div>
+                                            isfirst = false;
+                                        }
                                     }
-                                    <div class="col-xs-4">
-                                        <div class="row">
-                                            <label>
-                                                @query.ItemInfoType.ItemName
-                                            </label>
-                                        </div>
-                                        <div class="row">
-                                            <span>@query.Value</span>
-                                        </div>
-                                    </div>*@
-                                    isfirst = false;
+                                    <hr />
                                 }
+
+                                @*@foreach (var query in item.RelatedQueryBasicInfoModel)
+                                    {
+                                        if (@query.ItemInfoType.ItemId == 301001 && isfirst == false)
+                                        {
+                                            <hr />
+                                        }
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <label>
+                                                    @query.ItemInfoType.ItemName
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                <span>@query.Value</span>
+                                            </div>
+                                        </div>
+                                        isfirst = false;
+                                    }*@
                             </div>
                         }
                     </div>
-                    <hr />
                 }
             </div>
         </div>
