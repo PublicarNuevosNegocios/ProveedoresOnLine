@@ -41,31 +41,38 @@
 .POMPContainerResult {
     width: 98%;
     height: auto;
-    border-bottom: 1px solid #E4E4E4;
+    /* border-bottom: 1px solid #E4E4E4; */
     margin: 2% 0 20px 1%;
     float: left;
 }
 
+.POMPResultSection label {
+    margin: 6px 0px 6px 6%;
+}
+
 #POMPResultName {
     width: 100%;
-    height: 30px;
+    height: 35px;
     background: #ececec;
+    padding: 0px;
 }
 
     #POMPResultName > a {
-        margin-left: 89%;
-        /* font-size: 1.1em; */
+        margin: 0px 0px 89% !important;
+        display: inline-block;
+        width: 18%;
     }
 
     #POMPResultName > p {
-        line-height: 30px;
+        /* line-height: 30px; */
         color: #4d4d4d;
         text-align: left;
         font-size: 1.2em;
         padding-left: 15px;
-        /* display: block; */
+        display: inline-block;
         width: 80%;
         /* height: auto; */
+        margin: 7px 0 0 0;
     }
 
 
@@ -74,8 +81,7 @@
     height: 70px;
     float: left;
     display: inline-block;
-    border: 1px solid;
-    S;
+    border: 1px solid #E4E4E4;
 }
 
 

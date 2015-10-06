@@ -205,5 +205,23 @@ namespace MarketPlace.Models.General
         }
 
         #endregion
+
+        #region Notifications
+
+        public static bool NewNotifications
+        {
+            get
+            {
+                List<MessageModule.Client.Models.NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(CurrentCompany.CompanyPublicId, CurrentLoginUser.Email, true);
+
+                bool oNewNotifications = false;
+
+                oNewNotifications =  oReturn != null ? true : false;
+
+                return oNewNotifications;
+            }
+        }
+
+        #endregion
     }
 }
