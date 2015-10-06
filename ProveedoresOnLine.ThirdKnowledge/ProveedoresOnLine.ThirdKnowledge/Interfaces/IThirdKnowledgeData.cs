@@ -20,6 +20,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable);
 
+        List<Models.TDQueryDetailInfoModel> GetQueryDetail(string QueryBasicPublicId);
+
         List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
 
         List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublic, bool Enable);
@@ -34,6 +36,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         int QueryDetailInfoInsert(string QueryBasicPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable);
 
+        TDQueryInfoModel QueryDetailGetByBasicPublicID(string QueryBasicInfoPublicId);
         #endregion Queries
 
         #region Utils

@@ -13,7 +13,6 @@ var Third_KnowledgeSimpleSearchObject = {
             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
             var validator = $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_EditProjectDialog_Form').data("kendoValidator");
 
-            //save project
             $.ajax({
                 type: "POST",
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
@@ -27,7 +26,7 @@ var Third_KnowledgeSimpleSearchObject = {
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.length > 0) {
                         $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
                             resultDiv = 
-                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p></div>'
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + '/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + result.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId + '">' + "Ver Detalle" + '</a></div>'
                             if (value.IdentificationResult != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                             }
@@ -58,9 +57,7 @@ var Third_KnowledgeSimpleSearchObject = {
 
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + statusName + '</p></div>'
                             }                            
-                            resultDiv += '<div class="POMPDetailSection"><a href="">' + "Ver Detalle" + '</a></div>'
                                                         
-                            //resultDiv += "</div></div>"
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                         });                        
                     }

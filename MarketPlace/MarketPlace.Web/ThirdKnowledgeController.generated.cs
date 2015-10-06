@@ -61,6 +61,12 @@ namespace MarketPlace.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult TKDetailSingleSearch()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKDetailSingleSearch);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult TKThirdKnowledgeSearch()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeSearch);
@@ -96,6 +102,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string Index = "Index";
             public readonly string TKSingleSearch = "TKSingleSearch";
             public readonly string TKMasiveSearch = "TKMasiveSearch";
+            public readonly string TKDetailSingleSearch = "TKDetailSingleSearch";
             public readonly string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
             public readonly string TKThirdKnowledgeDetail = "TKThirdKnowledgeDetail";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
@@ -107,12 +114,21 @@ namespace MarketPlace.Web.Controllers
             public const string Index = "Index";
             public const string TKSingleSearch = "TKSingleSearch";
             public const string TKMasiveSearch = "TKMasiveSearch";
+            public const string TKDetailSingleSearch = "TKDetailSingleSearch";
             public const string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
             public const string TKThirdKnowledgeDetail = "TKThirdKnowledgeDetail";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
+        static readonly ActionParamsClass_TKDetailSingleSearch s_params_TKDetailSingleSearch = new ActionParamsClass_TKDetailSingleSearch();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_TKDetailSingleSearch TKDetailSingleSearchParams { get { return s_params_TKDetailSingleSearch; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_TKDetailSingleSearch
+        {
+            public readonly string QueryBasicPublicId = "QueryBasicPublicId";
+        }
         static readonly ActionParamsClass_TKThirdKnowledgeSearch s_params_TKThirdKnowledgeSearch = new ActionParamsClass_TKThirdKnowledgeSearch();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_TKThirdKnowledgeSearch TKThirdKnowledgeSearchParams { get { return s_params_TKThirdKnowledgeSearch; } }
@@ -193,6 +209,18 @@ namespace MarketPlace.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKMasiveSearch);
             TKMasiveSearchOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TKDetailSingleSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryBasicPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TKDetailSingleSearch(string QueryBasicPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKDetailSingleSearch);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "QueryBasicPublicId", QueryBasicPublicId);
+            TKDetailSingleSearchOverride(callInfo, QueryBasicPublicId);
             return callInfo;
         }
 

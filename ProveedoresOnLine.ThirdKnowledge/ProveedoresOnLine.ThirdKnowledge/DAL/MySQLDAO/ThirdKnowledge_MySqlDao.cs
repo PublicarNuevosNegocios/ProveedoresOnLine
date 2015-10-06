@@ -357,6 +357,30 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<Models.TDQueryDetailInfoModel> GetQueryDetail(string QueryBasicPublicId)
+        {
+            List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryBasicPublicId", QueryBasicPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "TD_GetCurrentPeriod",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<Models.TDQueryDetailInfoModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+               response.DataTableResult.Rows.Count > 0)
+            {
+
+            }
+            return oReturn;
+        }
+
         public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -581,7 +605,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                 return null;
         }
 
-        public string QueryBasicInfoInsert(string QueryPublicId, string NameResult, string IdentificationResult, string Priority, string Peps, string Status, string Alias, string Offense ,bool Enable)
+        public string QueryBasicInfoInsert(string QueryPublicId, string NameResult, string IdentificationResult, string Priority, string Peps, string Status, string Alias, string Offense, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -608,7 +632,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             else
                 return null;
         }
-		
+
         public int QueryDetailInfoInsert(string QueryBasicPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -630,7 +654,76 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             if (response.ScalarResult != null)
                 return Convert.ToInt32(response.ScalarResult);
             else
-                return 0;           
+                return 0;
+        }
+
+        public TDQueryInfoModel QueryDetailGetByBasicPublicID(string QueryBasicInfoPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vQueryBasicPublicId", QueryBasicInfoPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "TD_QueryDetailInfo_GetByBasicPublicId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            TDQueryInfoModel oReturn = null;
+
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new TDQueryInfoModel()
+                {
+                    QueryBasicInfoId = response.DataTableResult.Rows[0].Field<int>("QueryBasicInfoId"),
+                    QueryBasicPublicId = response.DataTableResult.Rows[0].Field<string>("QueryBasicPublicId"),
+                    QueryPublicId = response.DataTableResult.Rows[0].Field<string>("QueryPublicId"),
+                    NameResult = response.DataTableResult.Rows[0].Field<string>("NameResult"),
+                    IdentificationResult = response.DataTableResult.Rows[0].Field<string>("IdentificationResult"),
+                    Priority = response.DataTableResult.Rows[0].Field<string>("Priority"),
+                    Peps = response.DataTableResult.Rows[0].Field<string>("Peps"),
+                    Status = response.DataTableResult.Rows[0].Field<string>("Status"),
+                    Alias = response.DataTableResult.Rows[0].Field<string>("Alias"),
+                    Offense = response.DataTableResult.Rows[0].Field<string>("Offense"),
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate"),
+                    Enable = response.DataTableResult.Rows[0].Field<UInt64>("BasicEnable") == 1 ? true : false,
+                    DetailInfo = (from qinf in response.DataTableResult.AsEnumerable()
+                                  where !qinf.IsNull("QueryBasicInfoId") &&
+                                         qinf.Field<int>("RelatedBasicId") == response.DataTableResult.Rows[0].Field<int>("QueryBasicInfoId")
+                                  group qinf by new
+                                  {
+                                      QueryDetailInfoId = qinf.Field<int>("QueryDetailInfoId"),
+                                      DetailItemId = qinf.Field<int>("DetailItemId"),
+                                      DetailItemName = qinf.Field<string>("DetailItemName"),
+                                      Value = qinf.Field<string>("Value"),
+                                      LargeValue = qinf.Field<string>("LargeValue"),
+                                      InfoLastModify = qinf.Field<DateTime>("DetLastModify"),
+                                      InfoCreateDate = qinf.Field<DateTime>("DetCreateDate"),
+                                      DetInfoEnable = qinf.Field<UInt64>("DetEnable") == 1 ? true : false,
+                                  }
+                                      into qinfg
+                                      select new Models.TDQueryDetailInfoModel()
+                                      {
+                                          QueryBasicPublicId = response.DataTableResult.Rows[0].Field<string>("QueryBasicPublicId"),
+                                          QueryDetailInfoId = qinfg.Key.QueryDetailInfoId,
+                                          ItemInfoType = new TDCatalogModel()
+                                          {
+                                              ItemId = qinfg.Key.DetailItemId,
+                                              ItemName = qinfg.Key.DetailItemName,
+                                          },
+                                          Value = qinfg.Key.Value,
+                                          LargeValue = qinfg.Key.LargeValue,
+                                          LastModify = qinfg.Key.InfoLastModify,
+                                          CreateDate = qinfg.Key.InfoCreateDate,
+                                      }).ToList()
+                };
+            }
+            return oReturn;
         }
 
         #endregion Queries
@@ -723,7 +816,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                           {
                               ItemId = cmg.Key.QueryStatusId,
                               ItemName = cmg.Key.QueryStatusName,
-                          },                          
+                          },
                       }).ToList();
             }
             return oReturn;

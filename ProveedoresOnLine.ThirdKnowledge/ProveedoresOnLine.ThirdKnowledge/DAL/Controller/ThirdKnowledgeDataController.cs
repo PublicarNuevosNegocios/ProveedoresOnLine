@@ -67,6 +67,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.GetCurrenPeriod(CustomerPublicId, Enable);
         }
 
+        public List<Models.TDQueryDetailInfoModel> GetQueryDetail(string QueryBasicPublicId)
+        {
+            return DataFactory.GetQueryDetail(QueryBasicPublicId);
+        }
+
         public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
         {
             return DataFactory.ThirdKnowledgeSearch(CustomerPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
@@ -79,7 +84,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 
         #endregion MarketPlace
 
-        #region Queries
+        #region Query
 
         public string QueryUpsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, string FileName, bool isSuccess, int QueryStatusId, bool Enable)
         {
@@ -96,7 +101,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.QueryDetailInfoInsert(QueryBasicPublicId, ItemInfoType, Value, LargeValue, Enable); ;
         }
 
-        #endregion Queries
+        public TDQueryInfoModel QueryDetailGetByBasicPublicID(string QueryBasicInfoPublicId)
+        {
+            return DataFactory.QueryDetailGetByBasicPublicID(QueryBasicInfoPublicId);
+        }
+        #endregion Query
 
         #region Utils
 
