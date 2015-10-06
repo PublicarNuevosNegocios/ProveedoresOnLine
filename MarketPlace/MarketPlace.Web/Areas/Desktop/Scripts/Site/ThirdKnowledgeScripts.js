@@ -25,9 +25,9 @@ var Third_KnowledgeSimpleSearchObject = {
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.length > 0) {
-                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {
-                            resultDiv =
-                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a href="">' + "Ver Detalle" + '</a></div>'
+                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
+                            resultDiv = 
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p></div>'
                             if (value.IdentificationResult != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                             }
@@ -36,29 +36,41 @@ var Third_KnowledgeSimpleSearchObject = {
                             }
                             if (value.Offense != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Cargo o Delito " + "</label><p>" + value.Offense + '</p></div>'
-                            }
+                            }                            
                             if (value.Peps != null) {
+                                debugger;
+
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Peps " + "</label><p>" + value.Peps + '</p></div>'
                             }
                             if (value.Priority != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Prioridad " + "</label><p>" + value.Priority + '</p></div>'
                             }
                             if (value.Status != null) {
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + value.Status + '</p></div>'
-                            }
-                            //resultDiv += '<div class="POMPResultSection"><p><a href="">' + "Ver Detalle" + '</a></p></div>'
+                                
+                                var statusName = "";
 
+                                if (value.Status == "True") {
+                                    statusName = "Activo";
+                                }
+                                else {
+                                    statusName = "Inactivo";
+                                }
+
+                                resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + statusName + '</p></div>'
+                            }                            
+                            resultDiv += '<div class="POMPDetailSection"><a href="">' + "Ver Detalle" + '</a></div>'
+                                                        
                             //resultDiv += "</div></div>"
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
-                        });
+                        });                        
                     }
                     else {
                         resultDiv = '<div class="POMPResultSection"><label>' + "La búsqueda no arrojó ninguna coincidencia " + "</label>"
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                     }
 
-                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
-                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
+                        $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
+                        $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
 
                 },
                 error: function (result) {
