@@ -90,9 +90,9 @@
                         @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
                         {
                             <div class="row">
-                                @foreach (var query in item.RelatedQueryInfoModel)
+                                @foreach (var query in item.RelatedQueryBasicInfoModel)
                                 {
-                                    if (@query.ItemInfoType.ItemId == 301001 && isfirst == false)
+                                    @*if (@query.ItemInfoType.ItemId == 301001 && isfirst == false)
                                     {
                                         <hr />
                                     }
@@ -105,7 +105,7 @@
                                         <div class="row">
                                             <span>@query.Value</span>
                                         </div>
-                                    </div>
+                                    </div>*@
                                     isfirst = false;
                                 }
                             </div>

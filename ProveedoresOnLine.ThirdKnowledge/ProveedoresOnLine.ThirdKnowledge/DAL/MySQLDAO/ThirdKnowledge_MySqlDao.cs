@@ -482,7 +482,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              CreateDate = qg.Key.QueryCreateDate,
                              RelatedQueryBasicInfoModel =
                                 (from qinf in response.DataTableResult.AsEnumerable()
-                                 where !qinf.IsNull("QueryInfoId") &&
+                                 where !qinf.IsNull("QueryBasicInfoId") &&
                                         qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
                                  group qinf by new
                                  {
