@@ -99,6 +99,41 @@ namespace MarketPlace.Web.Controllers
             }
         }
 
+        public virtual ActionResult TKDetailSingleSearch(string QueryBasicPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel();
+            List<TDQueryDetailInfoModel> oCurrentPeriodList = new List<TDQueryDetailInfoModel>();
+            try
+            {
+                oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
+
+                //Clean the season url saved
+                if (MarketPlace.Models.General.SessionModel.CurrentURL != null)
+                    MarketPlace.Models.General.SessionModel.CurrentURL = null;
+
+                //Get The Active Plan By Customer 
+                oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueryDetail(QueryBasicPublicId);
+
+                if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = true;
+
+                    //Get The Most Recently Period When Plan is More Than One
+                    //oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
+                }
+                else
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = false;
+                }
+                return View(oModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
+
         public virtual ActionResult TKThirdKnowledgeSearch(
             string SearchOrderType,
             string OrderOrientation,

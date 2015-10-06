@@ -12,8 +12,7 @@ var Third_KnowledgeSimpleSearchObject = {
         if ($('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').length > 0) {
             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
             var validator = $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_EditProjectDialog_Form').data("kendoValidator");
-
-            //save project
+            
             $.ajax({
                 type: "POST",
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
@@ -25,9 +24,10 @@ var Third_KnowledgeSimpleSearchObject = {
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel != null) {
+                        debugger;
                         $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
                             resultDiv = 
-                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a href="">' + "Ver Detalle" + '</a></div>'
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + '/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + result.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId + '">' + "Ver Detalle" + '</a></div>'
                             if (value.IdentificationResult != null) {
                                 resultDiv +=  '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                             }
@@ -45,10 +45,8 @@ var Third_KnowledgeSimpleSearchObject = {
                             }
                             if (value.Status != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + value.Status + '</p></div>'
-                            }                            
-                            //resultDiv += '<div class="POMPResultSection"><p><a href="">' + "Ver Detalle" + '</a></p></div>'
-                                                        
-                            //resultDiv += "</div></div>"
+                            }
+
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                         });                        
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');

@@ -1,0 +1,23 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Detalle Consulta Individual";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    //Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @*@Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}
