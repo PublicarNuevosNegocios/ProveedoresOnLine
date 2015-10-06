@@ -22,12 +22,12 @@
         <img class="POMPLogo" src="@strCompanyLogo" />
 
         <div class="POMPMenusGrandWrapper">
-            @*<div id="POMPNotifications" onclick="javascript: Header_ShowHideNotifications('POMPNotificationsList', '@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email', '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId')">
+            <div id="POMPNotifications" onclick="javascript: Header_ShowHideNotifications('POMPNotificationsList', '@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email', '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId')">
                 @Html.Partial(MVC.Desktop.Shared.Views._N_Notifications)
             </div>
 
             <div id="POMPNotificationsList" style="display:none;">
-            </div>*@
+            </div>
 
             <!--User options-->
             <div class="POMPUserMenu" onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');">

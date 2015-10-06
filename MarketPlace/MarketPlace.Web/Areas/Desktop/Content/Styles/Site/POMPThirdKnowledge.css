@@ -41,7 +41,6 @@
 .POMPContainerResult {
     width: 98%;
     height: auto;
-    /* border-bottom: 1px solid #E4E4E4; */
     margin: 2% 0 20px 1%;
     float: left;
 }
@@ -57,31 +56,34 @@
     padding: 0px;
 }
 
-    #POMPResultName > a {
-        margin: 0px 0px 89% !important;
-        display: inline-block;
-        width: 18%;
-    }
-
     #POMPResultName > p {
-        /* line-height: 30px; */
         color: #4d4d4d;
         text-align: left;
         font-size: 1.2em;
         padding-left: 15px;
         display: inline-block;
         width: 80%;
-        /* height: auto; */
         margin: 7px 0 0 0;
     }
 
+.POMPDetailSection {
+    width: 100%;
+    height: 30px;
+    display: block;
+    text-align: right;
+     border-bottom: 1px solid #E4E4E4; 
+    margin: 66px 0 -20px 0;
+}
+
+    .POMPDetailSection > a {
+            margin-right: 23px;
+    }
 
 .POMPResultSection {
-    width: 25%;
+    width: 20%;
     height: 70px;
     float: left;
     display: inline-block;
-    border: 1px solid #E4E4E4;
 }
 
 
