@@ -125,9 +125,7 @@ namespace MarketPlace.Web.ControllersApi
                     string oFileName = "ThirdKnowledgeFile_" +
                             CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                         UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
-                    string strFile = strFolder.TrimEnd('\\') +
-                    "\\ThirdKnowledgeFile_" +
-                        CompanyPublicId + "_" + oFileName;
+                    string strFile = strFolder.TrimEnd('\\') + "_" + oFileName;
 
                     UploadFile.SaveAs(strFile);
 

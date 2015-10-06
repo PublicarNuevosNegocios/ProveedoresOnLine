@@ -25,16 +25,18 @@ var Third_KnowledgeSimpleSearchObject = {
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel != null) {
-                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {
-                            debugger;
+                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
                             resultDiv = 
                              '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a href="">' + "Ver Detalle" + '</a></div>'
                             if (value.IdentificationResult != null) {
                                 resultDiv +=  '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                             }
+                            if (value.Alias != null) {
+                                resultDiv += '<div class="POMPResultSection"><label>' + "Alias " + "</label><p>" + value.Alias + '</p></div>'
+                            }
                             if (value.Offense != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Cargo o Delito " + "</label><p>" + value.Offense + '</p></div>'
-                            }
+                            }                            
                             if (value.Peps != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Peps " + "</label><p>" + value.Peps + '</p></div>'
                             }
@@ -45,12 +47,10 @@ var Third_KnowledgeSimpleSearchObject = {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + value.Status + '</p></div>'
                             }                            
                             //resultDiv += '<div class="POMPResultSection"><p><a href="">' + "Ver Detalle" + '</a></p></div>'
-
-                            debugger;
+                                                        
                             //resultDiv += "</div></div>"
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
-                        });
-                       
+                        });                        
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').html('');
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Queries').append(result.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel[0].TotalQueries);
                     }

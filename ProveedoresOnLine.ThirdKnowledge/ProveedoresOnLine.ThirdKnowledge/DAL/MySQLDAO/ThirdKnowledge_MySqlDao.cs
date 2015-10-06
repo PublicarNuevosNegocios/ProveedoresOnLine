@@ -524,13 +524,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
 
         #region Queries
 
-        public string QueryUsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, bool isSuccess, int QueryStatusId, bool Enable)
+        public string QueryUpsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, string FileName, bool isSuccess, int QueryStatusId, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPeriodPublicId", PeriodPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFileName", FileName));
             lstParams.Add(DataInstance.CreateTypedParameter("vQueryStatusId", QueryStatusId));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
             lstParams.Add(DataInstance.CreateTypedParameter("vIsSuccess", isSuccess == true ? 1 : 0));

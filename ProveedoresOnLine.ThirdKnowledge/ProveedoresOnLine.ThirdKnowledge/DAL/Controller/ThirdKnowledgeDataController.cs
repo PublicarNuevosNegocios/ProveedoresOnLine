@@ -81,9 +81,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 
         #region Queries
 
-        public string QueryUsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, bool isSuccess, int QueryStatusId, bool Enable)
+        public string QueryUpsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, string FileName, bool isSuccess, int QueryStatusId, bool Enable)
         {
-            return DataFactory.QueryUsert(QueryPublicId, PeriodPublicId, SearchType, User, isSuccess, QueryStatusId, Enable);
+            return DataFactory.QueryUpsert(QueryPublicId, PeriodPublicId, SearchType, User, FileName, isSuccess, QueryStatusId, Enable);
         }
 
         public string QueryBasicInfoInsert(string QueryPublicId, string NameResult, string IdentificationResult, string Priority, string Peps, string Status, string Alias, string Offense, bool Enable)

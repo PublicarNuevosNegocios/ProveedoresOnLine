@@ -179,11 +179,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                },
                                                Value = !string.IsNullOrEmpty(x.Zona) ? x.Zona : string.Empty,
                                                Enable = true,
-                                           }); 
+                                           });
                                            #endregion
 
                                            oQueryToCreate.RelatedQueryBasicInfoModel.Add(oInfoCreate);
-                                       }                                       
+                                       }
                                        return true;
                                    });
                     #endregion
@@ -415,8 +415,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             if (QueryModelToUpsert != null &&
                 !string.IsNullOrEmpty(QueryModelToUpsert.PeriodPublicId))
             {
-                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUsert(QueryModelToUpsert.QueryPublicId, QueryModelToUpsert.PeriodPublicId,
-                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
+                QueryModelToUpsert.QueryPublicId = ThirdKnowledgeDataController.Instance.QueryUpsert(QueryModelToUpsert.QueryPublicId, QueryModelToUpsert.PeriodPublicId,
+                    QueryModelToUpsert.SearchType.ItemId, QueryModelToUpsert.User, QueryModelToUpsert.FileName, QueryModelToUpsert.IsSuccess, QueryModelToUpsert.QueryStatus.ItemId, true);
 
                 if (QueryModelToUpsert.RelatedQueryBasicInfoModel != null)
                 {
