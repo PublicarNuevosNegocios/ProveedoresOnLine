@@ -686,6 +686,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                           },
                           CreateDate = cmg.Key.CreateDate,
                           FileName = cmg.Key.FileName,
+                          User = cmg.Key.User,
                           LastModify = cmg.Key.LastModify,
                           IsSuccess = cmg.Key.IsSuccess,
                           QueryStatus = new TDCatalogModel()
