@@ -79,99 +79,48 @@
                     </div>
                 }
             }
-
-            <div>
-                @if (Model.RelatedThidKnowledgeSearch != null &&
-                        Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
-                        Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
+            @if (Model.RelatedThidKnowledgeSearch != null &&
+    Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
+    Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
+            {
+                foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
                 {
-                    bool isfirst = true;
-                    <div class="container-fluid">
-                        @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
-                        {
-                            <div class="row">
-                                @foreach (var query in item.RelatedQueryBasicInfoModel)
-                                {
-                                    <div>
-                                        <label>Peps</label>
-                                        <label>@query.Peps</label>
-                                    </div>
-                                    <div>
-                                        <label>Offense</label>
-                                        <label>@query.Offense</label>
-                                    </div>
-                                    <div>
-                                        <label>Priority</label>
-                                        <label>@query.Priority</label>
-                                    </div>
-                                    <div>
-                                        <label>Status</label>
-                                        <label>@query.Status</label>
-                                    </div>
-                                    <div>
-                                        <label>Alias</label>
-                                        <label>@query.Alias</label>
-                                    </div>
-                                    <div>
-                                        <label>IdentificationResult</label>
-                                        <label>@query.IdentificationResult</label>
-                                    </div>
-                                    <div>
-                                        <label>NameResult</label>
-                                        <label>@query.NameResult</label>
-                                    </div>
-                                    <div>
-                                        <label>CreateDate</label>
-                                        <label>@query.CreateDate</label>
-                                    </div>
-
-                                    if (query.DetailInfo != null)
-                                    {
-                                        foreach (var qinf in query.DetailInfo)
-                                        {
-                                            if (qinf.ItemInfoType.ItemId == 301001 && isfirst == false)
-                                            {
-                                                <hr />
-                                            }
-                                            <div class="col-xs-4">
-                                                <div class="row">
-                                                    <label>
-                                                        @qinf.ItemInfoType.ItemName
-                                                    </label>
-                                                </div>
-                                                <div class="row">
-                                                    <span>@qinf.Value</span>
-                                                </div>
-                                            </div>
-                                            isfirst = false;
-                                        }
-                                    }
-                                    <hr />
-                                }
-
-                                @*@foreach (var query in item.RelatedQueryBasicInfoModel)
-                                    {
-                                        if (@query.ItemInfoType.ItemId == 301001 && isfirst == false)
-                                        {
-                                            <hr />
-                                        }
-                                        <div class="col-xs-4">
-                                            <div class="row">
-                                                <label>
-                                                    @query.ItemInfoType.ItemName
-                                                </label>
-                                            </div>
-                                            <div class="row">
-                                                <span>@query.Value</span>
-                                            </div>
-                                        </div>
-                                        isfirst = false;
-                                    }*@
+                    foreach (var query in item.RelatedQueryBasicInfoModel)
+                    {
+                        <div class="POMPContainerResult">
+                            <div id="POMPResultName">
+                                <p>@query.NameResult</p>
+                                <a target="_blank" href="">Ver Detalle</a>
                             </div>
-                        }
-                    </div>
+                            <div class="POMPResultSection">
+                                <label>Número de Identificación</label>
+                                <p>@query.IdentificationResult</p>
+                            </div>
+                            <div class="POMPResultSection">
+                                <label>Alias</label>
+                                <p>@query.Alias</p>
+                            </div>
+                            <div class="POMPResultSection">
+                                <label>Cargo o Delito</label>
+                                <p>@query.Offense</p>
+                            </div>
+                            <div class="POMPResultSection">
+                                <label>Peps</label>
+                                <p>@query.Peps</p>
+                            </div>
+                            <div class="POMPResultSection">
+                                <label>Prioridad</label>
+                                <p>@query.Priority</p>
+                            </div>
+                            <div class="POMPResultSection">
+                                <label>Estado</label>
+                                <p>@(query.Enable == true ? "Activo" : "Inactivo")</p>
+                            </div>
+                        </div>
+                        <hr />
+                    }
                 }
-            </div>
+            }
         </div>
     </div>
 
