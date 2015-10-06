@@ -84,7 +84,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
 
         #endregion MarketPlace
 
-        #region Queries
+        #region Query
 
         public string QueryUpsert(string QueryPublicId, string PeriodPublicId, int SearchType, string User, string FileName, bool isSuccess, int QueryStatusId, bool Enable)
         {
@@ -101,7 +101,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.QueryDetailInfoInsert(QueryBasicPublicId, ItemInfoType, Value, LargeValue, Enable); ;
         }
 
-        #endregion Queries
+        public TDQueryInfoModel QueryDetailGetByBasicPublicID(string QueryBasicInfoPublicId)
+        {
+            return DataFactory.QueryDetailGetByBasicPublicID(QueryBasicInfoPublicId);
+        }
+        #endregion Query
 
         #region Utils
 

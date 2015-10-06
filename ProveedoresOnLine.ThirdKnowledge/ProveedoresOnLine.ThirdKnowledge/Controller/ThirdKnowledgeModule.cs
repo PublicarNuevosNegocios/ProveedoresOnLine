@@ -474,6 +474,10 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return QueryModelToUpsert;
         }
 
+        public static TDQueryInfoModel QueryDetailGetByBasicPublicID(string QueryBasicInfoPublicId)
+        {
+            return ThirdKnowledgeDataController.Instance.QueryDetailGetByBasicPublicID(QueryBasicInfoPublicId);
+        }
         #endregion Queries
 
         #region BatchProcess

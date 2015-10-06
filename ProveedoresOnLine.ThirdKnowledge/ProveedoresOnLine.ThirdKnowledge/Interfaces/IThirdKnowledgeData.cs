@@ -36,6 +36,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         int QueryDetailInfoInsert(string QueryBasicPublicId, int ItemInfoType, string Value, string LargeValue, bool Enable);
 
+        TDQueryInfoModel QueryDetailGetByBasicPublicID(string QueryBasicInfoPublicId);
         #endregion Queries
 
         #region Utils
