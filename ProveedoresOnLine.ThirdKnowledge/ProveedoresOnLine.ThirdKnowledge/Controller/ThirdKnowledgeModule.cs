@@ -31,13 +31,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 oAuth.UsuarioClave = "D6-E9$C3S6Q#5WW&5@";
 
                 //WS Request
-                var Resutl = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
+                var Result = oClient.ConsultaInspektor(oAuth, IdentificationNumber, Name);
+
                 oQueryToCreate.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
 
-                if (Resutl != null)
+                if (Result != null && Result.FirstOrDefault().IdConsulta != "No existen registros asociados a los parámetros de consulta.")
                 {
                     #region Answer Procces
-                    Resutl.All(x =>
+                    Result.All(x =>
                                    {
                                        if (x != null)
                                        {

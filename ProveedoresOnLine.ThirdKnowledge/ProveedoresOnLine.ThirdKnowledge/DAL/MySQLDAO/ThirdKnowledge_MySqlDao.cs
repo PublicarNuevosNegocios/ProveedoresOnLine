@@ -506,7 +506,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              CreateDate = qg.Key.QueryCreateDate,
                              RelatedQueryBasicInfoModel =
                                 (from qinf in response.DataTableResult.AsEnumerable()
-                                 where !qinf.IsNull("QueryInfoId") &&
+                                 where !qinf.IsNull("QueryBasicInfoId") &&
                                         qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
                                  group qinf by new
                                  {
@@ -710,6 +710,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                           },
                           CreateDate = cmg.Key.CreateDate,
                           FileName = cmg.Key.FileName,
+                          User = cmg.Key.User,
                           LastModify = cmg.Key.LastModify,
                           IsSuccess = cmg.Key.IsSuccess,
                           QueryStatus = new TDCatalogModel()

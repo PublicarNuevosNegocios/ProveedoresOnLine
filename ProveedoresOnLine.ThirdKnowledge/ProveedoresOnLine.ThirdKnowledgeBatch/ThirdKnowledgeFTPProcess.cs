@@ -277,10 +277,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
             MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
             #endregion
-
         }
 
         #endregion
-
     }
 }
