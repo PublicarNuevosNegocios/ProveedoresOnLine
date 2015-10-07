@@ -202,6 +202,7 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
                 parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
                 parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
 
                 //Query Info
                 parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty("No hay campo").FirstOrDefault()));
@@ -217,6 +218,7 @@ namespace MarketPlace.Web.Controllers
                 data.Columns.Add("Peps");
                 data.Columns.Add("Priority");
                 data.Columns.Add("Status");
+                data.Columns.Add("ListName");
 
                 DataRow row;
                 foreach (var query in oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().RelatedQueryBasicInfoModel)
@@ -230,6 +232,10 @@ namespace MarketPlace.Web.Controllers
                     row["Peps"] = query.Peps;
                     row["Priority"] = query.Priority;
                     row["Status"] = query.Status == "True" ? "Activo" : "Inactivo";
+                    row["ListName"] = query.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
 
                     data.Rows.Add(row);
                 }

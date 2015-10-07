@@ -12,7 +12,7 @@
   <xs:element name="DS_ThirdKnowledgeReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_ThirdKnowledgeReport" msprop:Generator_UserDSName="DS_ThirdKnowledgeReport">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="ThirdKnowledgeReport" msprop:Generator_TableClassName="ThirdKnowledgeReportDataTable" msprop:Generator_TableVarName="tableThirdKnowledgeReport" msprop:Generator_RowChangedName="ThirdKnowledgeReportRowChanged" msprop:Generator_TablePropName="ThirdKnowledgeReport" msprop:Generator_RowDeletingName="ThirdKnowledgeReportRowDeleting" msprop:Generator_RowChangingName="ThirdKnowledgeReportRowChanging" msprop:Generator_RowEvHandlerName="ThirdKnowledgeReportRowChangeEventHandler" msprop:Generator_RowDeletedName="ThirdKnowledgeReportRowDeleted" msprop:Generator_RowClassName="ThirdKnowledgeReportRow" msprop:Generator_UserTableName="ThirdKnowledgeReport" msprop:Generator_RowEvArgName="ThirdKnowledgeReportRowChangeEvent">
+        <xs:element name="ThirdKnowledgeReport" msprop:Generator_TableClassName="ThirdKnowledgeReportDataTable" msprop:Generator_TableVarName="tableThirdKnowledgeReport" msprop:Generator_TablePropName="ThirdKnowledgeReport" msprop:Generator_RowDeletingName="ThirdKnowledgeReportRowDeleting" msprop:Generator_RowChangingName="ThirdKnowledgeReportRowChanging" msprop:Generator_RowEvHandlerName="ThirdKnowledgeReportRowChangeEventHandler" msprop:Generator_RowDeletedName="ThirdKnowledgeReportRowDeleted" msprop:Generator_UserTableName="ThirdKnowledgeReport" msprop:Generator_RowChangedName="ThirdKnowledgeReportRowChanged" msprop:Generator_RowEvArgName="ThirdKnowledgeReportRowChangeEvent" msprop:Generator_RowClassName="ThirdKnowledgeReportRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Alias" msprop:Generator_ColumnVarNameInTable="columnAlias" msprop:Generator_ColumnPropNameInRow="Alias" msprop:Generator_ColumnPropNameInTable="AliasColumn" msprop:Generator_UserColumnName="Alias" type="xs:string" minOccurs="0" />
@@ -22,6 +22,7 @@
               <xs:element name="Peps" msprop:Generator_ColumnVarNameInTable="columnPeps" msprop:Generator_ColumnPropNameInRow="Peps" msprop:Generator_ColumnPropNameInTable="PepsColumn" msprop:Generator_UserColumnName="Peps" type="xs:string" minOccurs="0" />
               <xs:element name="Priority" msprop:Generator_ColumnVarNameInTable="columnPriority" msprop:Generator_ColumnPropNameInRow="Priority" msprop:Generator_ColumnPropNameInTable="PriorityColumn" msprop:Generator_UserColumnName="Priority" type="xs:string" minOccurs="0" />
               <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="ListName" msprop:Generator_ColumnVarNameInTable="columnListName" msprop:Generator_ColumnPropNameInRow="ListName" msprop:Generator_ColumnPropNameInTable="ListNameColumn" msprop:Generator_UserColumnName="ListName" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
