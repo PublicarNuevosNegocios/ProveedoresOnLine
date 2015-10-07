@@ -90,7 +90,14 @@
                         <div class="POMPContainerResult">
                             <div id="POMPResultName">
                                 <p>@query.NameResult</p>
-                                <a target="_blank" href="">Ver Detalle</a>
+                                <a href="@(Url.RouteUrl
+                                      (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                      new
+                                      {
+                                          controller = MVC.ThirdKnowledge.Name,
+                                          action = MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                          QueryBasicPublicId = query.QueryBasicPublicId,                                
+                                            }))">Ver Detalle</a>
                             </div>
                             <div class="POMPResultSection">
                                 <label>Número de Identificación</label>
