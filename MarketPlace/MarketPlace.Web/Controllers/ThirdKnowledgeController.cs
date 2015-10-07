@@ -84,7 +84,7 @@ namespace MarketPlace.Web.Controllers
                     oModel.RelatedThirdKnowledge.HasPlan = true;
 
                     //Get The Most Recently Period When Plan is More Than One
-                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();                    
+                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKDetailSingleSearch(string QueryBasicPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel();               
+            ProviderViewModel oModel = new ProviderViewModel();
 
             TDQueryInfoModel QueryDetailInfo = new TDQueryInfoModel();
             try
@@ -207,44 +207,28 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryStatus != null).Select(x => x.QueryStatus.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
-                //TODO -> agregar estado al reporte
 
                 DataTable data = new DataTable();
+                data.Columns.Add("Alias");
+                data.Columns.Add("IdentificationResult");
+                data.Columns.Add("NameResult");
+                data.Columns.Add("Offense");
+                data.Columns.Add("Peps");
                 data.Columns.Add("Priority");
-                data.Columns.Add("IdentificationType");
-                data.Columns.Add("IdentificationNumber");
-                data.Columns.Add("Name");
-                data.Columns.Add("RelatedList");
+                data.Columns.Add("Status");
 
                 DataRow row;
-                foreach (var query in oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x != null))
+                foreach (var query in oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().RelatedQueryBasicInfoModel)
                 {
                     row = data.NewRow();
 
-                    //row["Priority"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.Priotity).
-                    //    Select(x => x.Value).
-                    //    DefaultIfEmpty("No hay campo").
-                    //    FirstOrDefault();
-
-                    //row["IdentificationType"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.TypeDocument).
-                    //    Select(x => x.Value).
-                    //    DefaultIfEmpty("No hay campo").
-                    //    FirstOrDefault();
-
-                    //row["IdentificationNumber"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberResult).
-                    //    Select(x => x.Value).
-                    //    DefaultIfEmpty("No hay campo").
-                    //    FirstOrDefault();
-
-                    //row["Name"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.NameResult).
-                    //    Select(x => x.Value).
-                    //    DefaultIfEmpty("No hay campo").
-                    //    FirstOrDefault();
-
-                    //row["RelatedList"] = query.RelatedQueryInfoModel.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
-                    //    Select(x => x.Value).
-                    //    DefaultIfEmpty("No hay campo").
-                    //    FirstOrDefault();
+                    row["Alias"] = query.Alias;
+                    row["IdentificationResult"] = query.IdentificationResult;
+                    row["NameResult"] = query.NameResult;
+                    row["Offense"] = query.Offense;
+                    row["Peps"] = query.Peps;
+                    row["Priority"] = query.Priority;
+                    row["Status"] = query.Status == "True" ? "Activo" : "Inactivo";
 
                     data.Rows.Add(row);
                 }
