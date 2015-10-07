@@ -26,7 +26,7 @@ var Third_KnowledgeSimpleSearchObject = {
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.length > 0) {
                         $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
                             resultDiv = 
-                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + '/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + result.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId + '">' + "Ver Detalle" + '</a></div>'
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + '/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + value.QueryBasicPublicId + '">' + "Ver Detalle" + '</a></div>'
                             if (value.IdentificationResult != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                             }

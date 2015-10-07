@@ -345,11 +345,6 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.GetCurrenPeriod(CustomerPublicId, Enable);
         }
 
-        public static List<Models.TDQueryDetailInfoModel> GetQueryDetail(string QueryBasicPublicId)
-        {
-            return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.GetQueryDetail(QueryBasicPublicId);
-        }
-
         public static string PeriodoUpsert(PeriodModel oPeriodModel)
         {
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(oPeriodModel.PeriodPublicId,

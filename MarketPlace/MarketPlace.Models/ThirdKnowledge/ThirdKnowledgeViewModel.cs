@@ -67,7 +67,32 @@ namespace MarketPlace.Models.Company
         {
             CurrentSale = oCurrenPlan.RelatedPeriodModel.FirstOrDefault().TotalQueries;
         }
-       
+
+        public ThirdKnowledgeViewModel(List<TDQueryDetailInfoModel> oDetail)
+        {
+            RequestName = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            IdNumberRequest = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            QueryId = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.QueryId).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();            
+            GroupName = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Priority = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Priotity).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            TypeDocument = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.TypeDocument).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            IdentificationNumberResult = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdentificationNumberResult).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            NameResult = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            IdList = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdList).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            ListName = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Alias = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Alias).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Offense = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Offense).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Peps = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Peps).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Status = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Status).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Zone = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Zone).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Link = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Link).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            MoreInfo = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.MoreInfo).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            RegisterDate = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RegisterDate).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            LastModifyDate = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.LastModifyDate).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            Message = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Message).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            FileURL = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.FileURL).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+        }
+
         public ThirdKnowledgeViewModel()
         {
 
