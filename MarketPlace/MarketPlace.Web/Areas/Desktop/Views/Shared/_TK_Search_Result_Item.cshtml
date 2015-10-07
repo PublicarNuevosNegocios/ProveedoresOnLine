@@ -2,7 +2,7 @@
 
 @if (!Model.RenderScripts && Model.RelatedThidKnowledgeSearch != null)
 {
-    
+
     <div class="container-fluid">
 
         @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
@@ -56,7 +56,9 @@
                         </label>
                     </div>
                     <div class="col-xs-12">
-                        <span>@item.IsSuccess</span>
+                        <span>
+                            @(item.IsSuccess == true ? "Activo" : "Inactivo")
+                        </span>
                     </div>
                 </div>
 
@@ -67,7 +69,3 @@
     </div>
 
 }
-
-
-
-

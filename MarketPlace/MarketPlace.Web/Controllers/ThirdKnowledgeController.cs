@@ -106,8 +106,7 @@ namespace MarketPlace.Web.Controllers
             TDQueryInfoModel QueryDetailInfo = new TDQueryInfoModel();
             try
             {
-                oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
-
+                oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();                
                 //Clean the season url saved
                 if (SessionModel.CurrentURL != null)
                     SessionModel.CurrentURL = null;
