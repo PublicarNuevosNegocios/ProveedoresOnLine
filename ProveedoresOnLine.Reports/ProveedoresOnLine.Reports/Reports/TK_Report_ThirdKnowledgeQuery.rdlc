@@ -50,7 +50,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>= "Reporte de connocimiento de terceros detallado para el cliente " + Parameters!CustomerName.Value + ", el cual tiene las siguientes consultas realizadas:"</Value>
+                <Value>="PUBLICAR Publicidad Multimedia S.A.S certifica que los números de identificación y nombres de empresas indicados a continuación fueron consultados en las siguientes listas de control: Lista ofac, Responsables fiscales, Procuraduría general de la nación, Consejo de seguridad ONU, Administran recursos públicos, Boletín de deudores morosos del DNE, Buscados por la justicia, Contrabando, Corrupción, Delitos contra el sistema financiero, Empresas en Acuerdo de Reestructuración en Ejecución, Empresas en Acuerdo de Reestructuración en Tramite, Empresas en Acuerdos Terminados, Empresas en Concordato, Empresas en liquidación judicial, Empresas en Liquidación obligatoria, Empresas en Liquidación Voluntaria, Empresas en Reorganización Empresarial, Empresas y personas en  ejercicio ilegal de actividad financiera, Enriquecimiento ilícito, Extorsión, Extraditables en las cárceles, Ley 975 justicia y paz, Más buscados por el FBI, Más buscados por la DEA, Más buscados por la interpol, Oficina de la Superintendencia de Instituciones Financieras de Canadá (OSFI), Operación lavado de activos narcotráfico y testaferrato, Personas Fallecidas e Identificadas por Medicina Legal Convenio 01 de 2010, Personas públicamente expuestas, Proveedores Ficticios, Rebelión, Autodefensas, Bacrim, Sanciones a personas y sociedades por la junta central de contadores, Sanciones de la unión europea, Sanciones del banco interamericano desarrollo, Sanciones del Banco Mundial por Fraude y Corrupción, Sanciones Del Consejo Profesional De Ingenieros, Sanciones impuestas por consejo superior de la judicatura, Secuestro, Sentencias De Competencia Desleal, Terrorismo, Terroristas de E.T.A y YIHADISTA, Tienen un grado de poder público, Tráfico de armas, Trafico de emigrantes, Trata de personas."</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -80,7 +80,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Consultas:</Value>
+                <Value>Informe de resultados:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -100,7 +100,7 @@
         <Top>9.30438cm</Top>
         <Left>0.73765cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.5cm</Width>
+        <Width>3.78611cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -128,7 +128,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>5.38854cm</Top>
-        <Left>0.73766cm</Left>
+        <Left>3.23765cm</Left>
         <Height>0.57354cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>4</ZIndex>
@@ -158,9 +158,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>5.38854cm</Top>
-        <Left>5.23495cm</Left>
+        <Left>7.73494cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.5cm</Width>
+        <Width>6.91987cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -188,7 +188,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>6.25644cm</Top>
-        <Left>0.73765cm</Left>
+        <Left>3.23764cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>6</ZIndex>
@@ -218,9 +218,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>6.25644cm</Top>
-        <Left>5.23494cm</Left>
+        <Left>7.73493cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.5cm</Width>
+        <Width>6.91988cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -248,7 +248,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>7.16153cm</Top>
-        <Left>0.73765cm</Left>
+        <Left>3.23764cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.135cm</Width>
         <ZIndex>8</ZIndex>
@@ -278,9 +278,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>7.16153cm</Top>
-        <Left>5.23494cm</Left>
+        <Left>7.73493cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.5cm</Width>
+        <Width>6.91988cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -308,7 +308,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>8.24082cm</Top>
-        <Left>0.73765cm</Left>
+        <Left>3.23764cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.78611cm</Width>
         <ZIndex>10</ZIndex>
@@ -338,9 +338,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>8.24082cm</Top>
-        <Left>5.23494cm</Left>
+        <Left>7.73493cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.5cm</Width>
+        <Width>6.91988cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -356,19 +356,25 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.75083cm</Width>
+              <Width>2.05021cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.08975cm</Width>
+              <Width>2.3709cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.12076cm</Width>
+              <Width>2.57618cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.0464cm</Width>
+              <Width>2.15038cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.43282cm</Width>
+              <Width>2.26949cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.03372cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.98967cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -384,7 +390,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Prioridad</Value>
+                              <Value>Alias</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -414,7 +420,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Tipo Identificación</Value>
+                              <Value>Identificación</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -444,7 +450,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Número de Identificación</Value>
+                              <Value>Nombre</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -474,7 +480,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Nombre</Value>
+                              <Value>Resultado</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -504,7 +510,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Lista</Value>
+                              <Value>Peps</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -525,11 +531,221 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox12">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Prioridad</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox14">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Estado</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox14</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
             <TablixRow>
               <Height>0.6cm</Height>
               <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Alias">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!Alias.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Alias</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="IdentificationResult">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!IdentificationResult.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>IdentificationResult</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="NameResult">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!NameResult.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>NameResult</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Offense">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!Offense.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Offense</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Peps">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!Peps.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Peps</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="Priority">
@@ -562,111 +778,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="IdentificationType">
+                    <Textbox Name="Status">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!IdentificationType.Value</Value>
+                              <Value>=Fields!Status.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>IdentificationType</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="IdentificationNumber">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!IdentificationNumber.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>IdentificationNumber</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Name">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!Name.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Name</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="RelatedList">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!RelatedList.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>RelatedList</rd:DefaultName>
+                      <rd:DefaultName>Status</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -691,6 +817,8 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -699,15 +827,15 @@
               <KeepWithGroup>After</KeepWithGroup>
             </TablixMember>
             <TablixMember>
-              <Group Name="Detalles" />
+              <Group Name="Details" />
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_ThirdKnowledgeReport</DataSetName>
-        <Top>10.1727cm</Top>
-        <Left>0.73766cm</Left>
+        <Top>10.28912cm</Top>
+        <Left>0.73765cm</Left>
         <Height>1.2cm</Height>
-        <Width>15.44055cm</Width>
+        <Width>15.44056cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -737,7 +865,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>0eec5fa9-3f36-4c73-a019-662446e361ef</rd:DataSourceID>
+      <rd:DataSourceID>59bae2b6-66fb-427d-a954-fb5d5c6de987</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -747,30 +875,38 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="Alias">
+          <DataField>Alias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificationResult">
+          <DataField>IdentificationResult</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NameResult">
+          <DataField>NameResult</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Offense">
+          <DataField>Offense</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Peps">
+          <DataField>Peps</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Priority">
           <DataField>Priority</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IdentificationType">
-          <DataField>IdentificationType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="IdentificationNumber">
-          <DataField>IdentificationNumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Name">
-          <DataField>Name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="RelatedList">
-          <DataField>RelatedList</DataField>
+        <Field Name="Status">
+          <DataField>Status</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_ThirdKnowledgeReport</rd:DataSetName>
-        <rd:SchemaPath>C:\Publicar\Proyectos\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_ThirdKnowledgeReport.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_ThirdKnowledgeReport.xsd</rd:SchemaPath>
         <rd:TableName>ThirdKnowledgeReport</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
