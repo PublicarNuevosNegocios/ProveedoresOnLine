@@ -725,6 +725,7 @@
     </Content>
     <Content Include="Rsx-MarketPlace.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Rsx-SettingsConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

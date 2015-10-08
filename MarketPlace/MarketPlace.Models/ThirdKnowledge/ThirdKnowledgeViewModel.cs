@@ -29,6 +29,8 @@ namespace MarketPlace.Models.Company
         //Temp Cols
         public TDQueryModel CollumnsResult { get; set; }
 
+        public string ReturnUrl { get; set; }
+
         //Cosl
         public string RequestName { get; set; }
         public string IdNumberRequest { get; set; }
