@@ -159,10 +159,22 @@ div#Notification img {
 }
 
 #POMPNotificationsList {
-    width: 150px;
-    margin-left: 34%;
+    width: 23%;
+    margin-left: 24%;
     position: absolute;
-    margin-top: 22px;
+    margin-top: 24px;
     background-color: #ECECEC;
-    border: none !important;
+    height: auto;
+    text-align: center;
+}
+
+    #POMPNotificationsList > div {
+        width: 100%;
+        height: 30px;
+        margin: 6px 0px 0px 0px;
+        border-bottom: 2px solid #ff8300;
+    }
+
+div#POMPNotificationsList > div > a {
+    cursor: pointer !important;
 }

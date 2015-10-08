@@ -113,6 +113,8 @@ var Third_KnowledgeMasiveSearchObject = {
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').append(e.response.LoadMessage);
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').html('');
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').append(e.response.AdditionalInfo);
+
+                Header_NewNotification();
                 debugger;
             },
             error: function (e) {

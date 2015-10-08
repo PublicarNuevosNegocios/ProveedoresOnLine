@@ -1,10 +1,14 @@
 ﻿<div id="Notification">
     @if (MarketPlace.Models.General.SessionModel.NewNotifications)
     {
-        <img src="https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/Bell+New+Red.png" />
+        <img id="NewNotification" src="@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.N_NewNotification].Value.Trim())" />
+
+        <img id="OldNotification" style="display:none;" src="@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.N_OldNotification].Value.Trim())" />
     }
     else
     {
-        <img src="https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/Bell.png" />
+        <img id="OldNotification" src="@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.N_OldNotification].Value.Trim())" />
+
+        <img id="NewNotification" style="display:none;" src="@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.N_NewNotification].Value.Trim())" />
     }
 </div>

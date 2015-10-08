@@ -150,6 +150,14 @@
 
         #endregion
 
+        #region NotificationIcon
+
+        public const string N_NewNotification = "N_NewNotification";
+
+        public const string N_OldNotification = "N_OldNotification";
+
+        #endregion
+
         #endregion
 
     }

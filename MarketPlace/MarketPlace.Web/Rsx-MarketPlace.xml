@@ -76,6 +76,10 @@
     <!--Url redirect-->
     <key name="N_UrlThirdKnowledgeQuery"><![CDATA[https://localhost:44309/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={{QueryPublicId}}]]></key>
 
+    <!--Notification icon-->
+    <key name="N_NewNotification">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/Bell_New.png</key>
+    <key name="N_OldNotification">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/Bell.png</key>
+
   </MarketPlace>
 </Settings>
 
