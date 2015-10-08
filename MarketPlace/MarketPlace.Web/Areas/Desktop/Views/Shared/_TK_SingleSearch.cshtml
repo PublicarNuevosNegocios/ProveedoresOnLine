@@ -41,12 +41,16 @@
 
 @*Templates*@
 <div id="loading"></div>
-    
+    @{
+        string UrlReturn = Url.Action(MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch, MVC.ThirdKnowledge.Name);
+    }
 
 <script type="text/javascript">
+    
     $(document).ready(function () {
         Third_KnowledgeSimpleSearchObject.Init({
             ObjectId: 'ThirdKnowledge',
+            Url: '@UrlReturn',
         });
     });
 </script>
