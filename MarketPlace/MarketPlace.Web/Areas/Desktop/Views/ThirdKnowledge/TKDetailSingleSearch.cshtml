@@ -151,10 +151,13 @@
 
                             <span>@Model.RelatedThidKnowledgeSearch.MoreInfo</span>
                         </div>
-
+                    }
+                    if (Model.RelatedThidKnowledgeSearch.ReturnUrl != "null")
+                    {
+                        <a href="javascript: window.history.back()" class style="float: right;">Regresar a la búsqueda</a>
                     }
                 }
-                <a href="javascript: window.history.back()" class style="float: right;">Regresar a la búsqueda</a>
+
             </div>
 
         </div>

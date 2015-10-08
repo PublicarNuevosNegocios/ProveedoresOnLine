@@ -99,14 +99,14 @@ namespace MarketPlace.Web.Controllers
             }
         }
 
-        public virtual ActionResult TKDetailSingleSearch(string QueryBasicPublicId)
+        public virtual ActionResult TKDetailSingleSearch(string QueryBasicPublicId, string ReturnUrl)
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
             TDQueryInfoModel QueryDetailInfo = new TDQueryInfoModel();
             try
             {
-                oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();                
+                oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
                 //Clean the season url saved
                 if (SessionModel.CurrentURL != null)
                     SessionModel.CurrentURL = null;
@@ -115,6 +115,9 @@ namespace MarketPlace.Web.Controllers
                 QueryDetailInfo = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryDetailGetByBasicPublicID(QueryBasicPublicId);
 
                 oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel(QueryDetailInfo.DetailInfo);
+
+                if (ReturnUrl == "null")
+                    oModel.RelatedThidKnowledgeSearch.ReturnUrl = ReturnUrl;
 
                 return View(oModel);
             }

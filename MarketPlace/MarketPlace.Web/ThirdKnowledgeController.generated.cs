@@ -77,12 +77,6 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeDetail);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
-        {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ThirdKnowledgeController Actions { get { return MVC.ThirdKnowledge; } }
@@ -105,7 +99,6 @@ namespace MarketPlace.Web.Controllers
             public readonly string TKDetailSingleSearch = "TKDetailSingleSearch";
             public readonly string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
             public readonly string TKThirdKnowledgeDetail = "TKThirdKnowledgeDetail";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -117,7 +110,6 @@ namespace MarketPlace.Web.Controllers
             public const string TKDetailSingleSearch = "TKDetailSingleSearch";
             public const string TKThirdKnowledgeSearch = "TKThirdKnowledgeSearch";
             public const string TKThirdKnowledgeDetail = "TKThirdKnowledgeDetail";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -128,6 +120,7 @@ namespace MarketPlace.Web.Controllers
         public class ActionParamsClass_TKDetailSingleSearch
         {
             public readonly string QueryBasicPublicId = "QueryBasicPublicId";
+            public readonly string ReturnUrl = "ReturnUrl";
         }
         static readonly ActionParamsClass_TKThirdKnowledgeSearch s_params_TKThirdKnowledgeSearch = new ActionParamsClass_TKThirdKnowledgeSearch();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -151,14 +144,6 @@ namespace MarketPlace.Web.Controllers
             public readonly string InitDate = "InitDate";
             public readonly string EndDate = "EndDate";
             public readonly string Enable = "Enable";
-        }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
-        {
-            public readonly string FilePath = "FilePath";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -213,14 +198,15 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void TKDetailSingleSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryBasicPublicId);
+        partial void TKDetailSingleSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryBasicPublicId, string ReturnUrl);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TKDetailSingleSearch(string QueryBasicPublicId)
+        public override System.Web.Mvc.ActionResult TKDetailSingleSearch(string QueryBasicPublicId, string ReturnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKDetailSingleSearch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "QueryBasicPublicId", QueryBasicPublicId);
-            TKDetailSingleSearchOverride(callInfo, QueryBasicPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ReturnUrl", ReturnUrl);
+            TKDetailSingleSearchOverride(callInfo, QueryBasicPublicId, ReturnUrl);
             return callInfo;
         }
 
@@ -252,18 +238,6 @@ namespace MarketPlace.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Enable", Enable);
             TKThirdKnowledgeDetailOverride(callInfo, QueryPublicId, InitDate, EndDate, Enable);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 
