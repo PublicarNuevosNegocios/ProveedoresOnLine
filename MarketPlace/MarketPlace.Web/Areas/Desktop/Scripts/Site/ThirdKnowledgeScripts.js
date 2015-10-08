@@ -1,9 +1,10 @@
 ﻿/*Init survey program object*/
 var Third_KnowledgeSimpleSearchObject = {
     ObjectId: '',
-
+    Url:'',
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
+        this.Url = vInitObject.Url
     },
 
     SimpleSearch: function () {
@@ -17,16 +18,16 @@ var Third_KnowledgeSimpleSearchObject = {
                 type: "POST",
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
-                success: function (result) {
-                    debugger;
+                success: function (result) {                    
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
 
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.length > 0) {
                         $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
-                            resultDiv = 
-                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + 'MarketPlace/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></div>'
+                            debugger;
+                            resultDiv =
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></div>'
                             if (value.IdentificationResult != null) {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                             }
