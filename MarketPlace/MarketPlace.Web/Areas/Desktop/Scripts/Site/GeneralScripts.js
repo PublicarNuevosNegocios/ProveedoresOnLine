@@ -38,7 +38,7 @@ function Header_ShowHideNotifications(DivId, User, companyPublicId) {
         }
     });
 
-    $('#' + DivId).toggle();
+    $('#' + DivId).toggle('slow');
 }
 
 function Header_NewNotification() {
