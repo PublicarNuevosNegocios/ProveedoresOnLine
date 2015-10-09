@@ -2492,7 +2492,7 @@ var ThirdKnowledgeObject = {
                     command: [
                     {
                         name: 'Detail',
-                        text: 'Ver Detalle42334',
+                        text: 'Ver Detalle',
                         click: function (e) {
                             // e.target is the DOM element representing the button
                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
@@ -2539,7 +2539,7 @@ var ThirdKnowledgeObject = {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?TDGetQueriesByPeriodPublicId=true&PeriodPublicId=' + vRenderObject.PeriodPublicId + '&Enable=' + "true",
                             dataType: 'json',
-                            success: function (result) {                                
+                            success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {

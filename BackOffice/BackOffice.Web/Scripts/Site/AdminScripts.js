@@ -74,7 +74,6 @@
     },
 
     RenderGeoAsync: function (param) {
-
         var CountrySearched = '';
 
         if (param != true) {
@@ -157,7 +156,6 @@
                         });
                     },
                     create: function (options) {
-
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -243,7 +241,6 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=1&IsAutoComplete=true',
                                         dataType: 'json',
@@ -506,7 +503,6 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
                     // create an input element
                     var input = $('<input/>');
                     var isSelected = false;
@@ -519,14 +515,12 @@
                         dataTextField: 'ItemName',
 
                         change: function (e) {
-
                             if (isSelected == false) {
                                 options.model['B_Bank'] = e.sender._old;
                                 options.model.dirty = true;
                             }
                         },
                         select: function (e) {
-
                             var selectedItem = this.dataItem(e.item.index());
 
                             isSelected = true;
@@ -542,7 +536,6 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
@@ -581,7 +574,6 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
                     // create an input element
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
@@ -593,7 +585,6 @@
                         dataTextField: 'GIT_Country',
 
                         select: function (e) {
-
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['B_CityId'] = selectedItem.GIT_CountryId;
@@ -1041,7 +1032,6 @@
                         });
                     },
                     update: function (options) {
-
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -1172,7 +1162,6 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
                     //get current values
                     var oCurrentValue = new Array();
                     if (options.model[options.field] != null) {
@@ -1258,7 +1247,6 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
                     // create an input element
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
@@ -1269,9 +1257,8 @@
                     input.kendoAutoComplete({
                         dataTextField: 'G_Group',
                         select: function (e) {
-
                             var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name                            
+                            //set server fiel name
                             options.model['ECS_Group'] = selectedItem.G_GroupId;
                             options.model['ECS_GroupName'] = selectedItem.G_Group;
                             //enable made changes
