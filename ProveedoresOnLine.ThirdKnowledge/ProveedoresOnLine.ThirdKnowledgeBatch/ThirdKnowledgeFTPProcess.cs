@@ -93,6 +93,24 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                     {
                                         ItemInfoType = new TDCatalogModel()
                                         {
+                                            ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Priotity,
+                                        },
+                                        Value = !string.IsNullOrEmpty(x.Element("Prioridad").Value) ? x.Element("Alias").Value : string.Empty,
+                                        Enable = true,
+                                    });
+                                    oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                    {
+                                        ItemInfoType = new TDCatalogModel()
+                                        {
+                                            ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RegisterDate,
+                                        },
+                                        Value = !string.IsNullOrEmpty(x.Element("FechaRegistro").Value) ? x.Element("Alias").Value : string.Empty,
+                                        Enable = true,
+                                    });
+                                    oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                    {
+                                        ItemInfoType = new TDCatalogModel()
+                                        {
                                             ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Offense,
                                         },
                                         Value = !string.IsNullOrEmpty(x.Element("CargoDelito").Value) ? x.Element("CargoDelito").Value : string.Empty,

@@ -77,6 +77,33 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            {
                                                ItemInfoType = new TDCatalogModel()
                                                {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Priotity,
+                                               },
+                                               Value = !string.IsNullOrEmpty(x.Prioridad) ? x.Prioridad : string.Empty,
+                                               Enable = true,
+                                           });
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RegisterDate,
+                                               },
+                                               Value = !string.IsNullOrEmpty(x.FechaRegistro) ? x.FechaRegistro : string.Empty,
+                                               Enable = true,
+                                           });
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.LastModifyDate,
+                                               },
+                                               Value = !string.IsNullOrEmpty(x.FechaActualizacion) ? x.FechaActualizacion : string.Empty,
+                                               Enable = true,
+                                           });
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Offense,
                                                },
                                                Value = !string.IsNullOrEmpty(x.CargoDelito) ? x.CargoDelito : string.Empty,
@@ -99,16 +126,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                },
                                                Value = !string.IsNullOrEmpty(x.Estado) ? x.Estado : string.Empty,
                                                Enable = true,
-                                           });
-                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                                           {
-                                               ItemInfoType = new TDCatalogModel()
-                                               {
-                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.LastModifyDate,
-                                               },
-                                               Value = !string.IsNullOrEmpty(x.FechaActualizacion) ? x.FechaActualizacion : string.Empty,
-                                               Enable = true,
-                                           });
+                                           });                                          
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()

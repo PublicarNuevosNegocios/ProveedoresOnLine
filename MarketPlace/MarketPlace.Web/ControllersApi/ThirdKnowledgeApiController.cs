@@ -62,6 +62,26 @@ namespace MarketPlace.Web.ControllersApi
                             oModel.RelatedThidKnowledgeSearch.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
                                            System.Web.HttpContext.Current.Request["IdentificationNumber"], System.Web.HttpContext.Current.Request["Name"], oQueryToCreate);
+
+                            List<string> Group;
+
+                            Group = new List<string>();
+                            oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.All(x =>
+                                {
+                                    Group.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                                    return true;
+                                });
+
+                            Group = Group.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                            //if (Group != null)
+                            //{
+                            //    return null;
+                            //}
+                            //List<Filter_IDs> filterids = ef.filterLine.Select(o => new { objectType = o.objectType, object_id = o.object_id })
+                            //.GroupBy(fl => fl.objectType).ToList()
+                            //.Select(fl => new Filter_IDs { type = fl.Key, objects = fl.Select(x => x.object_id).ToList() })
+                            //.ToList();
                             if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess == true)
                             {
                                 //Set New Score
