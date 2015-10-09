@@ -25,7 +25,6 @@ var Third_KnowledgeSimpleSearchObject = {
                     var resultDiv = '';
                     if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.length > 0) {
                         $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
-                            debugger;
                             resultDiv =
                              '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></div>'
                             if (value.IdentificationResult != null) {
@@ -38,8 +37,6 @@ var Third_KnowledgeSimpleSearchObject = {
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Cargo o Delito " + "</label><p>" + value.Offense + '</p></div>'
                             }                            
                             if (value.Peps != null) {
-                                debugger;
-
                                 resultDiv += '<div class="POMPResultSection"><label>' + "Peps " + "</label><p>" + value.Peps + '</p></div>'
                             }
                             if (value.Priority != null) {
@@ -109,14 +106,12 @@ var Third_KnowledgeMasiveSearchObject = {
                 autoUpload: true
             },
             success: function (e) {
-                debugger;
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').html('');
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_MessageResult').append(e.response.LoadMessage);
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').html('');
                 $('#' + Third_KnowledgeMasiveSearchObject.ObjectId + '_Queries').append(e.response.AdditionalInfo);
 
                 Header_NewNotification();
-                debugger;
             },
             error: function (e) {
             }

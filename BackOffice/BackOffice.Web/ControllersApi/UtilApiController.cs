@@ -4,8 +4,6 @@ using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BackOffice.Web.ControllersApi
@@ -143,6 +141,7 @@ namespace BackOffice.Web.ControllersApi
                                 typeof(AdminCategoryViewModel));
 
                 #region Geolocalization
+
                 if (CategoryType == "AdminGeo")
                 {
                     if (string.IsNullOrEmpty(oDataToUpsert.GIT_Country))
@@ -269,9 +268,10 @@ namespace BackOffice.Web.ControllersApi
                     oReturn = new AdminCategoryViewModel(oResult);
                 }
 
-                #endregion
+                #endregion Geolocalization
 
                 #region Banks
+
                 if (CategoryType == "AdminBank")
                 {
                     GenericItemModel oBankToUpsert = new GenericItemModel();
@@ -313,7 +313,8 @@ namespace BackOffice.Web.ControllersApi
                     oBankToUpsert.ItemInfo.AddRange(oBankInfo);
                     BankResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(11, oBankToUpsert);
                 }
-                #endregion
+
+                #endregion Banks
 
                 #region CompanyRules
 
@@ -336,7 +337,7 @@ namespace BackOffice.Web.ControllersApi
                     CompanyRuleResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(2, oCompanyRulesToUpsert);
                 }
 
-                #endregion
+                #endregion CompanyRules
 
                 #region Rules
 
@@ -359,7 +360,7 @@ namespace BackOffice.Web.ControllersApi
                     RuleResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(3, oRulesToUpsert);
                 }
 
-                #endregion
+                #endregion Rules
 
                 #region Resolution
 
@@ -381,7 +382,7 @@ namespace BackOffice.Web.ControllersApi
                     ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(8, oResolutionToUpsert);
                 }
 
-                #endregion
+                #endregion Resolution
 
                 #region Standar Economy Activities
 
@@ -439,20 +440,19 @@ namespace BackOffice.Web.ControllersApi
                         },
                         LargeValue = oDataToUpsert.ECS_ProviderTypeJoin != null ? string.Join(",", oDataToUpsert.ECS_ProviderTypeJoin.Select(x => x.ItemId).Distinct().ToList()) : string.Empty,
                         Enable = true,
-
                     });
                     if (TreeId != "4")
                     {
                         oActivityInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new CatalogModel()
                             {
-                                ItemInfoId = 0,
-                                ItemInfoType = new CatalogModel()
-                                {
-                                    ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_IsCustom
-                                },
-                                Value = "true",
-                                Enable = true,
-                            });
+                                ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_IsCustom
+                            },
+                            Value = "true",
+                            Enable = true,
+                        });
                     }
                     GenericItemModel oActivityResult = new GenericItemModel();
 
@@ -460,7 +460,7 @@ namespace BackOffice.Web.ControllersApi
                     oActivityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(Convert.ToInt32(TreeId), oActivityToUpsert);
                 }
 
-                #endregion
+                #endregion Standar Economy Activities
 
                 #region Group
 
@@ -482,9 +482,10 @@ namespace BackOffice.Web.ControllersApi
                     ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(7, oGroupToUpsert);
                 }
 
-                #endregion
+                #endregion Group
 
                 #region Tree
+
                 if (CategoryType == "AdminTree")
                 {
                     TreeModel oTreeModel = new TreeModel();
@@ -540,9 +541,11 @@ namespace BackOffice.Web.ControllersApi
                     oReturn.T_TreeId = oTreeResult.TreeId.ToString();
                     oReturn.T_TreeName = oTreeResult.TreeName;
                 }
-                #endregion
+
+                #endregion Tree
 
                 #region TRM
+
                 if (CategoryType == "AdminTRM")
                 {
                     CurrencyExchangeModel oExchangeToUpsert = new CurrencyExchangeModel();
@@ -564,7 +567,8 @@ namespace BackOffice.Web.ControllersApi
                     oReturn.C_MoneyTypeToId = oDataToUpsert.C_MoneyTypeToId;
                     oReturn.C_Rate = oDataToUpsert.C_Rate;
                 }
-                #endregion
+
+                #endregion TRM
             }
             return oReturn;
         }
@@ -1058,7 +1062,7 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion Survey
 
         #region Project Config
 
@@ -1081,7 +1085,7 @@ namespace BackOffice.Web.ControllersApi
                 {
                     oReturn.Add(x);
                     return true;
-                });                
+                });
             }
 
             return oReturn;
@@ -1103,7 +1107,6 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        #endregion Project Config
     }
 }
- 
