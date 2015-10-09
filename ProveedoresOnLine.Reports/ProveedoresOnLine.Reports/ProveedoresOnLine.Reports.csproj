@@ -110,7 +110,6 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.cs">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -119,7 +118,6 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.cs">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -216,6 +214,7 @@
     <EmbeddedResource Include="Reports\SV_Report_EvaluatorDetail.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_SurveyDetail.rdlc" />
     <EmbeddedResource Include="Reports\TK_Report_ThirdKnowledgeQuery.rdlc" />
+    <EmbeddedResource Include="Reports\TK_Report_ThirdKnowledgeQueryDetail.rdlc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

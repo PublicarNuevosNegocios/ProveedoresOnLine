@@ -23,6 +23,7 @@
             RP_SurveyEvaluatorDetailReport = 1501004,
             RP_SurveyGeneralReport = 1501005,
             RP_ThirdKnowledgeQueryReport = 1501006,
+            RP_ThirdKnowledgeQueryDetailReport = 1501007,
         }
 
         #endregion

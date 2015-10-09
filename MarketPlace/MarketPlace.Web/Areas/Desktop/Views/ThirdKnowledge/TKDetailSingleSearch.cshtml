@@ -17,6 +17,26 @@
         <div class="POMPSearchContainer">
             <label class="POMPSectionTitles">Detalle de la consulta</label>
             <div class="container-fluid">
+                <div class="col-xs-12">
+                    <div class="col-xs-4 text-center ThirdKnowledge_ListDetail">
+                        <div class="row text-center">
+                            <form id="frmThirdKnowledgeUpsert"
+                                  method="post"
+                                  action="@(Url.Action
+                                            (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                            MVC.ThirdKnowledge.Name,
+                                            new
+                                            {
+                                                QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
+                                                ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
+                                            }))">
+                                <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                <input type="hidden" name="DownloadReport" value="true" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 @{
                     if (Model.RelatedThidKnowledgeSearch != null)
                     {
@@ -154,7 +174,7 @@
                     }
                     if (Model.RelatedThidKnowledgeSearch.ReturnUrl != "null")
                     {
-                        <a href="javascript: window.history.back()" class style="float: right;">Regresar a la búsqueda</a>
+                        <a href="javascript: window.history.back()" style="float: right;">Regresar a la búsqueda</a>
                     }
                 }
 

@@ -31,6 +31,8 @@ namespace MarketPlace.Models.Company
 
         public string ReturnUrl { get; set; }
 
+        public string QueryBasicPublicId { get; set; }
+
         //Cosl
         public string RequestName { get; set; }
         public string IdNumberRequest { get; set; }
