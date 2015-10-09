@@ -52,9 +52,9 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             string xml = reader.ReadToEnd();
                             XDocument CurrentXMLAnswer = XDocument.Parse(xml);
                             List<BatchXMLResultModel> oResult = new List<BatchXMLResultModel>();
-
+                            oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
                             //Set results to model
-                            CurrentXMLAnswer.Descendants("Resultados").All(
+                            CurrentXMLAnswer.Descendants("Resultado").All(
                                 x =>
                                 {
                                     #region QueryInfo
@@ -70,15 +70,16 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                     oInfoCreate.QueryPublicId = oQuery.QueryPublicId;
                                     oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
+                                    #region Detail Info
                                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                                    {
-                                        ItemInfoType = new TDCatalogModel()
-                                        {
-                                            ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
-                                        },
-                                        Value = !string.IsNullOrEmpty(x.Element("IdentificacionConsulta").Value) ? x.Element("IdentificacionConsulta").Value : string.Empty,
-                                        Enable = true,
-                                    });
+                                                               {
+                                                                   ItemInfoType = new TDCatalogModel()
+                                                                   {
+                                                                       ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                                                                   },
+                                                                   Value = !string.IsNullOrEmpty(x.Element("IdentificacionConsulta").Value) ? x.Element("IdentificacionConsulta").Value : string.Empty,
+                                                                   Enable = true,
+                                                               });
                                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                     {
                                         ItemInfoType = new TDCatalogModel()
@@ -130,7 +131,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         {
                                             ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
                                         },
-                                        Value = !string.IsNullOrEmpty(x.Element("IdConsulta").Value) ? x.Element("IdConsulta").Value : string.Empty,
+                                        Value = !string.IsNullOrEmpty(x.Element("NumeroConsulta").Value) ? x.Element("NumeroConsulta").Value : string.Empty,
                                         Enable = true,
                                     });
                                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
@@ -141,7 +142,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         },
                                         Value = !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value : string.Empty,
                                         Enable = true,
-                                    });                                  
+                                    });
                                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                     {
                                         ItemInfoType = new TDCatalogModel()
@@ -186,7 +187,10 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         },
                                         Value = x.Element("Zona").Value,
                                         Enable = true,
-                                    });
+                                    }); 
+                                    #endregion
+
+                                    oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
                                     #endregion
                                     return true;
                                 });
