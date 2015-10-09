@@ -10,8 +10,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
     {
         [TestMethod]
         public void SimpleRequest()
-         {
-            TDQueryModel oQuery = new TDQueryModel(); 
+        {
+            TDQueryModel oQuery = new TDQueryModel();
             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest("Customer", "70041053", "Alvaro uribe Velez", oQuery);
         }
 
@@ -41,7 +41,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         {
             List<PlanModel> oReturn = new List<PlanModel>();
             oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer("DA5C572E", true);
-            Assert.IsNull(oReturn);     
+            Assert.IsNull(oReturn);
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
 
             oPeriodModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetPeriodByPlanPublicId("DA5C572E", true);
 
-            Assert.IsNull(oPeriodModel);     
+            Assert.IsNull(oPeriodModel);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
         public void GetQueriesInProgress()
         {
             List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetQueriesInProgress();
-            Assert.AreEqual(true, oReturn != null);            
+            Assert.AreEqual(true, oReturn != null);
         }
 
         [TestMethod]
