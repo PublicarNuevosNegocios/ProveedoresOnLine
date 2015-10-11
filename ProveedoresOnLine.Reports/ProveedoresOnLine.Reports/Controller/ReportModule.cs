@@ -310,7 +310,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #endregion
 
-        #region ThirdKnowledge Reports
+        #region ThirdKnowledgeReports
 
         public static Tuple<byte[], string, string> TK_QueryReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
@@ -373,6 +373,7 @@ namespace ProveedoresOnLine.Reports.Controller
                        "  <MarginRight>1in</MarginRight>" +
                        "  <MarginBottom>0.5in</MarginBottom>" +
                        "</DeviceInfo>";
+
             Warning[] warnings;
             string[] streams;
             byte[] renderedBytes;
@@ -385,6 +386,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_ThirdKnowledgeQueryDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
         }
