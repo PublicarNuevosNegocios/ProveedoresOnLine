@@ -79,6 +79,19 @@
             margin-right: 23px;
     }
 
+
+.POMPResultSection-Priority {
+    width: 10%;
+    height: 70px;
+    float: left;
+    display: inline-block;
+}
+    .POMPResultSection-Priority > p {
+        text-align: center;
+        padding: 0px 5px 10px 0;
+    }
+
+
 .POMPResultSection {
     width: 20%;
     height: 70px;
@@ -232,4 +245,10 @@
 
 .TK-DownloadFile-a, a:link {
     text-decoration: none;
+}
+
+.Tk-DetailSingleSearchSeparator {
+    border-color:#E4E4E4;
+    size: 1px;
+
 }
