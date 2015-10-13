@@ -2,40 +2,6 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="Textbox18">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>="PUBLICAR Publicidad Multimedia S.A.S certifica que los números de identificación y nombres de empresas indicados a continuación fueron consultados en las siguientes listas de control: Lista ofac, Responsables fiscales, Procuraduría general de la nación, Consejo de seguridad ONU, Administran recursos públicos, Boletín de deudores morosos del DNE, Buscados por la justicia, Contrabando, Corrupción, Delitos contra el sistema financiero, Empresas en Acuerdo de Reestructuración en Ejecución, Empresas en Acuerdo de Reestructuración en Tramite, Empresas en Acuerdos Terminados, Empresas en Concordato, Empresas en liquidación judicial, Empresas en Liquidación obligatoria, Empresas en Liquidación Voluntaria, Empresas en Reorganización Empresarial, Empresas y personas en  ejercicio ilegal de actividad financiera, Enriquecimiento ilícito, Extorsión, Extraditables en las cárceles, Ley 975 justicia y paz, Más buscados por el FBI, Más buscados por la DEA, Más buscados por la interpol, Oficina de la Superintendencia de Instituciones Financieras de Canadá (OSFI), Operación lavado de activos narcotráfico y testaferrato, Personas Fallecidas e Identificadas por Medicina Legal Convenio 01 de 2010, Personas públicamente expuestas, Proveedores Ficticios, Rebelión, Autodefensas, Bacrim, Sanciones a personas y sociedades por la junta central de contadores, Sanciones de la unión europea, Sanciones del banco interamericano desarrollo, Sanciones del Banco Mundial por Fraude y Corrupción, Sanciones Del Consejo Profesional De Ingenieros, Sanciones impuestas por consejo superior de la judicatura, Secuestro, Sentencias De Competencia Desleal, Terrorismo, Terroristas de E.T.A y YIHADISTA, Tienen un grado de poder público, Tráfico de armas, Trafico de emigrantes, Trata de personas."</Value>
-                <Style>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>General</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>0.25618cm</Top>
-        <Left>0.39368cm</Left>
-        <Height>0.57354cm</Height>
-        <Width>15.18361cm</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="Textbox19">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -60,11 +26,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>4.32498cm</Top>
+        <Top>13.53248cm</Top>
         <Left>0.39368cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.78611cm</Width>
-        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -92,11 +57,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.0706cm</Top>
+        <Top>10.2781cm</Top>
         <Left>2.92015cm</Left>
         <Height>0.57354cm</Height>
         <Width>2.5cm</Width>
-        <ZIndex>2</ZIndex>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -124,11 +89,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.0706cm</Top>
+        <Top>10.2781cm</Top>
         <Left>7.41744cm</Left>
         <Height>0.57354cm</Height>
         <Width>6.91987cm</Width>
-        <ZIndex>3</ZIndex>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -156,11 +121,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.82053cm</Top>
+        <Top>11.02803cm</Top>
         <Left>2.92014cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.135cm</Width>
-        <ZIndex>4</ZIndex>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -188,11 +153,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.82053cm</Top>
+        <Top>11.02803cm</Top>
         <Left>7.41743cm</Left>
         <Height>0.57354cm</Height>
         <Width>6.91988cm</Width>
-        <ZIndex>5</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -220,11 +185,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>2.57046cm</Top>
+        <Top>11.77796cm</Top>
         <Left>2.92014cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.135cm</Width>
-        <ZIndex>6</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -252,11 +217,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>2.57046cm</Top>
+        <Top>11.77796cm</Top>
         <Left>7.41743cm</Left>
         <Height>0.57354cm</Height>
         <Width>6.91988cm</Width>
-        <ZIndex>7</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -284,11 +249,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.32039cm</Top>
+        <Top>12.52789cm</Top>
         <Left>2.92014cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.78611cm</Width>
-        <ZIndex>8</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -316,11 +281,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.32039cm</Top>
+        <Top>12.52789cm</Top>
         <Left>7.41743cm</Left>
         <Height>0.57354cm</Height>
         <Width>6.91988cm</Width>
-        <ZIndex>9</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -907,19 +872,33 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_ThirdKnowledgeReport</DataSetName>
-        <Top>5.07491cm</Top>
+        <Top>14.28241cm</Top>
         <Left>0.39368cm</Left>
         <Height>1.2cm</Height>
-        <Width>15.18361cm</Width>
-        <ZIndex>10</ZIndex>
+        <Width>15.1836cm</Width>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
+      <Image Name="CImage2">
+        <Source>External</Source>
+        <Value>=Parameters!ThirdKnowledgeText.Value</Value>
+        <Sizing>FitProportional</Sizing>
+        <Left>0.07061cm</Left>
+        <Height>10.24282cm</Height>
+        <Width>15.85941cm</Width>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
     </ReportItems>
-    <Height>2.61459in</Height>
+    <Height>6.14752in</Height>
     <Style />
   </Body>
   <Width>6.29946in</Width>
@@ -949,7 +928,7 @@
           <Top>1.28522cm</Top>
           <Left>4.44671cm</Left>
           <Height>1.07839cm</Height>
-          <Width>8.67671cm</Width>
+          <Width>9.8906cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -979,9 +958,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>0.35194cm</Top>
-          <Left>5.16108cm</Left>
+          <Left>4.44671cm</Left>
           <Height>0.6cm</Height>
-          <Width>6.9891cm</Width>
+          <Width>9.8906cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1127,6 +1106,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CustomerImage">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ThirdKnowledgeText">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

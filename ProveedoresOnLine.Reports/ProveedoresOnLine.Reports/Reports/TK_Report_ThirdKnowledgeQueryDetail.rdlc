@@ -2,40 +2,6 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="Textbox18">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>="PUBLICAR Publicidad Multimedia S.A.S certifica que los números de identificación y nombres de empresas indicados a continuación fueron consultados en las siguientes listas de control: Lista ofac, Responsables fiscales, Procuraduría general de la nación, Consejo de seguridad ONU, Administran recursos públicos, Boletín de deudores morosos del DNE, Buscados por la justicia, Contrabando, Corrupción, Delitos contra el sistema financiero, Empresas en Acuerdo de Reestructuración en Ejecución, Empresas en Acuerdo de Reestructuración en Tramite, Empresas en Acuerdos Terminados, Empresas en Concordato, Empresas en liquidación judicial, Empresas en Liquidación obligatoria, Empresas en Liquidación Voluntaria, Empresas en Reorganización Empresarial, Empresas y personas en  ejercicio ilegal de actividad financiera, Enriquecimiento ilícito, Extorsión, Extraditables en las cárceles, Ley 975 justicia y paz, Más buscados por el FBI, Más buscados por la DEA, Más buscados por la interpol, Oficina de la Superintendencia de Instituciones Financieras de Canadá (OSFI), Operación lavado de activos narcotráfico y testaferrato, Personas Fallecidas e Identificadas por Medicina Legal Convenio 01 de 2010, Personas públicamente expuestas, Proveedores Ficticios, Rebelión, Autodefensas, Bacrim, Sanciones a personas y sociedades por la junta central de contadores, Sanciones de la unión europea, Sanciones del banco interamericano desarrollo, Sanciones del Banco Mundial por Fraude y Corrupción, Sanciones Del Consejo Profesional De Ingenieros, Sanciones impuestas por consejo superior de la judicatura, Secuestro, Sentencias De Competencia Desleal, Terrorismo, Terroristas de E.T.A y YIHADISTA, Tienen un grado de poder público, Tráfico de armas, Trafico de emigrantes, Trata de personas."</Value>
-                <Style>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>General</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>0.49389cm</Top>
-        <Left>0.66319cm</Left>
-        <Height>0.57354cm</Height>
-        <Width>15.18361cm</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="Textbox19">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -51,11 +17,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.55208cm</Top>
+        <Top>10.12458cm</Top>
         <Left>0.66319cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.78611cm</Width>
-        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -83,11 +48,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>2.26674cm</Top>
+        <Top>10.83924cm</Top>
         <Left>0.27043cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17887cm</Width>
-        <ZIndex>2</ZIndex>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -115,11 +80,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>2.26674cm</Top>
+        <Top>10.83924cm</Top>
         <Left>8.28834cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>3</ZIndex>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -147,11 +112,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.01666cm</Top>
+        <Top>11.58916cm</Top>
         <Left>0.27043cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>4</ZIndex>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -179,11 +144,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>6.66048cm</Top>
-        <Left>0.27043cm</Left>
+        <Top>15.87707cm</Top>
+        <Left>0.23516cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>5</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -211,11 +176,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.01666cm</Top>
+        <Top>11.58916cm</Top>
         <Left>8.28836cm</Left>
         <Height>0.60882cm</Height>
         <Width>4.17887cm</Width>
-        <ZIndex>6</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -243,11 +208,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.73132cm</Top>
+        <Top>12.30382cm</Top>
         <Left>0.27042cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>7</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -275,11 +240,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.73132cm</Top>
+        <Top>12.30382cm</Top>
         <Left>8.25308cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.21414cm</Width>
-        <ZIndex>8</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -307,11 +272,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>4.48124cm</Top>
-        <Left>0.27043cm</Left>
+        <Top>13.73312cm</Top>
+        <Left>0.23512cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>9</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -339,11 +304,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>4.48124cm</Top>
-        <Left>8.28836cm</Left>
+        <Top>14.44777cm</Top>
+        <Left>0.23517cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>10</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -371,11 +336,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>5.23117cm</Top>
-        <Left>0.27042cm</Left>
+        <Top>13.01847cm</Top>
+        <Left>0.23512cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -403,11 +368,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>5.23117cm</Top>
-        <Left>8.28836cm</Left>
+        <Top>13.01847cm</Top>
+        <Left>8.25306cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>12</ZIndex>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -435,11 +400,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>5.94583cm</Top>
-        <Left>0.27042cm</Left>
+        <Top>15.16242cm</Top>
+        <Left>0.23515cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -467,11 +432,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>7.37513cm</Top>
-        <Left>0.27044cm</Left>
+        <Top>16.59172cm</Top>
+        <Left>0.23517cm</Left>
         <Height>0.57354cm</Height>
         <Width>4.17888cm</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -499,11 +464,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>2.26674cm</Top>
+        <Top>10.83924cm</Top>
         <Left>4.55514cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.62737cm</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -531,11 +496,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>2.26674cm</Top>
+        <Top>10.83924cm</Top>
         <Left>12.53778cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.62736cm</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -563,11 +528,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.01666cm</Top>
+        <Top>11.58916cm</Top>
         <Left>4.51987cm</Left>
         <Height>0.60882cm</Height>
         <Width>3.66263cm</Width>
-        <ZIndex>17</ZIndex>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -595,11 +560,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.73132cm</Top>
+        <Top>12.30382cm</Top>
         <Left>4.51987cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.62737cm</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -627,11 +592,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>4.48124cm</Top>
-        <Left>4.55515cm</Left>
+        <Top>13.73312cm</Top>
+        <Left>4.51984cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.62737cm</Width>
-        <ZIndex>19</ZIndex>
+        <Width>11.6453cm</Width>
+        <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -659,11 +624,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>5.23117cm</Top>
-        <Left>4.55516cm</Left>
+        <Top>13.01847cm</Top>
+        <Left>4.51986cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.62737cm</Width>
-        <ZIndex>20</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -691,11 +656,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>5.94583cm</Top>
-        <Left>4.55516cm</Left>
+        <Top>15.16242cm</Top>
+        <Left>4.51989cm</Left>
         <Height>0.57354cm</Height>
         <Width>11.60998cm</Width>
-        <ZIndex>21</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -723,11 +688,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.01666cm</Top>
+        <Top>11.58916cm</Top>
         <Left>12.53777cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.62737cm</Width>
-        <ZIndex>22</ZIndex>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -755,11 +720,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.73132cm</Top>
+        <Top>12.30382cm</Top>
         <Left>12.53778cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.62736cm</Width>
-        <ZIndex>23</ZIndex>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -787,11 +752,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>4.48124cm</Top>
-        <Left>12.53778cm</Left>
+        <Top>14.44777cm</Top>
+        <Left>4.48459cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.62736cm</Width>
-        <ZIndex>24</ZIndex>
+        <Width>11.68055cm</Width>
+        <ZIndex>23</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -819,11 +784,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>5.23117cm</Top>
-        <Left>12.57307cm</Left>
+        <Top>13.01847cm</Top>
+        <Left>12.53777cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.59207cm</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>24</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -851,11 +816,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>6.66048cm</Top>
-        <Left>4.55518cm</Left>
+        <Top>15.87707cm</Top>
+        <Left>4.51991cm</Left>
         <Height>0.57354cm</Height>
         <Width>11.60997cm</Width>
-        <ZIndex>26</ZIndex>
+        <ZIndex>25</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -883,11 +848,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>7.37513cm</Top>
-        <Left>4.55514cm</Left>
+        <Top>16.59172cm</Top>
+        <Left>4.51987cm</Left>
         <Height>0.57354cm</Height>
         <Width>11.61001cm</Width>
-        <ZIndex>27</ZIndex>
+        <ZIndex>26</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -898,8 +863,23 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Image Name="CImage2">
+        <Source>External</Source>
+        <Value>=Parameters!ThirdKnowledgeText.Value</Value>
+        <Sizing>FitProportional</Sizing>
+        <Top>0.14111cm</Top>
+        <Left>0.27043cm</Left>
+        <Height>10.44208cm</Height>
+        <Width>15.85941cm</Width>
+        <ZIndex>27</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
     </ReportItems>
-    <Height>3.19792in</Height>
+    <Height>7.13298in</Height>
     <Style />
   </Body>
   <Width>6.5in</Width>
@@ -929,7 +909,7 @@
           <Top>1.19745cm</Top>
           <Left>4.78114cm</Left>
           <Height>1.07839cm</Height>
-          <Width>8.67671cm</Width>
+          <Width>9.84088cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -959,9 +939,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>0.26416cm</Top>
-          <Left>5.49551cm</Left>
+          <Left>4.78114cm</Left>
           <Height>0.6cm</Height>
-          <Width>6.9891cm</Width>
+          <Width>9.84088cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -979,7 +959,7 @@
           <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>FitProportional</Sizing>
           <Top>0.26416cm</Top>
-          <Left>0.82965cm</Left>
+          <Left>1.05577cm</Left>
           <Height>2.01167cm</Height>
           <Width>3.39354cm</Width>
           <ZIndex>2</ZIndex>
@@ -1084,6 +1064,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="MoreInformation">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ThirdKnowledgeText">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
