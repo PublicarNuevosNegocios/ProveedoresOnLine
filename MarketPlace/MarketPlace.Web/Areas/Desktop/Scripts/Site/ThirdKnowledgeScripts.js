@@ -60,13 +60,13 @@ var Third_KnowledgeSimpleSearchObject = {
                                     }
 
                                     resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + statusName + '</p></div>'
-                                }
-                                if (value.NameResult != null) {
-                                    resultDiv += '<div class="POMPResultSection"><p><a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></p></div>'
-                                }
+                                }                                
                                 resultDiv += '<div class="POMPResultSection"><label>' + " " + "</label><p>" +'</p></div>'
                                 resultDiv += '<div class="POMPResultSection"><label>' + " " + "</label><p>" +'</p></div>'
                                 resultDiv += '<div class="POMPResultSection"><label>' + " " + "</label><p>" + '</p></div>'
+                                if (value.QueryBasicPublicId != null) {
+                                    resultDiv += '<div class="POMPResultSection"><p><a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></p></div>'
+                                }
                             });
                                                         
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
