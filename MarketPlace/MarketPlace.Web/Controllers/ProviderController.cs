@@ -2054,6 +2054,10 @@ namespace MarketPlace.Web.Controllers
             #endregion Basic Info
 
             #region Finacial Info
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("BalanceYear", "AÑO " + oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("BalanceYear", "NA"));
 
             if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()))
                 parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).FirstOrDefault()));
