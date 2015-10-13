@@ -114,6 +114,10 @@
                         <div class="POMPContainerResult">
                             @foreach (var subItem in col.Item2)
                             {
+                                <div class="POMPContainerResult" id="POMPResultName">
+                                    <label>@col.Item1</label>
+                                    @*<p></p>*@
+                                </div>
                                 <div class="POMPResultSection">
                                     <label>Nombre</label>
                                     <p>@subItem.NameResult</p>
