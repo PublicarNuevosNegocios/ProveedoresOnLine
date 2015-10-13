@@ -85,18 +85,82 @@
             {
                 foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
                 {
-                    foreach (var query in item.RelatedQueryBasicInfoModel)
+                    List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> Group = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
+                    List<string> Item1 = new List<string>();
+
+                    item.RelatedQueryBasicInfoModel.All(x =>
+                        {
+                            Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                            return true;
+                        });
+                    Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                    List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
+                    Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
+
+                    Item1.All(x =>
+                    {
+                        if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                        {
+                            oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
+                            oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
+                            Group.Add(oTupleItem);
+                        }
+                        return true;
+                    });
+
+                    foreach (var col in Group)
                     {
                         <div class="POMPContainerResult">
-                            <div id="POMPResultName">
-                                <p>@query.NameResult</p>
-                                <a href="@(Url.RouteUrl
+                            @foreach (var subItem in col.Item2)
+                            {
+                                <div class="POMPResultSection">
+                                    <label>Nombre</label>
+                                    <p>@subItem.NameResult</p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label>Número de Identificación</label>
+                                    <p>@subItem.IdentificationResult</p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label>Alias</label>
+                                    <p>@subItem.Alias</p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label>Cargo o Delito</label>
+                                    <p>@subItem.Offense</p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label>Peps</label>
+                                    <p>@subItem.Peps</p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label>Prioridad</label>
+                                    <p>@subItem.Priority</p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label>Estado</label>
+                                    <p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p>
+                                </div>
+
+                                <div class="POMPResultSection">
+                                    <label> </label>
+                                    <p> </p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label> </label>
+                                    <p> </p>
+                                </div>
+                                <div class="POMPResultSection">
+                                    <label> </label>
+                                    <p>
+                                        <a href="@(Url.RouteUrl
                                       (MarketPlace.Models.General.Constants.C_Routes_Default,
                                       new
                                       {
                                           controller = MVC.ThirdKnowledge.Name,
                                           action = MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
-                                          QueryBasicPublicId = query.QueryBasicPublicId,
+                                          QueryBasicPublicId = subItem.QueryBasicPublicId,
                                           ReturnUrl = Url.Action
                                                     (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
                                                     MVC.ThirdKnowledge.Name,
@@ -104,34 +168,12 @@
                                                     {
                                                         QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
                                                         InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
-                                                        EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),                                                        
+                                                        EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                     })
                                             }))">Ver Detalle</a>
-                            </div>
-                            <div class="POMPResultSection">
-                                <label>Número de Identificación</label>
-                                <p>@query.IdentificationResult</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <label>Alias</label>
-                                <p>@query.Alias</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <label>Cargo o Delito</label>
-                                <p>@query.Offense</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <label>Peps</label>
-                                <p>@query.Peps</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <label>Prioridad</label>
-                                <p>@query.Priority</p>
-                            </div>
-                            <div class="POMPResultSection">
-                                <label>Estado</label>
-                                <p>@(query.Enable == true ? "Activo" : "Inactivo")</p>
-                            </div>
+                                    </p>
+                                </div>
+                            }
                         </div>
                         <hr />
                     }

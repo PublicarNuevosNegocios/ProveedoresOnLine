@@ -59,38 +59,50 @@ namespace MarketPlace.Web.ControllersApi
                             };
                             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
                             oModel.RelatedThidKnowledgeSearch.CollumnsResult = new TDQueryModel();
+
+                            //Get Reqsult
                             oModel.RelatedThidKnowledgeSearch.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
                                            System.Web.HttpContext.Current.Request["IdentificationNumber"], System.Web.HttpContext.Current.Request["Name"], oQueryToCreate);
-
-                            List<string> Group;
-
-                            Group = new List<string>();
-                            oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.All(x =>
+                            //Init Finally Tuple, Group by ItemGroup Name
+                            List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
+                            List<string> Item1 = new List<string>();
+                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null)
+                            {
+                                oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.All(x =>
                                 {
-                                    Group.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                                    Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
                                     return true;
                                 });
 
-                            Group = Group.GroupBy(x => x).Select(grp => grp.First()).ToList();
+                                Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
 
-                            //if (Group != null)
-                            //{
-                            //    return null;
-                            //}
-                            //List<Filter_IDs> filterids = ef.filterLine.Select(o => new { objectType = o.objectType, object_id = o.object_id })
-                            //.GroupBy(fl => fl.objectType).ToList()
-                            //.Select(fl => new Filter_IDs { type = fl.Key, objects = fl.Select(x => x.object_id).ToList() })
-                            //.ToList();
-                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess == true)
-                            {
-                                //Set New Score
-                                oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+                                List<TDQueryInfoModel> oItem2 = new List<TDQueryInfoModel>();
+                                Tuple<string, List<TDQueryInfoModel>> oTupleItem = new Tuple<string, List<TDQueryInfoModel>>("", new List<TDQueryInfoModel>());
 
-                                //Period Upsert
-                                oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
-                                    oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
-                            }
+                                Item1.All(x =>
+                                {
+                                    if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                                    {
+                                        oItem2 = oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
+                                        oTupleItem = new Tuple<string, List<TDQueryInfoModel>>(x, oItem2);
+                                        Group.Add(oTupleItem);
+                                    }
+                                    return true;
+                                });
+                                if (Group != null)
+                                    oModel.RelatedSingleSearch = Group;
+
+                                if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId != null)
+                                {
+                                    //Set New Score
+                                    oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+
+                                    //Period Upsert
+                                    oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
+                                        oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                                }
+                            }                            
                         }
                         else
                         {
@@ -231,7 +243,7 @@ namespace MarketPlace.Web.ControllersApi
                     string oFileName = "ThirdKnowledgeFile_" +
                             CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                         UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
-                    string strFile = strFolder.TrimEnd('\\') + "\\"+oFileName;
+                    string strFile = strFolder.TrimEnd('\\') + "\\" + oFileName;
 
                     UploadFile.SaveAs(strFile);
 
@@ -386,8 +398,8 @@ namespace MarketPlace.Web.ControllersApi
                 }
             }
             return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString()); ;
-        }        
-        
+        }
+
         #endregion Private Functions
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Models.General;
+using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,8 @@ namespace MarketPlace.Models.Provider
         public MarketPlace.Models.Company.ThirdKnowledgeViewModel RelatedThirdKnowledge { get; set; }        
 
         public MarketPlace.Models.Company.ThirdKnowledgeViewModel RelatedThidKnowledgeSearch { get; set; }
+
+        public List<Tuple<string, List<TDQueryInfoModel>>> RelatedSingleSearch { get; set; }
 
         public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
     }

@@ -20,41 +20,54 @@ var Third_KnowledgeSimpleSearchObject = {
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
                 success: function (result) {                    
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
-
+                    debugger;
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var resultDiv = '';
-                    if (result.RelatedThidKnowledgeSearch.CollumnsResult != null && result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.length > 0) {
-                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {                            
+                    if (result.RelatedSingleSearch != null && result.RelatedSingleSearch.length > 0) {
+                        $.each(result.RelatedSingleSearch, function (item, value) {
+                            debugger;
                             resultDiv =
-                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.NameResult + '</p><a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></div>'
-                            if (value.IdentificationResult != null) {
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
-                            }
-                            if (value.Alias != null) {
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Alias " + "</label><p>" + value.Alias + '</p></div>'
-                            }
-                            if (value.Offense != null) {
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Cargo o Delito " + "</label><p>" + value.Offense + '</p></div>'
-                            }                            
-                            if (value.Peps != null) {
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Peps " + "</label><p>" + value.Peps + '</p></div>'
-                            }
-                            if (value.Priority != null) {
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Prioridad " + "</label><p>" + value.Priority + '</p></div>'
-                            }
-                            if (value.Status != null) {
-                                
-                                var statusName = "";
-
-                                if (value.Status == "True") {
-                                    statusName = "Activo";
+                             '<div class="POMPContainerResult"><div id="POMPResultName"><p>' + value.m_Item1 + '</p></div>'
+                            $.each(value.m_Item2, function (item, value) {
+                                debugger;
+                                if (value.NameResult != null) {
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Nombre " + "</label><p>" + value.NameResult + '</p></div>'
                                 }
-                                else {
-                                    statusName = "Inactivo";
+                                if (value.IdentificationResult != null) {
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Número de Identificación " + "</label><p>" + value.IdentificationResult + '</p></div>'
                                 }
+                                if (value.Alias != null) {
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Alias " + "</label><p>" + value.Alias + '</p></div>'
+                                }
+                                if (value.Offense != null) {
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Cargo o Delito " + "</label><p>" + value.Offense + '</p></div>'
+                                }
+                                if (value.Peps != null) {
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Peps " + "</label><p>" + value.Peps + '</p></div>'
+                                }
+                                if (value.Priority != null) {
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Prioridad " + "</label><p>" + value.Priority + '</p></div>'
+                                }
+                                if (value.Status != null) {
 
-                                resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + statusName + '</p></div>'
-                            }                            
+                                    var statusName = "";
+
+                                    if (value.Status == "True") {
+                                        statusName = "Activo";
+                                    }
+                                    else {
+                                        statusName = "Inactivo";
+                                    }
+
+                                    resultDiv += '<div class="POMPResultSection"><label>' + "Estado " + "</label><p>" + statusName + '</p></div>'
+                                }
+                                if (value.NameResult != null) {
+                                    resultDiv += '<div class="POMPResultSection"><p><a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a></p></div>'
+                                }
+                                resultDiv += '<div class="POMPResultSection"><label>' + " " + "</label><p>" +'</p></div>'
+                                resultDiv += '<div class="POMPResultSection"><label>' + " " + "</label><p>" +'</p></div>'
+                                resultDiv += '<div class="POMPResultSection"><label>' + " " + "</label><p>" + '</p></div>'
+                            });
                                                         
                             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                         });                        
