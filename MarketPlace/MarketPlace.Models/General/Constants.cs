@@ -117,6 +117,9 @@
         public const string MP_Report_ExcelReportIcon = "Report_ExcelReportIcon";
 
         public const string MP_Report_PdfReportIcon = "Report_PdfReportIcon";
+
+        public const string MP_TK_TextImage = "TK_TextImage";
+
         #endregion
 
         #region ThirdKnowledge
