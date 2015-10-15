@@ -49,6 +49,9 @@ var Survey_ChartsObject = {
                         else if (topping == "Finalizada") {
                             SearchFilter = 1206004;
                         }
+                        else if (topping == "Vencida") {
+                            SearchFilter = 1206005;
+                        }
                         window.location = Survey_ChartsObject.GetSearchUrl(SearchFilter, Survey_ChartsObject.UserEmail);
                     }
                 }
