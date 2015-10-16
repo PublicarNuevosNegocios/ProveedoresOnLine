@@ -467,16 +467,20 @@
                         <label>Información HSEQ</label>
                     </div>
                 </div>
-                <div class="col-xs-4">
-                    <div class="col-xs-12">
-                        <label>
-                            Empresa de Sistema de Riesgos
-                        </label>
+                if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards))
+                {
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <label>
+                                Empresa de Sistema de Riesgos
+                            </label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
+                        </div>
                     </div>
-                    <div class="col-xs-12">
-                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
-                    </div>
-                </div>
+                }
+
 
                 if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
                 {
@@ -528,18 +532,18 @@
                     </div>
                     if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
                     {
-                    <div class="col-xs-4">
-                        <div class="col-xs-12">
-                            <label>
-                                Guia RUC-CCS
-                            </label>
-                        </div>
-                       
+                        <div class="col-xs-4">
+                            <div class="col-xs-12">
+                                <label>
+                                    Guia RUC-CCS
+                                </label>
+                            </div>
+
                             <div class="col-xs-12">
                                 <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
                             </div>
-                        
-                    </div>
+
+                        </div>
                     }
                 }
                 if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
