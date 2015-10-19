@@ -210,7 +210,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     QueryUpsert(oQueryToCreate);
                 }
                 else
-                {
+                {                  
                     oQueryToCreate.IsSuccess = false;
                     QueryUpsert(oQueryToCreate);
                 }
