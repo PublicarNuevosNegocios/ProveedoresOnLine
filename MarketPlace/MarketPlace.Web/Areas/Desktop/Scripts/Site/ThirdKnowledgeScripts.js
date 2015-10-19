@@ -19,8 +19,7 @@ var Third_KnowledgeSimpleSearchObject = {
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
                 success: function (result) {                    
-                    Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
-                    debugger;
+                    Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();                    
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var tittlestDiv = '';
                     var resultDiv = '';
@@ -29,9 +28,15 @@ var Third_KnowledgeSimpleSearchObject = {
                             debugger;
                             resultDiv = '';
                             
-                            tittlestDiv = '<div class="col-md-2 col-lg-2"><strong>Prioridad</strong></div><div class="col-md-2 col-lg-2"><strong>Estado</strong></div><div class="col-md-2 col-lg-2"><strong>Nombre</strong></div><div class="col-md-2 col-lg-2"><strong>Identificación</strong></div><div class="col-md-2 col-lg-2"><strong>Alias</strong></div><div class="col-md-2 col-lg-2"></div>';
+                            tittlestDiv = '<div class="col-sm-1 col-lg-1"><strong>Prioridad</strong></div>'
+                                        + '<div class="col-sm-1 col-lg-1"><strong>Estado</strong></div>'
+                                        + '<div class="col-sm-4 col-lg-4"><strong>Nombre</strong></div>'
+                                        + '<div class="col-sm-2 col-lg-2"><strong>Identificación</strong></div>'
+                                        + '<div class="col-sm-2 col-lg-2"><strong>Alias</strong></div>'
+                                        + '<div class="col-sm-2 col-lg-2"></div>';
+
                             resultDiv += '<div class="row text-center">';
-                                resultDiv += '<div id="POMPResultName" class="text-left"><p>' + value.m_Item1 + '</p></div>'
+                            resultDiv += '<div id="POMPResultName" class="text-left"  style="padding-top:7px"><strong>' + value.m_Item1 + '</strong></div>'
                             resultDiv += '</div>';
                             resultDiv += '<div class="row text-center">';
                                 resultDiv += '<br/>';
@@ -42,7 +47,7 @@ var Third_KnowledgeSimpleSearchObject = {
                                 debugger;
                                 resultDiv += '<div class="row text-center">';
                                     if (value.Priority != null) {
-                                        resultDiv += '<div class="col-md-2 col-lg-2">' + value.Priority + '</div>';
+                                        resultDiv += '<div class="col-sm-1 col-lg-1">' + value.Priority + '</div>';
                                     }
                                     if (value.Status != null) {
                                         var statusName = "";
@@ -52,23 +57,23 @@ var Third_KnowledgeSimpleSearchObject = {
                                         else {
                                             statusName = "Inactivo";
                                         }
-                                        resultDiv += '<div class="col-md-2 col-lg-2">' + statusName + '</div>';
+                                        resultDiv += '<div class="col-sm-1 col-lg-1">' + statusName + '</div>';
                                     }
 
                                     if (value.NameResult != null) {
-                                        resultDiv += '<div class="col-md-2 col-lg-2">' + value.NameResult + '</div>';
+                                        resultDiv += '<div class="col-sm-4 col-lg-4">' + value.NameResult + '</div>';
                                     }
                                     
                                     if (value.IdentificationResult != null) {
-                                        resultDiv += '<div class="col-md-2 col-lg-2">' + value.IdentificationResult + '</div>';
+                                        resultDiv += '<div class="col-sm-2 col-lg-2">' + value.IdentificationResult + '</div>';
                                     }
 
                                     if (value.Alias != null) {
-                                        resultDiv += '<div class="col-md-2 col-lg-2">' + value.Alias + '</div>';
+                                        resultDiv += '<div class="col-sm-2 col-lg-2">' + value.Alias + '</div>';
                                     }
 
                                     if (value.QueryBasicPublicId != null) {
-                                        resultDiv += '<div class="col-md-2 col-lg-2">' + '<a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a>' + '</div>';
+                                        resultDiv += '<div class="col-sm-2 col-lg-2">' + '<a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a>' + '</div>';
                                     }
                                     resultDiv += '</div>';
                                     resultDiv += '<div class="row text-center">';

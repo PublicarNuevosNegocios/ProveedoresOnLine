@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-xs-12">
                         <span>
-                            @(item.IsSuccess == true ? "Activo" : "Inactivo")
+                            @(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")
                         </span>
                     </div>
                 </div>
