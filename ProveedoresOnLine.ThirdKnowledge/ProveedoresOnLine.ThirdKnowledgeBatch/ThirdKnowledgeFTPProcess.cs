@@ -73,15 +73,15 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
                                         #region Detail Info
-                                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                                        {
-                                            ItemInfoType = new TDCatalogModel()
-                                            {
-                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
-                                            },
-                                            Value = !string.IsNullOrEmpty(x.Element("IdentificacionConsulta").Value) ? x.Element("IdentificacionConsulta").Value : string.Empty,
-                                            Enable = true,
-                                        });
+                                        //oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                        //{
+                                        //    ItemInfoType = new TDCatalogModel()
+                                        //    {
+                                        //        ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                                        //    },
+                                        //    Value = !string.IsNullOrEmpty(x.Element("IdentificacionConsulta").Value) ? x.Element("IdentificacionConsulta").Value : string.Empty,
+                                        //    Enable = true,
+                                        //});
                                         oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                         {
                                             ItemInfoType = new TDCatalogModel()
