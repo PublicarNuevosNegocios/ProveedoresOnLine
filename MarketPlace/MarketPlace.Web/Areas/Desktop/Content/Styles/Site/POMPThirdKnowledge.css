@@ -66,17 +66,24 @@
         margin: 7px 0 0 0;
     }
 
+#POMPSSResultName {
+    width: 96%;
+    background: #ececec;
+    padding: 7px;
+    margin: 18px 0px 0px 20px;
+}
+
 .POMPDetailSection {
     width: 100%;
     height: 30px;
     display: block;
     text-align: right;
-     border-bottom: 1px solid #E4E4E4; 
+    border-bottom: 1px solid #E4E4E4;
     margin: 66px 0 -20px 0;
 }
 
     .POMPDetailSection > a {
-            margin-right: 23px;
+        margin-right: 23px;
     }
 
 
@@ -86,6 +93,7 @@
     float: left;
     display: inline-block;
 }
+
     .POMPResultSection-Priority > p {
         text-align: center;
         padding: 0px 5px 10px 0;
@@ -171,7 +179,6 @@
     font-weight: lighter;
     font-size: 14px;
     line-height: 20px;
-    padding-top: 10px;
 }
 
 .ThirdKnowledge_ListDetail {
@@ -181,6 +188,7 @@
     line-height: 20px;
     padding-left: 100px;
     padding-top: 20px;
+    margin-bottom: 17px;
 }
 
 .ThirdKnowledge_FilterDetail {
@@ -248,7 +256,73 @@
 }
 
 .Tk-DetailSingleSearchSeparator {
-    border-color:#E4E4E4;
+    border-color: #E4E4E4;
     size: 1px;
+}
 
+/********************New styles third knowledge*************************/
+
+.POMPThirdKnowledgeTitles {
+    font-size: 1.5em;
+    font-weight: normal;
+    letter-spacing: -1px;
+    display: block;
+    margin: 0 8px 7px 22px;
+    padding: 12px 0 0px 14px;
+    color: #fff;
+    box-shadow: 1px 1px 3px #444;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: 1px solid #666;
+    border-bottom: none;
+    background-color: #f87b00;
+    background-image: url(http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/BGScatterLogoSmall.png);
+    background-position: 238px -162px;
+    background-size: 931px auto;
+    background-repeat: no-repeat;
+}
+
+.POMPEvalTitle {
+    height: auto;
+    line-height: 45px;
+    background: #ececec;
+    margin: 12px 0 8px 24px;
+    width: 97%;
+}
+
+    .POMPEvalTitle > div > a {
+        cursor: pointer;
+        text-decoration: none;
+        color: #337ab7 !important;
+        line-height: 45px !important;
+    }
+
+.POMPDetailTitle {
+    line-height: 40px;
+    background: #ececec;
+    padding: 6px;
+}
+
+    .POMPDetailTitle > div > p {
+        font-weight: bold;
+    }
+
+
+
+.POMPTKSeparator {
+    border-color: #E4E4E4;
+    margin: 6px auto;
+    width: 100%;
+}
+
+.POMPTKDetailTitle {
+    line-height: 35px;
+    background: #ececec;
+    margin: 15px 0 15px 2px;
+}
+
+.POMPTKShowDetail {
+    margin-top: 10px;
 }
