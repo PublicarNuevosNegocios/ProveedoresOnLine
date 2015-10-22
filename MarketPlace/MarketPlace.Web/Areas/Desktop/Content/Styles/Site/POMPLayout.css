@@ -89,8 +89,8 @@ div#POMPRenderFooter {
         border:none;
 }
 #ReportLITF {
-        border-bottom:1px solid #ff8400;
-        border-top:1px solid #ff8400;
+    border-bottom:1px solid #ff8400;
+    border-top:1px solid #ff8400;
     width: auto;
     text-align: center;
     padding: 15px 0px 15px 0px;

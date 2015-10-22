@@ -18,77 +18,88 @@
             @{
                 foreach (var item in Model.RelatedFinancialInfo)
                 {
-                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                        <div class="col-xs-12">
-                            <div class="col-xs-12">
-                                @if (!string.IsNullOrEmpty(item.IS_Year))
+                    <div class="row POMPSectionTitlesBox">
+                        <div class="col-sm-12 col-lg-12">
+                            @if (!string.IsNullOrEmpty(item.IS_Year))
+                            {
+                                <strong>Año: @item.IS_Year</strong>
+                            }
+                            else
+                            {
+                                <strong>N/D</strong>
+                            }
+                        </div>
+                    </div>
+                    <br />
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4"><label>Ingresos Brutos</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Ingresos Netos</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Patrimonio Bruto</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
                                 {
-                                    <span>Año: @item.IS_Year</span>
+                                <span>@item.IS_GrossIncome</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.IS_NetIncome))
+                                {
+                                <span>@item.IS_NetIncome</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
+                                {
+                                <span>@item.IS_GrossEstate</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
                                 }
                             </div>
                         </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4"><label>Patrimonio Líquido</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Archivo Declaración de Renta</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
+                                {
+                                <span>@item.IS_LiquidHeritage</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
+                                {
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                        </div>
+                        <br />
                     </div>
-                    <div class="col-xs-12">
-                        @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Ingresos Brutos</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.IS_GrossIncome</span>
-                                </div>
-                            </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.IS_NetIncome))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Ingresos Netos</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.IS_NetIncome</span>
-                                </div>
-                            </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Patrimonio Bruto</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.IS_GrossEstate</span>
-                                </div>
-                            </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Patrimonio Líquido</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.IS_LiquidHeritage</span>
-                                </div>
-                            </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Archivo Declaración de Renta</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
-                                </div>
-                            </div>
-                        }
-                    </div>
-
                 }
             }
-        </div>
     </div>
 </div>
 @{

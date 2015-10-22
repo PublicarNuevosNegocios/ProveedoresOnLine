@@ -1,3 +1,35 @@
+.POMPSectionTitlesBox  {
+        height: auto;
+        line-height: 40px;
+        background: #ececec;
+        width: 100% !important;
+        margin: 0 0 5px -0.5%;
+        height: 40px;
+        line-height: 35px;
+    }
+.POMPButtonDownloadReport_Provider {
+    margin: 5px -9px 0px 0px;
+    background: #ff8300;
+    color: #fff;
+    height: 30px;
+    width: 180px;
+    line-height: 20px;
+}
+.POMPLinkDetail_Provider {
+    font-weight: lighter;
+    font-size: 1.05em;
+    letter-spacing: -0.5px;
+}
+.POMPResumeItem_Provider {
+    font-size: 0.9em;
+    color: #808080;
+}
+.POMPResumeItem_FilesPolicies_Top {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
 /************ AQUI VA LA TODA LA INFORMACION DEL DATA WRAPPER ***********/
 .POMPSectionTitles {
     font-size: 1.5em; font-weight: normal; letter-spacing: -1px;

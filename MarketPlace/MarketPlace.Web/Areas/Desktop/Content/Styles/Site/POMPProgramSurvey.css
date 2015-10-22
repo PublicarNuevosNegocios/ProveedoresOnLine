@@ -106,11 +106,13 @@
     width: 99% !important;
 }
 
-.row {
+
+/*.row {
     width: 100%;
     padding: 0;
     margin: 0;
 }
+
 
 .container-fluid {
     width: 98%;
@@ -150,7 +152,7 @@
     font-size: 16px !important;
     color: #4d4d4d !important;
     font-weight: bold;
-}
+}*/
 
 .POMPTitleFollow {
     height: 35px;
@@ -164,7 +166,7 @@
     font-size: 16px;
 }
 
-s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
+/*s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     height: 35px;
 }
 
@@ -184,7 +186,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 
 .container-fluid > .col-xs-12 > .col-xs-12 > .col-xs-12 {
     padding-top: 10px;
-}
+}*/
 
 
 #POMPSeparator {
@@ -196,7 +198,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 
 
 
-.container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .POMPEvaluator > .col-xs-12 {
+/*.container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .POMPEvaluator > .col-xs-12 {
     margin: 0 0 5px 0;
     border-bottom: 1px solid #E4E4E4;
     padding-bottom: 10px;
@@ -228,7 +230,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
 
 .container-fluid > .col-xs-12 > .col-xs-4, .container-fluid > .col-xs-12 > .col-xs-6, .container-fluid > .col-xs-12 > .col-xs-8, .container-fluid > .col-xs-12 > .col-xs-12 {
     height: 95px;
-}
+}*/
 
 #POMPAltmanHeight {
     height: auto !important;
@@ -277,9 +279,9 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     color: #337ab7 !important;
 }
 
-.container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-4, .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
+/*.container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-4, .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     margin-top: 0 !important;
-}
+}*/
 
 .EvaluationPeriod > span {
     border: none;
@@ -406,10 +408,10 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     width: 100%;
     min-width: 700px;
     height: auto;
-    display: -webkit-flex; /* Safari */
+    /*display: -webkit-flex; /* Safari */*/
     display: flex;
     flex-wrap: wrap;
-    -webkit-justify-content: center;
+    /*-webkit-justify-content: center;*/
     justify-content: center;
 }
 
@@ -418,7 +420,7 @@ s .container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-8 {
     width: 95%;
     height: auto;
     margin: 10px 0 10px 0;
-    -webkit-justify-content: center;
+    /*-webkit-justify-content: center;*/
     justify-content: center;
     min-width: 700px;
 }
@@ -742,7 +744,7 @@ textarea#Survey_ProgramSurvey_Comments {
     line-height: 20px;
 }
 
-.container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-6 {
+/*.container-fluid > .POMPEvalTitle > .col-xs-12 > .col-xs-6 {
     height: 35px;
     line-height: 35px;
     background: #ececec;
@@ -755,13 +757,13 @@ textarea#Survey_ProgramSurvey_Comments {
     line-height: 35px;
     background: #ececec;
     margin: 0 0 5px -0.5%;
-}
+}*/
 
 #POMPBPS{
     margin:5px 20px 5px 0 !important;
 }
 
-.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child, .container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12:first-child {
+/*.container-fluid > .col-xs-12 > .POMPProviderKContratacion > .col-xs-6 > .col-xs-12:first-child, .container-fluid > .col-xs-12 > .col-xs-10 > .col-xs-12:first-child {
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #999;
 }
@@ -813,7 +815,7 @@ textarea#Survey_ProgramSurvey_Comments {
     padding: 12.5px 0 12.5px 0;
     border-bottom: 1px solid #E4E4E4;
     text-align: right;
-}
+}*/
 
 
 #POMPProviderVerDetalleNew {
@@ -837,20 +839,20 @@ textarea#Survey_ProgramSurvey_Comments {
     height: auto !important;
 }
 
-.col-xs-12 > b {
+/*.col-xs-12 > b {
     font-size: 16px;
-}
+}*/
 
 .POMPPSTitle {
     font-weight: lighter !important;
 }
 
-.POMPEvalTitle > .col-xs-12 > p {
+/*.POMPEvalTitle > .col-xs-12 > p {
     float: right;
     font-weight: lighter;
     font-size: 12px;
     font-style: italic;
-}
+}*/
 
 #POMPDA{
     height:auto !important;

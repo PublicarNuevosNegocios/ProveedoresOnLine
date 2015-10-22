@@ -8,42 +8,47 @@
         <div class="container-fluid">
             @foreach (var item in Model.RelatedLegalInfo.Where(lg => lg.LegalType == MarketPlace.Models.General.enumLegalType.SARLAFT))
             {
-                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                    <div class="col-xs-12">
-                        <div class="col-xs-12">
-                            @if (!string.IsNullOrEmpty(item.SF_ProcessDate))
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-12 col-lg-12">
+                        @if (!string.IsNullOrEmpty(item.SF_ProcessDate))
+                        {
+                            <strong>Fecha de Diligenciamiento: @item.SF_ProcessDate</strong>
+                        }
+                        else
+                        {
+                            <strong>N/D</strong>
+                        }
+                    </div>
+                </div>
+                <br />
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-4 col-lg-4"><label>Tipo de Persona</label></div>
+                        <div class="col-sm-4 col-lg-4"><label>Archivo Anexo</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4  col-lg-4">
+                            @if (!string.IsNullOrEmpty(item.SF_PersonType))
                             {
-                                <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
+                                <span>@item.SF_PersonType</span>
+                            }
+                            else
+                            {
+                                <span>N/D</span>
+                            }
+                        </div>
+                        <div class="col-sm-4  col-lg-4">
+                            @if (!string.IsNullOrEmpty(item.SF_SARLAFTFile))
+                            {
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
+                            }
+                            else
+                            {
+                                <span>N/D</span>
                             }
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12">
-
-                    @if (!string.IsNullOrEmpty(item.SF_PersonType))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Tipo de Persona</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@item.SF_PersonType</span>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.SF_SARLAFTFile))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Archivo Anexo</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
-                            </div>
-                        </div>
-                        <label>
-                        </label>
-                    }
+                    <br/>
                 </div>
             }
         </div>

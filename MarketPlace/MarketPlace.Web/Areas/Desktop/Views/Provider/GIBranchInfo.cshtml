@@ -18,139 +18,157 @@
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
-                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                        <div class="col-xs-12">
-                            <div class="col-xs-12">
-                                @if (!string.IsNullOrEmpty(item.BR_City))
-                                {
-                                    <span>@item.BR_City @item.BR_Name</span>
-                                }
-                            </div>
+                    <div class="row POMPSectionTitlesBox">
+                        <div class="col-sm-12 col-lg-12">
+                            @if (!string.IsNullOrEmpty(item.BR_City))
+                            {
+                                <strong>@item.BR_City @item.BR_Name</strong>
+                            }
+                            else
+                            {
+                                <span>N/D</span>
+                            }
                         </div>
                     </div>
-                    <div class="col-xs-12">
-                        @if (!string.IsNullOrEmpty(item.BR_Representative))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Nombre de Contacto </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.BR_Representative</span>
-                                </div>
+                    <br />
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3"><strong>Nombre de Contacto</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Dirección</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Teléfono</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Celular</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Representative))
+                                {
+                                <span>@item.BR_Representative</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.BR_Address))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Dirección </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.BR_Address</span>
-                                </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Address))
+                                {
+                                <span>@item.BR_Address</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.BR_Phone))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Teléfono</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span> @item.BR_Phone</span>
-                                </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Phone))
+                                {
+                                <span> @item.BR_Phone</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.BR_Cellphone))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Celular</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span> @item.BR_Cellphone</span>
-                                </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Cellphone))
+                                {
+                                <span> @item.BR_Cellphone</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.BR_Fax))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Fax</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span> @item.BR_Fax</span>
-                                </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3"><strong>Fax</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Correo Electrónico</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Página Web</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Principal</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Fax))
+                                {
+                                <span> @item.BR_Fax</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.BR_Email))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Correo Electrónico</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>  @item.BR_Email</span>
-                                </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Email))
+                                {
+                                <span>  @item.BR_Email</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.BR_Website))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Página Web</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
-                                </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.BR_Website))
+                                {
+                                <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                        }
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Principal</label>
-                            </div>
-                            <div class="col-xs-12">
+                            <div class="col-sm-3 col-lg-3">
                                 <span>@(item.BR_IsPrincipal ? "si" : "no")</span>
                             </div>
                         </div>
-                        @{ 
-                         string tmp_pais = item.DT_Country;
-                         if (tmp_pais != null)
-                         {
-                            string[] pais_estado = tmp_pais.Split(',');
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Pais</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@pais_estado[1]</span>
-                                </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3"><strong>País</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Estado</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3">
+                                @{
+                                    string tmp_pais = item.DT_Country;
+                                    if (tmp_pais != null)
+                                    {
+                                        string[] pais = tmp_pais.Split(',');
+                                        <span>@pais[1]</span>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                }
                             </div>
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Estado</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@pais_estado[0]</span>
-                                </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @{
+                                    tmp_pais = item.DT_Country;
+                                    if (tmp_pais != null)
+                                    {
+                                        string[] estado = tmp_pais.Split(',');
+                                        <span>@estado[0]</span>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                }
                             </div>
-                         }
-                        }
-
-
+                        </div>
+                        <br />
                     </div>
                 }
             }
-
         </div>
     </div>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 

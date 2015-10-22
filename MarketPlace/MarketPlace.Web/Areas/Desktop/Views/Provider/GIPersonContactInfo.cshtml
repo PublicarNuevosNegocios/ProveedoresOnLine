@@ -18,116 +18,127 @@
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
-
-                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                        <div class="col-xs-12">
-                            <div class="col-xs-12">
-                                @if (!string.IsNullOrEmpty(item.PC_ContactName))
+                    <div class="row POMPSectionTitlesBox">
+                        <div class="col-sm-12 col-lg-12">
+                            @if (!string.IsNullOrEmpty(item.PC_ContactName))
+                            {
+                                <strong>@item.PC_ContactName</strong>
+                            }
+                            else
+                            {
+                                <span>N/D</span>
+                            }
+                        </div>
+                    </div>
+                    <br />
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2"><strong>Tipo de Contacto</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Tipo de Identificación</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Número de Identificación</strong></div>
+                            <div class="col-sm-4 col-lg-4"><strong>Ciudad de Expedición del Documento</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2">
+                                @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
                                 {
-                                    <span>@item.PC_ContactName</span>
+                                    <span>@item.PC_RepresentantType</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
+                                {
+                                    <span>@item.PC_IdentificationType</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
+                                {
+                                    <span>@item.PC_IdentificationNumber</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4 col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
+                                {
+                                    <span>@item.PC_ExpeditionDocumentCity</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
                                 }
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12">
-
-                        @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Tipo de Contacto </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.PC_RepresentantType</span>
-                                </div>
-                            </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Tipo de Identificación </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.PC_IdentificationType</span>
-                                </div>
-                            </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Número de Identificación </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.PC_IdentificationNumber</span>
-                                </div>
-                            </div>
-
-                        }
-                        @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Ciudad de Expedición del Documento </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@item.PC_ExpeditionDocumentCity</span>
-                                </div>
-                            </div>
-
-                        }
-                        @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Teléfono </label>
-                                </div>
-                                <div class="col-xs-12">
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2"><strong>Teléfono</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Mail</strong></div>
+                            <div class="col-sm-3 col-lg-3"><strong>Capacidad de negociación</strong></div>
+                            <div class="col-sm-4 col-lg-4"><strong>Archivo Representante Legal</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2">
+                                @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
+                                {
                                     <span>@item.PC_TelephoneNumber</span>
-                                </div>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.PC_Email))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Email </label>
-                                </div>
-                                <div class="col-xs-12">
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.PC_Email))
+                                {
                                     <span title="@item.PC_Email">@item.PC_Email</span>
-                                </div>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @if (!string.IsNullOrEmpty(item.PC_Negotiation))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label>Capacidad de Negociación</label>
-                                </div>
-                                <div class="col-xs-12">
+                            <div class="col-sm-3 col-lg-3">
+                                @if (!string.IsNullOrEmpty(item.PC_Negotiation))
+                                {
+                                    if (item.PC_Negotiation.ToString().Trim().Length > 0)
+                                    {
                                     <span>@item.PC_Negotiation</span>
-                                </div>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
                             </div>
-                        }
-                        @{
-                        var UlrContent = item.PC_LegalFile;
-                        if (!string.IsNullOrEmpty(UlrContent))
-                        {
-                            <div class="col-xs-4">
-                                <div class="col-xs-12">
-                                    <label> Archivo Representante Legal</label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
-                                </div>
+                            <div class="col-sm-4 col-lg-4">
+                                @{var UlrContent = item.PC_LegalFile;
+                                    if (!string.IsNullOrEmpty(UlrContent))
+                                    {
+                                        <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                }
                             </div>
-            
-                        }
-
-
-                        }
-
+                        </div>
+                        <br/>
                     </div>
                 }
 

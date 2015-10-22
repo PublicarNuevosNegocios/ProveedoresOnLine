@@ -9,97 +9,91 @@
         {
             foreach (var item in Model.RelatedHSEQlInfo.Where(cer => cer.HSEQType == MarketPlace.Models.General.enumHSEQType.CompanyHealtyPolitic))
             {
-                if (!string.IsNullOrEmpty(item.CH_Year))
-                {
-                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                        <div class="col-xs-12">
-                            <div class="col-xs-12">
-                                <span>Año @item.CH_Year</span>
-                            </div>
-                        </div>
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-12 col-lg-12">
+                        @if (!string.IsNullOrEmpty(item.CH_Year))
+                        {
+                            <strong>Año @item.CH_Year</strong>
+                        }
+                        else
+                        {
+                            <strong>N/D</strong>
+                        }
                     </div>
-                }
-                <div class="col-xs-12">
-
-                    @if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo de Política de Seguridad, Salud y Ambiente</a>
+                </div>
+                <br />
+                <div class="container-fluid">
+                    <div class="row">
+                        @if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
+                        {
+                            <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo de Política de Seguridad, Salud y Ambiente</a>
                             </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_PoliticIntegral))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_PoliticIntegral))
+                        {
+                            <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
                                 <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticIntegral">Ver Archivo de Política integral de HSEQ</a>
                             </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo de Política de no alcohol, Drogas y Fumadores</a>
                         </div>
-
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo de Política de no alcohol, Drogas y Fumadores</a>
-                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo de Sistema de Gestión de Seguridad y Salud en el Trabajo</a>
                         </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo de Sistema de Gestión de Seguridad y Salud en el Trabajo</a>
-                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo de Reglamento de Higiene y Seguridad Industrial</a>
                         </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo de Reglamento de Higiene y Seguridad Industrial</a>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
-                    {<div class="col-xs-4">
-                        <div class="col-xs-12">
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo de Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</a>
                         </div>
-                    </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
-                    {<div class="col-xs-4">
-                        <div class="col-xs-12">
+                        }
+
+                        @if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo de Responsabilidad Social Empresarial</a>
                         </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo de Programa de Seguridad Empresarial y Logística</a>
+                        </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
+                        {
+                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo de Política de Contratación de Personal</a>
+                        </div>
+                        }
                     </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo de Programa de Seguridad Empresarial y Logística</a>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo de Política de Contratación de Personal</a>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
-                    {<div class="col-xs-4">
-                        <div class="col-xs-12">
+                    <br />
+                    <div class="row">
+                        @if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
+                        {
+                        <div class="col-sm-4  col-lg-4">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CertificationsForm">Ver Archivo de Formulario Certificaciones</a>
                         </div>
+                        }
                     </div>
-                    }
+                    <br />
                 </div>
+                <br />
+
+
             }
         }
     </div>
