@@ -100,65 +100,45 @@
 
                     Item1.All(x =>
                     {
-                        if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                        if (x != string.Empty)
                         {
-                            oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
-                            oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
-                            Group.Add(oTupleItem);
+                            if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                            {
+                                oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
+                                oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
+                                Group.Add(oTupleItem);
+                            }
                         }
                         return true;
                     });
 
-                    foreach (var col in Group)
+                    if (Group.Count != 0)
                     {
-                        <div class="POMPContainerResult">
-                            @foreach (var subItem in col.Item2)
+                        foreach (var col in Group)
+                        {
+                            <div class="row" style="width: 100% !important">
+                                <div class="col-sm-12 col-lg-12" id="POMPResultName" style="padding-top:7px"><strong>@col.Item1</strong></div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-1 col-lg-1 text-center"><strong>Prioridad</strong></div>
+                                <div class="col-sm-1 col-lg-1 text-center"><strong>Estado</strong></div>
+                                <div class="col-sm-4 col-lg-4 text-center"><strong>Nombre</strong></div>
+                                <div class="col-sm-2 col-lg-2 text-center"><strong>Identificación</strong></div>
+                                <div class="col-sm-2 col-lg-2 text-center"><strong>Alias</strong></div>
+                            </div>
+                            <br />
+                            foreach (var subItem in col.Item2)
                             {
-                                <div class="POMPContainerResult" id="POMPResultName">
-                                    <label>@col.Item1</label>
-                                    @*<p></p>*@
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Nombre</label>
-                                    <p>@subItem.NameResult</p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Número de Identificación</label>
-                                    <p>@subItem.IdentificationResult</p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Alias</label>
-                                    <p>@subItem.Alias</p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Cargo o Delito</label>
-                                    <p>@subItem.Offense</p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Peps</label>
-                                    <p>@subItem.Peps</p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Prioridad</label>
-                                    <p>@subItem.Priority</p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label>Estado</label>
-                                    <p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p>
-                                </div>
-
-                                <div class="POMPResultSection">
-                                    <label> </label>
-                                    <p> </p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label> </label>
-                                    <p> </p>
-                                </div>
-                                <div class="POMPResultSection">
-                                    <label> </label>
-                                    <p>
-                                        <a href="@(Url.RouteUrl
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1 text-center"><p>@subItem.Priority</p></div>
+                                    <div class="col-sm-1 col-lg-1 text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
+                                    <div class="col-sm-4 col-lg-4 text-center"><p>@subItem.NameResult</p></div>
+                                    <div class="col-sm-2 col-lg-2 text-center"><p>@subItem.IdentificationResult</p></div>
+                                    <div class="col-sm-2 col-lg-2 text-center"><p>@subItem.Alias</p></div>
+                                    <div class="col-sm-2 col-lg-2 text-center">
+                                        <p>
+                                            <a href="@(Url.RouteUrl
                                       (MarketPlace.Models.General.Constants.C_Routes_Default,
                                       new
                                       {
@@ -175,14 +155,28 @@
                                                         EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                     })
                                             }))">Ver Detalle</a>
-                                    </p>
+                                        </p>
+
+                                    </div>
                                 </div>
+                                <br />
+                                <hr />
                             }
-                        </div>
-                        <hr />
+                            <br />
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        <label>No existen registros asociados a los parámetros de consulta.</label>
                     }
                 }
             }
+            else if (Model.RelatedThidKnowledgeSearch.Message != null )
+            {
+                <label>@Model.RelatedThidKnowledgeSearch.Message</label>
+            }
+            
         </div>
     </div>
 

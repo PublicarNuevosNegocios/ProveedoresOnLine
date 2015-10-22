@@ -22,8 +22,9 @@
                                   action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
                                   QueryPublicId = QueryPublicId,
                                   InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
-                                  EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+                                  EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),                                  
                                   Enable = "1",
+                                  IsSuccess = item.QueryStatus.ItemName.ToString(),
                                     }))">Ver Detalle</a>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                     </div>
                     <div class="col-xs-12">
                         <span>
-                            @(item.IsSuccess == true ? "Activo" : "Inactivo")
+                            @(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")
                         </span>
                     </div>
                 </div>

@@ -144,6 +144,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string InitDate = "InitDate";
             public readonly string EndDate = "EndDate";
             public readonly string Enable = "Enable";
+            public readonly string IsSuccess = "IsSuccess";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -239,17 +240,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void TKThirdKnowledgeDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryPublicId, string InitDate, string EndDate, string Enable);
+        partial void TKThirdKnowledgeDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryPublicId, string InitDate, string EndDate, string Enable, string IsSuccess);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TKThirdKnowledgeDetail(string QueryPublicId, string InitDate, string EndDate, string Enable)
+        public override System.Web.Mvc.ActionResult TKThirdKnowledgeDetail(string QueryPublicId, string InitDate, string EndDate, string Enable, string IsSuccess)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "QueryPublicId", QueryPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "InitDate", InitDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Enable", Enable);
-            TKThirdKnowledgeDetailOverride(callInfo, QueryPublicId, InitDate, EndDate, Enable);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IsSuccess", IsSuccess);
+            TKThirdKnowledgeDetailOverride(callInfo, QueryPublicId, InitDate, EndDate, Enable, IsSuccess);
             return callInfo;
         }
 

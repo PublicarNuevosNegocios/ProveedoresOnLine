@@ -1,16 +1,15 @@
-﻿using BackOffice.Models.General;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using BackOffice.Models.General;
 using BackOffice.Models.Provider;
 using LinqToExcel;
 using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Mvc;
 
 namespace BackOffice.Web.Controllers
 {
@@ -142,9 +141,9 @@ namespace BackOffice.Web.Controllers
         public virtual ActionResult AdminTRMUpsert()
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-              {
-                  ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-              };
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
 
             oModel.ProviderMenu = GetAdminMenu(oModel);
             return View(oModel);
@@ -172,13 +171,12 @@ namespace BackOffice.Web.Controllers
                 string ErrorFilePath = strFile.Replace(".xls", "_log.csv");
                 ExcelFile.SaveAs(strFile);
 
-
                 //load file to s3
                 string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                     (strFile,
                     BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
 
-                //update file into db          
+                //update file into db
                 string logFile = this.ProcessProviderFile(strFile, ErrorFilePath, strRemoteFile, ExcelFile.FileName);
 
                 //remove temporal file
@@ -191,13 +189,11 @@ namespace BackOffice.Web.Controllers
                 urlList.Add(logFile);
 
                 ViewData["UrlReturn"] = urlList;
-
             }
             else
             {
                 ViewData["UrlReturn"] = "No has seleccionado ningún archivo";
             }
-
 
             oModel.ProviderMenu = GetAdminMenu(oModel);
             return View(oModel);
@@ -236,7 +232,6 @@ namespace BackOffice.Web.Controllers
                     (oCurrentAction == MVC.Administrator.ActionNames.AdminUserUpsert &&
                     oCurrentController == MVC.Administrator.Name),
             });
-
 
             //Geolocalization
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -279,16 +274,16 @@ namespace BackOffice.Web.Controllers
 
             //Stantart Group
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Grupos",
-                    Url = Url.Action
+            {
+                Name = "Grupos",
+                Url = Url.Action
                             (MVC.Administrator.ActionNames.AdminEcoGroupUpsert,
                             MVC.Administrator.Name),
-                    Position = 5,
-                    IsSelected =
+                Position = 5,
+                IsSelected =
                     (oCurrentAction == MVC.Administrator.ActionNames.AdminEcoGroupUpsert &&
                     oCurrentController == MVC.Administrator.Name),
-                });
+            });
 
             //Banks
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -358,7 +353,7 @@ namespace BackOffice.Web.Controllers
             //add menu
             oReturn.Add(oMenuAux);
 
-            #endregion
+            #endregion Administration
 
             #region Restrictive List
 
@@ -389,7 +384,7 @@ namespace BackOffice.Web.Controllers
             //add menu
             oReturn.Add(oMenuAux);
 
-            #endregion
+            #endregion Restrictive List
 
             #region last next menu
 
@@ -412,17 +407,17 @@ namespace BackOffice.Web.Controllers
                 return true;
             });
 
-            #endregion
+            #endregion last next menu
 
             return oReturn;
         }
 
-        #endregion
+        #endregion Menu
 
         #region Private Functions
 
         private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile, string FileName)
-        { 
+        {
             var excel = new ExcelQueryFactory(FilePath);
 
             //get excel rows
@@ -443,46 +438,48 @@ namespace BackOffice.Web.Controllers
             ProvidersId = oPrvToProcess.Where(x => x.ProviderPublicId != null).Select(x => x.ProviderPublicId).Distinct().ToList();
 
             foreach (string ProviderPublicId in ProvidersId)
-            {           
-                    ProviderModel oProvider = new ProviderModel();
-                    oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
+            {
+                ProviderModel oProvider = new ProviderModel();
+                oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
 
-                    if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(ProviderPublicId) && oProvider.RelatedCompany != null)
+                if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(ProviderPublicId) && oProvider.RelatedCompany != null)
+                {
+                    int AlertId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert).
+                    Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault();
+
+                    oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                     {
-                        int AlertId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert).
+                        ItemInfoId = AlertId,
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert,
+                        },
+                        Enable = true,
+                        Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    });
+
+                    int StatusAlertId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.Alert).
                         Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault();
 
-                        oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                    oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = StatusAlertId,
+                        ItemInfoType = new CatalogModel()
                         {
-                            ItemInfoId = AlertId,
-                            ItemInfoType = new CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.UpdateAlert,
-                            },                            
-                            Enable = true,
-                            Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                        });
+                            ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
+                        },
+                        Enable = true,
+                        Value = ((int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert).ToString(),
+                    });
 
-                        int StatusAlertId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.Alert).
-                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault();
+                    //Save DateTime of last Update Data
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
 
-                        oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
-                        {
-                            ItemInfoId = StatusAlertId,
-                            ItemInfoType = new CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
-                            },                            
-                            Enable = true,
-                            Value = ((int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert).ToString(),
-                        });
+                    #region New Data
 
-                        //Save DateTime of last Update Data
-                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
+                    oPrvToProcess = oPrvToProcess.GroupBy(x => x.IdentificationNumber).Select(grp => grp.First()).ToList();
 
-                        #region New Data
-
-                        oPrvToProcess.Where(prv => (!string.IsNullOrEmpty(prv.ProviderPublicId) && prv.ProviderPublicId == ProviderPublicId) &&
+                    oPrvToProcess.Where(prv => (!string.IsNullOrEmpty(prv.ProviderPublicId) && prv.ProviderPublicId == ProviderPublicId) &&
                         (prv.BlackListStatus == "SI" || prv.BlackListStatus == "si" || prv.BlackListStatus == "Si") && (prv.Estado == "Activo")).All(prv =>
                         {
                             try
@@ -512,23 +509,20 @@ namespace BackOffice.Web.Controllers
                                            where c["ProviderPublicId"] == prv.ProviderPublicId && c["IdentificationNumber"] == prv.IdentificationNumber
                                            select c;
 
-                                foreach (var rw in Rows)
+                                //Load the BlackList info
+                                foreach (string item in Columns)
                                 {
-                                    //Load the BlackList info
-                                    foreach (string item in Columns)
+                                    int indexCollumn = Columns.IndexOf(item);
+                                    oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
                                     {
-                                        int indexCollumn = Columns.IndexOf(item);
-                                        oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                        ItemInfoId = 0,
+                                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                         {
-                                            ItemInfoId = 0,
-                                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                            {
-                                                ItemName = item,
-                                            },
-                                            Value = Rows.First()[indexCollumn].Value.ToString(),
-                                            Enable = true,
-                                        });
-                                    }
+                                            ItemName = item,
+                                        },
+                                        Value = Rows.First()[indexCollumn].Value.ToString(),
+                                        Enable = true,
+                                    });
                                 }
 
                                 List<ProviderModel> oProviderResultList = new List<ProviderModel>();
@@ -537,7 +531,6 @@ namespace BackOffice.Web.Controllers
                                 var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
 
                                 #region Set Provider Info
-
 
                                 oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                                 {
@@ -551,7 +544,6 @@ namespace BackOffice.Web.Controllers
                                     Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
                                     Enable = true,
                                 });
-
 
                                 //Set large value With the items found
                                 oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
@@ -567,7 +559,7 @@ namespace BackOffice.Web.Controllers
                                     Enable = true,
                                 });
 
-                                #endregion
+                                #endregion Set Provider Info
 
                                 ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
 
@@ -580,7 +572,8 @@ namespace BackOffice.Web.Controllers
 
                                 ActualProvider = prv.ProviderPublicId;
                                 FileName = FileName + ".xls";
-                                #endregion
+
+                                #endregion Operation
                             }
                             catch (Exception err)
                             {
@@ -598,12 +591,14 @@ namespace BackOffice.Web.Controllers
                             return true;
                         });
 
-                        #endregion New Data
-                    }                    
-            }            
+                    #endregion New Data
+                }
+            }
 
             //save log file
+
             #region Error log file
+
             try
             {
                 using (System.IO.StreamWriter sw = new System.IO.StreamWriter(ErrorFilePath))
@@ -648,8 +643,10 @@ namespace BackOffice.Web.Controllers
             catch { }
 
             return null;
-            #endregion
+
+            #endregion Error log file
         }
-        #endregion
+
+        #endregion Private Functions
     }
 }
