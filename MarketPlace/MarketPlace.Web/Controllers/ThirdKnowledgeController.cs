@@ -201,8 +201,8 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
                 oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
             }
-
-            oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel;
+                        
+            oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel.OrderByDescending(x => x.CreateDate).ToList();
 
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
 
