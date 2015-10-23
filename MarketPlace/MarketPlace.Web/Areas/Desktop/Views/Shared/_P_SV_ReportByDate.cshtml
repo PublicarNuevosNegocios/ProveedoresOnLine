@@ -8,103 +8,116 @@
         <div class="container-fluid">
             @foreach (var item in Model.RelatedReportInfo.Where(lg => lg.ReportType == MarketPlace.Models.General.enumReportType.RP_SurveyReport))
             {
-                <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                    <div class="col-xs-12">
-                        <div class="col-xs-12">
-                            @if (!string.IsNullOrEmpty(item.RP_ReportAverage))
-                            {
-                                <span>Promedio: @item.RP_ReportAverage %</span>
-                            }
-                        </div>
+                <div class="row  POMPSectionTitlesBox">
+                    <div class="col-sm-12 col-lg-12">
+                        @if (!string.IsNullOrEmpty(item.RP_ReportAverage))
+                        {
+                        <strong>Promedio: @item.RP_ReportAverage %</strong>
+                        }
+                        else
+                        {
+                        <strong>N/D</strong>
+                        }
                     </div>
                 </div>
-                <div class="col-xs-12">
-                    @if (!string.IsNullOrEmpty(item.RP_Observation))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Observaciones</label>
+                <br />
+                <div class="container-fluid">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4"><label>Observaciones</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Plan de Acción</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Fecha Inicial</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_Observation))
+                                {
+                                    <span>@item.RP_Observation</span>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
                             </div>
-                            <div class="col-xs-12">
-                                <span>@item.RP_Observation</span>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_ImprovementPlan))
+                                {
+                                    <span>@item.RP_ImprovementPlan</span>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_InitDateReport))
+                                {
+                                    <span>@item.RP_InitDateReport</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
                         </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_ImprovementPlan))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Plan de Acción</label>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4"><label>Fecha Final</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Fecha De Creación del Reporte</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Responsable</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_EndDateReport))
+                                {
+                                    <span>@item.RP_EndDateReport</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                            <div class="col-xs-12">
-                                <span>@item.RP_ImprovementPlan</span>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_ReportDate))
+                                {
+                                    <span>@item.RP_ReportDate</span>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4  col-lg-4">
+                                 @if (!string.IsNullOrEmpty(item.RP_ReportResponsable))
+                                 {
+                                    <span>@item.RP_ReportResponsable</span>
+                                 }
+                                 else
+                                 {
+                                <span>N/D</span>
+                                }
                             </div>
                         </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_InitDateReport))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Fecha Inicial</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@item.RP_InitDateReport</span>
-                            </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4"><label>Ver Reporte</label></div>
+                            <div class="col-sm-4 col-lg-4"><label>Información Detallada</label></div>
                         </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_EndDateReport))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Fecha Final</label>
+                        <div class="row">
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_ReportURL))
+                                {
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RP_ReportURL">Ver Reporte</a>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
-                            <div class="col-xs-12">
-                                <span>@item.RP_EndDateReport</span>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_ReportDate))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label> Fecha De Creación del Reporte</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@item.RP_ReportDate</span>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_ReportResponsable))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Responsable</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@item.RP_ReportResponsable</span>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_ReportURL))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Ver Reporte</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RP_ReportURL">Ver Reporte</a>
-                            </div>
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(item.RP_InitDateReport)
-                        && !string.IsNullOrEmpty(item.RP_EndDateReport))
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Información Detallada</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <a href="@(Url.RouteUrl
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.RP_InitDateReport) && !string.IsNullOrEmpty(item.RP_EndDateReport))
+                                {
+                                    <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
@@ -114,9 +127,20 @@
                                     InitDate = item.RP_InitDateReport,
                                     EndDate = item.RP_EndDateReport,
                                 }))">Ver Detalle</a>
+                                }
+                                else
+                                {
+                                <span>N/D</span>
+                                }
                             </div>
                         </div>
-                    }
+
+
+
+                    </div>
+                    <br />
+
+
                 </div>
             }
         </div>
