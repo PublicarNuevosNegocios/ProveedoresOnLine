@@ -2,14 +2,11 @@
 
 @if (!Model.RenderScripts && Model.RelatedThidKnowledgeSearch != null)
 {
-
-    <div class="container-fluid">
-
-        @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+    foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
         {
             var QueryPublicId = item.QueryPublicId;
-            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                <div class="col-xs-12">
+        <div class="row" id="POMPEvalTitleMargin">
+            <div class="col-xs-12 POMPEvalTitle">
                     <div class="col-xs-10">
                         <span>Tipo de consulta:</span>&nbsp;@item.SearchType.ItemName
                     </div>
@@ -24,12 +21,11 @@
                                   InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
                                   EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),                                  
                                   Enable = "1",
-                                  IsSuccess = item.QueryStatus.ItemName.ToString(),
                                     }))">Ver Detalle</a>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12">
+        <div class="row">
                 <div class="col-xs-4">
                     <div class="col-xs-12">
                         <label>
@@ -62,11 +58,7 @@
                         </span>
                     </div>
                 </div>
-
             </div>
-
+        <br />
         }
-
-    </div>
-
 }

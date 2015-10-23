@@ -9,136 +9,171 @@
         CurrentLegalInfo = Model.RelatedLegalInfo.Where(lg => lg.LegalType == MarketPlace.Models.General.enumLegalType.ChaimberOfCommerce).FirstOrDefault();
     }
 
-    <label class="POMPSectionTitles">Cámara de Comercio</label>
-    <div class="container-fluid">
-        @if (CurrentLegalInfo != null)
-        {
-            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                <div class="col-xs-12">
-                    <div class="col-xs-12">
-                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
+    if (CurrentLegalInfo != null)
+    {
+
+        <label class="POMPSectionTitles">Cámara de Comercio</label>
+
+        <div class="container-fluid">
+            <div class="row POMPSectionTitlesBox">
+                <div class="col-sm-12 col-lg-12">
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
+                    {
+                    <strong>Fecha de Expedición del Certificado: @CurrentLegalInfo.CP_CertificateExpeditionDate</strong>
+                    }
+                    else
+                    {
+                    <strong>N/D</strong>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-4 col-lg-4"><strong>Ciudad</strong></div>
+                    <div class="col-sm-4 col-lg-4"><strong>Fecha de Constitución</strong></div>
+                    <div class="col-sm-4 col-lg-4"><strong>Vigencia</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4  col-lg-4">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
                         {
-                            <span>Fecha de Expedición del Certificado: @CurrentLegalInfo.CP_CertificateExpeditionDate</span>
+                        <span>@CurrentLegalInfo.CP_InscriptionCity</span>
+                        }
+                        else
+                        {
+                        <span>N/D</span>
+                        }
+                    </div>
+                    <div class="col-sm-4  col-lg-4">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
+                        {
+                        <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
+                        }
+                        else
+                        {
+                        <span>N/D</span>
+                        }
+                    </div>
+                    <div class="col-sm-4  col-lg-4">
+                        @if (CurrentLegalInfo.CP_UndefinedDate == "1")
+                        {
+                        <span>Vigente Hasta: Indefinido</span>
+                        }
+                        else if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionEndDate))
+                        {
+                        <span>Vigente Hasta: @CurrentLegalInfo.CP_ConstitutionEndDate</span>
+                        }
+                        else
+                        {
+                        <span>N/D</span>
                         }
                     </div>
                 </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-4 col-lg-4"><strong>Número de Matricula</strong></div>
+                    <div class="col-sm-4 col-lg-4"><strong>Certificado</strong></div>
+                    <div class="col-sm-4 col-lg-4"><strong>Objeto Social</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4  col-lg-4">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
+                        {
+                        <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
+                        }
+                        else
+                        {
+                        <span>N/D</span>
+                        }
+                    </div>
+                    <div class="col-sm-4  col-lg-4">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
+                        {
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
+                        }
+                        else
+                        {
+                        <span>N/D</span>
+                        }
+                    </div>
+                    <div class="col-sm-4  col-lg-4">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
+                        {
+                        <span>@CurrentLegalInfo.CP_SocialObject</span>
+                        }
+                        else
+                        {
+                        <span>N/D</span>
+                        }
+                    </div>
+                </div>
+                <br />
             </div>
-            <div class="col-xs-12">
-                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
-                {
-                    <div class="col-xs-4">
-                        <div class="col-xs-12">
-                            <label>Ciudad </label>
-                        </div>
-                        <div class="col-xs-12">
-                            <span>@CurrentLegalInfo.CP_InscriptionCity</span>
-                        </div>
+        </div>
+
+        if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
+        {
+            <div class="container-fluid">
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-12 col-lg-12">
+                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
+                        {
+                            <strong>Socios, Miembros Junta Directiva, Entre Otros</strong>
+                        }
+                        else
+                        {
+                            <strong>N/D</strong>
+                        }
                     </div>
-                }
-                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
-                {
-                    <div class="col-xs-4">
-                        <div class="col-xs-12">
-                            <label>Fecha de Constitución</label>
-                        </div>
-                        <div class="col-xs-12">
-                            <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
-                        </div>
+                </div>
+                <br />
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-4 col-lg-4"><strong>Nombre</strong></div>
+                        <div class="col-sm-4 col-lg-4"><strong>Número de Identificación</strong></div>
+                        <div class="col-sm-4 col-lg-4"><strong>Cargo</strong></div>
                     </div>
-                }
-                @if (CurrentLegalInfo.CP_UndefinedDate == "1")
-                {
-                    <div class="col-xs-4">
-                        <div class="col-xs-12">
-                            <label>Indefinido</label>
-                        </div>
-                        <div class="col-xs-12">
-                            <span>Si</span>
-                        </div>
-                    </div>
-                }
-                else if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionEndDate))
-                {
-                    <div class="col-xs-4">
-                        <div class="col-xs-12">
-                            <label>Vigente Hasta</label>
-                        </div>
-                        <div class="col-xs-12">
-                            <span>@CurrentLegalInfo.CP_ConstitutionEndDate</span>
-                        </div>
-                    </div>
-                }
-                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
-                {
-                    <div class="col-xs-4">
-                        <div class="col-xs-12">
-                            <label> Número de Matricula</label>
-                        </div>
-                        <div class="col-xs-12">
-                            <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
-                        </div>
-                    </div>
-                }
-                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
-                {
-                    <div class="col-xs-8">
-                        <div class="col-xs-12">
-                            <label>Certificado</label>
-                        </div>
-                        <div class="col-xs-12">
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
-                        </div>
-                    </div>
-                }
-                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
-                {
-                    <div class="col-xs-12" id="POMPSocialObject">
-                        <div class="col-xs-12">
-                            <label>Objeto Social</label>
-                        </div>
-                        <div class="col-xs-12">
-                            <span>@CurrentLegalInfo.CP_SocialObject</span>
-                        </div>
-                    </div>
-                }
-                @if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
-                {
-                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                        <div class="col-xs-12">
-                            <div class="col-xs-12">
-                                Socios, Miembros Junta Directiva, Entre Otros
-                            </div>
-                        </div>
-                    </div>
-                    foreach (var item in Model.RelatedDesignationsInfo)
+                    <br />
+                    @foreach (var item in Model.RelatedDesignationsInfo)
                     {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Nombre</label>
+                        <div class="row">
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.CD_PartnerName))
+                            {
+                                    <span>@item.CD_PartnerName</span>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
                             </div>
-                            <div class="col-xs-12">
-                                <span>@item.CD_PartnerName</span>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.CD_PartnerIdentificationNumber))
+                            {
+                                    <span>@item.CD_PartnerIdentificationNumber</span>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
+                            </div>
+                            <div class="col-sm-4  col-lg-4">
+                                @if (!string.IsNullOrEmpty(item.CD_PartnerRank))
+                            {
+                                    <span>@item.CD_PartnerRank</span>
+                                }
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
                             </div>
                         </div>
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Número de Identificación</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@item.CD_PartnerIdentificationNumber</span>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>Cargo</label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@item.CD_PartnerRank</span>
-                            </div>
-                        </div>
+
                     }
-                }
+                </div>
+                <br />
             </div>
         }
-    </div>
+    }
 }

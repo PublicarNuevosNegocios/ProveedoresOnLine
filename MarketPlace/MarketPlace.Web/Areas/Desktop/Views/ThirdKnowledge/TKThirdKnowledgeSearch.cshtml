@@ -12,53 +12,45 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
 
-    <div class="POMPProviderDataWrapper">
-        <div class="POMPSearchContainer">
-            <label class="POMPSectionTitles">Mis Consultas</label>
-            <div class="container-fluid">
-                <div class="row text-center">
-                    @if (
-                            Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
-                            Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 &&
-                            Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
-                            Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001"
-                        )
-                    {
-                        var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
-                        var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
-
-                        <div class="col-sm-5 text-right">
-                            <span>Desde:</span>
-                            <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="@InitDate" />
-                        </div>
-                        <div class="col-sm-5 text-left">
-                            <span>Hasta:</span>
-                            <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="@EndDate" />
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-sm-5">
-                            <span>Desde:</span>
-                            <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="" />
-                        </div>
-                        <div class="col-sm-5">
-                            <span>Hasta:</span>
-                            <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="" />
-                        </div>
-                    }
-                    <div class="col-sm-2">
-                        <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_Filter" id="ThirdKnowledge_FilterId" value="Filtrar" />
-                    </div>
-                </div>
-
-            </div>
-            <div id="ResultSearch">
-                @Html.Partial(MVC.Desktop.Shared.Views._TK_Search_Result_Item, Model)
-            </div>
-
-
+    <div class="container-fluid POMPProviderDataWrapper">
+        <div class="row">
+            <label class="POMPThirdKnowledgeTitles">Mis Consultas</label>
         </div>
+        <div class="row text-center">
+            @if (
+            Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
+            Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 &&
+            Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
+            Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+            {
+                var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
+                var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
+
+                <div class="col-sm-5 text-right">
+                    <span>Desde:</span>
+                    <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="@InitDate" />
+                </div>
+                <div class="col-sm-5 text-left">
+                    <span>Hasta:</span>
+                    <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="@EndDate" />
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-5">
+                    <span>Desde:</span>
+                    <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="" />
+                </div>
+                <div class="col-sm-5">
+                    <span>Hasta:</span>
+                    <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="" />
+                </div>
+            }
+            <div class="col-sm-2">
+                <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_Filter" id="ThirdKnowledge_FilterId" value="Filtrar" />
+            </div>
+        </div>
+        @Html.Partial(MVC.Desktop.Shared.Views._TK_Search_Result_Item, Model)
     </div>
 </div>
 

@@ -14,52 +14,89 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Resoluciones</label>
-        <ul class="POMPProviderInfoMultipleValues">
+        <div class="container-fluid">
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
 
                     foreach (var item in Model.RelatedLegalInfo)
                     {
-                        <li>
-                            <label class="POMPProviderDataSubtitle">
+                        <div class="row POMPSectionTitlesBox">
+                            <div class="col-sm-12 col-lg-12">
                                 @if (!string.IsNullOrEmpty(item.RS_EntityType) && !string.IsNullOrEmpty(item.RS_Description))
                                 {
-                                    <span>@item.RS_EntityType</span>
+                                    <strong>@item.RS_EntityType</strong>
                                 }
-                            </label>
-                            @if (!string.IsNullOrEmpty(item.RS_StartDate))
-                            {
-                                <label>
-                                    Fecha Inicial
-                                    <span>@item.RS_StartDate</span>
-                                </label>
-                            }
-                            @if (!string.IsNullOrEmpty(item.RS_EndDate))
-                            {
-                                <label>
-                                    Fecha Final
-                                    <span>@item.RS_EndDate</span>
-                                </label>
-                            }
-                            @if (!string.IsNullOrEmpty(item.RS_Description))
-                            {
-                                <label>
-                                    Alcance
-                                    <span>@item.RS_Description</span>
-                                </label>
-                            }
-                            @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
-                            {
-                                <label>
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
-                                </label>
-                            }
-                        </li>
+                                else
+                                {
+                                    <span>N/D</span>
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-4 col-lg-4"><label>Fecha Inicial</label></div>
+                                <div class="col-sm-4 col-lg-4"><label>Fecha Final</label></div>
+                                <div class="col-sm-4 col-lg-4"><label>Alcance</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4  col-lg-4">
+                                    @if (!string.IsNullOrEmpty(item.RS_StartDate))
+                                    {
+                                        <span>@item.RS_StartDate</span>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                </div>
+                                <div class="col-sm-4  col-lg-4">
+                                    @if (!string.IsNullOrEmpty(item.RS_EndDate))
+                                    {
+                                        <span>@item.RS_EndDate</span>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                </div>
+                                <div class="col-sm-4  col-lg-4">
+                                    @if (!string.IsNullOrEmpty(item.RS_Description))
+                                    {
+                                        <span>@item.RS_Description</span>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-4 col-lg-4"><label>Archivo Anexo</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4  col-lg-4">
+                                    @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
+                                    {
+                                        <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
+                                    }
+                                    else
+                                    {
+                                        <span>N/D</span>
+                                    }
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+
+
                     }
                 }
             }
-        </ul>
+        </div>
+
     </div>
 </div>
 @{
