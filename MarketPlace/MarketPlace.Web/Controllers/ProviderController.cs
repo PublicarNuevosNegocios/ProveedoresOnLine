@@ -2231,68 +2231,70 @@ namespace MarketPlace.Web.Controllers
                     string City = string.Empty;
                     string State = string.Empty;
 
-                    x.RelatedCommercial.Where(y => y != null).All(y =>
+                    if (x.RelatedCommercial != null)
                     {
-                        bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
-                        z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
-
-                        if (isPrincipal)
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
                         {
-                            Address = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
-                            Telephone = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
-                            Representative = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
 
-                            int oTotalRows = 0;
-                            CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
-                            List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
+                            if (isPrincipal)
+                            {
+                                Address = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                                Telephone = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                                Representative = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
 
-                            Country = oGeographyModel.FirstOrDefault().Country.ItemName;
-                            City = oGeographyModel.FirstOrDefault().City.ItemName;
-                            State = oGeographyModel.FirstOrDefault().State.ItemName;
+                                int oTotalRows = 0;
+                                CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
+
+                                Country = oGeographyModel.FirstOrDefault().Country.ItemName;
+                                City = oGeographyModel.FirstOrDefault().City.ItemName;
+                                State = oGeographyModel.FirstOrDefault().State.ItemName;
+                            }
+
+                            return true;
+                        });
+
+                        if (oProviderResult.IndexOf(x) == 0)
+                        {
+                            data.AppendLine
+                            ("\"" + "Tipo Identificacion" + "\"" + strSep +
+                                "\"" + "Numero Identificacion" + "\"" + strSep +
+                                "\"" + "Razon Social" + "\"" + strSep +
+                                "\"" + "País" + "\"" + strSep +
+
+                                "\"" + "Ciudad" + "\"" + strSep +
+                                "\"" + "Estado" + "\"" + strSep +
+
+                                "\"" + "Dirección" + "\"" + strSep +
+                                "\"" + "Telefono" + "\"" + strSep +
+
+                                "\"" + "Representante" + "\"");
+                            data.AppendLine
+                                ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                                "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                                "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + Country + "\"" + "" + strSep +
+                                "\"" + City + "\"" + strSep +
+                                "\"" + State + "\"" + "" + strSep +
+                                "\"" + Address + "\"" + strSep +
+                                "\"" + Telephone + "\"" + strSep +
+                                "\"" + Representative + "\"");
                         }
-
-                        return true;
-                    });
-
-
-                    if (oProviderResult.IndexOf(x) == 0)
-                    {
-                        data.AppendLine
-                        ("\"" + "Tipo Identificacion" + "\"" + strSep +
-                            "\"" + "Numero Identificacion" + "\"" + strSep +
-                            "\"" + "Razon Social" + "\"" + strSep +
-                            "\"" + "País" + "\"" + strSep +
-
-                            "\"" + "Ciudad" + "\"" + strSep +
-                            "\"" + "Estado" + "\"" + strSep +
-
-                            "\"" + "Dirección" + "\"" + strSep +
-                            "\"" + "Telefono" + "\"" + strSep +
-
-                            "\"" + "Representante" + "\"");
-                        data.AppendLine
-                            ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                            "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                            "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                            "\"" + Country + "\"" + "" + strSep +
-                            "\"" + City + "\"" + strSep +
-                            "\"" + State + "\"" + "" + strSep +
-                            "\"" + Address + "\"" + strSep +
-                            "\"" + Telephone + "\"" + strSep +
-                            "\"" + Representative + "\"");
-                    }
-                    else
-                    {
-                        data.AppendLine
-                            ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                            "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                            "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                            "\"" + Country + "\"" + "" + strSep +
-                            "\"" + City + "\"" + strSep +
-                            "\"" + State + "\"" + "" + strSep +
-                            "\"" + Address + "\"" + strSep +
-                            "\"" + Telephone + "\"" + strSep +
-                            "\"" + Representative + "\"");
+                        else
+                        {
+                            data.AppendLine
+                                ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                                "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                                "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + Country + "\"" + "" + strSep +
+                                "\"" + City + "\"" + strSep +
+                                "\"" + State + "\"" + "" + strSep +
+                                "\"" + Address + "\"" + strSep +
+                                "\"" + Telephone + "\"" + strSep +
+                                "\"" + Representative + "\"");
+                        }
                     }
                     return true;
                 });
