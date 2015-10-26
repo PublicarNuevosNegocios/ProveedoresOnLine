@@ -23,6 +23,7 @@
 
 #POMPMenuIconHand {
     cursor:pointer;
+    font-weight: lighter;
 }
 .POMPUserLogo {
     width: 20px;
@@ -170,8 +171,8 @@ div#POMPNotifications {
 }
 
 div#Notification img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     cursor:pointer;
 }
 
@@ -179,7 +180,7 @@ div#Notification img {
     width: 150px;
     margin-left: -12%;
     position: absolute;
-    margin-top: 0px;
+    margin-top: 0;
     z-index: 100;
     background-color: #ECECEC;
     border: none !important;

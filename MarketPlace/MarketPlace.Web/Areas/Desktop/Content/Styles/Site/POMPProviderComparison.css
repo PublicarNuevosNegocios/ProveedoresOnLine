@@ -199,17 +199,17 @@
 }
 
     .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper {
-        min-width: 202px !important;
+        min-width: 230px !important;
     }
 
         .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a {
-            width: 68px;
-            height: 34px;
+            width: 80px;
+            height: 40px;
         }
 
     .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper {
-        width: 46%;
-        min-width: 93px;
+        width: 45%;
+        min-width: 50px;
     }
 
         .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label,
