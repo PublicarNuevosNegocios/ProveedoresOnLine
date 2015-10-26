@@ -173,14 +173,14 @@ $('#Survey_ProgramSurvey_EndDate').focusout(function () {
 
 $(document).ready(function () {
     var position = 'expanded';
-
-    $(".POMPManualLink").click(function () {
-        if (position == 'expanded') {
-            $(this).animate({ height: '148px' });
-            position = 'collapsed';
-        } else {
-            $(this).animate({ height: '90px' });
+    $("#POMPManualTittle").click(function () {
+        if (position == 'collapsed') {
+            $("#POMPManuals").animate({ bottom: '-=45px' });
             position = 'expanded';
+        } else {
+            $("#POMPManuals").animate({ bottom: '+=45px' });
+
+            position = 'collapsed';
         }
     });
 });

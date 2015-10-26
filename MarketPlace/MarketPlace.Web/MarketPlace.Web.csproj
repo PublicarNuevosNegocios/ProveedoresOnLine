@@ -1234,6 +1234,9 @@
     <Content Include="Areas\Desktop\Views\Shared\_N_Notifications.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_TK_Search_Single_Detail_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKDetailSingleSearch.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_StateAliensProviders.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_StateNationalProviders.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_SearchCompare_Result_Item.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

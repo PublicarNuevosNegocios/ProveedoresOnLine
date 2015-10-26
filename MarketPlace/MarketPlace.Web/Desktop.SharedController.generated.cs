@@ -40,6 +40,8 @@ namespace T4MVC.Desktop
             {
                 public readonly string _CH_ProjectByResponsible = "_CH_ProjectByResponsible";
                 public readonly string _CH_ProjectByState = "_CH_ProjectByState";
+                public readonly string _CH_StateAliensProviders = "_CH_StateAliensProviders";
+                public readonly string _CH_StateNationalProviders = "_CH_StateNationalProviders";
                 public readonly string _CH_StateProviders = "_CH_StateProviders";
                 public readonly string _CH_Survey = "_CH_Survey";
                 public readonly string _CH_SurveyByEvaluators = "_CH_SurveyByEvaluators";
@@ -74,6 +76,7 @@ namespace T4MVC.Desktop
                 public readonly string _P_Search_Result = "_P_Search_Result";
                 public readonly string _P_Search_Result_Item = "_P_Search_Result_Item";
                 public readonly string _P_Search_Result_Pager = "_P_Search_Result_Pager";
+                public readonly string _P_SearchCompare_Result_Item = "_P_SearchCompare_Result_Item";
                 public readonly string _P_SV_ReportByDate = "_P_SV_ReportByDate";
                 public readonly string _PJ_ProjectDetail_Header = "_PJ_ProjectDetail_Header";
                 public readonly string _PJ_ProjectDetail_Provider_Result = "_PJ_ProjectDetail_Provider_Result";
@@ -106,6 +109,8 @@ namespace T4MVC.Desktop
             }
             public readonly string _CH_ProjectByResponsible = "~/Areas/Desktop/Views/Shared/_CH_ProjectByResponsible.cshtml";
             public readonly string _CH_ProjectByState = "~/Areas/Desktop/Views/Shared/_CH_ProjectByState.cshtml";
+            public readonly string _CH_StateAliensProviders = "~/Areas/Desktop/Views/Shared/_CH_StateAliensProviders.cshtml";
+            public readonly string _CH_StateNationalProviders = "~/Areas/Desktop/Views/Shared/_CH_StateNationalProviders.cshtml";
             public readonly string _CH_StateProviders = "~/Areas/Desktop/Views/Shared/_CH_StateProviders.cshtml";
             public readonly string _CH_Survey = "~/Areas/Desktop/Views/Shared/_CH_Survey.cshtml";
             public readonly string _CH_SurveyByEvaluators = "~/Areas/Desktop/Views/Shared/_CH_SurveyByEvaluators.cshtml";
@@ -140,6 +145,7 @@ namespace T4MVC.Desktop
             public readonly string _P_Search_Result = "~/Areas/Desktop/Views/Shared/_P_Search_Result.cshtml";
             public readonly string _P_Search_Result_Item = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Item.cshtml";
             public readonly string _P_Search_Result_Pager = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Pager.cshtml";
+            public readonly string _P_SearchCompare_Result_Item = "~/Areas/Desktop/Views/Shared/_P_SearchCompare_Result_Item.cshtml";
             public readonly string _P_SV_ReportByDate = "~/Areas/Desktop/Views/Shared/_P_SV_ReportByDate.cshtml";
             public readonly string _PJ_ProjectDetail_Header = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Header.cshtml";
             public readonly string _PJ_ProjectDetail_Provider_Result = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Provider_Result.cshtml";

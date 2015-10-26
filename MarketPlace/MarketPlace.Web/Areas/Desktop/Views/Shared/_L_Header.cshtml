@@ -1,5 +1,5 @@
 ﻿@if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn &&
-    MarketPlace.Models.General.SessionModel.IsUserAuthorized())
+                MarketPlace.Models.General.SessionModel.IsUserAuthorized())
 {
     //get company logo
     string strCompanyLogo = MarketPlace.Models.General.SessionModel.CurrentCompany_CompanyLogo;
@@ -16,26 +16,24 @@
     //get header menu
     List<MarketPlace.Models.General.GenericMenu> oHeaderMenu = (ViewContext.Controller as MarketPlace.Web.Controllers.BaseController).GetHeaderMenu();
 
+    <div class="row">
+        <div id="POMPLogoPositionTop" class="col-xs-1 col-md-1">
+            <img class="POMPLogo" src="@strCompanyLogo" />
+        </div>
+        <div class="col-xs-11 col-md-11">
+            <div class="row text-right">
+                <div class="col-xs-12 col-md-12">
 
-    <div class="POMPHeaderWrapper">
-        <!--Company Logo-->
-        <img class="POMPLogo" src="@strCompanyLogo" />
-
-        <div class="POMPMenusGrandWrapper">
-            @*<div id="POMPNotifications" onclick="javascript: Header_ShowHideNotifications('POMPNotificationsList', '@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email', '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId')">
-                @Html.Partial(MVC.Desktop.Shared.Views._N_Notifications)
+                    <ul class="list-inline">
+                        <li>
+                            <div id="POMPNotifications" onclick="javascript: Header_ShowHideNotifications('POMPNotificationsList', '@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email', '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId')"> @Html.Partial(MVC.Desktop.Shared.Views._N_Notifications)</div>
+                            <div id="POMPNotificationsList" style="display:none;"></div>
+                        </li>
+                        <li><label id="POMPMenuIconHand" onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');"><img class="POMPUserLogo" src="@strUserLogo" /><span>Bienvenido: </span>@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Name</label></li>
+                    </ul>
+                </div>
             </div>
 
-            <div id="POMPNotificationsList" style="display:none;">
-            </div>*@
-
-            <!--User options-->
-            <div class="POMPUserMenu" onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');">
-                <img src="@strUserLogo" />
-                <label><span>Bienvenido: </span>@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Name</label>
-            </div>
-
-            <!-- AQUI ESTA EL MENU PRINCIPAL -->
             <div class="POMPUserMenuOptions" id="divHeader_UserMenu" style="display:none;">
                 <ul>
                     <li>
@@ -48,29 +46,36 @@
                     </li>
                 </ul>
             </div>
-            <!--Header menu-->
-            <ul class="POMPMainMenuWrapper">
-                @foreach (MarketPlace.Models.General.GenericMenu oMenuItem in oHeaderMenu.OrderBy(x => x.Position))
-                {
-                    //if ((int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
-                    //{
-                        
-                    //}
-                    
-                    string strSelectedClass = string.Empty;
-                    if (oMenuItem.IsSelected)
-                    {
-                        strSelectedClass = "selected";
-                    }
 
-                    <li class="spacers"></li>
-                    <li class="@strSelectedClass">
-                        <a href="@oMenuItem.Url">
-                            @oMenuItem.Name
-                        </a>
-                    </li>
-                }
-            </ul>
+            <div class="row text-right">
+                <div id="POMPMenuPositionTop" class="col-xs-12 col-md-12">
+                    <ul class="POMPMainMenuWrapper">
+                        @foreach (MarketPlace.Models.General.GenericMenu oMenuItem in oHeaderMenu.OrderBy(x => x.Position))
+                        {
+                            //if ((int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
+                            //{
+
+                            //}
+
+                            string strSelectedClass = string.Empty;
+                            if (oMenuItem.IsSelected)
+                            {
+                                strSelectedClass = "selected";
+                            }
+
+                            <li class="spacers"></li>
+                            <li class="@strSelectedClass">
+                                <a href="@oMenuItem.Url">
+                                    @oMenuItem.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+
+                </div>
+            </div>
         </div>
     </div>
+
 }

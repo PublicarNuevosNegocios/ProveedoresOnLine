@@ -1,38 +1,45 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>    
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - ProveedoresOnLine</title>
     @*bundle render styles*@
     @Styles.Render("~/site/styles/jquery")
-    @Styles.Render("~/site/styles/bootstrap")
     @Styles.Render("~/site/styles/kendo")
     @Styles.Render("~/site/styles/rateit")
-    @Styles.Render("~/site/styles")    
-
+    @Styles.Render("~/site/styles/bootstrap")
+    @Styles.Render("~/site/styles")
     <!--Google Charts-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 </head>
 <body>
-    <div id="GeneralContainer">
-        <div class="POMPRenderHeader">
-            <!--Render header-->
-            @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Header)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <!--Render header-->
+                @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Header)
+            </div>
         </div>
 
-        <div class="POMPRenderBody">
-            <!--Render body-->
+        <div class="row">
+            <div class="col-xs-12 col-md-12 POMPHeaderMenuSeparator"></div>
+        </div>
+
+        <div class="row">
             @RenderBody()
         </div>
 
-        <div id="POMPRenderFooter" class="POMPRenderFooter">
-            <!--Render footer-->
-            @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
+            </div>
         </div>
-    </div>
+
+
+    </div> <!--container-->
     <!--Global templates-->
     <div style="display:none;">
         <!--Generic message dialog-->
@@ -73,7 +80,7 @@
             Tooltip_InitGeneric();
         });
     </script>
-    
+
     @RenderSection("inlinescripts", required: false)
 
     <!--Google Analitycs-->

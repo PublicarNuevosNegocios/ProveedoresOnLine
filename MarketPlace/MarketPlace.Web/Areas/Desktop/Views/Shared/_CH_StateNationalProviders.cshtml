@@ -1,0 +1,34 @@
+﻿
+<div class="ResponsiveChartsClass" >
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div id="NationalProvidersStatusChartId"></div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(NationalProviders_ChartsObject.RenderChatrNationalProvidersByStatus);
+
+        NationalProviders_ChartsObject.Init({
+            ObjectId: 'NationalProvidersStatusChartId',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        });
+    })
+</script>
+
+
+
+
+

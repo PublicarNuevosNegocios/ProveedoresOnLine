@@ -1,0 +1,33 @@
+﻿
+<div class="ResponsiveChartsClass" >
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div id="AlienProvidersStatusChartId"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    $(document).ready(function () {      
+
+        google.setOnLoadCallback(AlienProviders_ChartsObject.RenderChatrAlienProvidersByStatus);
+
+        AlienProviders_ChartsObject.Init({
+            ObjectId: 'AlienProvidersStatusChartId',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+        {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+        }))',
+    });
+        
+    })
+</script>
+
+
+
+
+
