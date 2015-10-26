@@ -90,7 +90,7 @@ h1 {
 /*NUEVO RESPONSIVE*/
 .POMPChartContainer {
     width: 90%;
-    min-height: 457px;
+    min-height:100%;
 }
 .POMPChartPanelTitle {
    background-color:#ececec !important;
