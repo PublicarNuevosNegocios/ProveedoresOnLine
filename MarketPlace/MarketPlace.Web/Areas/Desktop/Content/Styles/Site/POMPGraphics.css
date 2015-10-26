@@ -78,11 +78,21 @@ h1 {
 .ResponsiveChartsClass {
     /*border:1px solid black !important;*/
     max-height: 100% !important;
-    height: 270px !important;
+    height: 100% !important;
     position: relative;
     float: left;
     width: 95%;
     margin: 20px 0 0 2.2%;
     height: 300px;
     max-height: 300px;
+}
+
+/*NUEVO RESPONSIVE*/
+.POMPChartContainer {
+    width: 90%;
+    min-height: 457px;
+}
+.POMPChartPanelTitle {
+   background-color:#ececec !important;
+   border-bottom-color:#ff8300 !important;
 }

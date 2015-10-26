@@ -1,10 +1,18 @@
+.POMPFooterPosition {
+    position: absolute;
+    left:0px;
+    bottom: -100px;
+    width: 100%;
+}
 .POMPFooterWrapper {
     border:none;
 }
     .POMPFooterLegal, .POMPFooterLogos{
         display:block;
-            border:none;
+        border:none;
         width:100%;
+        position: relative;
+        z-index: 100;
         min-width:960px;
     }        
         .POMPFooterLogos {
@@ -33,3 +41,53 @@
                 color: #fff;
                 font-size: 0.9em;
             }
+
+
+/*MANUAL MENU*/
+
+.div-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+#POMPManuals {
+    width:100%;       
+    position:relative;
+    width: 250px;
+    height: 65px;
+    background-color: none;
+    bottom: -43px;
+    z-index: 100;
+    display: inline-block;
+
+}
+
+#POMPManualTittle {
+    height:25px;
+    width:90px;
+    background-color:#fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    border-left: 1px solid #E4E4E4;
+    cursor: pointer;
+}
+#POMPManualIcons {
+    height:25px;
+    width:200px;
+    height:60px;
+    background-color:#fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid #E4E4E4;
+    border-bottom: 1px solid #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    border-left: 1px solid #E4E4E4;
+
+}
+
+.POMPPdfIcon {
+    padding-top:5px;
+    width:38%;
+}

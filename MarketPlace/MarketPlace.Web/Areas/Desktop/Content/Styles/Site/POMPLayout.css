@@ -1,4 +1,5 @@
 /*********fonts************/
+
 @font-face {
     font-family: 'OpenSans-Regular';
     src: url('../../../fonts/OpenSans-Regular.eot');
@@ -8,12 +9,19 @@
 p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
     font-family: 'OpenSans-Regular', Fallback, sans-serif;
 }
+
 /*********Body Content************/
+
 html,
 body {
    margin:0;
    padding:0;
    height:100%;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
 }
 
 #GeneralContainer{
@@ -24,7 +32,6 @@ body {
 .POMPRenderHeader, .POMPRenderBody, .POMPRenderFooter{
      text-align:left;
      display:block;
-    
      /*border:none;*/
 }
 
@@ -38,10 +45,12 @@ body {
    bottom:0;
    width:100%;
    height:98px;
+   
 }
 
 div#POMPRenderFooter {
-      position:absolute;
+    
+   position:absolute;
    bottom:0;
    width:100%;
    height:98px;
@@ -50,6 +59,7 @@ div#POMPRenderFooter {
 }
 /*************** AQUI VA TODA LA INFORMACION 
     DETALLADA DEL PROVEEDOR  *************/
+
 .POMPProviderGreatWrapper {
     border: medium none;
     height: auto;
@@ -59,7 +69,9 @@ div#POMPRenderFooter {
     width: 99.8%;
     min-width:960px;
 }
+
 /*********** CONTENEDOR DEL MENU LATERAL ***********/
+
 .POMPProviderSideMenuWrapper {
     display: inline-block;
     height: auto;
@@ -67,7 +79,13 @@ div#POMPRenderFooter {
     vertical-align: top;
     width: auto;
 }
+.POMPProviderSideMenuWidth {
+    min-width: 240px;
+    max-width: 240px;
+}
+
 /*********** CONTENEDOR DE INFORMACION PROVEDOR ***********/
+
 .POMPProviderDataWrapper {
     border-left: 2px solid #ff8300;
     display: inline-block;
@@ -79,7 +97,10 @@ div#POMPRenderFooter {
     width: calc(100% - 262px);
 }
 
+
+
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
+
 .POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}
 .POBOProviderUpsertForm li.POBOHSEQ, .POBOProviderUpsertForm li.POBOCamaraComercioSocios {
     text-align:left;
@@ -89,8 +110,8 @@ div#POMPRenderFooter {
         border:none;
 }
 #ReportLITF {
-    border-bottom:1px solid #ff8400;
-    border-top:1px solid #ff8400;
+        border-bottom:1px solid #ff8400;
+        border-top:1px solid #ff8400;
     width: auto;
     text-align: center;
     padding: 15px 0px 15px 0px;
@@ -123,4 +144,15 @@ li#F3, li#F3 label {
 li#F3 {
     margin:0px 0px 0px 58.7%;
     background-color:#ececec;
+}
+
+
+.POMPSeparator {
+    width:100%
+}
+
+.POMPMenuBody {
+    font-size: 12px;
+    max-width: 232px;
+    min-width: 232px;
 }

@@ -154,3 +154,5 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/Auth/.vs/config/applicationhost.config
+/MarketPlace/.vs/config/applicationhost.config
