@@ -92,10 +92,19 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                         });
 
                         LogManager.ClientLog.AddLog(oLog);
-                    }
 
+                    }
                     return true;
                 });
+
+                try
+                {
+                    ProveedoresOnLine.Company.Controller.Company.CompanyActivityInfoIndex();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
             return ProviderToUpsert;
@@ -217,6 +226,15 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                     return true;
                 });
+
+                try
+                {
+                    ProveedoresOnLine.Company.Controller.Company.CompanyBasicInfoIndex();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
             return ProviderToUpsert;
@@ -903,10 +921,20 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                         });
 
                         LogManager.ClientLog.AddLog(oLog);
+
                     }
 
                     return true;
                 });
+
+                try
+                {
+                    ProveedoresOnLine.Company.Controller.Company.CompanyBasicInfoIndex();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
             return ProviderToUpsert;

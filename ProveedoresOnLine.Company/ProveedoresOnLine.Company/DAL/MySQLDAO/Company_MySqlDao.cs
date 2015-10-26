@@ -2428,6 +2428,30 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region Index
+
+        public void CompanyBasicInfoIndex()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandText = "CP_BasicInfoIndex",
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandType = CommandType.StoredProcedure,
+            });
+        }
+
+        public void CompanyActivityInfoIndex()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "CP_ActivityInfoIndex",
+                CommandType = CommandType.StoredProcedure,
+            });
+        }
+
+        #endregion
     }
 }
 

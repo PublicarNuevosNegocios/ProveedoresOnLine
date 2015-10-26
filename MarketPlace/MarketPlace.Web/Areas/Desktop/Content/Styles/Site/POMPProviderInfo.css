@@ -3,7 +3,7 @@
         line-height: 40px;
         background: #ececec;
         width: 100% !important;
-        margin: 0 0 5px -0.5%;
+        margin: 10px 0 3px 0;
         height: 40px;
         line-height: 35px;
     }
@@ -34,17 +34,22 @@
 .POMPSectionTitles {
     font-size: 1.5em; font-weight: normal; letter-spacing: -1px;
     display: block;
-    margin:0 8px 7px 8px; padding:12px 0 0px 14px;
+    margin: 0px 0px 0px 0px; 
+    padding:0px 0px 0px 0px;
+    height:40px;
+    vertical-align:middle;
     color: #fff;
-    box-shadow:1px 1px 3px #444;
-    border-top-left-radius:3px;
-    border-top-right-radius:3px;
+    box-shadow: 0px 0px 3px #444;
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
     border-bottom-left-radius:0px;
     border-bottom-left-radius:0px;
-    border: 1px solid #666; border-bottom:none;
+    border: 0px solid #666; border-bottom:none;
     background-color:#f87b00;
     background-image:url(http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/BGScatterLogoSmall.png);
     background-position:238px -162px; background-size:931px auto; background-repeat:no-repeat;
+    padding-top: 5px;
+    padding-left: 10px;
 }
 .POMPProviderInfoDisplayList,
 .POMPProviderInfoMultipleValues{
