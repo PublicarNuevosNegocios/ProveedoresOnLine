@@ -141,5 +141,13 @@ namespace ProveedoresOnLine.Company.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId);
 
         #endregion
+
+        #region Index
+
+        void CompanyBasicInfoIndex();
+
+        void CompanyActivityInfoIndex();
+
+        #endregion
     }
 }

@@ -442,6 +442,8 @@ namespace ProveedoresOnLine.Company.Controller
             {
                 oLog.LogObject = CompanyToUpsert;
                 LogManager.ClientLog.AddLog(oLog);
+
+                CompanyBasicInfoIndex();
             }
         }
 
@@ -939,6 +941,20 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
+        #endregion
+
+        #region Basic Info Company Index
+
+        public static void CompanyBasicInfoIndex()
+        {
+            DAL.Controller.CompanyDataController.Instance.CompanyBasicInfoIndex();
+        }
+
+        public static void CompanyActivityInfoIndex()
+        {
+            DAL.Controller.CompanyDataController.Instance.CompanyActivityInfoIndex();
+        }
+
         #endregion
     }
 }
