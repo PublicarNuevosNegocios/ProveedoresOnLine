@@ -322,5 +322,18 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
         #endregion
 
+        #region Index
+
+        public void CompanyBasicInfoIndex()
+        {
+            DataFactory.CompanyBasicInfoIndex();
+        }
+
+        public void CompanyActivityInfoIndex()
+        {
+            DataFactory.CompanyActivityInfoIndex();
+        }
+
+        #endregion
     }
 }
