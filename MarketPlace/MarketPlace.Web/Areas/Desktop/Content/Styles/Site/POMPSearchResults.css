@@ -399,17 +399,6 @@
         font-weight: 400;
     }
 
-#POMPManualIcons {
-    width: 250px;
-    height: 60px;
-    float: left;
-    background: #f9f9f9;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border: 1px solid #E4E4E4;
-    position: relative;
-}
-
 .POMPPdfContainer {
     width: 40px;
     height: 40px;

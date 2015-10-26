@@ -3,6 +3,7 @@
     left:0px;
     bottom: -100px;
     width: 100%;
+    height: 100%;
 }
 .POMPFooterWrapper {
     border:none;
@@ -16,6 +17,7 @@
         min-width:960px;
     }        
         .POMPFooterLogos {
+            bottom:-34px;
             height:76px;
             text-align:right;
             background-color:#b3b3b3;
@@ -33,6 +35,7 @@
                 top:13px;
             }
         .POMPFooterLegal {
+            bottom:-34px;
             height:22px;
             background-color:#727276;
             text-align: center;
@@ -51,15 +54,14 @@
 }
 
 #POMPManuals {
+    bottom: -174px;
     width:100%;       
     position:relative;
-    width: 250px;
+    /*width: 250px;*/
     height: 65px;
     background-color: none;
-    bottom: -43px;
     z-index: 100;
     display: inline-block;
-
 }
 
 #POMPManualTittle {
@@ -89,5 +91,5 @@
 
 .POMPPdfIcon {
     padding-top:5px;
-    width:38%;
+    width:36%;
 }
