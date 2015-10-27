@@ -31,15 +31,18 @@
         <div class="row">
             @RenderBody()
         </div>
-
-        <div class="row footer">
-            <div class="col-xs-12 col-md-12">
-                @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
-            </div>
-        </div>
-
-
     </div> <!--container-->
+
+    <div id="POMP_Footer">
+        <div class="text-center">
+            @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
+        </div>
+    </div>
+
+
+
+
+
     <!--Global templates-->
     <div style="display:none;">
         <!--Generic message dialog-->

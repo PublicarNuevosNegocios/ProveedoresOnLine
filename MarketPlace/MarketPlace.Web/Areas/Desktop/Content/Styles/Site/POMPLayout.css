@@ -35,6 +35,14 @@ body {
    padding-bottom:98px;
 
 }
+
+#POMP_Footer {
+    position: absolute;
+    bottom: 34px;
+    width:100%;
+}
+
+
 .POMPRenderFooter{
    position:absolute;
    bottom:0;
