@@ -20,7 +20,7 @@
                 <div class="text-center TK-DownloadFile">
                     <a title="Plantilla para Consulta Masiva" class="TK-DownloadFile-a" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_CP_UploadTemplate].Value" target="_new">
                         <img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" class="TK-DownloadIcon" />
-                        <p class="TK-DownloadFile-p">Descargar</p>
+                        <p class="TK-DownloadFile-p">Plantilla</p>
                     </a>
                 </div>
             </div>
@@ -57,6 +57,14 @@
 </div>
 
 
+@{
+    string PeriodPublicId = null;
+    if (Model.RelatedThirdKnowledge.CurrentPlanModel != null)
+    {
+        PeriodPublicId = Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId;
+    }
+   
+}
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -72,12 +80,11 @@
                         FilePath = "${FilePath}"
                     })))',
         });
-
         Third_KnowledgeMasiveSearchObject.Init({
-            ObjectId: 'ThirdKnowledge',
-            CompanyPublicId: '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId',
-            PeriodPublicId: '@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId',
-        });
+                ObjectId: 'ThirdKnowledge',
+                CompanyPublicId: '@MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId',
+                PeriodPublicId: '@PeriodPublicId',
+            });
 
     });
 </script>
