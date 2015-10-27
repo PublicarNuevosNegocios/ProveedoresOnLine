@@ -28,19 +28,19 @@
             <div class="col-xs-12 col-md-12 POMPHeaderMenuSeparator"></div>
         </div>
 
-        <div class="row" style="min-height:480px;">
+        <div class="row" id="POMP_GeneralBodyContainer">
             @RenderBody()
         </div>
-        
-        
-
     </div> <!--container-->
-
-    <div class="navbar navbar-fixed-bottom" id="POMP_Footer">
-        <div class="text-center">
+    <div>
+        <div class="navbar" id="POMP_Footer">
             @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
         </div>
     </div>
+
+
+
+
     <!--Global templates-->
     <div style="display:none;">
         <!--Generic message dialog-->

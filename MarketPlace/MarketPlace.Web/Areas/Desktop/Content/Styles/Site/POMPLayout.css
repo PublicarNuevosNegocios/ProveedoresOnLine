@@ -19,6 +19,11 @@ body {
    height:100%;
 }
 
+#POMP_GeneralBodyContainer{
+  min-height:480px;
+}
+
+
 #GeneralContainer{
    min-height:100%;
    position:relative;
@@ -37,8 +42,9 @@ body {
 
 #POMP_Footer {
     position: relative;
-    bottom: 34px;
-    width:100%;
+    bottom: 0px;
+    left: -16px;
+    width: calc(100% + 33px);
 }
 
 
