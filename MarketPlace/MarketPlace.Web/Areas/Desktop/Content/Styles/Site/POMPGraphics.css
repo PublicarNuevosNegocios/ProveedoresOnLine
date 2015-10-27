@@ -77,11 +77,11 @@ h1 {
 
 .ResponsiveChartsClass {
     /*border:1px solid black !important;*/
-    max-height: 100% !important;
-    height: 100% !important;
+    max-height: 80% !important;
+    height: 80% !important;
     position: relative;
     float: left;
-    width: 95%;
+    width: 75%;
     margin: 20px 0 0 2.2%;
     height: 300px;
     max-height: 300px;
