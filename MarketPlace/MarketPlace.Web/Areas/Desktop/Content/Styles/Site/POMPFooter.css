@@ -54,9 +54,10 @@
 }
 
 #POMPManuals {
-    bottom: 58px;
-    width: 100%;
     position: absolute;
+    bottom: 24px;
+    left: 14px;
+    width: 100%;
     height: 65px;
     z-index: 100;
     display: inline-block;

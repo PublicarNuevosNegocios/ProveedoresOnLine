@@ -33,11 +33,10 @@ body {
 .POMPRenderBody{
    padding:10px;
    padding-bottom:98px;
-
 }
 
 #POMP_Footer {
-    position: absolute;
+    position: relative;
     bottom: 34px;
     width:100%;
 }
