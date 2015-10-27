@@ -25,7 +25,7 @@ function Header_ShowHideNotifications(DivId, User, companyPublicId) {
             if (result != null && result.length > 0) {
                 $('#' + DivId).text('');
                 $.each(result, function (item, value) {
-                    $('#' + DivId).append('<div><a onclick="javascript: DeleteNotifications(' + value.NotificationId + ', \'' + value.Url  + '\')">' + value.Label + '</a></div>');
+                    $('#' + DivId).append('<div style="border-bottom: #ff8300 1px; color: white;"><a onclick="javascript: DeleteNotifications(' + value.NotificationId + ', \'' + value.Url + '\')">' + value.Label + '</a></div>');
                 });
             }
             else {
