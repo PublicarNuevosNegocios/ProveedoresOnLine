@@ -203,6 +203,10 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel.OrderByDescending(x => x.CreateDate).ToList();
             }
+            else if (oQueryModel != null && oQueryModel.Count > 0)
+            {
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel;
+            }
             else
             {
                 oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
