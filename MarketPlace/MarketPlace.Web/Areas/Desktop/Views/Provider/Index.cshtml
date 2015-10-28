@@ -35,10 +35,10 @@
 }
 <div class="row">
     <div class="POMPChartContainer container-fluid">
-        <div class="row text-center">
+        <div class="row row-centered text-center">
             @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider )
             {
-                <div class="col-sm-12 col-lg-6">
+                <div class="col-sm-12 col-lg-6 col-centered">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Estado de Proveedores Nacionales</h3>
@@ -52,7 +52,7 @@
 
             @if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
             {
-                <div class="col-sm-12 col-lg-6">
+                <div class="col-sm-12 col-lg-6  col-centered">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Estado de Proveedores Internacionales</h3>
@@ -66,7 +66,7 @@
 
             @if (IsProcessModuleEnable)
             {
-                <div class="col-sm-12 col-lg-6">
+                <div class="col-sm-12 col-lg-6  col-centered">
                 <div class="panel panel-default">
                     <div class="panel-heading POMPChartPanelTitle">
                         <h3 class="panel-title">Procesos De Selección Por Estado Año En Curso</h3>
@@ -81,7 +81,7 @@
 
             @if (IsThirdKnowledgeModeuleEnable)
             {
-                <div class="col-sm-12 col-lg-6">
+                <div class="col-sm-12 col-lg-6  col-centered">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Conocimiento De Terceros Consultas Por Periodo</h3>
@@ -96,7 +96,7 @@
 
             @if (IsEvaluator)
             {
-                <div class="col-sm-12 col-lg-6 text-center">
+                <div class="col-sm-12 col-lg-6 text-center col-centered">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Evaluaciones de Desempeño por Estado Año en Curso</h3>
