@@ -1,7 +1,7 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 
 @if (Model.ProviderMenu != null &&
-    Model.ProviderMenu.Count > 0)
+                Model.ProviderMenu.Count > 0)
 {
     if (!Model.RenderScripts)
     {
@@ -12,40 +12,54 @@
                     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.RelatedLiteProvider)
                 </div>
             }
-            <ul id="ulProviderMenu">
+
+            <div class="POMPMenuBody">
                 @foreach (MarketPlace.Models.General.GenericMenu pm in Model.ProviderMenu.OrderBy(x => x.Position))
                 {
                     string strSeleClass = string.Empty;
+                    string strIsSeleClass = string.Empty;
                     if (pm.IsSelected)
                     {
-                        strSeleClass = "principalmenuselected";
+                        strSeleClass = "POMPProviderMenuOpen";
+                        strIsSeleClass = "POMPProviderMenuIsSelected";
                     }
-
-                    <li class="@strSeleClass">
-                        <label>@pm.Name</label>
-                        <ul class="POMPProviderSideSubMenu">
-                            @foreach (MarketPlace.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
-                            {
-                                strSeleClass = string.Empty;
-                                if (sm.IsSelected)
+                    else
+                    {
+                        strSeleClass = "POMPProviderMenuClose";
+                        strIsSeleClass = "POMPProviderMenuNotSelected";
+                    }
+                    <ul class="nav nav-list">
+                        <li>
+                            <label class="tree-toggler nav-header POMPProviderMenuItem @strIsSeleClass"><i class="glyphicon glyphicon-chevron-down">&nbsp;</i>@pm.Name</label>
+                            <ul class="nav nav-list tree @strSeleClass">
+                                @foreach (MarketPlace.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
                                 {
-                                    strSeleClass = "secundarymenuselected";
+                                    strSeleClass = string.Empty;
+                                    if (sm.IsSelected)
+                                    {
+                                        strSeleClass = "POMPProviderMenuItemSelected";
+                                    }
+                                    <li class="POMPProviderMenuSubItem @strSeleClass ">
+                                        <a href="@sm.Url">@sm.Name</a>
+                                    </li>
                                 }
-                                <li class="@strSeleClass">
-                                    <a href="@sm.Url">@sm.Name</a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    </ul>
                 }
-            </ul>
+            </div>
+
+
+
         </div>
     }
     else
     {
         <script type="text/javascript">
             $(document).ready(function () {
-                
+                $('label.tree-toggler').click(function () {
+                    $(this).parent().children('ul.tree').toggle(300);
+                });
                 Provider_InitMenu({
                     ObjId: 'ulProviderMenu',
                     active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),

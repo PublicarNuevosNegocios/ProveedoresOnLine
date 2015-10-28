@@ -191,25 +191,30 @@
 /************* ESTE ES EL MAS ANGOSTO EL ENCABEZADO DE 
                 MENU DE DETALLE DE PROVEEDOR ***************/
 
+.POMPProviderContainerMenuDetail {
+    width: 265px!important;
+    border-right: 1px solid #FF8301;
+}
+
 .POMPProviderMenuDetail {
-    border-bottom: 1px solid #999;
+   /* border-bottom: 1px solid #999;*/
     width: auto;
     height: auto;
     padding: 7px 0px;
 }
 
     .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper {
-        min-width: 230px !important;
+        min-width: 202px !important;
     }
 
         .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a {
-            width: 80px;
-            height: 40px;
+            width: 68px;
+            height: 34px;
         }
 
     .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper {
-        width: 45%;
-        min-width: 50px;
+        width: 46%;
+        min-width: 93px;
     }
 
         .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label,
@@ -227,6 +232,8 @@
         width: auto;
     }
 
-/******** ESTO PINTA LA CALIFICACION DEL PROVEEDOR ********/
-.POMPProviderLogoAndRate {
+.POMPProviderMenuSubItem {
+    height: 37px;
+    width: 89.2%;
+    left: 25px;
 }

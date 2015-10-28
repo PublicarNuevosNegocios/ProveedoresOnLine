@@ -43,8 +43,8 @@ body {
 #POMP_Footer {
     position: relative;
     bottom: 0px;
-    left: -16px;
-    width: calc(100% + 33px);
+    /*left: -16px;*/
+    /*width: calc(100% + 16.4px);*/
 }
 
 
@@ -90,6 +90,11 @@ div#POMPRenderFooter {
 .POMPProviderSideMenuWidth {
     min-width: 240px;
     max-width: 240px;
+}
+
+.POMPProviderContainerMenuDetail {
+    width: 265px!important;
+    border-right: 1px solid #FF8301;
 }
 
 /*********** CONTENEDOR DE INFORMACION PROVEDOR ***********/
