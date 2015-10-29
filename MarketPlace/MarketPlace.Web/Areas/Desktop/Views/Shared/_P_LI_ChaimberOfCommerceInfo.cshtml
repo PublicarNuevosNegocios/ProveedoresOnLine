@@ -74,7 +74,6 @@
                 <div class="row">
                     <div class="col-sm-4 col-lg-4"><strong>Número de Matricula</strong></div>
                     <div class="col-sm-4 col-lg-4"><strong>Certificado</strong></div>
-                    <div class="col-sm-4 col-lg-4"><strong>Objeto Social</strong></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4  col-lg-4">
@@ -97,14 +96,20 @@
                         <span>N/D</span>
                         }
                     </div>
-                    <div class="col-sm-4  col-lg-4">
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12"><strong>Objeto Social</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12  col-lg-12">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
                         {
-                        <span>@CurrentLegalInfo.CP_SocialObject</span>
+                            <span>@CurrentLegalInfo.CP_SocialObject</span>
                         }
                         else
                         {
-                        <span>N/D</span>
+                            <span>N/D</span>
                         }
                     </div>
                 </div>
@@ -169,6 +174,7 @@
                                 }
                             </div>
                         </div>
+                        <br />
 
                     }
                 </div>

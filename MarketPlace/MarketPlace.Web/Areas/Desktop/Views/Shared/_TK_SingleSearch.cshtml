@@ -2,13 +2,16 @@
 
 <label class="POMPSectionTitles">Consulta Individual de Terceros</label>
 
+<div class="container-fluid">
+
+
 @if (Model.RelatedThirdKnowledge.HasPlan)
 {
-    <div class="container-fluid">
-            <div class="col-xs-8" id="POMPCurrentPeriod">
+    <div class="row POMPSectionTitlesBox">
+            <div class="col-xs-5">
                 <label>Periodo Actual @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
             </div>
-            <div class="col-xs-4" id="POMPConsults">
+            <div class="col-xs-7 text-right">
                 <label>Consultas </label> 
                 <label id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
     
@@ -38,6 +41,9 @@
         <div id="ThirdKnowledge_DivResult" class="POMPProviderInfoMultipleValues"></div>       
     </div>
 </form>
+
+
+</div>
 
 @*Templates*@
 <div id="loading"></div>
