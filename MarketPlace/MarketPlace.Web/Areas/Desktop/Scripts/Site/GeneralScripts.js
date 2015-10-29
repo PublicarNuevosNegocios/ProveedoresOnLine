@@ -23,9 +23,8 @@ function Header_ShowHideNotifications(DivId, User, companyPublicId) {
         dataType: 'json',
         success: function (result) {
             if (result != null && result.length > 0) {
-                $('#' + DivId).text('');
                 $.each(result, function (item, value) {
-                    $('#' + DivId).append('<div style="border-bottom: #ff8300 1px; color: white;"><a onclick="javascript: DeleteNotifications(' + value.NotificationId + ', \'' + value.Url + '\')">' + value.Label + '</a></div>');
+                    $('#' + DivId).append('<li class="row list-group-item text-left POMP_NotifyItemList"><i class="glyphicon glyphicon-info-sign POMP_NotifyItemListIcon"></i><a onclick="javascript: DeleteNotifications(' + value.NotificationId + ', \'' + value.Url + '\')">' + value.Label + '</a></li>');
                 });
             }
             else {

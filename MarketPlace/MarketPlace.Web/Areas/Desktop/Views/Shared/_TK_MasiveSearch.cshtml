@@ -1,14 +1,9 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
-
-
-
-
 <label class="POMPSectionTitles">Consulta Masiva de Terceros</label>
-
 <div class="container-fluid">
     @if (Model.RelatedThirdKnowledge.HasPlan)
     {
-        <div class="row ThirdKnowledge_title">
+        <div class="row POMPSectionTitlesBox">
             <div class="col-md-6">
                 <span>Periodo Actual: @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy/MM/dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy/MM/dd")</span>
             </div>
@@ -26,25 +21,25 @@
             </div>
 
         </div>
-        <div class="row text-center">
-            <div class="col-md-12 text-center TK-Uploadpanel">
+            <div class="row text-center">
+                <div class="col-md-12 text-center TK-Uploadpanel">
 
-                <div class="row TK-UploadpanelText">
-                    Carga de Archivos
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3 text-left thumbnail">
-                        <input type="file" name="ThirdKnowledge_FileUpload" id="ThirdKnowledge_FileUpload" value="" />
-
+                    <div class="row TK-UploadpanelText">
+                        Carga de Archivos
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 text-center ">             
-                        <div id="ThirdKnowledge_MessageResult"></div>    
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-left thumbnail">
+                            <input type="file" name="ThirdKnowledge_FileUpload" id="ThirdKnowledge_FileUpload" value="" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 text-center ">
+                            <div id="ThirdKnowledge_MessageResult"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     }
     else
     {
@@ -57,14 +52,14 @@
 </div>
 
 
-@{
-    string PeriodPublicId = null;
-    if (Model.RelatedThirdKnowledge.CurrentPlanModel != null)
-    {
-        PeriodPublicId = Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId;
+    @{
+        string PeriodPublicId = null;
+        if (Model.RelatedThirdKnowledge.CurrentPlanModel != null)
+        {
+            PeriodPublicId = Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId;
+        }
+
     }
-   
-}
 
 <script type="text/javascript">
     $(document).ready(function () {

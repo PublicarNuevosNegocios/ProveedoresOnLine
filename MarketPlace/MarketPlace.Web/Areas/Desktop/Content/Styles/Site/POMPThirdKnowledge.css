@@ -232,7 +232,7 @@
 }
 
 .TK-DownloadIcon {
-    width: 20px;
+    width: 16px;
 }
 
 .TK-DownloadFile {
@@ -242,7 +242,7 @@
 }
 
 .TK-DownloadFile-p {
-    font-size: 0.6em;
+    font-size: 0.58em;
     float: inherit;
     color: #D47212;
 }
