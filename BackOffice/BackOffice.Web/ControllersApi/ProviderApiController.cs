@@ -493,7 +493,7 @@ namespace BackOffice.Web.ControllersApi
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oCompany.CompanyPublicId, InfoTypeModified);
 
 
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
@@ -760,7 +760,7 @@ namespace BackOffice.Web.ControllersApi
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 oReturn = new Models.Provider.ProviderCommercialViewModel
                     (oProvider.RelatedCommercial.FirstOrDefault());
@@ -1231,7 +1231,7 @@ namespace BackOffice.Web.ControllersApi
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 //register used files
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
@@ -1603,7 +1603,7 @@ namespace BackOffice.Web.ControllersApi
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 oReturn = new Models.Provider.ProviderFinancialViewModel(oProvider.RelatedFinantial.FirstOrDefault(), oBank);
 
@@ -2085,7 +2085,7 @@ namespace BackOffice.Web.ControllersApi
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> osICA = null;
                 int ototal;

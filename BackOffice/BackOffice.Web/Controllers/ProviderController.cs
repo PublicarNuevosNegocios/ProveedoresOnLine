@@ -96,7 +96,7 @@ namespace BackOffice.Web.Controllers
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
                 InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(CompanyToUpsert.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(CompanyToUpsert.CompanyPublicId, InfoTypeModified);
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
@@ -294,7 +294,7 @@ namespace BackOffice.Web.Controllers
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 oModel = new Models.Provider.ProviderViewModel()
                 {
@@ -587,7 +587,7 @@ namespace BackOffice.Web.Controllers
                         return true;
                     });
 
-                    ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                    //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
                 }
                 catch (Exception err)
                 {
@@ -720,7 +720,7 @@ namespace BackOffice.Web.Controllers
                     InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
                     return true;
                 });
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
@@ -993,7 +993,7 @@ namespace BackOffice.Web.Controllers
                     return true;
                 });
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 oModel = new Models.Provider.ProviderViewModel()
                 {
