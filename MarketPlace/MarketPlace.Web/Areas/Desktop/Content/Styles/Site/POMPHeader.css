@@ -178,17 +178,42 @@ div#Notification img {
 }
 
 #POMPNotificationsList {
-    width: 200px;
-    margin-left: -15%;
+    width: 270px;
+    margin-left: -20%;
     position: absolute;
-    margin-top: -6px;
+    margin-top: -3px;
     z-index: 100;
-    background-color: #ddd;
     opacity: 0.95;
+    /*background-color: #ddd;
+   
     filter: alpha(opacity=100);
     border-radius: 3px;
-    color: white;
+    color: #ff8300;*/
 }
+.POMP_NotifyItemList {
+    padding-bottom: 2px;
+    padding-top: 2px;
+    border-color:#ddd;
+}
+    .POMP_NotifyItemList > a {
+       cursor: pointer;
+        text-decoration: none;
+        color: #C76600;
+        margin: 0 0 0 6px;
+        font-size:11px;
+    }
+.POMP_NotifyItemList > a:hover{
+    cursor:pointer;
+    color:#ff8300;
+}
+.POMP_NotifyItemListIcon {
+    top: 3.3px;
+    color:#337ab7;
+}
+
+
+
+
 /* LINE SEPARATOR HEADER */
 .POMPHeaderMenuSeparator {
     position: absolute;
