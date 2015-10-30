@@ -1719,44 +1719,29 @@ namespace MarketPlace.Web.Controllers
                             (int)enumSurveyInfoType.RP_ImprovementPlan).Select(y => y.Value).
                             DefaultIfEmpty("-").
                             FirstOrDefault() + "."));
-                        return true;
-                    });
-                    oToInsert.RelatedReports.All(x =>
-                    {
+
                         parameters.Add(new ReportParameter("dateStart", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                     (int)enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
                                     DefaultIfEmpty("-").
                                     FirstOrDefault()).ToString("dd/MM/yyyy")));
-                        return true;
-                    });
-                    oToInsert.RelatedReports.All(x =>
-                    {
+
                         parameters.Add(new ReportParameter("dateEnd", Convert.ToDateTime(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                             (int)enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
                             DefaultIfEmpty("-").
                             FirstOrDefault()).ToString("dd/MM/yyyy")));
-                        return true;
-                    });
-                    oToInsert.RelatedReports.All(x =>
-                    {
+
                         parameters.Add(new ReportParameter("average",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                             (int)enumSurveyInfoType.RP_ReportAverage).Select(y => y.Value).
                             DefaultIfEmpty("-").
                             FirstOrDefault()));
-                        return true;
-                    });
-                    oToInsert.RelatedReports.All(x =>
-                    {
+
                         parameters.Add(new ReportParameter("reportDate",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                             (int)enumSurveyInfoType.RP_ReportDate).Select(y => y.Value).
                             DefaultIfEmpty("-").
                             FirstOrDefault()));
-                        return true;
-                    });
-                    oToInsert.RelatedReports.All(x =>
-                    {
+
                         parameters.Add(new ReportParameter("responsible",
                             x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                             (int)enumSurveyInfoType.RP_ReportResponsable).Select(y => y.Value).
