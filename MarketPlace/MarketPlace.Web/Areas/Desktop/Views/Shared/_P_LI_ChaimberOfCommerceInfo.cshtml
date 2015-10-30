@@ -14,9 +14,9 @@
 
         <label class="POMPSectionTitles">Cámara de Comercio</label>
 
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             <div class="row POMPSectionTitlesBox">
-                <div class="col-sm-12 col-lg-12">
+                <div class="col-sm-12">
                     @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
                     {
                     <strong>Fecha de Expedición del Certificado: @CurrentLegalInfo.CP_CertificateExpeditionDate</strong>
@@ -28,14 +28,14 @@
                 </div>
             </div>
             <br />
-            <div class="container-fluid">
+            <div class="container-fluid POMPProviderDetailContainer">
                 <div class="row">
-                    <div class="col-sm-4 col-lg-4"><strong>Ciudad</strong></div>
-                    <div class="col-sm-4 col-lg-4"><strong>Fecha de Constitución</strong></div>
-                    <div class="col-sm-4 col-lg-4"><strong>Vigencia</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Ciudad</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Fecha de Constitución</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Vigencia</strong></div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4  col-lg-4">
+                <div class="row POMPBorderbottom">
+                    <div class="col-sm-4  POMPProviderBoxInfo">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
                         {
                         <span>@CurrentLegalInfo.CP_InscriptionCity</span>
@@ -45,7 +45,7 @@
                         <span>N/D</span>
                         }
                     </div>
-                    <div class="col-sm-4  col-lg-4">
+                    <div class="col-sm-4  POMPProviderBoxInfo">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
                         {
                         <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
@@ -55,7 +55,7 @@
                         <span>N/D</span>
                         }
                     </div>
-                    <div class="col-sm-4  col-lg-4">
+                    <div class="col-sm-4  POMPProviderBoxInfo">
                         @if (CurrentLegalInfo.CP_UndefinedDate == "1")
                         {
                         <span>Vigente Hasta: Indefinido</span>
@@ -72,11 +72,11 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-sm-4 col-lg-4"><strong>Número de Matricula</strong></div>
-                    <div class="col-sm-4 col-lg-4"><strong>Certificado</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Número de Matricula</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Certificado</strong></div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4  col-lg-4">
+                <div class="row POMPBorderbottom">
+                    <div class="col-sm-4  POMPProviderBoxInfo">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
                         {
                         <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
@@ -86,7 +86,7 @@
                         <span>N/D</span>
                         }
                     </div>
-                    <div class="col-sm-4  col-lg-4">
+                    <div class="col-sm-4  POMPProviderBoxInfo">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
                         {
                         <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
@@ -99,10 +99,10 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-sm-12 col-lg-12"><strong>Objeto Social</strong></div>
+                    <div class="col-sm-12 POMPProviderBoxInfo"><strong>Objeto Social</strong></div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12  col-lg-12">
+                <div class="row POMPBorderbottom">
+                    <div class="col-sm-12  POMPProviderBoxInfo">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
                         {
                             <span>@CurrentLegalInfo.CP_SocialObject</span>
@@ -119,9 +119,9 @@
 
         if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
         {
-            <div class="container-fluid">
+            <div class="container-fluid POMPContainerDetail">
                 <div class="row POMPSectionTitlesBox">
-                    <div class="col-sm-12 col-lg-12">
+                    <div class="col-sm-12">
                         @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
                         {
                             <strong>Socios, Miembros Junta Directiva, Entre Otros</strong>
@@ -133,17 +133,17 @@
                     </div>
                 </div>
                 <br />
-                <div class="container-fluid">
+                <div class="container-fluid POMPProviderDetailContainer">
                     <div class="row">
-                        <div class="col-sm-4 col-lg-4"><strong>Nombre</strong></div>
-                        <div class="col-sm-4 col-lg-4"><strong>Número de Identificación</strong></div>
-                        <div class="col-sm-4 col-lg-4"><strong>Cargo</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Nombre</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Número de Identificación</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Cargo</strong></div>
                     </div>
                     <br />
                     @foreach (var item in Model.RelatedDesignationsInfo)
                     {
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.CD_PartnerName))
                             {
                                     <span>@item.CD_PartnerName</span>
@@ -153,7 +153,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.CD_PartnerIdentificationNumber))
                             {
                                     <span>@item.CD_PartnerIdentificationNumber</span>
@@ -163,7 +163,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.CD_PartnerRank))
                             {
                                     <span>@item.CD_PartnerRank</span>
@@ -175,7 +175,6 @@
                             </div>
                         </div>
                         <br />
-
                     }
                 </div>
                 <br />
