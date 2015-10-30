@@ -28,6 +28,24 @@
     padding-top: 8px;
     padding-bottom: 8px;
 }
+.POMPContainerDetail {
+    background-color: #f9f9f9;
+    width: 98%;
+    margin-top: 8px;
+    margin-left: 13px;
+}
+
+.POMPBorderbottom {
+    padding-bottom:10px;
+    border-bottom:solid 1px #ececec;
+}
+.POMPProviderBoxInfo {
+    padding-bottom:10px;
+}
+
+.POMPProviderDetailContainer {
+    width:97%;
+}
 
 
 /************ AQUI VA LA TODA LA INFORMACION DEL DATA WRAPPER ***********/
@@ -50,6 +68,7 @@
     background-position:238px -162px; background-size:931px auto; background-repeat:no-repeat;
     padding-top: 5px;
     padding-left: 10px;
+    margin-left:5px;
 }
 .POMPProviderInfoDisplayList,
 .POMPProviderInfoMultipleValues{

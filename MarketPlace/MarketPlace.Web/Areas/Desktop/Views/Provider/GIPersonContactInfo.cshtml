@@ -14,12 +14,12 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información de Personas de Contacto</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <div class="row POMPSectionTitlesBox">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12">
                             @if (!string.IsNullOrEmpty(item.PC_ContactName))
                             {
                                 <strong>@item.PC_ContactName</strong>
@@ -31,15 +31,15 @@
                         </div>
                     </div>
                     <br />
-                    <div class="container-fluid">
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-2 col-lg-2"><strong>Tipo de Contacto</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Tipo de Identificación</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Número de Identificación</strong></div>
-                            <div class="col-sm-4 col-lg-4"><strong>Ciudad de Expedición del Documento</strong></div>
+                            <div class="col-sm-2 POMPProviderBoxInfo"><strong>Tipo de Contacto</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Tipo de Identificación</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Número de Identificación</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Ciudad de Expedición del Documento</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-lg-2">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-2 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
                                 {
                                     <span>@item.PC_RepresentantType</span>
@@ -49,7 +49,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
                                 {
                                     <span>@item.PC_IdentificationType</span>
@@ -59,7 +59,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
                                 {
                                     <span>@item.PC_IdentificationNumber</span>
@@ -69,7 +69,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4 col-lg-4">
+                            <div class="col-sm-4 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
                                 {
                                     <span>@item.PC_ExpeditionDocumentCity</span>
@@ -87,8 +87,8 @@
                             <div class="col-sm-3 col-lg-3"><strong>Capacidad de negociación</strong></div>
                             <div class="col-sm-4 col-lg-4"><strong>Archivo Representante Legal</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-2 col-lg-2">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-2 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
                                 {
                                     <span>@item.PC_TelephoneNumber</span>
@@ -98,7 +98,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_Email))
                                 {
                                     <span title="@item.PC_Email">@item.PC_Email</span>
@@ -108,7 +108,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.PC_Negotiation))
                                 {
                                     if (item.PC_Negotiation.ToString().Trim().Length > 0)
@@ -125,7 +125,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4 col-lg-4">
+                            <div class="col-sm-4 POMPProviderBoxInfo">
                                 @{var UlrContent = item.PC_LegalFile;
                                     if (!string.IsNullOrEmpty(UlrContent))
                                     {

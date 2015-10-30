@@ -13,12 +13,12 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Representación y/o Distribuciones</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <div class="row POMPSectionTitlesBox">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12">
                             @if (!string.IsNullOrEmpty(item.DT_DistributorType) && !string.IsNullOrEmpty(item.DT_SocialReazon))
                             {
                                 <strong>@item.DT_DistributorType, @item.DT_SocialReazon</strong>
@@ -30,14 +30,14 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="container-fluid">
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><strong>Representante Comercial</strong></div>
-                            <div class="col-sm-4 col-lg-4"><strong>Correo Electrónico</strong></div>
-                            <div class="col-sm-4 col-lg-4"><strong>Teléfono</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Representante Comercial</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Correo Electrónico</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Teléfono</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.DT_Representative))
                                 {
                                     <span>@item.DT_Representative</span>
@@ -47,7 +47,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.DT_Email))
                                 {
                                     <span>@item.DT_Email</span>
@@ -57,7 +57,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.DT_Phone))
                                 {
                                     <span>@item.DT_Phone</span>
@@ -70,12 +70,12 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><strong>País</strong></div>
-                            <div class="col-sm-4 col-lg-4"><strong>Ciudad</strong></div>
-                            <div class="col-sm-4 col-lg-4"><strong>Fecha de Expedición</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>País</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Ciudad</strong></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Fecha de Expedición</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.DT_Country))
                                 {
                                     <span>@item.DT_Country</span>
@@ -85,7 +85,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.DT_City))
                                 {
                                     <span>@item.DT_City</span>
@@ -95,7 +95,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.DT_DateIssue))
                                 {
                                     <span>@item.DT_DateIssue</span>
@@ -108,10 +108,10 @@
                         </div>
                         <br />
                         <div class="row">
-                           <div class="col-sm-4 col-lg-4"><strong>Documento de Soporte</strong></div>
+                           <div class="col-sm-4 POMPProviderBoxInfo"><strong>Documento de Soporte</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3  col-lg-3">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-3  POMPProviderBoxInfo">
                                 @{var UlrContent = item.DT_DistributorFile;}
                                 @if (!string.IsNullOrEmpty(UlrContent))
                                 {

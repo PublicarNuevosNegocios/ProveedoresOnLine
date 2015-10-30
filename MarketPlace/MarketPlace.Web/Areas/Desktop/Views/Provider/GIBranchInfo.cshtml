@@ -14,12 +14,12 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Sucursales</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <div class="row POMPSectionTitlesBox">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12">
                             @if (!string.IsNullOrEmpty(item.BR_City))
                             {
                                 <strong>@item.BR_City @item.BR_Name</strong>
@@ -31,15 +31,15 @@
                         </div>
                     </div>
                     <br />
-                    <div class="container-fluid">
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-3 col-lg-3"><strong>Nombre de Contacto</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Dirección</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Teléfono</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Celular</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Nombre de Contacto</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Dirección</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Teléfono</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Celular</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3 col-lg-3">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Representative))
                                 {
                                 <span>@item.BR_Representative</span>
@@ -49,7 +49,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Address))
                                 {
                                 <span>@item.BR_Address</span>
@@ -59,7 +59,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Phone))
                                 {
                                 <span> @item.BR_Phone</span>
@@ -69,7 +69,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Cellphone))
                                 {
                                 <span> @item.BR_Cellphone</span>
@@ -83,13 +83,13 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-3 col-lg-3"><strong>Fax</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Correo Electrónico</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Página Web</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Principal</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Fax</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Correo Electrónico</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Página Web</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Principal</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3 col-lg-3">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Fax))
                                 {
                                 <span> @item.BR_Fax</span>
@@ -99,7 +99,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Email))
                                 {
                                 <span>  @item.BR_Email</span>
@@ -109,7 +109,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.BR_Website))
                                 {
                                 <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
@@ -119,17 +119,17 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 <span>@(item.BR_IsPrincipal ? "si" : "no")</span>
                             </div>
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-3 col-lg-3"><strong>País</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Estado</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>País</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Estado</strong></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3 col-lg-3">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @{
                                     string tmp_pais = item.DT_Country;
                                     if (tmp_pais != null)
@@ -143,7 +143,7 @@
                                     }
                                 }
                             </div>
-                            <div class="col-sm-3 col-lg-3">
+                            <div class="col-sm-3 POMPProviderBoxInfo">
                                 @{
                                     tmp_pais = item.DT_Country;
                                     if (tmp_pais != null)

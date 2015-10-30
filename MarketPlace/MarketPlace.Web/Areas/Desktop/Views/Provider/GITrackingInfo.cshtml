@@ -12,23 +12,19 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <label class="POMPSectionTitles">Seguimientos</label>
-            </div>
-            <div class="row">
-                <div class="POMPTrakingInfoGridWrapper">
-                    <div class="POMPTitleFollow">
-                        Estado del Proveedor: <span id="ProviderStatus"></span>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-12">
-                                <div id="Tracking_SearchGrid"></div>
-                            </div>
-                        </div>
+        <div class="container-fluid ">
+            <label class="POMPSectionTitles">Seguimientos</label>
+            <div class="container-fluid POMPContainerDetail">
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-12">
+                        <strong> Estado del Proveedor: <span id="ProviderStatus"></span> </strong>
                     </div>
                 </div>
+                <br />
+                <div class="container-fluid POMPProviderDetailContainer">
+                    <div id="Tracking_SearchGrid"></div>
+                </div>
+                <br />
             </div>
         </div>
     </div>
