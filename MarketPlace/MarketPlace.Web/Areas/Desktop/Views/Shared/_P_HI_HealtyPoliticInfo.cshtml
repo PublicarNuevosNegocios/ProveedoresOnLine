@@ -3,14 +3,14 @@
 @if (!Model.RenderScripts)
 {
     <label class="POMPSectionTitles">Politicas de Seguridad, Medio Ambiente y Seguridad</label>
-    <div class="container-fluid">
+    <div class="container-fluid POMPContainerDetail">
 
         @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
         {
             foreach (var item in Model.RelatedHSEQlInfo.Where(cer => cer.HSEQType == MarketPlace.Models.General.enumHSEQType.CompanyHealtyPolitic))
             {
                 <div class="row POMPSectionTitlesBox">
-                    <div class="col-sm-12 col-lg-12">
+                    <div class="col-sm-12 ">
                         @if (!string.IsNullOrEmpty(item.CH_Year))
                         {
                             <strong>Año @item.CH_Year</strong>
@@ -22,60 +22,60 @@
                     </div>
                 </div>
                 <br />
-                <div class="container-fluid">
-                    <div class="row">
+                <div class="container-fluid POMPProviderDetailContainer">
+                    <div class="row POMPBorderbottom">
                         @if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
                         {
-                            <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                                     <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo de Política de Seguridad, Salud y Ambiente</a>
                             </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_PoliticIntegral))
                         {
-                            <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                            <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                                 <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticIntegral">Ver Archivo de Política integral de HSEQ</a>
                             </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo de Política de no alcohol, Drogas y Fumadores</a>
                         </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo de Sistema de Gestión de Seguridad y Salud en el Trabajo</a>
                         </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo de Reglamento de Higiene y Seguridad Industrial</a>
                         </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo de Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</a>
                         </div>
                         }
 
                         @if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4 POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo de Responsabilidad Social Empresarial</a>
                         </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo de Programa de Seguridad Empresarial y Logística</a>
                         </div>
                         }
                         @if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
                         {
-                        <div class="col-sm-4  col-lg-4 POMPResumeItem_FilesPolicies_Top">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo de Política de Contratación de Personal</a>
                         </div>
                         }
@@ -84,7 +84,7 @@
                     <div class="row">
                         @if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
                         {
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo POMPResumeItem_FilesPolicies_Top">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CertificationsForm">Ver Archivo de Formulario Certificaciones</a>
                         </div>
                         }

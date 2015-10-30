@@ -4,6 +4,11 @@
     vertical-align: top;
 }
 
+.POMPSurveyContainerPosition {
+
+    margin-left: 10px;
+}
+
 .PMMPSurveyProviderInfo {
     width: 78%;
     min-width: 500px;

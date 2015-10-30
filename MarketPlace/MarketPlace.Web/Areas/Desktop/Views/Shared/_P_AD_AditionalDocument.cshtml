@@ -3,24 +3,24 @@
 @if (!Model.RenderScripts)
 {
     <label class="POMPSectionTitles">Información Adicional</label>
-    <div class="container-fluid">
+    <div class="container-fluid POMPContainerDetail">
         @if (Model.RelatedAditionalDocumentBasicInfo != null && Model.RelatedAditionalDocumentBasicInfo.Count > 0)
         {
             foreach (var item in Model.RelatedAditionalDocumentBasicInfo)
             {
                 <div class="row POMPSectionTitlesBox">
-                    <div class="col-sm-12 col-lg-12">
+                    <div class="col-sm-12">
                         <strong>@item.AD_Title</strong>
                     </div>
                 </div>
                     <br />
 
-                    <div class="container-fluid">
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Documento</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Documento</label></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.AD_File))
                                 {
                                     <a href="@item.AD_File" target="_blank">Ver archivo</a>

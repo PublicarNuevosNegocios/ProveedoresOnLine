@@ -3,7 +3,7 @@
 @if (!Model.RenderScripts)
 {
     <label class="POMPSectionTitles">Certificaciones</label>
-    <div class="container-fluid">
+    <div class="container-fluid POMPContainerDetail">
         @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
         {
             foreach (var item in Model.RelatedHSEQlInfo.Where(cer => cer.HSEQType == MarketPlace.Models.General.enumHSEQType.Certifications))
@@ -21,14 +21,14 @@
                     </div>
                 </div>
                 <br />
-                <div class="container-fluid">
+                <div class="container-fluid POMPProviderDetailContainer">
                     <div class="row">
-                        <div class="col-sm-4 col-lg-4"><label>Empresa Certificadora</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>Fecha de Certificación</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>Vigente Hasta</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Empresa Certificadora</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha de Certificación</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Vigente Hasta</label></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4  col-lg-4">
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @if (item.C_CertificationCompany != null)
                             {
                                 <span>@item.C_CertificationCompany.ItemName</span>
@@ -38,7 +38,7 @@
                             <span>N/D</span>
                             }
                         </div>
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
                             {
                                 <span>@item.C_StartDateCertification</span>
@@ -48,7 +48,7 @@
                             <span>N/D</span>
                             }
                         </div>
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @if (!string.IsNullOrEmpty(item.C_EndDateCertification))
                             {
                                 <span>@item.C_EndDateCertification</span>
@@ -61,11 +61,11 @@
                     </div>
                    <br />
                     <div class="row">
-                        <div class="col-sm-4 col-lg-4"><label>Archivo de Alcance</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>% CCS</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo de Alcance</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>% CCS</label></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4  col-lg-4">
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @{var UlrContent = item.C_CertificationFile;}
                             @if (!string.IsNullOrEmpty(UlrContent))
                             {
@@ -76,7 +76,7 @@
                                 <span>N/D</span>
                             }
                         </div>
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @if (!string.IsNullOrEmpty(item.C_CCS))
                             {
                                 <span>@item.C_CCS</span>
@@ -89,10 +89,10 @@
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-sm-12 col-lg-12"><label>Alcance</label></div>
+                        <div class="col-sm-12 POMPProviderBoxInfo"><label>Alcance</label></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12  col-lg-12">
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-12 POMPProviderBoxInfo">
                             @if (item.C_Scope != null)
                             {
                                 <span>@item.C_Scope</span>

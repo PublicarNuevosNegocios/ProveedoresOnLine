@@ -5,7 +5,7 @@
     <label class="POMPSectionTitles">Reportes de Evaluaciones</label>
     if (Model.RelatedReportInfo != null && Model.RelatedReportInfo.Count > 0)
     {
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @foreach (var item in Model.RelatedReportInfo.Where(lg => lg.ReportType == MarketPlace.Models.General.enumReportType.RP_SurveyReport))
             {
                 <div class="row  POMPSectionTitlesBox">
@@ -21,15 +21,15 @@
                     </div>
                 </div>
                 <br />
-                <div class="container-fluid">
-                    <div class="container-fluid">
+
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Observaciones</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Plan de Acción</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Fecha Inicial</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Observaciones</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Plan de Acción</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Inicial</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_Observation))
                                 {
                                     <span>@item.RP_Observation</span>
@@ -39,7 +39,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_ImprovementPlan))
                                 {
                                     <span>@item.RP_ImprovementPlan</span>
@@ -49,7 +49,7 @@
                                     <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_InitDateReport))
                                 {
                                     <span>@item.RP_InitDateReport</span>
@@ -62,12 +62,12 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Fecha Final</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Fecha De Creación del Reporte</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Responsable</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Final</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha De Creación del Reporte</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Responsable</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_EndDateReport))
                                 {
                                     <span>@item.RP_EndDateReport</span>
@@ -77,7 +77,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_ReportDate))
                                 {
                                     <span>@item.RP_ReportDate</span>
@@ -87,7 +87,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                  @if (!string.IsNullOrEmpty(item.RP_ReportResponsable))
                                  {
                                     <span>@item.RP_ReportResponsable</span>
@@ -100,11 +100,11 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Ver Reporte</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Información Detallada</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Ver Reporte</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Información Detallada</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_ReportURL))
                                 {
                                     <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RP_ReportURL">Ver Reporte</a>
@@ -114,7 +114,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.RP_InitDateReport) && !string.IsNullOrEmpty(item.RP_EndDateReport))
                                 {
                                     <a href="@(Url.RouteUrl
@@ -141,7 +141,7 @@
                     <br />
 
 
-                </div>
+
             }
         </div>
     }

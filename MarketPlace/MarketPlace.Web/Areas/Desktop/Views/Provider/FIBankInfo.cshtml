@@ -13,12 +13,12 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información Bancaria</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @{
                 foreach (var item in Model.RelatedFinancialInfo)
                 {
                     <div class="row POMPSectionTitlesBox">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12">
                             @if (item.IB_Bank != null && !string.IsNullOrEmpty(item.IB_AccountType))
                             {
                                 <strong>@item.IB_Bank.ItemName</strong>
@@ -30,14 +30,14 @@
                         </div>
                     </div>
                     <br />
-                    <div class="container-fluid">
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Tipo de Cuenta</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Número de Cuenta</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Titular de la Cuenta</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Tipo de Cuenta</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Número de Cuenta</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Titular de la Cuenta</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_AccountType))
                                 {
                                     <span>@item.IB_AccountType</span>
@@ -47,7 +47,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
                                 {
                                     <span>@item.IB_AccountNumber</span>
@@ -57,7 +57,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_AccountHolder))
                                 {
                                     <span>@item.IB_AccountHolder</span>
@@ -70,12 +70,12 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>ABA</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>SWIFT</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>IBAN</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>ABA</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>SWIFT</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>IBAN</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_ABA))
                                 {
                                     <span>@item.IB_ABA</span>
@@ -85,7 +85,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_Swift))
                                 {
                                     <span>@item.IB_Swift</span>
@@ -95,7 +95,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_IBAN))
                                 {
                                     <span>@item.IB_IBAN</span>
@@ -108,11 +108,11 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Comprador</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Archivo de Cuenta</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Comprador</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo de Cuenta</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_Customer))
                                 {
                                     <span>@item.IB_Customer</span>
@@ -122,7 +122,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IB_AccountFile))
                                 {
                                     <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>

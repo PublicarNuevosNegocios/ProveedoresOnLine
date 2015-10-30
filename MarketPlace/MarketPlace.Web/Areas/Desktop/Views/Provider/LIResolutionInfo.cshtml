@@ -14,7 +14,7 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Resoluciones</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
@@ -22,7 +22,7 @@
                     foreach (var item in Model.RelatedLegalInfo)
                     {
                         <div class="row POMPSectionTitlesBox">
-                            <div class="col-sm-12 col-lg-12">
+                            <div class="col-sm-12">
                                 @if (!string.IsNullOrEmpty(item.RS_EntityType) && !string.IsNullOrEmpty(item.RS_Description))
                                 {
                                     <strong>@item.RS_EntityType</strong>
@@ -34,14 +34,14 @@
                             </div>
                         </div>
                         <br />
-                        <div class="container-fluid">
+                        <div class="container-fluid POMPProviderDetailContainer">
                             <div class="row">
-                                <div class="col-sm-4 col-lg-4"><label>Fecha Inicial</label></div>
-                                <div class="col-sm-4 col-lg-4"><label>Fecha Final</label></div>
-                                <div class="col-sm-4 col-lg-4"><label>Alcance</label></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Inicial</label></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Final</label></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Alcance</label></div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4  col-lg-4">
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-4  POMPProviderBoxInfo">
                                     @if (!string.IsNullOrEmpty(item.RS_StartDate))
                                     {
                                         <span>@item.RS_StartDate</span>
@@ -51,7 +51,7 @@
                                         <span>N/D</span>
                                     }
                                 </div>
-                                <div class="col-sm-4  col-lg-4">
+                                <div class="col-sm-4  POMPProviderBoxInfo">
                                     @if (!string.IsNullOrEmpty(item.RS_EndDate))
                                     {
                                         <span>@item.RS_EndDate</span>
@@ -61,7 +61,7 @@
                                         <span>N/D</span>
                                     }
                                 </div>
-                                <div class="col-sm-4  col-lg-4">
+                                <div class="col-sm-4  POMPProviderBoxInfo">
                                     @if (!string.IsNullOrEmpty(item.RS_Description))
                                     {
                                         <span>@item.RS_Description</span>
@@ -74,10 +74,10 @@
                             </div>
                             <br />
                             <div class="row">
-                                <div class="col-sm-4 col-lg-4"><label>Archivo Anexo</label></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Anexo</label></div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4  col-lg-4">
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-4  POMPProviderBoxInfo">
                                     @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
                                     {
                                         <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>

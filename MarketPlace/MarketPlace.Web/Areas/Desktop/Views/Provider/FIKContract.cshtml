@@ -14,7 +14,7 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">K de Contratación</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             <div class="row POMPSectionTitlesBox">
                 <div class="col-sm-4 col-lg-4">
                     <strong>Contratación (K)</strong>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <br />
-            <div class="container-fluid">
+            <div class="container-fluid POMPProviderDetailContainer">
                 <div class="row">
                     @{
                         if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
@@ -95,6 +95,7 @@
                     <strong><i>Fecha de última actualización: 07 de Febrero de 2014.</i></strong>
                 </div>
             </div>
+            <br />
         </div>
     </div>
 </div>

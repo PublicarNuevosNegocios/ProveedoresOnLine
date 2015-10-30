@@ -14,12 +14,12 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Declaración de Renta</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             @{
                 foreach (var item in Model.RelatedFinancialInfo)
                 {
                     <div class="row POMPSectionTitlesBox">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12">
                             @if (!string.IsNullOrEmpty(item.IS_Year))
                             {
                                 <strong>Año: @item.IS_Year</strong>
@@ -31,14 +31,14 @@
                         </div>
                     </div>
                     <br />
-                    <div class="container-fluid">
+                    <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Ingresos Brutos</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Ingresos Netos</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Patrimonio Bruto</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Ingresos Brutos</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Ingresos Netos</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Patrimonio Bruto</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
                                 {
                                 <span>@item.IS_GrossIncome</span>
@@ -48,7 +48,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IS_NetIncome))
                                 {
                                 <span>@item.IS_NetIncome</span>
@@ -58,7 +58,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
                                 {
                                 <span>@item.IS_GrossEstate</span>
@@ -71,11 +71,11 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-sm-4 col-lg-4"><label>Patrimonio Líquido</label></div>
-                            <div class="col-sm-4 col-lg-4"><label>Archivo Declaración de Renta</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Patrimonio Líquido</label></div>
+                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Declaración de Renta</label></div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4  col-lg-4">
+                        <div class="row POMPBorderbottom">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
                                 {
                                 <span>@item.IS_LiquidHeritage</span>
@@ -85,7 +85,7 @@
                                 <span>N/D</span>
                                 }
                             </div>
-                            <div class="col-sm-4  col-lg-4">
+                            <div class="col-sm-4  POMPProviderBoxInfo">
                                 @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
                                 {
                                 <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>

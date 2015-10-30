@@ -5,38 +5,38 @@
     <label class="POMPSectionTitles">Sistema de Riesgos Laborales</label>
     if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
     {
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             <div class="col-xs-12">
 
-                <div class="container-fluid">
+                <div class="container-fluid POMPProviderDetailContainer">
                     <br />
-                    <div class="row">
-                        <div class="col-sm-4 col-lg-4"><label>Sistema de Riesgos</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>Calificación de Riesgo ARL</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>Resultado LTIF</label></div>
+                    <div class="row active">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Sistema de Riesgos</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Calificación de Riesgo ARL</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Resultado LTIF</label></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4  col-lg-4">
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
                         </div>
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_RateARL).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
                         </div>
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
                         </div>
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-sm-4 col-lg-4"><label>Archivo de Afiliación</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>Certificación de Accidentes</label></div>
-                        <div class="col-sm-4 col-lg-4"><label>Certificación de Accidentes</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo de Afiliación</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Certificación de Accidentes</label></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Certificación de Accidentes</label></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4  col-lg-4">
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4 POMPProviderBoxInfo">
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).LastOrDefault()">Ver Archivo Afiliación ARL</a>
                         </div>
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
                             {
                                 <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).Count() - 2)">Ver Archivo Certificado de accidentalidad @Model.RelatedHSEQlInfo.Select(x => x.CA_Year).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_Year).Count() - 2)</a>
@@ -47,7 +47,7 @@
                             }
                         </div>
 
-                        <div class="col-sm-4  col-lg-4">
+                        <div class="col-sm-4  POMPProviderBoxInfo">
                             @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
                             {
                                 <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).Count()-3)">Ver Archivo Certificado de accidentalidad @Model.RelatedHSEQlInfo.Select(x => x.CA_Year).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_Year).Count() - 3)</a>
@@ -59,10 +59,11 @@
                         </div>
                     </div>
                 </div>
+                <br />
             </div>
         </div>
         <br />
-        <div class="container-fluid">
+        <div class="container-fluid POMPProviderDetailContainer">
             <div class="row">
                 <div class="col-sm-12 col-lg-12">
                     <ul id="ReportLITF">
