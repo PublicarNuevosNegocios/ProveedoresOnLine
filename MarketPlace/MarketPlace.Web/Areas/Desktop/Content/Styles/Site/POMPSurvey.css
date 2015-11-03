@@ -1,3 +1,12 @@
+/***********NEW STYLES 03-Nov-2015**********/
+.POMPSurveyBorderBotttom{
+    border-bottom:1px solid #ff8300;
+}
+.POMPFormsizeText > h2 {
+    font-size: 1.3em;
+}
+
+
 /****************Survey********************/
 .PMMPSurveyHeader > div {
     display: inline-block;
