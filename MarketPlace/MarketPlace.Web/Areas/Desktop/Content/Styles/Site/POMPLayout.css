@@ -165,6 +165,7 @@ li#F3 {
 }
 
 .POMPMenuBody {
+    padding-top: 15px;
     font-size: 12px;
     max-width: 232px;
     min-width: 232px;
