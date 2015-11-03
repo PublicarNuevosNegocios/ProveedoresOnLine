@@ -136,9 +136,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.AditionalDocumentInfoUpsert(AditionalDocumentId, AditionalDocumentInfoId, AditionalDocumentInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetByType(string CompanyPublicId, int? AditionalDocumentType, bool Enable)
         {
-            return DataFactory.AditionalDocumentGetBasicInfo(CompanyPublicId, Enable);
+            return DataFactory.AditionalDocumentGetByType(CompanyPublicId, AditionalDocumentType, Enable);
         }
 
         #endregion Aditional Documents

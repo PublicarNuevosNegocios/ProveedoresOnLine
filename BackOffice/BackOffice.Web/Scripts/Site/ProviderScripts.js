@@ -2040,11 +2040,11 @@ var Provider_CompanyHSEQObject = {
         this.CompanyRiskType = vInitiObject.CompanyRiskType;
         this.DateFormat = vInitiObject.DateFormat;
         Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
-        $.each(vInitiObject.HSEQOptionList, function (item, value) {            
+        $.each(vInitiObject.HSEQOptionList, function (item, value) {
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
         });
         if (vInitiObject.YearOptionList != null) {
-            $.each(vInitiObject.YearOptionList, function (item, value) {                
+            $.each(vInitiObject.YearOptionList, function (item, value) {
                 Provider_CompanyHSEQObject.YearOptionList[value.Key] = value.Value;
             });
         }
@@ -3272,7 +3272,7 @@ var Provider_CompanyHSEQObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CA_Year != null) {
-                        $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {                            
+                        $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
                             if (dataItem.CA_Year == value) {
                                 oReturn = value;
                             }
@@ -4651,14 +4651,28 @@ var Provider_CompanyFinancialObject = {
 var Provider_AditionalDocumentObject = {
     ObjectId: '',
     ProviderPublicId: '',
+    AditionalType: '',
+    ProviderOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.ProviderPublicId = vInitObject.ProviderPublicId;
+        this.AditionalType = vInitObject.AditionalType;
+        if (vInitObject.ProviderOptions != null) {
+            $.each(vInitObject.ProviderOptions, function (item, value) {
+                Provider_AditionalDocumentObject.ProviderOptions[value.Key] = value.Value;
+            });
+        }
     },
 
     RenderAsync: function () {
-        Provider_AditionalDocumentObject.RenderAditionalDocument();
+
+        if (Provider_AditionalDocumentObject.AditionalType == 1701001) {
+            Provider_AditionalDocumentObject.RenderAditionalDocument();
+        }
+        else if (Provider_AditionalDocumentObject.AditionalType == 1701002) {
+            Provider_AditionalDocumentObject.RenderAditionalData();
+        }
 
         Provider_AditionalDocumentObject.ConfigEvents();
     },
@@ -4741,9 +4755,9 @@ var Provider_AditionalDocumentObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&AditionalDataType=' + Provider_AditionalDocumentObject.AditionalType + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
                             dataType: 'json',
-                            success: function (result) {                                
+                            success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4754,7 +4768,7 @@ var Provider_AditionalDocumentObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&AditionalDataType=' + Provider_AditionalDocumentObject.AditionalType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -4774,7 +4788,7 @@ var Provider_AditionalDocumentObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&AditionalDataType=' + Provider_AditionalDocumentObject.AditionalType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -4879,7 +4893,7 @@ var Provider_AditionalDocumentObject = {
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.AD_RelatedCustomerName != null) {                        
+                    if (dataItem != null && dataItem.AD_RelatedCustomerName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -4902,7 +4916,7 @@ var Provider_AditionalDocumentObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'CP_Customer',
                         select: function (e) {
-                            isSelected = true;                            
+                            isSelected = true;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.CP_Customer;
@@ -4919,7 +4933,7 @@ var Provider_AditionalDocumentObject = {
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
                                         dataType: 'json',
-                                        success: function (result) {                                            
+                                        success: function (result) {
                                             options.success(result);
                                         },
                                         error: function (result) {
@@ -4940,7 +4954,234 @@ var Provider_AditionalDocumentObject = {
                 field: 'AD_CreateDate',
                 title: 'Fecha de cargue',
                 width: '190px',
-            }, { 
+            }, {
+                field: 'AditionalDocumentId',
+                title: 'Id Interno',
+                width: '78px',
+            }],
+        });
+    },
+
+    RenderAditionalData: function () {
+        $('#' + Provider_AditionalDocumentObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_AditionalDocumentObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_AditionalDocumentObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "AditionalDocumentId",
+                        fields: {
+                            AditionalDocumentId: { editable: false, nullable: true },
+                            AditionalDocumentName: { editable: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            ADT_Title: { editable: true },
+
+                            ADT_DataTypeId: { editable: false },
+                            ADT_DataType: { editable: true, validation: { required: true } },
+
+                            ADT_DataValueId: { editable: false },
+                            ADT_DataValue: { editable: true, validation: { required: true } },
+
+                            ADT_RelatedCustomerId: { editable: false },
+                            ADT_RelatedCustomer: { editable: false },
+                            ADT_RelatedCustomerName: { editable: true },
+
+                            ADT_RelatedUser: { editable: false },
+                            ADT_RelatedUserId: { editable: false },
+
+                            ADT_CreateDate: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADGetAditionalDocument=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&AditionalDataType=' + Provider_AditionalDocumentObject.AditionalType + '&ViewEnable=' + Provider_AditionalDocumentObject.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&AditionalDataType=' + Provider_AditionalDocumentObject.AditionalType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+
+                                $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ADAditionalDocumentUpsert=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId + '&AditionalDataType=' + Provider_AditionalDocumentObject.AditionalType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó el registro');
+
+                                $('#' + Provider_AditionalDocumentObject.ObjectId).data('kendoGrid').dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al modificar el registro');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+            columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'ADT_Title',
+                title: 'Etiqueta',
+                width: '160px',
+            }, {
+                field: 'ADT_DataType',
+                title: 'Tipo de Dato',
+                width: '160px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ADT_DataType != null) {
+                        $.each(Provider_AditionalDocumentObject.ProviderOptions[1901], function (item, value) {
+                            if (dataItem.ADT_DataType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_AditionalDocumentObject.ProviderOptions[1901],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'ADT_DataValue',
+                title: 'Valor',
+                width: '160px',
+            }, {
+                field: 'ADT_RelatedCustomerName',
+                title: 'Comprador Relacionado',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ADT_RelatedCustomerName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.ADT_RelatedCustomerName;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var isSelected = false;
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'CP_Customer',
+                        select: function (e) {
+                            isSelected = true;
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.CP_Customer;
+                            options.model['ADT_RelatedCustomer'] = selectedItem.CP_CustomerPublicId;
+                            options.model['ADT_RelatedCustomerName'] = selectedItem.CP_Customer;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_AditionalDocumentObject.ProviderPublicId,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                            Message('error', result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
+            }, {
+                field: 'ADT_RelatedUser',
+                title: 'Usuario',
+                width: '190px',
+            }, {
+                field: 'ADT_CreateDate',
+                title: 'Fecha de cargue',
+                width: '190px',
+            }, {
                 field: 'AditionalDocumentId',
                 title: 'Id Interno',
                 width: '78px',

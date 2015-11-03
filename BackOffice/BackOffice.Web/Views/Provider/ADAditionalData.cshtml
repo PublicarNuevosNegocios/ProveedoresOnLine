@@ -1,11 +1,11 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Aditional Document";
+    ViewBag.Title = "Datos Adicionales";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Model.RenderScripts = false;
-    Model.GridToSave = "divGridAditionalDocument";
+    Model.GridToSave = "divGridAditionalData";
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -16,13 +16,13 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Documentación Adicional</label>
+            <label class="POBOSectionTitles">Datos Adicionales</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <div id="loading"></div>
-            <div id="divGridAditionalDocument"></div>
+            <div id="divGridAditionalData"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -35,21 +35,21 @@
 <!--templates-->
 <div style="display:none;">
 
-    <div id="divGridAditionalDocument_ShortcutToolTipTemplate">
+    <div id="divGridAditionalData_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
     </div>
 
-    <div id="divGridAditionalDocument_ViewEnablesTemplate">
+    <div id="divGridAditionalData_ViewEnablesTemplate">
         <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridAditionalDocument_ViewEnable" type="checkbox" checked="checked" />
+        <input class="POBOProviderGridEnableContact" id="divGridAditionalData_ViewEnable" type="checkbox" checked="checked" />
     </div>
 
-    <div id="divGridAditionalDocument_NoFile">
+    <div id="divGridAditionalData_NoFile">
         <div>
             <span>Seleccione un archivo</span>
         </div>
     </div>
-    <div id="divGridAditionalDocument_File">
+    <div id="divGridAditionalData_File">
         <div>
             <a target="_blank" href="${AD_File}">Ver archivo</a>
         </div>
@@ -60,17 +60,44 @@
     Model.RenderScripts = true;
 }
 
+
+@{
+
+    //get AditionalDateTypeValues
+    string oProviderOptions = "[]";
+    if (Model.ProviderOptions != null &&
+        Model.ProviderOptions.Count > 0)
+    {
+        Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionAditionalData =
+            Model.ProviderOptions.
+            GroupBy(x => x.CatalogId).
+            Select(x =>
+                new
+                {
+                    okey = x.Key,
+                    ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                }).ToDictionary(k => k.okey, v => v.ovalue);
+
+        oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oOptionAditionalData.Select(x => new { Key = x.Key, Value = x.Value }));
+    }
+}
+
 @section inlinescripts{
 
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
 
     <script type="text/javascript">
+
+        var vProviderOptions = @(Html.Raw(oProviderOptions));
+
         $(document).ready(function () {
 
             Provider_AditionalDocumentObject.Init({
-                ObjectId: 'divGridAditionalDocument',
+                ObjectId: 'divGridAditionalData',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                AditionalType: '@((int)BackOffice.Models.General.enumAditionalDocumentType.AditionalDocument)',
+                AditionalType: '@((int)BackOffice.Models.General.enumAditionalDocumentType.AditionalData)',
+                ProviderOptions: vProviderOptions,
             });
 
             Provider_AditionalDocumentObject.RenderAsync();

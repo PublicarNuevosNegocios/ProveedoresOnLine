@@ -1258,11 +1258,33 @@ namespace BackOffice.Web.Controllers
                 oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetBasicInfo(ProviderPublicId, true),
+                    //RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetByType(ProviderPublicId, null,true),
                 };
 
                 //Get provider Menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);   
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult ADAditionalData(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //getProivider info
+                oModel.RelatedProvider = new ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                };
+
+                //Get provider Menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
             return View(oModel);
@@ -1652,7 +1674,7 @@ namespace BackOffice.Web.Controllers
                     ChildMenu = new List<Models.General.GenericMenu>(),
                 };
 
-                //Experience
+                //Aditional Documents
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Agregar Documentación",
@@ -1663,6 +1685,20 @@ namespace BackOffice.Web.Controllers
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.ADAditionalDocuments &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //Aditional Data
+                oMenuAux.ChildMenu.Add(new GenericMenu()
+                {
+                    Name = "Agregar Datos",
+                    Url = Url.Action
+                        (MVC.Provider.ActionNames.ADAditionalData,
+                        MVC.Provider.Name,
+                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Position = 1,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.ADAditionalData &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

@@ -765,11 +765,12 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetByType(string CompanyPublicId, int? AditionalDocumentType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vAditionalDocumentType", AditionalDocumentType));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()

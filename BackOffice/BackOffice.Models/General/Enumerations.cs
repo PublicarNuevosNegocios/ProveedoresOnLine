@@ -421,6 +421,7 @@
     public enum enumAditionalDocumentType
     {
         AditionalDocument = 1701001,
+        AditionalData = 1701002,
     }
 
     public enum enumAditionalDocumentInfoType
@@ -428,6 +429,14 @@
         AD_File = 1702001,
         AD_RelatedCustomer = 1702002,
         AD_RelatedUser = 1702003,
+    }
+
+    public enum enumAditionalDataInfoType
+    {
+        ADT_DataType = 1703001,
+        ADT_Value = 1703002,
+        ADT_RelatedCustomer = 1703003,
+        ADT_RelatedUser = 1703004,
     }
 
     #endregion

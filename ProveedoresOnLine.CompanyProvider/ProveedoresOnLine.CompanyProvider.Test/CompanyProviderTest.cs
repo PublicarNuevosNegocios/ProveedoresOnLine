@@ -48,6 +48,19 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                 (ProviderToUpsert);
         }
 
+        [TestMethod]
+        public void AditionalDocumentGetByType()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<GenericItemModel>();
+
+            oReturn = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetByType
+                ("5CD41647",
+                1701001,
+                true);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
         private ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel GetBalanceSheetUpsertModel()
         {
             ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel ProviderToUpsert = new Models.Provider.ProviderModel()

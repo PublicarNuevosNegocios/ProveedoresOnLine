@@ -1098,9 +1098,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return AditionalDocumentInfoUpsert;
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetByType(string CompanyPublicId, int? AditionalDocumentType, bool Enable)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.AditionalDocumentGetBasicInfo(CompanyPublicId, Enable);
+            return DAL.Controller.CompanyProviderDataController.Instance.AditionalDocumentGetByType(CompanyPublicId, AditionalDocumentType, Enable);
         }
 
         #endregion

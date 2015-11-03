@@ -2106,14 +2106,16 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> ADGetAditionalDocument
             (string ADGetAditionalDocument,
             string ProviderPublicId,
+            string AditionalDataType,
             string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> oReturn = new List<ProviderAditionalDocumentViewModel>();
 
             if (ADGetAditionalDocument == "true")
             {
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oAditionalDocumentInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetBasicInfo
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oAditionalDocumentInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetByType
                     (ProviderPublicId,
+                    Convert.ToInt32(AditionalDataType),
                     ViewEnable == "true" ? true : false);
 
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
@@ -2135,7 +2137,8 @@ namespace BackOffice.Web.ControllersApi
         [HttpGet]
         public BackOffice.Models.Provider.ProviderAditionalDocumentViewModel ADAditionalDocumentUpsert
             (string ADAditionalDocumentUpsert,
-            string ProviderPublicId)
+            string ProviderPublicId,
+            string AditionalDataType)
         {
             BackOffice.Models.Provider.ProviderAditionalDocumentViewModel oReturn = null;
 
@@ -2166,16 +2169,18 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = string.IsNullOrEmpty(oDataToUpsert.AditionalDocumentId) ? 0 : Convert.ToInt32(oDataToUpsert.AditionalDocumentId.Trim()),
                             ItemType = new CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumAditionalDocumentType.AditionalDocument,
+                                ItemId = Convert.ToInt32(AditionalDataType.Trim()),
                             },
-                            ItemName = oDataToUpsert.AD_Title,
+                            ItemName = Convert.ToInt32(AditionalDataType.Trim()) == (int)BackOffice.Models.General.enumAditionalDocumentType.AditionalDocument ? oDataToUpsert.AD_Title : oDataToUpsert.ADT_Title,
                             Enable = oDataToUpsert.Enable,
                             ItemInfo = new List<GenericItemInfoModel>(),
                         },
                     },
                 };
 
-                oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                if (oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumAditionalDocumentType.AditionalDocument)
+                {
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
                     new GenericItemInfoModel()
                     {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_RelatedUserId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_RelatedUserId.Trim()),
@@ -2187,31 +2192,82 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
 
-                oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_RelatedCustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_RelatedCustomerId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_RelatedCustomer,
+                            },
+                            Value = oDataToUpsert.AD_RelatedCustomer,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_FileId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_FileId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_File,
+                            },
+                            Value = oDataToUpsert.AD_File,
+                            Enable = true,
+                        });
+
+                    lstUsedFiles.Add(oDataToUpsert.AD_File);
+                }
+                else if (oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumAditionalDocumentType.AditionalData)
+                {
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
                     new GenericItemInfoModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_RelatedCustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_RelatedCustomerId.Trim()),
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ADT_RelatedUserId) ? 0 : Convert.ToInt32(oDataToUpsert.ADT_RelatedUserId.Trim()),
                         ItemInfoType = new CatalogModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_RelatedCustomer,
+                            ItemId = (int)BackOffice.Models.General.enumAditionalDataInfoType.ADT_RelatedUser,
                         },
-                        Value = oDataToUpsert.AD_RelatedCustomer,
+                        Value = BackOffice.Models.General.SessionModel.CurrentLoginUser.Email.ToString(),
                         Enable = true,
                     });
 
-                oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
-                    new GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.AD_FileId) ? 0 : Convert.ToInt32(oDataToUpsert.AD_FileId.Trim()),
-                        ItemInfoType = new CatalogModel()
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                        new GenericItemInfoModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumAditionalDocumentInfoType.AD_File,
-                        },
-                        Value = oDataToUpsert.AD_File,
-                        Enable = true,
-                    });
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ADT_RelatedCustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.ADT_RelatedCustomerId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAditionalDataInfoType.ADT_RelatedCustomer,
+                            },
+                            Value = oDataToUpsert.ADT_RelatedCustomer,
+                            Enable = true,
+                        });
 
-                lstUsedFiles.Add(oDataToUpsert.AD_File);
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ADT_DataTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.ADT_DataTypeId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAditionalDataInfoType.ADT_DataType,
+                            },
+                            Value = oDataToUpsert.ADT_DataType,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ADT_DataValueId) ? 0 : Convert.ToInt32(oDataToUpsert.ADT_DataValueId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAditionalDataInfoType.ADT_Value,
+                            },
+                            Value = oDataToUpsert.ADT_DataValue,
+                            Enable = true,
+                        });
+                }
 
                 oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentsUpsert(oProvider);
 
@@ -2220,6 +2276,38 @@ namespace BackOffice.Web.ControllersApi
                 oReturn = new ProviderAditionalDocumentViewModel(oProvider.RelatedAditionalDocuments.FirstOrDefault(), oCustomerByProvider);
             }
 
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> ADGetAditionalData
+            (string ADGetAditionalData,
+            string ProviderPublicId,
+            string AditionalDataType,
+            string ViewEnable)
+        {
+            List<BackOffice.Models.Provider.ProviderAditionalDocumentViewModel> oReturn = new List<ProviderAditionalDocumentViewModel>();
+
+            if (ADGetAditionalData == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oAditionalDocumentInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentGetByType
+                    (ProviderPublicId,
+                    Convert.ToInt32(AditionalDataType),
+                    ViewEnable == "true" ? true : false);
+
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
+
+                if (oAditionalDocumentInfo != null)
+                {
+                    oAditionalDocumentInfo.All(ad =>
+                    {
+                        oReturn.Add(new ProviderAditionalDocumentViewModel(ad, oCustomerByProvider));
+                        return true;
+                    });
+                }
+            }
             return oReturn;
         }
 

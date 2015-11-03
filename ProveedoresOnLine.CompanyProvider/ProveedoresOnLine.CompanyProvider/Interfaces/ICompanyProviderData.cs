@@ -70,7 +70,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         int AditionalDocumentInfoUpsert(int? AditionalDocumentId, int? AditionalDocumentInfoId, int AditionalDocumentInfoTypeId, string Value, string LargeValue, bool Enable);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetBasicInfo(string CompanyPublicId, bool Enable);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> AditionalDocumentGetByType(string CompanyPublicId, int? AditionalDocumentType, bool Enable);
 
         #endregion Aditional Documents
 
