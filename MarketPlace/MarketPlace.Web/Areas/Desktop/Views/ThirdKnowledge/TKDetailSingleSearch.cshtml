@@ -12,207 +12,98 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <div class="POMPSearchContainer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <label class="POMPSectionTitles">Detalle de la consulta</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="col-xs-4 text-center ThirdKnowledge_ListDetail">
-                            <div class="row text-center">
-                                <form id="frmThirdKnowledgeUpsert"
-                                      method="post"
-                                      action="@(Url.Action
-                                            (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
-                                            MVC.ThirdKnowledge.Name,
-                                            new
-                                            {
-                                                QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
-                                                ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
-                                            }))">
-                                    <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                    <input type="hidden" name="DownloadReport" value="true" />
-                                </form>
-                            </div>
+    
+        <div class="container-fluid">
+            <label class="POMPSectionTitles">Detalle de la consulta</label>
+            <div class="container-fluid POMPContainerDetail">
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-12 text-right">
+                        <div class="POMPDownloadReportsTop">
+                            <form id="frmThirdKnowledgeUpsert"
+                                    method="post"
+                                    action="@(Url.Action
+                                    (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                    MVC.ThirdKnowledge.Name,
+                                    new
+                                    {
+                                        QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
+                                        ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
+                                    }))">
+                                <button class="POMPButtonDownloadReport_TK" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                <input type="hidden" name="DownloadReport" value="true" />
+                            </form>
+
                         </div>
                     </div>
                 </div>
-                @{
-                    if (Model.RelatedThidKnowledgeSearch != null)
+                <br />
+                <div class="container-fluid POMPProviderDetailContainer">
+                    @if (Model.RelatedThidKnowledgeSearch != null)
                     {
-                        <hr class="POMPTKSeparator" />
-                        <div class="row POMPTKShowDetail">
-                            <div class="col-xs-12">
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Nombre Encontrado
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.NameResult</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Tipo de Documento
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.TypeDocument</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Número de Identificación
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.IdentificationNumberResult</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row POMPTKShowDetail">
-                            <div class="col-xs-12">
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Prioridad
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.Priority</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Cargo o Delito
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.Offense</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Peps
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.Peps</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row POMPTKShowDetail">
-                            <div class="col-xs-12">
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Nombre de la Lista
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.ListName</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Alias
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.Alias</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Última Actualización
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.LastModifyDate</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row POMPTKShowDetail">
-                            <div class="col-xs-12">
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Fecha de Creación
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span>@Model.RelatedThidKnowledgeSearch.RegisterDate</span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
-                                    <div class="col-xs-12">
-                                        <label>
-                                            Link
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <a target="_blank" href="@Model.RelatedThidKnowledgeSearch.Link">Ver Fuente</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <hr class="POMPTKSeparator" />
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="col-xs-12">
-                                    <label>
-                                        Zona
-                                    </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@Model.RelatedThidKnowledgeSearch.Zone</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="POMPTKSeparator" />
-                        <div class="row POMPTKShowDetail">
-                            <div class="col-xs-12">
-                                <div class="col-xs-12">
-                                    <label>
-                                        Más Información
-                                    </label>
-                                </div>
-                                <div class="col-xs-12">
-                                    <span>@Model.RelatedThidKnowledgeSearch.MoreInfo</span>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
+                    <div class="row">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Nombre Encontrado</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Tipo de Documento</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Número de Identificación</strong></div>
+                    </div>
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.NameResult</span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.TypeDocument</span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.IdentificationNumberResult</span></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Prioridad</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Cargo o Delito</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Peps</strong></div>
+                    </div>
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Priority</span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Offense</span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Peps</span></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Nombre de la Lista</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Alias</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Última Actualización</strong></div>
+                    </div>
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.ListName</span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Alias</span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.LastModifyDate</span></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Fecha de Creación</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Link</strong></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><strong>Zona</strong></div>
+                    </div>
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.RegisterDate  </span></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><a target="_blank" href="@Model.RelatedThidKnowledgeSearch.Link">Ver Fuente</a></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo"><span><span>@Model.RelatedThidKnowledgeSearch.Zone</span></span></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12 POMPProviderBoxInfo"><strong>Más Información</strong></div>
+                    </div>
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-12 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.MoreInfo</span></div>
+                    </div>
+                    <br />
                     }
-                    if (Model.RelatedThidKnowledgeSearch.ReturnUrl != "null")
+                    @if (Model.RelatedThidKnowledgeSearch.ReturnUrl != "null")
                     {
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a href="javascript: window.history.back()" style="float: right;">Regresar a la búsqueda</a>
-                            </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="javascript: window.history.back()" style="float: right;">Regresar a la búsqueda</a>
                         </div>
+                    </div>
                     }
-                }
+                </div>
             </div>
         </div>
+       
     </div>
 </div>
 

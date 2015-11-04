@@ -175,10 +175,9 @@
 }
 
 .ThirdKnowledge_Detail {
-    float: right;
     font-weight: lighter;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 1.05em;
+    letter-spacing: -0.5px;
 }
 
 .ThirdKnowledge_ListDetail {
@@ -325,4 +324,23 @@
 
 .POMPTKShowDetail {
     margin-top: 10px;
+}
+
+.POMPTKDetailContainer {
+    width: 90%;
+    margin-left: 30px;
+}
+.POMPTKContainerDetail {
+    background-color: #f9f9f9;
+    width: 98%;
+    margin-top: 8px;
+    margin-left: 13px;
+}
+.POMPButtonDownloadReport_TK {
+    margin: 5px -9px 0px 0px;
+    background: #ff8300;
+    color: #fff;
+    height: 30px;
+    width: 180px;
+    line-height: 20px;
 }
