@@ -4,8 +4,12 @@
 }
 .POMPFormsizeText > h2 {
     font-size: 1.3em;
+    margin-left: 1.5em;
 }
-
+.POMP_SurveyControls > a {
+    color: #337ab7 !important;
+    text-decoration: none;
+}
 
 /****************Survey********************/
 .PMMPSurveyHeader > div {
@@ -81,7 +85,7 @@
     padding: 10% 0px;
     text-align: center;
     font-size: 18px;
-    border-top: 1px solid #FF8300;
+    /*border-top: 1px solid #FF8300;*/
     width: 98%;
     margin-left: 1%;
 }
