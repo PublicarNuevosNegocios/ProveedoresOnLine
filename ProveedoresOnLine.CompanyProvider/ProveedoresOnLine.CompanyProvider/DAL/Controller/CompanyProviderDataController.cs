@@ -281,9 +281,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPReportInfoUpsert(ReportId, ReportInfoId, ReportInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId)
+        public List<Company.Models.Util.GenericItemModel> MPAditionalDocumentGetInfoByType(string CustomerPublicId, int? AditionalDocumentType, string ProviderPublicId)
         {
-            return DataFactory.MPAditionalDocumentGetBasicInfo(CustomerPublicId, ProviderPublicId);
+            return DataFactory.MPAditionalDocumentGetInfoByType(CustomerPublicId, AditionalDocumentType, ProviderPublicId);
         }
 
         #endregion MarketPlace

@@ -193,6 +193,12 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ADAditionalData()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalData);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SVSurveySearch()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
@@ -272,6 +278,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
             public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public readonly string ADAditionalDocument = "ADAditionalDocument";
+            public readonly string ADAditionalData = "ADAditionalData";
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
             public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
@@ -307,6 +314,7 @@ namespace MarketPlace.Web.Controllers
             public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
             public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public const string ADAditionalDocument = "ADAditionalDocument";
+            public const string ADAditionalData = "ADAditionalData";
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
             public const string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
@@ -499,6 +507,14 @@ namespace MarketPlace.Web.Controllers
         public ActionParamsClass_ADAditionalDocument ADAditionalDocumentParams { get { return s_params_ADAditionalDocument; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ADAditionalDocument
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_ADAditionalData s_params_ADAditionalData = new ActionParamsClass_ADAditionalData();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ADAditionalData ADAditionalDataParams { get { return s_params_ADAditionalData; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ADAditionalData
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -869,6 +885,18 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocument);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ADAditionalDocumentOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ADAditionalDataOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ADAditionalData(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalData);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ADAditionalDataOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

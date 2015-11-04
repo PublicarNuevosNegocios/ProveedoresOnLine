@@ -193,6 +193,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ADAditionalData()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalData);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SVSurveySearch()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
@@ -272,6 +278,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
             public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public readonly string ADAditionalDocument = "ADAditionalDocument";
+            public readonly string ADAditionalData = "ADAditionalData";
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
             public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
@@ -307,6 +314,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
             public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public const string ADAditionalDocument = "ADAditionalDocument";
+            public const string ADAditionalData = "ADAditionalData";
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
             public const string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
@@ -502,6 +510,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_ADAditionalData s_params_ADAditionalData = new ActionParamsClass_ADAditionalData();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ADAditionalData ADAditionalDataParams { get { return s_params_ADAditionalData; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ADAditionalData
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_SVSurveySearch s_params_SVSurveySearch = new ActionParamsClass_SVSurveySearch();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SVSurveySearch SVSurveySearchParams { get { return s_params_SVSurveySearch; } }
@@ -579,6 +595,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string ADAditionalData = "ADAditionalData";
                 public readonly string ADAditionalDocument = "ADAditionalDocument";
                 public readonly string CIExperiencesInfo = "CIExperiencesInfo";
                 public readonly string FIBalanceSheetInfo = "FIBalanceSheetInfo";
@@ -609,6 +626,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string SVSurveyReport = "SVSurveyReport";
                 public readonly string SVSurveySearch = "SVSurveySearch";
             }
+            public readonly string ADAditionalData = "~/Areas/Desktop/Views/Provider/ADAditionalData.cshtml";
             public readonly string ADAditionalDocument = "~/Areas/Desktop/Views/Provider/ADAditionalDocument.cshtml";
             public readonly string CIExperiencesInfo = "~/Areas/Desktop/Views/Provider/CIExperiencesInfo.cshtml";
             public readonly string FIBalanceSheetInfo = "~/Areas/Desktop/Views/Provider/FIBalanceSheetInfo.cshtml";
@@ -927,6 +945,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocument);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ADAditionalDocumentOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ADAditionalDataOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ADAditionalData(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalData);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ADAditionalDataOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

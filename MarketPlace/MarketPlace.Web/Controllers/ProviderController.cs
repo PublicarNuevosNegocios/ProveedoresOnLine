@@ -1514,7 +1514,61 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPAditionalDocumentGetBasicInfo(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPAditionalDocumentGetInfoByType(SessionModel.CurrentCompany.CompanyPublicId, (int)MarketPlace.Models.General.enumAditionalDocumentType.AditionalDocument, ProviderPublicId);
+                oModel.RelatedAditionalDocumentBasicInfo = new List<ProviderAditionalDocumentViewModel>();
+
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments.All(x =>
+                    {
+                        oModel.RelatedAditionalDocumentBasicInfo.Add(new ProviderAditionalDocumentViewModel(x));
+
+                        return true;
+                    });
+                }
+                else
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments = new List<GenericItemModel>();
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult ADAditionalData(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPAditionalDocumentGetInfoByType(SessionModel.CurrentCompany.CompanyPublicId, (int)MarketPlace.Models.General.enumAditionalDocumentType.AditionalData, ProviderPublicId);
                 oModel.RelatedAditionalDocumentBasicInfo = new List<ProviderAditionalDocumentViewModel>();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedAditionalDocuments != null)
@@ -3255,6 +3309,24 @@ namespace MarketPlace.Web.Controllers
                             Position = 0,
                             IsSelected =
                                     (oCurrentAction == MVC.Provider.ActionNames.ADAditionalDocument &&
+                                    oCurrentController == MVC.Provider.Name),
+                        });
+
+                        //Aditional Data
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
+                        {
+                            Name = "Datos Adicionales",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.ADAditionalData,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 1,
+                            IsSelected =
+                                    (oCurrentAction == MVC.Provider.ActionNames.ADAditionalData &&
                                     oCurrentController == MVC.Provider.Name),
                         });
 

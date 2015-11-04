@@ -1468,9 +1468,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPReportGetBasicInfo(CompanyPublicId, ReportType);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId)
+        public static List<Company.Models.Util.GenericItemModel> MPAditionalDocumentGetInfoByType(string CustomerPublicId, int? AditionalDocumentType, string ProviderPublicId)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.MPAditionalDocumentGetBasicInfo(CustomerPublicId, ProviderPublicId);
+            return DAL.Controller.CompanyProviderDataController.Instance.MPAditionalDocumentGetInfoByType(CustomerPublicId, AditionalDocumentType, ProviderPublicId);
         }
 
         #region MP Reports

@@ -126,7 +126,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         int MPReportInfoUpsert(int ReportId, int? ReportInfoId, int ReportInfoTypeId, string Value, string LargeValue, bool Enable);
 
-        List<GenericItemModel> MPAditionalDocumentGetBasicInfo(string CustomerPublicId, string ProviderPublicId);
+        List<GenericItemModel> MPAditionalDocumentGetInfoByType(string CustomerPublicId, int? AditionalDocumentType, string ProviderPublicId);
 
         #endregion MarketPlace
 

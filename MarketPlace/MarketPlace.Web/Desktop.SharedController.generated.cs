@@ -53,6 +53,11 @@ namespace T4MVC.Desktop
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
                 public readonly string _N_Notifications = "_N_Notifications";
+                public readonly string _P_AD_AditionalData = "_P_AD_AditionalData";
+                public readonly string _P_AD_AditionalDataType_1901001 = "_P_AD_AditionalDataType_1901001";
+                public readonly string _P_AD_AditionalDataType_1901002 = "_P_AD_AditionalDataType_1901002";
+                public readonly string _P_AD_AditionalDataType_1901003 = "_P_AD_AditionalDataType_1901003";
+                public readonly string _P_AD_AditionalDataType_1901004 = "_P_AD_AditionalDataType_1901004";
                 public readonly string _P_AD_AditionalDocument = "_P_AD_AditionalDocument";
                 public readonly string _P_BlackList = "_P_BlackList";
                 public readonly string _P_CI_ExperiencesInfo = "_P_CI_ExperiencesInfo";
@@ -122,6 +127,11 @@ namespace T4MVC.Desktop
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Areas/Desktop/Views/Shared/_Layout.cshtml";
             public readonly string _N_Notifications = "~/Areas/Desktop/Views/Shared/_N_Notifications.cshtml";
+            public readonly string _P_AD_AditionalData = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalData.cshtml";
+            public readonly string _P_AD_AditionalDataType_1901001 = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalDataType_1901001.cshtml";
+            public readonly string _P_AD_AditionalDataType_1901002 = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalDataType_1901002.cshtml";
+            public readonly string _P_AD_AditionalDataType_1901003 = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalDataType_1901003.cshtml";
+            public readonly string _P_AD_AditionalDataType_1901004 = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalDataType_1901004.cshtml";
             public readonly string _P_AD_AditionalDocument = "~/Areas/Desktop/Views/Shared/_P_AD_AditionalDocument.cshtml";
             public readonly string _P_BlackList = "~/Areas/Desktop/Views/Shared/_P_BlackList.cshtml";
             public readonly string _P_CI_ExperiencesInfo = "~/Areas/Desktop/Views/Shared/_P_CI_ExperiencesInfo.cshtml";

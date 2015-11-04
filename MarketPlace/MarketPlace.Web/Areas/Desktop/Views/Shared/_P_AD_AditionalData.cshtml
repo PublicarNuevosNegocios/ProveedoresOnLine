@@ -1,0 +1,20 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts)
+{
+    <label class="POMPSectionTitles">Datos Adicionales</label>
+    <div class="container-fluid POMPContainerDetail">
+        @if (Model.RelatedAditionalDocumentBasicInfo != null && Model.RelatedAditionalDocumentBasicInfo.Count > 0)
+        {
+            foreach (var item in Model.RelatedAditionalDocumentBasicInfo)
+            {
+                if (!string.IsNullOrEmpty(item.ADT_DataType))
+                {
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_AD_AditionalDataType_1901001.
+                        Replace("1901001", item.ADT_DataType),
+                        item);
+                }
+            }
+        }
+    </div>
+}

@@ -1237,6 +1237,11 @@
     <Content Include="Areas\Desktop\Views\Shared\_CH_StateAliensProviders.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_StateNationalProviders.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_SearchCompare_Result_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalData.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901001.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901002.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901003.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901004.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
@@ -1333,6 +1338,7 @@
     <Content Include="Areas\Desktop\Views\Stats\STProjectStats.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyEvaluatorDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\RPGerencial.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\ADAditionalData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />
