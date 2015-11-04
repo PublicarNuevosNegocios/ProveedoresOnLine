@@ -435,14 +435,24 @@
     }
 
 .POMPAreaDetail {
-    width: 100%;
+    width: 95%;
     flex: 30%;
     height: auto;
-    margin: 20px 0 20px 0;
     border: 1px solid #808080;
+    margin-left: 2.5%;
 }
 
     .POMPAreaDetail > p {
+        padding: 30px 0 0 35px !important;
+    }
+
+.POMPAreaEvaluatorDetail {
+    width: 100%;
+    flex: 30%;
+    height: auto;
+    border: 1px solid #808080;
+}
+    .POMPAreaEvaluatorDetail > p {
         padding: 30px 0 0 35px !important;
     }
 
@@ -663,7 +673,7 @@ textarea#Survey_ProgramSurvey_Comments {
     border: 1px solid #999;
     border-radius: 2px;
     background-color: #f9f9f9;
-    width: 73%;
+    width: 100%;
     min-height: 50px;
     height: auto;
 }
