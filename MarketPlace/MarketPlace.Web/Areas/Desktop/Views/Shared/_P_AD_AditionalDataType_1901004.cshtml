@@ -3,12 +3,17 @@
 @if (Model != null)
 {
     /*Verdadero - Falso*/
-    <div>
-        <label>@Model.ADT_Title</label>
-        <br />
-        <span>Tipo de dato: Verdadero - Falso</span>
-        <br />
-        <span>@Model.ADT_Value</span>
-        <br />
+
+    <div class="row POMPSectionTitlesBox">
+        <div class="col-xs-12">
+            <label>@Model.ADT_Title</label>
+        </div>
     </div>
+    <br />
+    <div class="container-fluid POMPProviderDetailContainer">
+        <div class="row POMPBorderbottom">
+            <div class="col-sm-12 POMPProviderBoxInfo"><span>@Model.ADT_Value</span></div>
+        </div>
+    </div>
+    <br />
 }

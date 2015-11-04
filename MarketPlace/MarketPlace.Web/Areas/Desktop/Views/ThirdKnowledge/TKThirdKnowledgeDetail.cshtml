@@ -12,7 +12,7 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información Detallada</label>
-        <div class="container-fluid">
+        <div class="container-fluid POMPContainerDetail">
             <br />
             @if (Model.RelatedThidKnowledgeSearch != null &&
                     Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
@@ -21,16 +21,16 @@
                 foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
                 {
                     <div class="col-xs-12 POMPDetailTitle">
-                            <div class="col-xs-8">
-                                <p>Tipo de consulta:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.SearchType.ItemName</span></p>
-                                <p>Realizada por:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.User</span></p>
-                                <p class="ThirdKnowledge_marginBottom">Fecha:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.CreateDate.AddHours(-5)</span></p>
-                            </div>
-                            <div class="col-xs-4 text-center ThirdKnowledge_ListDetail">
-                                <div class="row text-center">
-                                    <form id="frmThirdKnowledgeUpsert"
-                                          method="post"
-                                          action="@(Url.Action
+                        <div class="col-xs-8">
+                            <p>Tipo de consulta:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.SearchType.ItemName</span></p>
+                            <p>Realizada por:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.User</span></p>
+                            <p class="ThirdKnowledge_marginBottom">Fecha:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.CreateDate.AddHours(-5)</span></p>
+                        </div>
+                        <div class="col-xs-4 text-center ThirdKnowledge_ListDetail">
+                            <div class="row text-center">
+                                <form id="frmThirdKnowledgeUpsert"
+                                      method="post"
+                                      action="@(Url.Action
                                                     (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
                                                     MVC.ThirdKnowledge.Name,
                                                     new
@@ -39,16 +39,16 @@
                                                         InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
                                                         EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                     }))">
-                                        <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                        <input type="hidden" name="DownloadReport" value="true" />
-                                    </form>
-                                </div>
-                                <div class="row text-center ThirdKnowledge_GoBack">
-                                    @*Return Buttom*@
-                                    @if (!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
-                                        !string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                                    {
-                                        <a href="@(Url.RouteUrl
+                                    <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                    <input type="hidden" name="DownloadReport" value="true" />
+                                </form>
+                            </div>
+                            <div class="row text-center ThirdKnowledge_GoBack">
+                                @*Return Buttom*@
+                                @if (!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
+                            !string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                                {
+                                <a href="@(Url.RouteUrl
                                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                     new
                                                     {
@@ -57,105 +57,104 @@
                                                         InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
                                                         EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                         }))">Regresar a la búsqueda</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="@(Url.RouteUrl
+                                }
+                                else
+                                {
+                                <a href="@(Url.RouteUrl
                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                         new
                                                         {
                                                         controller = MVC.ThirdKnowledge.Name,
                                                         action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch,
                                                         }))">Regresar a la búsqueda</a>
-                                    }
-                                </div>
+                                }
                             </div>
-
                         </div>
+
+                    </div>
                 }
             }
-            @if (Model.RelatedThidKnowledgeSearch != null &&
-                Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
-                Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
-            {
-                foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+            <div class="container-fluid POMPTKDetailContainer">
+                @if (Model.RelatedThidKnowledgeSearch != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
                 {
-                    List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> Group = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
-                    List<string> Item1 = new List<string>();
+                    foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+                    {
+                        List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> Group = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
+                        List<string> Item1 = new List<string>();
 
-                    item.RelatedQueryBasicInfoModel.All(x =>
+                        item.RelatedQueryBasicInfoModel.All(x =>
                         {
                             Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
                             return true;
                         });
-                    Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
+                        Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
 
-                    List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
-                    Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
+                        List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
+                        Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
 
-                    Item1.All(x =>
-                    {
+                        Item1.All(x =>
+                        {
                             if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
                             {
                                 oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
                                 oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
                                 Group.Add(oTupleItem);
                             }
-                        return true;
-                    });
+                            return true;
+                        });
 
                         foreach (var col in Group)
                         {
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
                             </div>
                             <br />
                             <div class="row">
-                                <div class="col-sm-1 col-lg-1 text-center"><strong>Prioridad</strong></div>
-                                <div class="col-sm-1 col-lg-1 text-center"><strong>Estado</strong></div>
-                                <div class="col-sm-4 col-lg-4 text-center"><strong>Nombre</strong></div>
-                                <div class="col-sm-2 col-lg-2 text-center"><strong>Identificación</strong></div>
-                                <div class="col-sm-2 col-lg-2 text-center"><strong>Alias</strong></div>
+                                <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div>
+                                <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div>
+                                <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div>
+                                <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div>
                             </div>
-                            <br />
+                                <br />
                             foreach (var subItem in col.Item2)
                             {
-                                <div class="row">
-                                    <div class="col-sm-1 col-lg-1 text-center"><p>@subItem.Priority</p></div>
-                                    <div class="col-sm-1 col-lg-1 text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
-                                    <div class="col-sm-4 col-lg-4 text-center"><p>@subItem.NameResult</p></div>
-                                    <div class="col-sm-2 col-lg-2 text-center"><p>@subItem.IdentificationResult</p></div>
-                                    <div class="col-sm-2 col-lg-2 text-center"><p>@subItem.Alias</p></div>
-                                    <div class="col-sm-2 col-lg-2 text-center">
+                                <div class="row POMPBorderbottom">
+                                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
+                                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
+                                    <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
+                                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
+                                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
+                                    <div class="col-sm-2 POMPProviderBoxInfo text-center">
                                         <p>
                                             <a href="@(Url.RouteUrl
-                                      (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                      new
-                                      {
-                                          controller = MVC.ThirdKnowledge.Name,
-                                          action = MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
-                                          QueryBasicPublicId = subItem.QueryBasicPublicId,
-                                          ReturnUrl = Url.Action
-                                                    (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
-                                                    MVC.ThirdKnowledge.Name,
-                                                    new
-                                                    {
-                                                        QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
-                                                        InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
-                                                        EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
-                                                    })
-                                            }))">Ver Detalle</a>
+                                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                            new
+                                            {
+                                                controller = MVC.ThirdKnowledge.Name,
+                                                action = MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                                QueryBasicPublicId = subItem.QueryBasicPublicId,
+                                                ReturnUrl = Url.Action
+                                                        (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
+                                                        MVC.ThirdKnowledge.Name,
+                                                        new
+                                                        {
+                                                            QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
+                                                            InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
+                                                            EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+                                                        })
+                                                }))">Ver Detalle</a>
                                         </p>
                                     </div>
                                 </div>
                                 <br />
-                            <hr class="POMPTKSeparator" />
                             }
                             <br />
                             <br />
                         }
                     }
-            }
+                }
+            </div>
         </div>
     </div>
 </div>
