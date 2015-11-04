@@ -18,7 +18,7 @@
                                 FirstOrDefault())" />
                     <div>
                         <span>@Model.RelatedCustomer.RelatedCompany.CompanyName</span>
-                        <span>@Model.RelatedCustomer.RelatedCompany.IdentificationType.ItemName @Model.RelatedCustomer.RelatedCompany.IdentificationNumber</span>
+                        <span>@Model.RelatedCustomer.RelatedCompany.IdentificationType.ItemName @Model.RelatedCustomer.RelatedCompany.IdentificationNumber @Model.RelatedCustomer.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CheckDigit).Select(x => string.Concat("-", x.Value)).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </div>
                 </div>
             }

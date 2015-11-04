@@ -143,6 +143,7 @@
         OtherProviders = 203010,
         AditionalInfo = 203011,
         UpdateAlert = 203012,
+        CheckDigit = 203013,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,

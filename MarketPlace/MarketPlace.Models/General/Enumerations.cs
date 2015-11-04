@@ -123,6 +123,7 @@
         CompanyLogo = 203005,
         AlertRisk = 203008,
         OtherProviders = 203010,
+        CheckDigit = 203013,
 
         CustomEconomicActivity = 220001,
     }

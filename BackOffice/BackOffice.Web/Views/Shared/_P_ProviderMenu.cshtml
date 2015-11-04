@@ -33,7 +33,7 @@
                    
                     <div>
                         <span>@Model.RelatedProvider.RelatedCompany.CompanyName</span>
-                        <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName @Model.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+                        <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName @Model.RelatedProvider.RelatedCompany.IdentificationNumber @Model.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CheckDigit).Select(x => string.Concat("-", x.Value)).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </div>
                 </div>
             }

@@ -21,7 +21,7 @@
 
         <div class="POMPComparisonResultNameIDWrapper">
             <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>
-            <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
+            <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber@Model.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CheckDigit).Select(x => string.Concat("-", x.Value)).DefaultIfEmpty(string.Empty).FirstOrDefault()</label>
         </div>
         <div class="POMPComparisonResultStatusCertified">
             <!--Check certificacion-->
