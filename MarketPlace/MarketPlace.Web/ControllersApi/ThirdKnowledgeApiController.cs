@@ -1,6 +1,8 @@
 ﻿using MarketPlace.Models.Company;
 using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using NetOffice.ExcelApi;
+using NetOffice.ExcelApi.Enums;
 using OfficeOpenXml;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.ThirdKnowledge.Models;
@@ -242,12 +244,26 @@ namespace MarketPlace.Web.ControllersApi
                 {
                     string oFileName = "ThirdKnowledgeFile_" +
                             CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                        UploadFile.FileName.Split('.').DefaultIfEmpty("xls").LastOrDefault();
-                    string strFile = strFolder.TrimEnd('\\') + "\\" + oFileName;
+                        UploadFile.FileName.Split('.').DefaultIfEmpty("xlsx").LastOrDefault();
+                    string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
+                    
+                    UploadFile.SaveAs(strFilePath);
 
-                    UploadFile.SaveAs(strFile);
+                    if (oFileName.Split('.').LastOrDefault() == "xls")
+                    {
+                        Application app = new Application();
+                        Workbook wb = app.Workbooks.Open(strFilePath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                        wb.SaveAs(strFilePath.Replace("xls", "xlsx"), XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                        wb.Close();
+                        app.Quit();
 
-                    Tuple<bool, string> oVerifyResult = this.FileVerify(strFile, oFileName, PeriodPublicId);
+                        if (System.IO.File.Exists(strFilePath))
+                            System.IO.File.Delete(strFilePath);
+
+                        strFilePath = strFilePath.Replace("xls", "xlsx");                       
+                    }
+
+                    Tuple<bool, string> oVerifyResult = this.FileVerify(strFilePath, oFileName, PeriodPublicId);
                     bool isValidFile = oVerifyResult.Item1;
 
                     string strRemoteFile = string.Empty;
@@ -255,7 +271,7 @@ namespace MarketPlace.Web.ControllersApi
                     {
                         //load file to s3
                         strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                            (strFile,
+                            (strFilePath,
                             Models.General.InternalSettings.Instance
                                 [Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
                                  CompanyPublicId + "_" + DateTime.Now + "\\");
@@ -302,9 +318,9 @@ namespace MarketPlace.Web.ControllersApi
                     }
 
                     //remove temporal file
-                    if (System.IO.File.Exists(strFile))
-                        System.IO.File.Delete(strFile);
-
+                    if (System.IO.File.Exists(strFilePath))
+                        System.IO.File.Delete(strFilePath);
+                                       
                     oReturn = new FileModel()
                     {
                         FileName = UploadFile.FileName,
@@ -361,16 +377,18 @@ namespace MarketPlace.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public Tuple<bool, string> FileVerify(string FilePath, string FileName, string PeriodPublicId)
-        {
+        {           
+
             var Excel = new FileInfo(FilePath);
+
             List<PlanModel> oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
             using (var package = new ExcelPackage(Excel))
             {
                 // Get the work book in the file
                 ExcelWorkbook workBook = package.Workbook;
-
+                
                 if (workBook != null)
-                {
+                {                    
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
                     string UncodifiedObj = new JavaScriptSerializer().Serialize(values);
