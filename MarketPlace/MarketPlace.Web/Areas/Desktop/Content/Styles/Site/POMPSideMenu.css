@@ -4,11 +4,14 @@
 }
 
 .POMPProviderSideMenu {
-    border:none;
-    width:232px;
+    /* border: none; */
+    width: 237px;
     letter-spacing: -1px;
     height: auto;
     min-height: 500px;
+    border-right: 1px;
+    border-right-style: solid;
+    border-right-color: #ff8300;
 }
 /*********** ESTE ES EL TAG DEL PROVEEDOR ***********/
 .POMPProviderMenuOpen {

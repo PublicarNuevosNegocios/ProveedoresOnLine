@@ -100,17 +100,17 @@ div#POMPRenderFooter {
 /*********** CONTENEDOR DE INFORMACION PROVEDOR ***********/
 
 .POMPProviderDataWrapper {
-    border-left: 2px solid #ff8300;
+    min-width: 700px !important;
     display: inline-block;
     height: auto;
-    margin: 8px 0px 10px 0px;
+    margin: 0px 0px 0px -14px;
     padding: 0 0 0 2px;
     min-height: 464px;
-    min-width:694px;
     width: calc(100% - 262px);
+    border-left: 1px;
+    border-left-style: solid;
+    border-left-color: #ff8300;
 }
-
-
 
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
 
@@ -165,7 +165,10 @@ li#F3 {
 }
 
 .POMPMenuBody {
-    padding-top: 15px;
+    padding-top: 0px;
+    border-top: 1px;
+    border-top-color: #FF8301;
+    border-top-style: solid;
     font-size: 12px;
     max-width: 232px;
     min-width: 232px;
