@@ -29,7 +29,7 @@ function Header_ShowHideNotifications(DivId, User, companyPublicId) {
             }
             else {
                 $('#' + DivId).text('');
-                $('#' + DivId).append('<div>Usted no tiene notificaciones</div>');
+                $('#' + DivId).append('<div class="POMPNotificationsList"><li class="row list-group-item text-left POMP_NotifyItemList"><i class="glyphicon glyphicon-thumbs-up POMP_NotifyItemListIcon"></i>&nbsp;&nbsp;<span>Usted no tiene notificaciones</span></li></div>');
             }
         },
         error: function (result) {

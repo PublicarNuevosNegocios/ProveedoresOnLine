@@ -61,11 +61,15 @@ namespace MarketPlace.Web.Controllers
                         "\"" + "FECHA DE CADUCIDAD" + "\"" + strSep +
                         "\"" + "EVALUADORES" + "\"" + strSep +
                         "\"" + "CALIFICACION" + "\"" + strSep +
-                        "\"" + "ULTIMA MODIFICACION" + "\"");
+                        "\"" + "ULTIMA MODIFICACION" + "\"" + strSep +
+                        "\"" + "PREGUNTAS" + "\"" + strSep +
+                        "\"" + "RESPUESTAS" + "\"" + strSep +
+                        "\"" + "COMENTARIOS" + "\"");
 
 
                 if(surveyByProvider != null && surveyByProvider.Count > 0)
                 {
+
                     surveyByProvider.All(x =>
                     {
                         if (x != null && x.SurveyInfo.Count > 0)
@@ -82,7 +86,12 @@ namespace MarketPlace.Web.Controllers
                             "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
                             "\"" + "N/D" + "\"" + "" + strSep +
                             "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
-                            "\"" + x.LastModify.ToString("dd/MM/yyyy") + "" + "\""
+                            "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
+                            
+                            "\"" + "N/D" + "\"" + "" + strSep +
+                            "\"" + "N/D" + "\"" + "" + strSep +
+                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "" + "\""
+
                             );
                             if (x.ChildSurvey != null && x.ChildSurvey.Count > 0)
                             {
