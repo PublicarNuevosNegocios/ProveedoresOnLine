@@ -245,23 +245,24 @@ namespace MarketPlace.Web.ControllersApi
                     string oFileName = "ThirdKnowledgeFile_" +
                             CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                         UploadFile.FileName.Split('.').DefaultIfEmpty("xlsx").LastOrDefault();
+                    oFileName = oFileName.Split('.').LastOrDefault() == "xls" ? oFileName.Replace("xls", "xlsx") : oFileName;
                     string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
                     
                     UploadFile.SaveAs(strFilePath);
 
-                    if (oFileName.Split('.').LastOrDefault() == "xls")
-                    {
-                        Application app = new Application();
-                        Workbook wb = app.Workbooks.Open(strFilePath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                        wb.SaveAs(strFilePath.Replace("xls", "xlsx"), XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                        wb.Close();
-                        app.Quit();
+                    //if (oFileName.Split('.').LastOrDefault() == "xls")
+                    //{
+                    //    Application app = new Application();
+                    //    Workbook wb = app.Workbooks.Open(strFilePath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                    //    wb.SaveAs(strFilePath.Replace("xls", "xlsx"), XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                    //    wb.Close();
+                    //    app.Quit();
 
-                        if (System.IO.File.Exists(strFilePath))
-                            System.IO.File.Delete(strFilePath);
+                    //    if (System.IO.File.Exists(strFilePath))
+                    //        System.IO.File.Delete(strFilePath);
 
-                        strFilePath = strFilePath.Replace("xls", "xlsx");                       
-                    }
+                    //    strFilePath = strFilePath.Replace("xls", "xlsx");                       
+                    //}
 
                     Tuple<bool, string> oVerifyResult = this.FileVerify(strFilePath, oFileName, PeriodPublicId);
                     bool isValidFile = oVerifyResult.Item1;
