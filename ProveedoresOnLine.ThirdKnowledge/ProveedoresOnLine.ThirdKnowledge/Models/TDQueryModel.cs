@@ -10,6 +10,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
     {
         public string QueryPublicId { get; set; }
 
+        public string CompayPublicId {get; set; }
+
         public string PeriodPublicId { get; set; }
 
         public TDCatalogModel SearchType { get; set; }

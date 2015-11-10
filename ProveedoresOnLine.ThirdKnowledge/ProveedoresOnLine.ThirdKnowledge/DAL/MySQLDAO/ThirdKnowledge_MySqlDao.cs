@@ -761,6 +761,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                       group cm by new
                       {
                           QueryId = cm.Field<int>("QueryId"),
+                          CompanyPublicId = cm.Field<string>("CompanyPublicId"),
                           QueryPublicId = cm.Field<string>("QueryPublicId"),
                           PeriodPublicId = cm.Field<string>("PeriodPublicId"),
                           SearchTypeId = cm.Field<int>("SearchTypeId"),
@@ -777,6 +778,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                       select new TDQueryModel()
                       {
                           PeriodPublicId = cmg.Key.PeriodPublicId,
+                          CompayPublicId = cmg.Key.CompanyPublicId,
                           QueryPublicId = cmg.Key.QueryPublicId,
                           SearchType = new TDCatalogModel()
                           {
