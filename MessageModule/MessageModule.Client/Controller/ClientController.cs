@@ -88,18 +88,14 @@ namespace MessageModule.Client.Controller
 
             if (NotificationUpsert != null)
             {
-                try
-                {
-                    oReturn = DAL.Controller.ClientDataController.Instance.NotificationUpsert(
-                    NotificationUpsert.NotificationId,
-                    NotificationUpsert.CompanyPublicId,
-                    NotificationUpsert.Label,
-                    NotificationUpsert.User,
-                    NotificationUpsert.Url,
-                    NotificationUpsert.NotificationType,
-                    NotificationUpsert.Enable);
-                }
-                catch { }                
+                oReturn = DAL.Controller.ClientDataController.Instance.NotificationUpsert(
+                NotificationUpsert.NotificationId,
+                NotificationUpsert.CompanyPublicId,
+                NotificationUpsert.Label,
+                NotificationUpsert.User,
+                NotificationUpsert.Url,
+                NotificationUpsert.NotificationType,
+                NotificationUpsert.Enable);
             }
 
             return oReturn;

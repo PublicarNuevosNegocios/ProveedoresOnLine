@@ -303,7 +303,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             #region Notification
 
             MessageModule.Client.Models.NotificationModel oNotification = new MessageModule.Client.Models.NotificationModel()
-            {
+            {                
+                CompanyPublicId = "DA5C572E",
                 NotificationType = (int)ThirdKnowledge.Models.Enumerations.enumNotificationType.ThirdKnowledgeNotification,
                 Url = ThirdKnowledge.Models.InternalSettings.Instance
                                 [ThirdKnowledge.Models.Constants.N_UrlThirdKnowledgeQuery].Value.Replace("{QueryPublicId}", oQuery.QueryPublicId),
@@ -313,7 +314,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                 Enable = true,
             };
 
-            oNotification.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);
+            MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);
 
             #endregion
         }
