@@ -26,6 +26,12 @@
 
     <key name="TK_QueryUrl">https://localhost:44309/MarketPlace/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={QueryPublicId}</key>
 
+    <!--Notification message-->
+    <key name="N_ThirdKnowledgeEndMassiveMessage"><![CDATA[Cargue de consultas masiva finalizada]]></key>
+
+    <!--Url redirect-->
+    <key name="N_UrlThirdKnowledgeQuery">https://localhost:44309/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={QueryPublicId}></key>
+
   </ThirdKnowledge>
 </Settings>
 

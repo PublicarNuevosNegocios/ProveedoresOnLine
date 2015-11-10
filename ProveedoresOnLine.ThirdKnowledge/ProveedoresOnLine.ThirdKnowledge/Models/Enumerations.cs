@@ -26,5 +26,10 @@
             RegisterDate = 301020,
             FileURL = 301021,
         }
+
+        public enum enumNotificationType
+        {
+            ThirdKnowledgeNotification = 1801001,
+        }
     }
 }

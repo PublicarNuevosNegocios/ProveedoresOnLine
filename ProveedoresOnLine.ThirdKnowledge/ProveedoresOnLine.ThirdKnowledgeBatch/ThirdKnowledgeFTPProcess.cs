@@ -226,6 +226,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
 
                             LogFile("Success:: QueryPublicId '" + oQuery.QueryPublicId + "' :: Validation is success");
+
+                            
                         }
                         catch (Exception err)
                         {
@@ -296,6 +298,23 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
 
             MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToSend);
+            #endregion
+
+            #region Notification
+
+            MessageModule.Client.Models.NotificationModel oNotification = new MessageModule.Client.Models.NotificationModel()
+            {
+                NotificationType = (int)ThirdKnowledge.Models.Enumerations.enumNotificationType.ThirdKnowledgeNotification,
+                Url = ThirdKnowledge.Models.InternalSettings.Instance
+                                [ThirdKnowledge.Models.Constants.N_UrlThirdKnowledgeQuery].Value.Replace("{QueryPublicId}", oQuery.QueryPublicId),
+                User = oQuery.User,
+                Label = ThirdKnowledge.Models.InternalSettings.Instance
+                                [ThirdKnowledge.Models.Constants.N_ThirdKnowledgeEndMassiveMessage].Value,
+                Enable = true,
+            };
+
+            oNotification.NotificationId = MessageModule.Client.Controller.ClientController.NotificationUpsert(oNotification);
+
             #endregion
         }
 

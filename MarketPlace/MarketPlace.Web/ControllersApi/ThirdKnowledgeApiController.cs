@@ -325,8 +325,8 @@ namespace MarketPlace.Web.ControllersApi
                     {
                         FileName = UploadFile.FileName,
                         ServerUrl = strRemoteFile,
-                        LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
-                                                    "El Archivo " + UploadFile.FileName + " no es correto, por favor verifique el nombre de las columnas y el formato.",
+                        LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correcto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
+                                                    "El Archivo " + UploadFile.FileName + " no es correcto, por favor verifique el nombre de las columnas y el formato.",
                         AdditionalInfo = oVerifyResult.Item2,
                     };
                 }

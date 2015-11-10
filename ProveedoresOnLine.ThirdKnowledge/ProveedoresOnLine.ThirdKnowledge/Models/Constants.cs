@@ -29,5 +29,17 @@
         public const string C_Settings_TK_ReadyResultAgent = "TK_ReadyResultAgent";
 
         public const string C_Settings_TK_QueryUrl = "TK_QueryUrl";
+
+        #region Notifications
+
+        public const string N_ThirdKnowledgeEndMassiveMessage = "N_ThirdKnowledgeEndMassiveMessage";
+
+        #region Url redirect
+
+        public const string N_UrlThirdKnowledgeQuery = "N_UrlThirdKnowledgeQuery";
+
+        #endregion
+
+        #endregion
     }
 }

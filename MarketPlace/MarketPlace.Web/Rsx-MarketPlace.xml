@@ -73,7 +73,7 @@
     <!--Notifications-->
     <!--Message-->
     <key name="N_ThirdKnowledgeUploadMassiveMessage"><![CDATA[Cargue de consultas masivas en proceso]]></key>
-    <key name="N_ThirdKnowledgeEndMassiveMessage"><![CDATA[Cargue de consultas masiva correctamente]]></key>
+    <key name="N_ThirdKnowledgeEndMassiveMessage"><![CDATA[Cargue de consultas masiva finalizada]]></key>
     <key name="N_ThirdKnowledgeSingleMessage"><![CDATA[Se realizó la consulta]]></key>
 
     <!--Url redirect-->
