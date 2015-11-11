@@ -1,6 +1,8 @@
 ﻿using MarketPlace.Models.Compare;
 using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using MarketPlace.Models.Survey;
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,16 +64,17 @@ namespace MarketPlace.Web.Controllers
                         "\"" + "EVALUADORES" + "\"" + strSep +
                         "\"" + "CALIFICACION" + "\"" + strSep +
                         "\"" + "ULTIMA MODIFICACION" + "\"" + strSep +
+                        "\"" + "AREA" + "\"" + strSep +
+                        "\"" + "COMENTARIO AREA" + "\"" + strSep +
                         "\"" + "PREGUNTAS" + "\"" + strSep +
                         "\"" + "RESPUESTAS" + "\"" + strSep +
-                        "\"" + "COMENTARIOS" + "\"");
-
-
+                        "\"" + "COMENTARIO RESPUESTA" + "\"");
                 if(surveyByProvider != null && surveyByProvider.Count > 0)
                 {
-
                     surveyByProvider.All(x =>
                     {
+                        oModel.RelatedSurvey = new SurveyViewModel(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(x.SurveyPublicId));
+
                         if (x != null && x.SurveyInfo.Count > 0)
                         {
                             data.AppendLine
@@ -87,32 +90,175 @@ namespace MarketPlace.Web.Controllers
                             "\"" + "N/D" + "\"" + "" + strSep +
                             "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
                             "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
-                            
                             "\"" + "N/D" + "\"" + "" + strSep +
                             "\"" + "N/D" + "\"" + "" + strSep +
-                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "" + "\""
+                            "\"" + "N/D" + "\"" + "" + strSep +
+                            "\"" + "N/D" + "\"" + "" + strSep +
+                            "\"" + "N/D" + "\""
 
                             );
+                            string area = "";
+                            string detallearea = "";
+                            string preguntas = "";
+                            string respuestas = "";
+                            string detallerespuesta = "";
                             if (x.ChildSurvey != null && x.ChildSurvey.Count > 0)
                             {
+                                //RECORRO POR EVALUADORES
                                 x.ChildSurvey.All(y =>
                                 {
                                     if (y != null && y.ParentSurveyPublicId == x.SurveyPublicId)
                                     {
-                                        data.AppendLine
-                                          (
-                                            "\"" + x.RelatedSurveyConfig.ItemName.ToString() + "\"" + strSep +
-                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
-                                            "\"" + x.RelatedProvider.RelatedCompany.CompanyName + "\"" + "" + strSep +
-                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Project).Select(a => a.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
-                                            "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
-                                            "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(b => b.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
-                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
-                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
-                                           "\"" + y.User.ToString() + "\"" + "" + strSep +
-                                           "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
-                                           "\"" + y.LastModify.ToString("dd/MM/yyyy") + "\"" + ""
-                                          );
+                                        /* obtenga las areas asignadas al evaluador*/
+                                        y.RelatedSurveyConfig.RelatedSurveyConfigItem.All(o =>
+                                        {
+                                            if (o.ItemType.ItemId == (int)enumSurveyConfigItemType.EvaluationArea) {
+                                                /*obtengo el area*/
+                                                        area =
+                                                          "\"" + x.RelatedSurveyConfig.ItemName.ToString() + "\"" + strSep +
+                                                          "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                          "\"" + x.RelatedProvider.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                                          "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Project).Select(a => a.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                          "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
+                                                          "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(b => b.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                          "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                          "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                          /*obtengo los evaluadores*/
+                                                          "\"" + y.User.ToString() + "\"" + strSep +
+                                                          "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                          "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
+                                                          /*obtengo el area*/
+                                                          "\"" + o.ItemName.ToString() + "\"" + "" + strSep +
+                                                          "\"" + "N/D" + "\"" + "" + strSep +
+                                                          "\"" + "N/D" + "\"" + "" + strSep +
+                                                          "\"" + "N/D" + "\"" + "" + strSep +
+                                                          "\"" + "N/D" + "\"";
+                                                data.AppendLine(area);
+                                                /*Obtengo la descripcion del area*/
+                                                y.RelatedSurveyItem.Where(r => r.RelatedSurveyConfigItem.ItemId == o.ItemId).All(z=> {
+                                                    z.ItemInfo.All(m=> {
+                                                        if (m.ItemInfoType!= null && m.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Answer) {
+                                                            /*obtengo la descripcion del area*/
+                                                            detallearea =
+                                                                "\"" + x.RelatedSurveyConfig.ItemName.ToString() + "\"" + strSep +
+                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                "\"" + x.RelatedProvider.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Project).Select(a => a.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
+                                                                "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(b => b.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                /*obtengo los evaluadores*/
+                                                                "\"" + y.User.ToString() + "\"" + strSep +
+                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
+                                                                /*obtengo el area*/
+                                                                "\"" + o.ItemName.ToString() + "\"" + "" + strSep +
+                                                                "\"" + m.Value + "\"" + "" + strSep +
+                                                                "\"" + "N/D" + "\"" + "" + strSep +
+                                                                "\"" + "N/D" + "\"" + "" + strSep +
+                                                                "\"" + "N/D" + "\"";
+                                                                data.AppendLine(detallearea);
+
+                                                        }
+                                                        return true;
+                                                    });
+                                                    return true;
+                                                });
+                                                /* obtengo las preguntas del area */
+                                                y.RelatedSurveyConfig.RelatedSurveyConfigItem.All(p => {
+                                                    if (p.ParentItem != null && p.ParentItem.ItemId == o.ItemId && p.ItemType.ItemId == (int)enumSurveyConfigItemType.Question)
+                                                    {
+                                                        /*preguntas del area*/
+                                                        preguntas =
+                                                            "\"" + x.RelatedSurveyConfig.ItemName.ToString() + "\"" + strSep +
+                                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                            "\"" + x.RelatedProvider.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Project).Select(a => a.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                            "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
+                                                            "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(b => b.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                            /*obtengo los evaluadores*/
+                                                            "\"" + y.User.ToString() + "\"" + strSep +
+                                                            "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                            "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
+                                                            /*obtengo el area*/
+                                                            "\"" + o.ItemName.ToString() + "\"" + "" + strSep +
+                                                            "\"" + "N/D" + "\"" + "" + strSep +
+                                                            "\"" + p.ItemName.ToString() + "\"" + "" + strSep +
+                                                            "\"" + "N/D" + "\"" + "" + strSep +
+                                                            "\"" + "N/D" + "\"";
+                                                            data.AppendLine(preguntas);
+
+                                                        /* obtengo las respuestas de las preguntas del area */
+                                                        y.RelatedSurveyConfig.RelatedSurveyConfigItem.All(q => {
+                                                            if (q.ParentItem != null && q.ParentItem.ItemId == p.ItemId && q.ItemType.ItemId == (int)enumSurveyConfigItemType.Answer)
+                                                            {
+                                                                /*respuestas de la pregunta*/
+                                                                respuestas =
+                                                                    "\"" + x.RelatedSurveyConfig.ItemName.ToString() + "\"" + strSep +
+                                                                    "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                    "\"" + x.RelatedProvider.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                                                    "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Project).Select(a => a.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                    "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
+                                                                    "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(b => b.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                    "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                    "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                    /*obtengo los evaluadores*/
+                                                                    "\"" + y.User.ToString() + "\"" + strSep +
+                                                                    "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                    "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
+                                                                    /*obtengo el area*/
+                                                                    "\"" + o.ItemName.ToString() + "\"" + "" + strSep +
+                                                                    "\"" + "N/D" + "\"" + "" + strSep +
+                                                                    "\"" + p.ItemName.ToString() + "\"" + "" + strSep +
+                                                                    "\"" + q.ItemName.ToString() + "\"" + "" + strSep +
+                                                                    "\"" + "N/D" + "\"";
+                                                                    data.AppendLine(respuestas);
+                                                                /*Obtengo la descripcion de la respuesta*/
+                                                                y.RelatedSurveyItem.Where(r => r.RelatedSurveyConfigItem.ItemId == p.ItemId).All(z => {
+
+                                                                    z.ItemInfo.All(m => {
+                                                                        if (m.ItemInfoType != null && m.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.DescriptionText)
+                                                                        {
+                                                                            /*obtengo la descripcion del area*/
+                                                                            detallerespuesta =
+                                                                                "\"" + x.RelatedSurveyConfig.ItemName.ToString() + "\"" + strSep +
+                                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                                "\"" + x.RelatedProvider.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Project).Select(a => a.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                                "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(b => b.Value).DefaultIfEmpty("").FirstOrDefault() + "\"" + "" + strSep +
+                                                                                "\"" + y.SurveyInfo.Where(b => b.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).Select(b => b.ValueName).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                                /*obtengo los evaluadores*/
+                                                                                "\"" + y.User.ToString() + "\"" + strSep +
+                                                                                "\"" + x.SurveyInfo.Where(a => a.ItemInfoType.ItemId == (int)enumSurveyInfoType.Rating).Select(a => a.Value).DefaultIfEmpty("").FirstOrDefault().ToString() + "\"" + "" + strSep +
+                                                                                "\"" + x.LastModify.ToString("dd/MM/yyyy") + "\"" + "" + strSep +
+                                                                                /*obtengo el area*/
+                                                                                "\"" + o.ItemName.ToString() + "\"" + "" + strSep +
+                                                                                "\"" + "N/D" + "\"" + "" + strSep +
+                                                                                "\"" + "N/D" + "\"" + "" + strSep +
+                                                                                "\"" + "N/D" + "\"" + "" + strSep +
+                                                                                "\"" + m.Value + "\"";
+                                                                            data.AppendLine(detallerespuesta);
+
+                                                                        }
+                                                                        return true;
+                                                                    });
+
+                                                                    return true;
+                                                                });
+                                                                }
+                                                            return true;
+                                                        });
+                                                    }
+                                                    return true;
+                                                });
+                                            }
+                                            return true;
+                                        });
                                     }
                                     return true;
                                 });
@@ -122,6 +268,8 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
                 
+
+
 
                 buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
                 return File(buffer, "application/csv", "InformacionGeneral_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
