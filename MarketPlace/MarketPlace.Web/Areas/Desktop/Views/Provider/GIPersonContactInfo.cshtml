@@ -33,110 +33,85 @@
                     <br />
                     <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-2 POMPProviderBoxInfo"><strong>Tipo de Contacto</strong></div>
-                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Tipo de Identificación</strong></div>
-                            <div class="col-sm-3 POMPProviderBoxInfo"><strong>Número de Identificación</strong></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Ciudad de Expedición del Documento</strong></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-2 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
-                                {
-                                    <span>@item.PC_RepresentantType</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-3 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
-                                {
+                            @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Tipo de Contacto</label>
+                                        <br />
+                                        <span>@item.PC_RepresentantType</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Tipo de Identificación</label>
+                                    <br />
                                     <span>@item.PC_IdentificationType</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-3 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
-                                {
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Número de Identificación</label>
+                                    <br />
                                     <span>@item.PC_IdentificationNumber</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
-                                {
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Ciudad de Expedición del Documento</label>
+                                    <br />
                                     <span>@item.PC_ExpeditionDocumentCity</span>
-                                }
-                                else
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Teléfono</label>
+                                        <br />
+                                        <span>@item.PC_TelephoneNumber</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.PC_Email))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                               
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Mail</label>
+                                        <br />
+                                        <span title="@item.PC_Email">@item.PC_Email</span>
+                                
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.PC_Negotiation))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        @if (item.PC_Negotiation.ToString().Trim().Length > 0)
+                                        {
+                                            <br />
+                                            <label class="POMPProviderBoxInfo">Capacidad de negociación</label>
+                                            <br />
+                                            <span>@item.PC_Negotiation</span>
+                                        }
+                                </div>
+                            }
+                            @{var UlrContent = item.PC_LegalFile;
+                                if (!string.IsNullOrEmpty(UlrContent))
                                 {
-                                <span>N/D</span>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-2 col-lg-2"><strong>Teléfono</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Mail</strong></div>
-                            <div class="col-sm-3 col-lg-3"><strong>Capacidad de negociación</strong></div>
-                            <div class="col-sm-4 col-lg-4"><strong>Archivo Representante Legal</strong></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-2 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
-                                {
-                                    <span>@item.PC_TelephoneNumber</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-3 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_Email))
-                                {
-                                    <span title="@item.PC_Email">@item.PC_Email</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-3 POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.PC_Negotiation))
-                                {
-                                    if (item.PC_Negotiation.ToString().Trim().Length > 0)
-                                    {
-                                    <span>@item.PC_Negotiation</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4 POMPProviderBoxInfo">
-                                @{var UlrContent = item.PC_LegalFile;
-                                    if (!string.IsNullOrEmpty(UlrContent))
-                                    {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Archivo Representante Legal</label>
+                                        <br />
                                         <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
+                                    </div>
                                 }
-                            </div>
+                            }
                         </div>
                         <br/>
                     </div>

@@ -32,96 +32,72 @@
                     <br/>
                     <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Representante Comercial</strong></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Correo Electrónico</strong></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Teléfono</strong></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.DT_Representative))
-                                {
-                                    <span>@item.DT_Representative</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.DT_Email))
-                                {
-                                    <span>@item.DT_Email</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.DT_Phone))
-                                {
-                                    <span>@item.DT_Phone</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>País</strong></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Ciudad</strong></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><strong>Fecha de Expedición</strong></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.DT_Country))
-                                {
-                                    <span>@item.DT_Country</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.DT_City))
-                                {
-                                    <span>@item.DT_City</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.DT_DateIssue))
-                                {
-                                    <span>@item.DT_DateIssue</span>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                           <div class="col-sm-4 POMPProviderBoxInfo"><strong>Documento de Soporte</strong></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-3  POMPProviderBoxInfo">
-                                @{var UlrContent = item.DT_DistributorFile;}
-                                @if (!string.IsNullOrEmpty(UlrContent))
-                                {
+                            @if (!string.IsNullOrEmpty(item.DT_Representative))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                               
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Representante Comercial</label>
+                                        <br />
+                                        <span>@item.DT_Representative</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.DT_Email))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Correo Electrónico</label>
+                                        <br />
+                                        <span>@item.DT_Email</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.DT_Phone))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                               
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Teléfono</label>
+                                        <br />
+                                        <span>@item.DT_Phone</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.DT_Country))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">País</label>
+                                        <br />
+                                        <span>@item.DT_Country</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.DT_City))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Ciudad</label>
+                                        <br />
+                                        <span>@item.DT_City</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.DT_DateIssue))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Fecha de Expedición</label>
+                                        <br />
+                                        <span>@item.DT_DateIssue</span>
+                                </div>
+                            }
+                            @{var UlrContent = item.DT_DistributorFile;}
+                            @if (!string.IsNullOrEmpty(UlrContent))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Documento de Soporte</label>
+                                    <br />
                                     <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
-                                }
-                                else
-                                {
-                                    <span>N/D</span>
-                                }
-                            </div>
+                                </div>
+                            }
                         </div>
                     </div>
                     <br/>

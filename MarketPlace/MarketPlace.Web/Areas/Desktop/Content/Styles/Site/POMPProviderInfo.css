@@ -172,14 +172,14 @@ ul.POMPProviderExperienceList{
             }
             /********** MUESTRA EL ICONO DE VER DOCUMENTO PDF *********/
             a.POMPProviderDocumetIcon {
-                display:block;
-                background-size:20px auto;
-                background-position:4px 4px;
-                background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/documentIconSmall.png');
-                background-repeat:no-repeat;
-                width:100%; height:35px;
-                margin:0px;
-                padding:2px 0px 0px 32px;
+                background-size: 14px auto;
+                background-position: 4px 4px;
+                background-image: url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/documentIconSmall.png');
+                background-repeat: no-repeat;
+                width: 100%;
+                height: 35px;
+                margin: 0px;
+                padding: 2px 0px 0px 32px;
             }
         .POMPProviderInfoMultipleValues li label > a{
             display: block;

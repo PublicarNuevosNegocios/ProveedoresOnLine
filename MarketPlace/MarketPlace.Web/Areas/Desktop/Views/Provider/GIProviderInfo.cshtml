@@ -37,140 +37,113 @@
                     </div>
                 </div>
             </div>
-            <br />
             @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
             {
                 <div class="container-fluid POMPProviderDetailContainer">
                     <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Representante Legal</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Registro Mercantil</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Dirección</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
-                            }
-                        </div>
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber) && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
-                            {
-                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
-                            }
-                        </div>
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
-                            }
-
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Ciudad</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>País</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Estado</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
+                        @if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Representante Legal</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                            </div>
+                        }
+                        @if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber) && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Registro Mercantil</label>
+                                <br />
+                                <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Dirección</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Ciudad</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()</span>
+                            </div>
+                        }
                         @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Country).FirstOrDefault()))
                         {
                             string tmpPais = Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Country).FirstOrDefault();
                             if (tmpPais != null)
                             {
                                 string[] pais_estado = tmpPais.Split(',');
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            <span>@pais_estado[1]</span>
-                        </div>
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">País</label>
+                                    <br />
+                                    <span>@pais_estado[1]</span>
+                                </div>
 
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            <span>@pais_estado[0]</span>
-                        </div>
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Estado</label>
+                                    <br />
+                                    <span>@pais_estado[0]</span>
+                                </div>
                             }
 
                         }
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Teléfono</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Fax</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Mail</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-xs-12 POMPProviderBoxInfo"><label>Página Web</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-xs-12 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
-                            {
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-xs-12 POMPProviderBoxInfo"><label>Objeto Social</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-xs-12 ">
-                            @if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
-                            {
-                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Teléfono</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Fax</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Mail</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
+                        {
+                            <div class="col-xs-12 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Página Web</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()</span>
+                            </div>
+                        }
+                        @if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                        {
+                            <div class="col-xs-12 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Objeto Social</label>
+                                <br />
+                                <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
+                            </div>
+                        }
                     </div>
                 </div>
             }
@@ -181,25 +154,26 @@
                 {
                     <br />
                     @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault().ToString()))
-                    {
-                        <div class="row POMPSectionTitlesBox">
-                            <div class="col-sm-6 text-left">
-                                <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                @if (Model.RelatedLiteProvider.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
-                                {
-                                    <p>No se encontraron coincidencias en listas restrictivas.</p>
-                                }
-                                else
-                                {
-                                    <p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
-                                }
+            if (!string.IsNullOrWhiteSpace(Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault().ToString()))
+            {
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-6 text-left">
+                        <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        @if (Model.RelatedLiteProvider.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+                        {
+                            <p>No se encontraron coincidencias en listas restrictivas.</p>
+                        }
+                        else
+                        {
+                            <p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
+                        }
 
-                            </div>
-                        </div>
-                    }
+                    </div>
+                </div>
+            }
+
             <br />
             @*AQUI ESTA EL AREA SEGUIMIENTOS*@
             if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
@@ -210,35 +184,33 @@
                             <label>Seguimientos</label>
                         </div>
                     </div>
+
+
                     <div class="row POMPBorderbottom">
-                        <div class="col-sm-6 POMPProviderBoxInfo">
+                        <div class="col-sm-6 POMPBorderbottom POMPProviderBoxInfo">
                             <label>Seguimiento</label>
                         </div>
                         <div class="col-sm-6 POMPProviderBoxInfo">
                             <label>Fecha</label>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
-                            {
-                            <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-6POMPProviderBoxInfo">
-                            @if (Model.RelatedTrackingInfo.FirstOrDefault().CreateDate != null)
-                            {
-                            <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
+                        @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
+                        {
+                            <div class="col-sm-6 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Objeto Social</label>
+                                <br />
+                                <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
+                            </div>
+                        }
+                        @if (Model.RelatedTrackingInfo.FirstOrDefault().CreateDate != null)
+                        {
+                            <div class="col-sm-6 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Objeto Social</label>
+                                <br />
+                                <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
+                            </div>
+                        }
                     </div>
                 </div>
             }
@@ -266,95 +238,81 @@
                         <br />
                         <div class="container-fluid POMPProviderDetailContainer">
                             <div class="row">
-                                <div class="col-sm-3 POMPProviderBoxInfo"><label>Total Activo</label></div>
-                                <div class="col-sm-3 POMPProviderBoxInfo"><label>Total Pasivo</label></div>
-                                <div class="col-sm-3 POMPProviderBoxInfo"><label>Total Patrimonio</label></div>
-                                <div class="col-sm-3 POMPProviderBoxInfo"><label>Ingresos Operacionales</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-3 POMPProviderBoxInfo">
-                                    @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                    <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-3 POMPProviderBoxInfo">
-                                    @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                    <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-3 POMPProviderBoxInfo">
-                                    @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                    <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-3 POMPProviderBoxInfo">
-                                    @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
+                                @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Total Activo</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
 
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                    <span>N/D</span>
-                                    }
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-sm-3 col-lg-3"><label>Utilidad Antes de Impuestos</label></div>
-                                <div class="col-sm-3 col-lg-3"><label>Capital de Trabajo</label></div>
-                                <div class="col-sm-3 col-lg-3"><label>Utilidad del Ejercicio</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-3 POMPProviderBoxInfo">
-                                    @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                    <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-3 POMPProviderBoxInfo">
+                                    </div>
+                                }
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Total Pasivo</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
+
+                                    </div>
+                                }
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Total Patrimonio</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
+
+                                    </div>
+                                }
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Ingresos Operacionales</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
+
+                                    </div>
+                                }
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Utilidad Antes de Impuestos</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
+                                    </div>
+                                }
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Capital de Trabajo</label>
+                                    <br />
                                     <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
                                 </div>
-                                <div class="col-sm-3 POMPProviderBoxInfo">
-                                    @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
-                                    {
-                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
-                                    }
-                                    else
-                                    {
-                                    <span>N/D</span>
-                                    }
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-xs-12"><label>Indice Altman</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-2 POMPProviderBoxInfo">
-                                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Utilidad del Ejercicio</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
+                                    </div>
+                                }
+                                <div class="col-xs-12">
                                     <br />
-                                    <span class="POMPResumeItem_Provider"><i>- 1.80 Muy alta</i><br /><i>- 1.81 a 2.7 Alta</i><br /><i>- 2.8 a 2.9 Posible</i><br /><i>- 3 o más No es probable la falta de liquidez</i></span>
+                                    <label class="POMPProviderBoxInfo">Indice Altman</label>
+                                    <br />
+                                    <div class="col-sm-2 POMPProviderBoxInfo">
+                                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
+                                        <br />
+                                        <span class="POMPResumeItem_Provider"><i>- 1.80 Muy alta</i><br /><i>- 1.81 a 2.7 Alta</i><br /><i>- 2.8 a 2.9 Posible</i><br /><i>- 3 o más No es probable la falta de liquidez</i></span>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     }
@@ -373,13 +331,13 @@
                             <div class="col-sm-3 text-right">
                                 <label class="POMPLinkDetail_Provider">
                                     <a href="@(Url.RouteUrl
-                                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                            new
-                                            {
-                                                controller = MVC.Provider.Name,
-                                                action = MVC.Provider.ActionNames.FIKContract,
-                                                ProviderPublicId = Request["ProviderPublicId"]
-                                            }))">Ver Detalle</a>
+                                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                    new
+                                                    {
+                                                        controller = MVC.Provider.Name,
+                                                        action = MVC.Provider.ActionNames.FIKContract,
+                                                        ProviderPublicId = Request["ProviderPublicId"]
+                                                    }))">Ver Detalle</a>
                                 </label>
                             </div>
                         </div>
@@ -442,106 +400,98 @@
                         <br />
                         <div class="container-fluid POMPProviderDetailContainer">
                             <div class="row">
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Empresa de Sistema de Riesgos</label></div>
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Certificado de gestión OHSAS 18001</label></div>
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Certificados de gestión ISO</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards))
-                                    {
-                                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-4 POMPProviderBoxInfo">
-                                    @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
-                                    {
-                                        if (Model.RelatedCertificationBasicInfo.Where(x => x.LargeValue == "1" && x.ItemInfoType.ItemId == 204).Count() > 0)
-                                        {
-                                            <span>Si</span>
-                                        }
-                                        else
-                                        {
-                                            <span>No</span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
-                                    {
-                                        if (Model.RelatedCertificationBasicInfo.Where(x => x.LargeValue == "1" && (x.ItemInfoType.ItemId == 170 || x.ItemInfoType.ItemId == 177)).Count() > 0)
-                                        {
-                                            <span>@Model.RelatedCertificationBasicInfo.Where(x => x.LargeValue == "1" && (x.ItemInfoType.ItemId == 170 || x.ItemInfoType.ItemId == 177)).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</span>
-                                        }
-                                        else
-                                        {
-                                            <span>N/D</span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Nivel de Riesgo ARL</label></div>
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Guia RUC-CCS</label></div>
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>LTIF</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
-                                    {
-                                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
-                                    {
-                                        if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
-                                        {
-                                            <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
-                                        }
-                                        else
-                                        {
-                                            <span>N/D</span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
-                                    {
-                                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
+                                @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                            <br />
+                                            <label class="POMPProviderBoxInfo">Empresa de Sistema de Riesgos</label>
+                                            <br />
+                                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
+                                    </div>
+                                }
+                                @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                            @if (Model.RelatedCertificationBasicInfo.Where(x => x.LargeValue == "1" && x.ItemInfoType.ItemId == 204).Count() > 0)
+                                            {
+                                                <br />
+                                                <label class="POMPProviderBoxInfo">Certificado de gestión OHSAS 18001</label>
+                                                <br />
+                                                <span>Si</span>
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                <label class="POMPProviderBoxInfo">Certificado de gestión OHSAS 18001</label>
+                                                <br />
+                                                <span>No</span>
+                                            }
+                                    </div>
+                                }
+                                @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    
+                                            @if (Model.RelatedCertificationBasicInfo.Where(x => x.LargeValue == "1" && (x.ItemInfoType.ItemId == 170 || x.ItemInfoType.ItemId == 177)).Count() > 0)
+                                            {
+                                                <br />
+                                                <label class="POMPProviderBoxInfo">Certificados de gestión ISO</label>
+                                                <br />
+                                                <span>@Model.RelatedCertificationBasicInfo.Where(x => x.LargeValue == "1" && (x.ItemInfoType.ItemId == 170 || x.ItemInfoType.ItemId == 177)).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</span>
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                <label class="POMPProviderBoxInfo">Certificados de gestión ISO</label>
+                                                <br />
+                                                <span>N/D</span>
+                                            }
 
-                                </div>
+                                    </div>
+                                }
+                                @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                            <br />
+                                            <label class="POMPProviderBoxInfo">Nivel de Riesgo ARL</label>
+                                            <br />
+                                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                                    </div>
+                                }
+                                @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    
+                                            @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
+                                            {
+                                                <br />
+                                                <label class="POMPProviderBoxInfo">Guia RUC-CCS</label>
+                                                <br />
+                                                <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                <label class="POMPProviderBoxInfo">Guia RUC-CCS</label>
+                                                <br />
+                                                <span>N/D</span>
+                                            }
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                            <br />
+                                            <label class="POMPProviderBoxInfo">LTIF</label>
+                                            <br />
+                                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
+                                    </div>
+                                }
                             </div>
                         </div>
-                            }
-                        }
                     }
+                }
+            }
             <br />
         </div>
     </div>
