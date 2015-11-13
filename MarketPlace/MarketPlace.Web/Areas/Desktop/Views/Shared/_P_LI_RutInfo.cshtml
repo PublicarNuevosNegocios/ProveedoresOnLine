@@ -23,171 +23,137 @@
                 <br />
                 <div class="container-fluid POMPProviderDetailContainer">
                     <div class="row">   
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Tipo de Persona</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Gran Contribuyente</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Resolución Gran Contribuyente</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_PersonType))
-                            {
-                                <span>@item.R_PersonType</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (item.R_LargeContributor == true)
-                            {
-                                <span>Si</span>
-                            }
-                            else
-                            {
-                                <span>No</span>
-                            }
-                        </div>
-                        <div class="col-sm-4 POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_LargeContributorReceipt))
-                            {
-                                <span>@item.R_LargeContributorReceipt</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Resolución Gran Contribuyente</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Autorretenedor</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Autorretendor Resolución</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  col-lg-4">
-                            @if (!string.IsNullOrEmpty(item.R_LargeContributorDate))
-                            {
-                                <span>@item.R_LargeContributorDate</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  col-lg-4">
+                        @if (!string.IsNullOrEmpty(item.R_PersonType))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Tipo de Persona</label>
+                                    <br />
+                                    <span>@item.R_PersonType</span>
+                            </div>
+                        }
+                        @if (item.R_LargeContributor == true)
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Gran Contribuyente</label>
+                                    <br />
+                                    <span>Si</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_LargeContributorReceipt))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Resolución Gran Contribuyente</label>
+                                    <br />
+                                    <span>@item.R_LargeContributorReceipt</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_LargeContributorDate))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  col-lg-4">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Fecha Resolución Gran Contribuyente</label>
+                                    <br />
+                                    <span>@item.R_LargeContributorDate</span>
+                            </div>
+                        }
+                        <div class="col-sm-4 POMPBorderbottom  col-lg-4">
                             @if (item.R_SelfRetainer == true)
                             {
+                                <br />
+                                <label class="POMPProviderBoxInfo">Autorretenedor</label>
+                                <br />
                                 <span>Si</span>
                             }
                             else
                             {
+                                <br />
+                                <label class="POMPProviderBoxInfo">Autorretenedor</label>
+                                <br />
                                 <span>No</span>
                             }
                         </div>
-                        <div class="col-sm-4  col-lg-4">
-                            @if (!string.IsNullOrEmpty(item.R_SelfRetainerReciept))
-                            {
-                                <span>@item.R_SelfRetainerReciept</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Autorretendor Fecha</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Tipo de Entidad</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Iva</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_SelfRetainerDate))
-                            {
-                                <span>@item.R_SelfRetainerDate</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_EntityType))
-                            {
-                                <span>@item.R_EntityType</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
+                        @if (!string.IsNullOrEmpty(item.R_SelfRetainerReciept))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  col-lg-4">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Autorretendor Resolución</label>
+                                    <br />
+                                    <span>@item.R_SelfRetainerReciept</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_SelfRetainerDate))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Autorretendor Fecha</label>
+                                    <br />
+                                    <span>@item.R_SelfRetainerDate</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_EntityType))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Tipo de Entidad</label>
+                                    <br />
+                                    <span>@item.R_EntityType</span>
+                            </div>
+                        }
+                        <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
                             @if (item.R_IVA == true)
                             {
+                                <br />
+                                <label class="POMPProviderBoxInfo">Iva</label>
+                                <br />
                                 <span>Si</span>
                             }
                             else
                             {
+                                <br />
+                                <label class="POMPProviderBoxInfo">Iva</label>
+                                <br />
                                 <span>No</span>
                             }
                         </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Tipo de Régimen</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo RUT</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Gran Contribuyente</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_TaxPayerType))
-                            {
-                                <span>@item.R_TaxPayerType</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_RUTFile))
-                            {
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_RUTFile">Ver Archivo RUT Anexo</a>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_LargeContributorFile))
-                            {
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_LargeContributorFile">Ver Archivo Gran Contribuyente Anexo</a>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Retenedor Propio</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.R_SelfRetainerFile))
-                            {
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_SelfRetainerFile">Ver Archivo Autorretendor Anexo</a>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
+                        @if (!string.IsNullOrEmpty(item.R_TaxPayerType))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Tipo de Régimen</label>
+                                    <br />
+                                    <span>@item.R_TaxPayerType</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_RUTFile))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Archivo RUT</label>
+                                    <br />
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_RUTFile">Ver Archivo RUT Anexo</a>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_LargeContributorFile))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Archivo Gran Contribuyente</label>
+                                    <br />
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_LargeContributorFile">Ver Archivo Gran Contribuyente Anexo</a>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.R_SelfRetainerFile))
+                        {
+                            <div class="col-sm-4 col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Archivo Retenedor Propio</label>
+                                    <br />
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_SelfRetainerFile">Ver Archivo Autorretendor Anexo</a>
+                            </div>
+                        }
                     </div>
                     <br />
                 </div>

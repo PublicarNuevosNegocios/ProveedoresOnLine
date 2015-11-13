@@ -29,89 +29,70 @@
             </div>
             <br />
             <div class="container-fluid POMPProviderDetailContainer">
-                <div class="row">
-                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Ciudad</strong></div>
-                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Fecha de Constitución</strong></div>
-                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Vigencia</strong></div>
-                </div>
-                <div class="row POMPBorderbottom">
-                    <div class="col-sm-4  POMPProviderBoxInfo">
-                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
-                        {
-                        <span>@CurrentLegalInfo.CP_InscriptionCity</span>
-                        }
-                        else
-                        {
-                        <span>N/D</span>
-                        }
-                    </div>
-                    <div class="col-sm-4  POMPProviderBoxInfo">
-                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
-                        {
-                        <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
-                        }
-                        else
-                        {
-                        <span>N/D</span>
-                        }
-                    </div>
-                    <div class="col-sm-4  POMPProviderBoxInfo">
-                        @if (CurrentLegalInfo.CP_UndefinedDate == "1")
-                        {
-                        <span>Vigente Hasta: Indefinido</span>
-                        }
-                        else if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionEndDate))
-                        {
-                        <span>Vigente Hasta: @CurrentLegalInfo.CP_ConstitutionEndDate</span>
-                        }
-                        else
-                        {
-                        <span>N/D</span>
-                        }
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Número de Matricula</strong></div>
-                    <div class="col-sm-4 POMPProviderBoxInfo"><strong>Certificado</strong></div>
-                </div>
-                <div class="row POMPBorderbottom">
-                    <div class="col-sm-4  POMPProviderBoxInfo">
-                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
-                        {
-                        <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
-                        }
-                        else
-                        {
-                        <span>N/D</span>
-                        }
-                    </div>
-                    <div class="col-sm-4  POMPProviderBoxInfo">
-                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
-                        {
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
-                        }
-                        else
-                        {
-                        <span>N/D</span>
-                        }
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm-12 POMPProviderBoxInfo"><strong>Objeto Social</strong></div>
-                </div>
-                <div class="row POMPBorderbottom">
-                    <div class="col-sm-12  POMPProviderBoxInfo">
-                        @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
-                        {
-                            <span>@CurrentLegalInfo.CP_SocialObject</span>
-                        }
-                        else
-                        {
-                            <span>N/D</span>
-                        }
-                    </div>
+                <div class="row ">
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
+                    { 
+                        <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Ciudad</label>
+                                <br />
+                                <span>@CurrentLegalInfo.CP_InscriptionCity</span>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
+                    {
+                        <div class="col-sm-4 POMPBorderbottom   POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Fecha de Constitución</label>
+                                <br />
+                                <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
+                        </div>
+                    }
+                    @if (CurrentLegalInfo.CP_UndefinedDate == "1")
+                    {
+                        <div class="col-sm-4 POMPBorderbottom   POMPProviderBoxInfo">
+                            <br />
+                            <label class="POMPProviderBoxInfo">Vigencia</label>
+                            <br />
+                            <span>Vigente Hasta: Indefinido</span>
+                        </div>
+                    }
+                    else if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionEndDate))
+                    {
+                        <div class="col-sm-4 POMPBorderbottom   POMPProviderBoxInfo">
+                            <br />
+                            <label class="POMPProviderBoxInfo">Vigencia</label>
+                            <br />
+                            <span>Vigente Hasta: @CurrentLegalInfo.CP_ConstitutionEndDate</span>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
+                    {
+                        <div class="col-sm-4 POMPBorderbottom   POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Número de Matricula</label>
+                                <br />
+                                <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
+                    {
+                        <div class="col-sm-8 POMPBorderbottom   POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Certificado</label>
+                                <br />
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
+                    {
+                        <div class="col-sm-12 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Objeto Social</label>
+                                <br />
+                                <span>@CurrentLegalInfo.CP_SocialObject</span>
+                        </div>
+                    }
                 </div>
                 <br />
             </div>
