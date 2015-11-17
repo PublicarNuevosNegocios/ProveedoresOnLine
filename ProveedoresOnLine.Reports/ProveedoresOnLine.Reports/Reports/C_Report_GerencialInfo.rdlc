@@ -6,9 +6,8 @@
         <ReportItems>
           <Line Name="Line1">
             <Top>0.86cm</Top>
-            <Left>0.09462cm</Left>
             <Height>0cm</Height>
-            <Width>16cm</Width>
+            <Width>16.6cm</Width>
             <Style>
               <Border>
                 <Color>#f87b00</Color>
@@ -54,7 +53,7 @@
         <Top>1.40545cm</Top>
         <Left>0.00003cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.01353cm</Width>
+        <Width>16.6cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -80,9 +79,9 @@
         </Paragraphs>
         <rd:DefaultName>Representant</rd:DefaultName>
         <Top>6.59295cm</Top>
-        <Left>4.11699cm</Left>
+        <Left>4.32866cm</Left>
         <Height>0.6cm</Height>
-        <Width>6.61925cm</Width>
+        <Width>11.8679cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -113,9 +112,9 @@
         </Paragraphs>
         <rd:DefaultName>InscriptionNumber</rd:DefaultName>
         <Top>4.56392cm</Top>
-        <Left>10.8694cm</Left>
+        <Left>11.02864cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.91538cm</Width>
+        <Width>5.17126cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -148,7 +147,7 @@
         <Top>3.85809cm</Top>
         <Left>2.57544cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.51402cm</Width>
+        <Width>4.94171cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -181,7 +180,7 @@
         <Top>3.15225cm</Top>
         <Left>2.57539cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.51402cm</Width>
+        <Width>4.94171cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -214,7 +213,7 @@
         <Top>4.56392cm</Top>
         <Left>2.57539cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.51402cm</Width>
+        <Width>4.94171cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -245,9 +244,9 @@
         </Paragraphs>
         <rd:DefaultName>Fax</rd:DefaultName>
         <Top>2.44642cm</Top>
-        <Left>10.8694cm</Left>
+        <Left>11.02864cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.91538cm</Width>
+        <Width>5.17126cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -278,9 +277,9 @@
         </Paragraphs>
         <rd:DefaultName>WebSite</rd:DefaultName>
         <Top>3.85809cm</Top>
-        <Left>10.86945cm</Left>
+        <Left>11.02869cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.91538cm</Width>
+        <Width>5.17126cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -311,9 +310,9 @@
         </Paragraphs>
         <rd:DefaultName>Email</rd:DefaultName>
         <Top>3.15225cm</Top>
-        <Left>10.8694cm</Left>
+        <Left>11.02864cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.91538cm</Width>
+        <Width>5.17126cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -346,7 +345,7 @@
         <Top>9.01923cm</Top>
         <Left>0.40894cm</Left>
         <Height>0.81167cm</Height>
-        <Width>15.37584cm</Width>
+        <Width>15.79096cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -365,6 +364,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!TotalActive.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -379,7 +385,7 @@
         <Top>11.37486cm</Top>
         <Left>3.87107cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.30207cm</Width>
+        <Width>3.64603cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -398,6 +404,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!TotalPasive.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -412,7 +425,7 @@
         <Top>12.15125cm</Top>
         <Left>3.87107cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.30207cm</Width>
+        <Width>3.64603cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -431,6 +444,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!TotalPatrimony.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -445,7 +465,7 @@
         <Top>12.92764cm</Top>
         <Left>3.87107cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.30207cm</Width>
+        <Width>3.64603cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -464,6 +484,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!OperationIncome.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -478,7 +505,7 @@
         <Top>13.70403cm</Top>
         <Left>3.87107cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.30207cm</Width>
+        <Width>3.64603cm</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -497,6 +524,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!IncomeBeforeTaxes.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -511,7 +545,7 @@
         <Top>11.37486cm</Top>
         <Left>11.94154cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.84324cm</Width>
+        <Width>4.255cm</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
@@ -530,6 +564,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!JobCapital.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -544,7 +585,7 @@
         <Top>12.15125cm</Top>
         <Left>11.91508cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.86972cm</Width>
+        <Width>4.28148cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -574,10 +615,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Altman</rd:DefaultName>
-        <Top>7.36934cm</Top>
-        <Left>4.11699cm</Left>
+        <Top>7.40462cm</Top>
+        <Left>4.32866cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.30207cm</Width>
+        <Width>2.76075cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -596,6 +637,13 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>$</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
                 <Value>=Parameters!ExcerciseUtility.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
@@ -610,7 +658,7 @@
         <Top>12.92764cm</Top>
         <Left>11.91508cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.8697cm</Width>
+        <Width>4.28146cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -640,9 +688,9 @@
         </Paragraphs>
         <rd:DefaultName>SystemOccupationalHazards</rd:DefaultName>
         <Top>15.55528cm</Top>
-        <Left>7.61124cm</Left>
+        <Left>7.78578cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.42633cm</Width>
+        <Width>8.41076cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
@@ -722,16 +770,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.45911cm</Width>
+              <Width>3.56205cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.58598cm</Width>
+              <Width>2.68892cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.02952cm</Width>
+              <Width>4.13246cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.23098cm</Width>
+              <Width>5.33392cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -968,6 +1016,13 @@
                                 <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
+                            <TextRun>
+                              <Value> (S.M.M.L.V)</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
                           </TextRuns>
                           <Style>
                             <TextAlign>Center</TextAlign>
@@ -997,7 +1052,21 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
+                              <Value>$</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                            <TextRun>
                               <Value>=Fields!Builder.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                            <TextRun>
+                              <Value> (USD)</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -1049,7 +1118,7 @@
         <Top>18.48937cm</Top>
         <Left>0.47919cm</Left>
         <Height>1.2cm</Height>
-        <Width>15.30559cm</Width>
+        <Width>15.71735cm</Width>
         <ZIndex>21</ZIndex>
         <Style>
           <Border>
@@ -1079,7 +1148,7 @@
         <Top>6.59295cm</Top>
         <Left>0.40894cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.44522cm</Width>
+        <Width>3.68371cm</Width>
         <ZIndex>22</ZIndex>
         <Style>
           <Border>
@@ -1110,7 +1179,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>4.56392cm</Top>
-        <Left>7.61124cm</Left>
+        <Left>7.90974cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>23</ZIndex>
@@ -1242,7 +1311,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>2.44642cm</Top>
-        <Left>7.61124cm</Left>
+        <Left>7.90974cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>27</ZIndex>
@@ -1275,7 +1344,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.15225cm</Top>
-        <Left>7.61124cm</Left>
+        <Left>7.90974cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>28</ZIndex>
@@ -1308,7 +1377,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.85809cm</Top>
-        <Left>7.61129cm</Left>
+        <Left>7.90979cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>29</ZIndex>
@@ -1428,7 +1497,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Ingresos Opeacionales:</Value>
+                <Value>Ingresos Operacionales:</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1472,10 +1541,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>11.40132cm</Top>
-        <Left>7.61124cm</Left>
+        <Top>11.37486cm</Top>
+        <Left>7.78583cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.1249cm</Width>
+        <Width>3.95031cm</Width>
         <ZIndex>34</ZIndex>
         <Style>
           <Border>
@@ -1505,10 +1574,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>12.17771cm</Top>
-        <Left>7.61124cm</Left>
+        <Top>12.15125cm</Top>
+        <Left>7.78578cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.1249cm</Width>
+        <Width>3.95036cm</Width>
         <ZIndex>35</ZIndex>
         <Style>
           <Border>
@@ -1538,10 +1607,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>7.36934cm</Top>
+        <Top>7.40462cm</Top>
         <Left>0.40902cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.44514cm</Width>
+        <Width>3.68363cm</Width>
         <ZIndex>36</ZIndex>
         <Style>
           <Border>
@@ -1571,10 +1640,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>12.9541cm</Top>
-        <Left>7.61124cm</Left>
+        <Top>12.92764cm</Top>
+        <Left>7.78578cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.1249cm</Width>
+        <Width>3.95036cm</Width>
         <ZIndex>37</ZIndex>
         <Style>
           <Border>
@@ -1604,9 +1673,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>15.55528cm</Top>
-        <Left>0.47922cm</Left>
+        <Left>0.40894cm</Left>
         <Height>0.6cm</Height>
-        <Width>6.61019cm</Width>
+        <Width>7.10816cm</Width>
         <ZIndex>38</ZIndex>
         <Style>
           <Border>
@@ -1668,9 +1737,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>16.36695cm</Top>
-        <Left>7.61129cm</Left>
+        <Left>7.78583cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.12485cm</Width>
+        <Width>3.95031cm</Width>
         <ZIndex>40</ZIndex>
         <Style>
           <Border>
@@ -1736,7 +1805,7 @@
         <Top>2.44642cm</Top>
         <Left>2.57539cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.51402cm</Width>
+        <Width>4.94176cm</Width>
         <ZIndex>42</ZIndex>
         <Style>
           <Border>
@@ -1768,9 +1837,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>0.17cm</Top>
-        <Left>0.09465cm</Left>
+        <Left>0.40894cm</Left>
         <Height>1cm</Height>
-        <Width>16cm</Width>
+        <Width>15.79109cm</Width>
         <ZIndex>43</ZIndex>
         <Style>
           <Border>
@@ -1787,9 +1856,8 @@
         <ReportItems>
           <Line Name="Line2">
             <Top>0.86cm</Top>
-            <Left>0.10815cm</Left>
             <Height>0cm</Height>
-            <Width>16cm</Width>
+            <Width>16.6cm</Width>
             <Style>
               <Border>
                 <Color>#f87b00</Color>
@@ -1816,7 +1884,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>0.12347cm</Top>
-            <Left>0.40891cm</Left>
+            <Left>0.40894cm</Left>
             <Height>0.6cm</Height>
             <Width>4.27876cm</Width>
             <ZIndex>1</ZIndex>
@@ -1833,9 +1901,8 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>5.55198cm</Top>
-        <Left>0.00003cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.02706cm</Width>
+        <Width>16.6cm</Width>
         <ZIndex>44</ZIndex>
         <Style>
           <Border>
@@ -1848,9 +1915,8 @@
         <ReportItems>
           <Line Name="Line5">
             <Top>0.86cm</Top>
-            <Left>0.10818cm</Left>
             <Height>0cm</Height>
-            <Width>16cm</Width>
+            <Width>16.6cm</Width>
             <Style>
               <Border>
                 <Color>#f87b00</Color>
@@ -1933,7 +1999,7 @@
         <Top>10.33389cm</Top>
         <Left>0.00003cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.01353cm</Width>
+        <Width>16.6cm</Width>
         <ZIndex>45</ZIndex>
         <Style>
           <Border>
@@ -1946,9 +2012,8 @@
         <ReportItems>
           <Line Name="Line3">
             <Top>0.86cm</Top>
-            <Left>0.10818cm</Left>
             <Height>0cm</Height>
-            <Width>16cm</Width>
+            <Width>16.6cm</Width>
             <Style>
               <Border>
                 <Color>#f87b00</Color>
@@ -1994,7 +2059,7 @@
         <Top>14.55417cm</Top>
         <Left>0.00003cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.01353cm</Width>
+        <Width>16.6cm</Width>
         <ZIndex>46</ZIndex>
         <Style>
           <Border>
@@ -2089,9 +2154,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox35</rd:DefaultName>
         <Top>7.36934cm</Top>
-        <Left>7.78917cm</Left>
+        <Left>7.61124cm</Left>
         <Height>1.47351cm</Height>
-        <Width>6.8649cm</Width>
+        <Width>8.58532cm</Width>
         <ZIndex>47</ZIndex>
         <Style>
           <Border>
@@ -2107,9 +2172,8 @@
         <ReportItems>
           <Line Name="Line4">
             <Top>0.86cm</Top>
-            <Left>0.10818cm</Left>
             <Height>0cm</Height>
-            <Width>16cm</Width>
+            <Width>16.6cm</Width>
             <Style>
               <Border>
                 <Color>#f87b00</Color>
@@ -2154,7 +2218,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>17.27302cm</Top>
         <Height>0.86458cm</Height>
-        <Width>16.10818cm</Width>
+        <Width>16.6cm</Width>
         <ZIndex>48</ZIndex>
         <Style>
           <Border>
@@ -2163,11 +2227,660 @@
           <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
+      <Rectangle Name="Rectangle9">
+        <ReportItems>
+          <Line Name="Line6">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox36">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Listas Restrictivas</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.55278cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27876cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>20.08201cm</Top>
+        <Height>0.86458cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>49</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Textbox Name="Textbox17">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Última Validación:</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox17</rd:DefaultName>
+        <Top>21.37905cm</Top>
+        <Left>0.47919cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.21543cm</Width>
+        <ZIndex>50</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="LastUpdate">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!LastUpdate.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>LastUpdate</rd:DefaultName>
+        <Top>21.37905cm</Top>
+        <Left>3.87107cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.30207cm</Width>
+        <ZIndex>51</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox37">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Resultado:</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox17</rd:DefaultName>
+        <Top>21.37905cm</Top>
+        <Left>7.61124cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.35771cm</Width>
+        <ZIndex>52</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Alert">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!Alert.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Alert</rd:DefaultName>
+        <Top>21.37905cm</Top>
+        <Left>10.14534cm</Left>
+        <Height>0.6cm</Height>
+        <Width>6.0512cm</Width>
+        <ZIndex>53</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Rectangle Name="Rectangle10">
+        <ReportItems>
+          <Line Name="Line7">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox38">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Personas de Contacto</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.4882cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27876cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>22.58192cm</Top>
+        <Height>0.86458cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>54</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Tablix Name="Tablix2">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>2.96147cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>4.66593cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>3.92932cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>4.15162cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox39">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Tipo de Contacto</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox39</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox41">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Nombre</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox41</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox43">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Teléfono</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox43</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox45">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Correo</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox45</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ContactType">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ContactType.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ContactType</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ContactName">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ContactName.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ContactName</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ContactPhone">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ContactPhone.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ContactPhone</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ContactMail">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ContactMail.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ContactMail</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Details1" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>DS_GerencialReport_Contact</DataSetName>
+        <Top>23.80382cm</Top>
+        <Left>0.4882cm</Left>
+        <Height>1.2cm</Height>
+        <Width>15.70834cm</Width>
+        <ZIndex>55</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <FontFamily>Segoe UI Light</FontFamily>
+          <FontSize>9pt</FontSize>
+        </Style>
+      </Tablix>
+      <Textbox Name="Textbox47">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Cantidad de experiencias:</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox47</rd:DefaultName>
+        <Top>8.24284cm</Top>
+        <Left>0.40894cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.68371cm</Width>
+        <ZIndex>56</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="TotalExperiences">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!TotalExperiences.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>TotalExperiences</rd:DefaultName>
+        <Top>8.24284cm</Top>
+        <Left>4.32866cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.76075cm</Width>
+        <ZIndex>57</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>7.89952in</Height>
+    <Height>9.98481in</Height>
     <Style />
   </Body>
-  <Width>6.39975in</Width>
+  <Width>6.55293in</Width>
   <Page>
     <PageHeader>
       <Height>1.5cm</Height>
@@ -2195,9 +2908,9 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Left>3.69465cm</Left>
+          <Left>3.6cm</Left>
           <Height>1.4cm</Height>
-          <Width>12.5cm</Width>
+          <Width>13.00003cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -2214,7 +2927,6 @@
           <Source>External</Source>
           <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>Fit</Sizing>
-          <Left>0.09465cm</Left>
           <Height>1.4cm</Height>
           <Width>3.6cm</Width>
           <ZIndex>1</ZIndex>
@@ -2299,6 +3011,13 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       </ConnectionProperties>
       <rd:DataSourceID>7131a65a-32a1-4870-85d2-8e8fdcf7cdaf</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="DS_GerencialReport_Contact">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>d846604f-fdbb-4f12-aa7f-b3519ea9c2b0</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DS_GerencialReport">
@@ -2328,6 +3047,38 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
         <rd:DataSetName>DS_GerencialReport</rd:DataSetName>
         <rd:SchemaPath>C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports.Test\Reports\DataSet\DS_GerencialReport.xsd</rd:SchemaPath>
         <rd:TableName>DT_GerencialReport</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_GerencialReport_Contact">
+      <Query>
+        <DataSourceName>DS_GerencialReport_Contact</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="ContactType">
+          <DataField>ContactType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName">
+          <DataField>ContactName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactPhone">
+          <DataField>ContactPhone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactMail">
+          <DataField>ContactMail</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DS_GerencialReport_Contact</rd:DataSetName>
+        <rd:SchemaPath>E:\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_GerencialReport_Contact.xsd</rd:SchemaPath>
+        <rd:TableName>ContactInfo</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -2444,6 +3195,18 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="BalanceYear">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LastUpdate">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Alert">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TotalExperiences">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

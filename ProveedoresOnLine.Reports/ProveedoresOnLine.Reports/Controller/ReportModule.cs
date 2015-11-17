@@ -125,7 +125,7 @@ namespace ProveedoresOnLine.Reports.Controller
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyEvaluatorDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
-        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
+        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data,  DataTable data2, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
@@ -137,6 +137,12 @@ namespace ProveedoresOnLine.Reports.Controller
             source.Value = data != null ? data : new DataTable();
             localReport.DataSources.Add(source);
 
+
+            ReportDataSource source2 = new ReportDataSource();
+            source2.Name = "DS_GerencialReport_Contact";
+            source2.Value = data2 != null ? data2 : new DataTable();
+            localReport.DataSources.Add(source2);
+
             string mimeType;
             string encoding;
             string fileNameExtension;
@@ -146,8 +152,8 @@ namespace ProveedoresOnLine.Reports.Controller
                        "  <PageWidth>8.5in</PageWidth>" +
                        "  <PageHeight>11in</PageHeight>" +
                        "  <MarginTop>0.5in</MarginTop>" +
-                       "  <MarginLeft>0.5in</MarginLeft>" +
-                       "  <MarginRight>0.5in</MarginRight>" +
+                       "  <MarginLeft>0.8in</MarginLeft>" +
+                       "  <MarginRight>0.8in</MarginRight>" +
                        "  <MarginBottom>0.5in</MarginBottom>" +
                        "</DeviceInfo>";
             Warning[] warnings;
