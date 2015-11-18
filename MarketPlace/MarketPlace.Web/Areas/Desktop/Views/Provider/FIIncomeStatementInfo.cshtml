@@ -33,68 +33,51 @@
                     <br />
                     <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Ingresos Brutos</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Ingresos Netos</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Patrimonio Bruto</label></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
-                                {
-                                <span>@item.IS_GrossIncome</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IS_NetIncome))
-                                {
-                                <span>@item.IS_NetIncome</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
-                                {
-                                <span>@item.IS_GrossEstate</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Patrimonio Líquido</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Declaración de Renta</label></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
-                                {
-                                <span>@item.IS_LiquidHeritage</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
-                                {
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
+                            @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Ingresos Brutos</label>
+                                        <br />
+                                        <span>@item.IS_GrossIncome</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IS_NetIncome))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Ingresos Netos</label>
+                                        <br />
+                                    <span>@item.IS_NetIncome</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Patrimonio Bruto</label>
+                                    <br />
+                                    <span>@item.IS_GrossEstate</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Patrimonio Líquido</label>
+                                    <br />
+                                    <span>@item.IS_LiquidHeritage</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Archivo Declaración de Renta</label>
+                                        <br />
+                                        <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
+                                </div>
+                            }
                         </div>
                         <br />
                     </div>

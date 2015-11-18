@@ -23,30 +23,24 @@
                 <br />
                 <div class="container-fluid POMPProviderDetailContainer">
                     <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Tipo de Persona</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Anexo</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.SF_PersonType))
-                            {
-                                <span>@item.SF_PersonType</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.SF_SARLAFTFile))
-                            {
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
+                        @if (!string.IsNullOrEmpty(item.SF_PersonType))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Tipo de Persona</label>
+                                    <br />
+                                    <span>@item.SF_PersonType</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.SF_SARLAFTFile))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Archivo Anexo</label>
+                                    <br />
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
+                            </div>
+                        }
                     </div>
                     <br/>
                 </div>

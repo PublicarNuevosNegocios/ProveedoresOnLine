@@ -31,109 +31,83 @@
                     </div>
                     <br />
                     <div class="container-fluid POMPProviderDetailContainer">
-                        <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Tipo de Cuenta</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Número de Cuenta</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Titular de la Cuenta</label></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_AccountType))
-                                {
-                                    <span>@item.IB_AccountType</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
-                                {
-                                    <span>@item.IB_AccountNumber</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_AccountHolder))
-                                {
-                                    <span>@item.IB_AccountHolder</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>ABA</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>SWIFT</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>IBAN</label></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_ABA))
-                                {
-                                    <span>@item.IB_ABA</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_Swift))
-                                {
-                                    <span>@item.IB_Swift</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_IBAN))
-                                {
-                                    <span>@item.IB_IBAN</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Comprador</label></div>
-                            <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo de Cuenta</label></div>
-                        </div>
-                        <div class="row POMPBorderbottom">
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_Customer))
-                                {
-                                    <span>@item.IB_Customer</span>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                            <div class="col-sm-4  POMPProviderBoxInfo">
-                                @if (!string.IsNullOrEmpty(item.IB_AccountFile))
-                                {
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
-                                }
-                                else
-                                {
-                                <span>N/D</span>
-                                }
-                            </div>
-                        </div>
 
+                        <div class="row">
+                            @if (!string.IsNullOrEmpty(item.IB_AccountType))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Tipo de Cuenta</label>
+                                    <br />
+                                    <span>@item.IB_AccountType</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Número de Cuenta</label>
+                                    <br />
+                                    <span>@item.IB_AccountNumber</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IB_AccountHolder))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Titular de la Cuenta</label>
+                                    <br />
+                                    <span>@item.IB_AccountHolder</span>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(item.IB_ABA))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">ABA</label>
+                                        <br />
+                                        <span>@item.IB_ABA</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IB_Swift))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">SWIFT</label>
+                                    <br />
+                                    <span>@item.IB_Swift</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IB_IBAN))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">IBAN</label>
+                                    <br />
+                                    <span>@item.IB_IBAN</span>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(item.IB_Customer))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Comprador</label>
+                                    <br />
+                                    <span>@item.IB_Customer</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(item.IB_AccountFile))
+                            {
+                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Archivo de Cuenta</label>
+                                    <br />
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
+                                </div>
+                            }
+                        </div>
                     </div>
                     <br />
                 }
