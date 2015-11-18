@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_GerencialReport_Contact" targetNamespace="http://tempuri.org/DS_GerencialReport_Contact.xsd" xmlns:mstns="http://tempuri.org/DS_GerencialReport_Contact.xsd" xmlns="http://tempuri.org/DS_GerencialReport_Contact.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_GerencialReport_Contact" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_GerencialReport_Contact" msprop:Generator_UserDSName="DS_GerencialReport_Contact">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ContactInfo" msprop:Generator_TableClassName="ContactInfoDataTable" msprop:Generator_TableVarName="tableContactInfo" msprop:Generator_TablePropName="ContactInfo" msprop:Generator_RowDeletingName="ContactInfoRowDeleting" msprop:Generator_RowChangingName="ContactInfoRowChanging" msprop:Generator_RowEvHandlerName="ContactInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="ContactInfoRowDeleted" msprop:Generator_UserTableName="ContactInfo" msprop:Generator_RowChangedName="ContactInfoRowChanged" msprop:Generator_RowEvArgName="ContactInfoRowChangeEvent" msprop:Generator_RowClassName="ContactInfoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ContactType" msprop:Generator_ColumnVarNameInTable="columnContactType" msprop:Generator_ColumnPropNameInRow="ContactType" msprop:Generator_ColumnPropNameInTable="ContactTypeColumn" msprop:Generator_UserColumnName="ContactType" type="xs:string" minOccurs="0" />
+              <xs:element name="ContactName" msprop:Generator_ColumnVarNameInTable="columnContactName" msprop:Generator_ColumnPropNameInRow="ContactName" msprop:Generator_ColumnPropNameInTable="ContactNameColumn" msprop:Generator_UserColumnName="ContactName" type="xs:string" minOccurs="0" />
+              <xs:element name="ContactPhone" msprop:Generator_ColumnVarNameInTable="columnContactPhone" msprop:Generator_ColumnPropNameInRow="ContactPhone" msprop:Generator_ColumnPropNameInTable="ContactPhoneColumn" msprop:Generator_UserColumnName="ContactPhone" type="xs:string" minOccurs="0" />
+              <xs:element name="ContactMail" msprop:Generator_ColumnVarNameInTable="columnContactMail" msprop:Generator_ColumnPropNameInRow="ContactMail" msprop:Generator_ColumnPropNameInTable="ContactMailColumn" msprop:Generator_UserColumnName="ContactMail" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

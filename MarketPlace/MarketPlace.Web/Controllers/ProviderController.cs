@@ -2168,6 +2168,29 @@ namespace MarketPlace.Web.Controllers
             {
                 parameters.Add(new ReportParameter("Alert", "Se encontraron coincidencias en listas restrictivas."));
             }
+
+            //oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId);
+
+            //DataTable data3 = new DataTable();
+            //data3.Columns.Add("PersonName");
+            //data3.Columns.Add("PersonCargo");
+            //data3.Columns.Add("PersonLista");
+            //data3.Columns.Add("PersonDelito");
+            //data3.Columns.Add("PersonState");
+
+            //DataRow row3;
+            //foreach (var item in oModel.RelatedBlackListInfo.Where(x => x != null))
+            //{
+            //    row3 = data3.NewRow();
+
+                //row3["PersonName"] = item.;
+                //row3["PersonCargo"] = item.PC_ContactName;
+                //row3["PersonLista"] = item.PC_TelephoneNumber;
+                //row3["PersonDelito"] = item.PC_Email;
+                //row3["PersonState"] = item.PC_Email;
+
+            //    data3.Rows.Add(row3);
+            //}
             #endregion Conocimiento de Terceros
 
             #region Personas de Contacto
