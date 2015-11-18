@@ -391,5 +391,14 @@ namespace ProveedoresOnLine.Reports.Controller
 
         }
         #endregion
+
+        #region CustomerProviderReport
+
+        public static List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel> R_ProviderCustomerReport(string CustomerPublicId)
+        {
+            return ProveedoresOnLine.Reports.DAL.Controller.ReportsDataController.Instance.R_ProviderCustomerReport(CustomerPublicId);
+        }
+
+        #endregion
     }
 }

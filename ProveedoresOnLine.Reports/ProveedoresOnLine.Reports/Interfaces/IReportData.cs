@@ -60,6 +60,12 @@ namespace ProveedoresOnLine.Reports.Interfaces
 
         #endregion
 
+        #region CustomerProviderReport
+
+        List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel> R_ProviderCustomerReport(string CustomerPublicId);
+
+        #endregion
+
         #endregion
     }
 }

@@ -56,10 +56,10 @@ namespace ProveedoresOnLine.Reports.Test
 
             DataTable data = new DataTable();
 
-            Tuple<byte[], string, string> report = 
-                ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport("PDF", 
-                                                                                     data, 
-                                                                                     parameters, 
+            Tuple<byte[], string, string> report =
+                ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport("PDF",
+                                                                                     data,
+                                                                                     parameters,
                                                                                      "C:\\Publicar Software\\ProveedoresOnLine\\ProveedoresOnLine.Reports\\ProveedoresOnLine.Reports.Test\\Reports\\C_Report_GerencialInfo.rdlc");
             parameters = null;
         }
@@ -109,11 +109,25 @@ namespace ProveedoresOnLine.Reports.Test
             rowProvider["financiera"] = "3 % no pasa Aprobado";
             rowProvider["legal"] = "pasa Aprobado";
             rowProvider["estado"] = "Ajudicado";
-            
+
             dtProvidersProject.Rows.Add(rowProvider);
 
             Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_SelectionProcessReport(dtProvidersProject, parameters, "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\");
         }
+        #endregion
+
+        #region CustomerProviderReport
+
+        [TestMethod]
+        public void CustomerProviderReport()
+        {
+            List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel> oReturn = new List<Models.Reports.CustomerProviderReportModel>();
+
+            oReturn = ProveedoresOnLine.Reports.Controller.ReportModule.R_ProviderCustomerReport("205974DF");
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
         #endregion
     }
 }

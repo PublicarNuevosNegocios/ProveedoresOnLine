@@ -881,7 +881,35 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
         #endregion
 
         #region SelectionProcess Report
-  
+
+        #endregion
+
+        #region Provider Customer Report
+
+        public List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel> R_ProviderCustomerReport(string CustomerPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "R_ProviderByCustomer",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel> oReturn = new List<Models.Reports.CustomerProviderReportModel>();
+
+            if (response != null && response.DataTableResult.Rows.Count > 0)
+            {
+
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
     }

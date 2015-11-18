@@ -92,6 +92,7 @@
     <Compile Include="Interfaces\IReportData.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\Reports\CustomerProviderReportModel.cs" />
     <Compile Include="Models\Reports\ReportsModel.cs" />
     <Compile Include="Models\Util\InternalSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
