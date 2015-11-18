@@ -2149,6 +2149,101 @@ namespace MarketPlace.Web.Controllers
 
             #endregion HSEQ Info
 
+            #region Conocimiento de Terceros
+            if(string.IsNullOrEmpty(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()))
+            {
+                 parameters.Add(new ReportParameter("LastUpdate", "2015-01-01 12:00:00"));
+            }
+            else
+            {
+                parameters.Add(new ReportParameter("LastUpdate", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+            }
+           
+
+            if(oModel.RelatedLiteProvider.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+            {
+                parameters.Add(new ReportParameter("Alert", "No se encontraron coincidencias en listas restrictivas."));
+            }
+            else
+            {
+                parameters.Add(new ReportParameter("Alert", "Se encontraron coincidencias en listas restrictivas."));
+            }
+
+            //oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId);
+
+            //DataTable data3 = new DataTable();
+            //data3.Columns.Add("PersonName");
+            //data3.Columns.Add("PersonCargo");
+            //data3.Columns.Add("PersonLista");
+            //data3.Columns.Add("PersonDelito");
+            //data3.Columns.Add("PersonState");
+
+            //DataRow row3;
+            //foreach (var item in oModel.RelatedBlackListInfo.Where(x => x != null))
+            //{
+            //    row3 = data3.NewRow();
+
+                //row3["PersonName"] = item.;
+                //row3["PersonCargo"] = item.PC_ContactName;
+                //row3["PersonLista"] = item.PC_TelephoneNumber;
+                //row3["PersonDelito"] = item.PC_Email;
+                //row3["PersonState"] = item.PC_Email;
+
+            //    data3.Rows.Add(row3);
+            //}
+            #endregion Conocimiento de Terceros
+
+            #region Personas de Contacto
+
+            oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId , (int)enumContactType.PersonContact);
+            oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
+
+            if (oModel.ContactCompanyInfo != null)
+            {
+                oModel.ContactCompanyInfo.All(x =>
+                {
+                    oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
+                    return true;
+                });
+            }
+
+            DataTable data2 = new DataTable();
+            data2.Columns.Add("ContactType");
+            data2.Columns.Add("ContactName");
+            data2.Columns.Add("ContactPhone");
+            data2.Columns.Add("ContactMail");
+
+            DataRow row2;
+            foreach (var item in oModel.RelatedGeneralInfo.Where(x => x != null))
+            {
+                row2 = data2.NewRow();
+
+                row2["ContactType"] = item.PC_RepresentantType;
+                row2["ContactName"] = item.PC_ContactName;
+                row2["ContactPhone"] = item.PC_TelephoneNumber;
+                row2["ContactMail"] = item.PC_Email;
+
+                data2.Rows.Add(row2);
+            }
+
+            #endregion Personas de Contacto
+
+            #region ComercialExperience
+
+            oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo
+                (oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                (int)enumCommercialType.Experience,
+                SessionModel.CurrentCompany.CompanyPublicId);
+
+            if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial != null)
+            {
+                parameters.Add(new ReportParameter("TotalExperiences", oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.Count.ToString()));
+            }
+                       
+            #endregion ComercialExperience
+
+            #region Kcontratación
             DataTable data = new DataTable();
             data.Columns.Add("EvaluationCriteria");
             data.Columns.Add("Provider");
@@ -2167,12 +2262,15 @@ namespace MarketPlace.Web.Controllers
 
                 data.Rows.Add(row);
             }
+            #endregion Kcontratación
+   
 
             #endregion Set Parameters
 
             Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
                                                             enumCategoryInfoType.PDF.ToString(),
                                                             data,
+                                                            data2,
                                                             parameters,
                                                             Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "C_Report_GerencialInfo.rdlc");
 

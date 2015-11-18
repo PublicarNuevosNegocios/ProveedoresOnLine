@@ -109,6 +109,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.cs">
+      <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.cs">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
     </Compile>
@@ -162,6 +170,17 @@
     </None>
     <None Include="Reports\DataSet\DS_GerencialReport.xss">
       <DependentUpon>DS_GerencialReport.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_Contact.xsc">
+      <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_Contact.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_GerencialReport_Contact.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_Contact.xss">
+      <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
     </None>
     <None Include="Reports\DataSet\DS_SelectionProcessReport.xsc">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>

@@ -55,11 +55,13 @@ namespace ProveedoresOnLine.Reports.Test
             parameters.Add(new ReportParameter("CustomerName", "Representante de prueba"));
 
             DataTable data = new DataTable();
+            DataTable data2 = new DataTable();
 
-            Tuple<byte[], string, string> report =
-                ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport("PDF",
-                                                                                     data,
-                                                                                     parameters,
+            Tuple<byte[], string, string> report = 
+                ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport("PDF", 
+                                                                                     data, 
+                                                                                     data2,
+                                                                                     parameters, 
                                                                                      "C:\\Publicar Software\\ProveedoresOnLine\\ProveedoresOnLine.Reports\\ProveedoresOnLine.Reports.Test\\Reports\\C_Report_GerencialInfo.rdlc");
             parameters = null;
         }
@@ -109,7 +111,7 @@ namespace ProveedoresOnLine.Reports.Test
             rowProvider["financiera"] = "3 % no pasa Aprobado";
             rowProvider["legal"] = "pasa Aprobado";
             rowProvider["estado"] = "Ajudicado";
-
+            
             dtProvidersProject.Rows.Add(rowProvider);
 
             Tuple<byte[], string, string> report = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_SelectionProcessReport(dtProvidersProject, parameters, "PDF", @"C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\");

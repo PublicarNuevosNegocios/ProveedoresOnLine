@@ -1,4 +1,16 @@
 
+.POMPPoweredby {
+    width: 79% !important;
+    color: #727276;
+    position: absolute;
+    bottom: -30px;
+    left: 268px;
+}
+.POMPPoweredby-font {
+    font-family:Verdana !important; 
+    font-size:10px !important; 
+    font-weight:normal !important;
+}
 .POMPSearchContainer {
     width: 100%;
     height: auto;
@@ -335,6 +347,7 @@
     width: 98%;
     margin-top: 8px;
     margin-left: 13px;
+    /*min-height:640px*/
 }
 .POMPButtonDownloadReport_TK {
     margin: 5px -9px 0px 0px;

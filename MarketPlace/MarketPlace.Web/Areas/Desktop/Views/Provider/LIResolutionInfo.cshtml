@@ -35,58 +35,44 @@
                         </div>
                         <br />
                         <div class="container-fluid POMPProviderDetailContainer">
+
                             <div class="row">
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Inicial</label></div>
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha Final</label></div>
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Alcance</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (!string.IsNullOrEmpty(item.RS_StartDate))
-                                    {
+                                @if (!string.IsNullOrEmpty(item.RS_StartDate))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Fecha Inicial</label>
+                                        <br />
                                         <span>@item.RS_StartDate</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (!string.IsNullOrEmpty(item.RS_EndDate))
-                                    {
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(item.RS_EndDate))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Fecha Final</label>
+                                        <br />
                                         <span>@item.RS_EndDate</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (!string.IsNullOrEmpty(item.RS_Description))
-                                    {
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(item.RS_Description))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Alcance</label>
+                                        <br />
                                         <span>@item.RS_Description</span>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo Anexo</label></div>
-                            </div>
-                            <div class="row POMPBorderbottom">
-                                <div class="col-sm-4  POMPProviderBoxInfo">
-                                    @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
-                                    {
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">Archivo Anexo</label>
+                                        <br />
                                         <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
-                                    }
-                                    else
-                                    {
-                                        <span>N/D</span>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </div>
                             <br />
                         </div>

@@ -22,86 +22,63 @@
                 </div>
                 <br />
                 <div class="container-fluid POMPProviderDetailContainer">
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Empresa Certificadora</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Fecha de Certificación</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Vigente Hasta</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (item.C_CertificationCompany != null)
-                            {
-                                <span>@item.C_CertificationCompany.ItemName</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
-                            {
-                                <span>@item.C_StartDateCertification</span>
-                            }
-                            else
-                            {
-                            <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.C_EndDateCertification))
-                            {
-                                <span>@item.C_EndDateCertification</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                    </div>
-                   <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Archivo de Alcance</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>% CCS</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @{var UlrContent = item.C_CertificationFile;}
-                            @if (!string.IsNullOrEmpty(UlrContent))
-                            {
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            @if (!string.IsNullOrEmpty(item.C_CCS))
-                            {
-                                <span>@item.C_CCS</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12 POMPProviderBoxInfo"><label>Alcance</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-12 POMPProviderBoxInfo">
-                            @if (item.C_Scope != null)
-                            {
-                                <span>@item.C_Scope</span>
-                            }
-                            else
-                            {
-                                <span>N/D</span>
-                            }
-                        </div>
+                    <div class="row ">
+                        @if (item.C_CertificationCompany != null)
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Empresa Certificadora</label>
+                                    <br />
+                                    <span>@item.C_CertificationCompany.ItemName</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Fecha de Certificación</label>
+                                    <br />
+                                    <span>@item.C_StartDateCertification</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_EndDateCertification))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Vigente Hasta</label>
+                                    <br />
+                                    <span>@item.C_EndDateCertification</span>
+                            </div>
+                        }
+
+                        @{var UlrContent = item.C_CertificationFile;}
+                        @if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Archivo de Alcance</label>
+                                    <br />
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_CCS))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">% CCS</label>
+                                    <br />
+                                    <span>@item.C_CCS</span>
+                            </div>
+                        }
+                        @if (item.C_Scope != null)
+                        {
+                            <div class="col-sm-12 POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Alcance</label>
+                                    <br />
+                                    <span>@item.C_Scope</span>
+                            </div>
+                        }
                     </div>
                     <br />
                 </div>
