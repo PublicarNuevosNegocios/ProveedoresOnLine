@@ -111,14 +111,25 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.cs">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_GerencialReport_Terceros.cs">
+      <DependentUpon>DS_GerencialReport_Terceros.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DataSet\DS_GerencialReport_Terceros.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_GerencialReport_Terceros.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.cs">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -127,6 +138,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.cs">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -135,6 +147,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.cs">
       <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -181,6 +194,17 @@
     </None>
     <None Include="Reports\DataSet\DS_GerencialReport_Contact.xss">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_Terceros.xsc">
+      <DependentUpon>DS_GerencialReport_Terceros.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_Terceros.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_GerencialReport_Terceros.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_Terceros.xss">
+      <DependentUpon>DS_GerencialReport_Terceros.xsd</DependentUpon>
     </None>
     <None Include="Reports\DataSet\DS_SelectionProcessReport.xsc">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>

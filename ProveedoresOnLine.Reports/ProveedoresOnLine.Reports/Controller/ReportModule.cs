@@ -83,7 +83,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #endregion
 
-        #region Gerencial Report
+        #region ReportSurveyEvaluatorDetail
         public static Tuple<byte[], string, string> SV_EvaluatorDetailReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
@@ -125,7 +125,10 @@ namespace ProveedoresOnLine.Reports.Controller
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyEvaluatorDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
-        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data,  DataTable data2, List<ReportParameter> ReportData, string FilePath)
+        #endregion ReportSurveyEvaluatorDetail
+
+        #region Gerencial Report        
+        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data,  DataTable data2, DataTable data3,List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
@@ -137,11 +140,16 @@ namespace ProveedoresOnLine.Reports.Controller
             source.Value = data != null ? data : new DataTable();
             localReport.DataSources.Add(source);
 
-
             ReportDataSource source2 = new ReportDataSource();
             source2.Name = "DS_GerencialReport_Contact";
             source2.Value = data2 != null ? data2 : new DataTable();
             localReport.DataSources.Add(source2);
+
+            ReportDataSource source3 = new ReportDataSource();
+            source3.Name = "DS_GerencialReport_Terceros";
+            source3.Value = data3 != null ? data3 : new DataTable();
+            localReport.DataSources.Add(source3);
+
 
             string mimeType;
             string encoding;

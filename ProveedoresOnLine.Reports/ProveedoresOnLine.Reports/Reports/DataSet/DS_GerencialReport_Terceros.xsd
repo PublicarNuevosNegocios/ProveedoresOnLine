@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_GerencialReport_Terceros" targetNamespace="http://tempuri.org/DS_GerencialReport_Terceros.xsd" xmlns:mstns="http://tempuri.org/DS_GerencialReport_Terceros.xsd" xmlns="http://tempuri.org/DS_GerencialReport_Terceros.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_GerencialReport_Terceros" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_GerencialReport_Terceros" msprop:Generator_UserDSName="DS_GerencialReport_Terceros">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DS_GerencialReport_Terceros" msprop:Generator_TableClassName="DS_GerencialReport_TercerosDataTable" msprop:Generator_TableVarName="tableDS_GerencialReport_Terceros" msprop:Generator_TablePropName="_DS_GerencialReport_Terceros" msprop:Generator_RowDeletingName="DS_GerencialReport_TercerosRowDeleting" msprop:Generator_RowChangingName="DS_GerencialReport_TercerosRowChanging" msprop:Generator_RowEvHandlerName="DS_GerencialReport_TercerosRowChangeEventHandler" msprop:Generator_RowDeletedName="DS_GerencialReport_TercerosRowDeleted" msprop:Generator_UserTableName="DS_GerencialReport_Terceros" msprop:Generator_RowChangedName="DS_GerencialReport_TercerosRowChanged" msprop:Generator_RowEvArgName="DS_GerencialReport_TercerosRowChangeEvent" msprop:Generator_RowClassName="DS_GerencialReport_TercerosRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PersonName" msprop:Generator_ColumnVarNameInTable="columnPersonName" msprop:Generator_ColumnPropNameInRow="PersonName" msprop:Generator_ColumnPropNameInTable="PersonNameColumn" msprop:Generator_UserColumnName="PersonName" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonCargo" msprop:Generator_ColumnVarNameInTable="columnPersonCargo" msprop:Generator_ColumnPropNameInRow="PersonCargo" msprop:Generator_ColumnPropNameInTable="PersonCargoColumn" msprop:Generator_UserColumnName="PersonCargo" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonLista" msprop:Generator_ColumnVarNameInTable="columnPersonLista" msprop:Generator_ColumnPropNameInRow="PersonLista" msprop:Generator_ColumnPropNameInTable="PersonListaColumn" msprop:Generator_UserColumnName="PersonLista" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonDelito" msprop:Generator_ColumnVarNameInTable="columnPersonDelito" msprop:Generator_ColumnPropNameInRow="PersonDelito" msprop:Generator_ColumnPropNameInTable="PersonDelitoColumn" msprop:Generator_UserColumnName="PersonDelito" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonState" msprop:Generator_ColumnVarNameInTable="columnPersonState" msprop:Generator_ColumnPropNameInRow="PersonState" msprop:Generator_ColumnPropNameInTable="PersonStateColumn" msprop:Generator_UserColumnName="PersonState" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
