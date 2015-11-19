@@ -4,6 +4,7 @@ using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -755,6 +756,60 @@ namespace BackOffice.Web.Controllers
             oModel.CustomerMenu = GetCustomerMenu(oModel);
 
             return View(oModel);
+        }
+
+        #endregion
+
+        #region MyRegion
+
+        public virtual ActionResult DownloadReport(string CustomerPublicId)
+        {
+            List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel> oReturn = new List<ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel>();
+            oReturn = ProveedoresOnLine.Reports.Controller.ReportModule.R_ProviderCustomerReport(CustomerPublicId);
+
+            //Write Document
+            StringBuilder data = new StringBuilder();
+            string strSep = ";";
+
+            oReturn.All(x =>
+            {
+                if (oReturn.IndexOf(x) == 0)
+                {
+                    data.AppendLine
+                    ("\"" + "Proveedor" + "\"" + strSep +
+                    "\"" + "Tipo de Identificación" + "\"" + strSep +
+                    "\"" + "Número de Identificación" + "\"" + strSep +
+                    "\"" + "Estado del Proveedor" + "\"" + strSep +
+                    "\"" + "Comprador Relacionado" + "\"" + strSep +
+                    "\"" + "Pais" + "\"" + strSep +
+                    "\"" + "Estado" + "\"" + strSep +
+                    "\"" + "Ciudad" + "\"" + strSep +
+                    "\"" + "Representante Legal" + "\"" + strSep +
+                    "\"" + "Teléfono" + "\"" + strSep +
+                    "\"" + "Correo Electrónico" + "\"");
+                }
+                else
+                {
+                    data.AppendLine
+                    ("\"" + x.ProviderName + "\"" + strSep +
+                    "\"" + x.ProviderIdentificationType + "\"" + strSep +
+                    "\"" + x.ProviderIdentificationNumber + "\"" + strSep +
+                    "\"" + x.ProviderStatus + "\"" + strSep +
+                    "\"" + x.CustomerName + "\"" + strSep +
+                    "\"" + x.Country + "\"" + strSep +
+                    "\"" + x.State + "\"" + strSep +
+                    "\"" + x.City + "\"" + strSep +
+                    "\"" + x.Representant + "\"" + strSep +
+                    "\"" + x.Telephone + "\"" + strSep +
+                    "\"" + x.Email + "\"");
+                }
+
+                return true;
+            });
+
+            byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
+
+            return File(buffer, "application/csv", "ProveedoresXCliente_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
         }
 
         #endregion

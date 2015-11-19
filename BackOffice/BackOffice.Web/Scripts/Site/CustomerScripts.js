@@ -33,7 +33,7 @@ var Customer_SearchObject = {
             navigatable: false,
             pageable: true,
             scrollable: true,
-            selectable: true,
+            selectable: false,
             dataSource: {
                 pageSize: Customer_SearchObject.PageSize,
                 serverPaging: true,
@@ -70,6 +70,11 @@ var Customer_SearchObject = {
                 });
             },
             columns: [{
+                template: function (dataItem) {
+                    return '<a href="' + BaseUrl.SiteUrl + 'Customer/GICustomerUpsert?CustomerPublicId=' + dataItem.CustomerPublicId + '">Ver detalle</a>';
+                },
+                width: '27px',
+            }, {
                 field: 'ImageUrl',
                 title: 'Logo',
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
@@ -92,6 +97,12 @@ var Customer_SearchObject = {
                 title: 'Identification',
                 template: '${IdentificationType} ${IdentificationNumber}',
                 width: '50px',
+            }, {
+                title: 'Reporte',
+                template: function (dataItem) {
+                    return '<a href="' + BaseUrl.SiteUrl + 'Customer/DownloadReport?CustomerPublicId=' + dataItem.CustomerPublicId + '">Descargar proveedores</a>' ;
+                },
+                width: '32px'
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
@@ -2762,29 +2773,6 @@ var Customer_AditionalDocumentsObject = {
                 field: 'Module',
                 title: 'Modulo',
                 width: '200px',
-                //template: function (dataItem) {
-                //    var oReturn = 'Seleccione una opción.';
-                //    if (dataItem != null && dataItem.Module != null) {
-                //        $.each(Customer_AditionalDocumentsObject.ModulesList, function (item, value) {
-                //            debugger;
-                //            if (dataItem.Module == value.Value[0].ItemId) {
-                //                oReturn = value.Value[0].ItemName;
-                //            }
-                //        });
-                //    }
-                //    return oReturn;
-                //},
-                //editor: function (container, options) {
-                //    debugger;
-                //    $('<input required data-bind="value:' + options.field + '"/>')
-                //        .appendTo(container)
-                //        .kendoDropDownList({
-                //            dataSource: Customer_AditionalDocumentsObject.ModulesList,
-                //            dataTextField: '',
-                //            dataValueField: '',
-                //            optionLabel: 'Seleccione una opción'
-                //        });
-                //},
             }, {
                 field: 'AditionalDataId',
                 title: 'Id',

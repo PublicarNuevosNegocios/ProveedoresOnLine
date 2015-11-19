@@ -121,6 +121,9 @@
     <Reference Include="ProveedoresOnLine.ProjectModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.Reports">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Reports\developer\ProveedoresOnLine.Reports.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
     </Reference>
