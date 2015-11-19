@@ -165,7 +165,6 @@
 
         $(document).ready(function () {
             $("#EvaluationCriteriaId").change(function () {
-                debugger;
                 var id = $(this).children(":selected").attr("id");
                 $("#EvaluationCriteria_" + oEvaluationCriteriaId).hide();
                 $("#EvaluationCriteria_" + id).show();

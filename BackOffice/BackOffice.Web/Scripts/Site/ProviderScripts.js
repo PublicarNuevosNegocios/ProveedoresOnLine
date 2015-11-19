@@ -5143,7 +5143,6 @@ var Provider_AditionalDocumentObject = {
                         dataTextField: 'CP_Customer',
                         select: function (e) {
                             isSelected = true;
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.CP_Customer;
