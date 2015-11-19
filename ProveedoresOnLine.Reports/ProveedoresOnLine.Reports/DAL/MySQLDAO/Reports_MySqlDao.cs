@@ -904,7 +904,52 @@ namespace ProveedoresOnLine.Reports.DAL.MySQLDAO
 
             if (response != null && response.DataTableResult.Rows.Count > 0)
             {
+                oReturn =
+                    (from cp in response.DataTableResult.AsEnumerable()
+                     where !cp.IsNull("ProviderId")
+                     group cp by new
+                     {
+                         ProviderId = cp.Field<int>("ProviderId"),
+                         ProviderPublicId = cp.Field<string>("ProviderPublicId"),
+                         ProviderIdentificationType = cp.Field<string>("ProviderIdentificationType"),
+                         ProviderIdentificationNumber = cp.Field<string>("ProviderIdentificationNumber"),
+                         ProviderName = cp.Field<string>("ProviderName"),
+                         ProviderStatus = cp.Field<string>("ProviderStatus"),
 
+                         CustomerId = cp.Field<int>("CustomerId"),
+                         CustomerPublicId = cp.Field<string>("CustomerPublicId"),
+                         CustomerName = cp.Field<string>("CustomerName"),
+
+                         Country = cp.Field<string>("Country"),
+                         State = cp.Field<string>("State"),
+                         City = cp.Field<string>("City"),
+
+                         Representant = cp.Field<string>("Representant"),
+                         Telephone = cp.Field<string>("Telephone"),
+                         Email = cp.Field<string>("Email"),
+                     }
+                     into cpg
+                     select new ProveedoresOnLine.Reports.Models.Reports.CustomerProviderReportModel()
+                     {
+                         ProviderId = cpg.Key.ProviderId,
+                         ProviderPublicId = cpg.Key.ProviderPublicId,
+                         ProviderIdentificationType = cpg.Key.ProviderIdentificationType,
+                         ProviderIdentificationNumber = cpg.Key.ProviderIdentificationNumber,
+                         ProviderName = cpg.Key.ProviderName,
+                         ProviderStatus = cpg.Key.ProviderStatus,
+
+                         CustomerId = cpg.Key.CustomerId,
+                         CustomerPublicId = cpg.Key.CustomerPublicId,
+                         CustomerName = cpg.Key.CustomerName,
+
+                         Country = cpg.Key.Country,
+                         State = cpg.Key.State,
+                         City = cpg.Key.City,
+
+                         Representant = cpg.Key.Representant,
+                         Telephone = cpg.Key.Telephone,
+                         Email = cpg.Key.Email,
+                     }).ToList();
             }
 
             return oReturn;
