@@ -235,9 +235,9 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        public virtual System.Web.Mvc.ActionResult RPDIAN()
         {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPDIAN);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -285,7 +285,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string SVSurveyReport = "SVSurveyReport";
             public readonly string SVSurveyProgram = "SVSurveyProgram";
             public readonly string RPGeneral = "RPGeneral";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
+            public readonly string RPDIAN = "RPDIAN";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -321,7 +321,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string SVSurveyReport = "SVSurveyReport";
             public const string SVSurveyProgram = "SVSurveyProgram";
             public const string RPGeneral = "RPGeneral";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
+            public const string RPDIAN = "RPDIAN";
         }
 
 
@@ -577,13 +577,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string SearchParam = "SearchParam";
             public readonly string SearchFilter = "SearchFilter";
         }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        static readonly ActionParamsClass_RPDIAN s_params_RPDIAN = new ActionParamsClass_RPDIAN();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        public ActionParamsClass_RPDIAN RPDIANParams { get { return s_params_RPDIAN; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
+        public class ActionParamsClass_RPDIAN
         {
-            public readonly string FilePath = "FilePath";
+            public readonly string SearchParam = "SearchParam";
+            public readonly string SearchFilter = "SearchFilter";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -1044,14 +1045,15 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+        partial void RPDIANOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string SearchParam, string SearchFilter);
 
         [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        public override System.Web.Mvc.ActionResult RPDIAN(string SearchParam, string SearchFilter)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPDIAN);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
+            RPDIANOverride(callInfo, SearchParam, SearchFilter);
             return callInfo;
         }
 

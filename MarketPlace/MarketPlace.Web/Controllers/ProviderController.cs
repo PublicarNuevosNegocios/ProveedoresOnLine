@@ -2215,7 +2215,6 @@ namespace MarketPlace.Web.Controllers
                     data3.Rows.Add(row3);
                 }
             }
-            
 
             #endregion Conocimiento de Terceros
 
@@ -2473,6 +2472,396 @@ namespace MarketPlace.Web.Controllers
                 return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
             }
 
+            return null;
+        }
+
+        public virtual ActionResult RPDIAN(string SearchParam, string SearchFilter)
+        {
+            //Clean the season url saved
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
+
+            ProviderSearchViewModel oModel = null;
+
+            List<ProviderModel> oProviderResult;
+
+            if (SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(SessionModel.CurrentCompany.CompanyPublicId))
+            {
+                //get basic search model
+                oModel = new ProviderSearchViewModel()
+                {
+                    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                    SearchParam = SearchParam,
+                    SearchFilter = SearchFilter == null ? null : (SearchFilter.Trim(new char[] { ',' }).Length > 0 ? SearchFilter.Trim(new char[] { ',' }) : null),
+                    SearchOrderType = MarketPlace.Models.General.enumSearchOrderType.Relevance,
+                    OrderOrientation = false,
+                    PageNumber = 0,
+                    ProviderSearchResult = new List<ProviderLiteViewModel>(),
+                };
+
+                #region Providers
+
+                //search providers
+                int oTotalRowsAux;
+                oProviderResult =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
+                    (SessionModel.CurrentCompany.CompanyPublicId,
+                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
+                    oModel.SearchParam,
+                    oModel.SearchFilter,
+                    (int)oModel.SearchOrderType,
+                    oModel.OrderOrientation,
+                    oModel.PageNumber,
+                    //oModel.RowCount,
+                    65000,
+                    out oTotalRowsAux);
+
+                oModel.TotalRows = oTotalRowsAux;
+
+                List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
+                    (SessionModel.CurrentCompany.CompanyPublicId,
+                    oModel.SearchParam,
+                    oModel.SearchFilter,
+                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false);
+
+                if (oFilterModel != null)
+                {
+                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                }
+
+                //Branch Info
+
+                //parse view model
+                if (oProviderResult != null && oProviderResult.Count > 0)
+                {
+                    oProviderResult.All(prv =>
+                    {
+                        prv.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumContactType.Brach);
+                        prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumLegalType.RUT);
+                        return true;
+                    });
+                }
+
+                #endregion Providers
+
+                #region Crete Excel
+
+                //Write the document
+                StringBuilder data = new StringBuilder();
+                string strSep = ";";
+                string strProvidersName = "\"" + "" + "\"";
+                string Address = string.Empty;
+                string Telephone = string.Empty;
+                string Mail = string.Empty;
+                string Representative = string.Empty;
+                string Country = string.Empty;
+                int CityId = 0;
+                string City = string.Empty;
+                string State = string.Empty;
+                string AERut = string.Empty;
+
+                oProviderResult.All(x =>
+                {
+                    if (!string.IsNullOrEmpty(x.RelatedCompany.CompanyName))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + x.RelatedCompany.CompanyName + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "TIPO DE IDENTIFICACIÓN" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (!string.IsNullOrEmpty(x.RelatedCompany.IdentificationType.ItemName))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "NÚMERO DE IDENTIFICACIÓN" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (!string.IsNullOrEmpty(x.RelatedCompany.IdentificationNumber))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + x.RelatedCompany.IdentificationNumber + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "PAÍS" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                int oTotalRows = 0;
+                                CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
+
+                                Country = oGeographyModel.FirstOrDefault().Country.ItemName;
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(Country))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Country + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "CIUDAD" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                int oTotalRows = 0;
+                                CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
+
+                                City = oGeographyModel.FirstOrDefault().City.ItemName;
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(City))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + City + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "DEPARTAMENTO" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                int oTotalRows = 0;
+                                CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
+
+                                State = oGeographyModel.FirstOrDefault().State.ItemName;
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(State))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + State + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "REPRESENTANTE LEGAL" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                Representative = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(Representative))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Representative + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "TELÉFONO" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                Telephone = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(Telephone))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Telephone + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "CORREO" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                Mail = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Email).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(Mail))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Mail + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "DIRECCIÓN" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedCommercial != null)
+                    {
+                        x.RelatedCommercial.Where(y => y != null).All(y =>
+                        {
+                            bool isPrincipal = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal &&
+                            z.Value == "1").Select(z => z.Value).FirstOrDefault() == "1" ? true : false;
+
+                            if (isPrincipal)
+                            {
+                                Address = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Address).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                            }
+                            return true;
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(Address))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Address + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                strProvidersName = "\"" + "ACTIVIDAD ECONOMICA" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedLegal != null)
+                    {
+                        List<ProviderLegalViewModel> RelatedLegalInfo = new List<ProviderLegalViewModel>();
+
+                        x.RelatedLegal.All(z =>
+                        {
+                            RelatedLegalInfo.Add(new ProviderLegalViewModel(z));
+                            return true;
+                        });
+                        AERut = RelatedLegalInfo.Select(r => r.R_ICAName).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                      
+                    }
+                    if (!string.IsNullOrEmpty(AERut))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + AERut + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
+
+                #endregion Crete Excel
+
+                return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
+            }
             return null;
         }
 
