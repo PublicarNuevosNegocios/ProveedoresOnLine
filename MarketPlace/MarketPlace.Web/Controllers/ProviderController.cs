@@ -2532,13 +2532,17 @@ namespace MarketPlace.Web.Controllers
 
                 //Branch Info
 
+
                 //parse view model
                 if (oProviderResult != null && oProviderResult.Count > 0)
                 {
                     oProviderResult.All(prv =>
                     {
+                        ProviderModel response = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPGetBasicInfo(prv.RelatedCompany.CompanyPublicId);
+                        prv.RelatedFinantial = response.RelatedFinantial;
                         prv.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumContactType.Brach);
                         prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumLegalType.RUT);
+                        
                         return true;
                     });
                 }
@@ -2560,6 +2564,8 @@ namespace MarketPlace.Web.Controllers
                 string City = string.Empty;
                 string State = string.Empty;
                 string AERut = string.Empty;
+                string Income = string.Empty;
+                string Utility = string.Empty;
 
                 oProviderResult.All(x =>
                 {
@@ -2855,6 +2861,111 @@ namespace MarketPlace.Web.Controllers
                     return true;
                 });
                 data.AppendLine(strProvidersName);
+
+
+                strProvidersName = "\"" + "INGRESOS" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedFinantial != null)
+                    {
+
+                        List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+                        
+                        decimal oExchange;
+                        oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                                    Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemName));
+
+                        x.RelatedFinantial.All(z =>
+                        {
+                            RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(z, oExchange));
+                            return true;
+                        });
+                        Income = RelatedFinancialBasicInfo.Select(r => r.BI_OperationIncome).DefaultIfEmpty(string.Empty).FirstOrDefault();
+
+                    }
+                    if (!string.IsNullOrEmpty(Income))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Income + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+
+                strProvidersName = "\"" + "UTILIDAD NETA" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedFinantial != null)
+                    {
+
+                        List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+
+                        decimal oExchange;
+                        oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                                    Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemName));
+
+                        x.RelatedFinantial.All(z =>
+                        {
+                            RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(z, oExchange));
+                            return true;
+                        });
+                        Utility = RelatedFinancialBasicInfo.Select(r => r.BI_IncomeBeforeTaxes).DefaultIfEmpty(string.Empty).FirstOrDefault();
+
+                    }
+                    if (!string.IsNullOrEmpty(Utility))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Utility + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
+
+                //strProvidersName = "\"" + "EBITDA" + "\"";
+                //oProviderResult.All(x =>
+                //{
+                //    if (x.RelatedFinantial != null)
+                //    {
+
+                //        List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+
+                //        decimal oExchange;
+                //        oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                //                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                //                    Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                //                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemName));
+
+                //        x.RelatedFinantial.All(z =>
+                //        {
+                //            RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(z, oExchange));
+                //            return true;
+                //        });
+                //        Utility = RelatedFinancialBasicInfo.Select(r => r.BI_IncomeBeforeTaxes).DefaultIfEmpty(string.Empty).FirstOrDefault();
+
+                //    }
+                //    if (!string.IsNullOrEmpty(Utility))
+                //    {
+                //        strProvidersName = strProvidersName + strSep + "\"" + Utility + "\"";
+                //    }
+                //    else
+                //    {
+                //        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                //    }
+                //    return true;
+                //});
+                //data.AppendLine(strProvidersName);
 
                 byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 
