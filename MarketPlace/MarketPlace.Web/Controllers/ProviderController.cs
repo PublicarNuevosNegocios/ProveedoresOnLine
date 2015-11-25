@@ -2554,7 +2554,7 @@ namespace MarketPlace.Web.Controllers
                 //Write the document
                 StringBuilder data = new StringBuilder();
                 string strSep = ";";
-                string strProvidersName = "\"" + "" + "\"";
+                string strProvidersName = "\"" + "PROVEEDOR" + "\"";
                 string Address = string.Empty;
                 string Telephone = string.Empty;
                 string Mail = string.Empty;
@@ -2566,6 +2566,7 @@ namespace MarketPlace.Web.Controllers
                 string AERut = string.Empty;
                 string Income = string.Empty;
                 string Utility = string.Empty;
+                string Etibda = string.Empty;
 
                 oProviderResult.All(x =>
                 {
@@ -2933,39 +2934,39 @@ namespace MarketPlace.Web.Controllers
                 });
                 data.AppendLine(strProvidersName);
 
-                //strProvidersName = "\"" + "EBITDA" + "\"";
-                //oProviderResult.All(x =>
-                //{
-                //    if (x.RelatedFinantial != null)
-                //    {
+                strProvidersName = "\"" + "EBITDA" + "\"";
+                oProviderResult.All(x =>
+                {
+                    if (x.RelatedFinantial != null)
+                    {
 
-                //        List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+                        List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
 
-                //        decimal oExchange;
-                //        oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
-                //                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
-                //                    Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
-                //                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemName));
+                        decimal oExchange;
+                        oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                                    Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                    Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemName));
 
-                //        x.RelatedFinantial.All(z =>
-                //        {
-                //            RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(z, oExchange));
-                //            return true;
-                //        });
-                //        Utility = RelatedFinancialBasicInfo.Select(r => r.BI_IncomeBeforeTaxes).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                        x.RelatedFinantial.All(z =>
+                        {
+                            RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(z, oExchange));
+                            return true;
+                        });
+                        Etibda = RelatedFinancialBasicInfo.Select(r => r.BI_EBITDA).DefaultIfEmpty(string.Empty).FirstOrDefault();
 
-                //    }
-                //    if (!string.IsNullOrEmpty(Utility))
-                //    {
-                //        strProvidersName = strProvidersName + strSep + "\"" + Utility + "\"";
-                //    }
-                //    else
-                //    {
-                //        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
-                //    }
-                //    return true;
-                //});
-                //data.AppendLine(strProvidersName);
+                    }
+                    if (!string.IsNullOrEmpty(Etibda))
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + Etibda + "\"";
+                    }
+                    else
+                    {
+                        strProvidersName = strProvidersName + strSep + "\"" + "N/D" + "\"";
+                    }
+                    return true;
+                });
+                data.AppendLine(strProvidersName);
 
                 byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 

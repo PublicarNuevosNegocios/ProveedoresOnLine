@@ -212,6 +212,29 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        public string oBI_EBITDA { get; set; }
+        public string BI_EBITDA
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oBI_EBITDA))
+                {
+                    oBI_EBITDA = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_EBITDA).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    if (!string.IsNullOrWhiteSpace(oBI_EBITDA))
+                    {
+                        oBI_EBITDA = (Convert.ToDecimal(oBI_EBITDA) * Exchange).ToString("#,0.##");
+                    }
+                }
+
+                return oBI_EBITDA;
+            }
+        }
+
         public string BI_JobCapital { get; set; }
         public string BI_Year { get; set; }
 

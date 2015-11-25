@@ -362,6 +362,7 @@
         BI_CurrentPassive = 3120,
         BI_Altman = 4930,
         BI_ExerciseUtility = 3820,
+        BI_EBITDA = 4914,
 
         //K_Recruitment InfoType
         FK_TotalExpirienceScore = 507001,
