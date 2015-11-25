@@ -1242,6 +1242,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901002.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901003.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalDataType_1901004.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Reports.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

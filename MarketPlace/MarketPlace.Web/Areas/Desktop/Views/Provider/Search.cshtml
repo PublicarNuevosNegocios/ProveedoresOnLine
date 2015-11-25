@@ -32,6 +32,8 @@
         if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderCompare)
         {
             <div class="POMPComparisonListWrapper">
+                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Reports, Model)
+
                 @if (Model.RelatedProject != null)
                 {
             <!--Project-->

@@ -10,19 +10,6 @@
         </div>
 
         <div class="POMPSearchResultsOrder">
-            @if (MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider &&
-                      MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate))
-            {
-                  <!--Botón Descargar Excel-->
-                
-                    <a class="POBOSearchButtons" href="@Url.Action(MVC.Provider.ActionNames.RPDIAN, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />DIAN</a>
-              
-                <!--Botón Descargar Excel-->
-                <div class="POMPDownloadExcelButton">                    
-                    <a class="POBOSearchButtons" href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a>
-                </div>
-            }
-
             <!--Orders-->
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Order, Model)
         </div>
@@ -45,4 +32,3 @@
         <div id="POMPNotFoundResults">No se encontraron resultados</div>
     }
 }
-
