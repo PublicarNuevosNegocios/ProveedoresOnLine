@@ -442,8 +442,6 @@ namespace ProveedoresOnLine.Company.Controller
             {
                 oLog.LogObject = CompanyToUpsert;
                 LogManager.ClientLog.AddLog(oLog);
-
-                CompanyBasicInfoIndex();
             }
         }
 
