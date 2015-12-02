@@ -91,9 +91,10 @@ namespace BackOffice.Web.Controllers
                     oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
 
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
-
-                    ProveedoresOnLine.Company.Controller.Company.CompanyBasicInfoIndex();
                 }
+
+                //index basic info
+                ProveedoresOnLine.Company.Controller.Company.CompanyBasicInfoIndex();
 
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
