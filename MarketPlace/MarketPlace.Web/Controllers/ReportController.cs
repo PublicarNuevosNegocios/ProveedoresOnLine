@@ -186,7 +186,7 @@ namespace MarketPlace.Web.Controllers
                         }
                         return true;
                     });
-                    buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
+                    buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
                 }
                 return File(buffer, "application/csv", "InformacionGeneral_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
             }

@@ -91,9 +91,10 @@ namespace BackOffice.Web.Controllers
                     oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
 
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
-
-                    ProveedoresOnLine.Company.Controller.Company.CompanyBasicInfoIndex();
                 }
+
+                //index basic info
+                ProveedoresOnLine.Company.Controller.Company.CompanyBasicInfoIndex();
 
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
@@ -264,8 +265,6 @@ namespace BackOffice.Web.Controllers
                 },
             };
 
-
-
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
@@ -282,7 +281,7 @@ namespace BackOffice.Web.Controllers
                 {
                     List<GeographyModel> reqCities = new List<GeographyModel>();
                     reqCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(Request["CityId"], null, 0, 0, out oTotalRows);
-                    ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value = reqCities.FirstOrDefault().City.ItemId.ToString()).FirstOrDefault();
+                    ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity && !string.IsNullOrEmpty(x.Value)).Select(x => x.Value = reqCities.FirstOrDefault().City.ItemId.ToString()).FirstOrDefault();
                 }
                 //upsert provider
                 ProviderToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
@@ -1239,7 +1238,7 @@ namespace BackOffice.Web.Controllers
                 return true;
             });
 
-            byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
+            byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 
             return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
         }
