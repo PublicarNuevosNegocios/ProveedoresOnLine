@@ -8,6 +8,14 @@
     margin: 6px auto;
     width: 100%;
 }
+.POMPExcelIcon1LeftAlign {
+    left: -15px;
+    min-width: 120px;
+}
+.POMPExcelIcon2LeftAlign {
+    left: -45px;
+    min-width: 120px;
+}
 
 .POMPComparisonActionWrapper {
     display: block;

@@ -9,8 +9,8 @@
             <div class="col-sm-12 text-left"><span class="POMPComparisonTitle">Reportes Generales</span></div>
         </div>
         <div class="row text-left POMPSearchResultsOrder">
-            <div class="col-sm-3 text-center"><a class="POBOSearchButtons" target="_blank"  href="@Url.Action(MVC.Provider.ActionNames.RPDIAN, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Comparativo</a></div>
-            <div class="col-sm-3 text-center"><a class="POBOSearchButtons" href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
+            <div class="col-sm-4 text-center POMPExcelIcon1LeftAlign"><a target="_blank" href="@Url.Action(MVC.Provider.ActionNames.RPDIAN, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Comparativo</a></div>
+            <div class="col-sm-4 text-center POMPExcelIcon2LeftAlign"><a href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
         </div>
         <br />
     }
