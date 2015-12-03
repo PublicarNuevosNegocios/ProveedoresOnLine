@@ -57,12 +57,14 @@ namespace ProveedoresOnLine.Reports.Test
             DataTable data = new DataTable();
             DataTable data2 = new DataTable();
             DataTable data3 = new DataTable();
+            DataTable data4 = new DataTable();
 
             Tuple<byte[], string, string> report = 
                 ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport("PDF", 
                                                                                      data, 
                                                                                      data2,
                                                                                      data3,
+                                                                                     data4,
                                                                                      parameters, 
                                                                                      "C:\\Publicar Software\\ProveedoresOnLine\\ProveedoresOnLine.Reports\\ProveedoresOnLine.Reports.Test\\Reports\\C_Report_GerencialInfo.rdlc");
             parameters = null;

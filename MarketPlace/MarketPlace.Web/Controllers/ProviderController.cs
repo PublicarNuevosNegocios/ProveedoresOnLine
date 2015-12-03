@@ -2295,6 +2295,128 @@ namespace MarketPlace.Web.Controllers
 
             #endregion Kcontratación
 
+            #region Balance
+
+            //get request info
+            int oYear = Int32.Parse(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty(null).FirstOrDefault());
+
+            int oCurrencyValidate = 0;
+
+            int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
+                Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
+                Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
+
+            string oViewName = !string.IsNullOrEmpty(Request["ViewName"]) ?
+                Request["ViewName"].Replace(" ", "") :
+                MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators;
+
+            //get balance info
+            List<BalanceSheetModel> oBalanceAux =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
+                (oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                null,
+                oCurrencyType);
+
+            //fill view models
+            oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
+            if (oBalanceAux != null && oBalanceAux.Count > 0)
+            {
+                oBalanceAux.All(bs =>
+                {
+                    oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
+                    return true;
+                });
+            }
+
+            oModel.RelatedBalanceSheetInfo = new List<ProviderBalanceSheetViewModel>();
+            if (oBalanceAux != null && oBalanceAux.Count > 0)
+            {
+                List<BalanceSheetModel> oBalancetemp = new List<BalanceSheetModel>();
+
+                foreach (var item in oBalanceAux)
+                {
+                    if (item.BalanceSheetInfo.Count == 0)
+                    {
+                        oBalancetemp.Add(item);
+                    }
+                }
+
+                int cont = 0;
+                foreach (var item in oBalancetemp)
+                {
+                    if (cont < 1)
+                    {
+                        oBalanceAux.Remove(item);
+                        cont++;
+                    }
+                }
+
+                oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
+                    (null,
+                    oBalanceAux,
+                    oViewName);
+
+            }
+
+            DataTable data4 = new DataTable();
+            data4.Columns.Add("Cuenta");
+            data4.Columns.Add("Valor1");
+            data4.Columns.Add("Valor2");
+            string lastYear = "N/A";
+            string oldYear = "N/A";
+            //Read Data and make Dataset
+            var oBalanceToShow = oModel.RelatedFinancialInfo.Where(x => x.SH_HasValues).OrderByDescending(x => x.SH_Year).ToList();
+            if (oBalanceToShow != null && oBalanceToShow.Count > 0)
+            {
+                lastYear = oBalanceToShow[0].SH_Year;
+
+                if (oBalanceToShow.Count <= 1)
+                {
+                    var oldYearNum = Convert.ToInt32(lastYear) - 1;
+                    oldYear = oldYearNum.ToString();
+                    oBalanceToShow[0].RelatedBalanceSheetInfo.BalanceSheetInfo.All(y =>
+                    {
+                        DataRow row4;
+                        row4 = data4.NewRow();
+                        row4["Cuenta"] = y.RelatedAccount.ItemName;
+                        row4["Valor1"] = y.Value.ToString();
+                        row4["Valor2"] = "N/A";
+                        data4.Rows.Add(row4);
+                        return true;
+                    });
+                }
+                else
+                {
+                    oldYear = oBalanceToShow[1].SH_Year;
+                    oBalanceToShow[0].RelatedBalanceSheetInfo.BalanceSheetInfo.All(y =>
+                    {
+                        DataRow row4;
+                        row4 = data4.NewRow();
+                        row4["Cuenta"] = y.RelatedAccount.ItemName;
+                        row4["Valor1"] = y.Value.ToString();
+                        row4["Valor2"] = oBalanceToShow[1].RelatedBalanceSheetInfo.BalanceSheetInfo.Where(z => z.RelatedAccount.ItemId == y.RelatedAccount.ItemId).Select(z => z.Value.ToString()).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                        data4.Rows.Add(row4);
+                        return true;
+                    });
+                }
+            }
+            else
+            {
+                DataRow row4;
+                row4 = data4.NewRow();
+                row4["Cuenta"] = "No hay Balances";
+                row4["Valor1"] = "N/A";
+                row4["Valor2"] = "N/A";
+                data4.Rows.Add(row4);
+            }
+
+            parameters.Add(new ReportParameter("BalanceLastYear", lastYear));
+            parameters.Add(new ReportParameter("BalanceOldYear", oldYear));
+
+
+
+            #endregion Balance
+
             #endregion Set Parameters
 
             Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
@@ -2302,6 +2424,7 @@ namespace MarketPlace.Web.Controllers
                                                             data,
                                                             data2,
                                                             data3,
+                                                            data4,
                                                             parameters,
                                                             Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "C_Report_GerencialInfo.rdlc");
 
@@ -2542,7 +2665,7 @@ namespace MarketPlace.Web.Controllers
                         prv.RelatedFinantial = response.RelatedFinantial;
                         prv.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumContactType.Brach);
                         prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumLegalType.RUT);
-                        
+
                         return true;
                     });
                 }
@@ -2848,7 +2971,7 @@ namespace MarketPlace.Web.Controllers
                             return true;
                         });
                         AERut = RelatedLegalInfo.Select(r => r.R_ICAName).DefaultIfEmpty(string.Empty).FirstOrDefault();
-                      
+
                     }
                     if (!string.IsNullOrEmpty(AERut))
                     {
@@ -2869,9 +2992,8 @@ namespace MarketPlace.Web.Controllers
                 {
                     if (x.RelatedFinantial != null)
                     {
-
                         List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
-                        
+
                         decimal oExchange;
                         oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
                                     Convert.ToInt32(x.RelatedFinantial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),

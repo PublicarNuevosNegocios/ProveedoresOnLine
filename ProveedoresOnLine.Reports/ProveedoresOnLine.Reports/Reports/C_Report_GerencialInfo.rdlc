@@ -52,8 +52,9 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>1.40545cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.60904cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -79,7 +80,7 @@
         </Paragraphs>
         <rd:DefaultName>Representant</rd:DefaultName>
         <Top>6.59295cm</Top>
-        <Left>4.33767cm</Left>
+        <Left>4.35017cm</Left>
         <Height>0.6cm</Height>
         <Width>11.8679cm</Width>
         <ZIndex>1</ZIndex>
@@ -112,7 +113,7 @@
         </Paragraphs>
         <rd:DefaultName>InscriptionNumber</rd:DefaultName>
         <Top>4.56392cm</Top>
-        <Left>11.03765cm</Left>
+        <Left>11.05015cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>2</ZIndex>
@@ -145,7 +146,7 @@
         </Paragraphs>
         <rd:DefaultName>Address</rd:DefaultName>
         <Top>3.85809cm</Top>
-        <Left>2.58445cm</Left>
+        <Left>2.59695cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94171cm</Width>
         <ZIndex>3</ZIndex>
@@ -178,7 +179,7 @@
         </Paragraphs>
         <rd:DefaultName>City</rd:DefaultName>
         <Top>3.15225cm</Top>
-        <Left>2.5844cm</Left>
+        <Left>2.5969cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94171cm</Width>
         <ZIndex>4</ZIndex>
@@ -211,7 +212,7 @@
         </Paragraphs>
         <rd:DefaultName>Phone</rd:DefaultName>
         <Top>4.56392cm</Top>
-        <Left>2.5844cm</Left>
+        <Left>2.5969cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94171cm</Width>
         <ZIndex>5</ZIndex>
@@ -244,7 +245,7 @@
         </Paragraphs>
         <rd:DefaultName>Fax</rd:DefaultName>
         <Top>2.44642cm</Top>
-        <Left>11.03765cm</Left>
+        <Left>11.05015cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>6</ZIndex>
@@ -277,7 +278,7 @@
         </Paragraphs>
         <rd:DefaultName>WebSite</rd:DefaultName>
         <Top>3.85809cm</Top>
-        <Left>11.0377cm</Left>
+        <Left>11.0502cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>7</ZIndex>
@@ -310,7 +311,7 @@
         </Paragraphs>
         <rd:DefaultName>Email</rd:DefaultName>
         <Top>3.15225cm</Top>
-        <Left>11.03765cm</Left>
+        <Left>11.05015cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>8</ZIndex>
@@ -343,7 +344,7 @@
         </Paragraphs>
         <rd:DefaultName>SocialObject</rd:DefaultName>
         <Top>9.01923cm</Top>
-        <Left>0.41795cm</Left>
+        <Left>0.43045cm</Left>
         <Height>0.81167cm</Height>
         <Width>15.79096cm</Width>
         <ZIndex>9</ZIndex>
@@ -383,7 +384,7 @@
         </Paragraphs>
         <rd:DefaultName>TotalActive</rd:DefaultName>
         <Top>11.37486cm</Top>
-        <Left>3.88008cm</Left>
+        <Left>3.89258cm</Left>
         <Height>0.6cm</Height>
         <Width>3.64603cm</Width>
         <ZIndex>10</ZIndex>
@@ -423,7 +424,7 @@
         </Paragraphs>
         <rd:DefaultName>TotalPasive</rd:DefaultName>
         <Top>12.15125cm</Top>
-        <Left>3.88008cm</Left>
+        <Left>3.89258cm</Left>
         <Height>0.6cm</Height>
         <Width>3.64603cm</Width>
         <ZIndex>11</ZIndex>
@@ -463,7 +464,7 @@
         </Paragraphs>
         <rd:DefaultName>TotalPatrimony</rd:DefaultName>
         <Top>12.92764cm</Top>
-        <Left>3.88008cm</Left>
+        <Left>3.89258cm</Left>
         <Height>0.6cm</Height>
         <Width>3.64603cm</Width>
         <ZIndex>12</ZIndex>
@@ -503,7 +504,7 @@
         </Paragraphs>
         <rd:DefaultName>OperationIncome</rd:DefaultName>
         <Top>13.70403cm</Top>
-        <Left>3.88008cm</Left>
+        <Left>3.89258cm</Left>
         <Height>0.6cm</Height>
         <Width>3.64603cm</Width>
         <ZIndex>13</ZIndex>
@@ -543,7 +544,7 @@
         </Paragraphs>
         <rd:DefaultName>IncomeBeforeTaxes</rd:DefaultName>
         <Top>11.37486cm</Top>
-        <Left>11.95055cm</Left>
+        <Left>11.96305cm</Left>
         <Height>0.6cm</Height>
         <Width>4.255cm</Width>
         <ZIndex>14</ZIndex>
@@ -583,7 +584,7 @@
         </Paragraphs>
         <rd:DefaultName>JobCapital</rd:DefaultName>
         <Top>12.15125cm</Top>
-        <Left>11.92409cm</Left>
+        <Left>11.93659cm</Left>
         <Height>0.6cm</Height>
         <Width>4.28148cm</Width>
         <ZIndex>15</ZIndex>
@@ -616,7 +617,7 @@
         </Paragraphs>
         <rd:DefaultName>Altman</rd:DefaultName>
         <Top>7.40462cm</Top>
-        <Left>4.33767cm</Left>
+        <Left>4.35017cm</Left>
         <Height>0.6cm</Height>
         <Width>2.76075cm</Width>
         <ZIndex>16</ZIndex>
@@ -656,7 +657,7 @@
         </Paragraphs>
         <rd:DefaultName>ExcerciseUtility</rd:DefaultName>
         <Top>12.92764cm</Top>
-        <Left>11.92409cm</Left>
+        <Left>11.93659cm</Left>
         <Height>0.6cm</Height>
         <Width>4.28146cm</Width>
         <ZIndex>17</ZIndex>
@@ -687,7 +688,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SystemOccupationalHazards</rd:DefaultName>
-        <Top>15.55528cm</Top>
+        <Top>17.33318cm</Top>
         <Left>7.79479cm</Left>
         <Height>0.6cm</Height>
         <Width>8.41076cm</Width>
@@ -719,7 +720,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>RateARL</rd:DefaultName>
-        <Top>16.36695cm</Top>
+        <Top>18.14485cm</Top>
         <Left>1.75504cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1923cm</Width>
@@ -751,7 +752,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LTIFResult</rd:DefaultName>
-        <Top>16.36695cm</Top>
+        <Top>18.14485cm</Top>
         <Left>11.95055cm</Left>
         <Height>0.6cm</Height>
         <Width>2.37913cm</Width>
@@ -1115,7 +1116,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport</DataSetName>
-        <Top>18.48937cm</Top>
+        <Top>20.26727cm</Top>
         <Left>0.4882cm</Left>
         <Height>1.2cm</Height>
         <Width>15.71735cm</Width>
@@ -1146,7 +1147,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>6.59295cm</Top>
-        <Left>0.41795cm</Left>
+        <Left>0.43045cm</Left>
         <Height>0.6cm</Height>
         <Width>3.68371cm</Width>
         <ZIndex>22</ZIndex>
@@ -1179,7 +1180,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>4.56392cm</Top>
-        <Left>7.91875cm</Left>
+        <Left>7.93125cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>23</ZIndex>
@@ -1212,7 +1213,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.85809cm</Top>
-        <Left>0.418cm</Left>
+        <Left>0.4305cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>24</ZIndex>
@@ -1245,7 +1246,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.15225cm</Top>
-        <Left>0.418cm</Left>
+        <Left>0.4305cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>25</ZIndex>
@@ -1278,7 +1279,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>4.56392cm</Top>
-        <Left>0.418cm</Left>
+        <Left>0.4305cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>26</ZIndex>
@@ -1311,7 +1312,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>2.44642cm</Top>
-        <Left>7.91875cm</Left>
+        <Left>7.93125cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>27</ZIndex>
@@ -1344,7 +1345,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.15225cm</Top>
-        <Left>7.91875cm</Left>
+        <Left>7.93125cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>28</ZIndex>
@@ -1377,7 +1378,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.85809cm</Top>
-        <Left>7.9188cm</Left>
+        <Left>7.9313cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>29</ZIndex>
@@ -1410,7 +1411,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>11.37486cm</Top>
-        <Left>0.41803cm</Left>
+        <Left>0.43053cm</Left>
         <Height>0.6cm</Height>
         <Width>3.28566cm</Width>
         <ZIndex>30</ZIndex>
@@ -1443,7 +1444,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>12.15125cm</Top>
-        <Left>0.41803cm</Left>
+        <Left>0.43053cm</Left>
         <Height>0.6cm</Height>
         <Width>3.28566cm</Width>
         <ZIndex>31</ZIndex>
@@ -1476,7 +1477,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>12.92764cm</Top>
-        <Left>0.41803cm</Left>
+        <Left>0.43053cm</Left>
         <Height>0.6cm</Height>
         <Width>3.28566cm</Width>
         <ZIndex>32</ZIndex>
@@ -1509,7 +1510,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>13.70403cm</Top>
-        <Left>0.41803cm</Left>
+        <Left>0.43053cm</Left>
         <Height>0.6cm</Height>
         <Width>3.28566cm</Width>
         <ZIndex>33</ZIndex>
@@ -1542,7 +1543,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>11.37486cm</Top>
-        <Left>7.79484cm</Left>
+        <Left>7.80734cm</Left>
         <Height>0.6cm</Height>
         <Width>3.95031cm</Width>
         <ZIndex>34</ZIndex>
@@ -1575,7 +1576,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>12.15125cm</Top>
-        <Left>7.79479cm</Left>
+        <Left>7.80729cm</Left>
         <Height>0.6cm</Height>
         <Width>3.95036cm</Width>
         <ZIndex>35</ZIndex>
@@ -1608,7 +1609,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>7.40462cm</Top>
-        <Left>0.41803cm</Left>
+        <Left>0.43053cm</Left>
         <Height>0.6cm</Height>
         <Width>3.68363cm</Width>
         <ZIndex>36</ZIndex>
@@ -1641,7 +1642,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>12.92764cm</Top>
-        <Left>7.79479cm</Left>
+        <Left>7.80729cm</Left>
         <Height>0.6cm</Height>
         <Width>3.95036cm</Width>
         <ZIndex>37</ZIndex>
@@ -1672,7 +1673,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>15.55528cm</Top>
+        <Top>17.33318cm</Top>
         <Left>0.41795cm</Left>
         <Height>0.6cm</Height>
         <Width>7.10816cm</Width>
@@ -1704,7 +1705,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>16.36695cm</Top>
+        <Top>18.14485cm</Top>
         <Left>0.48823cm</Left>
         <Height>0.6cm</Height>
         <Width>1.09043cm</Width>
@@ -1736,7 +1737,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>16.36695cm</Top>
+        <Top>18.14485cm</Top>
         <Left>7.79484cm</Left>
         <Height>0.6cm</Height>
         <Width>3.95031cm</Width>
@@ -1770,7 +1771,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>2.44642cm</Top>
-        <Left>0.418cm</Left>
+        <Left>0.4305cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>41</ZIndex>
@@ -1803,7 +1804,7 @@
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
         <Top>2.44642cm</Top>
-        <Left>2.5844cm</Left>
+        <Left>2.5969cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94176cm</Width>
         <ZIndex>42</ZIndex>
@@ -1837,7 +1838,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>0.17cm</Top>
-        <Left>0.41795cm</Left>
+        <Left>0.43045cm</Left>
         <Height>1cm</Height>
         <Width>15.79109cm</Width>
         <ZIndex>43</ZIndex>
@@ -1902,8 +1903,9 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>5.55198cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.60901cm</Width>
         <ZIndex>44</ZIndex>
         <Style>
           <Border>
@@ -1999,8 +2001,9 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>10.33389cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.60904cm</Width>
         <ZIndex>45</ZIndex>
         <Style>
           <Border>
@@ -2058,9 +2061,9 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>14.55417cm</Top>
+        <Top>16.33207cm</Top>
         <Height>0.86458cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.60904cm</Width>
         <ZIndex>46</ZIndex>
         <Style>
           <Border>
@@ -2155,7 +2158,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox35</rd:DefaultName>
         <Top>7.36934cm</Top>
-        <Left>7.62025cm</Left>
+        <Left>7.63275cm</Left>
         <Height>1.47351cm</Height>
         <Width>8.58532cm</Width>
         <ZIndex>47</ZIndex>
@@ -2218,9 +2221,9 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>17.27302cm</Top>
+        <Top>19.05092cm</Top>
         <Height>0.86458cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.60901cm</Width>
         <ZIndex>48</ZIndex>
         <Style>
           <Border>
@@ -2278,9 +2281,9 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>20.44391cm</Top>
+        <Top>22.22181cm</Top>
         <Height>0.86458cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.60901cm</Width>
         <ZIndex>49</ZIndex>
         <Style>
           <Border>
@@ -2307,7 +2310,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>21.74095cm</Top>
+        <Top>23.51885cm</Top>
         <Left>0.4882cm</Left>
         <Height>0.6cm</Height>
         <Width>3.21543cm</Width>
@@ -2340,7 +2343,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LastUpdate</rd:DefaultName>
-        <Top>21.74095cm</Top>
+        <Top>23.51885cm</Top>
         <Left>3.88008cm</Left>
         <Height>0.6cm</Height>
         <Width>3.30207cm</Width>
@@ -2373,7 +2376,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>21.74095cm</Top>
+        <Top>23.51885cm</Top>
         <Left>7.62025cm</Left>
         <Height>0.6cm</Height>
         <Width>1.69625cm</Width>
@@ -2406,7 +2409,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Alert</rd:DefaultName>
-        <Top>21.74095cm</Top>
+        <Top>23.51885cm</Top>
         <Left>9.49289cm</Left>
         <Height>0.6cm</Height>
         <Width>6.71266cm</Width>
@@ -2469,7 +2472,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>24.23167cm</Top>
+        <Top>26.00957cm</Top>
         <Height>0.86458cm</Height>
         <Width>16.6cm</Width>
         <ZIndex>54</ZIndex>
@@ -2800,7 +2803,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport_Contact</DataSetName>
-        <Top>25.45357cm</Top>
+        <Top>27.23147cm</Top>
         <Left>0.4882cm</Left>
         <Height>1.2cm</Height>
         <Width>15.70834cm</Width>
@@ -2832,7 +2835,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox47</rd:DefaultName>
         <Top>8.24284cm</Top>
-        <Left>0.41795cm</Left>
+        <Left>0.43045cm</Left>
         <Height>0.6cm</Height>
         <Width>3.68371cm</Width>
         <ZIndex>56</ZIndex>
@@ -2865,7 +2868,7 @@
         </Paragraphs>
         <rd:DefaultName>TotalExperiences</rd:DefaultName>
         <Top>8.24284cm</Top>
-        <Left>4.33767cm</Left>
+        <Left>4.35017cm</Left>
         <Height>0.6cm</Height>
         <Width>2.76075cm</Width>
         <ZIndex>57</ZIndex>
@@ -3271,7 +3274,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport_Terceros</DataSetName>
-        <Top>22.67123cm</Top>
+        <Top>24.44913cm</Top>
         <Left>0.56179cm</Left>
         <Height>1.2cm</Height>
         <Width>15.64725cm</Width>
@@ -3282,11 +3285,278 @@
           </Border>
         </Style>
       </Tablix>
+      <Tablix Name="Tablix3">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>5.21992cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>5.21992cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>5.21992cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Cuenta</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox42">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>= "Balance Año " + Parameters!BalanceLastYear.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox42</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox48">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>= "Balance Año " + Parameters!BalanceOldYear.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox48</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Cuenta">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!Cuenta.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Cuenta</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Valor1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>$ </Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                            <TextRun>
+                              <Value>=Fields!Valor1.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Valor1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Valor2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>$ </Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                            <TextRun>
+                              <Value>=Fields!Valor2.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Valor2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Details3" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>DS_GerencialReport_Balance</DataSetName>
+        <Top>14.87453cm</Top>
+        <Left>0.41795cm</Left>
+        <Height>1.2cm</Height>
+        <Width>15.65975cm</Width>
+        <ZIndex>59</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
     </ReportItems>
-    <Height>10.58898in</Height>
+    <Height>11.57162in</Height>
     <Style />
   </Body>
-  <Width>6.55648in</Width>
+  <Width>6.5614in</Width>
   <Page>
     <PageHeader>
       <Height>1.5cm</Height>
@@ -3314,7 +3584,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Left>3.60901cm</Left>
+          <Left>3.62151cm</Left>
           <Height>1.4cm</Height>
           <Width>13.00003cm</Width>
           <Style>
@@ -3333,7 +3603,7 @@
           <Source>External</Source>
           <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>Fit</Sizing>
-          <Left>0.00901cm</Left>
+          <Left>0.02151cm</Left>
           <Height>1.4cm</Height>
           <Width>3.6cm</Width>
           <ZIndex>1</ZIndex>
@@ -3377,7 +3647,7 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
           </Paragraphs>
           <rd:DefaultName>Textbox9</rd:DefaultName>
           <Top>0.17639cm</Top>
-          <Left>0.41795cm</Left>
+          <Left>0.43045cm</Left>
           <Height>0.97042cm</Height>
           <Width>15.37584cm</Width>
           <Style>
@@ -3431,6 +3701,13 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
       <rd:DataSourceID>7c4cb3f3-06da-4376-93f9-1f0dfe2803f0</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="DS_GerencialReport_Balance">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>b149e4e4-ae42-4a68-adb5-3934f71582cd</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -3529,6 +3806,34 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
         <rd:DataSetName>DS_GerencialReport_Terceros</rd:DataSetName>
         <rd:SchemaPath>E:\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_GerencialReport_Terceros.xsd</rd:SchemaPath>
         <rd:TableName>DS_GerencialReport_Terceros</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_GerencialReport_Balance">
+      <Query>
+        <DataSourceName>DS_GerencialReport_Balance</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Cuenta">
+          <DataField>Cuenta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Valor1">
+          <DataField>Valor1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Valor2">
+          <DataField>Valor2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DS_GerencialReport_Balance</rd:DataSetName>
+        <rd:SchemaPath>E:\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_GerencialReport_Balance.xsd</rd:SchemaPath>
+        <rd:TableName>BalanceInfo</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -3657,6 +3962,14 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="TotalExperiences">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BalanceLastYear">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BalanceOldYear">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
