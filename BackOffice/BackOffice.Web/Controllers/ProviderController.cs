@@ -1238,7 +1238,7 @@ namespace BackOffice.Web.Controllers
                 return true;
             });
 
-            byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
+            byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 
             return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
         }
