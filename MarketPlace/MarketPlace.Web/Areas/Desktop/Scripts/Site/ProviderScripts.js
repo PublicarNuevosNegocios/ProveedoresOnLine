@@ -117,67 +117,9 @@ var Provider_SearchObject = {
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProviderApi?ReportGeneralCompare=true&SearchParam=' + Provider_SearchObject.SearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter,
             dataType: 'json',
-            success: function (result) {
-                debugger;
+            success: function (result) {                
                 if (result != null) {
-                    //set compare id
-                    Provider_SearchObject.CompareId = result.CompareId;
-
-                    //show compare action
-                    $('.' + Provider_SearchObject.ObjectId + '_Compare_SelActionCompare').show();
-
-                    //set compare name and show
-                    $('#' + Provider_SearchObject.ObjectId + '_Compare_CompareName').val(result.CompareName);
-                    $('#' + Provider_SearchObject.ObjectId + '_Compare_CompareName').show();
-
-                    //clean compare items
-                    $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').html('');
-
-                    //show all compare search button
-                    $("a[href*='Provider_SearchObject.AddCompareProvider']").show();
-
-                    //render compare items
-                    $.each(result.RelatedProvider, function (item, value) {
-                        //get item html
-                        var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_Template').html();
-
-                        //replace provider info
-                        oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);
-                        oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.ProviderLogoUrl);
-                        oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedCompany.CompanyName);
-                        oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
-                        oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, value.RelatedProvider.RelatedCompany.IdentificationNumber);
-                        oItemHtml = oItemHtml.replace(/{ProviderRateClass}/gi, 'rateit');
-                        oItemHtml = oItemHtml.replace(/{ProviderRate}/gi, value.ProviderRate);
-                        oItemHtml = oItemHtml.replace(/{ProviderRateCount}/gi, value.ProviderRateCount);
-
-                        //validate item certified
-                        if (value.ProviderIsCertified != null && value.ProviderIsCertified == true) {
-                            oItemHtml = oItemHtml.replace(/{ProviderIsCertified}/gi, '');
-                        }
-                        else {
-                            oItemHtml = oItemHtml.replace(/{ProviderIsCertified}/gi, 'none');
-                        }
-
-                        //validate black list
-                        if (value.ProviderAlertRisk != Provider_SearchObject.BlackListStatusShowAlert) {
-                            oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, 'none');
-                        }
-                        else {
-                            oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, '');
-                        }
-
-                        $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').append(oItemHtml);
-
-                        //remove search result add comparison button
-                        $("a[href*='Provider_SearchObject.AddCompareProvider(\\\'" + value.RelatedProvider.RelatedCompany.CompanyPublicId + "\\\')']").hide();
-                    });
-
-                    //re-init all rates
-                    $('.rateit').rateit();
-
-                    //init generic tooltip
-                    Tooltip_InitGeneric();
+                    window.location = result;
                 }
             },
             error: function (result) {

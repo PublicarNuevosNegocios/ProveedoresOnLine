@@ -98,7 +98,10 @@
                 PageNumber: @Model.PageNumber,
                 RowCount: @Model.RowCount,
 
-                BlackListStatusShowAlert: @((int)MarketPlace.Models.General.enumBlackListStatus.ShowAlert),
+                BlackListStatusShowAlert: @((int)MarketPlace.Models.General.enumBlackListStatus.ShowAlert),                
+            });
+            $("#RP_ComparativeReport").click(function() {
+                Dialog_ShowMessage('Reporte Comparativo', 'El reporte se está generando, esta operación puede tardar unos minutos.', "");
             });
 
             Provider_SearchObject.RenderAsync();

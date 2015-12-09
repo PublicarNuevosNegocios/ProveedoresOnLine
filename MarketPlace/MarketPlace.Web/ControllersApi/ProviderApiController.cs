@@ -692,7 +692,7 @@ namespace MarketPlace.Web.ControllersApi
                     byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 
                     #endregion Crete Excel
-                    // sendo file to client
+                    //Create 
                     byte[] bytes = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 
                     //get folder
@@ -703,11 +703,22 @@ namespace MarketPlace.Web.ControllersApi
                     if (!System.IO.Directory.Exists(strFolder))
                         System.IO.Directory.CreateDirectory(strFolder);
 
-                    string oFileName = "GenerlReport_" + "" + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".";                          
+                    string oFileName = "GeneralReport_" + SessionModel.CurrentCompany.CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".";                          
                     oFileName = oFileName +".csv";
                     string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
 
-                    File.WriteAllBytes(oFileName, buffer);
+                    File.WriteAllBytes(strFilePath, buffer);
+                    string strRemoteFile = string.Empty;
+
+                    strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                           (strFilePath, Models.General.InternalSettings.Instance
+                               [Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                                "_" + DateTime.Now + "\\");
+
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFilePath))
+                        System.IO.File.Delete(strFilePath);
+                    return strRemoteFile;
                     //return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
                 }
                 return null;
