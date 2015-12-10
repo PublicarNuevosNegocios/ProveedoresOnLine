@@ -111,7 +111,22 @@ var Provider_SearchObject = {
         oUrl += '&PageNumber=' + this.PageNumber;
 
         return oUrl;
-    },   
+    },
+
+    ReportCompare: function (vSearchParam, vSearchFilter) {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?ReportGeneralCompare=true&SearchParam=' + Provider_SearchObject.SearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter,
+            dataType: 'json',
+            success: function (result) {                
+                if (result != null) {
+                    window.location = result;
+                }
+            },
+            error: function (result) {
+                debugger;
+            }
+        });
+    },
 
     /*****************************Compare search methods************************************************/
 
