@@ -20,6 +20,7 @@
     bool IsProviderRatingView = false;
     bool IsBasicInfo = false;
     bool MyClients = false;
+    bool NewClient = false;
 
     List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
@@ -41,6 +42,10 @@
         {
             MyClients = true;
         }
+        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.NewClient)
+        {
+            NewClient = true;
+        }
         return true;
     });
 
@@ -55,7 +60,7 @@
             @if (IsBasicInfo)
             {
                 @*Economic activity*@
-            if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity))
+            if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity) && !NewClient)
             {
                 <li>
                     <span>Maestra de Actividades</span>
@@ -197,7 +202,7 @@
                         </ul>
                     </li>
                 }
-                if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity))
+                if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity) && !NewClient)
                 {
                     <li>
                         <span>Maestra de Actividades</span>
