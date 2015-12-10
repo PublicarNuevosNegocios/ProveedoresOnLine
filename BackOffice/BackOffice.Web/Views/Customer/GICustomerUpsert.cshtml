@@ -57,12 +57,44 @@
                     </select>
                 </li>
                 <li>
-                    <label><span>*</span> Número de identificación</label>
+                    <label><span class="POBOPCompulsoryFields">*</span> Número de identificación</label>
                     <br />
                     <input type="text" name="IdentificationNumber" value="@(Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null ? Model.RelatedCustomer.RelatedCompany.IdentificationNumber : string.Empty)" />
                 </li>
                 <li>
-                    <label><span>*</span> Razón social</label>
+                    @{
+                        //Check Digit
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CheckDigit).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CheckDigit).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+
+                    <label><span class="POBOPCompulsoryFields">*</span> Dígito de verificación</label>
+                    <br />
+                    <input type="text" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CheckDigit).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
+                </li>
+                <li>
+                    <label><span class="POBOPCompulsoryFields">*</span> Razón social</label>
                     <br />
                     <input type="text" name="CompanyName" value="@(Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null ? Model.RelatedCustomer.RelatedCompany.CompanyName : string.Empty)" />
                 </li>
@@ -99,7 +131,7 @@
                     <input type="text" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ComercialName).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
                 </li>
                 <li>
-                    <label><span>*</span> Tipo de empresa</label>
+                    <label><span class="POBOPCompulsoryFields">*</span> Tipo de empresa</label>
                     <br />
                     <select name="CompanyType">
                         @foreach (var Item in Model.CustomerOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyType))
@@ -156,6 +188,54 @@
                 </li>
                 <li>
                     @{
+                        //coin type
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CoinType).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CoinType).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    <label> Tipo de moneda</label>
+                    <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CoinType).ToString())_@CompanyInfoIdAux.ToString()">
+                        <option value="">Seleccione una opción</option>
+                        @foreach (var Item in Model.CustomerOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CoinType))
+                        {
+                            if (Model.RelatedCustomer != null &&
+                                Model.RelatedCustomer.RelatedCompany != null &&
+                                Model.RelatedCustomer.RelatedCompany.CompanyType != null &&
+                                !string.IsNullOrEmpty(CompanyInfoValueAux) &&
+                                Item.ItemId.ToString() == CompanyInfoValueAux)
+                            {
+                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
+                    @{
                         //payment info
 
                         CompanyInfoIdAux = 0;
@@ -182,7 +262,7 @@
                                 FirstOrDefault();
                         }
                     }
-                    <label><span>*</span> Información de Pago</label>
+                    <label><span class="POBOPCompulsoryFields">*</span> Información de Pago</label>
                     <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).ToString())_@CompanyInfoIdAux.ToString()">
                         @foreach (var Item in Model.CustomerOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo))
                         {
@@ -298,7 +378,7 @@
                     </select>
                 </li>
                 <li>
-                    <label><span>*</span> Habilitado</label><br />
+                    <label><span class="POBOPCompulsoryFields">*</span> Habilitado</label><br />
                     @if (Model.RelatedCustomer != null &&
                         Model.RelatedCustomer.RelatedCompany != null &&
                         !Model.RelatedCustomer.RelatedCompany.Enable)

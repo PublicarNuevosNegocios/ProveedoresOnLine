@@ -8,6 +8,7 @@
         PersonIdentificationType = 101,
         ActivityInfoType = 102,
         ProductType = 103,
+        CoinType = 108,
         FilterType = 111,
         FilterTypeCustomerProvider = 112,
 
@@ -144,6 +145,7 @@
         AditionalInfo = 203011,
         UpdateAlert = 203012,
         CheckDigit = 203013,
+        CoinType = 203014,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,
