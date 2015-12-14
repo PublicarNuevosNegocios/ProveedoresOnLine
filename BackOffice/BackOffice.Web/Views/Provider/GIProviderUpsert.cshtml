@@ -8,7 +8,7 @@
 
     int CompanyInfoIdAux = 0;
     string CompanyInfoValueAux = string.Empty;
-    
+
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -267,8 +267,8 @@
                 <li>
                     <label><span class="POBOPCompulsoryFields">*</span> Habilitado</label><br />
                     @if (Model.RelatedProvider != null &&
-                        Model.RelatedProvider.RelatedCompany != null &&
-                        !Model.RelatedProvider.RelatedCompany.Enable)
+                         Model.RelatedProvider.RelatedCompany != null &&
+                         !Model.RelatedProvider.RelatedCompany.Enable)
                     {
                         <input type="checkbox" name="Enable" />
                     }
@@ -280,32 +280,115 @@
                 @if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null)
                 {
                     <li>
+                        @{
+                            //Therms and conditions
+
+                            CompanyInfoIdAux = 0;
+                            CompanyInfoValueAux = string.Empty;
+
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                            {
+                                CompanyInfoIdAux = Model.RelatedProvider.
+                                    RelatedCompany.
+                                    CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.TCDataBase).
+                                    Select(x => x.ItemInfoId).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault();
+
+                                CompanyInfoValueAux = Model.RelatedProvider.
+                                    RelatedCompany.
+                                    CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.TCDataBase).
+                                    Select(x => x.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault();
+                            }
+                        }
+                        <label>(Términos y condiciones) La confirmación de bases de datos con fines para ser comercializados</label>
+                        @if (CompanyInfoValueAux == "true")
+                        {
+                            <span>Si</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+
+                    </li>
+                }
+                @if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null)
+                {
+                    <li>
+                        @{
+                            //Therms and conditions
+
+                            CompanyInfoIdAux = 0;
+                            CompanyInfoValueAux = string.Empty;
+
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                            {
+                                CompanyInfoIdAux = Model.RelatedProvider.
+                                    RelatedCompany.
+                                    CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.TCVerificationInfo).
+                                    Select(x => x.ItemInfoId).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault();
+
+                                CompanyInfoValueAux = Model.RelatedProvider.
+                                    RelatedCompany.
+                                    CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.TCVerificationInfo).
+                                    Select(x => x.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault();
+                            }
+                        }
+                        <label>(Términos y condiciones) Consulta y certificación de la información en listas restrictivas, centrales de riesgo y demás entidades públicas y privadas para verificación de la información</label>
+                        @if (CompanyInfoValueAux == "true")
+                        {
+                            <span>Si</span>
+                        }
+                        else
+                        {
+                            <span>No</span>
+                        }
+                    </li>
+                            }
+                @if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null)
+                {
+                    <li>
                         <label>Logo</label><br />
 
                         @{
-                    CompanyInfoIdAux = 0;
-                    CompanyInfoValueAux = string.Empty;
+                            CompanyInfoIdAux = 0;
+                            CompanyInfoValueAux = string.Empty;
 
-                    if (Model.RelatedProvider != null &&
-                        Model.RelatedProvider.RelatedCompany != null &&
-                        Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
-                    {
-                        CompanyInfoIdAux = Model.RelatedProvider.
-                            RelatedCompany.
-                            CompanyInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
-                            Select(x => x.ItemInfoId).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault();
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                            {
+                                CompanyInfoIdAux = Model.RelatedProvider.
+                                    RelatedCompany.
+                                    CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
+                                    Select(x => x.ItemInfoId).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault();
 
-                        CompanyInfoValueAux = Model.RelatedProvider.
-                            RelatedCompany.
-                            CompanyInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
-                            Select(x => x.Value).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault();
-                    }
+                                CompanyInfoValueAux = Model.RelatedProvider.
+                                    RelatedCompany.
+                                    CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
+                                    Select(x => x.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault();
+                            }
                         }
                         @Html.Partial(MVC.Shared.Views._F_FileUpload)
                         <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
@@ -319,8 +402,7 @@
                             </div>
                         }
                     </li>
-                }
-                <li>
+                 }
             </ul>
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
@@ -343,14 +425,14 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
     <script type="text/javascript">
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
-            UploadFile({
-                ProviderPublicId: '@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty)',
+            if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
+                UploadFile({
+                    ProviderPublicId: '@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty)',
                     ControlellerResponseId: 'iptLogo'
-                });            
-        }
+                });
+            }
         });
     </script>
 }
