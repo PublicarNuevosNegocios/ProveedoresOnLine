@@ -76,6 +76,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string Index = "Index";
             public readonly string DownloadFile = "DownloadFile";
             public readonly string UpdateProvider = "UpdateProvider";
+            public readonly string ChangesControl = "ChangesControl";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,6 +85,7 @@ namespace DocumentManagement.Web.Controllers
             public const string Index = "Index";
             public const string DownloadFile = "DownloadFile";
             public const string UpdateProvider = "UpdateProvider";
+            public const string ChangesControl = "ChangesControl";
         }
 
 
@@ -97,8 +99,10 @@ namespace DocumentManagement.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string ChangesControl = "ChangesControl";
                 public readonly string Index = "Index";
             }
+            public readonly string ChangesControl = "~/Views/Provider/ChangesControl.cshtml";
             public readonly string Index = "~/Views/Provider/Index.cshtml";
         }
     }
@@ -138,6 +142,17 @@ namespace DocumentManagement.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateProvider);
             UpdateProviderOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangesControlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangesControl()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangesControl);
+            ChangesControlOverride(callInfo);
             return callInfo;
         }
 

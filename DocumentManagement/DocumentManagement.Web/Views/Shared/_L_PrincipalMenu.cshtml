@@ -1,20 +1,43 @@
 ﻿@if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Customer"))
 {
     <ul class="MenuButtons MenuCustomer">
+        <li class="MenuButtons_Customer">
+            <a href="@Url.Action(MVC.Provider.ActionNames.ChangesControl, MVC.Provider.Name)">Control de Cambios</a>
+        </li>S
         <li class="MenuButtons_Provider">
             <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
         </li>
         <li class="MenuButtons_Customer selected">
             <a href="@Url.Action(MVC.Customer.ActionNames.ListCustomer, MVC.Customer.Name)">Compradores</a>
-        </li>
+        </li>        
         @*<li class="MenuButtons_BO">
                 <a href="">Ir a Backoffice</a>
             </li>*@
     </ul>
 }
-else
+else if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Provider/ChangesControl"))
 {
     <ul class="MenuButtons MenuProvider">
+        <li class="MenuButtons_Customer selected">
+            <a href="@Url.Action(MVC.Provider.ActionNames.ChangesControl, MVC.Provider.Name)">Control de Cambios</a>
+        </li>
+        <li class="MenuButtons_Provider">
+            <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
+        </li>
+        <li class="MenuButtons_Customer">
+            <a href="@Url.Action(MVC.Customer.ActionNames.ListCustomer, MVC.Customer.Name)">Compradores</a>
+        </li>
+        <li class="MenuButtons_BO">
+            <a target="_blank" href="@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_URL_BackOffice].Value">Ir a Backoffice</a>
+        </li>
+    </ul>
+}
+else if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Provider"))
+{
+    <ul class="MenuButtons MenuProvider">
+        <li class="MenuButtons_Customer">
+            <a href="@Url.Action(MVC.Provider.ActionNames.ChangesControl, MVC.Provider.Name)">Control de Cambios</a>
+        </li>
         <li class="MenuButtons_Provider selected">
             <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
         </li>
@@ -26,3 +49,4 @@ else
         </li>
     </ul>
 }
+

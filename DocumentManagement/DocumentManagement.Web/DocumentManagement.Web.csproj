@@ -1065,6 +1065,7 @@
     <Content Include="Views\LogFile\Index.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\ProviderForm\AdminLogProvider.cshtml" />
+    <Content Include="Views\Provider\ChangesControl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

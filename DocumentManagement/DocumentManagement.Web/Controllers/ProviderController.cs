@@ -121,6 +121,11 @@ namespace DocumentManagement.Web.Controllers
             return RedirectToAction(MVC.Provider.ActionNames.Index, MVC.Provider.Name);
         }
 
+        public virtual ActionResult ChangesControl()
+        {
+            return View();
+        }
+
         #region Private Functions
 
         private ProviderModel GetRequestProvider()

@@ -347,6 +347,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                              },
                              Value = pci.Field<string>("Value"),
                              LargeValue = pci.Field<string>("LargeValue"),
+                             CreateDate = pci.Field<DateTime>("ProviderInfoCreateDate"),
+                             LastModify = pci.Field<DateTime>("ProviderInfoLastModify"),
                          }).ToList(),
                 };
             }

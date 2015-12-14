@@ -1,0 +1,27 @@
+﻿@model DocumentManagement.Models.Provider.ProviderSearchModel
+
+@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string UrlAction = Url.Action(MVC.Provider.ActionNames.DownloadFile, MVC.Provider.Name);
+    string UrlActionEdit = Url.Action(MVC.Provider.ActionNames.UpdateProvider, MVC.Provider.Name);
+}
+
+<div>
+    <div>
+        <span class="spanTitleForm">Control de Cambios</span>
+        <div id="divGridProvider"></div>
+    </div>
+   
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+        });
+    </script>
+}
