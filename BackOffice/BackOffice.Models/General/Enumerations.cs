@@ -146,6 +146,8 @@
         UpdateAlert = 203012,
         CheckDigit = 203013,
         CoinType = 203014,
+        TCDataBase = 203015,
+        TCVerificationInfo = 203016,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,
