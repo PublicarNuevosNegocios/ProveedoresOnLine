@@ -426,17 +426,32 @@
                 },
                 transport: {
                     read: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBankAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false',
-                            dataType: 'json',
-                            success: function (result) {
-                                options.success(result);
-                            },
-                            error: function (result) {
-                                options.error(result);
-                                Message('error', '');
-                            }
-                        });
+                        if (vSearchParam != "") {
+                            $.ajax({
+                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBankAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + 0 + '&IsAutoComplete=false',
+                                dataType: 'json',
+                                success: function (result) {
+                                    options.success(result);
+                                },
+                                error: function (result) {
+                                    options.error(result);
+                                    Message('error', '');
+                                }
+                            });
+                        }
+                        else {
+                            $.ajax({
+                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBankAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false',
+                                dataType: 'json',
+                                success: function (result) {
+                                    options.success(result);
+                                },
+                                error: function (result) {
+                                    options.error(result);
+                                    Message('error', '');
+                                }
+                            });
+                        }                        
                     },
                     create: function (options) {
                         $.ajax({
