@@ -334,6 +334,7 @@ namespace ProveedoresOnLine.Reports.Controller
         public static Tuple<byte[], string, string> TK_QueryReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
+            
             localReport.EnableExternalImages = true;
             localReport.ReportPath = FilePath;
             localReport.SetParameters(ReportData);
@@ -342,19 +343,14 @@ namespace ProveedoresOnLine.Reports.Controller
             source.Name = "DS_ThirdKnowledgeReport";
             source.Value = data != null ? data : new DataTable();
             localReport.DataSources.Add(source);
-
+           
             string mimeType;
             string encoding;
             string fileNameExtension;
             string deviceInfo =
                        "<DeviceInfo>" +
                        "  <OutputFormat>" + FormatType + "</OutputFormat>" +
-                       "  <PageWidth>8.5in</PageWidth>" +
-                       "  <PageHeight>11in</PageHeight>" +
-                       "  <MarginTop>0.5in</MarginTop>" +
-                       "  <MarginLeft>1in</MarginLeft>" +
-                       "  <MarginRight>1in</MarginRight>" +
-                       "  <MarginBottom>0.5in</MarginBottom>" +
+                      
                        "</DeviceInfo>";
             Warning[] warnings;
             string[] streams;
