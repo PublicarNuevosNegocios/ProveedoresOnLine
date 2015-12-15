@@ -418,6 +418,7 @@
     }
 
 .POMPPdfIcon {
-    width: 48%;
-    margin-top: 0px;
+    width: 48px;
+    padding-top: 7px;
+    padding-left: 9px;
 }
