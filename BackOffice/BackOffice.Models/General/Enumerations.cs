@@ -148,6 +148,8 @@
         CoinType = 203014,
         TCDataBase = 203015,
         TCVerificationInfo = 203016,
+        TCIntDataBase = 203017,
+        TCIntVerificationInfo = 203018,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,
