@@ -22,6 +22,10 @@ namespace DocumentManagement.Web.Controllers
                 errorMessage = msg != null ? msg : string.Empty,
             };
 
+            //Set the prev values Form
+
+
+
             oModel.RealtedForm = oModel.RealtedCustomer.
                 RelatedForm.
                 Where(x => x.FormPublicId == FormPublicId).
