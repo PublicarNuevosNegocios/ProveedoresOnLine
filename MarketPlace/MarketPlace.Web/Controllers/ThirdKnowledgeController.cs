@@ -205,7 +205,7 @@ namespace MarketPlace.Web.Controllers
             }
             else if (oQueryModel != null && oQueryModel.Count > 0)
             {
-                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel;
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel.OrderByDescending(x => x.CreateDate).ToList(); 
             }
             else
             {
