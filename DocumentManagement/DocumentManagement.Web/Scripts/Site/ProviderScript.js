@@ -129,7 +129,8 @@ function initCmb(cmbForm, cmbCustomer) {
             $('#' + cmbForm).html('');
             $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
             for (item in result.RelatedForm) {
-                $('#' + cmbForm).append('<option value="' + result.RelatedForm[0].FormPublicId + '">' + result.RelatedForm[0].Name + '</option>')
+                debugger;
+                $('#' + cmbForm).append('<option value="' + result.RelatedForm[item].FormPublicId + '">' + result.RelatedForm[item].Name + '</option>')
             }
         },
         error: function (result) {
