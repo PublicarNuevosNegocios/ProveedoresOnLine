@@ -187,5 +187,48 @@ namespace DocumentManagement.Provider.Controller
         }
 
         #endregion
+
+        #region ChangesControl
+
+        public static string ChangesControlUpsert(ChangesControlModel ChangesControlToUpsert)
+        {
+
+            string oResult = null;
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                oResult = DAL.Controller.ProviderDataController.Instance.ChangesControlUpsert
+                    (ChangesControlToUpsert.ChangesPublicId
+                    , ChangesControlToUpsert.ProviderInfoId
+                    , ChangesControlToUpsert.FormUrl
+                    , ChangesControlToUpsert.Status.ItemId
+                    , ChangesControlToUpsert.Enable);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = ChangesControlToUpsert;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "ChangesPublicId",
+                    Value = oResult,
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
+            return oResult;
+        }
+
+        #endregion
     }
 }

@@ -441,5 +441,31 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        #region ChangesControl
+
+        //ChangesUpsert
+        public string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+                        
+            lstParams.Add(DataInstance.CreateTypedParameter("vChangesPublicId", ChangesPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderInfoId", ProviderInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFormUrl", FormUrl));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStatus", Status));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == false ? 0 : 1));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "P_ChangesControl_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return response.ScalarResult.ToString();            
+        }
+
+        #endregion
     }
 }

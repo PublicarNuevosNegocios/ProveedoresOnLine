@@ -78,5 +78,14 @@ namespace DocumentManagement.Provider.DAL.Controller
         {
             return DataFactory.ProviderGetByInfoType(IdentificationNumber, IdentificationTypeId, ProviderInfoTypeId);
         }
+
+        #region ChangesControl
+
+        public string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable)
+        {
+            return DataFactory.ChangesControlUpsert(ChangesPublicId, ProviderInfoId, FormUrl, Status, Enable);
+        }
+
+        #endregion
     }
 }

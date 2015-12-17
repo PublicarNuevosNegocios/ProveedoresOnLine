@@ -26,5 +26,11 @@ namespace DocumentManagement.Provider.Interfaces
 
         DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetByInfoType(string IdentificationNumber, int IdentificationTypeId, int ProviderInfoTypeId);
 
+
+        #region ChangesControl 
+
+        string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable);
+
+        #endregion
     }
 }
