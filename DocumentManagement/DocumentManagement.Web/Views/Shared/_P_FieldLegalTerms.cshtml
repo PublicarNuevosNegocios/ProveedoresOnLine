@@ -35,7 +35,6 @@
         <div class="LegalTermsContent">
             <ul>
                 <li class="TextForm">@Html.Raw(CurrentModel.Rsx.txtHeader)</li>
-                <li><input class="CheckData" type="checkbox" id="@(strId)_CheckData" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckData ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtHeader)</label></li>
                 <li><input class="CheckCommercial" type="checkbox" id="@(strId)_CheckCommercial" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckCommercial ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckCommercial)</label></li>
                 <li><input class="CheckRestrictiveList" type="checkbox" id="@(strId)_CheckRestrictiveList" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckRestrictiveList ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckRestrictiveList)</label></li>
                 <li class="DownloadTerms">@Html.Raw(CurrentModel.Rsx.txtFooter)</li>
