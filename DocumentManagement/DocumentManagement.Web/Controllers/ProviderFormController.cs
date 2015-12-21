@@ -672,14 +672,15 @@ namespace DocumentManagement.Web.Controllers
             return null;
         }
 
+        #region ChangesControl
 
         private List<ChangesControlModel> GetChangesToUpdate(ProviderModel PrevModel, ProviderModel NewModel, string FormPublicId)
         {
             List<ChangesControlModel> oReturn = new List<ChangesControlModel>();
-            
+
             if (PrevModel != null && PrevModel.RelatedProviderInfo != null)
             {
-                oReturn = 
+                oReturn =
                 NewModel.RelatedProviderInfo.Where(y => y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.ProviderInfoId).FirstOrDefault() &&
                                                                                         y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.Value).FirstOrDefault()).
                                                                                         Select(y => new ChangesControlModel
@@ -689,12 +690,14 @@ namespace DocumentManagement.Web.Controllers
                                                                                             Status = new Provider.Models.Util.CatalogModel()
                                                                                             {
                                                                                                 ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
-                                                                                            }                                                                                            
+                                                                                            },
+                                                                                            Enable = true,                                                                                            
                                                                                         }).ToList();
-                
+
             }
             return oReturn;
-        }
+        } 
+        #endregion
 
         #endregion
 
