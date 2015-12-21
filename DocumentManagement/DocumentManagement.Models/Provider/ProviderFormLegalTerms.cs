@@ -31,8 +31,6 @@ namespace DocumentManagement.Models.Provider
     {
         public string txtHeader { get; set; }
 
-        public string txtCheckData { get; set; }
-
         public string txtCheckCommercial { get; set; }
 
         public string txtCheckRestrictiveList { get; set; }
@@ -51,7 +49,6 @@ namespace DocumentManagement.Models.Provider
                         typeof(ProviderFormLegalTermsResource));
 
             this.txtHeader = oObjAux.txtHeader;
-            this.txtCheckData = oObjAux.txtCheckData;
             this.txtCheckCommercial = oObjAux.txtCheckCommercial;
             this.txtCheckRestrictiveList = oObjAux.txtCheckRestrictiveList;
             this.txtFooter = oObjAux.txtFooter;
