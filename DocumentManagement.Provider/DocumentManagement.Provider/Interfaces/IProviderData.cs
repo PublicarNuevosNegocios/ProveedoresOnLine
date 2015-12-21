@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentManagement.Provider.Models.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,12 +26,12 @@ namespace DocumentManagement.Provider.Interfaces
         Dictionary<int, List<DocumentManagement.Provider.Models.Util.CatalogModel>> CatalogGetProviderOptions();
 
         DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetByInfoType(string IdentificationNumber, int IdentificationTypeId, int ProviderInfoTypeId);
-
-
+        
         #region ChangesControl 
 
         string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable);
 
+        List<ChangesControlModel> ChangesControlSearch(string SearchParam, string ProviderPublicId, int PageNumber, int RowCount, out int TotalRows);
         #endregion
     }
 }

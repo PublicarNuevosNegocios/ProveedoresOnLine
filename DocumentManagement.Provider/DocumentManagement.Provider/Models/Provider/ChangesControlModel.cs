@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Provider.Models.Provider
 {
-    public class ChangesControlModel
+    public class ChangesControlModel : ProviderModel
     {
         public int ChangesControlId { get; set; }
 

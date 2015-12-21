@@ -466,6 +466,57 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return response.ScalarResult.ToString();            
         }
 
+        public List<ChangesControlModel> ChangesControlSearch(string SearchParam, string ProviderPublicId, int PageNumber, int RowCount, out int TotalRows)
+        {
+            TotalRows = 0;           
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "P_ChagesControl_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<ChangesControlModel> oReturn = new List<ChangesControlModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ProviderPublicId")
+                     select new ChangesControlModel()                     
+                     {                         
+                         Name = c.Field<string>("ProviderName"),                                                 
+                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
+                         IdentificationType = new CatalogModel()
+                         {
+                            ItemId = c.Field<int>("IdentificationTypeId"),
+                            ItemName = c.Field<string>("IdentificationType"),
+                         },
+                         Status = new CatalogModel()
+                         {
+                             ItemId = c.Field<int>("StatusId"),
+                             ItemName = c.Field<string>("Status"),
+                         },
+                         FormUrl = c.Field<string>("FormPublicId"),
+                         LastModify = c.Field<DateTime>("LastModify"),                     
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+
         #endregion
     }
 }

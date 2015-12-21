@@ -22,7 +22,7 @@ namespace DocumentManagement.Web.Controllers
                 RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
                 errorMessage = msg != null ? msg : string.Empty,
             };
-            
+
             oModel.RealtedForm = oModel.RealtedCustomer.
                 RelatedForm.
                 Where(x => x.FormPublicId == FormPublicId).
@@ -100,24 +100,36 @@ namespace DocumentManagement.Web.Controllers
                     RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
                     RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId)),
                 };
-                
+
                 //PrevModel
                 ProviderModel oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
-                
+
                 //get request into generic model
                 GetUpsertGenericStepRequest(oGenericModels);
 
 
                 //Call Function to get differences and return a ChangesModel
-                //Validate when Provider model is empty
+
                 List<ChangesControlModel> oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId);
-                if (oChangesToUpsert != null)
+                if (oChangesToUpsert.Count > 0)
                 {
                     oChangesToUpsert.All(x =>
-                        {
-                            x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
-                            return true;
-                        });                    
+                    {
+                        x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
+                        return true;
+                    });
+                }
+                else
+                {
+                    DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
+                    oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
+
+                    oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId);
+                    oChangesToUpsert.All(x =>
+                    {
+                        x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
+                        return true;
+                    });
                 }
 
                 //upsert fields in database
@@ -678,11 +690,12 @@ namespace DocumentManagement.Web.Controllers
         {
             List<ChangesControlModel> oReturn = new List<ChangesControlModel>();
 
-            if (PrevModel != null && PrevModel.RelatedProviderInfo != null)
+            if (PrevModel != null && PrevModel.RelatedProviderInfo != null && PrevModel.RelatedProviderInfo.Count > 0)
             {
                 oReturn =
                 NewModel.RelatedProviderInfo.Where(y => y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.ProviderInfoId).FirstOrDefault() &&
-                                                                                        y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.Value).FirstOrDefault()).
+                                                                                        y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.Value).FirstOrDefault() 
+                                                                                        && y.ProviderInfoId != 0).
                                                                                         Select(y => new ChangesControlModel
                                                                                         {
                                                                                             ProviderInfoId = y.ProviderInfoId,
@@ -691,12 +704,31 @@ namespace DocumentManagement.Web.Controllers
                                                                                             {
                                                                                                 ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
                                                                                             },
-                                                                                            Enable = true,                                                                                            
+                                                                                            Enable = true,
                                                                                         }).ToList();
-
-            }
+                if (oReturn.Count == 0)
+                {
+                    PrevModel.RelatedProviderInfo.All(x =>
+                    {
+                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value))
+                        {
+                            oReturn.Add(new ChangesControlModel
+                            {
+                                ProviderInfoId = x.ProviderInfoId,
+                                FormUrl = FormPublicId,
+                                Status = new Provider.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                                },
+                                Enable = true,
+                            });
+                        }
+                        return true;
+                    });
+                }
+            }            
             return oReturn;
-        } 
+        }
         #endregion
 
         #endregion
