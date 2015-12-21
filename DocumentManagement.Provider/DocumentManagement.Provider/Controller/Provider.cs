@@ -229,9 +229,9 @@ namespace DocumentManagement.Provider.Controller
             return oResult;
         }
 
-        public static List<ChangesControlModel> ChangesControlSearch(string SearchParam, string ProviderPublicId, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ChangesControlModel> ChangesControlSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.ProviderDataController.Instance.ChangesControlSearch(SearchParam, ProviderPublicId, PageNumber, RowCount, out TotalRows);
+            return DAL.Controller.ProviderDataController.Instance.ChangesControlSearch(SearchParam, PageNumber, RowCount, out TotalRows);
         }
         #endregion
     }
