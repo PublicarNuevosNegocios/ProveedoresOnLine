@@ -71,5 +71,15 @@ namespace DocumentManagement.Provider_Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
+        #region ChangesControl
+        [TestMethod]
+        public void ChangesControlSearch()
+        {
+            int oTotalRows = 0;
+            Assert.IsNotNull(DocumentManagement.Provider.Controller.Provider.ChangesControlSearch("", 0, 50, out oTotalRows));
+        }
+
+        #endregion
+
     }
 }

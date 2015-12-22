@@ -31,7 +31,7 @@ namespace DocumentManagement.Provider.Interfaces
 
         string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable);
 
-        List<ChangesControlModel> ChangesControlSearch(string SearchParam, string ProviderPublicId, int PageNumber, int RowCount, out int TotalRows);
+        List<ChangesControlModel> ChangesControlSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
         #endregion
     }
 }

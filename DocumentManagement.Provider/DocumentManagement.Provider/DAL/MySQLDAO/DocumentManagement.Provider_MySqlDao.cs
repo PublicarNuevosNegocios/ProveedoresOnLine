@@ -466,14 +466,13 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return response.ScalarResult.ToString();            
         }
 
-        public List<ChangesControlModel> ChangesControlSearch(string SearchParam, string ProviderPublicId, int PageNumber, int RowCount, out int TotalRows)
+        public List<ChangesControlModel> ChangesControlSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             TotalRows = 0;           
 
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
-            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));            
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));            
 
@@ -510,6 +509,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                              ItemName = c.Field<string>("Status"),
                          },
                          FormUrl = c.Field<string>("FormPublicId"),
+                         Enable = c.Field<UInt64>("ChangeEnable") == 1 ? true : false,
+                          
                          LastModify = c.Field<DateTime>("LastModify"),                     
                      }).ToList();
             }

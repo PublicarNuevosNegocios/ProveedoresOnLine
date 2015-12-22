@@ -107,9 +107,7 @@ namespace DocumentManagement.Web.Controllers
                 //get request into generic model
                 GetUpsertGenericStepRequest(oGenericModels);
 
-
                 //Call Function to get differences and return a ChangesModel
-
                 List<ChangesControlModel> oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId);
                 if (oChangesToUpsert.Count > 0)
                 {

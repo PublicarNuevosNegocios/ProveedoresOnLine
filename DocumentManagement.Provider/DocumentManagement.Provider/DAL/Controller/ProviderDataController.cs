@@ -87,9 +87,9 @@ namespace DocumentManagement.Provider.DAL.Controller
             return DataFactory.ChangesControlUpsert(ChangesPublicId, ProviderInfoId, FormUrl, Status, Enable);
         }
 
-        public List<ChangesControlModel> ChangesControlSearch(string SearchParam, string ProviderPublicId, int PageNumber, int RowCount, out int TotalRows)
+        public List<ChangesControlModel> ChangesControlSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.ChangesControlSearch(SearchParam, ProviderPublicId, PageNumber, RowCount, out TotalRows);
+            return DataFactory.ChangesControlSearch(SearchParam,PageNumber, RowCount, out TotalRows);
         }
         #endregion
     }
