@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Models.Provider;
+using DocumentManagement.Provider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,17 @@ namespace DocumentManagement.Web.ControllersApi
             }
 
             return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<ChangesControlModel> ChangesControlSearch(string ChangesControlSearch, string SearchParam, int PageNumber, int RowCount)
+        {
+            int oTotalRows;
+
+            List<ChangesControlModel> oReturn = DocumentManagement.Provider.Controller.Provider.ChangesControlSearch(SearchParam, PageNumber, RowCount, out oTotalRows);
+
+            return oReturn; 
         }
     }
 }

@@ -76,7 +76,7 @@
         }, {
             field: "codSalesforce",
             title: "URL SalesForce",
-            template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
+            template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a_SearchButton>',
             width: 150
         }, {
             field: "LastModifyUser",
@@ -201,3 +201,77 @@ var L_AdminLogProvider = {
         });
     },
 };
+
+function ChangesControl(vidDiv, SearchParam)
+{    
+    //configure grid
+    $('#' + vidDiv).kendoGrid({
+        toolbar: [{ template: $('#' + vidDiv + '_Header').html() }],
+        pageable: true,
+        scrollable: true,
+        dataSource: {
+            pageSize: 20,
+            serverPaging: true,
+            schema: {
+                total: function (data) {
+                    if (data != null && data.length > 0) {
+                        return data[0].oTotalRows;
+                    }
+                    return 0;
+                }
+            },
+            transport: {
+                read: function (options) {
+                    var oSearchParam = $('#' + vidDiv + '_txtSearch').val();
+                    //var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
+                    //var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
+                    //var oUniqueParam = $('#' + chkName).prop('checked');                    
+
+                    $.ajax({
+                        url: BaseUrl.ApiUrl + '/ProviderApi?ChangesControlSearch=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                        dataType: "json",
+                        type: "POST",
+                        success: function (result) {
+                            debugger;
+                            options.success(result)
+                        },
+                        error: function (result) {
+                            debugger;
+                            options.error(result);
+                        }
+                    });
+                }
+            },
+        },
+        columns: [{
+            field: "Name",
+            title: "Razon Social",
+            width: 300
+        }, {
+            field: "IdentificationType.ItemName",
+            title: "Tipo de Identificación",
+            width: 100
+        }, {
+            field: "IdentificationNumber",
+            title: "Núm. identificación",
+            width: 150
+        }, {
+            field: "Status.ItemName",
+            title: "Estado",
+            width: 100
+        }, {
+            field: "LastModify",
+            title: "Fecha de Modificación",
+            width: 200
+        }, {
+            field: "FormUrl",
+            title: "URL",
+            width: 200,
+            template: $('#' + vidDiv + '_FormUrl').html(),
+        }],
+    });
+    //add search button event
+    $('#' + vidDiv + '_SearchButton').click(function () {
+        $('#' + vidDiv).getKendoGrid().dataSource.read();
+    });
+}
