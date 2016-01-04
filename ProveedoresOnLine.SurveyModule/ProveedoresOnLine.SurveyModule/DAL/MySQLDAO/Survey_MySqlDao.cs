@@ -583,8 +583,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                          RelatedSurveyConfig = new SurveyConfigModel()
                          {
                              ItemId = svg.Key.SurveyConfigId,
-                             ItemName = svg.Key.SurveyName,
-                             
+                             ItemName = svg.Key.SurveyName,                             
                              ItemInfo =
                                 (from scinf in response.DataTableResult.AsEnumerable()
                                  where !scinf.IsNull("SurveyConfigInfoId") &&
@@ -597,7 +596,8 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                      SurveyConfigInfoTypeName = scinf.Field<string>("SurveyConfigInfoTypeName"),
                                      SurveyConfigInfoValue = scinf.Field<string>("SurveyConfigInfoValue"),
                                      SurveyConfigInfoLargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
-                                     SurveyConfigInfoValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
+                                     SurveyConfigInfoValueName = scinf.Field<string>("SurveyConfigInfoValueName"),                                     
+
                                  } into scinfg
                                  select new GenericItemInfoModel()
                                  {
@@ -609,7 +609,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                      },
                                      Value = scinfg.Key.SurveyConfigInfoValue,
                                      LargeValue = scinfg.Key.SurveyConfigInfoLargeValue,
-                                     ValueName = scinfg.Key.SurveyConfigInfoValueName,
+                                     ValueName = scinfg.Key.SurveyConfigInfoValueName,                                     
                                  }).ToList(),
                          },
                          SurveyInfo =
@@ -624,6 +624,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                  SurveyInfoValue = svinf.Field<string>("SurveyInfoValue"),
                                  SurveyInfoLargeValue = svinf.Field<string>("SurveyInfoLargeValue"),
                                  SurveyInfoValueName = svinf.Field<string>("SurveyInfoValueName"),
+                                 SurveyInfoLastModify = svinf.Field<DateTime>("SurveyInfoLastModify"),
 
                              } into svinfg
                              select new GenericItemInfoModel()
@@ -637,6 +638,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                  Value = svinfg.Key.SurveyInfoValue,
                                  LargeValue = svinfg.Key.SurveyInfoLargeValue,
                                  ValueName = svinfg.Key.SurveyInfoValueName,
+                                 LastModify = svinfg.Key.SurveyInfoLastModify,
                              }).ToList(),
                      }).ToList();
             }
@@ -692,6 +694,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                          SurveyInfoValue = svinf.Field<string>("SurveyInfoValue"),
                                          SurveyInfoLargeValue = svinf.Field<string>("SurveyInfoLargeValue"),
                                          SurveyInfoValueName = svinf.Field<string>("SurveyInfoValueName"),
+                                         SurveyItemInfoLastModify = svinf.Field<DateTime>("SurveyItemInfoLastModify"),
                                      } into svinfg
                                      select new GenericItemInfoModel()
                                      {
@@ -704,6 +707,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                          Value = svinfg.Key.SurveyInfoValue,
                                          LargeValue = svinfg.Key.SurveyInfoLargeValue,
                                          ValueName = svinfg.Key.SurveyInfoValueName,
+                                         LastModify = svinfg.Key.SurveyItemInfoLastModify,
                                      }).ToList(), 
                     #endregion
 
@@ -717,7 +721,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                          SurveyItemId = svit.Field<int>("SurveyItemId"),
                                          SurveyItemSurveyConfigItemId = svit.Field<int>("SurveyItemSurveyConfigItemId"),
                                          EvaluatorRolId = svit.Field<int>("EvaluatorRolId"),
-                                         SurveyItemLastModify = svit.Field<DateTime>("SurveyItemLastModify"),
+                                         SurveyItemLastModify = svit.Field<DateTime>("SurveyItemLastModify"),                                         
                                      } into svitg
                                      select new SurveyItemModel()
                                      {
@@ -903,6 +907,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                          SurveyInfoValue = svinf.Field<string>("SurveyInfoValue"),
                                          SurveyInfoLargeValue = svinf.Field<string>("SurveyInfoLargeValue"),
                                          SurveyInfoValueName = svinf.Field<string>("SurveyInfoValueName"),
+                                         SurveyItemLastModify = svinf.Field<DateTime>("SurveyItemLastModify"),
                                      } into svinfg
                                      select new GenericItemInfoModel()
                                      {
@@ -915,6 +920,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                          Value = svinfg.Key.SurveyInfoValue,
                                          LargeValue = svinfg.Key.SurveyInfoLargeValue,
                                          ValueName = svinfg.Key.SurveyInfoValueName,
+                                         LastModify = svinfg.Key.SurveyItemLastModify,
                                      }).ToList(),
                     #endregion
 

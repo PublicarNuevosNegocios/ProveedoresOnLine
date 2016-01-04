@@ -52,8 +52,7 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                return RelatedSurvey.LastModify.ToString
-                    (MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Server].Value);
+                return RelatedSurvey.SurveyInfo.OrderByDescending(x => x.LastModify).FirstOrDefault().LastModify.ToString(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Server].Value);
             }
         }
 
