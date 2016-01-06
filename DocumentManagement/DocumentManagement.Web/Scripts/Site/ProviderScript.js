@@ -128,8 +128,7 @@ function initCmb(cmbForm, cmbCustomer) {
         success: function (result) {
             $('#' + cmbForm).html('');
             $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
-            for (item in result.RelatedForm) {
-                debugger;
+            for (item in result.RelatedForm) {                
                 $('#' + cmbForm).append('<option value="' + result.RelatedForm[item].FormPublicId + '">' + result.RelatedForm[item].Name + '</option>')
             }
         },
@@ -169,8 +168,7 @@ var L_AdminLogProvider = {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?ProviderLog=true&ProviderPublicId=' + L_AdminLogProvider.ProviderPublicId,
                             dataType: 'json',
-                            success: function (result) {
-                                debugger;
+                            success: function (result) {                                
                                 if (result != null) {
                                     options.success(result);
                                 }                                
@@ -223,20 +221,14 @@ function ChangesControl(vidDiv, SearchParam)
             transport: {
                 read: function (options) {
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();
-                    //var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
-                    //var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
-                    //var oUniqueParam = $('#' + chkName).prop('checked');                    
-
                     $.ajax({
                         url: BaseUrl.ApiUrl + '/ProviderApi?ChangesControlSearch=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                         dataType: "json",
                         type: "POST",
-                        success: function (result) {
-                            debugger;
+                        success: function (result) {                            
                             options.success(result)
                         },
-                        error: function (result) {
-                            debugger;
+                        error: function (result) {                            
                             options.error(result);
                         }
                     });
@@ -273,5 +265,12 @@ function ChangesControl(vidDiv, SearchParam)
     //add search button event
     $('#' + vidDiv + '_SearchButton').click(function () {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
+    });
+
+    $('#' + vidDiv + '_txtSearch').keypress(function (event) {        
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            $('#' + vidDiv + '_SearchButton').click();
+        }
     });
 }

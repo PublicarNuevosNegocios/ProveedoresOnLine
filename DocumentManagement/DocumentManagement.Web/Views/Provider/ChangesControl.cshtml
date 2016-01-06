@@ -13,10 +13,13 @@
         <div id="divGridChangesControl"></div>
     </div>
     <div id="template" style="display:none;">
+        <div id="divGridChangesControl_FormUrl">
+            <a target="_blank" href="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.Index, MVC.ProviderForm.Name, new { ProviderPublicId = "${ProviderPublicId}", FormPublicId = "${FormUrl}" })))">Ver Cambios</a>
+        </div>
         <div id="divGridChangesControl_Header">
-            <form id="ProfileInfoFormId" action="@Url.Content("~/api/ProviderApi?ChangesControlSearch=true&SearchParam=a")" method="post">
+            <form id="ProfileInfoFormId" action="" method="post">
                 <label>Filtrar por:</label>
-                <input type="text" id="divGridChangesControl_txtSearch" name="divGridChangesControl_txtSearch" />
+                <input type="text" id="divGridChangesControl_txtSearch" name="divGridChangesControl_txtSearch"/>
                 <div class="DMProviderFilterActions">
                     <input type="button" id="divGridChangesControl_SearchButton" value="Buscar" />
                 </div>

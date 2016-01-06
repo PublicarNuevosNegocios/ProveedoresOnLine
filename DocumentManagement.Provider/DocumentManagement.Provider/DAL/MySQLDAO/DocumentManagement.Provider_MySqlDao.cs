@@ -495,7 +495,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                     (from c in response.DataTableResult.AsEnumerable()
                      where !c.IsNull("ProviderPublicId")
                      select new ChangesControlModel()                     
-                     {                         
+                     {
+                         ProviderPublicId = c.Field<string>("ProviderPublicId"),                                                 
                          Name = c.Field<string>("ProviderName"),                                                 
                          IdentificationNumber = c.Field<string>("IdentificationNumber"),
                          IdentificationType = new CatalogModel()
@@ -516,8 +517,6 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             }
             return oReturn;
         }
-
-
         #endregion
     }
 }
