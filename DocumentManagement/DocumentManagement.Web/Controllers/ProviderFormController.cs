@@ -42,7 +42,7 @@ namespace DocumentManagement.Web.Controllers
         }
 
         public virtual ActionResult LoginProvider(string ProviderPublicId, string FormPublicId, string CustomerPublicId)
-        {
+        {           
             //get Provider info
             DocumentManagement.Provider.Models.Provider.ProviderModel RequestResult = GetLoginRequest();
 
@@ -334,6 +334,55 @@ namespace DocumentManagement.Web.Controllers
             return File
                 (bytes,
                 "application/pdf");
+        }
+
+        public virtual ActionResult LoginProviderChangesControl(string ProviderPublicId, string FormPublicId, string CustomerPublicId, string IdentificationType, string IdentificationNumber)
+        {
+            if (string.IsNullOrEmpty(CustomerPublicId) && !string.IsNullOrEmpty(FormPublicId))
+                CustomerPublicId = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId).CustomerPublicId;
+
+            //get Provider info            
+
+            DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider = 
+                DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(IdentificationNumber, Convert.ToInt32(IdentificationType), CustomerPublicId);
+
+            if (RealtedProvider != null && !string.IsNullOrEmpty(RealtedProvider.ProviderPublicId) && ProviderPublicId == RealtedProvider.ProviderPublicId)
+            {
+                //get first step
+                DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
+                    DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
+
+                //loggin success
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                        StepId = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId,
+                    });
+            }
+            else
+            {
+                //loggin failed
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                        StepId = string.Empty,
+                        msg = "El Número o tipo de identificación son incorrectos"
+                    });
+            }
         }
 
         #region Private Functions

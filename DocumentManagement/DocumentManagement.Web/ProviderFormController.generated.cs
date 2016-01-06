@@ -105,6 +105,12 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LoginProviderChangesControl()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProviderChangesControl);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -129,6 +135,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string UpsertAdminProvider = "UpsertAdminProvider";
             public readonly string DuplicateForm = "DuplicateForm";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
+            public readonly string LoginProviderChangesControl = "LoginProviderChangesControl";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -142,6 +149,7 @@ namespace DocumentManagement.Web.Controllers
             public const string UpsertAdminProvider = "UpsertAdminProvider";
             public const string DuplicateForm = "DuplicateForm";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
+            public const string LoginProviderChangesControl = "LoginProviderChangesControl";
         }
 
 
@@ -219,6 +227,18 @@ namespace DocumentManagement.Web.Controllers
         public class ActionParamsClass_GetPdfFileBytes
         {
             public readonly string FilePath = "FilePath";
+        }
+        static readonly ActionParamsClass_LoginProviderChangesControl s_params_LoginProviderChangesControl = new ActionParamsClass_LoginProviderChangesControl();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LoginProviderChangesControl LoginProviderChangesControlParams { get { return s_params_LoginProviderChangesControl; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LoginProviderChangesControl
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string IdentificationType = "IdentificationType";
+            public readonly string IdentificationNumber = "IdentificationNumber";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -349,6 +369,22 @@ namespace DocumentManagement.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
             GetPdfFileBytesOverride(callInfo, FilePath);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LoginProviderChangesControlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string CustomerPublicId, string IdentificationType, string IdentificationNumber);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LoginProviderChangesControl(string ProviderPublicId, string FormPublicId, string CustomerPublicId, string IdentificationType, string IdentificationNumber)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProviderChangesControl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationType", IdentificationType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationNumber", IdentificationNumber);
+            LoginProviderChangesControlOverride(callInfo, ProviderPublicId, FormPublicId, CustomerPublicId, IdentificationType, IdentificationNumber);
             return callInfo;
         }
 
