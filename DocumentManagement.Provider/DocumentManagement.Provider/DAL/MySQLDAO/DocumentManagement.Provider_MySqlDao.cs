@@ -542,6 +542,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                      where !c.IsNull("ProviderPublicId")
                      select new ChangesControlModel()
                      {
+                         ChangesPublicId = c.Field<string>("ChangesPublicId"),
                          ProviderPublicId = c.Field<string>("ProviderPublicId"),
                          Name = c.Field<string>("ProviderName"),
                          IdentificationNumber = c.Field<string>("IdentificationNumber"),
