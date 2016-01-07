@@ -274,7 +274,12 @@ namespace DocumentManagement.Web.Controllers
                         DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
 
                         ProviderToCreate.CustomerPublicId = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_PublicId_Publicar].Value;
-                        CustomerProviderInfo.ProviderInfoId = 0;
+                        ListCustomerProviderInfo.All(x =>
+                        {
+                            x.ProviderInfoId = 0;
+                            return true;
+                        });
+
                         DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
 
                     }
