@@ -79,6 +79,12 @@ namespace DocumentManagement.Provider_Test
             Assert.IsNotNull(DocumentManagement.Provider.Controller.Provider.ChangesControlSearch("", 0, 50, out oTotalRows));
         }
 
+        [TestMethod]
+        public void ChangesControlGetByProviderPublicId()
+        {            
+            Assert.IsNotNull(DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId("16B19596"));
+        }
+
         #endregion
 
     }

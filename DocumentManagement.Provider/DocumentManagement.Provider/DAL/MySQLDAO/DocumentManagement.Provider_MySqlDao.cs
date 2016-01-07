@@ -517,6 +517,48 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public List<ChangesControlModel> ChangesControlGetByProviderPublicId(string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));         
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "P_ChagesControl_GetByProviderPublicId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<ChangesControlModel> oReturn = new List<ChangesControlModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ProviderPublicId")
+                     select new ChangesControlModel()
+                     {
+                         ProviderPublicId = c.Field<string>("ProviderPublicId"),
+                         Name = c.Field<string>("ProviderName"),
+                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
+                         ProviderInfoId = c.Field<int>("ProviderInfoId"),     
+                         Status = new CatalogModel()
+                         {
+                             ItemId = c.Field<int>("StatusId"),
+                             ItemName = c.Field<string>("Status"),
+                         },
+                         FormUrl = c.Field<string>("FormPublicId"),
+                         Enable = c.Field<UInt64>("ChangeEnable") == 1 ? true : false,
+
+                         LastModify = c.Field<DateTime>("LastModify"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
     }
 }

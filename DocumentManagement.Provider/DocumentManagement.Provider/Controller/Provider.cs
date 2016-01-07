@@ -233,6 +233,11 @@ namespace DocumentManagement.Provider.Controller
         {
             return DAL.Controller.ProviderDataController.Instance.ChangesControlSearch(SearchParam, PageNumber, RowCount, out TotalRows);
         }
+
+        public static List<ChangesControlModel> ChangesControlGetByProviderPublicId(string ProviderPublicId)
+        {
+            return DAL.Controller.ProviderDataController.Instance.ChangesControlGetByProviderPublicId(ProviderPublicId);
+        }
         #endregion
     }
 }

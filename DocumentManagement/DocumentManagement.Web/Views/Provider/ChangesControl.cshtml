@@ -10,7 +10,14 @@
     </div>
     <div id="template" style="display:none;">
         <div id="divGridChangesControl_FormUrl">
-            <a target="_blank" href="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.LoginProviderChangesControl, MVC.ProviderForm.Name, new { ProviderPublicId = "${ProviderPublicId}", FormPublicId = "${FormUrl}", CustomerPublicId = "", IdentificationType = "${IdentificationType.ItemId}", IdentificationNumber = "${IdentificationNumber}", })))">Ver Cambios</a>
+            <a target="_blank" href="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.LoginProviderChangesControl, MVC.ProviderForm.Name, 
+                                        new { 
+                                                ProviderPublicId = "${ProviderPublicId}", 
+                                                FormPublicId = "${FormUrl}", 
+                                                CustomerPublicId = "", 
+                                                IdentificationType = "${IdentificationType.ItemId}", 
+                                                IdentificationNumber = "${IdentificationNumber}", 
+                                            })))">Ver Cambios</a>
         </div>
         <div id="divGridChangesControl_Header">
             <form id="ProfileInfoFormId" action="" method="post">

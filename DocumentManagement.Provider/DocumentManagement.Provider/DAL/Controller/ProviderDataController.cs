@@ -91,6 +91,11 @@ namespace DocumentManagement.Provider.DAL.Controller
         {
             return DataFactory.ChangesControlSearch(SearchParam,PageNumber, RowCount, out TotalRows);
         }
+
+        public List<ChangesControlModel> ChangesControlGetByProviderPublicId(string ProviderPublicId)
+        {
+            return DataFactory.ChangesControlGetByProviderPublicId(ProviderPublicId);
+        }
         #endregion
     }
 }

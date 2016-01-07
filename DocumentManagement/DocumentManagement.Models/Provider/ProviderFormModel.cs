@@ -66,9 +66,8 @@ namespace DocumentManagement.Models.Provider
 
         public string errorMessage { get; set; }
 
-        /// <summary>
-        /// InfoType, Item, Value
-        /// </summary>
-        public Tuple<int,string,string> PrevFormModel { get; set; }
+        public List<DocumentManagement.Provider.Models.Provider.ChangesControlModel> ChangesControlModel { get; set; }
+
+        public bool ShowChanges { get; set; }
     }
 }

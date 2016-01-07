@@ -341,8 +341,7 @@ namespace DocumentManagement.Web.Controllers
             if (string.IsNullOrEmpty(CustomerPublicId) && !string.IsNullOrEmpty(FormPublicId))
                 CustomerPublicId = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId).CustomerPublicId;
 
-            //get Provider info            
-
+            //get Provider info
             DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider = 
                 DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(IdentificationNumber, Convert.ToInt32(IdentificationType), CustomerPublicId);
 
