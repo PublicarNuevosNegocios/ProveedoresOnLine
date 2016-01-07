@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Customer.Models.Form;
+using DocumentManagement.Models.General;
 using DocumentManagement.Models.Provider;
 using DocumentManagement.Provider.Models.Provider;
 using System;
@@ -15,13 +16,19 @@ namespace DocumentManagement.Web.Controllers
         {
             int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
 
+            string oCurrentActionName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+
             ProviderFormModel oModel = new ProviderFormModel()
             {
                 ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
                 RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
                 RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
+                ChangesControlModel = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(ProviderPublicId),
+                ShowChanges = SessionModel.ShowChanges,
                 errorMessage = msg != null ? msg : string.Empty,
             };
+
+            //SessionModel.ShowChanges = false;
 
             oModel.RealtedForm = oModel.RealtedCustomer.
                 RelatedForm.
@@ -350,6 +357,8 @@ namespace DocumentManagement.Web.Controllers
                 //get first step
                 DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
                     DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
+
+                SessionModel.ShowChanges = true;
 
                 //loggin success
                 return RedirectToAction

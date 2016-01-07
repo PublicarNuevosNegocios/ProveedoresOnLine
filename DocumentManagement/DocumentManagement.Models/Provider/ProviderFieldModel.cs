@@ -17,5 +17,7 @@ namespace DocumentManagement.Models.Provider
         public Dictionary<int, List<DocumentManagement.Provider.Models.Util.CatalogModel>> ProviderOptions { get; set; }
 
         public string FieldType { get; set; }
+
+        public bool IsModified { get; set; }
     }
 }

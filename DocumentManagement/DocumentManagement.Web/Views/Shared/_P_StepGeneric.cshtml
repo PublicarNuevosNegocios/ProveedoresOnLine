@@ -35,7 +35,16 @@
                         Select(strView => strView.Key).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-
+                    bool ShowChanges = false;
+                    
+                    if (Model.RealtedProvider.RelatedProviderInfo.
+                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                ToList().Count > 0)
+	                {
+		                 ShowChanges =  Model.ChangesControlModel.Any(y => y.ProviderInfoId == Model.RealtedProvider.RelatedProviderInfo.
+                                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                                ToList().FirstOrDefault().ProviderInfoId)  ? true : false;
+	                }
                     if (!string.IsNullOrEmpty(strFieldType))
                     {
                         <li>
@@ -49,6 +58,7 @@
                                                 ToList(),
                                             ProviderOptions = Model.ProviderOptions,
                                             FieldType = strFieldType,
+                                            IsModified = Model.ShowChanges == true ? ShowChanges : false,
                                         }))
                         </li>
                     }
