@@ -19,5 +19,7 @@ namespace DocumentManagement.Customer.Models.Form
         public DateTime CreateDate { get; set; }
 
         public List<FieldModel> RelatedField { get; set; }
+
+        public bool ShowChanges { get; set; }
     }
 }

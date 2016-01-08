@@ -82,9 +82,9 @@ namespace DocumentManagement.Provider.DAL.Controller
 
         #region ChangesControl
 
-        public string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable)
+        public string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int StepId, int Status, bool Enable)
         {
-            return DataFactory.ChangesControlUpsert(ChangesPublicId, ProviderInfoId, FormUrl, Status, Enable);
+            return DataFactory.ChangesControlUpsert(ChangesPublicId, ProviderInfoId, FormUrl, StepId, Status, Enable);
         }
 
         public List<ChangesControlModel> ChangesControlSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)

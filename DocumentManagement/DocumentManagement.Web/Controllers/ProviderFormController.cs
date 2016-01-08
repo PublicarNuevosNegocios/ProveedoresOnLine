@@ -24,17 +24,24 @@ namespace DocumentManagement.Web.Controllers
                 RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
                 RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
                 ChangesControlModel = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(ProviderPublicId),
-                ShowChanges = SessionModel.ShowChanges,
+                ShowChanges = SessionModel.CurrentLoginUser != null ? true : false,
                 errorMessage = msg != null ? msg : string.Empty,
             };
-
-            //SessionModel.ShowChanges = false;
 
             oModel.RealtedForm = oModel.RealtedCustomer.
                 RelatedForm.
                 Where(x => x.FormPublicId == FormPublicId).
                 FirstOrDefault();
 
+            if (oModel.RealtedForm != null && oModel.RealtedForm.RelatedStep != null && oModel.ShowChanges)
+            {
+                oModel.RealtedForm.RelatedStep.All(x =>
+                    {
+                        if (oModel.ChangesControlModel.Any(y => y.StepId == x.StepId))                        
+                            x.ShowChanges = true;                        
+                        return true;
+                    });
+            }
             if (oStepId != null)
             {
                 oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
@@ -49,7 +56,7 @@ namespace DocumentManagement.Web.Controllers
         }
 
         public virtual ActionResult LoginProvider(string ProviderPublicId, string FormPublicId, string CustomerPublicId)
-        {           
+        {
             //get Provider info
             DocumentManagement.Provider.Models.Provider.ProviderModel RequestResult = GetLoginRequest();
 
@@ -115,7 +122,7 @@ namespace DocumentManagement.Web.Controllers
                 GetUpsertGenericStepRequest(oGenericModels);
 
                 //Call Function to get differences and return a ChangesModel
-                List<ChangesControlModel> oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId);
+                List<ChangesControlModel> oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId, Convert.ToInt32(StepId));
                 if (oChangesToUpsert.Count > 0)
                 {
                     oChangesToUpsert.All(x =>
@@ -129,7 +136,7 @@ namespace DocumentManagement.Web.Controllers
                     DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
                     oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
 
-                    oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId);
+                    oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId, Convert.ToInt32(StepId));
                     oChangesToUpsert.All(x =>
                     {
                         x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
@@ -349,7 +356,7 @@ namespace DocumentManagement.Web.Controllers
                 CustomerPublicId = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId).CustomerPublicId;
 
             //get Provider info
-            DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider = 
+            DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider =
                 DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(IdentificationNumber, Convert.ToInt32(IdentificationType), CustomerPublicId);
 
             if (RealtedProvider != null && !string.IsNullOrEmpty(RealtedProvider.ProviderPublicId) && ProviderPublicId == RealtedProvider.ProviderPublicId)
@@ -357,8 +364,6 @@ namespace DocumentManagement.Web.Controllers
                 //get first step
                 DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
                     DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
-
-                SessionModel.ShowChanges = true;
 
                 //loggin success
                 return RedirectToAction
@@ -741,36 +746,43 @@ namespace DocumentManagement.Web.Controllers
 
         #region ChangesControl
 
-        private List<ChangesControlModel> GetChangesToUpdate(ProviderModel PrevModel, ProviderModel NewModel, string FormPublicId)
+        private List<ChangesControlModel> GetChangesToUpdate(ProviderModel PrevModel, ProviderModel NewModel, string FormPublicId, int StepId)
         {
             List<ChangesControlModel> oReturn = new List<ChangesControlModel>();
 
             if (PrevModel != null && PrevModel.RelatedProviderInfo != null && PrevModel.RelatedProviderInfo.Count > 0)
             {
                 oReturn =
-                NewModel.RelatedProviderInfo.Where(y => y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.ProviderInfoId).FirstOrDefault() &&
-                                                                                        y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).Select(p => p.Value).FirstOrDefault() 
-                                                                                        && y.ProviderInfoId != 0).
-                                                                                        Select(y => new ChangesControlModel
-                                                                                        {
-                                                                                            ProviderInfoId = y.ProviderInfoId,
-                                                                                            FormUrl = FormPublicId,
-                                                                                            Status = new Provider.Models.Util.CatalogModel()
-                                                                                            {
-                                                                                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
-                                                                                            },
-                                                                                            Enable = true,
-                                                                                        }).ToList();
+                NewModel.RelatedProviderInfo.Where(y => y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
+                                            Select(p => p.ProviderInfoId).FirstOrDefault() &&
+                                            y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
+                                            Select(p => p.Value).FirstOrDefault()
+                                            || y.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
+                                            Select(p => p.LargeValue).FirstOrDefault()
+                                            && y.ProviderInfoId != 0).
+                                            Select(y => new ChangesControlModel
+                                            {
+                                                ProviderInfoId = y.ProviderInfoId,
+                                                FormUrl = FormPublicId,
+                                                StepId = StepId,
+                                                Status = new Provider.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                                                },
+                                                Enable = true,
+                                            }).ToList();
                 if (oReturn.Count == 0)
                 {
                     PrevModel.RelatedProviderInfo.All(x =>
                     {
-                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value))
+                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value) 
+                                                  || !string.IsNullOrEmpty(x.LargeValue))
                         {
                             oReturn.Add(new ChangesControlModel
                             {
                                 ProviderInfoId = x.ProviderInfoId,
                                 FormUrl = FormPublicId,
+                                StepId = StepId,
                                 Status = new Provider.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
@@ -781,7 +793,7 @@ namespace DocumentManagement.Web.Controllers
                         return true;
                     });
                 }
-            }            
+            }
             return oReturn;
         }
         #endregion

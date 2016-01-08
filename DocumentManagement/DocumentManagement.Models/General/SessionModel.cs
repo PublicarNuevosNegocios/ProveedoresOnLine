@@ -21,7 +21,5 @@ namespace DocumentManagement.Models.General
                             Any(x => x.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement);
             }
         }
-
-        public static bool ShowChanges { get; set; }
     }
 }
