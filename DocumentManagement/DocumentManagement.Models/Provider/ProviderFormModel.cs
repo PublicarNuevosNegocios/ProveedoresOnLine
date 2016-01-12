@@ -14,7 +14,7 @@ namespace DocumentManagement.Models.Provider
 
         public DocumentManagement.Customer.Models.Form.FormModel RealtedForm { get; set; }
 
-        public DocumentManagement.Customer.Models.Form.StepModel RealtedStep { get; set; }
+        public DocumentManagement.Customer.Models.Form.StepModel RealtedStep { get; set; }        
 
         public DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider { get; set; }
 

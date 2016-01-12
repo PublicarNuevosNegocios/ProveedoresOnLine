@@ -202,6 +202,7 @@ namespace DocumentManagement.Provider.Controller
                     (ChangesControlToUpsert.ChangesPublicId
                     , ChangesControlToUpsert.ProviderInfoId
                     , ChangesControlToUpsert.FormUrl
+                    , ChangesControlToUpsert.StepId
                     , ChangesControlToUpsert.Status.ItemId
                     , ChangesControlToUpsert.Enable);
 

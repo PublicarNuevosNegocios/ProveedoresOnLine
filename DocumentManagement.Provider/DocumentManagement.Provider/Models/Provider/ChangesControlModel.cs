@@ -17,6 +17,8 @@ namespace DocumentManagement.Provider.Models.Provider
 
         public string FormUrl { get; set; }
 
+        public int StepId { get; set; }
+
         public CatalogModel Status { get; set; }
 
         public bool Enable { get; set; }

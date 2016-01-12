@@ -29,7 +29,7 @@ namespace DocumentManagement.Provider.Interfaces
         
         #region ChangesControl 
 
-        string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable);
+        string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int StepId, int Status, bool Enable);
 
         List<ChangesControlModel> ChangesControlSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 

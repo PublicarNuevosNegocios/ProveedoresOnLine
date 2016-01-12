@@ -7,8 +7,10 @@
         {
             if (Item.StepId == Model.RealtedStep.StepId)
             {
-                <li class="MenuSelected">
-                    <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                if (Item.ShowChanges)
+                {
+                    <li class="MenuSelectedChange">
+                        <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
                         MVC.ProviderForm.Name,
                         new
                         {
@@ -17,11 +19,27 @@
                             StepId = Item.StepId
                         }))">@Item.Name</a>
                     </li>
+                }
+                else
+                {
+                    <li class="MenuSelected">
+                        <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                        MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                            StepId = Item.StepId
+                        }))">@Item.Name</a>
+                    </li>
+                }
             }
             else
             {
-                <li>
-                    <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                if (Item.ShowChanges)
+                {
+                    <li class="MenuUnSelectedChange">
+                        <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
                         MVC.ProviderForm.Name,
                         new
                         {
@@ -30,6 +48,20 @@
                             StepId = Item.StepId
                         }))">@Item.Name</a>
                     </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                        MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                            StepId = Item.StepId
+                        }))">@Item.Name</a>
+                    </li>
+                }
             }
 
         }

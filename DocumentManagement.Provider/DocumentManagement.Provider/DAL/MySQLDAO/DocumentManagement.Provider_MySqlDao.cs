@@ -445,13 +445,14 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         #region ChangesControl
 
         //ChangesUpsert
-        public string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int Status, bool Enable)
+        public string ChangesControlUpsert(string ChangesPublicId, int ProviderInfoId, string FormUrl, int StepId, int Status, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
                         
             lstParams.Add(DataInstance.CreateTypedParameter("vChangesPublicId", ChangesPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderInfoId", ProviderInfoId));
             lstParams.Add(DataInstance.CreateTypedParameter("vFormUrl", FormUrl));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStepId", StepId));
             lstParams.Add(DataInstance.CreateTypedParameter("vStatus", Status));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == false ? 0 : 1));            
 
@@ -510,6 +511,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                              ItemName = c.Field<string>("Status"),
                          },
                          FormUrl = c.Field<string>("FormPublicId"),
+                         StepId = c.Field<int>("StepId"),
                          Enable = c.Field<UInt64>("ChangeEnable") == 1 ? true : false,
                           
                          LastModify = c.Field<DateTime>("LastModify"),                     
@@ -553,6 +555,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                              ItemName = c.Field<string>("Status"),
                          },
                          FormUrl = c.Field<string>("FormPublicId"),
+                         StepId = c.Field<int>("StepId"),
                          Enable = c.Field<UInt64>("ChangeEnable") == 1 ? true : false,
 
                          LastModify = c.Field<DateTime>("LastModify"),
