@@ -1736,6 +1736,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                         Count = (int)sv.Field<Int64>("Count"),
                         AxisY = sv.Field<string>("Mail"),
                         CountX = (int)sv.Field<UInt64>("UserId"),
+                        Year = (int)sv.Field<DateTime>("Year").Year,
                     }).ToList();
             }
 

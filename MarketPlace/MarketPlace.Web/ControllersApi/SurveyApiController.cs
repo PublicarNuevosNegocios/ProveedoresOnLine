@@ -335,7 +335,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<Tuple<string, string, string, int, int>> GetSurveyByEvaluators(string GetSurveyByEvaluators)
+        public List<Tuple<string, string, string, int, int, int>> GetSurveyByEvaluators(string GetSurveyByEvaluators)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -356,15 +356,14 @@ namespace MarketPlace.Web.ControllersApi
             {
                 oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email);
             }
-            
 
-            List<Tuple<string, string, string, int, int>> oReturn = new List<Tuple<string, string, string, int, int>>();
+            List<Tuple<string, string, string, int, int, int>> oReturn = new List<Tuple<string, string, string, int, int, int>>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(Tuple.Create(x.AxisY, x.ItemName, x.AxisX, x.Count, x.CountX));
+                    oReturn.Add(Tuple.Create(x.AxisY, x.ItemName, x.AxisX, x.Count, x.CountX, x.Year));
                     return true;
                 });
             }

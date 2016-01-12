@@ -189,8 +189,7 @@ var SurveyByEvaluators_ChartsObject = {
             url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByEvaluators=true',
             dataType: "json",
             async: false,
-            success: function (result) {
-
+            success: function (result) {                
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Mail');
                 data.addColumn('string', 'Estado');
@@ -198,8 +197,10 @@ var SurveyByEvaluators_ChartsObject = {
                 data.addColumn('number', 'Cantidad');
                 data.addColumn({ type: 'string', role: 'annotation' });
                 data.addColumn('number', 'UserId');
+                data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item2, value.m_Item5]]);
+                    debugger;
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item2, value.m_Item5, value.m_Item6]]);
                 });
 
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByEvaluators_ChartsObject.DashboardId));
@@ -233,8 +234,16 @@ var SurveyByEvaluators_ChartsObject = {
                         'filterColumnLabel': 'Estado'
                     }
                 });
+                var barFilterYear = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_year',
+                    'options': {
+                        'filterColumnLabel': 'Year'
+                    }
+                });
                 dashboard.bind(barFilterMonth, vBarChart);
                 dashboard.bind(barFilterState, vBarChart);
+                dashboard.bind(barFilterYear, vBarChart);
 
                 google.visualization.events.addListener(vBarChart, 'ready', function () {
                     google.visualization.events.addListener(vBarChart, 'select', selectHandler);
@@ -245,7 +254,6 @@ var SurveyByEvaluators_ChartsObject = {
                     if (selectedItem) {
                         var SearchFilter = data.getValue(selectedItem[0].row, 5);
                         window.location = SurveyByEvaluators_ChartsObject.GetSearchUrl(SearchFilter);
-
                     }
                 }
 
