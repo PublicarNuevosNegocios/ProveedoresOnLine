@@ -1664,6 +1664,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                         ItemType = sv.Field<string>("ItemType"),
                         ItemName = sv.Field<string>("ItemName"),
                         Count = (int)sv.Field<Int64>("Count"),
+                        Year = (int)sv.Field<DateTime>("Year").Year,
                     }).ToList();
             }
 

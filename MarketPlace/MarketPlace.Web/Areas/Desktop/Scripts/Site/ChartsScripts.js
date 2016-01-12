@@ -316,7 +316,6 @@ var SurveyByMonth_ChartsObject = {
                 data.addColumn('string', "EstadoId");
                 data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    debugger;
                     data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item1, value.m_Item4, value.m_Item5]]);
                 });
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByMonth_ChartsObject.DashboardId));
