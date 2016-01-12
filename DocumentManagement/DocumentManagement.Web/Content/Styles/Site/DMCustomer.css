@@ -1,11 +1,17 @@
 /******FormBody********/
+span.DMImportant {
+    display: inline-block !important;
+    color: red !important;
+    margin: 0px 3px 0px 7px;
+}
+
 .DMCustomerForm {
     vertical-align: top;
     border-width: 0px 0px 0px 1px;
     border-style: solid;
     border-color: #FF7E35;
-    width: 76.9%;
-    min-width: 58%;
+    width: 39%;
+    /* min-width: 58%; */
     min-height: 430px;
     display: inline-block;
     margin: 0px 0px 0px -4px;

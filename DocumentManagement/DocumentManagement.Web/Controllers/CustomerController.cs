@@ -129,6 +129,81 @@ namespace DocumentManagement.Web.Controllers
 
         public virtual ActionResult UploadProvider(string CustomerPublicId, HttpPostedFileBase ExcelFile)
         {
+            //eval upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                try
+                {
+                    string ProviderName = Request["ProviderName"].ToString();
+                    string IdentificationNumber = Request["IdentificationNumber"].ToString();
+                    string IdentificationType = Convert.ToInt32(Request["IdentificationType"]) == 0 ? string.Empty : Request["IdentificationType"];
+                    string Email = Request["Email"].ToString();
+                    string Salesforce = Request["Salesforce"].ToString();
+
+                    #region Operation
+                    //Validate provider
+                    ProviderModel Provider = new ProviderModel();
+                    ProviderModel oResultValidate = new ProviderModel();
+                    ProviderModel oInfoValidate = new ProviderModel();
+
+                    oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(IdentificationNumber, Convert.ToInt32(IdentificationType), CustomerPublicId);
+
+                    //Create ProviderCustomerInfo
+                    List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
+                    ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
+                    if (oResultValidate == null)
+                    {
+                        CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 401 };
+                        CustomerProviderInfo.Value = "201";
+                        ListCustomerProviderInfo.Add(CustomerProviderInfo);
+                    }
+
+                    CustomerProviderInfo = new ProviderInfoModel();
+
+                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
+                                                          oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
+                                                                    Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
+
+                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
+                    CustomerProviderInfo.Value = Salesforce;
+
+                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
+
+                    //Create Provider
+                    ProviderModel ProviderToCreate = new ProviderModel()
+                    {
+                        CustomerPublicId = CustomerPublicId,
+                        Name = ProviderName,
+                        IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = Convert.ToInt32(IdentificationType) },
+                        IdentificationNumber = IdentificationNumber,
+                        Email = Email,
+                        RelatedProviderCustomerInfo = ListCustomerProviderInfo
+                    };
+                    if (oResultValidate == null)
+                    {
+                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
+
+                        ProviderToCreate.CustomerPublicId = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_PublicId_Publicar].Value;
+                        ListCustomerProviderInfo.All(x =>
+                        {
+                            x.ProviderInfoId = 0;
+                            return true;
+                        });
+
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
+
+                    }
+                    else
+                    {
+                        ProviderToCreate.ProviderPublicId = oResultValidate.ProviderPublicId;
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
+                    }
+                    #endregion
+                }
+                catch(Exception e)
+                { }
+            }
+
             if (ExcelFile != null)
             {
                 string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
