@@ -28,6 +28,8 @@ namespace ProveedoresOnLine.Company.Models.Util
 
         public int CountY { get; set; }
 
+        public int Year { get; set; }
+
         public DateTime Date { get; set; }
     }
 }
