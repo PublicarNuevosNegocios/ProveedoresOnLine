@@ -373,7 +373,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<Tuple<string, int, string, string>> GetSurveyByMonth(string GetSurveyByMonth)
+        public List<Tuple<string, int, string, string, int>> GetSurveyByMonth(string GetSurveyByMonth)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -397,14 +397,14 @@ namespace MarketPlace.Web.ControllersApi
 
 
             // Se repite el estado porque es necesario para el tooltip de la gráfica
-            List<Tuple<string, int, string, string>> oReturn = new List<Tuple<string, int, string, string>>();
+            List<Tuple<string, int, string, string,int>> oReturn = new List<Tuple<string, int, string, string,int>>();
 
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(Tuple.Create(x.ItemName, x.Count, x.AxisX, x.ItemType));
+                    oReturn.Add(Tuple.Create(x.ItemName, x.Count, x.AxisX, x.ItemType,x.Year));
                     return true;
                 });
             }

@@ -199,7 +199,6 @@ var SurveyByEvaluators_ChartsObject = {
                 data.addColumn('number', 'UserId');
                 data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    debugger;
                     data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item2, value.m_Item5, value.m_Item6]]);
                 });
 
@@ -315,8 +314,10 @@ var SurveyByMonth_ChartsObject = {
                 data.addColumn('string', 'Mes');
                 data.addColumn({ type: 'string', role: 'tooltip' });
                 data.addColumn('string', "EstadoId");
+                data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item1, value.m_Item4]]);
+                    debugger;
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item1, value.m_Item4, value.m_Item5]]);
                 });
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByMonth_ChartsObject.DashboardId));
 
@@ -347,7 +348,15 @@ var SurveyByMonth_ChartsObject = {
                         'filterColumnLabel': 'Mes'
                     }
                 });
+                var filterYear = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_div_year',
+                    'options': {
+                        'filterColumnLabel': 'Year'
+                    }
+                });
                 dashboard.bind(filterMonth, pieChart);
+                dashboard.bind(filterYear, pieChart);
 
                 google.visualization.events.addListener(pieChart, 'ready', function () {
                     google.visualization.events.addListener(pieChart, 'select', selectHandler);
