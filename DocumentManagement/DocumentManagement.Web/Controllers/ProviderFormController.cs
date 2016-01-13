@@ -37,8 +37,8 @@ namespace DocumentManagement.Web.Controllers
             {
                 oModel.RealtedForm.RelatedStep.All(x =>
                     {
-                        if (oModel.ChangesControlModel.Any(y => y.StepId == x.StepId))                        
-                            x.ShowChanges = true;                        
+                        if (oModel.ChangesControlModel.Any(y => y.StepId == x.StepId))
+                            x.ShowChanges = true;
                         return true;
                     });
             }
@@ -752,30 +752,118 @@ namespace DocumentManagement.Web.Controllers
 
             if (PrevModel != null && PrevModel.RelatedProviderInfo != null && PrevModel.RelatedProviderInfo.Count > 0)
             {
-                oReturn =
-                NewModel.RelatedProviderInfo.Where(y => y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
-                                            Select(p => p.ProviderInfoId).FirstOrDefault() &&
-                                            y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
-                                            Select(p => p.Value).FirstOrDefault()
-                                            || y.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
-                                            Select(p => p.LargeValue).FirstOrDefault()
-                                            && y.ProviderInfoId != 0).
-                                            Select(y => new ChangesControlModel
-                                            {
-                                                ProviderInfoId = y.ProviderInfoId,
-                                                FormUrl = FormPublicId,
-                                                StepId = StepId,
-                                                Status = new Provider.Models.Util.CatalogModel()
-                                                {
-                                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
-                                                },
-                                                Enable = true,
-                                            }).ToList();
+                NewModel.RelatedProviderInfo.All(inf =>
+                {
+                    if (inf.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
+                        Select(p => p.ProviderInfoId).FirstOrDefault() &&
+                        inf.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
+                        Select(p => p.Value).FirstOrDefault()
+                        || inf.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
+                        Select(p => p.LargeValue).FirstOrDefault()
+                        && inf.ProviderInfoId != 0
+                        && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.ComercialExpirience
+                        && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.Designations
+                        && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.DifferentsFile
+                        && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.FinancialStatus
+                        && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.QualityCertificate)
+                    {
+                        oReturn.Add(new ChangesControlModel
+                        {
+                            ProviderInfoId = inf.ProviderInfoId,
+                            FormUrl = FormPublicId,
+                            StepId = StepId,
+                            Status = new Provider.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                            },
+                            Enable = true,
+                        });
+                    }
+                    else if ((inf.ProviderInfoType.ItemId == (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.ComercialExpirience
+                        || inf.ProviderInfoType.ItemId == (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.Designations
+                        || inf.ProviderInfoType.ItemId == (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.DifferentsFile
+                        || inf.ProviderInfoType.ItemId == (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.FinancialStatus
+                        || inf.ProviderInfoType.ItemId == (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.QualityCertificate)
+                        && !string.IsNullOrEmpty(inf.LargeValue)
+                        )
+                    {
+                        if (inf.ProviderInfoId != 0)
+                        {
+                            if (inf.LargeValue.Split('"')[6] == ":false,")
+                            {
+                                oReturn.Add(new ChangesControlModel
+                                {
+                                    ProviderInfoId = inf.ProviderInfoId,
+                                    FormUrl = FormPublicId,
+                                    StepId = StepId,
+                                    Status = new Provider.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                                    },
+                                    Enable = true,
+                                });
+                            }
+                            else
+                            {
+                                List<ChangesControlModel> oChangeToUpdate = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(PrevModel.ProviderPublicId);
+                                ChangesControlModel oToUpsert = null;
+                                if (oChangeToUpdate != null)
+                                     oToUpsert = oChangeToUpdate.Where(x => x.ProviderInfoId == inf.ProviderInfoId).Select(x => x).FirstOrDefault();
+                                
+                                oReturn.Add(new ChangesControlModel
+                                {
+                                    ChangesPublicId = oToUpsert.ChangesPublicId,
+                                    ProviderInfoId = inf.ProviderInfoId,
+                                    FormUrl = FormPublicId,
+                                    StepId = StepId,
+                                    Status = new Provider.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                                    },
+                                    Enable = false,
+                                });
+                            }
+                        }
+                        else
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewModel);
+                            PrevModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(NewModel.ProviderPublicId, Convert.ToInt32(StepId));
+
+                            oReturn = GetChangesToUpdate(PrevModel, NewModel, FormPublicId, Convert.ToInt32(StepId));
+                        }
+                    }
+                    return true;
+                });
+
+                //oReturn =
+                //NewModel.RelatedProviderInfo.Where(y =>  y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.ComercialExpirience
+                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.Designations
+                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.DifferentsFile
+                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.FinancialStatus
+                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.QualityCertificate && 
+                //                                y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
+                //                            Select(p => p.ProviderInfoId).FirstOrDefault() &&
+                //                            y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
+                //                            Select(p => p.Value).FirstOrDefault()
+                //                            || y.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
+                //                            Select(p => p.LargeValue).FirstOrDefault()
+                //                            && y.ProviderInfoId != 0).
+                //                            Select(y => new ChangesControlModel
+                //                            {
+                //                                ProviderInfoId = y.ProviderInfoId,
+                //                                FormUrl = FormPublicId,
+                //                                StepId = StepId,
+                //                                Status = new Provider.Models.Util.CatalogModel()
+                //                                {
+                //                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                //                                },
+                //                                Enable = true,
+                //                            }).ToList();
                 if (oReturn.Count == 0)
                 {
                     PrevModel.RelatedProviderInfo.All(x =>
                     {
-                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value) 
+                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value)
                                                   || !string.IsNullOrEmpty(x.LargeValue))
                         {
                             oReturn.Add(new ChangesControlModel

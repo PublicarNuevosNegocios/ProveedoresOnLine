@@ -213,12 +213,15 @@ var PF_MultipleFileObject = {
     DivId: '',
     MultipleData: new Array(),
     ACData: new Array(),
+    IsModified: '',
 
     Init: function (vInitObject) {
-
+        debugger;
         this.DivId = vInitObject.DivId;
         this.MultipleData = vInitObject.MultipleData;
         this.ACData = vInitObject.ACData;
+        this.IsModified = vInitObject.IsModified == "True" ? "red" : "black";
+
     },
 
     //init Multiple File grid
@@ -236,13 +239,14 @@ var PF_MultipleFileObject = {
             columns: [{
                 field: 'Name',
                 title: 'Nombre',
+                template: "<div >&nbsp; <label style='color:" + PF_MultipleFileObject.IsModified + "'> ${Name} </label> </div>"
             }, {
                 field: 'ProviderInfoUrl',
                 title: ' ',
-                template: '<a href="${ProviderInfoUrl}" target="_blank">Ver archivo</a>'
+                template: '<a href="${ProviderInfoUrl}" " target="_blank">Ver archivo</a>'
             }, {
                 field: 'ProviderInfoId',
-                title: ' ',
+                title: ' ',                
                 template: '<a href="javascript:PF_MultipleFileObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
             }]
         });

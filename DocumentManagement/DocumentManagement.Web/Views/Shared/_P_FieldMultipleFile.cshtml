@@ -3,6 +3,7 @@
 @{
     //get grid id
     string strId = Model.FieldType + "-" + Model.RealtedField.FieldId;
+    string IsModified = Model.IsModified.ToString();
 }
 
 @if (!Model.RenderScripts)
@@ -66,16 +67,20 @@ else
             ProviderOptions[Model.RealtedField.ProviderInfoType.ItemId].
             Select(x => x.ItemName).ToList());
     }
+    string IsModifiedFile = Model.IsModified == true ? "red":"black";
 
     <script type="text/javascript">
         var vGridData = @(Html.Raw(oGridData));
         var vACData = @(Html.Raw(oAcData));
+        
+        
         $(document).ready(function () {
             //Start grid
             PF_MultipleFileObject.Init({
                 DivId: '@strId',
                 MultipleData: vGridData,
                 ACData: vACData,
+                IsModified: '@Model.IsModified',
             });
             PF_MultipleFileObject.RenderAsync();
         });
