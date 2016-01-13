@@ -778,40 +778,63 @@ var AlienProviders_ChartsObject = {
 //**** PROJECT CHARTS ****//
 var ProjectByStatus_ChartsObject = {
     ObjectId: '',
+    DashboardId: '',
     SearchUrl: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
+        this.DashboardId = vInitObject.DashboardId;
     },
 
     RenderChatrProjectByStatus: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByState=true',
+            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true',
             dataType: "json",
             async: false,
             success: function (result) {
                 var data = new google.visualization.DataTable();
+
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
+                data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    data.addRows([[item, value]]);
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3]]);
                 });
-                var options = {
-                    legend: 'none',
-                    series: { 0: { color: 'orange', opacity: 0.2 }, 1: { color: 'blue', opacity: 0.2 } },
-                    is3D: true,
-                    chartArea: { left: 30, top: 10, width: "100%", height: "80%" },
-                    height: "100%",
-                    width: "100%",
-                    colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
-                };
+                var dashboard = new google.visualization.Dashboard(document.getElementById(ProjectByStatus_ChartsObject.DashboardId));
+                var vBarChart = new google.visualization.ChartWrapper({
+                    'chartType': 'BarChart',
+                    'containerId': document.getElementById(ProjectByStatus_ChartsObject.ObjectId),
+                    'options': {
+                        colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22'],
+                        is3D: true,
+                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
+                        height: "100%",
+                        width: "100%"
+                    },
+                    'view': {
+                        'columns': [0, 1]
+                    }
+                });
+                // Create a range slider, passing some options
+                var barFilterYear = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_pjs_year',
+                    'options': {
+                        'filterColumnLabel': 'Year',
+                        'ui': {
+                            'label': 'Año'
+                        }
+                    }
+                });
+                dashboard.bind(barFilterYear, vBarChart);
 
-                var chart = new google.visualization.ColumnChart(document.getElementById(ProjectByStatus_ChartsObject.ObjectId));
 
-                chart.draw(data, options);
+                dashboard.draw(data);
+
                 function resize() {
-                    chart.draw(data, options);
+                    // change dimensions if necessary
+                    dashboard.draw(data);
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);
@@ -842,30 +865,49 @@ var ProjectByResponsible_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Responsable');
                 data.addColumn('number', 'Cantidad');
+                data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    data.addRows([[item, value]]);
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3]]);
                 });
 
-                var options = {
-                    bars: 'horizontal',
-                    legend: { position: "none" },
-                    series: { 0: { color: 'orange', visibleInLegend: false }, 1: { color: 'blue', visibleInLegend: false } },
-                    is3D: true,
-                    chartArea: { left: 200, top: 10, width: "100%", height: "90%" },
-                    height: "100%",
-                    width: "60%",
-                    colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
-                };
 
-                var vBarChart = new google.visualization.BarChart(document.getElementById(ProjectByResponsible_ChartsObject.ObjectId));
+                var dashboard = new google.visualization.Dashboard(document.getElementById(ProjectByResponsible_ChartsObject.DashboardId));
+                var vBarChart = new google.visualization.ChartWrapper({
+                    'chartType': 'PieChart',
+                    'containerId': document.getElementById(ProjectByResponsible_ChartsObject.ObjectId),
+                    'options': {
+                        colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22'],
+                        is3D: true,
+                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
+                        height: "100%",
+                        width: "100%"
+                    },
+                    'view': {
+                        'columns': [0, 1]
+                    }
+                });
+                // Create a range slider, passing some options
+                var barFilterYear = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_pjr_year',
 
-                vBarChart.draw(data, options);
+                    'options': {
+                        'filterColumnLabel': 'Year',
+                        'ui': {
+                            'label': 'Año'
+                        }
+                    }
+                });
+                dashboard.bind(barFilterYear, vBarChart);
+
+                dashboard.draw(data);
+
                 function resize() {
-                    vBarChart.draw(data, options);
+                    // change dimensions if necessary
+                    dashboard.draw(data);
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);
@@ -930,8 +972,6 @@ var TK_GetPeriodsByPlan_ChartsObject = {
                     width: "100%",
                     colors: ['#FF6961', '#77DD77']
                 };
-
-
 
                 var chart = new google.visualization.BarChart(document.getElementById(TK_GetPeriodsByPlan_ChartsObject.ObjectId));
 

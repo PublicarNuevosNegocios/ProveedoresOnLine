@@ -262,9 +262,6 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-
-        
-        /*Dictionary<string, int>*/
         public List<Tuple<string, int,int>> GetSurveyByResponsable(string GetSurveyByResponsable)
         {
             //Get Charts By Module
@@ -281,9 +278,10 @@ namespace MarketPlace.Web.ControllersApi
             if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
                 oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
             else
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
 
-            /*Dictionary<string, int>*/List<Tuple<string, int,int>>  oReturn = new List<Tuple<string, int,int>>(); /*Dictionary<string, int>();*/
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
+                List<Tuple<string, int,int>>  oReturn = new List<Tuple<string, int,int>>(); 
+            
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
