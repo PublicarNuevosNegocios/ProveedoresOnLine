@@ -4,12 +4,14 @@ var Survey_ChartsObject = {
     SurveyResponsible: '',
     SearchUrl: '',
     UserEmail: '',
+    DashboardId:'',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyResponsible = vInitObject.SurveyResponsible;
         this.SearchUrl = vInitObject.SearchUrl;
         this.UserEmail = vInitObject.UserEmail;
+        this.DashboardId = vInitObject.DashboardId;
     },
 
     RenderChartSurveyByResponsable: function () {
@@ -19,24 +21,49 @@ var Survey_ChartsObject = {
             async: false,
             success: function (result) {
                 var data = new google.visualization.DataTable();
+                
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
+                data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    data.addRows([[item, value]]);
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3]]);
+                });               
+                var dashboard = new google.visualization.Dashboard(document.getElementById(Survey_ChartsObject.DashboardId));
+                var vBarChart = new google.visualization.ChartWrapper({
+                    'chartType': 'PieChart',
+                    'containerId': document.getElementById(Survey_ChartsObject.ObjectId),
+                    'options': {
+                        is3D: true,
+                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
+                        height: "100%",
+                        width: "100%"
+                    },
+                    'view': {
+                        'columns': [0, 1]
+                    }
+                });
+                // Create a range slider, passing some options
+                var barFilterYear = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_year_sv',
+                   
+                    'options': {
+                        'filterColumnLabel': 'Year',
+                        'ui': {
+                            'label': 'Año'
+                        }
+                    }
+                });
+                dashboard.bind(barFilterYear, vBarChart);
+
+                google.visualization.events.addListener(vBarChart, 'ready', function () {
+                    google.visualization.events.addListener(vBarChart, 'select', selectHandler);
                 });
 
-                var options = {
-                    is3D: true,
-                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
-                  , height: "100%"
-                  , width: "100%"
-                   , colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
-                };
-
                 function selectHandler() {
-                    var selectedItem = chart.getSelection()[0];
+                    var selectedItem = vBarChart.getChart().getSelection();
                     if (selectedItem) {
-                        var topping = data.getValue(selectedItem.row, 0);
+                        var topping = data.getValue(selectedItem[0].row, 0);
                         var SearchFilter = 0;
                         if (topping == "Programada") {
                             SearchFilter = 1206001;
@@ -56,12 +83,13 @@ var Survey_ChartsObject = {
                         window.location = Survey_ChartsObject.GetSearchUrl(SearchFilter, Survey_ChartsObject.UserEmail);
                     }
                 }
-                var chart = new google.visualization.PieChart(document.getElementById(Survey_ChartsObject.ObjectId));
-                google.visualization.events.addListener(chart, 'select', selectHandler);
-                chart.draw(data, options);
+                google.visualization.events.addListener(vBarChart, 'select', selectHandler);
+
+                dashboard.draw(data);
+
                 function resize() {
                     // change dimensions if necessary
-                    chart.draw(data, options);
+                    dashboard.draw(data);
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);
@@ -69,7 +97,6 @@ var Survey_ChartsObject = {
                 else {
                     window.attachEvent('onresize', resize);
                 }
-
             }
         });
     },
@@ -206,11 +233,13 @@ var SurveyByEvaluators_ChartsObject = {
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByEvaluators_ChartsObject.DashboardId));
 
                 var vBarChart = new google.visualization.ChartWrapper({
-                    'chartType': 'BarChart',
+                    'is3D': true,
+                    'chartType': 'PieChart',
                     'bars': 'horizontal',
                     'containerId': document.getElementById(SurveyByEvaluators_ChartsObject.ObjectId),
                     'options': {
-                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
+                        is3D: true,
+                        chartArea: { left: 10, top: 28, width: "98%", height: "80%" },
                         height: "100%",
                         width: "100%"
                     },
@@ -225,6 +254,10 @@ var SurveyByEvaluators_ChartsObject = {
                     'containerId': 'filter_month',
                     'options': {
                         'filterColumnLabel': 'Mes'
+                        ,
+                        'ui': {
+                            'label': 'Mes'
+                        }
                     }
                 });
                 var barFilterState = new google.visualization.ControlWrapper({
@@ -232,6 +265,10 @@ var SurveyByEvaluators_ChartsObject = {
                     'containerId': 'filter_state',
                     'options': {
                         'filterColumnLabel': 'Estado'
+                        ,
+                        'ui': {
+                            'label': 'Estado'
+                        }
                     }
                 });
                 var barFilterYear = new google.visualization.ControlWrapper({
@@ -239,16 +276,18 @@ var SurveyByEvaluators_ChartsObject = {
                     'containerId': 'filter_year',
                     'options': {
                         'filterColumnLabel': 'Year'
+                        ,
+                        'ui': {
+                            'label': 'Año'
+                        }
                     }
                 });
                 dashboard.bind(barFilterMonth, vBarChart);
                 dashboard.bind(barFilterState, vBarChart);
                 dashboard.bind(barFilterYear, vBarChart);
-
                 google.visualization.events.addListener(vBarChart, 'ready', function () {
                     google.visualization.events.addListener(vBarChart, 'select', selectHandler);
                 });
-
                 function selectHandler() {
                     var selectedItem = vBarChart.getChart().getSelection();
                     if (selectedItem) {
@@ -256,9 +295,7 @@ var SurveyByEvaluators_ChartsObject = {
                         window.location = SurveyByEvaluators_ChartsObject.GetSearchUrl(SearchFilter);
                     }
                 }
-
                 google.visualization.events.addListener(vBarChart, 'select', selectHandler);
-
                 dashboard.draw(data);
                 function resize() {
                     // change dimensions if necessary
@@ -270,7 +307,6 @@ var SurveyByEvaluators_ChartsObject = {
                 else {
                     window.attachEvent('onresize', resize);
                 }
-
             }
         });
     },
@@ -325,6 +361,7 @@ var SurveyByMonth_ChartsObject = {
                     'chartType': 'PieChart',
                     'containerId': document.getElementById(SurveyByMonth_ChartsObject.ObjectId),
                     'options': {
+                        is3D: false,
                         pieSliceTextStyle: {
                             color: 'black',
                         },
@@ -345,14 +382,20 @@ var SurveyByMonth_ChartsObject = {
                     'controlType': 'CategoryFilter',
                     'containerId': 'filter_div',
                     'options': {
-                        'filterColumnLabel': 'Mes'
+                        'filterColumnLabel': 'Mes',
+                        'ui': {
+                            'label': 'Mes'
+                        }
                     }
                 });
                 var filterYear = new google.visualization.ControlWrapper({
                     'controlType': 'CategoryFilter',
                     'containerId': 'filter_div_year',
                     'options': {
-                        'filterColumnLabel': 'Year'
+                        'filterColumnLabel': 'Year',
+                        'ui': {
+                            'label': 'Año'
+                        }
                     }
                 });
                 dashboard.bind(filterMonth, pieChart);
