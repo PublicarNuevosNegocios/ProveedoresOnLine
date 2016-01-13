@@ -1213,8 +1213,6 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-
-
         [HttpPost]
         [HttpGet]
         public Dictionary<string, int> GetProjectByState(string GetProjectByState)

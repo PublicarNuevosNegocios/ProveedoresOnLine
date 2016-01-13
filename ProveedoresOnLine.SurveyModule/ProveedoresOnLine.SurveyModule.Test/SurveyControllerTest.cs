@@ -25,6 +25,16 @@ namespace ProveedoresOnLine.SurveyModule.Test
         }
 
         [TestMethod]
+        public void GetSurveyByEvaluator()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> oreturn =
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator("DA5C572E", "");
+
+            Assert.IsTrue(oreturn.Count > 0);
+        }
+
+
+        [TestMethod]
         public void GetSurveyByUser()
         {
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oReturn =

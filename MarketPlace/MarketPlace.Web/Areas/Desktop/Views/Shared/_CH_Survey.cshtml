@@ -1,5 +1,8 @@
-﻿
-<div id="SurveyResponsableStatusChartId" class="ResponsiveChartsClass"></div>
+﻿<div id="dashboard_div_sv">
+    <div id="filter_year_sv"></div>
+    <div id="SurveyResponsableStatusChartId" class="ResponsiveChartsClass"></div>
+</div>
+
 @{
     var email = 0;
 
@@ -10,23 +13,24 @@
     }
 }
 
-
 <script type="text/javascript">
-    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    google.load('visualization', '1.0', { 'packages': ['controls'] });
     $(document).ready(function () {
 
         google.setOnLoadCallback(Survey_ChartsObject.RenderChartSurveyByResponsable);
 
         Survey_ChartsObject.Init({
             ObjectId: 'SurveyResponsableStatusChartId',
+            DashboardId: 'dashboard_div_sv',
             SurveyResponsible: 'true',
             UserEmail: '@(email)',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
+                           new
                             {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Search
+                               controller = MVC.Provider.Name,
+                               action = MVC.Provider.ActionNames.Search
                             }))',
         })
     })
 </script>
+

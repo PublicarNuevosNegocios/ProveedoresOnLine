@@ -11,7 +11,7 @@
     <div class="DMCustomerForm">
         <form action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
             <div class="DMFormDataWrapper">
-                <span class="spanTitleForm">Cargue masivo de compradores</span>
+                <span class="spanTitleForm">Cargue masivo de proveedores</span>
                 <ul>
                     <li><label>Comprador: @Model.RelatedCustomer.Name</label></li>
                     <li><a target="_blank" href="https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0XlsProvider/ProveedoresCargue.xls">Descargar plantilla</a></li>
@@ -59,6 +59,48 @@
             </div>
         </form>
     </div>
-
-
+    <div class="DMCustomerForm">
+        <form id="frmProviderUpsert" name="frmProviderUpsert" action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
+            <div class="DMFormDataWrapper">
+                <span class="spanTitleForm">Cargue individual de proveedores</span>
+                <ul>
+                    <li>
+                        <span class="DMImportant">*</span><label>Razón social</label>
+                        <br />
+                        <input type="text" name="ProviderName" required />
+                    </li>
+                    <li>
+                        <span class="DMImportant">*</span><label>Tipo de identificación</label>
+                        <br />
+                        <select name="IdentificationType" required >
+                            <option value="101">RUT</option>
+                            <option value="102">NIT</option>
+                            <option value="103">Tax-id</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span class="DMImportant">*</span><label>Número de identificación</label>
+                        <br />
+                        <input type="text" name="IdentificationNumber" required />
+                    </li>
+                    <li>
+                        <label>Email</label>
+                        <br />
+                        <input type="text" name="Email" />
+                    </li>
+                    <li>
+                        <label>Código de salesforce (Lead)</label>
+                        <br />
+                        <input type="text" name="Salesforce" />
+                    </li>
+                    <li>
+                        <input class="BOButtons" type="submit" value="Guardar" />
+                    </li>
+                </ul>
+            </div>
+            <div style="display:none;">
+                <input type="hidden" name="UpsertAction" value="true" />
+            </div>
+        </form>
+    </div>
 </div>
