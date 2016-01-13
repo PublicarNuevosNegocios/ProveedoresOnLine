@@ -33,6 +33,7 @@ var Survey_ChartsObject = {
                     'chartType': 'PieChart',
                     'containerId': document.getElementById(Survey_ChartsObject.ObjectId),
                     'options': {
+                        colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22'],
                         is3D: true,
                         chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
                         height: "100%",
@@ -125,6 +126,7 @@ var Survey_ChartsObject = {
 
 var SurveyByName_ChartsObject = {
     ObjectId: '',
+    DashboardId: '',
     SurveyName: '',
     SearchUrl: '',
 
@@ -132,6 +134,7 @@ var SurveyByName_ChartsObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyName = vInitObject.SurveyName;
         this.SearchUrl = vInitObject.SearchUrl;
+        this.DashboardId = vInitObject.DashboardId;
     },
 
     RenderChart: function () {
@@ -141,36 +144,67 @@ var SurveyByName_ChartsObject = {
             async: false,
             success: function (result) {
                 var data = new google.visualization.DataTable();
-
                 data.addColumn('string', 'Tipo');
                 data.addColumn('number', 'Cantidad');
                 data.addColumn('number', 'filtro');
+                data.addColumn('number', 'Year');
                 $.each(result, function (item, value) {
-                    data.addRows([[value.m_Item2, value.m_Item3, value.m_Item1]]);
+                    data.addRows([[value.m_Item2, value.m_Item3, value.m_Item1, value.m_Item4]]);
                 });
 
-                var options = {
-                    is3D: true,
-                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" },
-                    height: "100%",
-                    width: "100%",
-                   colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22']
+                var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByName_ChartsObject.DashboardId));
 
-                };
+                var vBarChart = new google.visualization.ChartWrapper({
+                    'chartType': 'PieChart',
+                    'containerId': document.getElementById(SurveyByName_ChartsObject.ObjectId),
+                    'options': {
+                        colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22'],
+                        is3D: true,
+                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
+                        height: "100%",
+                        width: "100%"
+                    },
+                    'view': {
+                        'columns': [0, 1]
+                    }
+                });
+
+                // Create a range slider, passing some options
+                var barFilterYearnm = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_year_nm',
+
+                    'options': {
+                        'filterColumnLabel': 'Year',
+                        'ui': {
+                            'label': 'Año'
+                        }
+                    }
+                });
+
+                dashboard.bind(barFilterYearnm, vBarChart);
+
+
+                google.visualization.events.addListener(vBarChart, 'ready', function () {
+                    google.visualization.events.addListener(vBarChart, 'select', selectHandler);
+                });
 
                 function selectHandler() {
-                    var selectedItem = chart.getSelection()[0];
+
+                    var selectedItem = vBarChart.getChart().getSelection();
                     if (selectedItem) {
-                        var SearchFilter = data.getValue(selectedItem.row, 2);
+                        var SearchFilter = data.getValue(selectedItem[0].row, 2);
                         window.location = SurveyByName_ChartsObject.GetSearchUrl(SearchFilter);
                     }
+
                 }
-                var chart = new google.visualization.PieChart(document.getElementById(SurveyByName_ChartsObject.ObjectId));
-                google.visualization.events.addListener(chart, 'select', selectHandler);
-                chart.draw(data, options);
+                google.visualization.events.addListener(vBarChart, 'select', selectHandler);
+
+                dashboard.draw(data);
+
                 function resize() {
                     // change dimensions if necessary
-                    chart.draw(data, options);
+                    dashboard.draw(data);
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);
@@ -178,6 +212,7 @@ var SurveyByName_ChartsObject = {
                 else {
                     window.attachEvent('onresize', resize);
                 }
+
 
             }
         });
@@ -361,6 +396,7 @@ var SurveyByMonth_ChartsObject = {
                     'chartType': 'PieChart',
                     'containerId': document.getElementById(SurveyByMonth_ChartsObject.ObjectId),
                     'options': {
+                        colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22'],
                         is3D: false,
                         pieSliceTextStyle: {
                             color: 'black',

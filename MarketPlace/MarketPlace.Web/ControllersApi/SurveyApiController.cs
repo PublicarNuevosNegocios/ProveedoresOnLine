@@ -299,7 +299,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<Tuple<int, string, int>> GetSurveyByName(string GetSurveyByName)
+        public List<Tuple<int, string, int, int>> GetSurveyByName(string GetSurveyByName)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -322,13 +322,13 @@ namespace MarketPlace.Web.ControllersApi
             }
 
 
-            List<Tuple<int, string, int>> oReturn = new List<Tuple<int, string, int>>();
+            List<Tuple<int, string, int, int>> oReturn = new List<Tuple<int, string, int, int>>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(Tuple.Create(x.CountX, x.ItemName, x.Count));
+                    oReturn.Add(Tuple.Create(x.CountX, x.ItemName, x.Count, x.Year));
                     return true;
                 });
             }
