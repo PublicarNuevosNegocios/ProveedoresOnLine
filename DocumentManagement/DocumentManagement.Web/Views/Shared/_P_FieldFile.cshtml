@@ -20,7 +20,14 @@
             <span>*</span>
         }
         <label>@Model.RealtedField.Name:</label>
-        <input type="file" id="@strId" name="@strId" />
+        @if (Model.IsModified)
+        {
+            <input type="file" id="@strId" name="@strId" style="border-color:red" />
+        }
+        else
+        {
+            <input type="file" id="@strId" name="@strId"  />
+        }
         @if (!string.IsNullOrEmpty(strValue))
         {
             <a class="OpenFile" href="@strValue" target="_blank">Ver archivo</a>
