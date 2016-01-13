@@ -24,6 +24,7 @@ var Survey_ChartsObject = {
                 $.each(result, function (item, value) {
                     data.addRows([[item, value]]);
                 });
+
                 var options = {
                     is3D: true,
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
