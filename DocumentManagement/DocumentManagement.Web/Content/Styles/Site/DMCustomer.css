@@ -434,7 +434,7 @@ span.Message {
         font-size: 0.9em;
     }
 
-.CheckData, .CheckCommercial, .CheckRestrictiveList {
+.CheckData, .CheckCommercial, .CheckRestrictiveList, .CheckLegalTerms{
     width: 15px !important;
     margin: 0px 0px 0px 0px !important;
     vertical-align: top;

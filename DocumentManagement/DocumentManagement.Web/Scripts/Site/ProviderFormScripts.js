@@ -201,8 +201,8 @@ function PF_LegalTermsChange(vidInput) {
 
     var oReq = '';
 
-    oReq = oReq + '{CheckCommercial:' + $('#' + vidInput + '_CheckCommercial').prop('checked') + ',';
-    oReq = oReq + 'CheckRestrictiveList:' + $('#' + vidInput + '_CheckRestrictiveList').prop('checked') + '}';
+    //oReq = oReq + '{CheckCommercial:' + $('#' + vidInput + '_CheckCommercial').prop('checked') + ',';
+    oReq = oReq + '{CheckLegalTerms:' + $('#' + vidInput + '_CheckLegalTerms').prop('checked') + '}';
 
     $("#" + vidInput).val(oReq);
 }
