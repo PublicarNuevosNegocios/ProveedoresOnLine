@@ -2130,6 +2130,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                         CountX = (int)sv.Field<Int32>("ProjectStatus"),
                         AxisX = sv.Field<string>("Name"),
                         Count = (int)sv.Field<UInt64>("Count"),
+                        Year = (int)sv.Field<DateTime>("Year").Year,
                     }).ToList();
             }
 
@@ -2163,6 +2164,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                     {
                         AxisY = sv.Field<string>("Responsible"),
                         Count = (int)sv.Field<UInt64>("Count"),
+                        Year = (int)sv.Field<DateTime>("Year").Year,
                     }).ToList();
             }
 

@@ -1,19 +1,22 @@
-﻿
-<div id="ProjectByStatusChartId" class="ResponsiveChartsClass"></div>
+﻿<div id="dashboard_pss">
+    <div id="filter_pjs_year"></div>
+    <div id="ProjectByStatusChartId" class="ResponsiveChartsClass"></div>
+</div>
 
 <script type="text/javascript">
-    google.load('visualization', '1.0', { 'packages': ['corechart', 'bar'] });
+    google.load('visualization', '1.0', { 'packages': ['controls'] });
     $(document).ready(function () {
-
         google.setOnLoadCallback(ProjectByStatus_ChartsObject.RenderChatrProjectByStatus);
 
         ProjectByStatus_ChartsObject.Init({
             ObjectId: 'ProjectByStatusChartId',
+            DashboardId: 'dashboard_pss',
+
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
+                           new
                             {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Search
+                               controller = MVC.Provider.Name,
+                               action = MVC.Provider.ActionNames.Search
                             }))',
         })
     })

@@ -1184,7 +1184,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetProjectByResponsible(string GetProjectByResponsible)
+        public List<Tuple<string, int, int>> GetProjectByResponsible(string GetProjectByResponsible)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -1199,13 +1199,13 @@ namespace MarketPlace.Web.ControllersApi
 
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetProjectByResponsible(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+            List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>(); 
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(x.AxisY, x.Count);
+                    oReturn.Add(Tuple.Create(x.AxisY, x.Count, x.Year));
                     return true;
                 });
             }
@@ -1215,7 +1215,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetProjectByState(string GetProjectByState)
+        public List<Tuple<string, int, int>> GetProjectByState(string GetProjectByState)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -1230,13 +1230,12 @@ namespace MarketPlace.Web.ControllersApi
 
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetProjectByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
 
-            Dictionary<string, int> oReturn = new Dictionary<string, int>();
-
+            List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>(); 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(x.AxisX, x.Count);
+                    oReturn.Add(Tuple.Create(x.AxisX, x.Count, x.Year));
                     return true;
                 });
             }

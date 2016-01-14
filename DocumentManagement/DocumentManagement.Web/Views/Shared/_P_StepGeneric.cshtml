@@ -88,6 +88,7 @@ else
 
     foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
     {
+        bool ShowChanges = false;
         //get partial view to render
         string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
             FieldInfoTypes.
@@ -95,7 +96,14 @@ else
             Select(strView => strView.Key).
             DefaultIfEmpty(string.Empty).
             FirstOrDefault();
-
+        if (Model.RealtedProvider.RelatedProviderInfo.
+                                               Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                               ToList().Count > 0)
+        {
+            ShowChanges = Model.ChangesControlModel.Any(y => y.ProviderInfoId == Model.RealtedProvider.RelatedProviderInfo.
+                                                   Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                   ToList().FirstOrDefault().ProviderInfoId) ? true : false;
+        }
         DocumentManagement.Models.Provider.ProviderFieldModel ItemModel = new DocumentManagement.Models.Provider.ProviderFieldModel()
             {
                 RenderScripts = true,
@@ -105,8 +113,9 @@ else
                     ToList(),
                 ProviderOptions = Model.ProviderOptions,
                 FieldType = strFieldType,
+                IsModified = Model.ShowChanges == true ? ShowChanges : false,
             };
-
+        ItemModel.IsModified = Model.ShowChanges == true ? ShowChanges : false;
         if (ItemModel.RealtedField.IsRequired)
         {
             TotalRequiredFields++;
