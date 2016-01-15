@@ -17,17 +17,17 @@
         <!--Quantity field-->
         @if (Model.RealtedField.IsRequired)
         {
-            <span>*</span>
+            <span class="ItemLeftPosition">*</span>
         }
-        <label>@Model.RealtedField.Name:</label>
+        <div class="ItemLeftPosition"><label>@Model.RealtedField.Name:</label></div>
         @if (Model.IsModified)
         {
-            <input type="text" id="@strId" name="@strId" value="@strValue" />
-            <input type="checkbox" name="name" value=" " />
+            <div class="ItemLeftPosition"><input type="text" id="@strId" name="@strId" value="@strValue" /></div>
+            <div class="CheckBox_Position"><input type="checkbox" class="CheckBox_size" name="name" /></div>
         }
         else
         {
-            <input type="text" id="@strId" name="@strId" value="@strValue" />
+            <div class="ItemLeftPosition"><input type="text" id="@strId" name="@strId" value="@strValue" /></div>
         }
 
     </div>

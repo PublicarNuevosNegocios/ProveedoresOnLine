@@ -15,17 +15,17 @@
         <!--PDF field-->
         @if (Model.RealtedField.IsRequired)
         {
-            <span>*</span>
+            <span class="ItemLeftPosition">*</span>
         }
-        <label>@Model.RealtedField.Name:</label>
+        <div class="ItemLeftPosition"><label>@Model.RealtedField.Name:</label></div>
         @if (Model.IsModified)
         {
-            <input type="file" id="@strId" name="@strId" style="border-color:red" />
-            <input type="checkbox" name="name" value=" " />
+            <div class="ItemLeftPosition"><input type="file" id="@strId" name="@strId" style="border-color:red" /></div>
+            <div class="CheckBox_Position"><input type="checkbox" class="CheckBox_size" name="name" /></div>
         }
         else
         {
-            <input type="file" id="@strId" name="@strId" />
+            <input  type="file" id="@strId" name="@strId" />
         }        
         <a target="_blank" href="@(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormUrl"].Value)">
             @(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormText"].Value)

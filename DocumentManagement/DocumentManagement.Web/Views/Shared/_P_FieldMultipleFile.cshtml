@@ -12,10 +12,10 @@
         <!--Multiple file name-->
         @if (Model.RealtedField.IsRequired)
         {
-            <span>*</span>
+            <span class="ItemLeftPosition">*</span>
         }
-        <label class="labelMultipleFiles">@Model.RealtedField.Name:</label>
-        <div id="@strId"></div>
+        <label class="ItemLeftPosition labelMultipleFiles">@Model.RealtedField.Name:</label>
+        <div    id="@strId"></div>
     </div>
 
     <div style="display:none;">
