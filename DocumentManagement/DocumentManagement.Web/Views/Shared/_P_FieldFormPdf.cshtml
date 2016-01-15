@@ -18,7 +18,15 @@
             <span>*</span>
         }
         <label>@Model.RealtedField.Name:</label>
-        <input type="file" id="@strId" name="@strId" />
+        @if (Model.IsModified)
+        {
+            <input type="file" id="@strId" name="@strId" style="border-color:red" />
+            <input type="checkbox" name="name" value=" " />
+        }
+        else
+        {
+            <input type="file" id="@strId" name="@strId" />
+        }        
         <a target="_blank" href="@(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormUrl"].Value)">
             @(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormText"].Value)
         </a>

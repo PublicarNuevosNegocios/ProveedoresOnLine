@@ -22,7 +22,8 @@
         <label>@Model.RealtedField.Name:</label>
         @if (Model.IsModified)
         {
-            <input type="text" id="@strId" name="@strId" value="@strValue" style="border-color:red" />
+            <input type="text" id="@strId" name="@strId" value="@strValue" />
+            <input type="checkbox" name="name" value=" " />
         }
         else
         {

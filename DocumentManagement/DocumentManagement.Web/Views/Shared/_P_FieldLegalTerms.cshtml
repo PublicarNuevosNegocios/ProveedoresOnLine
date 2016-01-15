@@ -32,14 +32,30 @@
     <div class="LegalTermsForm">
         <!--legal terms field-->
         <label class="labelLegalTerms">@Model.RealtedField.Name:</label>
-        <div class="LegalTermsContent">
-            <ul>
-                <li class="TextForm">@Html.Raw(CurrentModel.Rsx.txtHeader)</li>
-                <li><input class="CheckCommercial" type="checkbox" id="@(strId)_CheckCommercial" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckCommercial ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckCommercial)</label></li>
-                <li><input class="CheckRestrictiveList" type="checkbox" id="@(strId)_CheckRestrictiveList" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckRestrictiveList ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckRestrictiveList)</label></li>
-                <li class="DownloadTerms">@Html.Raw(CurrentModel.Rsx.txtFooter)</li>
-            </ul>
-        </div>
+        @if (Model.IsModified)
+        {
+            <div class="LegalTermsContent">
+                <ul>
+                    <li class="TextForm">@Html.Raw(CurrentModel.Rsx.txtHeader)</li>
+                    <li><input style="border-color:red" class="CheckCommercial" type="checkbox" id="@(strId)_CheckCommercial" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckCommercial ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckCommercial)</label></li>
+                    <li><input style="border-color:red" class="CheckRestrictiveList" type="checkbox" id="@(strId)_CheckRestrictiveList" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckRestrictiveList ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckRestrictiveList)</label></li>
+                    <li class="DownloadTerms">@Html.Raw(CurrentModel.Rsx.txtFooter)</li>
+                </ul>
+            </div>
+            <input type="checkbox" name="name" value=" " />
+        }
+        else
+        {
+            <div class="LegalTermsContent">
+                <ul>
+                    <li class="TextForm">@Html.Raw(CurrentModel.Rsx.txtHeader)</li>
+                    <li><input class="CheckCommercial" type="checkbox" id="@(strId)_CheckCommercial" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckCommercial ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckCommercial)</label></li>
+                    <li><input class="CheckRestrictiveList" type="checkbox" id="@(strId)_CheckRestrictiveList" onchange="javascript:PF_LegalTermsChange('@(strId)');" @(Html.Raw(CurrentModel.data != null && CurrentModel.data.CheckRestrictiveList ? "checked='checked'" : string.Empty)) /><label>@Html.Raw(CurrentModel.Rsx.txtCheckRestrictiveList)</label></li>
+                    <li class="DownloadTerms">@Html.Raw(CurrentModel.Rsx.txtFooter)</li>
+                </ul>
+            </div>
+        }
+       
         <div style="display:none;">
             <input type="hidden" id="@(strId)" name="@(strId)" value="@(strValue)" />
         </div>

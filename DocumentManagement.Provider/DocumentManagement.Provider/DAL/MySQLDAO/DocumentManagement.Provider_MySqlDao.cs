@@ -480,7 +480,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "P_ChagesControl_Search",
+                CommandText = "P_ChangesControl_Search",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });

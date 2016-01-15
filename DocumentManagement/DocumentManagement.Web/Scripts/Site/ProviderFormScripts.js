@@ -7,7 +7,8 @@ function PF_PostBackForm(vidForm, NewStepId) {
 
 //init spiner
 function PF_InitSpinner(vidDiv) {
-    $("#" + vidDiv).spinner();
+    debugger;
+    $("#" + vidDiv).spinner();   
 }
 
 //init progressbar

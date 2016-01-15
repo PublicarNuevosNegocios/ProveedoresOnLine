@@ -20,12 +20,13 @@
         <label>@Model.RealtedField.Name:</label>
         @if (Model.IsModified)
         {
-            <input type="text" id="@strId" name="@strId" value="@strValue" style="border-color:red"/>
+            <input type="text" id="@strId" name="@strId" value="@strValue" style="border-color:red" />
+            <input type="checkbox" name="name" value=" " />
         }
         else
         {
             <input type="text" id="@strId" name="@strId" value="@strValue" />
-        }        
+        }
     </div>
 }
 else
