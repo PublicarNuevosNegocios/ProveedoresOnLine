@@ -29,7 +29,20 @@
         {
             <li><a class="DMButtonsNext" href="javascript:PF_PostBackForm('FrmGenericStep', '@NextStep.ToString()')">Siguiente / Next >></a></li>
         }
-        <li class="DMButtonsSave"><a class="DMButtonsForm" href="javascript:PF_PostBackForm('FrmGenericStep', '')">Guardar / Save</a></li>
+        <li class="DMButtonsSave">
+            <a class="DMButtonsForm" href="javascript:PF_PostBackForm('FrmGenericStep', '')">Guardar / Save</a>
+            &nbsp;
+
+            @{
+                if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser != null)
+                {
+                    <a class="DMButtonsForm" href="javascript:PF_PostBackForm('FrmGenericStep', '')">Sincronizar</a>
+                }
+            }
+
+        </li>
+
+
     </ul>
 }
 
