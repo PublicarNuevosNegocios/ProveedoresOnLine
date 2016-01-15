@@ -35,6 +35,8 @@ namespace DocumentManagement.Models.Provider
 
         public string txtCheckRestrictiveList { get; set; }
 
+        public string txtCheckLegalTerms { get; set; }
+
         public string txtFooter { get; set; }
 
         public ProviderFormLegalTermsResource() { }
@@ -51,6 +53,7 @@ namespace DocumentManagement.Models.Provider
             this.txtHeader = oObjAux.txtHeader;
             this.txtCheckCommercial = oObjAux.txtCheckCommercial;
             this.txtCheckRestrictiveList = oObjAux.txtCheckRestrictiveList;
+            this.txtCheckLegalTerms = oObjAux.txtCheckLegalTerms;
             this.txtFooter = oObjAux.txtFooter;
         }
     }
@@ -64,6 +67,8 @@ namespace DocumentManagement.Models.Provider
         public bool CheckCommercial { get; set; }
 
         public bool CheckRestrictiveList { get; set; }
+
+        public bool CheckLegalTerms { get; set; }
 
         public ProviderFormLegalTermsData() { }
 
@@ -79,6 +84,7 @@ namespace DocumentManagement.Models.Provider
             this.ProviderInfoId = ProviderInfoId;
             this.CheckData = oObjAux.CheckData;
             this.CheckCommercial = oObjAux.CheckCommercial;
+            this.CheckLegalTerms = oObjAux.CheckLegalTerms;
             this.CheckRestrictiveList = oObjAux.CheckRestrictiveList;
         }
     }

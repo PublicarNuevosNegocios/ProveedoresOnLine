@@ -5,13 +5,31 @@ span.DMImportant {
     margin: 0px 3px 0px 7px;
 }
 
-.DMCustomerForm {
+.DMSingleProvider{
+    border-style: solid !important;
+    border-color: #A09F9F !important;
+}
+
+.DMCustomerUploadForm {
     vertical-align: top;
     border-width: 0px 0px 0px 1px;
     border-style: solid;
     border-color: #FF7E35;
     width: 39%;
     /* min-width: 58%; */
+    min-height: 430px;
+    display: inline-block;
+    margin: 0px 0px 0px -4px;
+    padding-bottom: 25px;
+}
+
+.DMCustomerForm {
+    vertical-align: top;
+    border-width: 0px 0px 0px 1px;
+    border-style: solid;
+    border-color: #FF7E35;
+    width: 78%;
+    min-width: 58%;
     min-height: 430px;
     display: inline-block;
     margin: 0px 0px 0px -4px;
@@ -416,7 +434,7 @@ span.Message {
         font-size: 0.9em;
     }
 
-.CheckData, .CheckCommercial, .CheckRestrictiveList {
+.CheckData, .CheckCommercial, .CheckRestrictiveList, .CheckLegalTerms{
     width: 15px !important;
     margin: 0px 0px 0px 0px !important;
     vertical-align: top;

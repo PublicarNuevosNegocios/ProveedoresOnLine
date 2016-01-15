@@ -8,7 +8,7 @@
 
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
-    <div class="DMCustomerForm">
+    <div class="DMCustomerUploadForm">
         <form action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
             <div class="DMFormDataWrapper">
                 <span class="spanTitleForm">Cargue masivo de proveedores</span>
@@ -59,7 +59,7 @@
             </div>
         </form>
     </div>
-    <div class="DMCustomerForm">
+    <div class="DMCustomerUploadForm DMSingleProvider">
         <form id="frmProviderUpsert" name="frmProviderUpsert" action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
             <div class="DMFormDataWrapper">
                 <span class="spanTitleForm">Cargue individual de proveedores</span>
