@@ -84,6 +84,15 @@ namespace ProveedoresOnLine.AsociateProvider.Test
         }
 
         [TestMethod]
+        public void GetAsociateProviderByProviderPublicId()
+        {
+            List<ProveedoresOnLine.AsociateProvider.Interfaces.Models.AsociateProvider.AsociateProviderModel> oReturn =
+            ProveedoresOnLine.AsociateProvider.DAL.Controller.AsociateProviderDataController.Instance.GetAsociateProviderByProviderPublicId("", "1CA3A147");
+
+        }
+
+
+        [TestMethod]
         public void AsociateProviderUpsertEmail()
         {
             int oReturn = 0;
