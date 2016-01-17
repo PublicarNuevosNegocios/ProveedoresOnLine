@@ -61,7 +61,9 @@
     <Compile Include="DAL\MySQLDAO\AsociateProviderClient_MySqlDao.cs" />
     <Compile Include="Interfaces\IAsociateProviderClientData.cs" />
     <Compile Include="Models\AsociateProviderModel.cs" />
+    <Compile Include="Models\CatalogModel.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\HomologateModel.cs" />
     <Compile Include="Models\RelatedProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
