@@ -14,7 +14,16 @@
         public enum enumChangesStatus
         {
             IsValidated = 7001,
-            NotValidated =7002
+            NotValidated = 7002
+        }
+
+        public enum enumProviderInfoType
+        {
+            Company = 2,
+            Commercial = 3,
+            HSEQ = 7,
+            Finantial = 5,
+            Lega = 6
         }
     }
 }
