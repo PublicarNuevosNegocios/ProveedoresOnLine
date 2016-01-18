@@ -23,8 +23,16 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span{
     text-transform: uppercase;
     width: 100%;
 }
+.ItemLeftPosition{
+    margin-left: 15px !important;
+    width:355px;
+}
 .CheckBox_Position{
-    width: 15px !important;
-    margin-top: 1px !important;
-    margin-left: 17px !important;
+    margin-left: 355px !important;
+    margin-top: -32px;
+}
+.CheckBox_size{
+    width: 17px !important;
+    margin-top: 0px !important;
+    margin-left: 3px !important;
 }

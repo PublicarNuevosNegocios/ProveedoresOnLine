@@ -15,19 +15,17 @@
         <!--Text field-->
         @if (Model.RealtedField.IsRequired)
         {
-            <span>*</span>
+            <span class="ItemLeftPosition">*</span>
         }
-        <label>@Model.RealtedField.Name:</label>
+        <div class="ItemLeftPosition"><label>@Model.RealtedField.Name:</label></div>
         @if (Model.IsModified)
         {
-            <div class="row">
-                <div class="col-sm-11 col-lg-11"><input type="text" id="@strId" name="@strId" value="@strValue" style="border-color:red" /></div>
-                <div class="col-sm-1 col-lg-1"><input type="checkbox" class="CheckBox_Position" name="Sync_@strId" /></div>
-            </div>            
+            <div class="ItemLeftPosition"><input type="text" id="@strId" name="@strId" value="@strValue" style="border-color:red" /></div>
+            <div class="CheckBox_Position"><input type="checkbox" class="CheckBox_size" name="name" /></div>
         }
         else
         {
-            <input type="text" id="@strId" name="@strId" value="@strValue" />
+            <div class="ItemLeftPosition"><input type="text" id="@strId" name="@strId" value="@strValue" /></div>
         }
     </div>
 }
