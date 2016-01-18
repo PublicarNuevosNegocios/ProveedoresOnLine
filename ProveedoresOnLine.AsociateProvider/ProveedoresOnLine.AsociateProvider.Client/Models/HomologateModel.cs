@@ -8,13 +8,13 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Models
 {
     public class HomologateModel
     {
-        public int HologateId { get; set; }
+        public int HomologateId { get; set; }
 
         public  CatalogModel HomologateType { get; set; }
 
         public CatalogModel Source { get; set; }
 
-        public CatalogModel HomologateType { get; set; }
+        public CatalogModel Target { get; set; }
 
         public DateTime LastModify { get; set; }
 
