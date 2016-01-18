@@ -111,6 +111,12 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProviderChangesControl);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SyncForm()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncForm);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -136,6 +142,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string DuplicateForm = "DuplicateForm";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
             public readonly string LoginProviderChangesControl = "LoginProviderChangesControl";
+            public readonly string SyncForm = "SyncForm";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -150,6 +157,7 @@ namespace DocumentManagement.Web.Controllers
             public const string DuplicateForm = "DuplicateForm";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
             public const string LoginProviderChangesControl = "LoginProviderChangesControl";
+            public const string SyncForm = "SyncForm";
         }
 
 
@@ -184,6 +192,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string FormPublicId = "FormPublicId";
             public readonly string StepId = "StepId";
             public readonly string NewStepId = "NewStepId";
+            public readonly string IsSync = "IsSync";
         }
         static readonly ActionParamsClass_AdminProvider s_params_AdminProvider = new ActionParamsClass_AdminProvider();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -240,6 +249,14 @@ namespace DocumentManagement.Web.Controllers
             public readonly string IdentificationType = "IdentificationType";
             public readonly string IdentificationNumber = "IdentificationNumber";
         }
+        static readonly ActionParamsClass_SyncForm s_params_SyncForm = new ActionParamsClass_SyncForm();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SyncForm SyncFormParams { get { return s_params_SyncForm; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SyncForm
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -295,17 +312,18 @@ namespace DocumentManagement.Web.Controllers
         }
 
         [NonAction]
-        partial void UpsertGenericStepOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string StepId, string NewStepId);
+        partial void UpsertGenericStepOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string StepId, string NewStepId, string IsSync);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult UpsertGenericStep(string ProviderPublicId, string FormPublicId, string StepId, string NewStepId)
+        public override System.Web.Mvc.ActionResult UpsertGenericStep(string ProviderPublicId, string FormPublicId, string StepId, string NewStepId, string IsSync)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertGenericStep);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "NewStepId", NewStepId);
-            UpsertGenericStepOverride(callInfo, ProviderPublicId, FormPublicId, StepId, NewStepId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IsSync", IsSync);
+            UpsertGenericStepOverride(callInfo, ProviderPublicId, FormPublicId, StepId, NewStepId, IsSync);
             return callInfo;
         }
 
@@ -385,6 +403,18 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationType", IdentificationType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationNumber", IdentificationNumber);
             LoginProviderChangesControlOverride(callInfo, ProviderPublicId, FormPublicId, CustomerPublicId, IdentificationType, IdentificationNumber);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SyncFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SyncForm(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncForm);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            SyncFormOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

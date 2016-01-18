@@ -1,6 +1,6 @@
 ﻿//postback form
-function PF_PostBackForm(vidForm, NewStepId) {
-    var strUrl = $("#" + vidForm).attr('action').replace(/{{NewStepId}}/, NewStepId);
+function PF_PostBackForm(vidForm, NewStepId, IsSync) {
+    var strUrl = $("#" + vidForm).attr('action').replace(/{{NewStepId}}/, NewStepId).replace(/{{IsSync}}/, IsSync);
     $("#" + vidForm).attr('action', strUrl);
     $("#" + vidForm).submit();
 }

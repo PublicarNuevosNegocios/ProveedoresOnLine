@@ -19,5 +19,7 @@ namespace DocumentManagement.Models.Provider
         public string FieldType { get; set; }
 
         public bool IsModified { get; set; }
+
+        public string ProviderPublicId { get; set; }
     }
 }

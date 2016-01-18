@@ -21,7 +21,8 @@
                                 ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
                                 FormPublicId = Model.RealtedForm.FormPublicId,
                                 StepId = Model.RealtedStep.StepId,
-                                NewStepId = "{{NewStepId}}"
+                                NewStepId = "{{NewStepId}}",
+                                IsSync = "{{IsSync}}"
                             })))" method="post" enctype="multipart/form-data">
         <ul class="DMFormGenericFields">
             @{             
@@ -51,6 +52,7 @@
                             @(Html.Partial(Url.Content(strFieldType),
                                         new DocumentManagement.Models.Provider.ProviderFieldModel()
                                         {
+                                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
                                             RenderScripts = false,
                                             RealtedField = Item,
                                             RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.

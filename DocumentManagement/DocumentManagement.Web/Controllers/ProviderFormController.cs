@@ -102,62 +102,69 @@ namespace DocumentManagement.Web.Controllers
             }
         }
 
-        public virtual ActionResult UpsertGenericStep(string ProviderPublicId, string FormPublicId, string StepId, string NewStepId)
+        public virtual ActionResult UpsertGenericStep(string ProviderPublicId, string FormPublicId, string StepId, string NewStepId, string IsSync)
         {
-            //validate upsert action
-            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
+            if (IsSync == "true")
             {
-                //get generic models
-                ProviderFormModel oGenericModels = new ProviderFormModel()
+                //
+            }
+            else
+            {
+                //validate upsert action
+                if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
                 {
-                    //ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
-                    RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
-                    RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId)),
-                };
-
-                //PrevModel
-                ProviderModel oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
-
-                //get request into generic model
-                GetUpsertGenericStepRequest(oGenericModels);
-
-                //Call Function to get differences and return a ChangesModel
-                List<ChangesControlModel> oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId, Convert.ToInt32(StepId));
-                if (oChangesToUpsert.Count > 0)
-                {
-                    oChangesToUpsert.All(x =>
+                    //get generic models
+                    ProviderFormModel oGenericModels = new ProviderFormModel()
                     {
-                        x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
-                        return true;
-                    });
-                }
-                else
-                {
+                        //ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                        RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                        RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId)),
+                    };
+
+                    //PrevModel
+                    ProviderModel oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
+
+                    //get request into generic model
+                    GetUpsertGenericStepRequest(oGenericModels);
+
+                    //Call Function to get differences and return a ChangesModel
+                    List<ChangesControlModel> oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId, Convert.ToInt32(StepId));
+                    if (oChangesToUpsert.Count > 0)
+                    {
+                        oChangesToUpsert.All(x =>
+                        {
+                            x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
+                            return true;
+                        });
+                    }
+                    else
+                    {
+                        DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
+                        oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
+
+                        oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId, Convert.ToInt32(StepId));
+                        oChangesToUpsert.All(x =>
+                        {
+                            x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
+                            return true;
+                        });
+                    }
+
+                    //upsert fields in database
                     DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
-                    oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
-
-                    oChangesToUpsert = GetChangesToUpdate(oPervProviderModel, oGenericModels.RealtedProvider, FormPublicId, Convert.ToInt32(StepId));
-                    oChangesToUpsert.All(x =>
-                    {
-                        x.ChangesPublicId = DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(x);
-                        return true;
-                    });
                 }
-
-                //upsert fields in database
-                DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
             }
 
             //save success
             return RedirectToAction
-                (MVC.ProviderForm.ActionNames.Index,
-                MVC.ProviderForm.Name,
-                new
-                {
-                    ProviderPublicId = ProviderPublicId,
-                    FormPublicId = FormPublicId,
-                    StepId = (!string.IsNullOrEmpty(NewStepId) && Convert.ToInt32(NewStepId) > 0) ? Convert.ToInt32(NewStepId) : Convert.ToInt32(StepId)
-                });
+            (MVC.ProviderForm.ActionNames.Index,
+            MVC.ProviderForm.Name,
+            new
+            {
+                ProviderPublicId = ProviderPublicId,
+                FormPublicId = FormPublicId,
+                StepId = (!string.IsNullOrEmpty(NewStepId) && Convert.ToInt32(NewStepId) > 0) ? Convert.ToInt32(NewStepId) : Convert.ToInt32(StepId)
+            });
         }
 
         public virtual ActionResult AdminProvider(string ProviderPublicId, string FormPublicId)
@@ -396,6 +403,15 @@ namespace DocumentManagement.Web.Controllers
                         msg = "El Número o tipo de identificación son incorrectos"
                     });
             }
+        }
+
+        public virtual ActionResult SyncForm(string ProviderPublicId)
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
+            {
+
+            }
+            return View();
         }
 
         #region Private Functions
@@ -808,8 +824,8 @@ namespace DocumentManagement.Web.Controllers
                                 List<ChangesControlModel> oChangeToUpdate = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(PrevModel.ProviderPublicId);
                                 ChangesControlModel oToUpsert = null;
                                 if (oChangeToUpdate != null)
-                                     oToUpsert = oChangeToUpdate.Where(x => x.ProviderInfoId == inf.ProviderInfoId).Select(x => x).FirstOrDefault();
-                                
+                                    oToUpsert = oChangeToUpdate.Where(x => x.ProviderInfoId == inf.ProviderInfoId).Select(x => x).FirstOrDefault();
+
                                 oReturn.Add(new ChangesControlModel
                                 {
                                     ChangesPublicId = oToUpsert.ChangesPublicId,

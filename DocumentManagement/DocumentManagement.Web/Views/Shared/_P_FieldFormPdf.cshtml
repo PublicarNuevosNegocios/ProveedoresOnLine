@@ -20,8 +20,13 @@
         <label>@Model.RealtedField.Name:</label>
         @if (Model.IsModified)
         {
-            <input type="file" id="@strId" name="@strId" style="border-color:red" />
-            <input type="checkbox" name="name" value=" " />
+            <input type="file" id="@strId" name="@strId" style="border-color:red" />           
+
+            //Form to sync process
+            <form id="Sync_Form"  action="/" method="post">
+                <input type="checkbox" name="chk_@strId" />
+                <input type="hidden" name="UpsertAction" value=" " />
+            </form>
         }
         else
         {
