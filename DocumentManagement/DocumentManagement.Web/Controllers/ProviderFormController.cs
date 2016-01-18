@@ -106,10 +106,15 @@ namespace DocumentManagement.Web.Controllers
         {
             if (IsSync == "true")
             {
-                //
+                #region Form Sync Upsert
+                // Split Sync_ fields whit values and infoType
+                // 
+                GetSyncRequestDate();
+                #endregion
             }
             else
             {
+                #region Form Upsert
                 //validate upsert action
                 if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
                 {
@@ -153,6 +158,7 @@ namespace DocumentManagement.Web.Controllers
                     //upsert fields in database
                     DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
                 }
+                #endregion
             }
 
             //save success
@@ -403,15 +409,6 @@ namespace DocumentManagement.Web.Controllers
                         msg = "El Número o tipo de identificación son incorrectos"
                     });
             }
-        }
-
-        public virtual ActionResult SyncForm(string ProviderPublicId)
-        {
-            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
-            {
-
-            }
-            return View();
         }
 
         #region Private Functions
@@ -900,9 +897,31 @@ namespace DocumentManagement.Web.Controllers
             }
             return oReturn;
         }
-        #endregion
+
+        private ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel GetSyncRequestDate()
+        {
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
+            
+            Request.Form.
+            AllKeys.All(x =>
+            {
+                if (x.Split('_')[0] == "Sync" && Request.Form[x.Split('_')[0]] == "on")
+                {
+                    
+                }
+                return true;
+            });
+
+            if (ValidateRequest != null)
+            {
+
+            }
+
+            return oReturn;
+        }
 
         #endregion
 
+        #endregion
     }
 }
