@@ -91,15 +91,20 @@ namespace ProveedoresOnLine.AsociateProvider.Test
 
         }
 
-
         [TestMethod]
         public void AsociateProviderUpsertEmail()
         {
             int oReturn = 0;
-
             oReturn = ProveedoresOnLine.AsociateProvider.DAL.Controller.AsociateProviderDataController.Instance.AsociateProviderUpsertEmail(43, "d.alonsomt@gmail.com");
-
             Assert.AreEqual(true, oReturn != null);
+        }
+
+        [TestMethod]
+        public void GetHomologateItemBySourceID()
+        {
+            ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel oReturn = null;
+            oReturn = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID(372);
+            Assert.IsNotNull(oReturn);
         }
     }
 }

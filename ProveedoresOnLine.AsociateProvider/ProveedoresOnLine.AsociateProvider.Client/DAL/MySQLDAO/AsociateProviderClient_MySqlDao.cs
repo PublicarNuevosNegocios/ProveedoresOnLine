@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
 {
@@ -87,6 +88,63 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });            
+        }
+
+        public ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode)
+        {
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            lstParams.Add(DataInstance.CreateTypedParameter("vSource", SourceCode));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "AP_GetHomologateItemBySourceId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+               response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel()
+                {
+                    HomologateId = response.DataTableResult.Rows[0].Field<int>("HomologateId"),
+                    HomologateType = new ProveedoresOnLine.AsociateProvider.Client.Models.CatalogModel() 
+                    {
+                        CatalogId = response.DataTableResult.Rows[0].Field<int>("HomologateTypecatalogId"),
+                        CatalogName = response.DataTableResult.Rows[0].Field<string>("HomologateTypecatalogName"),
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("HomologateTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("HomologateTypeName"),
+                    },
+
+                    Source = new ProveedoresOnLine.AsociateProvider.Client.Models.CatalogModel()
+                    {
+
+                        CatalogId = response.DataTableResult.Rows[0].Field<int>("SourceCatalogId"),
+                        CatalogName = response.DataTableResult.Rows[0].Field<string>("SourceCatalogName"),
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("SourceTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("SourceTypeName"),
+                    },
+
+                    Target = new ProveedoresOnLine.AsociateProvider.Client.Models.CatalogModel()
+                    {
+
+                        CatalogId = response.DataTableResult.Rows[0].Field<int>("TargetCatalogId"),
+                        CatalogName = response.DataTableResult.Rows[0].Field<string>("TargetCatalogName"),
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("TargetTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("TargetTypeName"),
+                    },
+
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate"),
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
+
+                };                
+            }
+            
+            return oReturn;
         }
 
         #endregion        

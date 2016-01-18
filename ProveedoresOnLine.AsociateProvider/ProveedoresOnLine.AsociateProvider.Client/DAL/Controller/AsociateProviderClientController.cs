@@ -52,6 +52,11 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.Controller
             DataFactory.AP_AsociateProviderUpsert(BOProviderPublicId, DMProviderPublicId, Email);
         }
 
+        public ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode)
+        {
+            return DataFactory.GetHomologateItemBySourceID(SourceCode);
+        }
+
         #endregion
     }
 }
