@@ -13,5 +13,8 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Interfaces
         int BOProviderUpsert(string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber);
         
         void AP_AsociateProviderUpsert(string BOProviderPublicId, string DMProviderPublicId, string Email);
+
+        ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode);
+
     }
 }

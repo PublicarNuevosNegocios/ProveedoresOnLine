@@ -9,6 +9,36 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
 {
     public class AsociateProviderClient
     {
+
+        public static ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode)
+        {
+            ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel oReturn = null;
+            if (SourceCode != null )
+            {
+                LogManager.Models.LogModel oLog = GetGenericLogModel();
+                try
+                {
+                    oReturn = DAL.Controller.AsociateProviderClientController.Instance.GetHomologateItemBySourceID(SourceCode);
+                    oLog.IsSuccess = true;
+                }
+                catch (Exception err)
+                {
+                    oLog.IsSuccess = false;
+                    oLog.Message = err.Message + " - " + err.StackTrace;
+
+                    throw err;
+                }
+                finally
+                {
+                    oLog.LogObject = SourceCode;
+                    LogManager.ClientLog.AddLog(oLog);
+                }       
+            
+            }
+            return oReturn;
+        }
+
+
         public static void AsociateProvider(AsociateProviderModel AsociateProviderToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
