@@ -19,10 +19,11 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
 
         #region AsociateProvider
 
-        public int DMProviderUpsert(string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber)
+        public int DMProviderUpsert(string CustomerPublicId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderName", ProviderName));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", IdentificationType));

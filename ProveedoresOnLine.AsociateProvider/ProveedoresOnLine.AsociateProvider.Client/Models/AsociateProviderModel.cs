@@ -14,6 +14,8 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Models
 
         public RelatedProviderModel RelatedProviderDM { get; set; }
         
+        public string CustomerPublicId { get; set; }
+
         public string Email { get; set; }
 
         public DateTime LastModify { get; set; }
