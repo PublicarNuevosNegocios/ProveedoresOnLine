@@ -148,6 +148,53 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicIdDM", vProviderPublicIdDM));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicIdBO", vProviderPublicIdBO));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "AP_GetAsociateProviderByProviderPublicId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+            List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ap in response.DataTableResult.AsEnumerable()
+                     where !ap.IsNull("AsociateProviderId")
+                     select new ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel()
+                     {
+                         AsociateProviderId = ap.Field<int>("AsociateProviderId"),
+                         RelatedProviderBO = new ProveedoresOnLine.AsociateProvider.Client.Models.RelatedProviderModel()
+                         {
+                             ProviderPublicId = ap.Field<string>("BO_ProviderPublicId"),
+                             ProviderName = ap.Field<string>("BO_ProviderName"),
+                             IdentificationType = ap.Field<int>("BO_IdentificationType").ToString(),
+                             IdentificationNumber = ap.Field<string>("BO_IdentificationNumber"),
+                         },
+                         RelatedProviderDM = new ProveedoresOnLine.AsociateProvider.Client.Models.RelatedProviderModel()
+                         {
+                             ProviderPublicId = ap.Field<string>("DM_ProviderPublicId"),
+                             ProviderName = ap.Field<string>("DM_ProviderName"),
+                             IdentificationType = ap.Field<int>("DM_IdentificationType").ToString(),
+                             IdentificationNumber = ap.Field<string>("DM_IdentificationNumber")
+                         },
+                         Email = ap.Field<string>("UserEmail"),
+                         CreateDate = ap.Field<DateTime>("CreateDate"),
+                         LastModify = ap.Field<DateTime>("LastModify"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion        
     }
 }

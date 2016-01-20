@@ -76,8 +76,7 @@ namespace MarketPlace.Web.ControllersApi
                                     Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
                                     return true;
                                 });
-
-                                Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
+                                Item1 = Item1.GroupBy(x => x).Select(grp => grp.Last()).ToList();
 
                                 List<TDQueryInfoModel> oItem2 = new List<TDQueryInfoModel>();
                                 Tuple<string, List<TDQueryInfoModel>> oTupleItem = new Tuple<string, List<TDQueryInfoModel>>("", new List<TDQueryInfoModel>());
@@ -92,8 +91,9 @@ namespace MarketPlace.Web.ControllersApi
                                     }
                                     return true;
                                 });
-                                if (Group != null)
+                                if (Group != null)                                
                                     oModel.RelatedSingleSearch = Group;
+                                
 
                                 if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId != null)
                                 {
@@ -104,7 +104,7 @@ namespace MarketPlace.Web.ControllersApi
                                     oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
                                         oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
                                 }
-                            }                            
+                            }
                         }
                         else
                         {
@@ -247,9 +247,9 @@ namespace MarketPlace.Web.ControllersApi
                         UploadFile.FileName.Split('.').DefaultIfEmpty("xlsx").LastOrDefault();
                     oFileName = oFileName.Split('.').LastOrDefault() == "xls" ? oFileName.Replace("xls", "xlsx") : oFileName;
                     string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
-                    
+
                     UploadFile.SaveAs(strFilePath);
-                    
+
                     Tuple<bool, string> oVerifyResult = this.FileVerify(strFilePath, oFileName, PeriodPublicId);
                     bool isValidFile = oVerifyResult.Item1;
 
@@ -307,7 +307,7 @@ namespace MarketPlace.Web.ControllersApi
                     //remove temporal file
                     if (System.IO.File.Exists(strFilePath))
                         System.IO.File.Delete(strFilePath);
-                                       
+
                     oReturn = new FileModel()
                     {
                         FileName = UploadFile.FileName,
@@ -364,7 +364,7 @@ namespace MarketPlace.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public Tuple<bool, string> FileVerify(string FilePath, string FileName, string PeriodPublicId)
-        {           
+        {
 
             var Excel = new FileInfo(FilePath);
 
@@ -373,9 +373,9 @@ namespace MarketPlace.Web.ControllersApi
             {
                 // Get the work book in the file
                 ExcelWorkbook workBook = package.Workbook;
-                
+
                 if (workBook != null)
-                {                    
+                {
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
 
                     string UncodifiedObj = new JavaScriptSerializer().Serialize(values);

@@ -111,12 +111,6 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProviderChangesControl);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SyncForm()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncForm);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -142,7 +136,6 @@ namespace DocumentManagement.Web.Controllers
             public readonly string DuplicateForm = "DuplicateForm";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
             public readonly string LoginProviderChangesControl = "LoginProviderChangesControl";
-            public readonly string SyncForm = "SyncForm";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -157,7 +150,6 @@ namespace DocumentManagement.Web.Controllers
             public const string DuplicateForm = "DuplicateForm";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
             public const string LoginProviderChangesControl = "LoginProviderChangesControl";
-            public const string SyncForm = "SyncForm";
         }
 
 
@@ -248,14 +240,6 @@ namespace DocumentManagement.Web.Controllers
             public readonly string CustomerPublicId = "CustomerPublicId";
             public readonly string IdentificationType = "IdentificationType";
             public readonly string IdentificationNumber = "IdentificationNumber";
-        }
-        static readonly ActionParamsClass_SyncForm s_params_SyncForm = new ActionParamsClass_SyncForm();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SyncForm SyncFormParams { get { return s_params_SyncForm; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SyncForm
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -403,18 +387,6 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationType", IdentificationType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationNumber", IdentificationNumber);
             LoginProviderChangesControlOverride(callInfo, ProviderPublicId, FormPublicId, CustomerPublicId, IdentificationType, IdentificationNumber);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SyncFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult SyncForm(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncForm);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            SyncFormOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

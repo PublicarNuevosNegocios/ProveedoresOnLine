@@ -37,6 +37,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 if (Result != null && Result.FirstOrDefault().IdConsulta != "No existen registros asociados a los parámetros de consulta.")
                 {
+                    Result = Result.OrderByDescending(x => x.IdTipoLista).ToArray();
                     #region Answer Procces
                     Result.All(x =>
                                    {
@@ -71,6 +72,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Alias,
                                                },
                                                Value = !string.IsNullOrEmpty(x.Alias) ? x.Alias : string.Empty,
+                                               Enable = true,
+                                           });
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdList,
+                                               },
+                                               Value = !string.IsNullOrEmpty(x.IdTipoLista) ? x.IdTipoLista : string.Empty,
                                                Enable = true,
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()

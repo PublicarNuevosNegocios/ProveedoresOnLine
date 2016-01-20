@@ -2534,12 +2534,19 @@ namespace MarketPlace.Web.Controllers
                                 Representative = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Representative).Select(z => z.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
 
                                 int oTotalRows = 0;
-                                CityId = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => Convert.ToInt32(z.Value)).DefaultIfEmpty(0).FirstOrDefault();
+
+                                string sCityid = y.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_City).Select(z => z.Value).FirstOrDefault();
+                                if (sCityid.Length > 0)
+                                    CityId = Convert.ToInt32(sCityid);
+                                else
+                                    CityId = 0;
+                                
                                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
 
-                                Country = oGeographyModel.FirstOrDefault().Country.ItemName;
-                                City = oGeographyModel.FirstOrDefault().City.ItemName;
-                                State = oGeographyModel.FirstOrDefault().State.ItemName;
+
+                                Country = (oGeographyModel != null && oGeographyModel.FirstOrDefault().Country.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().Country.ItemName != null) ? oGeographyModel.FirstOrDefault().Country.ItemName : "N/D";
+                                City = (oGeographyModel != null &&  oGeographyModel.FirstOrDefault().City.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().City.ItemName != null) ? oGeographyModel.FirstOrDefault().City.ItemName : "N/D";
+                                State = (oGeographyModel != null && oGeographyModel.FirstOrDefault().State.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().State.ItemName != null) ? oGeographyModel.FirstOrDefault().State.ItemName : "N/D";
                             }
 
                             return true;

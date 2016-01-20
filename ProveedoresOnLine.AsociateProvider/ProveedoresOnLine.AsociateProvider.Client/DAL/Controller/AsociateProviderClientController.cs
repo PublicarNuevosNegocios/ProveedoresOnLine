@@ -56,6 +56,11 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.Controller
         {
             return DataFactory.GetHomologateItemBySourceID(SourceCode);
         }
+        
+        public List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
+        {
+            return DataFactory.GetAsociateProviderByProviderPublicId(vProviderPublicIdDM, vProviderPublicIdBO);
+        }
 
         #endregion
     }
