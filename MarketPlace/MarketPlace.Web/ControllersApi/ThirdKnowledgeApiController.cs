@@ -76,8 +76,15 @@ namespace MarketPlace.Web.ControllersApi
                                     Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
                                     return true;
                                 });
-
-                                Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
+                                
+                                List<string> List_Tmp = new List<string>();
+                                Item1.All(x => { if (x == "LISTAS RESTRICTIVAS") { List_Tmp.Add(x); } return true; });
+                                Item1.All(x => { if (x == "DELITOS E INHABILIDADES CONTRA EL ESTADO") { List_Tmp.Add(x); } return true; });
+                                Item1.All(x => { if (x == "LISTAS FINANCIERAS") { List_Tmp.Add(x); } return true; });
+                                Item1.All(x => { if (x == "LISTAS PEPS") { List_Tmp.Add(x); } return true; });
+                                Item1 = List_Tmp;
+                                List_Tmp = null;
+                                Item1 = Item1.GroupBy(x => x).Select(grp => grp.Last()).ToList();
 
                                 List<TDQueryInfoModel> oItem2 = new List<TDQueryInfoModel>();
                                 Tuple<string, List<TDQueryInfoModel>> oTupleItem = new Tuple<string, List<TDQueryInfoModel>>("", new List<TDQueryInfoModel>());
