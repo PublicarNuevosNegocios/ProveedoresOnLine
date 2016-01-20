@@ -2,6 +2,7 @@
 using DocumentManagement.Models.General;
 using DocumentManagement.Models.Provider;
 using DocumentManagement.Provider.Models.Provider;
+using ProveedoresOnLine.AsociateProvider.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -905,8 +906,22 @@ namespace DocumentManagement.Web.Controllers
             Request.Form.
             AllKeys.All(x =>
             {
-                if (x.Split('_')[0] == "Sync" && Request.Form[x.Split('_')[0]] == "on")
+                if (x.Split('_')[0] == "Sync" && Request.Form[x] == "on")
                 {
+                    //Request.Form[x.Replace("Sync_","")+" "+"_ItemType".TrimStart()].Substring(0,1)
+
+                    //Get HomologateModel
+                    HomologateModel oCurrentItemType = 
+                    ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID
+                    (int.Parse(Request.Form[x.Replace("Sync_", "") + " " + "_ItemType".TrimStart()]));
+
+                    if (oCurrentItemType != null)
+                    {
+                        if (int.Parse(oCurrentItemType.Target.ItemId.ToString().Substring(0, 1)) == (int)DocumentManagement.Provider.Models.Enumerations.enumProviderInfoType.Commercial)
+                        {
+
+                        }
+                    }
                     
                 }
                 return true;
