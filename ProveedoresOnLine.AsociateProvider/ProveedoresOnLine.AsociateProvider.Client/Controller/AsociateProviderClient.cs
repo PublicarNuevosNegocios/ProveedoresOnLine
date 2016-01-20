@@ -10,6 +10,36 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
     public class AsociateProviderClient
     {
 
+        public static List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
+        {
+            List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> oReturn = null;
+            if (vProviderPublicIdDM != null || vProviderPublicIdBO!=null)
+            {
+                LogManager.Models.LogModel oLog = GetGenericLogModel();
+                try
+                {
+                    oReturn = DAL.Controller.AsociateProviderClientController.Instance.GetAsociateProviderByProviderPublicId(vProviderPublicIdDM, vProviderPublicIdBO);
+                    oLog.IsSuccess = true;
+                }
+                catch (Exception err)
+                {
+                    oLog.IsSuccess = false;
+                    oLog.Message = err.Message + " - " + err.StackTrace;
+
+                    throw err;
+                }
+                finally
+                {
+                    oLog.LogObject = vProviderPublicIdDM + "_" + vProviderPublicIdBO;
+                    LogManager.ClientLog.AddLog(oLog);
+                }
+
+            }
+            return oReturn;
+        }
+
+
+
         public static ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode)
         {
             ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel oReturn = null;
@@ -37,7 +67,6 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
             }
             return oReturn;
         }
-
 
         public static void AsociateProvider(AsociateProviderModel AsociateProviderToUpsert)
         {
