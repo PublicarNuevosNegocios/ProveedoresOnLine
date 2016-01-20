@@ -39,6 +39,7 @@ namespace DocumentManagement.Provider.Controller
                         IdentificationType = ProviderToUpsert.IdentificationType.ItemId.ToString(),
                         IdentificationNumber = ProviderToUpsert.IdentificationNumber,
                     },
+                    CustomerPublicId = ProviderToUpsert.CustomerPublicId,
                 };
 
                 ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.ProviderUpsertDM(AsociateProviderToUpsert);

@@ -120,10 +120,11 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
                 try
                 {
                     oReturn = DAL.Controller.AsociateProviderClientController.Instance.DMProviderUpsert(
-                    AsociateProviderToUpsert.RelatedProviderDM.ProviderPublicId,
-                    AsociateProviderToUpsert.RelatedProviderDM.ProviderName,
-                    AsociateProviderToUpsert.RelatedProviderDM.IdentificationType,
-                    AsociateProviderToUpsert.RelatedProviderDM.IdentificationNumber);
+                        AsociateProviderToUpsert.CustomerPublicId,
+                        AsociateProviderToUpsert.RelatedProviderDM.ProviderPublicId,
+                        AsociateProviderToUpsert.RelatedProviderDM.ProviderName,
+                        AsociateProviderToUpsert.RelatedProviderDM.IdentificationType,
+                        AsociateProviderToUpsert.RelatedProviderDM.IdentificationNumber);
 
                     oLog.IsSuccess = true;
                 }
