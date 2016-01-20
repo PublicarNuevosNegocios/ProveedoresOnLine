@@ -147,7 +147,7 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
+        public ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -161,7 +161,7 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
-            List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> oReturn = null;
+            ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
@@ -189,7 +189,7 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
                          Email = ap.Field<string>("UserEmail"),
                          CreateDate = ap.Field<DateTime>("CreateDate"),
                          LastModify = ap.Field<DateTime>("LastModify"),
-                     }).ToList();
+                     }).FirstOrDefault();
             }
             return oReturn;
         }

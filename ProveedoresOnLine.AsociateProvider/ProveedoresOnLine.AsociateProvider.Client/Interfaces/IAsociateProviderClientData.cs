@@ -16,7 +16,7 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Interfaces
 
         ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode);
 
-        List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO);
+        ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO);
 
     }
 }

@@ -10,9 +10,9 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
     public class AsociateProviderClient
     {
 
-        public static List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
+        public static ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO)
         {
-            List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> oReturn = null;
+            ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel oReturn = null;
             if (vProviderPublicIdDM != null || vProviderPublicIdBO!=null)
             {
                 LogManager.Models.LogModel oLog = GetGenericLogModel();
@@ -37,8 +37,6 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
             }
             return oReturn;
         }
-
-
 
         public static ProveedoresOnLine.AsociateProvider.Client.Models.HomologateModel GetHomologateItemBySourceID(Int32 SourceCode)
         {

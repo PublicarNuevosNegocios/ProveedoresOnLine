@@ -94,7 +94,7 @@ namespace ProveedoresOnLine.AsociateProvider.Test
         [TestMethod]
         public void client_GetAsociateProviderByProviderPublicId()
         {
-            List<ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel> oReturn =
+            ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel oReturn =
             ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId("", "1CA3A147");
             Assert.AreEqual(true, oReturn != null);
         }
