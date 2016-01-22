@@ -62,6 +62,11 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.Controller
             return DataFactory.GetAsociateProviderByProviderPublicId(vProviderPublicIdDM, vProviderPublicIdBO);
         }
 
+        public void AP_AsociateRelatedCustomerProvider(string CustomerPublicId, string ProviderPublicId, bool Enable)
+        {
+            DataFactory.AP_AsociateRelatedCustomerProvider(CustomerPublicId, ProviderPublicId, Enable);
+        }
+
         #endregion
     }
 }

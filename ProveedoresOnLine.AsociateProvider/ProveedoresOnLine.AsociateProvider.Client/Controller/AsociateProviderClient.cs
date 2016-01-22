@@ -220,6 +220,11 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
             return oReturn;
         }
 
+        public static void AP_AsociateRelatedCustomerProvider(string CustomerPublicId, string ProviderPublicId, bool Enable)
+        {
+            DAL.Controller.AsociateProviderClientController.Instance.AP_AsociateRelatedCustomerProvider(CustomerPublicId, ProviderPublicId, Enable);
+        }
+
         #endregion
     }
 }
