@@ -32,6 +32,7 @@
                         type: "POST",
                         success: function (result) {
                             options.success(result.RelatedProvider)
+                            console.log(result);
                         },
                         error: function (result) {
                             options.error(result);
@@ -55,6 +56,10 @@
         }, {
             field: "RelatedProvider.IdentificationNumber",
             title: "Númer identificación",
+            width: 150
+        },{
+            field: "checkDigit",
+            title: "Dígito Verificación",
             width: 150
         }, {
             field: "RelatedProvider.CustomerName",
@@ -89,7 +94,7 @@
         }, {
             field: "Edit",
             title: "Edit",
-            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\');">Editar</a>',
+            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\', \'${checkDigit}\', \'${checkDigitInfoId}\');">Editar</a>',
             width: 150
         }],
     });
@@ -102,17 +107,19 @@
     });
 }
 
-function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email, SalesForceCode, CustomerPublicId, ProviderName, infoId) {
+function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email, SalesForceCode, CustomerPublicId, ProviderName, infoId, checkDigit, checkDigitInfoIdedit) {
     $('#EditProviderDialog').show;
     $('#EditProviderDialog').dialog({ title: "Editar Proveedor" });
-
+    console.log(checkDigitInfoIdedit);
     $('#RazonSocial').val(ProviderName);
     $('#ProviderPublicIdEdit').val(ProviderPublicId);
     $('#TipoIdentificacion').val(IdentificationType);
     $('#NumeroIdentificacion').val(IdentificationNumber);
+    $('#checkDigit').val(checkDigit);
     $('#ProviderCustomerIdEdit').val(CustomerPublicId);
     $('#Email').val(Email);
     $('#ProviderInfoIdEdit').val(infoId);
+    $('#checkDigitInfoIdEdit').val(checkDigitInfoIdedit);
 
     $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi, ''));
 }
@@ -120,7 +127,6 @@ function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, 
 function initCmb(cmbForm, cmbCustomer) {
     var CustomerPublicId = $('#' + cmbCustomer + ' ' + 'option:selected').val();
     var htmlCmbForm = $('#' + cmbForm).html();
-
     $.ajax({
         url: BaseUrl.ApiUrl + '/ProviderApi/FormSearch?CustomerPublicId=' + CustomerPublicId + '&SearchParam=' + ' ' + '&PageNumber=' + 0 + '&RowCount=' + 20,
         dataType: "json",

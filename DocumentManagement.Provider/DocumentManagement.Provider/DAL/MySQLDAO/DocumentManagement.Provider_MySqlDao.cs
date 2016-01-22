@@ -29,6 +29,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vEmail", Email));
 
+
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,

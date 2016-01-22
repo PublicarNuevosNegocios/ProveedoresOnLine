@@ -14,6 +14,8 @@ namespace DocumentManagement.Models.Provider
 
         public string NumeroIdentificacion { get; set; }
 
+        public string DigitoVerificacion { get; set; }
+
         public string Email { get; set; }
 
         public string CampanaSalesforce { get; set; }

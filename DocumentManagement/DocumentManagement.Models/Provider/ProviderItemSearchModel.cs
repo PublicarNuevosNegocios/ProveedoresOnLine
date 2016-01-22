@@ -12,9 +12,13 @@ namespace DocumentManagement.Models.Provider
 
         public string codSalesforce { get; set; }
 
+        public string checkDigit { get; set; }
+
         public string lastModify { get; set; }
 
         public string LastModifyUser { get; set; }
+
+        public int checkDigitInfoId { get; set; }
 
         public int CustomerInfoTypeId { get; set; }
 
