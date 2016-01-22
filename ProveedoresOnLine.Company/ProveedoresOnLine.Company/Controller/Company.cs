@@ -184,7 +184,7 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static CatalogModel CatalogItemUpsert(CatalogModel CatalogItemToUpsert)
+        public static int CatalogItemUpsert(Models.Util.CatalogModel CatalogItemToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
             try
@@ -198,7 +198,7 @@ namespace ProveedoresOnLine.Company.Controller
 
                 oLog.IsSuccess = true;
 
-                return CatalogItemToUpsert;
+                return CatalogItemToUpsert.ItemId;
             }
             catch (Exception err)
             {
