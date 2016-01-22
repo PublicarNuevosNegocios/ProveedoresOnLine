@@ -32,7 +32,6 @@
                         type: "POST",
                         success: function (result) {
                             options.success(result.RelatedProvider)
-                            console.log(result);
                         },
                         error: function (result) {
                             options.error(result);
@@ -110,7 +109,6 @@
 function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email, SalesForceCode, CustomerPublicId, ProviderName, infoId, checkDigit, checkDigitInfoIdedit) {
     $('#EditProviderDialog').show;
     $('#EditProviderDialog').dialog({ title: "Editar Proveedor" });
-    console.log(checkDigitInfoIdedit);
     $('#RazonSocial').val(ProviderName);
     $('#ProviderPublicIdEdit').val(ProviderPublicId);
     $('#TipoIdentificacion').val(IdentificationType);
@@ -119,8 +117,10 @@ function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, 
     $('#ProviderCustomerIdEdit').val(CustomerPublicId);
     $('#Email').val(Email);
     $('#ProviderInfoIdEdit').val(infoId);
-    $('#checkDigitInfoIdEdit').val(checkDigitInfoIdedit);
 
+    console.log(checkDigitInfoIdedit);
+
+    $('#checkDigitInfoIdEdit').val(checkDigitInfoIdedit);
     $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi, ''));
 }
 
