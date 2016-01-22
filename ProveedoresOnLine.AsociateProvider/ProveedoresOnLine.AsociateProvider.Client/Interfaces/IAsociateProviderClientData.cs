@@ -18,5 +18,7 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Interfaces
 
         ProveedoresOnLine.AsociateProvider.Client.Models.AsociateProviderModel GetAsociateProviderByProviderPublicId(string vProviderPublicIdDM, string vProviderPublicIdBO);
 
+        void AP_AsociateRelatedCustomerProvider(string CustomerPublicId, string ProviderPublicId, bool Enable);
+
     }
 }
