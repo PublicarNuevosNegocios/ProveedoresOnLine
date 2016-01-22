@@ -136,7 +136,10 @@ namespace DocumentManagement.Web.Controllers
                 {
                     string ProviderName = Request["ProviderName"].ToString();
                     string IdentificationNumber = Request["IdentificationNumber"].ToString();
+
                     string IdentificationType = Convert.ToInt32(Request["IdentificationType"]) == 0 ? string.Empty : Request["IdentificationType"];
+                    string CheckDigit = Convert.ToInt32(Request["CheckDigit"]) == 0 ? string.Empty : Request["CheckDigit"];
+
                     string Email = Request["Email"].ToString();
                     string Salesforce = Request["Salesforce"].ToString();
 
@@ -159,15 +162,21 @@ namespace DocumentManagement.Web.Controllers
                     }
 
                     CustomerProviderInfo = new ProviderInfoModel();
-
                     CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
                                                           oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
                                                                     Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
-
                     CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
                     CustomerProviderInfo.Value = Salesforce;
-
                     ListCustomerProviderInfo.Add(CustomerProviderInfo);
+
+                    CustomerProviderInfo = new ProviderInfoModel();
+                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
+                                                          oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 378).
+                                                                    Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
+                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 378 };
+                    CustomerProviderInfo.Value = CheckDigit;
+                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
+                    
 
                     //Create Provider
                     ProviderModel ProviderToCreate = new ProviderModel()
@@ -324,15 +333,23 @@ namespace DocumentManagement.Web.Controllers
                     }
 
                     CustomerProviderInfo = new ProviderInfoModel();
-
                     CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
                                                           oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
                                                                     Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
-
                     CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
                     CustomerProviderInfo.Value = prv.CampanaSalesforce;
 
+
                     ListCustomerProviderInfo.Add(CustomerProviderInfo);
+                    CustomerProviderInfo = new ProviderInfoModel();
+                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
+                                                         oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 378).
+                                                                   Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
+                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 378 };
+                    CustomerProviderInfo.Value = prv.DigitoVerificacion;
+
+                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
+                    
 
                     //Create Provider
                     ProviderModel ProviderToCreate = new ProviderModel()
@@ -401,6 +418,7 @@ namespace DocumentManagement.Web.Controllers
                             ("\"RazonSocial\"" + strSep +
                             "\"TipoIdentificacion\"" + strSep +
                             "\"NumeroIdentificaion\"" + strSep +
+                            "\"DigitoVerificacion\"" + strSep +
                             "\"Email\"" + strSep +
                             "\"CampanaSalesforce\"" + strSep +
 
@@ -414,6 +432,7 @@ namespace DocumentManagement.Web.Controllers
                             ("\"" + lg.PrvModel.RazonSocial + "\"" + strSep +
                             "\"" + lg.PrvModel.TipoIdentificacion + "\"" + strSep +
                             "\"" + lg.PrvModel.NumeroIdentificacion + "\"" + strSep +
+                            "\"" + lg.PrvModel.DigitoVerificacion + "\"" + strSep +
                             "\"" + lg.PrvModel.Email + "\"" + strSep +
                             "\"" + lg.PrvModel.CampanaSalesforce + "\"" + strSep +
 
