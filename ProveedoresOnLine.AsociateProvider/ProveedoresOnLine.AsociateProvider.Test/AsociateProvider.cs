@@ -114,5 +114,11 @@ namespace ProveedoresOnLine.AsociateProvider.Test
             oReturn = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID(372);
             Assert.IsNotNull(oReturn);
         }
+
+        [TestMethod]
+        public void AsociateCustomerProvider()
+        {
+            ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.AP_AsociateRelatedCustomerProvider("1EA5A78A", "3247FC17", false);
+        }
     }
 }

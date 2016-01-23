@@ -2364,6 +2364,7 @@ namespace BackOffice.Web.ControllersApi
                 }
             }
 
+
             return oReturn;
         }
 
@@ -2567,6 +2568,10 @@ namespace BackOffice.Web.ControllersApi
                 };
 
                 ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerProvider);
+
+                /*Asociate related customer provider to Document Management*/
+                ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.AP_AsociateRelatedCustomerProvider(oCustomer.CompanyPublicId, ProviderPublicId, oCustomerProvider.RelatedProvider.FirstOrDefault().Enable);
+
             }
 
             return oReturn;

@@ -195,6 +195,23 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
             return oReturn;
         }
 
-        #endregion        
+        public void AP_AsociateRelatedCustomerProvider(string CustomerPublicId, string ProviderPublicId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "AP_RelatedCustomer",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+        }
+
+        #endregion
     }
 }

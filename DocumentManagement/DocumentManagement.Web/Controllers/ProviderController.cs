@@ -146,6 +146,12 @@ namespace DocumentManagement.Web.Controllers
             info.ProviderInfoId = int.Parse(Request["ProviderInfoIdEdit"]);
             info.Value = Request["SalesForceCode"];
             oreturn.RelatedProviderCustomerInfo.Add(info);
+            ProviderInfoModel infoCheck = new ProviderInfoModel();
+            infoCheck.ProviderInfoType = new CatalogModel();
+            infoCheck.ProviderInfoType.ItemId = 378;
+            infoCheck.ProviderInfoId = int.Parse(Request["checkDigitInfoIdEdit"]);
+            infoCheck.Value = Request["checkDigit"];
+            oreturn.RelatedProviderCustomerInfo.Add(infoCheck);
 
             return oreturn;
         }

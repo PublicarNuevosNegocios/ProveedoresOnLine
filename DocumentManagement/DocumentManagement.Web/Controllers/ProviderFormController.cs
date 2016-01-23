@@ -768,12 +768,12 @@ namespace DocumentManagement.Web.Controllers
             {
                 NewModel.RelatedProviderInfo.All(inf =>
                 {
-                    if (inf.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
+                    if ((inf.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
                         Select(p => p.ProviderInfoId).FirstOrDefault() &&
                         inf.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
                         Select(p => p.Value).FirstOrDefault()
                         || inf.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
-                        Select(p => p.LargeValue).FirstOrDefault()
+                        Select(p => p.LargeValue).FirstOrDefault())
                         && inf.ProviderInfoId != 0
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.ComercialExpirience
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.Designations
@@ -848,31 +848,7 @@ namespace DocumentManagement.Web.Controllers
                     }
                     return true;
                 });
-
-                //oReturn =
-                //NewModel.RelatedProviderInfo.Where(y =>  y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.ComercialExpirience
-                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.Designations
-                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.DifferentsFile
-                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.FinancialStatus
-                //                            && y.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.QualityCertificate && 
-                //                                y.ProviderInfoId == PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
-                //                            Select(p => p.ProviderInfoId).FirstOrDefault() &&
-                //                            y.Value != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
-                //                            Select(p => p.Value).FirstOrDefault()
-                //                            || y.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == y.ProviderInfoId).
-                //                            Select(p => p.LargeValue).FirstOrDefault()
-                //                            && y.ProviderInfoId != 0).
-                //                            Select(y => new ChangesControlModel
-                //                            {
-                //                                ProviderInfoId = y.ProviderInfoId,
-                //                                FormUrl = FormPublicId,
-                //                                StepId = StepId,
-                //                                Status = new Provider.Models.Util.CatalogModel()
-                //                                {
-                //                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
-                //                                },
-                //                                Enable = true,
-                //                            }).ToList();
+               
                 if (oReturn.Count == 0)
                 {
                     PrevModel.RelatedProviderInfo.All(x =>
