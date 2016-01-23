@@ -292,10 +292,18 @@
 
         public enum enumCatalog
         {
+            //Contact
             CompanyContactInfoType = 205,
             PersonContactInfoType = 206,
             BrachInfoType = 207,
             DistributorInfoType = 208,
+
+            //Legal
+            ChaimberOfCommerceInfoType = 602,
+            RUTInfoType = 603,
+            CIFINInfoType = 604,
+            SARLAFTInfoType = 605,
+            ResolucionesInfoType = 606,
         }
     }
 }

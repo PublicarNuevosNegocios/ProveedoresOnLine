@@ -848,7 +848,7 @@ namespace DocumentManagement.Web.Controllers
                     }
                     return true;
                 });
-               
+
                 if (oReturn.Count == 0)
                 {
                     PrevModel.RelatedProviderInfo.All(x =>
@@ -877,57 +877,44 @@ namespace DocumentManagement.Web.Controllers
 
         private ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel GetSyncRequestDate(string ProviderPublicId)
         {
+            ProviderFormModel oModel = new ProviderFormModel()
+            {
+                ChangesControlModel = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(ProviderPublicId),
+            };
+
             ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
+            string oCompanyPublicid = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId(ProviderPublicId, string.Empty).RelatedProviderBO.ProviderPublicId;
 
             List<string> oSyncFieldsrequest = Request.Form.
             AllKeys.Where(x => x.Split('_')[0] == "Sync" && Request.Form[x] == "on").ToList();
 
-            List<Tuple<string, HomologateModel>> oHomologateData = new List<Tuple<string, HomologateModel>>();
+            List<Tuple<string, HomologateModel>> oGeneralHomologateData = new List<Tuple<string, HomologateModel>>();
 
             oSyncFieldsrequest.All(x =>
             {
-                oHomologateData.Add(new Tuple<string, HomologateModel>(x,
+                oGeneralHomologateData.Add(new Tuple<string, HomologateModel>(x,
                         ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID(int.Parse(Request.Form[x.Replace("Sync_", "") + " " + "_ItemType".TrimStart()]))));
                 return true;
             });
 
-
-
-            Request.Form.
-            AllKeys.All(x =>
+            //SerpareData Type
+            #region Contact Info
+            List<Tuple<string, HomologateModel>> oContactHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CompanyContactInfoType ||
+                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.DistributorInfoType ||
+                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType ||
+                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType)).Select(x => x).ToList();
+            if (oContactHomologateData != null)
             {
-                if (x.Split('_')[0] == "Sync" && Request.Form[x] == "on" && oHomologateData != null)
+                #region Contact Sync
+                List<Tuple<string, HomologateModel>> oContactToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CompanyContactInfoType).Select(x => x).ToList();
+
+                if (oContactToSync != null && oContactToSync.Count > 0)
                 {
-                    //Get HomologateModel
-                    HomologateModel oCurrentItemType =
-                    ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID
-                    (int.Parse(Request.Form[x.Replace("Sync_", "") + " " + "_ItemType".TrimStart()]));
-
-                    if (oCurrentItemType != null)
+                    //Build obj contact
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                     {
-                        //Get fields exclued Fields
-                        if (oCurrentItemType.Source.ItemId == (int)enumFieldExcluded.Country)
-                        {
-                            //get Excluded info and upsert info
-                        }
-                        else
-                        {
-                            //set VompanyPublicId 
-                            string oCompanyPublicid = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId(ProviderPublicId, string.Empty).RelatedProviderBO.ProviderPublicId;
-                            #region Company Info Sync
-                            if (int.Parse(oCurrentItemType.Target.ItemId.ToString().Substring(0, 1)) == (int)DocumentManagement.Provider.Models.Enumerations.enumProviderInfoType.Company)
-                            {
-                                //get type contact info ej:basic, branch...
-
-                                #region Contact Company Persons
-                                if ((oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CC_CompanyContactType
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CC_Value))
-                                {
-                                    //Build obj contact
-                                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                                    {
-                                        CompanyPublicId = oCompanyPublicid,
-                                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                        CompanyPublicId = oCompanyPublicid,
+                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
                                         {
                                             new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                             {
@@ -941,88 +928,47 @@ namespace DocumentManagement.Web.Controllers
                                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                                             },
                                         }
-                                    };
-
-                                    if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
-                                    {
-                                        oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                        {
-                                            ItemInfoId = 0,
-                                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                            {
-                                                ItemId = oCurrentItemType.Target.ItemId,
-                                            },
-                                            Value = Request.Form[x.Replace("Sync_", "")],
-                                            Enable = true,
-                                        });
-                                    }
-                                }
-                                #endregion
-
-                                #region Contact Persons
-                                else if ((oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_PersonContactType
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_IdentificationType
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_IdentificationNumber
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_IdentificationCity
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_IdentificationFile
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_Phone
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_Email
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.CP_Negotiation))
+                    };
+                    oContactToSync.All(x =>
+                    {
+                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                    //Build obj contact
-                                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                                    {
-                                        CompanyPublicId = oCompanyPublicid,
-                                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
-                                        {
-                                            new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                                            {
-                                                ItemId = 0,
-                                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                                {
-                                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.PersonContact,
-                                                },
-                                                ItemName = "",
-                                                Enable = true,
-                                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
-                                            },
-                                        }
-                                    };
+                                    ItemId = x.Item2.Target.ItemId
+                                },
+                                Value = Request.Form[x.Item1.Replace("Sync_", "")],
+                                Enable = true,
+                            });
+                        }
+                        return true;
+                    });
 
-                                    if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
-                                    {
-                                        oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                        {
-                                            ItemInfoId = 0,
-                                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                            {
-                                                ItemId = oCurrentItemType.Target.ItemId,
-                                            },
-                                            Value = Request.Form[x.Replace("Sync_", "")],
-                                            Enable = true,
-                                        });
-                                    }
-                                }
-                                #endregion
+                    //oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
 
-                                #region Branch
-                                else if ((oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Representative
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Address
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_City //ojo
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Phone
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Fax
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Email
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Website
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Latitude
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Longitude
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_IsPrincipal
-                                    || oCurrentItemType.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_Cellphone))
-                                {
-                                    //Build obj contact
-                                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                                    {
-                                        CompanyPublicId = oCompanyPublicid,
-                                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    //List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.Where(y => y.ProviderInfoId == )
+
+                    //oContactToSync.All(x =>
+                    //    {
+
+                    //        //DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert()
+                    //        return true;
+                    //    });
+                }
+                #endregion
+                #region Branch Sync
+                List<Tuple<string, HomologateModel>> oBranchToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType).Select(x => x).ToList();
+
+                if (oBranchToSync != null && oBranchToSync.Count > 0)
+                {
+                    //Build obj contact
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = oCompanyPublicid,
+                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
                                         {
                                             new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                             {
@@ -1031,35 +977,139 @@ namespace DocumentManagement.Web.Controllers
                                                 {
                                                     ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.Brach,
                                                 },
-                                                ItemName = "",
+                                                ItemName = null,
                                                 Enable = true,
                                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                                             },
                                         }
-                                    };
-
-                                    if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
-                                    {
-                                        oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                        {
-                                            ItemInfoId = 0,
-                                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                            {
-                                                ItemId = oCurrentItemType.Target.ItemId,
-                                            },
-                                            Value = Request.Form[x.Replace("Sync_", "")],
-                                            Enable = true,
-                                        });
-                                    }
-                                }
-                                #endregion
-                            }
-                            #endregion
+                    };
+                    oBranchToSync.All(x =>
+                    {
+                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = x.Item2.Target.ItemId
+                                },
+                                Value = Request.Form[x.Item1.Replace("Sync_", "")],
+                                Enable = true,
+                            });
                         }
-                    }
+                        return true;
+                    });
+
+                    //Upsertinfo BO
+                    oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+
+                    //Upsert Changes Sincronized
+                    oContactToSync.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert =
+                                oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).Select(y => { y.Enable = false; return y; }).ToList();
+                            oChangesToUpsert.All(
+                                ch =>{
+                                    DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                    return true;
+                                });
+
+                            return true;
+                        });                    
                 }
-                return true;
-            });
+                #endregion
+                #region PersonContact Sync
+                List<Tuple<string, HomologateModel>> oPersonToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType).Select(x => x).ToList();
+
+                if (oPersonToSync != null && oPersonToSync.Count > 0)
+                {
+                    //Build obj contact
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = oCompanyPublicid,
+                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                                        {
+                                            new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                            {
+                                                ItemId = 0,
+                                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.PersonContact,
+                                                },
+                                                ItemName = null,
+                                                Enable = true,
+                                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                                            },
+                                        }
+                    };
+                    oPersonToSync.All(x =>
+                    {
+                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = x.Item2.Target.ItemId
+                                },
+                                Value = Request.Form[x.Item1.Replace("Sync_", "")],
+                                Enable = true,
+                            });
+                        }
+                        return true;
+                    });
+                }
+                #endregion
+                #region Distributor Sync
+                List<Tuple<string, HomologateModel>> oDistributorToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.DistributorInfoType).Select(x => x).ToList();
+
+                if (oDistributorToSync != null && oDistributorToSync.Count > 0)
+                {
+                    //Build obj contact
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = oCompanyPublicid,
+                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                                        {
+                                            new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                            {
+                                                ItemId = 0,
+                                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.Distributor,
+                                                },
+                                                ItemName = null,
+                                                Enable = true,
+                                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                                            },
+                                        }
+                    };
+                    oDistributorToSync.All(x =>
+                    {
+                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = x.Item2.Target.ItemId
+                                },
+                                Value = Request.Form[x.Item1.Replace("Sync_", "")],
+                                Enable = true,
+                            });
+                        }
+                        return true;
+                    });
+                }
+                #endregion
+            }
+            #endregion
+
+            List<Tuple<string, HomologateModel>> oLegalHomologateData = null;
+
             return oReturn;
         }
 
