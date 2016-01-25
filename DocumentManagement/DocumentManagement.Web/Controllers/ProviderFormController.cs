@@ -517,7 +517,7 @@ namespace DocumentManagement.Web.Controllers
         {
             List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            if (RequestKeySplit.Count >= 2)
+            if (RequestKeySplit.Count >= 2 && !RequestKey.Contains("_ItemType"))
             {
                 DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
                     (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
@@ -1007,8 +1007,11 @@ namespace DocumentManagement.Web.Controllers
                     //Upsert Changes Sincronized
                     oBranchToSync.All(x =>
                         {
-                            List<ChangesControlModel> oChangesToUpsert =
-                                oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).Select(y => { y.Enable = false; return y; }).ToList();
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                                Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                                Select(y => { y.Enable = false; y.Status.ItemId = 
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated; 
+                                                                return y; }).ToList();
                             oChangesToUpsert.All(
                                 ch =>{
                                     DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
