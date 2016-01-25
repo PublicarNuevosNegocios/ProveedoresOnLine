@@ -96,6 +96,15 @@
     <Compile Include="Models\Reports\ReportsModel.cs" />
     <Compile Include="Models\Util\InternalSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\DataSet\DS_BlackListReport.cs">
+      <DependentUpon>DS_BlackListReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DataSet\DS_BlackListReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_BlackListReport.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_EvaluatorDetailReport.cs">
       <DependentUpon>DS_EvaluatorDetailReport.xsd</DependentUpon>
     </Compile>
@@ -159,6 +168,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.cs">
+      <DependentUpon>DS_ThirdKnowledgeReport.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +179,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Reports\DataSet\DS_BlackListReport.xsc">
+      <DependentUpon>DS_BlackListReport.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_BlackListReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_BlackListReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_BlackListReport.xss">
+      <DependentUpon>DS_BlackListReport.xsd</DependentUpon>
+    </None>
     <None Include="Reports\DataSet\DS_EvaluatorDetailReport.xsc">
       <DependentUpon>DS_EvaluatorDetailReport.xsd</DependentUpon>
     </None>
@@ -273,6 +296,7 @@
     <EmbeddedResource Include="Reports\PJ_Report_SelectionProcess.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_EvaluatorDetail.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_SurveyDetail.rdlc" />
+    <EmbeddedResource Include="Reports\BL_Report_BlackListReport.rdlc" />
     <EmbeddedResource Include="Reports\TK_Report_ThirdKnowledgeQuery.rdlc" />
     <EmbeddedResource Include="Reports\TK_Report_ThirdKnowledgeQueryDetail.rdlc" />
   </ItemGroup>

@@ -532,6 +532,68 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+             //Get report generator
+            //Get report generator
+            if (Request["DownloadReport"] == "true")
+            {
+                #region Set Parameters
+
+                List<ReportParameter> parameters = new List<ReportParameter>();
+
+                //Customer Info
+                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+
+                //Query Info
+                parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
+                parameters.Add(new ReportParameter("User", SessionModel.CurrentLoginUser.Name + " " + SessionModel.CurrentLoginUser.LastName));
+                parameters.Add(new ReportParameter("CreateDate",oModel.RelatedBlackListInfo.Where(x=>x.CreateDate != null).Select(y=>y.CreateDate).FirstOrDefault().ToString()));
+                parameters.Add(new ReportParameter("QueryType", "No hay campo"));
+                parameters.Add(new ReportParameter("Status", "No hay campo"));
+
+                DataTable data = new DataTable();
+                data.Columns.Add("name");
+                data.Columns.Add("id");
+                data.Columns.Add("cargo");
+                data.Columns.Add("prioridad");
+                data.Columns.Add("grupo_lista");
+                data.Columns.Add("lista");
+                data.Columns.Add("delito_cargo");
+                data.Columns.Add("estado");
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = oModel.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+                DataRow row;
+
+                oModel.RelatedBlackListInfo.All(query =>
+                    {
+                        row = data.NewRow();
+
+                        row["name"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "RazonSocial").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["id"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "IdentificationType").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString() + " " + query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "IdentificationNumber").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["cargo"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["prioridad"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["grupo_lista"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Grupo Lista").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["lista"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Lista").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["delito_cargo"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Delito, cargo o resultado de la consulta").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        row["estado"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
+                        data.Rows.Add(row);
+                        return true;
+                    });
+
+                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.GIBlackList_QueryReport(
+                                                                enumCategoryInfoType.PDF.ToString(),
+                                                                data,
+                                                                parameters,
+                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "BL_Report_BlackListReport.rdlc");
+
+                parameters = null;
+                return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
+
+                #endregion
+            }
+
+
             return View(oModel);
         }
 

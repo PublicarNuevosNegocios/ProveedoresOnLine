@@ -414,6 +414,50 @@ namespace ProveedoresOnLine.Reports.Controller
             return ProveedoresOnLine.Reports.DAL.Controller.ReportsDataController.Instance.R_ProviderCustomerReport(CustomerPublicId);
         }
 
+        public static Tuple<byte[], string, string> GIBlackList_QueryReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.EnableExternalImages = true;
+            localReport.ReportPath = FilePath;
+            localReport.SetParameters(ReportData);
+
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DataSet_BlackListReport";
+            source.Value = data != null ? data : new DataTable();
+            localReport.DataSources.Add(source);
+
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo =
+                       "<DeviceInfo>" +
+                       "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                       "  <PageWidth>11.69in</PageWidth>" +
+                       "  <PageHeight>8.27in</PageHeight>" +
+                       "  <MarginTop>0.7874in</MarginTop>" +
+                       "  <MarginLeft>0.7874in</MarginLeft>" +
+                       "  <MarginRight>0.7874in</MarginRight>" +
+                       "  <MarginBottom>0.7874in</MarginBottom>" +
+                       "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            renderedBytes = localReport.Render(
+                FormatType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+
+            return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GIBlackListQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+
+        }
+
+
         #endregion
     }
 }

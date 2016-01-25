@@ -24,6 +24,7 @@
             RP_SurveyGeneralReport = 1501005,
             RP_ThirdKnowledgeQueryReport = 1501006,
             RP_ThirdKnowledgeQueryDetailReport = 1501007,
+            RP_GIBlackListQueryReport = 1501008,
         }
 
         #endregion

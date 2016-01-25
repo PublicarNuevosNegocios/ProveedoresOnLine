@@ -42,7 +42,7 @@ namespace DocumentManagement.Provider.Controller
                     CustomerPublicId = ProviderToUpsert.CustomerPublicId,
                 };
 
-               // ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.ProviderUpsertDM(AsociateProviderToUpsert);
+               ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.ProviderUpsertDM(AsociateProviderToUpsert);
 
                 oLog.IsSuccess = true;
             }

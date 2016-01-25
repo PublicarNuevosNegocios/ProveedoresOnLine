@@ -138,7 +138,7 @@ namespace DocumentManagement.Web.Controllers
                     string IdentificationNumber = Request["IdentificationNumber"].ToString();
 
                     string IdentificationType = Convert.ToInt32(Request["IdentificationType"]) == 0 ? string.Empty : Request["IdentificationType"];
-                    string CheckDigit = Convert.ToInt32(Request["CheckDigit"]) == 0 ? string.Empty : Request["CheckDigit"];
+                    string CheckDigit = string.IsNullOrEmpty(Request["CheckDigit"]) ? string.Empty : Request["CheckDigit"];
 
                     string Email = Request["Email"].ToString();
                     string Salesforce = Request["Salesforce"].ToString();
