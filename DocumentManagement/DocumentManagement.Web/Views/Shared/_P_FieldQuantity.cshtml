@@ -23,7 +23,8 @@
         @if (Model.IsModified)
         {
             <div class="ItemLeftPosition"><input type="text" id="@strId" name="@strId" value="@strValue" /></div>
-            <div class="CheckBox_Position"><input type="checkbox" class="CheckBox_size" name="name" /></div>
+            <div class="CheckBox_Position"><input type="checkbox" class="CheckBox_size" name="Sync_@strId" /></div>
+            <input type="hidden" name="@strId _ItemType" id="@strId _ItemType" value="@Model.RealtedField.ProviderInfoType.ItemId" />
         }
         else
         {

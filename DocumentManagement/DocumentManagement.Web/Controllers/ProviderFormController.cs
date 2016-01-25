@@ -1005,7 +1005,7 @@ namespace DocumentManagement.Web.Controllers
                     oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
 
                     //Upsert Changes Sincronized
-                    oContactToSync.All(x =>
+                    oBranchToSync.All(x =>
                         {
                             List<ChangesControlModel> oChangesToUpsert =
                                 oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).Select(y => { y.Enable = false; return y; }).ToList();
