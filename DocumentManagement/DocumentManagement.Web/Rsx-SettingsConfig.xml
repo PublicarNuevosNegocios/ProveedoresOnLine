@@ -6,4 +6,7 @@
   <Module name="FileRepository">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\Rsx-FileRepository.xml</key>
   </Module>
+  <Module name="Company">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
+  </Module>
 </SettingsConfig>
