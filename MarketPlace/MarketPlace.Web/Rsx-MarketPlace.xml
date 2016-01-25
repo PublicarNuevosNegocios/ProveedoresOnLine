@@ -59,8 +59,11 @@
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
 
     <!--Report Path-->
-    <key name="MP_CP_ReportPath">\\192.168.0.4\d$\SitesReports\</key>
+    <!--<key name="MP_CP_ReportPath">\\192.168.0.4\d$\SitesReports\</key>-->
+    <key name="MP_CP_ReportPath">D:\ProvedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
+
     
+
     <!--ThirdKnowledgeReportText-->
     <key name="TK_TextImage"><![CDATA[https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ThirdKnowledgeText.PNG]]></key>
 
