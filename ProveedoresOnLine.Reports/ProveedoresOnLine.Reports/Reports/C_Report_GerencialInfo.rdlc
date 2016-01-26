@@ -688,8 +688,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>SystemOccupationalHazards</rd:DefaultName>
-        <Top>17.33318cm</Top>
-        <Left>7.79479cm</Left>
+        <Top>15.77274cm</Top>
+        <Left>7.80729cm</Left>
         <Height>0.6cm</Height>
         <Width>8.41076cm</Width>
         <ZIndex>18</ZIndex>
@@ -720,8 +720,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>RateARL</rd:DefaultName>
-        <Top>18.14485cm</Top>
-        <Left>1.75504cm</Left>
+        <Top>16.58441cm</Top>
+        <Left>1.76754cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1923cm</Width>
         <ZIndex>19</ZIndex>
@@ -752,8 +752,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LTIFResult</rd:DefaultName>
-        <Top>18.14485cm</Top>
-        <Left>11.95055cm</Left>
+        <Top>16.58441cm</Top>
+        <Left>11.96305cm</Left>
         <Height>0.6cm</Height>
         <Width>2.37913cm</Width>
         <ZIndex>20</ZIndex>
@@ -1116,8 +1116,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport</DataSetName>
-        <Top>20.26727cm</Top>
-        <Left>0.4882cm</Left>
+        <Top>18.70683cm</Top>
+        <Left>0.5007cm</Left>
         <Height>1.2cm</Height>
         <Width>15.71735cm</Width>
         <ZIndex>21</ZIndex>
@@ -1673,8 +1673,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>17.33318cm</Top>
-        <Left>0.41795cm</Left>
+        <Top>15.77274cm</Top>
+        <Left>0.43045cm</Left>
         <Height>0.6cm</Height>
         <Width>7.10816cm</Width>
         <ZIndex>38</ZIndex>
@@ -1705,8 +1705,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>18.14485cm</Top>
-        <Left>0.48823cm</Left>
+        <Top>16.58441cm</Top>
+        <Left>0.50073cm</Left>
         <Height>0.6cm</Height>
         <Width>1.09043cm</Width>
         <ZIndex>39</ZIndex>
@@ -1737,8 +1737,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>18.14485cm</Top>
-        <Left>7.79484cm</Left>
+        <Top>16.58441cm</Top>
+        <Left>7.80734cm</Left>
         <Height>0.6cm</Height>
         <Width>3.95031cm</Width>
         <ZIndex>40</ZIndex>
@@ -2061,7 +2061,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>16.33207cm</Top>
+        <Top>14.77163cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>46</ZIndex>
@@ -2221,7 +2222,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>19.05092cm</Top>
+        <Top>17.49048cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60901cm</Width>
         <ZIndex>48</ZIndex>
@@ -2281,7 +2283,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>22.22181cm</Top>
+        <Top>20.66137cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60901cm</Width>
         <ZIndex>49</ZIndex>
@@ -2310,8 +2313,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>23.51885cm</Top>
-        <Left>0.4882cm</Left>
+        <Top>21.95841cm</Top>
+        <Left>0.5007cm</Left>
         <Height>0.6cm</Height>
         <Width>3.21543cm</Width>
         <ZIndex>50</ZIndex>
@@ -2343,8 +2346,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LastUpdate</rd:DefaultName>
-        <Top>23.51885cm</Top>
-        <Left>3.88008cm</Left>
+        <Top>21.95841cm</Top>
+        <Left>3.89258cm</Left>
         <Height>0.6cm</Height>
         <Width>3.30207cm</Width>
         <ZIndex>51</ZIndex>
@@ -2376,8 +2379,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>23.51885cm</Top>
-        <Left>7.62025cm</Left>
+        <Top>21.95841cm</Top>
+        <Left>7.63275cm</Left>
         <Height>0.6cm</Height>
         <Width>1.69625cm</Width>
         <ZIndex>52</ZIndex>
@@ -2409,8 +2412,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Alert</rd:DefaultName>
-        <Top>23.51885cm</Top>
-        <Left>9.49289cm</Left>
+        <Top>21.95841cm</Top>
+        <Left>9.50539cm</Left>
         <Height>0.6cm</Height>
         <Width>6.71266cm</Width>
         <ZIndex>53</ZIndex>
@@ -2472,7 +2475,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>26.00957cm</Top>
+        <Top>24.44913cm</Top>
+        <Left>0.0125cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.6cm</Width>
         <ZIndex>54</ZIndex>
@@ -2803,8 +2807,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport_Contact</DataSetName>
-        <Top>27.23147cm</Top>
-        <Left>0.4882cm</Left>
+        <Top>25.67103cm</Top>
+        <Left>0.5007cm</Left>
         <Height>1.2cm</Height>
         <Width>15.70834cm</Width>
         <ZIndex>55</ZIndex>
@@ -3274,8 +3278,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport_Terceros</DataSetName>
-        <Top>24.44913cm</Top>
-        <Left>0.56179cm</Left>
+        <Top>22.88869cm</Top>
+        <Left>0.57429cm</Left>
         <Height>1.2cm</Height>
         <Width>15.64725cm</Width>
         <ZIndex>58</ZIndex>
@@ -3285,275 +3289,8 @@
           </Border>
         </Style>
       </Tablix>
-      <Tablix Name="Tablix3">
-        <TablixBody>
-          <TablixColumns>
-            <TablixColumn>
-              <Width>5.21992cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>5.21992cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>5.21992cm</Width>
-            </TablixColumn>
-          </TablixColumns>
-          <TablixRows>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox2">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Cuenta</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>9pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox2</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox42">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>= "Balance Año " + Parameters!BalanceLastYear.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>9pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox42</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox48">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>= "Balance Año " + Parameters!BalanceOldYear.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>9pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox48</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Cuenta">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!Cuenta.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Cuenta</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Valor1">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>$ </Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                            <TextRun>
-                              <Value>=Fields!Valor1.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Valor1</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Valor2">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>$ </Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                            <TextRun>
-                              <Value>=Fields!Valor2.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Valor2</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-          </TablixRows>
-        </TablixBody>
-        <TablixColumnHierarchy>
-          <TablixMembers>
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-          </TablixMembers>
-        </TablixColumnHierarchy>
-        <TablixRowHierarchy>
-          <TablixMembers>
-            <TablixMember>
-              <KeepWithGroup>After</KeepWithGroup>
-            </TablixMember>
-            <TablixMember>
-              <Group Name="Details3" />
-            </TablixMember>
-          </TablixMembers>
-        </TablixRowHierarchy>
-        <DataSetName>DS_GerencialReport_Balance</DataSetName>
-        <Top>14.87453cm</Top>
-        <Left>0.41795cm</Left>
-        <Height>1.2cm</Height>
-        <Width>15.65975cm</Width>
-        <ZIndex>59</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Tablix>
     </ReportItems>
-    <Height>11.57162in</Height>
+    <Height>10.6862in</Height>
     <Style />
   </Body>
   <Width>6.5614in</Width>
@@ -3811,34 +3548,6 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
         <rd:TableAdapterName />
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="DS_GerencialReport_Balance">
-      <Query>
-        <DataSourceName>DS_GerencialReport_Balance</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Cuenta">
-          <DataField>Cuenta</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Valor1">
-          <DataField>Valor1</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Valor2">
-          <DataField>Valor2</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DS_GerencialReport_Balance</rd:DataSetName>
-        <rd:SchemaPath>E:\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_GerencialReport_Balance.xsd</rd:SchemaPath>
-        <rd:TableName>BalanceInfo</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
   </DataSets>
   <ReportParameters>
     <ReportParameter Name="CustomerName">
@@ -3962,14 +3671,6 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="TotalExperiences">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="BalanceLastYear">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="BalanceOldYear">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

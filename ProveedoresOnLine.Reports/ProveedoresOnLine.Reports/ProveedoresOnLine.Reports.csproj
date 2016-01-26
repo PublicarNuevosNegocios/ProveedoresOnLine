@@ -118,11 +118,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reports\DataSet\DS_GerencialReport_Balance.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DS_GerencialReport_Balance.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.cs">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -211,17 +206,6 @@
     </None>
     <None Include="Reports\DataSet\DS_GerencialReport.xss">
       <DependentUpon>DS_GerencialReport.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\DataSet\DS_GerencialReport_Balance.xsc">
-      <DependentUpon>DS_GerencialReport_Balance.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\DataSet\DS_GerencialReport_Balance.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DS_GerencialReport_Balance.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reports\DataSet\DS_GerencialReport_Balance.xss">
-      <DependentUpon>DS_GerencialReport_Balance.xsd</DependentUpon>
     </None>
     <None Include="Reports\DataSet\DS_GerencialReport_Contact.xsc">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
