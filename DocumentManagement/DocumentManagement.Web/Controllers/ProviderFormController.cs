@@ -884,7 +884,7 @@ namespace DocumentManagement.Web.Controllers
 
             ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
             string oCompanyPublicid = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId(ProviderPublicId, string.Empty).RelatedProviderBO.ProviderPublicId;
-
+            int oTotalRows;
             List<string> oSyncFieldsrequest = Request.Form.
             AllKeys.Where(x => x.Split('_')[0] == "Sync" && Request.Form[x] == "on").ToList();
 
@@ -910,11 +910,14 @@ namespace DocumentManagement.Web.Controllers
 
                 if (oContactToSync != null && oContactToSync.Count > 0)
                 {
-                    //Build obj contact
-                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    
+                    oContactToSync.All(x =>
                     {
-                        CompanyPublicId = oCompanyPublicid,
-                        RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                        //Build obj contact
+                        ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = oCompanyPublicid,
+                            RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
                                         {
                                             new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                             {
@@ -923,47 +926,71 @@ namespace DocumentManagement.Web.Controllers
                                                 {
                                                     ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact,
                                                 },
-                                                ItemName = null,
+                                                ItemName = oGeneralHomologateData.Where(y => y.Item2.Target.ItemId == 204001).Select(y => y.Item1).FirstOrDefault() != null ? 
+                                                        Request.Form[oGeneralHomologateData.Where(y => y.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact).
+                                                        Select(y => y.Item1).FirstOrDefault().Replace("Sync_", "")] : string.Empty,
                                                 Enable = true,
                                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                                             },
                                         }
-                    };
-                    oContactToSync.All(x =>
-                    {
-                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        };
+                        if (oCompany.RelatedContact != null)
                         {
                             oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 0,
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                    ItemId = x.Item2.Target.ItemId
+                                    ItemId = 205001
+                                },
+                                Value = x.Item2.Target.ItemId.ToString(),
+                                Enable = true,
+                            });
+                        }
+                        if (oCompany.RelatedContact != null)
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = 205002
                                 },
                                 Value = Request.Form[x.Item1.Replace("Sync_", "")],
                                 Enable = true,
                             });
                         }
-                        return true;
+                        //Upsertinfo BO
+                        oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+                        return true;                        
                     });
 
-                    //oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
-
-                    //List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.Where(y => y.ProviderInfoId == )
-
-                    //oContactToSync.All(x =>
-                    //    {
-
-                    //        //DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert()
-                    //        return true;
-                    //    });
+                    //Upsert Changes Sincronized
+                    oContactToSync.All(x =>
+                    {
+                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList();
+                        oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                        return true;
+                    });      
                 }
                 #endregion
                 #region Branch Sync
                 List<Tuple<string, HomologateModel>> oBranchToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType).Select(x => x).ToList();
 
                 if (oBranchToSync != null && oBranchToSync.Count > 0)
-                {
+                {                    
                     //Build obj contact
                     ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                     {
@@ -977,14 +1004,14 @@ namespace DocumentManagement.Web.Controllers
                                                 {
                                                     ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.Brach,
                                                 },
-                                                ItemName = null,
+                                                ItemName = "Sucursal Cincronizada GO",
                                                 Enable = true,
                                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                                             },
                                         }
                     };
                     oBranchToSync.All(x =>
-                    {
+                    {                        
                         if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
                         {
                             oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -992,9 +1019,12 @@ namespace DocumentManagement.Web.Controllers
                                 ItemInfoId = 0,
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                    ItemId = x.Item2.Target.ItemId
+                                    ItemId = x.Item2.Target.ItemId                     
                                 },
-                                Value = Request.Form[x.Item1.Replace("Sync_", "")],
+                                Value =  x.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactInfoType.BR_City ?                      
+                                                ProveedoresOnLine.Company.Controller.Company.
+                                                CategorySearchByGeography(Request.Form[x.Item1.Replace("Sync_", "")], null,0, 0, out oTotalRows).
+                                                FirstOrDefault().City.ItemId.ToString(): Request.Form[x.Item1.Replace("Sync_", "")],
                                 Enable = true,
                             });
                         }
@@ -1040,7 +1070,7 @@ namespace DocumentManagement.Web.Controllers
                                                 {
                                                     ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.PersonContact,
                                                 },
-                                                ItemName = null,
+                                                ItemName = "Person Contact Sync GD",
                                                 Enable = true,
                                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                                             },
@@ -1063,6 +1093,26 @@ namespace DocumentManagement.Web.Controllers
                         }
                         return true;
                     });
+
+                    //Upsertinfo BO
+                    oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+
+                    //Upsert Changes Sincronized
+                    oPersonToSync.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                                Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                                Select(y => { y.Enable = false; y.Status.ItemId = 
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated; 
+                                                                return y; }).ToList();
+                            oChangesToUpsert.All(
+                                ch =>{
+                                    DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                    return true;
+                                });
+
+                            return true;
+                        });      
                 }
                 #endregion
                 #region Distributor Sync
@@ -1083,7 +1133,7 @@ namespace DocumentManagement.Web.Controllers
                                                 {
                                                     ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.Distributor,
                                                 },
-                                                ItemName = null,
+                                                ItemName = "Distributor Sync From GD",
                                                 Enable = true,
                                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                                             },
@@ -1106,6 +1156,30 @@ namespace DocumentManagement.Web.Controllers
                         }
                         return true;
                     });
+
+                    //Upsertinfo BO
+                    oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+
+                    //Upsert Changes Sincronized
+                    oDistributorToSync.All(x =>
+                    {
+                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                  (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList();
+                        oChangesToUpsert.All(
+                            ch =>
+                            {
+                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                return true;
+                            });
+
+                        return true;
+                    });     
                 }
                 #endregion
             }
