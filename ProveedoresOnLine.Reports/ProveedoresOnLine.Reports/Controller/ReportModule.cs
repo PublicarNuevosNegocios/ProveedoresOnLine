@@ -128,7 +128,7 @@ namespace ProveedoresOnLine.Reports.Controller
         #endregion ReportSurveyEvaluatorDetail
 
         #region Gerencial Report        
-        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data,  DataTable data2, DataTable data3, DataTable data4, List<ReportParameter> ReportData, string FilePath)
+        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data,  DataTable data2, DataTable data3, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
@@ -149,12 +149,6 @@ namespace ProveedoresOnLine.Reports.Controller
             source3.Name = "DS_GerencialReport_Terceros";
             source3.Value = data3 != null ? data3 : new DataTable();
             localReport.DataSources.Add(source3);
-
-            ReportDataSource source4 = new ReportDataSource();
-            source4.Name = "DS_GerencialReport_Balance";
-            source4.Value = data4 != null ? data4 : new DataTable();
-            localReport.DataSources.Add(source4);
-
 
             string mimeType;
             string encoding;
