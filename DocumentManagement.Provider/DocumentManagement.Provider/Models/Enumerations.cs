@@ -293,7 +293,7 @@
         public enum enumCatalog
         {
             //Contact
-            CompanyContactInfoType = 205,
+            CompanyContactInfoType = 209,
             PersonContactInfoType = 206,
             BrachInfoType = 207,
             DistributorInfoType = 208,

@@ -36,3 +36,7 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span{
     margin-top: 0px !important;
     margin-left: 3px !important;
 }
+.CheckBox-All-spanText{
+    margin-left: -64px;
+    margin-top: 7px;
+}
