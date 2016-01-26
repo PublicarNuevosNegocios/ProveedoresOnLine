@@ -305,5 +305,41 @@
             SARLAFTInfoType = 605,
             ResolucionesInfoType = 606,
         }
+
+        public enum enumPersonContactSourceItem
+        {
+            //Info PersonContac Source
+            Legalrep = 317,
+            CommercialContact = 320,
+            FinnancialContact = 322,
+            HSEQContact = 324,
+
+            //Catalog Legal Contact
+            LegalName = 317,
+            LegalIdentification = 327,
+            LegalEmail = 326,
+            LegalPhone = 318,
+            LegalCapacity = 319,
+            LegalFile = 348,
+
+            //Catalog Commercial Contact
+            CommercialName = 320,
+            CommercialIdentification = 329,
+            CommercialPhone = 321,
+            CommercialEmail = 328,
+
+
+            //Catalog Finnancial Contact
+            FinnancialName = 322,
+            FinnancianIdentification = 331,
+            FinnancialPhone = 323,
+            FinancialEmail = 330,
+
+            //Catalog HSEQ Contact
+            HSEQName = 324,
+            HSEQIdentification = 333,
+            HSEQPhone = 325,
+            HSEQEmail = 332,
+        }
     }
 }
