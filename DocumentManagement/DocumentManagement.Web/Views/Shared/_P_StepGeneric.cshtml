@@ -13,6 +13,24 @@
             <div id="divProgressBar"></div>
         </div>
     </div>
+    if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser != null)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                <ul class="DMFormGenericFields">
+                    <li><input type="checkbox" id="checkAll" class="CheckBox_size" /></li>
+                </ul>
+            </div>
+            <div class="col-md-11">
+                <ul class="DMFormGenericFields">
+                    <li><span class="CheckBox-All-spanText">Seleccionar todos los cambios</span></li>
+                </ul>
+            </div>
+        </div>
+    }
+
+
+
 
     <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.UpsertGenericStep,
                             MVC.ProviderForm.Name,
@@ -25,31 +43,31 @@
                                 IsSync = "{{IsSync}}"
                             })))" method="post" enctype="multipart/form-data">
         <ul class="DMFormGenericFields">
-            @{             
-                
-                foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
-                {
-                    //get partial view to render
-                    string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
-                        FieldInfoTypes.
-                        Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
-                        Select(strView => strView.Key).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
-                    bool ShowChanges = false;
-                    
-                    if (Model.RealtedProvider.RelatedProviderInfo.
-                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                                ToList().Count > 0)
-	                {
-		                 ShowChanges =  Model.ChangesControlModel.Any(y => y.ProviderInfoId == Model.RealtedProvider.RelatedProviderInfo.
-                                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                                                ToList().FirstOrDefault().ProviderInfoId)  ? true : false;
-	                }
-                    if (!string.IsNullOrEmpty(strFieldType))
-                    {
-                        <li>
-                            @(Html.Partial(Url.Content(strFieldType),
+            @{
+
+    foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
+    {
+        //get partial view to render
+        string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
+            FieldInfoTypes.
+            Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+            Select(strView => strView.Key).
+            DefaultIfEmpty(string.Empty).
+            FirstOrDefault();
+        bool ShowChanges = false;
+
+        if (Model.RealtedProvider.RelatedProviderInfo.
+                                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                    ToList().Count > 0)
+        {
+            ShowChanges = Model.ChangesControlModel.Any(y => y.ProviderInfoId == Model.RealtedProvider.RelatedProviderInfo.
+                                                   Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                   ToList().FirstOrDefault().ProviderInfoId) ? true : false;
+        }
+        if (!string.IsNullOrEmpty(strFieldType))
+        {
+            <li>
+                @(Html.Partial(Url.Content(strFieldType),
                                         new DocumentManagement.Models.Provider.ProviderFieldModel()
                                         {
                                             ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
@@ -62,9 +80,9 @@
                                             FieldType = strFieldType,
                                             IsModified = Model.ShowChanges == true ? ShowChanges : false,
                                         }))
-                        </li>
-                    }
-                }
+            </li>
+        }
+    }
             }
         </ul>
         @Html.Partial(MVC.Shared.Views._P_StepNavigator)
@@ -137,6 +155,14 @@ else
         $(document).ready(function () {
             PF_InitProgressBar('divProgressBar', @(TotalRequiredFields > 0 ? (int)((FillRequiredFields * 100)/ TotalRequiredFields) : 0), '@(FillRequiredFields + "/" + TotalRequiredFields)');
         });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        PF_InitProgressBar('divProgressBar', @(TotalRequiredFields > 0 ? (int)((FillRequiredFields * 100)/ TotalRequiredFields) : 0), '@(FillRequiredFields + "/" + TotalRequiredFields)');
+    });
+    $("#checkAll").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
     </script>
 
 }
