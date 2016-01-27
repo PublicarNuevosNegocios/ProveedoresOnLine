@@ -78,11 +78,6 @@
             title: "# Comp. Relacionados",
             width: 150
         }, {
-            field: "codSalesforce",
-            title: "URL SalesForce",
-            template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a_SearchButton>',
-            width: 150
-        }, {
             field: "LastModifyUser",
             title: "Usuario que actualizó",
             width: 200
@@ -93,7 +88,7 @@
         }, {
             field: "Edit",
             title: "Edit",
-            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\', \'${checkDigit}\', \'${checkDigitInfoId}\');">Editar</a>',
+            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\',  \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\', \'${checkDigit}\', \'${checkDigitInfoId}\');">Editar</a>',
             width: 150
         }],
     });
@@ -106,7 +101,7 @@
     });
 }
 
-function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email, SalesForceCode, CustomerPublicId, ProviderName, infoId, checkDigit, checkDigitInfoIdedit) {
+function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email, CustomerPublicId, ProviderName, infoId, checkDigit, checkDigitInfoIdedit) {
     $('#EditProviderDialog').show;
     $('#EditProviderDialog').dialog({ title: "Editar Proveedor" });
     $('#RazonSocial').val(ProviderName);
@@ -117,11 +112,8 @@ function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, 
     $('#ProviderCustomerIdEdit').val(CustomerPublicId);
     $('#Email').val(Email);
     $('#ProviderInfoIdEdit').val(infoId);
-
-    console.log(checkDigitInfoIdedit);
-
     $('#checkDigitInfoIdEdit').val(checkDigitInfoIdedit);
-    $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi, ''));
+    
 }
 
 function initCmb(cmbForm, cmbCustomer) {

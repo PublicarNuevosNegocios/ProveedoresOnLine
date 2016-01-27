@@ -141,7 +141,7 @@ namespace DocumentManagement.Web.Controllers
                     string CheckDigit = string.IsNullOrEmpty(Request["CheckDigit"]) ? string.Empty : Request["CheckDigit"];
 
                     string Email = Request["Email"].ToString();
-                    string Salesforce = Request["Salesforce"].ToString();
+                    //string Salesforce = Request["Salesforce"].ToString();
 
                     #region Operation
                     //Validate provider
@@ -161,13 +161,13 @@ namespace DocumentManagement.Web.Controllers
                         ListCustomerProviderInfo.Add(CustomerProviderInfo);
                     }
 
-                    CustomerProviderInfo = new ProviderInfoModel();
-                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
-                                                          oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
-                                                                    Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
-                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
-                    CustomerProviderInfo.Value = Salesforce;
-                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
+                    //CustomerProviderInfo = new ProviderInfoModel();
+                    //CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
+                    //                                      oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
+                    //                                                Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
+                    //CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
+                    //CustomerProviderInfo.Value = Salesforce;
+                    //ListCustomerProviderInfo.Add(CustomerProviderInfo);
 
                     CustomerProviderInfo = new ProviderInfoModel();
                     CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
@@ -334,20 +334,10 @@ namespace DocumentManagement.Web.Controllers
 
                     CustomerProviderInfo = new ProviderInfoModel();
                     CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
-                                                          oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
-                                                                    Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
-                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
-                    CustomerProviderInfo.Value = prv.CampanaSalesforce;
-
-
-                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
-                    CustomerProviderInfo = new ProviderInfoModel();
-                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
                                                          oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 378).
                                                                    Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
                     CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 378 };
                     CustomerProviderInfo.Value = prv.DigitoVerificacion;
-
                     ListCustomerProviderInfo.Add(CustomerProviderInfo);
                     
 
