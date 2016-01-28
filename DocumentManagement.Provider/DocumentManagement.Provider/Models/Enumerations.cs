@@ -304,6 +304,9 @@
             CIFINInfoType = 604,
             SARLAFTInfoType = 605,
             ResolucionesInfoType = 606,
+
+            //Finantial
+            OrgStructure = 506,
         }
 
         public enum enumPersonContactSourceItem

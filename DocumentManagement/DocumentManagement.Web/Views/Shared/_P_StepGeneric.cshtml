@@ -29,9 +29,6 @@
         </div>
     }
 
-
-
-
     <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.UpsertGenericStep,
                             MVC.ProviderForm.Name,
                             new
@@ -60,9 +57,9 @@
                                     Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
                                     ToList().Count > 0)
         {
-            ShowChanges = Model.ChangesControlModel.Any(y => y.ProviderInfoId == Model.RealtedProvider.RelatedProviderInfo.
+            ShowChanges = Model.ChangesControlModel.Any(y => y.ProviderInfoId == (Model.RealtedProvider.RelatedProviderInfo.
                                                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                                   ToList().FirstOrDefault().ProviderInfoId) ? true : false;
+                                                   ToList().FirstOrDefault().ProviderInfoId)) ? true : false;
         }
         if (!string.IsNullOrEmpty(strFieldType))
         {
@@ -70,7 +67,7 @@
                 @(Html.Partial(Url.Content(strFieldType),
                                         new DocumentManagement.Models.Provider.ProviderFieldModel()
                                         {
-                                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                                            ProviderPublicId = Model.ChangesControlModel.FirstOrDefault().ProviderPublicId,
                                             RenderScripts = false,
                                             RealtedField = Item,
                                             RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
@@ -134,6 +131,7 @@ else
                 ProviderOptions = Model.ProviderOptions,
                 FieldType = strFieldType,
                 IsModified = Model.ShowChanges == true ? ShowChanges : false,
+                ProviderPublicId = Model.ChangesControlModel.FirstOrDefault().ProviderPublicId,
             };
         ItemModel.IsModified = Model.ShowChanges == true ? ShowChanges : false;
         if (ItemModel.RealtedField.IsRequired)
@@ -157,12 +155,12 @@ else
         });
     </script>
     <script type="text/javascript">
-    $(document).ready(function () {
-        PF_InitProgressBar('divProgressBar', @(TotalRequiredFields > 0 ? (int)((FillRequiredFields * 100)/ TotalRequiredFields) : 0), '@(FillRequiredFields + "/" + TotalRequiredFields)');
-    });
-    $("#checkAll").click(function () {
-        $('input:checkbox').not(this).prop('checked', this.checked);
-    });
+        $(document).ready(function () {
+            PF_InitProgressBar('divProgressBar', @(TotalRequiredFields > 0 ? (int)((FillRequiredFields * 100)/ TotalRequiredFields) : 0), '@(FillRequiredFields + "/" + TotalRequiredFields)');
+        });
+        $("#checkAll").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
     </script>
 
 }

@@ -3,6 +3,8 @@
 @{
     //get grid id
     string strId = Model.FieldType + "-" + Model.RealtedField.FieldId;
+    string oProviderPublicId = Model.ProviderPublicId;
+    bool IsModified = false;
 }
 
 @if (!Model.RenderScripts)
@@ -31,6 +33,13 @@
                 <li>
                     <span>Porcetaje de participación (%):</span> <input type="text" id="@(strId)_ParticipationPercent" />
                 </li>
+                @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser != null)
+                {
+                    IsModified = true;
+                    <li>
+                        <input style="display:none" type="text" id="@(Model.ProviderPublicId)_ProviderPublicId" />
+                    </li>
+                }
                 <li>
                     <a class="DMButtonsDialog" href="javascript:PF_PartnerFormObject.Create()">Guardar</a>
                 </li>
@@ -44,6 +53,9 @@
 }
 else
 {
+
+    List<DocumentManagement.Provider.Models.Provider.ChangesControlModel> oCurrentChanges = new List<DocumentManagement.Provider.Models.Provider.ChangesControlModel>();
+    oCurrentChanges = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(Model.ProviderPublicId);
     string oGridData = string.Empty;
     if (Model.RealtedProviderInfo != null)
     {
@@ -53,17 +65,25 @@ else
             RealtedProviderInfo.
             Where(x => !string.IsNullOrEmpty(x.LargeValue)).
             Select
-                (x => new DocumentManagement.Models.Provider.ProviderFormPartners(x.LargeValue, x.ProviderInfoId.ToString())).
-            Where(x => x.IsDelete == false).ToList());
+            (x => new DocumentManagement.Models.Provider.
+                ProviderFormPartners(x.LargeValue, x.ProviderInfoId.ToString(), oCurrentChanges.Any(y => y.ProviderInfoId == x.ProviderInfoId &&
+                                    DocumentManagement.Models.General.SessionModel.CurrentLoginUser != null) ? true : false)).
+                                    Where(x => x.IsDelete == false).ToList());
     }
 
     <script type="text/javascript">
         var vGridData = @(Html.Raw(oGridData));
+        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser != null)
+         {
+             IsModified = true;
+        }
         $(document).ready(function () {
             //start grid
             PF_PartnerFormObject.Init({
                 DivId:'@strId',
                 PartnerData:vGridData,
+                IsModified: '@IsModified',
+                ProviderPublicId:'@oProviderPublicId',
             });
 
             PF_PartnerFormObject.RenderAsync();
