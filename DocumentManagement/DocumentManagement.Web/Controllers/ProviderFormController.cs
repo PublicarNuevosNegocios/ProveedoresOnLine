@@ -605,7 +605,7 @@ namespace DocumentManagement.Web.Controllers
 
                 ProviderFormPartners oReqObject = (ProviderFormPartners)(new System.Web.Script.Serialization.JavaScriptSerializer()).
                     Deserialize(Request[RequestKey], typeof(ProviderFormPartners));
-
+                                
                 if (oProviderInfoType != null && oReqObject != null)
                 {
                     Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
@@ -775,12 +775,14 @@ namespace DocumentManagement.Web.Controllers
                         || inf.LargeValue != PrevModel.RelatedProviderInfo.Where(p => p.ProviderInfoId == inf.ProviderInfoId).
                         Select(p => p.LargeValue).FirstOrDefault())
                         && inf.ProviderInfoId != 0
+                        && (inf.LargeValue.Split('"')[20] != null && inf.LargeValue.Split('"')[18] == ":false,")
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.ComercialExpirience
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.Designations
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.DifferentsFile
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.FinancialStatus
                         && inf.ProviderInfoType.ItemId != (int)DocumentManagement.Customer.Models.enumFormMultipleFieldType.QualityCertificate)
                     {
+
                         oReturn.Add(new ChangesControlModel
                         {
                             ProviderInfoId = inf.ProviderInfoId,
@@ -838,6 +840,58 @@ namespace DocumentManagement.Web.Controllers
                                 });
                             }
                         }
+
+                        else
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewModel);
+                            PrevModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(NewModel.ProviderPublicId, Convert.ToInt32(StepId));
+
+                            oReturn = GetChangesToUpdate(PrevModel, NewModel, FormPublicId, Convert.ToInt32(StepId));
+                        }
+                    }
+                    else if ((inf.ProviderInfoType.ItemId == 342) && !string.IsNullOrEmpty(inf.LargeValue)
+                       )
+                    {
+                        if (inf.ProviderInfoId != 0)
+                        {
+                            if (inf.LargeValue.Split('"')[18] == ":false,")
+                            {
+                                oReturn.Add(new ChangesControlModel
+                                {
+                                    ProviderInfoId = inf.ProviderInfoId,
+                                    FormUrl = FormPublicId,
+                                    StepId = StepId,
+                                    Status = new Provider.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                                    },
+                                    Enable = true,
+                                });
+                            }
+                            else
+                            {
+                                List<ChangesControlModel> oChangeToUpdate = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(PrevModel.ProviderPublicId);
+                                ChangesControlModel oToUpsert = null;
+                                if (oChangeToUpdate != null)
+                                    oToUpsert = oChangeToUpdate.Where(x => x.ProviderInfoId == inf.ProviderInfoId).Select(x => x).FirstOrDefault();
+
+                                if (oToUpsert != null)
+                                {
+                                    oReturn.Add(new ChangesControlModel
+                                    {
+                                        ChangesPublicId = oToUpsert.ChangesPublicId,
+                                        ProviderInfoId = inf.ProviderInfoId,
+                                        FormUrl = FormPublicId,
+                                        StepId = StepId,
+                                        Status = new Provider.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.NotValidated
+                                        },
+                                        Enable = false,
+                                    });   
+                                }                                
+                            }
+                        }
                         else
                         {
                             DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewModel);
@@ -853,8 +907,7 @@ namespace DocumentManagement.Web.Controllers
                 {
                     PrevModel.RelatedProviderInfo.All(x =>
                     {
-                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value)
-                                                  || !string.IsNullOrEmpty(x.LargeValue))
+                        if (x.ProviderInfoId != 0 && !string.IsNullOrEmpty(x.Value))
                         {
                             oReturn.Add(new ChangesControlModel
                             {
@@ -904,14 +957,13 @@ namespace DocumentManagement.Web.Controllers
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType ||
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact ||
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType)).Select(x => x).ToList();
-            if (oContactHomologateData != null)
+            if (oContactHomologateData.Count > 0)
             {
                 #region Contact Sync
                 List<Tuple<string, HomologateModel>> oContactToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CompanyContactInfoType).Select(x => x).ToList();
 
                 if (oContactToSync != null && oContactToSync.Count > 0)
                 {
-
                     oContactToSync.All(x =>
                     {
                         //Build obj contact
@@ -966,7 +1018,6 @@ namespace DocumentManagement.Web.Controllers
                         oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
                         return true;
                     });
-
                     //Upsert Changes Sincronized
                     oContactToSync.All(x =>
                     {
@@ -1026,7 +1077,7 @@ namespace DocumentManagement.Web.Controllers
                     };
                     oBranchToSync.All(x =>
                     {
-                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        if (oCompany.RelatedContact != null)
                         {
                             oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -1076,7 +1127,10 @@ namespace DocumentManagement.Web.Controllers
                 List<Tuple<string, HomologateModel>> oLegalContactTypeGD = oGeneralHomologateData.Where(x => x.Item2 != null && x.Item2.Target.ItemId == 210002).Select(x => x).ToList();
                 List<Tuple<string, HomologateModel>> oFinancialContactTypeGD = oGeneralHomologateData.Where(x => x.Item2 != null && x.Item2.Target.ItemId == 210005).Select(x => x).ToList();
                 List<Tuple<string, HomologateModel>> oHSEQContactTypeGD = oGeneralHomologateData.Where(x => x.Item2 != null && x.Item2.Target.ItemId == 210006).Select(x => x).ToList();
-
+                bool isComercialContactUpsert = false;
+                bool isLegalContactUpsert = false;
+                bool isFinancialContactUpsert = false;
+                bool isHSEQContactUpsert = false;
                 if (oPersonToSyncBO != null && oComercialContactTypeGD != null)
                 {
                     oComercialContactTypeGD.All(p =>
@@ -1101,7 +1155,7 @@ namespace DocumentManagement.Web.Controllers
                                             },
                                         }
                         };
-                        
+
                         List<Tuple<string, HomologateModel>> oCommercialTypeGD = new List<Tuple<string, HomologateModel>>();
                         oCommercialTypeGD.Add(new Tuple<string, HomologateModel>(oPersonToSyncBO.Where(z => z.Item2.Source.ItemId ==
                                                                             (int)DocumentManagement.Provider.Models.Enumerations.enumPersonContactSourceItem.CommercialPhone).Select(z => z.Item1).FirstOrDefault(),//Item1
@@ -1114,7 +1168,7 @@ namespace DocumentManagement.Web.Controllers
                         oCommercialTypeGD.Add(new Tuple<string, HomologateModel>(oPersonToSyncBO.Where(z => z.Item2.Source.ItemId ==
                                                                             (int)DocumentManagement.Provider.Models.Enumerations.enumPersonContactSourceItem.CommercialEmail).Select(z => z.Item1).FirstOrDefault(),//Item1
                         oPersonToSyncBO.Where(f => f.Item2.Source.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumPersonContactSourceItem.CommercialEmail).Select(f => f.Item2).FirstOrDefault()));
-                        
+
                         if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
                         {
                             oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1148,12 +1202,13 @@ namespace DocumentManagement.Web.Controllers
                                 return true;
                             });
                         }
-                        #endregion                     
+                        #endregion
                         //Upsertinfo BO
                         oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+                        isComercialContactUpsert = true;
                         return true;
                     });
-                  
+
                     oLegalContactTypeGD.All(p =>
                     {
                         #region Legal data
@@ -1177,7 +1232,7 @@ namespace DocumentManagement.Web.Controllers
                                         }
                         };
 
-                        
+
                         List<Tuple<string, HomologateModel>> oLegalTypeGD = new List<Tuple<string, HomologateModel>>();
                         oLegalTypeGD.Add(new Tuple<string, HomologateModel>(oPersonToSyncBO.Where(z => z.Item2.Source.ItemId ==
                                                                             (int)DocumentManagement.Provider.Models.Enumerations.enumPersonContactSourceItem.Legalrep).Select(z => z.Item1).FirstOrDefault(),//Item1
@@ -1224,7 +1279,7 @@ namespace DocumentManagement.Web.Controllers
                         {
                             oLegalTypeGD.All(x =>
                             {
-                                if (x.Item2 != null )
+                                if (x.Item2 != null)
                                 {
                                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                     {
@@ -1243,6 +1298,7 @@ namespace DocumentManagement.Web.Controllers
                         #endregion
                         //Upsertinfo BO
                         oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+                        isLegalContactUpsert = true;
                         return true;
                     });
 
@@ -1327,6 +1383,7 @@ namespace DocumentManagement.Web.Controllers
                         #endregion
                         //Upsertinfo BO
                         oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+                        isFinancialContactUpsert = true;
                         return true;
                     });
 
@@ -1406,6 +1463,7 @@ namespace DocumentManagement.Web.Controllers
                         #endregion
                         //Upsertinfo BO
                         oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
+                        isHSEQContactUpsert = true;
                         return true;
                     });
                     #region UpsertChanges
@@ -1428,84 +1486,81 @@ namespace DocumentManagement.Web.Controllers
                                 });
 
                             return true;
-                        });                    
-                    oComercialContactTypeGD.All(x =>
+                        });
+                    if (isComercialContactUpsert)
+                    {
+                        oComercialContactTypeGD.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).Select(y =>
+                                                                { y.Enable = false; y.Status.ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated; return y; }).ToList();
+                            oChangesToUpsert.All(
+                                ch =>
                                 {
-                                    List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
-                                                                        Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
-                                                                        Select(y =>
-                                                                        {
-                                                                            y.Enable = false; y.Status.ItemId =
-                                                                            (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
-                                                                            return y;
-                                                                        }).ToList();
-                                    oChangesToUpsert.All(
-                                        ch =>
-                                        {
-                                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
-                                            return true;
-                                        });
-
+                                    DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
                                     return true;
                                 });
-                    oLegalContactTypeGD.All(x =>
+
+                            return true;
+                        });
+                    }
+                    if (isLegalContactUpsert)
                     {
-                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
-                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
-                                                            Select(y =>
-                                                            {
-                                                                y.Enable = false; y.Status.ItemId =
-                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
-                                                                return y;
-                                                            }).ToList();
-                        oChangesToUpsert.All(
+                        oLegalContactTypeGD.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).Select(y =>
+                            {
+                                y.Enable = false; y.Status.ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated; return y;
+                            }).ToList();
+                            oChangesToUpsert.All(
+                                ch =>
+                                {
+                                    DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                    return true;
+                                });
+
+                            return true;
+                        });
+                    }
+                    if (isFinancialContactUpsert)
+                    {
+                        oFinancialContactTypeGD.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).Select(y =>
+                            {
+                                y.Enable = false; y.Status.ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated; return y;
+                            }).ToList();
+                            oChangesToUpsert.All(
                             ch =>
                             {
                                 DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
                                 return true;
                             });
 
-                        return true;
-                    });
-
-                    oFinancialContactTypeGD.All(x =>
+                            return true;
+                        });
+                    }
+                    if (isHSEQContactUpsert)
                     {
-                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
-                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
-                                                            Select(y =>
-                                                            {
-                                                                y.Enable = false; y.Status.ItemId =
-                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
-                                                                return y;
-                                                            }).ToList();
-                        oChangesToUpsert.All(
-                            ch =>
-                            {
-                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
-                                return true;
-                            });
+                        oHSEQContactTypeGD.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                                Select(y =>
+                                                                {
+                                                                    y.Enable = false; y.Status.ItemId =
+                                                                    (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                    return y;
+                                                                }).ToList();
+                            oChangesToUpsert.All(
+                                ch =>
+                                {
+                                    DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                    return true;
+                                });
 
-                        return true;
-                    });
-                    oHSEQContactTypeGD.All(x =>
-                    {
-                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
-                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
-                                                            Select(y =>
-                                                            {
-                                                                y.Enable = false; y.Status.ItemId =
-                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
-                                                                return y;
-                                                            }).ToList();
-                        oChangesToUpsert.All(
-                            ch =>
-                            {
-                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
-                                return true;
-                            });
+                            return true;
+                        });
 
-                        return true;
-                    }); 
+                    }
                     #endregion
                 }
                 #endregion
@@ -1535,7 +1590,7 @@ namespace DocumentManagement.Web.Controllers
                     };
                     oDistributorToSync.All(x =>
                     {
-                        if (oCompany.RelatedContact.FirstOrDefault().ItemId != null)
+                        if (oCompany.RelatedContact != null)
                         {
                             oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -1579,15 +1634,186 @@ namespace DocumentManagement.Web.Controllers
             }
             #endregion
 
-            List<Tuple<string, HomologateModel>> oFinancialHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CompanyContactInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.DistributorInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType)).Select(x => x).ToList();
+            #region Financial Info
 
+            List<Tuple<string, HomologateModel>> oFinancialHomologateData = oGeneralHomologateData.Where(x => x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.OrgStructure).Select(x => x).ToList();
+            if (oFinancialHomologateData.Count > 0)
+            {
+                #region Structure org Sync
+                List<Tuple<string, HomologateModel>> oFinantialToSync = oFinancialHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.OrgStructure).Select(x => x).ToList();
+
+                if (oFinantialToSync != null && oFinantialToSync.Count > 0)
+                {
+                    //Build obj contact
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                        RelatedFinantial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(oCompanyPublicid, (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure, true),
+                    };
+
+                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinatialStructureToUpsert = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = oProviderModel.RelatedFinantial != null ? oProviderModel.RelatedFinantial.Where(x => x.ItemType.ItemId == 
+                                    (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure).
+                                    Select(x => x.ItemId).FirstOrDefault() : 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure,
+                            },
+                            ItemName = oFinantialToSync.Where(y => y.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure)
+                                    .Select(y => y.Item1).FirstOrDefault() != null ? 
+                                    Request.Form[oGeneralHomologateData.Where(y => y.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure).
+                                    Select(y => y.Item1).FirstOrDefault().Replace("Sync_", "")] : string.Empty,
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                    oFinantialToSync.All(x =>
+                    {
+                        if (oProviderModel.RelatedFinantial != null)
+                        {
+                            oFinatialStructureToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = oProviderModel.RelatedFinantial != null ? oProviderModel.RelatedFinantial.Where(p => p.ItemInfo != null).
+                                                            Select(p => p.ItemInfo.Where(y => y.ItemInfoType.ItemId == x.Item2.Target.ItemId).Select(y => y).FirstOrDefault().ItemInfoId).FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = x.Item2.Target.ItemId
+                                },
+                                Value = Request.Form[x.Item1.Replace("Sync_", "")],
+                                Enable = true,
+                            });
+                        }
+                        return true;
+                    });
+                    oProviderModel.RelatedFinantial = oFinatialStructureToUpsert;
+
+                    //Upsertinfo BO
+                    oProviderModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oProviderModel);
+
+                    //Upsert Changes Sincronized
+                    oFinantialToSync.All(x =>
+                    {
+                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList();
+                        if (oFinantialToSync.Where(p => p.Item2.Target.ItemId ==
+                                (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure)
+                                                        .Select(p => p.Item1).FirstOrDefault() != null)
+                        {
+                            oChangesToUpsert.AddRange(oModel.ChangesControlModel.Where(y => y.ProviderInfoId ==
+                            int.Parse(oGeneralHomologateData.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.OrganizationStructure)
+                                                    .Select(p => p.Item1).FirstOrDefault().Split('-').Last())).
+                                                        Select(y =>
+                                                        {
+                                                            y.Enable = false; y.Status.ItemId =
+                                                            (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                            return y;
+                                                        }).ToList());
+                        }
+                        oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                        return true;
+                    });
+                }
+                #endregion
+            }
+
+            #endregion
             return oReturn;
         }
 
+        public virtual ActionResult SyncPartnersGrid(string ProviderPublicId, string IdentificationNumber, string FullName, string ProviderInfoId)
+        {            
+            List<ChangesControlModel> oChangesControl =null;
+            //getInfo id
+            if (ProviderPublicId != null)
+            {
+                oChangesControl = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(ProviderPublicId);
+                string oCompanyPublicid = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId(ProviderPublicId, string.Empty).RelatedProviderBO.ProviderPublicId;
+                if (!string.IsNullOrEmpty(oCompanyPublicid))
+                {                    
+                    //get provider info
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {                        
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),                        
+                    };
+                    oProviderModel.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                       new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.Designations,
+                            },
+                            ItemName = "Designation Sync GD",
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+                    oProviderModel.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel() 
+                        {
+                            ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalInfoType.CD_PartnerIdentificationNumber
+                        },
+                        Value = IdentificationNumber,                    
+                    });
+                    oProviderModel.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalInfoType.CD_PartnerName
+                        },
+                        Value = FullName,
+                    });
+                    //TODO: Set Legal Partner Rank
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProviderModel);
+
+                    List<ChangesControlModel> oChangesToUpsert = oChangesControl.
+                                                               Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).
+                                                               Select(y =>
+                                                               {
+                                                                    y.Enable = false; y.Status.ItemId =
+                                                                    (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                   return y;
+                                                               }).ToList();
+                    oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                }                
+            }
+
+            //loggin success
+            return RedirectToAction
+                (MVC.ProviderForm.ActionNames.Index,
+                MVC.ProviderForm.Name,
+                new
+                {
+                    ProviderPublicId = oChangesControl.FirstOrDefault().ProviderPublicId,
+                    FormPublicId =  oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.FormUrl).FirstOrDefault(),
+                    StepId = oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.StepId).FirstOrDefault(),
+                });
+        }
         #endregion
 
         #endregion
