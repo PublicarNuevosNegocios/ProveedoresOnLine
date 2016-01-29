@@ -307,6 +307,7 @@
 
             //Finantial
             OrgStructure = 506,
+            BankInfoType = 505,
         }
 
         public enum enumPersonContactSourceItem
