@@ -9,7 +9,7 @@ function PF_PostBackForm(vidForm, NewStepId, IsSync) {
 //init spiner
 function PF_InitSpinner(vidDiv) {
     debugger;
-    $("#" + vidDiv).spinner();   
+    $("#" + vidDiv).spinner();
 }
 
 //init progressbar
@@ -65,7 +65,7 @@ var PF_PartnerFormObject = {
     DivId: '',
     PartnerData: new Array(),
     IsModified: '',
-    ProviderPublicId:'',
+    ProviderPublicId: '',
 
     Init: function (vInitObject) {
         debugger;
@@ -80,58 +80,57 @@ var PF_PartnerFormObject = {
         debugger;
         var grid =
             $('#' + PF_PartnerFormObject.DivId).kendoGrid({
-            toolbar: [{ template: '<a class="AddMultipleFile" href="javascript:PF_PartnerFormObject.ShowCreate();">Agregar</a>' }],
-            dataSource: {
-                type: 'json',
-                data: PF_PartnerFormObject.PartnerData,
-            },
-            columns: [{
-                field: 'IdentificationNumber',
-                title: 'Identificación',
-                template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem.IsRowModifed == true) {
-                        oReturn = "<div >&nbsp; <label style='color:red'> " + dataItem.IdentificationNumber + " </label> </div>"
-                    }
-                    else {
-                        oReturn = "<div >&nbsp; <label style='color:black'> " + dataItem.IdentificationNumber + "</label> </div>"
-                    }
-                    return oReturn;
+                toolbar: [{ template: '<a class="AddMultipleFile" href="javascript:PF_PartnerFormObject.ShowCreate();">Agregar</a>' }],
+                dataSource: {
+                    type: 'json',
+                    data: PF_PartnerFormObject.PartnerData,
                 },
-            }, {
-                field: 'FullName',
-                title: 'Nombres y apellidos',                
-                template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem.IsRowModifed == true) {
-                        oReturn = "<div >&nbsp; <label style='color:red'> "+ dataItem.FullName +" </label> </div>"
-                    }
-                    else {
-                        oReturn = "<div >&nbsp; <label style='color:black'> " + dataItem.FullName + "</label> </div>"
-                    }
-                    return oReturn;
-                },
-            }, {
-                field: 'ParticipationPercent',
-                title: 'Porcentaje de participación (%)'
-            },{
-                field: 'ProviderInfoId',
-                title: ' ',
-                template: '<a href="javascript:PF_PartnerFormObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
-            }, {                
-                title: 'Sincronizar',
-                template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem.IsRowModifed == true) {
-                        oReturn = '<a href="javascript:PF_PartnerFormObject.Sync(' + "'"+ dataItem.ProviderInfoId + "'"+',' + "'"+ dataItem.IdentificationNumber +"'"+ ',' +"'"+ dataItem.FullName +"'"+ ',' + "'"+dataItem.ParticipationPercent +"'"+ ',' + "'"+ PF_PartnerFormObject.ProviderPublicId+ "'" +');">Sincronizar</a>'
-                                                                                    
-                    }                    
-                    return oReturn;
-                },                
-            }, ]
-        });
+                columns: [{
+                    field: 'IdentificationNumber',
+                    title: 'Identificación',
+                    template: function (dataItem) {
+                        var oReturn = '';
+                        if (dataItem.IsRowModifed == true) {
+                            oReturn = "<div >&nbsp; <label style='color:red'> " + dataItem.IdentificationNumber + " </label> </div>"
+                        }
+                        else {
+                            oReturn = "<div >&nbsp; <label style='color:black'> " + dataItem.IdentificationNumber + "</label> </div>"
+                        }
+                        return oReturn;
+                    },
+                }, {
+                    field: 'FullName',
+                    title: 'Nombres y apellidos',
+                    template: function (dataItem) {
+                        var oReturn = '';
+                        if (dataItem.IsRowModifed == true) {
+                            oReturn = "<div >&nbsp; <label style='color:red'> " + dataItem.FullName + " </label> </div>"
+                        }
+                        else {
+                            oReturn = "<div >&nbsp; <label style='color:black'> " + dataItem.FullName + "</label> </div>"
+                        }
+                        return oReturn;
+                    },
+                }, {
+                    field: 'ParticipationPercent',
+                    title: 'Porcentaje de participación (%)'
+                }, {
+                    field: 'ProviderInfoId',
+                    title: ' ',
+                    template: '<a href="javascript:PF_PartnerFormObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
+                }, {
+                    title: 'Sincronizar',
+                    template: function (dataItem) {
+                        var oReturn = '';
+                        if (dataItem.IsRowModifed == true) {
+                            oReturn = '<a href="javascript:PF_PartnerFormObject.Sync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.IdentificationNumber + "'" + ',' + "'" + dataItem.FullName + "'" + ',' + "'" + dataItem.ParticipationPercent + "'" + ',' + "'" + PF_PartnerFormObject.ProviderPublicId + "'" + ');">Sincronizar</a>'
+
+                        }
+                        return oReturn;
+                    },
+                }, ]
+            });
         if (this.IsModified == "True") {
-            debugger;
             $('#' + PF_PartnerFormObject.DivId).data("kendoGrid").showColumn(4);
         }
         else {
@@ -200,11 +199,10 @@ var PF_PartnerFormObject = {
         }
     },
 
-    Sync: function (ProviderInfoId, IdentificationNumber, FullName, ParticipationPercent, ProviderPublicId)
-    {
+    Sync: function (ProviderInfoId, IdentificationNumber, FullName, ParticipationPercent, ProviderPublicId) {
         debugger;
         var oReq = '';
-        oReq = oReq + '{ProviderInfoId:"'+ProviderInfoId +'",';
+        oReq = oReq + '{ProviderInfoId:"' + ProviderInfoId + '",';
         oReq = oReq + 'IdentificationNumber:"' + IdentificationNumber + '",';
         oReq = oReq + 'FullName:"' + FullName + '",';
         oReq = oReq + 'ParticipationPercent:"' + ParticipationPercent + '",';
@@ -217,14 +215,14 @@ var PF_PartnerFormObject = {
         var strUrl = "/ProviderForm/SyncPartnersGrid?ProviderPublicId=" + ProviderPublicId + "&IdentificationNumber=" + IdentificationNumber + "&FullName=" + FullName + "&ProviderInfoId=" + ProviderInfoId
         $("#" + "FrmGenericStep").attr('action', strUrl);
 
-        $("#" + "FrmGenericStep").submit();         
+        $("#" + "FrmGenericStep").submit();
     }
 };
 
 //init autocomplete control
 function PF_InitAutocomplete(acId, acData) {
     $('#' + acId).autocomplete(
-	{       
+	{
 	    source: acData,
 	    minLength: 0,
 	});
@@ -311,15 +309,26 @@ var PF_MultipleFileObject = {
                 template: '<a href="${ProviderInfoUrl}" " target="_blank">Ver archivo</a>'
             }, {
                 field: 'ProviderInfoId',
-                title: ' ',                
+                title: ' ',
                 template: '<a href="javascript:PF_MultipleFileObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
-            }]
+            }, {
+                title: 'Sincronizar',
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = '';
+                    if (dataItem.IsRowModifed == true) {
+                        oReturn = '<a href="javascript:PF_PartnerFormObject.Sync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.IdentificationNumber + "'" + ',' + "'" + dataItem.FullName + "'" + ',' + "'" + dataItem.ParticipationPercent + "'" + ',' + "'" + PF_PartnerFormObject.ProviderPublicId + "'" + ');">Sincronizar</a>'
+
+                    }
+                    return oReturn;
+                },
+            },]
         });
     },
 
     ShowCreate: function (ProviderInfoId) {
         $('#' + PF_MultipleFileObject.DivId + '_Create').dialog({
-            dialogClass:"DialogCreate",
+            dialogClass: "DialogCreate",
             modal: true,
             buttons: {
                 "Crear": function () {
