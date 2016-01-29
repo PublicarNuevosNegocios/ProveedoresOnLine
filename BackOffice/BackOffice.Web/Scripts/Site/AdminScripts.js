@@ -349,7 +349,8 @@
                 title: 'Tipo de Capital',
                 width: '150px',
                 template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
+                    /*var oReturn = 'Seleccione una opción.';*/
+                    var oReturn = 'No es capital';
                     if (dataItem != null && dataItem.GI_CapitalType != null) {
                         $.each(Admin_CategoryObject.AdminOptions[107], function (item, value) {
                             if (dataItem.GI_CapitalType == value.ItemId) {

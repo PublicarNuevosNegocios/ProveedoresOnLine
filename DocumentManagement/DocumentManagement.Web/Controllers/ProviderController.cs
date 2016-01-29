@@ -140,12 +140,6 @@ namespace DocumentManagement.Web.Controllers
             oreturn.Email = Request["Email"];
             oreturn.CustomerPublicId = Request["ProviderCustomerIdEdit"];
             oreturn.RelatedProviderCustomerInfo = new List<ProviderInfoModel>();
-            ProviderInfoModel info = new ProviderInfoModel();
-            info.ProviderInfoType = new CatalogModel();
-            info.ProviderInfoType.ItemId = 403;
-            info.ProviderInfoId = int.Parse(Request["ProviderInfoIdEdit"]);
-            info.Value = Request["SalesForceCode"];
-            oreturn.RelatedProviderCustomerInfo.Add(info);
             ProviderInfoModel infoCheck = new ProviderInfoModel();
             infoCheck.ProviderInfoType = new CatalogModel();
             infoCheck.ProviderInfoType.ItemId = 378;

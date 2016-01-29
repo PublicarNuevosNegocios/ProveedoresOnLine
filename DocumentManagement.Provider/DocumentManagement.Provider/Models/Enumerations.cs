@@ -290,6 +290,22 @@
 
         #endregion
 
+        #region Additional Doc
+
+        public enum enumAdditionalDocType
+        {
+            AdditionalDoc = 1701001,
+        }
+
+        public enum enumAdditionalDocInfoType
+        {
+            File = 1702001,
+            RelatedCustomer = 1702002,
+            User = 1702003,
+        }
+
+        #endregion
+
         public enum enumCatalog
         {
             //Contact
@@ -304,6 +320,56 @@
             CIFINInfoType = 604,
             SARLAFTInfoType = 605,
             ResolucionesInfoType = 606,
+
+            //Finantial
+            OrgStructure = 506,
+            BankInfoType = 505,
+
+            //HSEQ
+            HSEQType = 701,
+            Certifications = 702,
+            HealtyPolitic = 703,
+            RiskPolicies = 704,
+            CertificatesAccident = 705,
+
+            //Additional Doc
+            AdditionalDocs = 1702,
+        }
+
+        public enum enumSourceItem
+        {
+            //Info PersonContac Source
+            Legalrep = 317,
+            CommercialContact = 320,
+            FinnancialContact = 322,
+            HSEQContact = 324,
+
+            //Catalog Legal Contact
+            LegalName = 317,
+            LegalIdentification = 327,
+            LegalEmail = 326,
+            LegalPhone = 318,
+            LegalCapacity = 319,
+            LegalFile = 348,
+
+            //Catalog Commercial Contact
+            CommercialName = 320,
+            CommercialIdentification = 329,
+            CommercialPhone = 321,
+            CommercialEmail = 328,
+
+
+            //Catalog Finnancial Contact
+            FinnancialName = 322,
+            FinnancianIdentification = 331,
+            FinnancialPhone = 323,
+            FinancialEmail = 330,
+
+            //Catalog HSEQ Contact
+            HSEQName = 324,
+            HSEQIdentification = 333,
+            HSEQPhone = 325,
+            HSEQEmail = 332,
         }
     }
 }
