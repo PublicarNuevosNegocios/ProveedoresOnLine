@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_FinancialReport" targetNamespace="http://tempuri.org/DS_FinancialReport.xsd" xmlns:mstns="http://tempuri.org/DS_FinancialReport.xsd" xmlns="http://tempuri.org/DS_FinancialReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_FinancialReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_FinancialReport" msprop:Generator_UserDSName="DS_FinancialReport">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BalanceInfo" msprop:Generator_TableClassName="BalanceInfoDataTable" msprop:Generator_TableVarName="tableBalanceInfo" msprop:Generator_TablePropName="BalanceInfo" msprop:Generator_RowDeletingName="BalanceInfoRowDeleting" msprop:Generator_RowChangingName="BalanceInfoRowChanging" msprop:Generator_RowEvHandlerName="BalanceInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="BalanceInfoRowDeleted" msprop:Generator_UserTableName="BalanceInfo" msprop:Generator_RowChangedName="BalanceInfoRowChanged" msprop:Generator_RowEvArgName="BalanceInfoRowChangeEvent" msprop:Generator_RowClassName="BalanceInfoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Cuenta" msprop:Generator_ColumnVarNameInTable="columnCuenta" msprop:Generator_ColumnPropNameInRow="Cuenta" msprop:Generator_ColumnPropNameInTable="CuentaColumn" msprop:Generator_UserColumnName="Cuenta" type="xs:string" minOccurs="0" />
+              <xs:element name="Valor1" msprop:Generator_ColumnVarNameInTable="columnValor1" msprop:Generator_ColumnPropNameInRow="Valor1" msprop:Generator_ColumnPropNameInTable="Valor1Column" msprop:Generator_UserColumnName="Valor1" type="xs:string" minOccurs="0" />
+              <xs:element name="AV1" msprop:Generator_ColumnVarNameInTable="columnAV1" msprop:Generator_ColumnPropNameInRow="AV1" msprop:Generator_ColumnPropNameInTable="AV1Column" msprop:Generator_UserColumnName="AV1" type="xs:string" minOccurs="0" />
+              <xs:element name="Valor2" msprop:Generator_ColumnVarNameInTable="columnValor2" msprop:Generator_ColumnPropNameInRow="Valor2" msprop:Generator_ColumnPropNameInTable="Valor2Column" msprop:Generator_UserColumnName="Valor2" type="xs:string" minOccurs="0" />
+              <xs:element name="AV2" msprop:Generator_ColumnVarNameInTable="columnAV2" msprop:Generator_ColumnPropNameInRow="AV2" msprop:Generator_ColumnPropNameInTable="AV2Column" msprop:Generator_UserColumnName="AV2" type="xs:string" minOccurs="0" />
+              <xs:element name="AH" msprop:Generator_ColumnVarNameInTable="columnAH" msprop:Generator_ColumnPropNameInRow="AH" msprop:Generator_ColumnPropNameInTable="AHColumn" msprop:Generator_UserColumnName="AH" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

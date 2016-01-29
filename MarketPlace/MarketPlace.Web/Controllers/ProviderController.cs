@@ -532,7 +532,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
-             //Get report generator
+            //Get report generator
             //Get report generator
             if (Request["DownloadReport"] == "true")
             {
@@ -549,7 +549,7 @@ namespace MarketPlace.Web.Controllers
                 //Query Info
                 parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
                 parameters.Add(new ReportParameter("User", SessionModel.CurrentLoginUser.Name + " " + SessionModel.CurrentLoginUser.LastName));
-                parameters.Add(new ReportParameter("CreateDate",oModel.RelatedBlackListInfo.Where(x=>x.CreateDate != null).Select(y=>y.CreateDate).FirstOrDefault().ToString()));
+                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedBlackListInfo.Where(x => x.CreateDate != null).Select(y => y.CreateDate).FirstOrDefault().ToString()));
                 parameters.Add(new ReportParameter("QueryType", "No hay campo"));
                 parameters.Add(new ReportParameter("Status", "No hay campo"));
 
@@ -956,6 +956,119 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+
+            if (Request["DownloadReportFinancial"] == "true")
+            {
+                // GET ALL BASIC INFO
+                ProviderModel response = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPGetBasicInfo(ProviderPublicId);
+
+                #region Basic Info
+
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = response.RelatedCompany;
+
+                oModel.ContactCompanyInfo = response.ContactCompanyInfo;
+                oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
+
+                if (oModel.ContactCompanyInfo != null)
+                {
+                    oModel.ContactCompanyInfo.All(x =>
+                    {
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
+                        return true;
+                    });
+                }
+
+                #endregion Basic Info
+
+                #region Legal Info
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = response.RelatedLegal;
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
+                        return true;
+                    });
+                }
+
+                #endregion Legal Info
+
+                #region Basic Financial Info
+
+                List<GenericItemModel> oFinancial = response.RelatedFinantial;
+                oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+
+                if (oFinancial != null)
+                {
+                    decimal oExchange;
+                    oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                                Convert.ToInt32(oFinancial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                                Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                Convert.ToInt32(oFinancial.FirstOrDefault().ItemName));
+
+                    oFinancial.All(x =>
+                    {
+                        oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x, oExchange));
+                        return true;
+                    });
+
+                    if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
+                    {
+                        oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
+                            ((Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentActive)).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()))).ToString("#,0.##");
+                    }
+                }
+
+                #endregion Basic Financial Info
+
+                #region K_Contract Info
+
+                List<GenericItemModel> oRelatedKContractInfo = response.RelatedKContractInfo;
+                oModel.RelatedKContractInfo = new List<ProviderFinancialViewModel>();
+                if (oRelatedKContractInfo != null)
+                {
+                    oRelatedKContractInfo.All(x =>
+                    {
+                        oModel.RelatedKContractInfo.Add(new ProviderFinancialViewModel(x));
+                        return true;
+                    });
+                }
+
+                #endregion K_Contract Info
+
+                #region HSEQ
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = response.RelatedCertification;
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null
+                && oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Count > 0)
+                {
+                    List<GenericItemModel> basicCert = response.RelatedCertificationBasic;
+                    if (basicCert != null && basicCert.Count > 0)
+                    {
+                        oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(basicCert);
+                    }
+
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
+                    {
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
+                        return true;
+                    });
+                }
+
+                oModel.RelatedCertificationBasicInfo = response.RelatedCertificationBasicInfo;
+
+                #endregion HSEQ
+
+                GenericReportModel Report = RPFinancial(oModel);
+                return File(Report.File, Report.MimeType, Report.FileName);
+            }
+
             return View(oModel);
         }
 
@@ -2479,12 +2592,12 @@ namespace MarketPlace.Web.Controllers
                                     CityId = Convert.ToInt32(sCityid);
                                 else
                                     CityId = 0;
-                                
+
                                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oGeographyModel = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, CityId, 0, 10000, out oTotalRows);
 
 
                                 Country = (oGeographyModel != null && oGeographyModel.FirstOrDefault().Country.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().Country.ItemName != null) ? oGeographyModel.FirstOrDefault().Country.ItemName : "N/D";
-                                City = (oGeographyModel != null &&  oGeographyModel.FirstOrDefault().City.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().City.ItemName != null) ? oGeographyModel.FirstOrDefault().City.ItemName : "N/D";
+                                City = (oGeographyModel != null && oGeographyModel.FirstOrDefault().City.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().City.ItemName != null) ? oGeographyModel.FirstOrDefault().City.ItemName : "N/D";
                                 State = (oGeographyModel != null && oGeographyModel.FirstOrDefault().State.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().State.ItemName != null) ? oGeographyModel.FirstOrDefault().State.ItemName : "N/D";
                             }
 
@@ -3045,6 +3158,450 @@ namespace MarketPlace.Web.Controllers
             return null;
         }
 
+        public GenericReportModel RPFinancial(ProviderViewModel oModel)
+        {
+            string oViewBalance = "_P_FI_Balance";
+            string oViewIndicators = "_P_FI_Indicators";
+
+
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            GenericReportModel oReporModel = new GenericReportModel();
+
+            #region Set Parameters
+            //CustomerInfo
+            parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+            parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+            parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+
+            //ProviderInfo
+            parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+            parameters.Add(new ReportParameter("ProviderIdentificationType", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+
+            #region Basic Info
+
+            if (!string.IsNullOrEmpty(oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Representant", oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Representant", "NA"));
+
+            if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
+                && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                parameters.Add(new ReportParameter("InscriptionNumber", oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber));
+            else
+                parameters.Add(new ReportParameter("InscriptionNumber", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Address", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Address", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
+                parameters.Add(new ReportParameter("City", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("City", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Phone", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Phone", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Fax", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Fax", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
+                parameters.Add(new ReportParameter("WebSite", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("WebSite", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Email", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Email", "NA"));
+
+            if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                parameters.Add(new ReportParameter("SocialObject", oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject));
+            else
+                parameters.Add(new ReportParameter("SocialObject", "NA"));
+
+            #endregion Basic Info
+
+            #region Finacial Info
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("TotalActive", "NA"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("TotalPasive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("TotalPasive", "NA"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("TotalPatrimony", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("TotalPatrimony", "NA"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("OperationIncome", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("OperationIncome", "NA"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("IncomeBeforeTaxes", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("IncomeBeforeTaxes", "NA"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("NA").FirstOrDefault()))
+                parameters.Add(new ReportParameter("JobCapital", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("NA").FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("JobCapital", "N/A"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("ExcerciseUtility", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("ExcerciseUtility", "NA"));
+
+            parameters.Add(new ReportParameter("Altman", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("NA").FirstOrDefault()));
+
+            #endregion Finacial Info
+
+            #region HSEQ Info
+
+            if (oModel.RelatedHSEQlInfo != null && oModel.RelatedHSEQlInfo.Count > 0)
+            {
+                parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
+                parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
+                parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || string.IsNullOrEmpty(oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult) ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+            }
+            else
+            {
+                parameters.Add(new ReportParameter("SystemOccupationalHazards", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards));
+                parameters.Add(new ReportParameter("RateARL", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL));
+                parameters.Add(new ReportParameter("LTIFResult", oModel.RelatedHSEQlInfo.FirstOrDefault() == null || oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult == null ? "NA" : oModel.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult));
+            }
+
+            #endregion HSEQ Info
+
+            #region Conocimiento de Terceros
+
+            if (string.IsNullOrEmpty(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()))
+            {
+                parameters.Add(new ReportParameter("LastUpdate", "2015-01-01 12:00:00"));
+            }
+            else
+            {
+                parameters.Add(new ReportParameter("LastUpdate", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()));
+            }
+
+            if (oModel.RelatedLiteProvider.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+            {
+                parameters.Add(new ReportParameter("Alert", "No se encontraron coincidencias en listas restrictivas."));
+            }
+            else
+            {
+                parameters.Add(new ReportParameter("Alert", "Se encontraron coincidencias en listas restrictivas."));
+            }
+
+            oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId);
+
+            DataTable data5 = new DataTable();
+            data5.Columns.Add("PersonName");
+            data5.Columns.Add("PersonCargo");
+            data5.Columns.Add("PersonLista");
+            data5.Columns.Add("PersonDelito");
+            data5.Columns.Add("PersonState");
+
+            DataRow row5;
+            if (oModel.RelatedBlackListInfo != null)
+            {
+                foreach (var item in oModel.RelatedBlackListInfo.Where(x => x != null))
+                {
+                    row5 = data5.NewRow();
+                    row5["PersonName"] = "N/A";
+                    row5["PersonCargo"] = "N/A";
+                    row5["PersonLista"] = "N/A";
+                    row5["PersonDelito"] = "N/A";
+                    row5["PersonState"] = "N/A";
+                    foreach (var info in item.BlackListInfo)
+                    {
+                        if (info.ItemInfoType.ItemName == "RazonSocial")
+                        {
+                            row5["PersonName"] = info.Value;
+                        }
+                        else if (info.ItemInfoType.ItemName == "Cargo")
+                        {
+                            row5["PersonCargo"] = info.Value;
+                        }
+                        else if (info.ItemInfoType.ItemName == "Lista")
+                        {
+                            row5["PersonLista"] = info.Value;
+                        }
+                        else if (info.ItemInfoType.ItemName == "Delito, cargo o resultado de la consulta")
+                        {
+                            row5["PersonDelito"] = info.Value;
+                        }
+                        else if (info.ItemInfoType.ItemName == "Estado")
+                        {
+                            row5["PersonState"] = info.Value;
+                        }
+                    }
+                    data5.Rows.Add(row5);
+                }
+            }
+
+            #endregion Conocimiento de Terceros
+
+            #region Personas de Contacto
+
+            oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, (int)enumContactType.PersonContact);
+            oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
+
+            if (oModel.ContactCompanyInfo != null)
+            {
+                oModel.ContactCompanyInfo.All(x =>
+                {
+                    oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
+                    return true;
+                });
+            }
+
+            DataTable data4 = new DataTable();
+            data4.Columns.Add("ContactType");
+            data4.Columns.Add("ContactName");
+            data4.Columns.Add("ContactPhone");
+            data4.Columns.Add("ContactMail");
+
+            DataRow row4;
+            foreach (var item in oModel.RelatedGeneralInfo.Where(x => x != null))
+            {
+                row4 = data4.NewRow();
+
+                row4["ContactType"] = item.PC_RepresentantType;
+                row4["ContactName"] = item.PC_ContactName;
+                row4["ContactPhone"] = item.PC_TelephoneNumber;
+                row4["ContactMail"] = item.PC_Email;
+
+                data4.Rows.Add(row4);
+            }
+
+            #endregion Personas de Contacto
+
+            #region ComercialExperience
+
+            oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo
+                (oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                (int)enumCommercialType.Experience,
+                SessionModel.CurrentCompany.CompanyPublicId);
+
+            if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial != null)
+            {
+                parameters.Add(new ReportParameter("TotalExperiences", oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.Count.ToString()));
+            }
+            else
+            {
+                parameters.Add(new ReportParameter("TotalExperiences", "0"));
+            }
+
+            #endregion ComercialExperience
+
+            #region Kcontratación
+
+            DataTable data3 = new DataTable();
+            data3.Columns.Add("EvaluationCriteria");
+            data3.Columns.Add("Provider");
+            data3.Columns.Add("Consultant");
+            data3.Columns.Add("Builder");
+
+            DataRow row3;
+            foreach (var item in oModel.RelatedKContractInfo.Where(x => x != null))
+            {
+                row3 = data3.NewRow();
+
+                row3["EvaluationCriteria"] = item.FK_RoleType;
+                row3["Provider"] = item.FK_TotalScore;
+                row3["Consultant"] = item.FK_TotalOrgCapacityScore;
+                row3["Builder"] = item.FK_TotalKValueScore;
+
+                data3.Rows.Add(row3);
+            }
+
+            #endregion Kcontratación
+
+            //get request info
+            int oYear = 0;
+            if (oModel.RelatedCertificationBasicInfo != null && oModel.RelatedCertificationBasicInfo.Count  > 0)
+                oYear = Int32.Parse(oModel.RelatedFinancialInfo.Where(x => x.SH_Year != null).Select(x => x.SH_Year).DefaultIfEmpty(null).FirstOrDefault());
+
+            int oCurrencyValidate = 0;
+
+            int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
+                Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
+                Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
+
+            //get balance info
+            List<BalanceSheetModel> oBalanceAux =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
+                (oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                null,
+                oCurrencyType);
+
+            //fill view models
+            oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
+            if (oBalanceAux != null && oBalanceAux.Count > 0)
+            {
+                oBalanceAux.All(bs =>
+                {
+                    oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
+                    return true;
+                });
+            }
+
+            oModel.RelatedBalanceSheetInfo = new List<ProviderBalanceSheetViewModel>();
+            if (oBalanceAux != null && oBalanceAux.Count > 0)
+            {
+                List<BalanceSheetModel> oBalancetemp = new List<BalanceSheetModel>();
+
+                foreach (var item in oBalanceAux)
+                {
+                    if (item.BalanceSheetInfo.Count == 0)
+                    {
+                        oBalancetemp.Add(item);
+                    }
+                }
+
+                int cont = 0;
+                foreach (var item in oBalancetemp)
+                {
+                    if (cont < 1)
+                    {
+                        oBalanceAux.Remove(item);
+                        cont++;
+                    }
+                }
+
+                oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
+                    (null,
+                    oBalanceAux,
+                    oViewBalance);
+
+            }
+
+            string lastYear = "N/A";
+            string oldYear = "N/A";
+
+            var oBalanceToShow = oModel.RelatedFinancialInfo.Where(x => x.SH_HasValues).OrderByDescending(x => x.SH_Year).ToList();
+            if (oBalanceToShow != null && oBalanceToShow.Count > 0)
+            {
+                lastYear = oBalanceToShow[0].SH_Year;
+
+                if (oBalanceToShow.Count <= 1)
+                {
+                    var oldYearNum = Convert.ToInt32(lastYear) - 1;
+                    oldYear = oldYearNum.ToString();
+                }
+                else
+                {
+                    oldYear = oBalanceToShow[1].SH_Year;
+                }
+            }
+
+            #region Balance Info
+
+            DataTable data = new DataTable();
+            data.Columns.Add("Cuenta");
+            data.Columns.Add("Valor1");
+            data.Columns.Add("AV1");
+            data.Columns.Add("Valor2");
+            data.Columns.Add("AV2");
+            data.Columns.Add("AH");
+            
+            oModel.RelatedBalanceSheetInfo.All(x =>
+            {
+                data = GetAllValues_Balance(data, x);
+
+                return true;
+            });
+
+            #endregion
+
+            #region Indicators
+
+            DataTable data2 = new DataTable();
+            data2.Columns.Add("Concepto");
+            data2.Columns.Add("Valor1");
+            data2.Columns.Add("Valor2");
+            data2.Columns.Add("Unidad");
+            data2.Columns.Add("Formula");
+            data2.Columns.Add("Interpretación");
+
+            if (oBalanceAux != null && oBalanceAux.Count > 0)
+            {
+                List<BalanceSheetModel> oBalancetemp = new List<BalanceSheetModel>();
+
+                foreach (var item in oBalanceAux)
+                {
+                    if (item.BalanceSheetInfo.Count == 0)
+                    {
+                        oBalancetemp.Add(item);
+                    }
+                }
+
+                int cont = 0;
+                foreach (var item in oBalancetemp)
+                {
+                    if (cont < 1)
+                    {
+                        oBalanceAux.Remove(item);
+                        cont++;
+                    }
+                }
+
+                oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
+                    (null,
+                    oBalanceAux,
+                    oViewIndicators);
+
+            }
+
+            oModel.RelatedBalanceSheetInfo.All(x =>
+            {
+                data2 = GetAllValues_Indicators(data2, x);
+
+                return true;
+            });
+
+            #endregion
+
+            
+
+            parameters.Add(new ReportParameter("BalanceLastYear", lastYear));
+            parameters.Add(new ReportParameter("BalanceOldYear", oldYear));
+
+            #endregion
+
+            Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.F_FinancialReport(
+                                                enumCategoryInfoType.PDF.ToString(),
+                                                data,
+                                                data2,
+                                                data3,
+                                                data4,
+                                                data5,
+                                                parameters,
+                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "F_FinancialReport.rdlc");
+
+            oReporModel.File = GerencialReport.Item1;
+            oReporModel.MimeType = GerencialReport.Item2;
+            oReporModel.FileName = GerencialReport.Item3;
+
+            return oReporModel;
+        }
+
         #endregion Reports
 
         #region Pivate Functions
@@ -3508,6 +4065,164 @@ namespace MarketPlace.Web.Controllers
             });
 
             return oReturn;
+        }
+
+        private DataTable GetAllValues_Balance(DataTable data, ProviderBalanceSheetViewModel oProviderBalanceSheetViewModel)
+        {
+            if (oProviderBalanceSheetViewModel.ChildBalanceSheet != null && oProviderBalanceSheetViewModel.ChildBalanceSheet.Count > 0)
+            {
+                foreach (var oBalanceInfo in oProviderBalanceSheetViewModel.ChildBalanceSheet)
+                {
+                    this.GetAllValues_Balance(data, oBalanceInfo);
+                }
+            }
+            else
+            {
+                if (oProviderBalanceSheetViewModel.AccountType != 2)
+                {
+                    if (!string.IsNullOrEmpty(oProviderBalanceSheetViewModel.AccountFormula))
+                    {
+                        DataRow row;
+                        row = data.NewRow();
+                        row["Cuenta"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
+
+                        int i = 0;
+                        foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                        {
+                            if (i == 0)
+                            {
+                                row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                                row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+
+                                i++;
+                            }
+                            else
+                            {
+                                row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                                row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+                            }
+                        }
+
+                        row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") : string.Empty;
+                        data.Rows.Add(row);
+                    }
+                    else
+                    {
+                        DataRow row;
+                        row = data.NewRow();
+                        row["Cuenta"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
+
+                        int i = 0;
+                        foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                        {
+                            if (i == 0)
+                            {
+                                row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                                row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+
+                                i++;
+                            }
+                            else
+                            {
+                                row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                                row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+                            }
+                        }
+
+                        row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") : string.Empty;
+                        data.Rows.Add(row);
+                    }
+
+                    return data;
+                }
+                if (oProviderBalanceSheetViewModel.AccountType == 2)
+                {
+                    DataRow row;
+                    row = data.NewRow();
+                    row["Cuenta"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
+
+                    int i = 0;
+                    foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                    {
+                        if (i == 0)
+                        {
+                            row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                            row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+
+                            i++;
+                        }
+                        else
+                        {
+                            row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                            row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+                        }
+                    }
+
+                    row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") : string.Empty;
+                    data.Rows.Add(row);
+
+                    return data;
+                }
+            }
+
+            return data;
+        }
+        
+        private DataTable GetAllValues_Indicators(DataTable data, ProviderBalanceSheetViewModel oProviderBalanceSheetViewModel)
+        {
+            if (oProviderBalanceSheetViewModel.ChildBalanceSheet != null && oProviderBalanceSheetViewModel.ChildBalanceSheet.Count > 0)
+            {
+                foreach (var oBalanceInfo in oProviderBalanceSheetViewModel.ChildBalanceSheet)
+                {
+                    this.GetAllValues_Indicators(data, oBalanceInfo);
+                }
+            }
+            else
+            {
+                DataRow row;
+                row = data.NewRow();
+
+                if (oProviderBalanceSheetViewModel.AccountType != 2)
+                {
+                    row["Concepto"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
+
+                    int i = 0;
+                    foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                    {
+                        if (i == 0)
+                        {
+                            row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+
+                            i++;
+                        }
+                        else
+                        {
+                            row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                        }
+                    }
+
+                    row["Unidad"] = oProviderBalanceSheetViewModel.AccountUnit;
+                    row["Formula"] = oProviderBalanceSheetViewModel.AccountFormulaText;
+                    row["Interpretación"] = oProviderBalanceSheetViewModel.AccountFormulaDescription;
+ 
+                    data.Rows.Add(row);
+
+                    return data;
+                }
+                else if (oProviderBalanceSheetViewModel.AccountType == 2)
+                {
+                    row["Concepto"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
+                    row["Valor1"] = " - ";
+                    row["Valor2"] = " - ";
+                    row["Unidad"] = " - ";
+                    row["Formula"] = " - ";
+                    row["Interpretación"] = " - ";
+
+                    data.Rows.Add(row);
+                }
+            }
+
+            return data;
         }
 
         #endregion Pivate Functions

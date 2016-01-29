@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_FinancialReport_Liquidity" targetNamespace="http://tempuri.org/DS_FinancialReport_Liquidity.xsd" xmlns:mstns="http://tempuri.org/DS_FinancialReport_Liquidity.xsd" xmlns="http://tempuri.org/DS_FinancialReport_Liquidity.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_FinancialReport_Liquidity" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_FinancialReport_Liquidity" msprop:Generator_UserDSName="DS_FinancialReport_Liquidity">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Liquidity_Info" msprop:Generator_TableClassName="Liquidity_InfoDataTable" msprop:Generator_TableVarName="tableLiquidity_Info" msprop:Generator_TablePropName="Liquidity_Info" msprop:Generator_RowDeletingName="Liquidity_InfoRowDeleting" msprop:Generator_RowChangingName="Liquidity_InfoRowChanging" msprop:Generator_RowEvHandlerName="Liquidity_InfoRowChangeEventHandler" msprop:Generator_RowDeletedName="Liquidity_InfoRowDeleted" msprop:Generator_UserTableName="Liquidity_Info" msprop:Generator_RowChangedName="Liquidity_InfoRowChanged" msprop:Generator_RowEvArgName="Liquidity_InfoRowChangeEvent" msprop:Generator_RowClassName="Liquidity_InfoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Concepto" msprop:Generator_ColumnVarNameInTable="columnConcepto" msprop:Generator_ColumnPropNameInRow="Concepto" msprop:Generator_ColumnPropNameInTable="ConceptoColumn" msprop:Generator_UserColumnName="Concepto" type="xs:string" minOccurs="0" />
+              <xs:element name="Valor1" msprop:Generator_ColumnVarNameInTable="columnValor1" msprop:Generator_ColumnPropNameInRow="Valor1" msprop:Generator_ColumnPropNameInTable="Valor1Column" msprop:Generator_UserColumnName="Valor1" type="xs:string" minOccurs="0" />
+              <xs:element name="Valor2" msprop:Generator_ColumnVarNameInTable="columnValor2" msprop:Generator_ColumnPropNameInRow="Valor2" msprop:Generator_ColumnPropNameInTable="Valor2Column" msprop:Generator_UserColumnName="Valor2" type="xs:string" minOccurs="0" />
+              <xs:element name="Unidad" msprop:Generator_ColumnVarNameInTable="columnUnidad" msprop:Generator_ColumnPropNameInRow="Unidad" msprop:Generator_ColumnPropNameInTable="UnidadColumn" msprop:Generator_UserColumnName="Unidad" type="xs:string" minOccurs="0" />
+              <xs:element name="Formula" msprop:Generator_ColumnVarNameInTable="columnFormula" msprop:Generator_ColumnPropNameInRow="Formula" msprop:Generator_ColumnPropNameInTable="FormulaColumn" msprop:Generator_UserColumnName="Formula" type="xs:string" minOccurs="0" />
+              <xs:element name="Interpretación" msprop:Generator_ColumnVarNameInTable="columnInterpretación" msprop:Generator_ColumnPropNameInRow="Interpretación" msprop:Generator_ColumnPropNameInTable="InterpretaciónColumn" msprop:Generator_UserColumnName="Interpretación" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
