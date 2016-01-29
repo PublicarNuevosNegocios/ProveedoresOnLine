@@ -290,6 +290,22 @@
 
         #endregion
 
+        #region Additional Doc
+
+        public enum enumAdditionalDocType
+        {
+            AdditionalDoc = 1701001,
+        }
+
+        public enum enumAdditionalDocInfoType
+        {
+            File = 1702001,
+            RelatedCustomer = 1702002,
+            User = 1702003,
+        }
+
+        #endregion
+
         public enum enumCatalog
         {
             //Contact
@@ -308,9 +324,19 @@
             //Finantial
             OrgStructure = 506,
             BankInfoType = 505,
+
+            //HSEQ
+            HSEQType = 701,
+            Certifications = 702,
+            HealtyPolitic = 703,
+            RiskPolicies = 704,
+            CertificatesAccident = 705,
+
+            //Additional Doc
+            AdditionalDocs = 1702,
         }
 
-        public enum enumPersonContactSourceItem
+        public enum enumSourceItem
         {
             //Info PersonContac Source
             Legalrep = 317,
