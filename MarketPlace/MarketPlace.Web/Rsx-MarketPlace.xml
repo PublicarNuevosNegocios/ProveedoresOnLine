@@ -60,6 +60,7 @@
 
     <!--Report Path-->
     <key name="MP_CP_ReportPath">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
+    <!--<key name="MP_CP_ReportPath">\\192.168.0.4\d$\SitesReports\</key>-->
     <!--<key name="MP_CP_ReportPath">D:\ProvedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>-->
 
     

@@ -128,7 +128,7 @@ namespace ProveedoresOnLine.Reports.Controller
         #endregion ReportSurveyEvaluatorDetail
 
         #region Gerencial Report        
-        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data,  DataTable data2, DataTable data3, List<ReportParameter> ReportData, string FilePath)
+        public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data, DataTable data2, DataTable data3, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
@@ -328,7 +328,7 @@ namespace ProveedoresOnLine.Reports.Controller
         public static Tuple<byte[], string, string> TK_QueryReport(string FormatType, DataTable data, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
-            
+
             localReport.EnableExternalImages = true;
             localReport.ReportPath = FilePath;
             localReport.SetParameters(ReportData);
@@ -337,14 +337,14 @@ namespace ProveedoresOnLine.Reports.Controller
             source.Name = "DS_ThirdKnowledgeReport";
             source.Value = data != null ? data : new DataTable();
             localReport.DataSources.Add(source);
-           
+
             string mimeType;
             string encoding;
             string fileNameExtension;
             string deviceInfo =
                        "<DeviceInfo>" +
                        "  <OutputFormat>" + FormatType + "</OutputFormat>" +
-                      
+
                        "</DeviceInfo>";
             Warning[] warnings;
             string[] streams;
@@ -451,6 +451,70 @@ namespace ProveedoresOnLine.Reports.Controller
 
         }
 
+
+        #endregion
+
+        #region FinancialReport
+
+        public static Tuple<byte[], string, string> F_FinancialReport(string FormatType, DataTable data, DataTable data2, DataTable data3, DataTable data4, DataTable data5, List<ReportParameter> ReportData, string FilePath)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.EnableExternalImages = true;
+            localReport.ReportPath = FilePath;
+            localReport.SetParameters(ReportData);
+
+            ReportDataSource source = new ReportDataSource();
+            source.Name = "DS_FinancialReport";
+            source.Value = data != null ? data : new DataTable();
+            localReport.DataSources.Add(source);
+
+            ReportDataSource source2 = new ReportDataSource();
+            source2.Name = "DS_FinancialReport_Liquidity";
+            source2.Value = data2 != null ? data2 : new DataTable();
+            localReport.DataSources.Add(source2);
+
+            ReportDataSource souce3 = new ReportDataSource();
+            souce3.Name = "DS_GerencialReport";
+            souce3.Value = data3 != null ? data3 : new DataTable();
+            localReport.DataSources.Add(souce3);
+
+            ReportDataSource source4 = new ReportDataSource();
+            source4.Name = "DS_GerencialReport_Contact";
+            source4.Value = data4 != null ? data4 : new DataTable();
+            localReport.DataSources.Add(source4);
+
+            ReportDataSource source5 = new ReportDataSource();
+            source5.Name = "DS_GerencialReport_Terceros";
+            source5.Value = data5 != null ? data5 : new DataTable();
+            localReport.DataSources.Add(source5);
+
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string deviceInfo =
+                       "<DeviceInfo>" +
+                       "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                       "  <PageWidth>8.5in</PageWidth>" +
+                       "  <PageHeight>11in</PageHeight>" +
+                       "  <MarginTop>0.5in</MarginTop>" +
+                       "  <MarginLeft>0.8in</MarginLeft>" +
+                       "  <MarginRight>0.8in</MarginRight>" +
+                       "  <MarginBottom>0.5in</MarginBottom>" +
+                       "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            renderedBytes = localReport.Render(
+                FormatType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+            return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_FinancialReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+        }
 
         #endregion
     }
