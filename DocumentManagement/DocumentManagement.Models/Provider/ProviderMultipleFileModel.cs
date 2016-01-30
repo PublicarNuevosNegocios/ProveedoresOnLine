@@ -31,7 +31,10 @@ namespace DocumentManagement.Models.Provider
 
         public ProviderMultipleFileModel() { }
 
-        public ProviderMultipleFileModel(string strJson, string ProviderInfoId)
+        public bool IsRowModifed { get; set; }
+        public int ItemInfoType { get; set; }
+
+        public ProviderMultipleFileModel(string strJson, string ProviderInfoId, bool IsModify, int ItemInfoType)
         {
             ProviderMultipleFileModel oObjAux =
                 (DocumentManagement.Models.Provider.ProviderMultipleFileModel)
@@ -46,6 +49,8 @@ namespace DocumentManagement.Models.Provider
                 this.IsDelete = oObjAux.IsDelete;
                 this.ProviderInfoUrl = oObjAux.ProviderInfoUrl;
                 this.Name = oObjAux.Name;
+                this.IsRowModifed = IsModify;
+                this.ItemInfoType = ItemInfoType;
             }
             else
             {
@@ -53,6 +58,8 @@ namespace DocumentManagement.Models.Provider
                 this.IsDelete = true;
                 this.ProviderInfoUrl = string.Empty;
                 this.Name = string.Empty;
+                this.IsRowModifed = false;
+                this.ItemInfoType = null;
             }
         }
     }

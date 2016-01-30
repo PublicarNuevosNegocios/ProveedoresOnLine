@@ -491,6 +491,92 @@ namespace DocumentManagement.Web.Controllers
                     StepId = oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.StepId).FirstOrDefault(),
                 });
         }
+        
+        public virtual ActionResult SyncMultipleFileGrid(string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId)
+        {
+            List<ChangesControlModel> oChangesControl = null;
+            //getInfo id
+            if (ProviderPublicId != null)
+            {
+                oChangesControl = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(ProviderPublicId);
+                oChangesControl = oChangesControl.Where(x => x.ProviderInfoId == int.Parse(ProviderInfoId)).Select(x => x).ToList();                
+                string oCompanyPublicid = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId(ProviderPublicId, string.Empty).RelatedProviderBO.ProviderPublicId;
+
+                List<HomologateModel> oHomologateData = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID(oChangesControl.FirstOrDefault().)
+
+                if (!string.IsNullOrEmpty(oCompanyPublicid))
+                {
+                    //getDataType to Sync
+
+                    //get provider info
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                    };
+                    oProviderModel.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                       new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.Designations,
+                            },
+                            ItemName = "Designation Sync GD",
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+                    oProviderModel.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalInfoType.CD_PartnerIdentificationNumber
+                        },
+                        Value = "",
+                    });
+                    oProviderModel.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalInfoType.CD_PartnerName
+                        },
+                        Value = "",
+                    });
+                    //TODO: Set Legal Partner Rank
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProviderModel);
+
+                    List<ChangesControlModel> oChangesToUpsert = oChangesControl.
+                                                               Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).
+                                                               Select(y =>
+                                                               {
+                                                                   y.Enable = false; y.Status.ItemId =
+                                                                   (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                   return y;
+                                                               }).ToList();
+                    oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                }
+            }
+
+            //loggin success
+            return RedirectToAction
+                (MVC.ProviderForm.ActionNames.Index,
+                MVC.ProviderForm.Name,
+                new
+                {
+                    ProviderPublicId = oChangesControl.FirstOrDefault().ProviderPublicId,
+                    FormPublicId = oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.FormUrl).FirstOrDefault(),
+                    StepId = oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.StepId).FirstOrDefault(),
+                });
+        }
 
         #region Private Functions
 
@@ -1033,9 +1119,6 @@ namespace DocumentManagement.Web.Controllers
             //SerpareData Type
             #region Contact Info
             List<Tuple<string, HomologateModel>> oContactHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CompanyContactInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.DistributorInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact ||
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType)).Select(x => x).ToList();
             if (oContactHomologateData.Count > 0)
             {
