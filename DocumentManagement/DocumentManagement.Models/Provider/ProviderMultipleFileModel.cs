@@ -59,7 +59,7 @@ namespace DocumentManagement.Models.Provider
                 this.ProviderInfoUrl = string.Empty;
                 this.Name = string.Empty;
                 this.IsRowModifed = false;
-                this.ItemInfoType = null;
+                this.ItemInfoType = 0;
             }
         }
     }

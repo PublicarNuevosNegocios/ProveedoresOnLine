@@ -278,6 +278,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string ProviderInfoUrl = "ProviderInfoUrl";
             public readonly string Name = "Name";
             public readonly string ProviderInfoId = "ProviderInfoId";
+            public readonly string ItemType = "ItemType";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -444,17 +445,18 @@ namespace DocumentManagement.Web.Controllers
         }
 
         [NonAction]
-        partial void SyncMultipleFileGridOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId);
+        partial void SyncMultipleFileGridOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId, string ItemType);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SyncMultipleFileGrid(string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId)
+        public override System.Web.Mvc.ActionResult SyncMultipleFileGrid(string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId, string ItemType)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncMultipleFileGrid);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderInfoUrl", ProviderInfoUrl);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Name", Name);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderInfoId", ProviderInfoId);
-            SyncMultipleFileGridOverride(callInfo, ProviderPublicId, ProviderInfoUrl, Name, ProviderInfoId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ItemType", ItemType);
+            SyncMultipleFileGridOverride(callInfo, ProviderPublicId, ProviderInfoUrl, Name, ProviderInfoId, ItemType);
             return callInfo;
         }
 

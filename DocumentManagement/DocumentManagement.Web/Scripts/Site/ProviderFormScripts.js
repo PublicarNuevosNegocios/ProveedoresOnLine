@@ -303,7 +303,17 @@ var PF_MultipleFileObject = {
             columns: [{
                 field: 'Name',
                 title: 'Nombre',
-                template: "<div >&nbsp; <label style='color:" + PF_MultipleFileObject.IsModified + "'> ${Name} </label> </div>"
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = '';
+                    if (dataItem.IsRowModifed == true) {
+                        oReturn = "<div >&nbsp; <label style='color:red'> " + dataItem.Name+ "</label> </div>"
+                    }
+                    else {
+                        oReturn = "<div >&nbsp; <label style='color:blue'> " + dataItem.Name + "</label> </div>"
+                    }
+                    return oReturn;
+                },                
             }, {
                 field: 'ProviderInfoUrl',
                 title: ' ',
@@ -318,7 +328,7 @@ var PF_MultipleFileObject = {
                     debugger;
                     var oReturn = '';
                     if (dataItem.IsRowModifed == true) {
-                        oReturn = '<a href="javascript:PF_MultipleFileObject.MultilpeFileSync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.ProviderInfoUrl + "'" + ',' + "'" + dataItem.Name + "'" + ',' + "'" + PF_MultipleFileObject.ProviderPublicId + "'" + ');">Sincronizar</a>'
+                        oReturn = '<a href="javascript:PF_MultipleFileObject.MultilpeFileSync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.ProviderInfoUrl + "'" + ',' + "'" + dataItem.Name + "'" + ',' + "'" + PF_MultipleFileObject.ProviderPublicId + "'" + ',' + "'" + dataItem.ItemInfoType + "'" + ');">Sincronizar</a>'
 
                     }
                     return oReturn;
@@ -386,7 +396,7 @@ var PF_MultipleFileObject = {
         }
     },
 
-    MultilpeFileSync: function (ProviderInfoId, ProviderInfoUrl, Name, ProviderPublicId)
+    MultilpeFileSync: function (ProviderInfoId, ProviderInfoUrl, Name, ProviderPublicId, ItemType)
     {
         var oReq = '';
         oReq = oReq + '{IsDelete:"false",';
@@ -397,7 +407,7 @@ var PF_MultipleFileObject = {
         $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
         $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
 
-        var strUrl = "/ProviderForm/SyncMultipleFileGrid?ProviderPublicId=" + ProviderPublicId + "&ProviderInfoUrl=" + ProviderInfoUrl + "&Name=" + Name + "&ProviderInfoId=" + ProviderInfoId
+        var strUrl = "/ProviderForm/SyncMultipleFileGrid?ProviderPublicId=" + ProviderPublicId + "&ProviderInfoUrl=" + ProviderInfoUrl + "&Name=" + Name + "&ProviderInfoId=" + ProviderInfoId + "&ItemType=" + ItemType
         $("#" + "FrmGenericStep").attr('action', strUrl);
 
         $("#" + "FrmGenericStep").submit();
