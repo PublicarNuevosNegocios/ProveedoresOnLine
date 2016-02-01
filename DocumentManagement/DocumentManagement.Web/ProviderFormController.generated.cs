@@ -111,6 +111,18 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProviderChangesControl);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SyncPartnersGrid()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncPartnersGrid);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SyncMultipleFileGrid()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncMultipleFileGrid);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -136,6 +148,8 @@ namespace DocumentManagement.Web.Controllers
             public readonly string DuplicateForm = "DuplicateForm";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
             public readonly string LoginProviderChangesControl = "LoginProviderChangesControl";
+            public readonly string SyncPartnersGrid = "SyncPartnersGrid";
+            public readonly string SyncMultipleFileGrid = "SyncMultipleFileGrid";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -150,6 +164,8 @@ namespace DocumentManagement.Web.Controllers
             public const string DuplicateForm = "DuplicateForm";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
             public const string LoginProviderChangesControl = "LoginProviderChangesControl";
+            public const string SyncPartnersGrid = "SyncPartnersGrid";
+            public const string SyncMultipleFileGrid = "SyncMultipleFileGrid";
         }
 
 
@@ -240,6 +256,29 @@ namespace DocumentManagement.Web.Controllers
             public readonly string CustomerPublicId = "CustomerPublicId";
             public readonly string IdentificationType = "IdentificationType";
             public readonly string IdentificationNumber = "IdentificationNumber";
+        }
+        static readonly ActionParamsClass_SyncPartnersGrid s_params_SyncPartnersGrid = new ActionParamsClass_SyncPartnersGrid();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SyncPartnersGrid SyncPartnersGridParams { get { return s_params_SyncPartnersGrid; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SyncPartnersGrid
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string IdentificationNumber = "IdentificationNumber";
+            public readonly string FullName = "FullName";
+            public readonly string ProviderInfoId = "ProviderInfoId";
+        }
+        static readonly ActionParamsClass_SyncMultipleFileGrid s_params_SyncMultipleFileGrid = new ActionParamsClass_SyncMultipleFileGrid();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SyncMultipleFileGrid SyncMultipleFileGridParams { get { return s_params_SyncMultipleFileGrid; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SyncMultipleFileGrid
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string ProviderInfoUrl = "ProviderInfoUrl";
+            public readonly string Name = "Name";
+            public readonly string ProviderInfoId = "ProviderInfoId";
+            public readonly string ItemType = "ItemType";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -387,6 +426,37 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationType", IdentificationType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationNumber", IdentificationNumber);
             LoginProviderChangesControlOverride(callInfo, ProviderPublicId, FormPublicId, CustomerPublicId, IdentificationType, IdentificationNumber);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SyncPartnersGridOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string IdentificationNumber, string FullName, string ProviderInfoId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SyncPartnersGrid(string ProviderPublicId, string IdentificationNumber, string FullName, string ProviderInfoId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncPartnersGrid);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IdentificationNumber", IdentificationNumber);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FullName", FullName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderInfoId", ProviderInfoId);
+            SyncPartnersGridOverride(callInfo, ProviderPublicId, IdentificationNumber, FullName, ProviderInfoId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SyncMultipleFileGridOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId, string ItemType);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SyncMultipleFileGrid(string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId, string ItemType)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SyncMultipleFileGrid);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderInfoUrl", ProviderInfoUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Name", Name);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderInfoId", ProviderInfoId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ItemType", ItemType);
+            SyncMultipleFileGridOverride(callInfo, ProviderPublicId, ProviderInfoUrl, Name, ProviderInfoId, ItemType);
             return callInfo;
         }
 

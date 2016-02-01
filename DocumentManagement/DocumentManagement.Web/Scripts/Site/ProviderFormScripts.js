@@ -165,7 +165,7 @@ var PF_PartnerFormObject = {
                     "Borrar": function () {
                         //delete
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
+                            url:  + '/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
                             dataType: "json",
                             type: "POST",
                             success: function (result) {
@@ -212,7 +212,7 @@ var PF_PartnerFormObject = {
 
         $('#' + PF_PartnerFormObject.DivId + '-').val(oReq);
 
-        var strUrl = "/ProviderForm/SyncPartnersGrid?ProviderPublicId=" + ProviderPublicId + "&IdentificationNumber=" + IdentificationNumber + "&FullName=" + FullName + "&ProviderInfoId=" + ProviderInfoId
+        var strUrl = BaseUrl.SiteUrl + "/ProviderForm/SyncPartnersGrid?ProviderPublicId=" + ProviderPublicId + "&IdentificationNumber=" + IdentificationNumber + "&FullName=" + FullName + "&ProviderInfoId=" + ProviderInfoId
         $("#" + "FrmGenericStep").attr('action', strUrl);
 
         $("#" + "FrmGenericStep").submit();
@@ -276,7 +276,8 @@ var PF_MultipleFileObject = {
     DivId: '',
     MultipleData: new Array(),
     ACData: new Array(),
-    IsModified: '',
+    IsModified: '',    
+    ProviderPublicId: '',
 
     Init: function (vInitObject) {
         debugger;
@@ -284,7 +285,7 @@ var PF_MultipleFileObject = {
         this.MultipleData = vInitObject.MultipleData;
         this.ACData = vInitObject.ACData;
         this.IsModified = vInitObject.IsModified == "True" ? "red" : "black";
-
+        this.ProviderPublicId = vInitObject.ProviderPublicId;
     },
 
     //init Multiple File grid
@@ -302,7 +303,17 @@ var PF_MultipleFileObject = {
             columns: [{
                 field: 'Name',
                 title: 'Nombre',
-                template: "<div >&nbsp; <label style='color:" + PF_MultipleFileObject.IsModified + "'> ${Name} </label> </div>"
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = '';
+                    if (dataItem.IsRowModifed == true) {
+                        oReturn = "<div >&nbsp; <label style='color:red'> " + dataItem.Name+ "</label> </div>"
+                    }
+                    else {
+                        oReturn = "<div >&nbsp; <label style='color:blue'> " + dataItem.Name + "</label> </div>"
+                    }
+                    return oReturn;
+                },                
             }, {
                 field: 'ProviderInfoUrl',
                 title: ' ',
@@ -317,7 +328,7 @@ var PF_MultipleFileObject = {
                     debugger;
                     var oReturn = '';
                     if (dataItem.IsRowModifed == true) {
-                        oReturn = '<a href="javascript:PF_PartnerFormObject.Sync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.IdentificationNumber + "'" + ',' + "'" + dataItem.FullName + "'" + ',' + "'" + dataItem.ParticipationPercent + "'" + ',' + "'" + PF_PartnerFormObject.ProviderPublicId + "'" + ');">Sincronizar</a>'
+                        oReturn = '<a href="javascript:PF_MultipleFileObject.MultilpeFileSync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.ProviderInfoUrl + "'" + ',' + "'" + dataItem.Name + "'" + ',' + "'" + PF_MultipleFileObject.ProviderPublicId + "'" + ',' + "'" + dataItem.ItemInfoType + "'" + ');">Sincronizar</a>'
 
                     }
                     return oReturn;
@@ -384,5 +395,22 @@ var PF_MultipleFileObject = {
             alert('no se puede borrar ' + ProviderInfoId);
         }
     },
+
+    MultilpeFileSync: function (ProviderInfoId, ProviderInfoUrl, Name, ProviderPublicId, ItemType)
+    {
+        var oReq = '';
+        oReq = oReq + '{IsDelete:"false",';
+        oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
+        oReq = oReq + 'Name:"' + Name + '",';
+        oReq = oReq + 'ProviderInfoUrl:"' +ProviderInfoUrl + '"}';
+
+        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
+        $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
+
+        var strUrl = BaseUrl.SiteUrl+"/ProviderForm/SyncMultipleFileGrid?ProviderPublicId=" + ProviderPublicId + "&ProviderInfoUrl=" + ProviderInfoUrl + "&Name=" + Name + "&ProviderInfoId=" + ProviderInfoId + "&ItemType=" + ItemType
+        $("#" + "FrmGenericStep").attr('action', strUrl);
+
+        $("#" + "FrmGenericStep").submit();
+    }
 };
 

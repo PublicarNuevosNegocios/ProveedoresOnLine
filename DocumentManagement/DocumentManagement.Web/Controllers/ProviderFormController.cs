@@ -411,7 +411,7 @@ namespace DocumentManagement.Web.Controllers
                     });
             }
         }
-        
+
         public virtual ActionResult SyncPartnersGrid(string ProviderPublicId, string IdentificationNumber, string FullName, string ProviderInfoId)
         {
             List<ChangesControlModel> oChangesControl = null;
@@ -478,6 +478,246 @@ namespace DocumentManagement.Web.Controllers
                             return true;
                         });
                 }
+            }
+
+            //loggin success
+            return RedirectToAction
+                (MVC.ProviderForm.ActionNames.Index,
+                MVC.ProviderForm.Name,
+                new
+                {
+                    ProviderPublicId = oChangesControl.FirstOrDefault().ProviderPublicId,
+                    FormPublicId = oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.FormUrl).FirstOrDefault(),
+                    StepId = oChangesControl.Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).Select(y => y.StepId).FirstOrDefault(),
+                });
+        }
+
+        public virtual ActionResult SyncMultipleFileGrid(string ProviderPublicId, string ProviderInfoUrl, string Name, string ProviderInfoId, string ItemType)
+        {
+            List<ChangesControlModel> oChangesControl = null;
+            //getInfo id
+            if (ProviderPublicId != null)
+            {
+                oChangesControl = DocumentManagement.Provider.Controller.Provider.ChangesControlGetByProviderPublicId(ProviderPublicId);
+                oChangesControl = oChangesControl.Where(x => x.ProviderInfoId == int.Parse(ProviderInfoId)).Select(x => x).ToList();
+                string oCompanyPublicid = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetAsociateProviderByProviderPublicId(ProviderPublicId, string.Empty).RelatedProviderBO.ProviderPublicId;
+
+                HomologateModel oHomologateData = ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.GetHomologateItemBySourceID(int.Parse(ItemType));
+                #region Commercial Experiences
+                if (oHomologateData.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumCommercialInfoType.EX_ExperienceFile)
+                {
+                    if (!string.IsNullOrEmpty(oCompanyPublicid))
+                    {
+                        //get provider info
+                        ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                        };
+                        oProviderModel.RelatedCommercial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                       new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumCommercialType.Experience,
+                            },
+                            ItemName = Name,
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+                        oProviderModel.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumCommercialInfoType.EX_ExperienceFile
+                            },
+                            Value = ProviderInfoUrl,
+                        });
+                        //Commercial Info Type
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialUpsert(oProviderModel);
+
+                        List<ChangesControlModel> oChangesToUpsert = oChangesControl.
+                                                                   Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).
+                                                                   Select(y =>
+                                                                   {
+                                                                       y.Enable = false; y.Status.ItemId =
+                                                                       (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                       return y;
+                                                                   }).ToList();
+                        oChangesToUpsert.All(
+                            ch =>
+                            {
+                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                return true;
+                            });
+                    }
+                }
+                #endregion
+
+                #region Financial Blansheet
+                if (oHomologateData.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialInfoType.SH_BalanceSheetFile)
+                {
+                    if (!string.IsNullOrEmpty(oCompanyPublicid))
+                    {
+                        //get provider info
+                        ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                        };
+                        oProviderModel.RelatedFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                       new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialType.BalanceSheetInfoType,
+                            },
+                            ItemName = Name,
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+                        oProviderModel.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumFinancialInfoType.SH_BalanceSheetFile
+                            },
+                            Value = ProviderInfoUrl,
+                        });
+                        //Commercial Info Type
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oProviderModel);
+
+                        List<ChangesControlModel> oChangesToUpsert = oChangesControl.
+                                                                   Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).
+                                                                   Select(y =>
+                                                                   {
+                                                                       y.Enable = false; y.Status.ItemId =
+                                                                       (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                       return y;
+                                                                   }).ToList();
+                        oChangesToUpsert.All(
+                            ch =>
+                            {
+                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                return true;
+                            });
+                    }
+                }
+                #endregion
+
+                #region HSEQ
+                if (oHomologateData.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.Certifications)
+                {
+                    if (!string.IsNullOrEmpty(oCompanyPublicid))
+                    {
+                        //get provider info
+                        ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                        };
+                        oProviderModel.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                       new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.Certifications,
+                            },
+                            ItemName = Name,
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+                        oProviderModel.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQInfoType.C_CertificationFile
+                            },
+                            Value = ProviderInfoUrl,
+                        });
+                        //Commercial Info Type
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProviderModel);
+
+                        List<ChangesControlModel> oChangesToUpsert = oChangesControl.
+                                                                   Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).
+                                                                   Select(y =>
+                                                                   {
+                                                                       y.Enable = false; y.Status.ItemId =
+                                                                       (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                       return y;
+                                                                   }).ToList();
+                        oChangesToUpsert.All(
+                            ch =>
+                            {
+                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                return true;
+                            });
+                    }
+                }
+                #endregion
+
+                #region Additional Doc
+                if (oHomologateData.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumAdditionalDocType.AdditionalDoc)
+                {
+                    if (!string.IsNullOrEmpty(oCompanyPublicid))
+                    {
+                        //get provider info
+                        ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                        };
+                        oProviderModel.RelatedAditionalDocuments = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                       new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumAdditionalDocType.AdditionalDoc,
+                            },
+                            ItemName = Name,
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+                        oProviderModel.RelatedAditionalDocuments.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumAdditionalDocInfoType.File
+                            },
+                            Value = ProviderInfoUrl,
+                        });
+                        //Commercial Info Type
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.AditionalDocumentsUpsert(oProviderModel);
+
+                        List<ChangesControlModel> oChangesToUpsert = oChangesControl.
+                                                                   Where(y => y.ProviderInfoId == int.Parse(ProviderInfoId)).
+                                                                   Select(y =>
+                                                                   {
+                                                                       y.Enable = false; y.Status.ItemId =
+                                                                       (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                       return y;
+                                                                   }).ToList();
+                        oChangesToUpsert.All(
+                            ch =>
+                            {
+                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                return true;
+                            });
+                    }
+                }
+                #endregion
             }
 
             //loggin success
@@ -837,7 +1077,7 @@ namespace DocumentManagement.Web.Controllers
             }
             return null;
         }
-        
+
         #region ChangesControl
 
         private List<ChangesControlModel> GetChangesToUpdate(ProviderModel PrevModel, ProviderModel NewModel, string FormPublicId, int StepId)
@@ -1033,10 +1273,10 @@ namespace DocumentManagement.Web.Controllers
             //SerpareData Type
             #region Contact Info
             List<Tuple<string, HomologateModel>> oContactHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CompanyContactInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.DistributorInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact ||
-                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType)).Select(x => x).ToList();
+                                                                                                 x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.DistributorInfoType ||
+                                                                                                 x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonContactInfoType ||
+                                                                                                 x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumContactType.CompanyContact ||
+                                                                                                 x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BrachInfoType)).Select(x => x).ToList();
             if (oContactHomologateData.Count > 0)
             {
                 #region Contact Sync
@@ -1716,7 +1956,7 @@ namespace DocumentManagement.Web.Controllers
 
             #region Financial Info
 
-            List<Tuple<string, HomologateModel>> oFinancialHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.OrgStructure || 
+            List<Tuple<string, HomologateModel>> oFinancialHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.OrgStructure ||
                                                                                                                x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.BankInfoType)).Select(x => x).ToList();
             if (oFinancialHomologateData.Count > 0)
             {
@@ -2016,10 +2256,10 @@ namespace DocumentManagement.Web.Controllers
                         {
                             oLegalToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,                                
+                                ItemInfoId = 0,
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                    ItemId = x.Item2.Target.ItemId,                                       
+                                    ItemId = x.Item2.Target.ItemId,
                                 },
                                 Value = Request.Form[x.Item1.Replace("Sync_", "") + " _File"],
                                 LargeValue = Request.Form[x.Item1.Replace("Sync_", "") + " _File"],
@@ -2104,7 +2344,7 @@ namespace DocumentManagement.Web.Controllers
                                                                                                           ).Select(x => x).ToList();
             if (oHSEQHomologateData.Count > 0)
             {
-                #region Chaimber Of Commerce
+                #region Risk Policies
                 List<Tuple<string, HomologateModel>> oRiskPoliciesToSync = oHSEQHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.RiskPolicies).Select(x => x).ToList();
 
                 if (oRiskPoliciesToSync != null && oRiskPoliciesToSync.Count > 0)
@@ -2170,6 +2410,240 @@ namespace DocumentManagement.Web.Controllers
                         {
                             oChangesToUpsert.AddRange(oModel.ChangesControlModel.Where(y => y.ProviderInfoId ==
                             int.Parse(oGeneralHomologateData.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CompanyRiskPolicies)
+                                                    .Select(p => p.Item1).FirstOrDefault().Split('-').Last())).
+                                                        Select(y =>
+                                                        {
+                                                            y.Enable = false; y.Status.ItemId =
+                                                            (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                            return y;
+                                                        }).ToList());
+                        }
+                        oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                        return true;
+                    });
+                }
+                #endregion
+
+                #region Certifications
+                List<Tuple<string, HomologateModel>> oCertificationsToSync = oHSEQHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.Certifications).Select(x => x).ToList();
+
+                if (oCertificationsToSync != null && oCertificationsToSync.Count > 0)
+                {
+                    //Build obj provider 
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                    };
+                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertificationsToUpsert = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.Certifications,
+                            },
+                            ItemName = "Certificaions Sync GD",
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                    oCertificationsToSync.All(x =>
+                    {
+                        oCertificationsToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = x.Item2.Target.ItemId
+                            },
+                            Value = Request.Form[x.Item1.Replace("Sync_", "") + " _File"],
+                            Enable = true,
+                        });
+                        return true;
+                    });
+                    oProviderModel.RelatedCertification = oCertificationsToUpsert;
+
+                    //Upsertinfo BO
+                    oProviderModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProviderModel);
+
+                    //Upsert Changes Sincronized
+                    oCertificationsToSync.All(x =>
+                    {
+                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList();
+                        if (oCertificationsToSync.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.Certifications).Select(p => p.Item1).FirstOrDefault() != null)
+                        {
+                            oChangesToUpsert.AddRange(oModel.ChangesControlModel.Where(y => y.ProviderInfoId ==
+                            int.Parse(oGeneralHomologateData.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.Certifications)
+                                                    .Select(p => p.Item1).FirstOrDefault().Split('-').Last())).
+                                                        Select(y =>
+                                                        {
+                                                            y.Enable = false; y.Status.ItemId =
+                                                            (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                            return y;
+                                                        }).ToList());
+                        }
+                        oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                        return true;
+                    });
+                }
+                #endregion
+
+                #region HealtyPolitic
+                List<Tuple<string, HomologateModel>> oHealtyPoliticToSync = oHSEQHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.HealtyPolitic).Select(x => x).ToList();
+
+                if (oHealtyPoliticToSync != null && oHealtyPoliticToSync.Count > 0)
+                {
+                    //Build obj provider 
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                    };
+                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oHealtyPoliticToUpsert = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CompanyHealtyPolitic,
+                            },
+                            ItemName = "HealtyPolitic Sync GD",
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                    oHealtyPoliticToSync.All(x =>
+                    {
+                        oHealtyPoliticToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = x.Item2.Target.ItemId
+                            },
+                            Value = Request.Form[x.Item1.Replace("Sync_", "") + " _File"],
+                            Enable = true,
+                        });
+                        return true;
+                    });
+                    oProviderModel.RelatedCertification = oHealtyPoliticToUpsert;
+
+                    //Upsertinfo BO
+                    oProviderModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProviderModel);
+
+                    //Upsert Changes Sincronized
+                    oHealtyPoliticToSync.All(x =>
+                    {
+                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList();
+                        if (oHealtyPoliticToSync.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CompanyHealtyPolitic).Select(p => p.Item1).FirstOrDefault() != null)
+                        {
+                            oChangesToUpsert.AddRange(oModel.ChangesControlModel.Where(y => y.ProviderInfoId ==
+                            int.Parse(oGeneralHomologateData.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CompanyHealtyPolitic)
+                                                    .Select(p => p.Item1).FirstOrDefault().Split('-').Last())).
+                                                        Select(y =>
+                                                        {
+                                                            y.Enable = false; y.Status.ItemId =
+                                                            (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                            return y;
+                                                        }).ToList());
+                        }
+                        oChangesToUpsert.All(
+                        ch =>
+                        {
+                            DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                            return true;
+                        });
+                        return true;
+                    });
+                }
+                #endregion
+
+                #region CertificatesAccident
+                List<Tuple<string, HomologateModel>> oCertificatesAccidentToSync = oHSEQHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CertificatesAccident).Select(x => x).ToList();
+
+                if (oCertificatesAccidentToSync != null && oCertificatesAccidentToSync.Count > 0)
+                {
+                    //Build obj provider 
+                    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                    };
+                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertificatesAccidentToUpsert = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CertificatesAccident,
+                            },
+                            ItemName = "CertificatesAccident Sync GD",
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                    oCertificatesAccidentToSync.All(x =>
+                    {
+                        oCertificatesAccidentToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = x.Item2.Target.ItemId
+                            },
+                            Value = Request.Form[x.Item1.Replace("Sync_", "") + " _File"],
+                            Enable = true,
+                        });
+                        return true;
+                    });
+                    oProviderModel.RelatedCertification = oCertificatesAccidentToUpsert;
+
+                    //Upsertinfo BO
+                    oProviderModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(oProviderModel);
+
+                    //Upsert Changes Sincronized
+                    oCertificatesAccidentToSync.All(x =>
+                    {
+                        List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                            Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList();
+                        if (oCertificatesAccidentToSync.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CertificatesAccident).Select(p => p.Item1).FirstOrDefault() != null)
+                        {
+                            oChangesToUpsert.AddRange(oModel.ChangesControlModel.Where(y => y.ProviderInfoId ==
+                            int.Parse(oGeneralHomologateData.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumHSEQType.CertificatesAccident)
                                                     .Select(p => p.Item1).FirstOrDefault().Split('-').Last())).
                                                         Select(y =>
                                                         {
@@ -2281,7 +2755,7 @@ namespace DocumentManagement.Web.Controllers
             #endregion
             return oReturn;
         }
-              
+
         #endregion
 
         #endregion
