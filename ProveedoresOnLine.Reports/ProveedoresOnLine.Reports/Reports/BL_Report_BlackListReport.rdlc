@@ -2,42 +2,6 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="Textbox19">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Informe de resultados</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Format>0.00%</Format>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>7.7534cm</Top>
-        <Left>0.45719cm</Left>
-        <Height>0.55852cm</Height>
-        <Width>24.61986cm</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="Textbox20">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -60,7 +24,6 @@
         <Left>2.76696cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.23048cm</Width>
-        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -92,7 +55,7 @@
         <Left>6.153cm</Left>
         <Height>0.57354cm</Height>
         <Width>6.51819cm</Width>
-        <ZIndex>2</ZIndex>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -125,7 +88,7 @@
         <Left>13.4924cm</Left>
         <Height>0.57354cm</Height>
         <Width>3.23048cm</Width>
-        <ZIndex>3</ZIndex>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -157,7 +120,7 @@
         <Left>16.87313cm</Left>
         <Height>0.57354cm</Height>
         <Width>6.5182cm</Width>
-        <ZIndex>4</ZIndex>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -176,7 +139,7 @@
         <Left>2.57645cm</Left>
         <Height>6.05951cm</Height>
         <Width>20.83152cm</Width>
-        <ZIndex>5</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -188,7 +151,7 @@
         <Left>2.57646cm</Left>
         <Height>0cm</Height>
         <Width>20.83151cm</Width>
-        <ZIndex>6</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -200,7 +163,7 @@
         <Left>2.62573cm</Left>
         <Height>0cm</Height>
         <Width>20.83151cm</Width>
-        <ZIndex>7</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -789,25 +752,85 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet_BlackListReport</DataSetName>
-        <Top>3.38764in</Top>
-        <Left>0.18in</Left>
+        <Top>3.39267in</Top>
+        <Left>0.07967in</Left>
         <Height>0.5in</Height>
         <Width>9.69287in</Width>
-        <ZIndex>8</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
+      <Rectangle Name="Rectangle12">
+        <ReportItems>
+          <Line Name="Line9">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>24.41432cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox58">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Informe de resultados</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.4882cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27876cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>7.54996cm</Top>
+        <Left>0.40793cm</Left>
+        <Height>0.89104cm</Height>
+        <Width>24.41432cm</Width>
+        <ZIndex>8</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
     </ReportItems>
-    <Height>3.91889in</Height>
+    <Height>4.02306in</Height>
     <Style />
   </Body>
-  <Width>9.89371in</Width>
+  <Width>9.85204in</Width>
   <Page>
     <PageHeader>
-      <Height>0.81944in</Height>
+      <Height>1.19444in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -817,7 +840,7 @@
           <Sizing>FitProportional</Sizing>
           <Top>0.18344cm</Top>
           <Left>0.45719cm</Left>
-          <Height>1.63067cm</Height>
+          <Height>2.56594cm</Height>
           <Width>3.39354cm</Width>
           <Style>
             <Border>
@@ -825,15 +848,19 @@
             </Border>
           </Style>
         </Image>
-        <Textbox Name="Textbox11">
+        <Textbox Name="Textbox5">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Parameters!CustomerName.Value + " " + Parameters!CustomerIdentificationType.Value + " . " + Parameters!CustomerIdentification.Value</Value>
-                  <Style />
+                  <Value />
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>16pt</FontSize>
+                    <Color>White</Color>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style>
@@ -841,24 +868,25 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <rd:DefaultName>Textbox10</rd:DefaultName>
-          <Top>0.73572cm</Top>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.18344cm</Top>
           <Left>4.15297cm</Left>
-          <Height>1.07839cm</Height>
+          <Height>2.56594cm</Height>
           <Width>19.94515cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
             </Border>
+            <BackgroundColor>#f87b00</BackgroundColor>
             <VerticalAlign>Middle</VerticalAlign>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
+            <PaddingLeft>1pt</PaddingLeft>
+            <PaddingRight>1pt</PaddingRight>
+            <PaddingTop>1pt</PaddingTop>
+            <PaddingBottom>1pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="Textbox2">
+        <Textbox Name="Textbox3">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
@@ -875,9 +903,9 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>0.18344cm</Top>
+          <Top>0.58194cm</Top>
           <Left>4.15297cm</Left>
-          <Height>0.6cm</Height>
+          <Height>0.57354cm</Height>
           <Width>19.94515cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
@@ -891,18 +919,39 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Line Name="Line1">
-          <Top>2.00731cm</Top>
-          <Left>0.45719cm</Left>
-          <Height>0cm</Height>
-          <Width>24.61989cm</Width>
+        <Textbox Name="Textbox12">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!CustomerName.Value + " " + Parameters!CustomerIdentificationType.Value + " . " + Parameters!CustomerIdentification.Value</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox10</rd:DefaultName>
+          <Top>1.40108cm</Top>
+          <Left>4.15297cm</Left>
+          <Height>1.07839cm</Height>
+          <Width>19.94515cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
-              <Style>Solid</Style>
+              <Style>None</Style>
             </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
           </Style>
-        </Line>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -910,6 +959,54 @@
         </Border>
       </Style>
     </PageHeader>
+    <PageFooter>
+      <Height>0.60417in</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox9">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>= "PROVEEDORES ONLINE - www.proveedoresonline.co - ©2016 Publicar S.A" + System.Environment.NewLine  +
+Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!CustomerIdentificationType.Value + " . " + Parameters!CustomerIdentification.Value</Value>
+                  <Style>
+                    <FontFamily>Segoe UI Light</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox9</rd:DefaultName>
+          <Top>0.30854cm</Top>
+          <Left>0.45719cm</Left>
+          <Height>0.94396cm</Height>
+          <Width>23.64093cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
     <PageHeight>8.27in</PageHeight>
     <PageWidth>11.69in</PageWidth>
     <LeftMargin>0.7874in</LeftMargin>
