@@ -3356,23 +3356,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. </Value>
+                <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe, PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
                 <Style>
-                  <FontSize>6pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe, 
-PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
-                <Style>
-                  <FontSize>6pt</FontSize>
+                  <FontSize>7pt</FontSize>
+                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
