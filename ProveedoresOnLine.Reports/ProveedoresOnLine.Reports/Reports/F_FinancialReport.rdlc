@@ -196,7 +196,6 @@
                               <Value>Cuenta</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -232,7 +231,6 @@
                               <Value>="Balance Año " + Parameters!BalanceLastYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -268,7 +266,6 @@
                               <Value>="Análisis vertical año " + Parameters!BalanceLastYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -304,7 +301,6 @@
                               <Value>= "Balance año " + Parameters!BalanceOldYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -340,7 +336,6 @@
                               <Value>= "Análisis vertical año " + Parameters!BalanceOldYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -376,7 +371,6 @@
                               <Value>= "Análisis horizontal"</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -689,7 +683,6 @@
                               <Value>Concepto</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -725,7 +718,6 @@
                               <Value>= "Año " + Parameters!BalanceLastYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -761,7 +753,6 @@
                               <Value>= "Año " + Parameters!BalanceOldYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -797,7 +788,6 @@
                               <Value EvaluationMode="Constant">Unidad</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -833,7 +823,6 @@
                               <Value EvaluationMode="Constant">Formula</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -869,7 +858,6 @@
                               <Value EvaluationMode="Constant">Interpretación</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -4428,6 +4416,7 @@
               <TextRun>
                 <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. </Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -4442,6 +4431,7 @@
                 <Value>Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe, 
 PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -4454,7 +4444,7 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
         <rd:DefaultName>Textbox64</rd:DefaultName>
         <Top>33.71281cm</Top>
         <Left>0.57478cm</Left>
-        <Height>2.21946cm</Height>
+        <Height>2.29305cm</Height>
         <Width>15.67477cm</Width>
         <ZIndex>64</ZIndex>
         <Style>

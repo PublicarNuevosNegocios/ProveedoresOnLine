@@ -11,8 +11,8 @@
               <TextRun>
                 <Value>Proveedor:</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -25,7 +25,7 @@
         <Top>0.60019cm</Top>
         <Left>0.40672cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.1953cm</Width>
+        <Width>2.59218cm</Width>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -47,8 +47,8 @@
               <TextRun>
                 <Value>Identificación:</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -58,10 +58,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.25487cm</Top>
+        <Top>1.38187cm</Top>
         <Left>0.40672cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.1953cm</Width>
+        <Width>2.59218cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -95,9 +95,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
         <Top>0.60019cm</Top>
-        <Left>2.77841cm</Left>
+        <Left>3.17528cm</Left>
         <Height>0.57354cm</Height>
-        <Width>13.32487cm</Width>
+        <Width>12.928cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -130,10 +130,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.24429cm</Top>
-        <Left>2.77841cm</Left>
+        <Top>1.37129cm</Top>
+        <Left>3.17528cm</Left>
         <Height>0.57354cm</Height>
-        <Width>13.32489cm</Width>
+        <Width>12.92801cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -156,8 +156,8 @@
               <TextRun>
                 <Value>Evaluación:</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -167,10 +167,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>2.42521cm</Top>
+        <Top>2.13946cm</Top>
         <Left>0.40672cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.1953cm</Width>
+        <Width>2.59218cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -193,8 +193,8 @@
               <TextRun>
                 <Value>Estado</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -230,8 +230,8 @@
               <TextRun>
                 <Value>Calificación</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -267,8 +267,8 @@
               <TextRun>
                 <Value>Fecha de incio</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -304,8 +304,8 @@
               <TextRun>
                 <Value>Modificado el</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -341,8 +341,8 @@
               <TextRun>
                 <Value>Responsable</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -388,10 +388,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>2.42521cm</Top>
-        <Left>2.77841cm</Left>
+        <Top>2.13946cm</Top>
+        <Left>3.17528cm</Left>
         <Height>0.57354cm</Height>
-        <Width>13.32489cm</Width>
+        <Width>12.92801cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -414,7 +414,8 @@
               <TextRun>
                 <Value>=Parameters!SurveyStatusName.Value</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -450,7 +451,8 @@
               <TextRun>
                 <Value>=Parameters!SurveyRating.Value</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -486,7 +488,8 @@
               <TextRun>
                 <Value>=Parameters!SurveyIssueDate.Value</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -522,7 +525,8 @@
               <TextRun>
                 <Value>=Parameters!SurveyLastModify.Value</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -558,7 +562,8 @@
               <TextRun>
                 <Value>=Parameters!SurveyResponsible.Value</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -616,7 +621,8 @@
                             <TextRun>
                               <Value>Evaluador</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -650,7 +656,8 @@
                             <TextRun>
                               <Value>Estado</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -684,7 +691,8 @@
                             <TextRun>
                               <Value>Calificación</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -718,7 +726,8 @@
                             <TextRun>
                               <Value>Progreso</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -757,7 +766,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyEvaluatorDetail.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -789,7 +799,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyStatusNameDetail.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -821,7 +832,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyRatingDetail.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -853,7 +865,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyProgressDetail.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -912,13 +925,13 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>10.21631cm</Width>
+              <Width>10.48089cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.48878cm</Width>
+              <Width>2.75336cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.19774cm</Width>
+              <Width>2.46232cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -936,7 +949,8 @@
                             <TextRun>
                               <Value>Area</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -970,7 +984,8 @@
                             <TextRun>
                               <Value>Promedio</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1004,7 +1019,8 @@
                             <TextRun>
                               <Value>Peso (%)</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1043,7 +1059,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyAreaName.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1075,7 +1092,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyAreaRating.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1107,7 +1125,8 @@
                             <TextRun>
                               <Value>=Fields!SurveyAreaWeight.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1150,10 +1169,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_SurveyGeneralInfoAreas</DataSetName>
-        <Top>8.9646cm</Top>
-        <Left>0.64672cm</Left>
+        <Top>9.5996cm</Top>
+        <Left>0.40672cm</Left>
         <Height>1.14708cm</Height>
-        <Width>14.90283cm</Width>
+        <Width>15.69657cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -1161,35 +1180,38 @@
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox27">
+      <Textbox Name="Textbox26">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>DETALLE DE LAS AREAS DE EVALUACIÓN</Value>
+                <Value>   Detalle de las áreas de evaluación:</Value>
                 <Style>
-                  <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
+                  <Color>DimGray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
+            <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Textbox27</rd:DefaultName>
-        <Top>8.22349cm</Top>
-        <Left>4.19383cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.72753cm</Width>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>8.55261cm</Top>
+        <Height>0.78521cm</Height>
+        <Width>16.47911cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <BottomBorder>
+            <Color>#f87b00</Color>
+            <Style>Solid</Style>
+          </BottomBorder>
+          <BackgroundColor>#ececec</BackgroundColor>
+          <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -1197,129 +1219,72 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>4.25in</Height>
+    <Height>4.47056in</Height>
     <Style />
   </Body>
   <Width>6.48784in</Width>
   <Page>
     <PageHeader>
-      <Height>3.8116cm</Height>
+      <Height>2.17118cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Textbox Name="sv_survey_tittle3">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=Parameters!CustomerIdentificationType.Value + ": " + Parameters!CustomerIdentification.Value</Value>
+        <Rectangle Name="Rectangle1">
+          <ReportItems>
+            <Textbox Name="sv_survey_tittle">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>REPORTE GENERAL DE EVALUACIÓN DE DESEMPEÑO</Value>
+                      <Style>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>16pt</FontSize>
+                        <Color>White</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
                   <Style>
-                    <FontSize>8pt</FontSize>
+                    <TextAlign>Center</TextAlign>
                   </Style>
-                </TextRun>
-              </TextRuns>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
+              <Top>0.57641cm</Top>
+              <Height>0.865cm</Height>
+              <Width>12.66203cm</Width>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
               </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-          <Top>1.96342cm</Top>
-          <Left>0.40673cm</Left>
-          <Height>0.52104cm</Height>
-          <Width>15.69657cm</Width>
+            </Textbox>
+          </ReportItems>
+          <KeepTogether>true</KeepTogether>
+          <Left>3.81708cm</Left>
+          <Height>2.01167cm</Height>
+          <Width>12.66203cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
             </Border>
-            <VerticalAlign>Middle</VerticalAlign>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
+            <BackgroundColor>#f87b00</BackgroundColor>
           </Style>
-        </Textbox>
-        <Textbox Name="sv_survey_tittle2">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=Parameters!CustomerName.Value</Value>
-                  <Style>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-          <Top>0.3175cm</Top>
-          <Left>0.40673cm</Left>
-          <Height>0.58101cm</Height>
-          <Width>15.69657cm</Width>
-          <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <VerticalAlign>Middle</VerticalAlign>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="sv_survey_tittle">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>REPORTE GENERAL DE EVALUACIÓN DE DESEMPEÑO</Value>
-                  <Style>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-          <Top>2.9466cm</Top>
-          <Left>0.40673cm</Left>
-          <Height>0.52104cm</Height>
-          <Width>15.69655cm</Width>
-          <ZIndex>2</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <VerticalAlign>Middle</VerticalAlign>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
+        </Rectangle>
         <Image Name="Image1">
           <Source>External</Source>
           <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>1.02472cm</Top>
-          <Left>7.07892cm</Left>
-          <Height>0.90097cm</Height>
-          <Width>2.35536cm</Width>
-          <ZIndex>3</ZIndex>
+          <Height>2.01167cm</Height>
+          <Width>3.64069cm</Width>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1333,6 +1298,53 @@
         </Border>
       </Style>
     </PageHeader>
+    <PageFooter>
+      <Height>1.48167cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox17">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>="PROVEEDORES ONLINE - www.proveedoresonline.co - ©2016 Publicar S.A" + System.Environment.NewLine + Parameters!CustomerName.Value + System.Environment.NewLine + Parameters!CustomerIdentificationType.Value + " . " + Parameters!CustomerIdentification.Value</Value>
+                  <Style>
+                    <FontFamily>Segoe UI Light</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox9</rd:DefaultName>
+          <Top>0.24504cm</Top>
+          <Left>0.1274cm</Left>
+          <Height>0.97042cm</Height>
+          <Width>16.22431cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>

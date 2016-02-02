@@ -13,6 +13,7 @@
                   <TextRun>
                     <Value>=Parameters!NameResult.Value</Value>
                     <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
                       <FontSize>9pt</FontSize>
                     </Style>
                   </TextRun>
@@ -132,9 +133,8 @@
               <TextRun>
                 <Value>Nombre encontrado:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -151,7 +151,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -167,9 +166,8 @@
               <TextRun>
                 <Value>Tipo de documento:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -186,7 +184,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -202,9 +199,8 @@
               <TextRun>
                 <Value>Número de Indentificación:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -221,7 +217,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -237,9 +232,8 @@
               <TextRun>
                 <Value>Zona:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -256,7 +250,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -272,9 +265,8 @@
               <TextRun>
                 <Value>Prioridad:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -291,7 +283,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -307,9 +298,8 @@
               <TextRun>
                 <Value>Cargo o delito:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -326,7 +316,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -342,9 +331,8 @@
               <TextRun>
                 <Value>Peps:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -361,7 +349,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -377,9 +364,8 @@
               <TextRun>
                 <Value>Nombre de lista:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -396,7 +382,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -412,9 +397,8 @@
               <TextRun>
                 <Value>Alias:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -431,7 +415,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -447,9 +430,8 @@
               <TextRun>
                 <Value>Ultima actualización:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -466,7 +448,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -482,9 +463,8 @@
               <TextRun>
                 <Value>Fecha de creación:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -501,7 +481,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -517,9 +496,8 @@
               <TextRun>
                 <Value>Link:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -536,7 +514,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -552,9 +529,8 @@
               <TextRun>
                 <Value>Más información:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>Gray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -571,7 +547,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundColor>#ececec</BackgroundColor>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -587,6 +562,7 @@
               <TextRun>
                 <Value>=Parameters!IdentificationType.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -619,6 +595,7 @@
               <TextRun>
                 <Value>=Parameters!IdentificationNumber.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -651,6 +628,7 @@
               <TextRun>
                 <Value>=Parameters!Offence.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -683,6 +661,7 @@
               <TextRun>
                 <Value>=Parameters!ListName.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -747,6 +726,7 @@
               <TextRun>
                 <Value>=Parameters!Link.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -779,6 +759,7 @@
               <TextRun>
                 <Value>=Parameters!Priority.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -811,6 +792,7 @@
               <TextRun>
                 <Value>=Parameters!Peps.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -843,6 +825,7 @@
               <TextRun>
                 <Value>=Parameters!Alias.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -907,6 +890,7 @@
               <TextRun>
                 <Value>=Parameters!Zone.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -939,6 +923,7 @@
               <TextRun>
                 <Value>=Parameters!MoreInformation.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -971,7 +956,8 @@
               <TextRun>
                 <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. </Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -985,7 +971,8 @@
                 <Value>Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe, 
 PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -997,7 +984,7 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
         <rd:DefaultName>Textbox64</rd:DefaultName>
         <Top>17.41302cm</Top>
         <Left>0.16156cm</Left>
-        <Height>2.0396cm</Height>
+        <Height>2.23122cm</Height>
         <Width>16.31955cm</Width>
         <ZIndex>27</ZIndex>
         <Style>
@@ -1199,7 +1186,8 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
                     <TextRun>
                       <Value>="REPORTE DE COINCIDENCIA CONSULTA DE TERCEROS"</Value>
                       <Style>
-                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>16pt</FontSize>
                         <Color>White</Color>
                       </Style>
                     </TextRun>
@@ -1211,7 +1199,7 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0.66675cm</Top>
-              <Height>0.6cm</Height>
+              <Height>0.83813cm</Height>
               <Width>12.53972cm</Width>
               <Style>
                 <Border>
