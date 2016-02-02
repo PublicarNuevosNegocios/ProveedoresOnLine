@@ -3337,7 +3337,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>27.18126cm</Top>
+        <Top>27.53051cm</Top>
         <Left>0.03298cm</Left>
         <Height>0.89986cm</Height>
         <Width>16.6cm</Width>
@@ -3358,7 +3358,7 @@
               <TextRun>
                 <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. </Value>
                 <Style>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>6pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -3372,7 +3372,7 @@
                 <Value>Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe, 
 PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
                 <Style>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>6pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -3382,9 +3382,9 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox64</rd:DefaultName>
-        <Top>28.22223cm</Top>
+        <Top>28.57148cm</Top>
         <Left>0.45996cm</Left>
-        <Height>2.21946cm</Height>
+        <Height>1.558cm</Height>
         <Width>15.67477cm</Width>
         <ZIndex>60</ZIndex>
         <Style>
@@ -3399,7 +3399,7 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>12.10992in</Height>
+    <Height>11.9745in</Height>
     <Style />
   </Body>
   <Width>6.5614in</Width>

@@ -4395,7 +4395,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>32.67184cm</Top>
+        <Top>32.98934cm</Top>
         <Left>0.1478cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.6cm</Width>
@@ -4416,8 +4416,7 @@
               <TextRun>
                 <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. </Value>
                 <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>6pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -4431,8 +4430,7 @@
                 <Value>Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe, 
 PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
                 <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>6pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -4442,9 +4440,9 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox64</rd:DefaultName>
-        <Top>33.71281cm</Top>
+        <Top>34.03031cm</Top>
         <Left>0.57478cm</Left>
-        <Height>2.29305cm</Height>
+        <Height>1.44638cm</Height>
         <Width>15.67477cm</Width>
         <ZIndex>64</ZIndex>
         <Style>
@@ -4459,10 +4457,10 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>14.24498in</Height>
+    <Height>14.04706in</Height>
     <Style />
   </Body>
-  <Width>6.65181in</Width>
+  <Width>6.59362in</Width>
   <Page>
     <PageHeader>
       <Height>1.77042cm</Height>
@@ -4492,7 +4490,7 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
           <rd:DefaultName>Textbox4</rd:DefaultName>
           <Left>3.69901cm</Left>
           <Height>1.4cm</Height>
-          <Width>12.91cm</Width>
+          <Width>13.04879cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
