@@ -91,30 +91,34 @@
                         </li>
                     }
                     <li>
-                        <a class="POMPButtons" href="javascript:Provider_FinancialObject.BalanceSheet_Search('@oViewName');">Consultar</a>
-                        <form id="frmProviderUpsert"
-                              method="post"
-                              action="@(Url.Action
-                                    (MVC.Provider.ActionNames.GIProviderInfo,
-                                    MVC.Provider.Name,
-                                    new
-                                    {
-                                        ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                                    }))">
-                        </form>
-                        <div class="POMPDownloadReportsTop">
-                            <form id="frmProviderUpsert"
-                                  method="post"
-                                  action="@(Url.Action
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="POMPButtons" href="javascript:Provider_FinancialObject.BalanceSheet_Search('@oViewName');">Consultar</a>
+                                <form id="frmProviderUpsert"
+                                      method="post"
+                                      action="@(Url.Action
+                                            (MVC.Provider.ActionNames.GIProviderInfo,
+                                            MVC.Provider.Name,
+                                            new
+                                            {
+                                                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            }))">
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <form id="frmProviderUpsert"
+                                      method="post"
+                                      action="@(Url.Action
                                     (MVC.Provider.ActionNames.FIBalanceSheetInfo,
                                     MVC.Provider.Name,
                                     new
                                     {
                                         ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                     }))">
-                                <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                <input type="hidden" name="DownloadReportFinancial" value="true" />
-                            </form>
+                                    <button class="POMPButtonDownloadReport_Provider POMPButtonDownloadReport_fib" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                    <input type="hidden" name="DownloadReportFinancial" value="true" />
+                                </form>
+                            </div>
                         </div>
                     </li>
                 </ul>
