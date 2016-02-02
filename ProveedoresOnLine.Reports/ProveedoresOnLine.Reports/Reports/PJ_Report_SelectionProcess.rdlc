@@ -84,7 +84,6 @@
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -97,7 +96,7 @@
         <Top>4.52545cm</Top>
         <Left>13.74354cm</Left>
         <Height>0.56295cm</Height>
-        <Width>3.12386cm</Width>
+        <Width>2.85927cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -121,7 +120,6 @@
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -193,8 +191,7 @@
                 <Value>NÚMERO DEL PROCESO DE SELECCIÓN</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -267,7 +264,6 @@
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -316,7 +312,7 @@
         <Top>1.22929cm</Top>
         <Left>4.26978cm</Left>
         <Height>0.57354cm</Height>
-        <Width>12.59761cm</Width>
+        <Width>12.33303cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -388,7 +384,7 @@
         <Top>1.97922cm</Top>
         <Left>12.73784cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.12955cm</Width>
+        <Width>3.86496cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -424,7 +420,7 @@
         <Top>5.0884cm</Top>
         <Left>13.74354cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.12386cm</Width>
+        <Width>2.85927cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -568,7 +564,7 @@
         <Top>3.48261cm</Top>
         <Left>4.30506cm</Left>
         <Height>0.57354cm</Height>
-        <Width>12.56233cm</Width>
+        <Width>12.29774cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -604,7 +600,7 @@
         <Top>7.29382cm</Top>
         <Left>0.60253cm</Left>
         <Height>0.57354cm</Height>
-        <Width>16.26486cm</Width>
+        <Width>16.00028cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -675,7 +671,7 @@
         <Top>2.73268cm</Top>
         <Left>4.30506cm</Left>
         <Height>0.57354cm</Height>
-        <Width>12.56233cm</Width>
+        <Width>12.29774cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
@@ -692,22 +688,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.71081cm</Width>
+              <Width>2.66671cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.71081cm</Width>
+              <Width>2.66671cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.71081cm</Width>
+              <Width>2.66671cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.71081cm</Width>
+              <Width>2.66671cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.71081cm</Width>
+              <Width>2.66671cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.71081cm</Width>
+              <Width>2.66671cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1150,7 +1146,7 @@
         <Top>9.63294cm</Top>
         <Left>0.60253cm</Left>
         <Height>1.2cm</Height>
-        <Width>16.26486cm</Width>
+        <Width>16.00028cm</Width>
         <ZIndex>19</ZIndex>
         <Style>
           <Border>
@@ -1181,7 +1177,7 @@
         <Top>0.34078cm</Top>
         <Left>0.60253cm</Left>
         <Height>0.6cm</Height>
-        <Width>16.26486cm</Width>
+        <Width>16.00027cm</Width>
         <ZIndex>20</ZIndex>
         <Style>
           <Border>
@@ -1196,18 +1192,6 @@
       </Textbox>
       <Rectangle Name="Rectangle4">
         <ReportItems>
-          <Line Name="Line1">
-            <Top>0.86cm</Top>
-            <Left>0.00904cm</Left>
-            <Height>0cm</Height>
-            <Width>17.20854cm</Width>
-            <Style>
-              <Border>
-                <Color>#f87b00</Color>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
           <Textbox Name="Textbox6">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1230,7 +1214,6 @@
             <Left>0.41795cm</Left>
             <Height>0.6cm</Height>
             <Width>4.09626cm</Width>
-            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1246,55 +1229,41 @@
         <Top>6.10866cm</Top>
         <Left>0.0996cm</Left>
         <Height>0.88646cm</Height>
-        <Width>17.21758cm</Width>
+        <Width>16.50321cm</Width>
         <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <BottomBorder>
+            <Color>#f87b00</Color>
+            <Style>Solid</Style>
+            <Width>1pt</Width>
+          </BottomBorder>
           <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
       <Rectangle Name="Rectangle5">
-        <ReportItems>
-          <Line Name="Line2">
-            <Top>0.86cm</Top>
-            <Height>0cm</Height>
-            <Width>17.20854cm</Width>
-            <Style>
-              <Border>
-                <Color>#f87b00</Color>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
-        </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>8.31793cm</Top>
         <Left>0.10864cm</Left>
         <Height>0.89104cm</Height>
-        <Width>17.20854cm</Width>
+        <Width>16.49416cm</Width>
         <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <BottomBorder>
+            <Color>#f87b00</Color>
+            <Style>Solid</Style>
+            <Width>1pt</Width>
+          </BottomBorder>
           <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
       <Rectangle Name="Rectangle13">
         <ReportItems>
-          <Line Name="Line10">
-            <Top>0.86cm</Top>
-            <Height>0cm</Height>
-            <Width>17.23167cm</Width>
-            <Style>
-              <Border>
-                <Color>#f87b00</Color>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
           <Textbox Name="Textbox64">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1317,7 +1286,6 @@
             <Left>0.4882cm</Left>
             <Height>0.6cm</Height>
             <Width>4.27876cm</Width>
-            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1333,12 +1301,17 @@
         <Top>12.58365cm</Top>
         <Left>0.08551cm</Left>
         <Height>0.86458cm</Height>
-        <Width>17.23167cm</Width>
+        <Width>16.5173cm</Width>
         <ZIndex>23</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <BottomBorder>
+            <Color>#f87b00</Color>
+            <Style>Solid</Style>
+            <Width>1pt</Width>
+          </BottomBorder>
           <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
@@ -1379,7 +1352,7 @@
         <Top>13.62462cm</Top>
         <Left>0.60253cm</Left>
         <Height>2.21946cm</Height>
-        <Width>16.26486cm</Width>
+        <Width>16.00028cm</Width>
         <ZIndex>24</ZIndex>
         <Style>
           <Border>
@@ -1416,7 +1389,7 @@
         <Top>11.49293cm</Top>
         <Left>0.60253cm</Left>
         <Height>0.57354cm</Height>
-        <Width>16.26486cm</Width>
+        <Width>16.00028cm</Width>
         <ZIndex>25</ZIndex>
         <Style>
           <Border>
@@ -1433,10 +1406,10 @@
     <Height>6.34827in</Height>
     <Style />
   </Body>
-  <Width>6.86325in</Width>
+  <Width>6.81779in</Width>
   <Page>
     <PageHeader>
-      <Height>1.79917cm</Height>
+      <Height>1.7198cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1525,7 +1498,7 @@
           <Top>0.38792cm</Top>
           <Left>0.57371cm</Left>
           <Height>0.97042cm</Height>
-          <Width>16.29368cm</Width>
+          <Width>16.0291cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
