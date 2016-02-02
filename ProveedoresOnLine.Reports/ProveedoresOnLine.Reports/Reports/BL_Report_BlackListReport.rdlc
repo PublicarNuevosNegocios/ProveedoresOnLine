@@ -11,9 +11,8 @@
               <TextRun>
                 <Value>Usuario:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>DimGray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -44,6 +43,7 @@
               <TextRun>
                 <Value>=Parameters!User.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                   <Color>Gray</Color>
                 </Style>
@@ -77,9 +77,8 @@
               <TextRun>
                 <Value>Fecha de consulta:</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                  <Color>DimGray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -111,6 +110,7 @@
               <TextRun>
                 <Value>=Parameters!CreateDate.Value</Value>
                 <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
                   <Color>Gray</Color>
                 </Style>
@@ -193,7 +193,8 @@
                             <TextRun>
                               <Value>Nombre/R-Social</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -205,11 +206,9 @@
                       <rd:DefaultName>Textbox1</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -229,7 +228,8 @@
                             <TextRun>
                               <Value>Identificación</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -241,11 +241,9 @@
                       <rd:DefaultName>Textbox4</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -265,7 +263,8 @@
                             <TextRun>
                               <Value>Cargo</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -277,10 +276,9 @@
                       <rd:DefaultName>Textbox8</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -300,7 +298,8 @@
                             <TextRun>
                               <Value>Prioridad</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -312,11 +311,9 @@
                       <rd:DefaultName>Textbox6</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -336,7 +333,8 @@
                             <TextRun>
                               <Value>Grupo Lista</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -348,11 +346,9 @@
                       <rd:DefaultName>Textbox10</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -372,7 +368,8 @@
                             <TextRun>
                               <Value>Lista</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -384,11 +381,9 @@
                       <rd:DefaultName>Textbox13</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -408,7 +403,8 @@
                             <TextRun>
                               <Value>Deilito/cargo</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -420,11 +416,9 @@
                       <rd:DefaultName>Textbox15</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -444,7 +438,8 @@
                             <TextRun>
                               <Value>Estado</Value>
                               <Style>
-                                <FontWeight>Bold</FontWeight>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -456,11 +451,9 @@
                       <rd:DefaultName>Textbox17</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
-                        <BackgroundColor>LightGrey</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -484,7 +477,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!name.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -493,9 +489,8 @@
                       <rd:DefaultName>name</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -515,7 +510,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!id.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -524,9 +522,8 @@
                       <rd:DefaultName>id</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -546,7 +543,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!cargo.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -555,9 +555,8 @@
                       <rd:DefaultName>cargo1</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -577,7 +576,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!prioridad.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -588,9 +590,8 @@
                       <rd:DefaultName>prioridad</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -610,7 +611,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!grupo_lista.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -619,9 +623,8 @@
                       <rd:DefaultName>grupo_lista</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -641,7 +644,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!lista.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -652,9 +658,8 @@
                       <rd:DefaultName>lista</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -674,7 +679,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!delito_cargo.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -683,9 +691,8 @@
                       <rd:DefaultName>delito_cargo</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -705,7 +712,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!estado.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -716,9 +726,8 @@
                       <rd:DefaultName>estado</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
+                          <Color>LightGrey</Color>
                           <Style>Solid</Style>
-                          <Width>0.75pt</Width>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -758,7 +767,7 @@
         <Top>1.02514in</Top>
         <Left>0.18in</Left>
         <Height>0.5in</Height>
-        <Width>9.68035in</Width>
+        <Width>9.68039in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -920,41 +929,6 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
         </Image>
         <Rectangle Name="Rectangle1">
           <ReportItems>
-            <Textbox Name="Textbox11">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Parameters!CustomerName.Value + " " + Parameters!CustomerIdentificationType.Value + " . " + Parameters!CustomerIdentification.Value</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                        <Color>White</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox10</rd:DefaultName>
-              <Top>0.77453cm</Top>
-              <Left>0.22309cm</Left>
-              <Height>1.07839cm</Height>
-              <Width>20.66924cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
             <Textbox Name="Textbox2">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -964,7 +938,8 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
                     <TextRun>
                       <Value>="REPORTE CONSULTAS LISTAS RESTRICTIVAS"</Value>
                       <Style>
-                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>16pt</FontSize>
                         <Color>#f6f6f6</Color>
                       </Style>
                     </TextRun>
@@ -975,11 +950,10 @@ PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
-              <Top>0.22225cm</Top>
+              <Top>0.53975cm</Top>
               <Left>0.22309cm</Left>
-              <Height>0.6cm</Height>
+              <Height>0.99688cm</Height>
               <Width>20.66924cm</Width>
-              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
