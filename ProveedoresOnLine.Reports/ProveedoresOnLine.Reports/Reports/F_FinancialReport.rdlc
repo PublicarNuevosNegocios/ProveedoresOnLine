@@ -196,7 +196,6 @@
                               <Value>Cuenta</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -232,7 +231,6 @@
                               <Value>="Balance Año " + Parameters!BalanceLastYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -268,7 +266,6 @@
                               <Value>="Análisis vertical año " + Parameters!BalanceLastYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -304,7 +301,6 @@
                               <Value>= "Balance año " + Parameters!BalanceOldYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -340,7 +336,6 @@
                               <Value>= "Análisis vertical año " + Parameters!BalanceOldYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -376,7 +371,6 @@
                               <Value>= "Análisis horizontal"</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -689,7 +683,6 @@
                               <Value>Concepto</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -725,7 +718,6 @@
                               <Value>= "Año " + Parameters!BalanceLastYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -761,7 +753,6 @@
                               <Value>= "Año " + Parameters!BalanceOldYear.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -797,7 +788,6 @@
                               <Value EvaluationMode="Constant">Unidad</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -833,7 +823,6 @@
                               <Value EvaluationMode="Constant">Formula</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -869,7 +858,6 @@
                               <Value EvaluationMode="Constant">Interpretación</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1136,7 +1124,7 @@
         <Top>19.18243cm</Top>
         <Left>0.46753cm</Left>
         <Height>1.2cm</Height>
-        <Width>16.19766cm</Width>
+        <Width>16.19765cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -4359,11 +4347,107 @@
           <FontSize>9pt</FontSize>
         </Style>
       </Tablix>
+      <Rectangle Name="Rectangle13">
+        <ReportItems>
+          <Line Name="Line10">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox63">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Información adicional</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.4882cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27876cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>32.98934cm</Top>
+        <Left>0.1478cm</Left>
+        <Height>0.86458cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>63</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Textbox Name="Textbox64">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>El presente informe es para uso interno y no puede ser reproducido, publicado o redistribuido, parcial ni totalmente, de forma alguna sin la autorización expresa de PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. Debido a la gran cantidad de fuentes de información utilizadas para la elaboración del presente informe,  PUBLICAR PUBLICIDAD MULTIMEDIA S.A.S. no se hace responsable de su uso para una finalidad en concreto. Por lo tanto no deberían ser los únicos elementos a tener en cuenta para su toma de decisiones.</Value>
+                <Style>
+                  <FontSize>7pt</FontSize>
+                  <Color>Gray</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox64</rd:DefaultName>
+        <Top>34.03031cm</Top>
+        <Left>0.57478cm</Left>
+        <Height>1.44638cm</Height>
+        <Width>15.67477cm</Width>
+        <ZIndex>64</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>12.88916in</Height>
+    <Height>14.04706in</Height>
     <Style />
   </Body>
-  <Width>6.65181in</Width>
+  <Width>6.59362in</Width>
   <Page>
     <PageHeader>
       <Height>1.77042cm</Height>
@@ -4393,7 +4477,7 @@
           <rd:DefaultName>Textbox4</rd:DefaultName>
           <Left>3.69901cm</Left>
           <Height>1.4cm</Height>
-          <Width>12.91cm</Width>
+          <Width>13.04879cm</Width>
           <Style>
             <Border>
               <Style>None</Style>

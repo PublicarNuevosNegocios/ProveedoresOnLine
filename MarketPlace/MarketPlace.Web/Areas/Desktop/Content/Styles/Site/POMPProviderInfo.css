@@ -17,6 +17,9 @@
     border: 0px !important;
     border-radius: 2px !important;
 }
+.POMPButtonDownloadReport_fib {
+    margin-top: 0.3px;
+}
 .POMPLinkDetail_Provider {
     font-weight: lighter;
     font-size: 1.05em;

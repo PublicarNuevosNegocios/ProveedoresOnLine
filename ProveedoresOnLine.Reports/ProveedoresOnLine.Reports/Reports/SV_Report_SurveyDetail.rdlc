@@ -2,209 +2,6 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Rectangle Name="Rectangle1">
-        <ReportItems>
-          <Line Name="Line1">
-            <Left>2.65875cm</Left>
-            <Height>1.68521cm</Height>
-            <Width>0cm</Width>
-            <Style>
-              <Border>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
-          <Line Name="Line2">
-            <Left>12.20756cm</Left>
-            <Height>1.68521cm</Height>
-            <Width>0cm</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
-          <Image Name="logo">
-            <Source>External</Source>
-            <Value>=Parameters!currentCompanyLogo.Value</Value>
-            <Sizing>FitProportional</Sizing>
-            <Top>0.15875cm</Top>
-            <Left>0.127cm</Left>
-            <Height>1.31479cm</Height>
-            <Width>2.32021cm</Width>
-            <ZIndex>2</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Image>
-          <Textbox Name="sv_survey_tittle">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>="EVALUACIÓN TÉCNICA DE PROVEEDORES " + Parameters!currentCompanyName.Value + " PRODUCTOS ALIMENTICIOS S.A."</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>sv_survey_tittle</rd:DefaultName>
-            <Top>0.15875cm</Top>
-            <Left>2.87042cm</Left>
-            <Height>1.31479cm</Height>
-            <Width>9.20132cm</Width>
-            <ZIndex>3</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <VerticalAlign>Middle</VerticalAlign>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox2">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Codigo:</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.22225cm</Top>
-            <Left>12.38515cm</Left>
-            <Height>0.6cm</Height>
-            <Width>1.65213cm</Width>
-            <ZIndex>4</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox3">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Version:</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.86011cm</Top>
-            <Left>12.38515cm</Left>
-            <Height>0.6cm</Height>
-            <Width>1.65214cm</Width>
-            <ZIndex>5</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="sv_survey_code">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>0000</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>sv_survey_code</rd:DefaultName>
-            <Top>0.22225cm</Top>
-            <Left>14.21367cm</Left>
-            <Height>0.6cm</Height>
-            <Width>1.60042cm</Width>
-            <ZIndex>6</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="sv_survey_version">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>01</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>sv_survey_version</rd:DefaultName>
-            <Top>0.87164cm</Top>
-            <Left>14.21367cm</Left>
-            <Height>0.6cm</Height>
-            <Width>1.60042cm</Width>
-            <ZIndex>7</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-        </ReportItems>
-        <KeepTogether>true</KeepTogether>
-        <Top>0.10989cm</Top>
-        <Left>0.2449cm</Left>
-        <Height>1.68521cm</Height>
-        <Width>16.0202cm</Width>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Rectangle>
       <Textbox Name="Textbox1">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -213,18 +10,19 @@
             <TextRuns>
               <TextRun>
                 <Value>Señores.</Value>
-                <Style />
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.41612cm</Top>
-        <Left>0.32578cm</Left>
+        <Top>1.38424cm</Top>
+        <Left>0.93432cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
-        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -243,18 +41,20 @@
             <TextRuns>
               <TextRun>
                 <Value>=Parameters!providerName.Value</Value>
-                <Style />
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>providerName</rd:DefaultName>
-        <Top>3.15723cm</Top>
-        <Left>0.31413cm</Left>
+        <Top>2.16063cm</Top>
+        <Left>0.93432cm</Left>
         <Height>0.6cm</Height>
-        <Width>12.07174cm</Width>
-        <ZIndex>2</ZIndex>
+        <Width>11.99237cm</Width>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -272,49 +72,21 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!providerTipoDni.Value + ":"</Value>
-                <Style />
+                <Value>= Parameters!providerTipoDni.Value + ": " + Parameters!providerDni.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>providerTipoDni</rd:DefaultName>
-        <Top>3.96888cm</Top>
-        <Left>0.32578cm</Left>
+        <Top>2.93702cm</Top>
+        <Left>0.93432cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.23cm</Width>
-        <ZIndex>3</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="providerDni">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!providerDni.Value</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>providerDni</rd:DefaultName>
-        <Top>3.96888cm</Top>
-        <Left>1.73217cm</Left>
-        <Height>0.6cm</Height>
-        <Width>5.14583cm</Width>
-        <ZIndex>4</ZIndex>
+        <Width>11.99237cm</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -333,17 +105,112 @@
             <TextRuns>
               <TextRun>
                 <Value>= "Se evaluó el periodo comprendido desde: "+ Parameters!dateStart.Value + " hasta: "+ Parameters!dateEnd.Value +" el día: "+ Parameters!reportDate.Value +" Donde arrojo el promedio equivalente a: "+Parameters!average.Value+"%."</Value>
-                <Style />
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox7</rd:DefaultName>
-        <Top>5.08753cm</Top>
-        <Left>0.25072cm</Left>
+        <Top>4.92878cm</Top>
+        <Left>0.93432cm</Left>
         <Height>0.6cm</Height>
-        <Width>16.0202cm</Width>
+        <Width>14.69419cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Rectangle Name="Rectangle4">
+        <ReportItems>
+          <Line Name="Line1">
+            <Top>0.86cm</Top>
+            <Left>0.00904cm</Left>
+            <Height>0cm</Height>
+            <Width>15.96383cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Observación:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.41795cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.09626cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>5.82363cm</Top>
+        <Left>0.11147cm</Left>
+        <Height>0.88646cm</Height>
+        <Width>15.97287cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Textbox Name="remarks2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>= Parameters!remarks.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>remarks</rd:DefaultName>
+        <Top>7.18394cm</Top>
+        <Left>0.93432cm</Left>
+        <Height>0.6cm</Height>
+        <Width>14.69419cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -355,27 +222,43 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Rectangle Name="marco">
+      <Rectangle Name="Rectangle5">
         <ReportItems>
-          <Textbox Name="remarks">
+          <Line Name="Line2">
+            <Top>0.86cm</Top>
+            <Left>0.00904cm</Left>
+            <Height>0cm</Height>
+            <Width>15.97618cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox8">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Autor: " + Parameters!author.Value</Value>
-                    <Style />
+                    <Value>Plan de acción:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>remarks</rd:DefaultName>
-            <Top>0.15875cm</Top>
-            <Left>0.15875cm</Left>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.41795cm</Left>
             <Height>0.6cm</Height>
-            <Width>15.66275cm</Width>
+            <Width>4.09626cm</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -388,80 +271,87 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>7.62835cm</Top>
-        <Left>0.24331cm</Left>
-        <Height>0.9175cm</Height>
-        <Width>16.0202cm</Width>
+        <Top>8.20488cm</Top>
+        <Left>0.09912cm</Left>
+        <Height>0.88646cm</Height>
+        <Width>15.98522cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
-            <Style>Solid</Style>
+            <Style>None</Style>
           </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
-      <Rectangle Name="marco2">
-        <ReportItems>
-          <Textbox Name="remarks2">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>="Observación: " + Parameters!remarks.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>remarks</rd:DefaultName>
-            <Left>0.15875cm</Left>
-            <Height>0.6cm</Height>
-            <Width>15.66699cm</Width>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-        </ReportItems>
+      <Textbox Name="remarks3">
+        <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
-        <Top>6.39335cm</Top>
-        <Left>0.23907cm</Left>
-        <Height>1.235cm</Height>
-        <Width>16.0202cm</Width>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>= Parameters!actionPlan.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>remarks</rd:DefaultName>
+        <Top>9.51227cm</Top>
+        <Left>0.93432cm</Left>
+        <Height>0.6cm</Height>
+        <Width>14.69419cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
-            <Style>Solid</Style>
+            <Style>None</Style>
           </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
         </Style>
-      </Rectangle>
-      <Rectangle Name="marco3">
+      </Textbox>
+      <Rectangle Name="Rectangle6">
         <ReportItems>
-          <Textbox Name="remarks3">
+          <Line Name="Line3">
+            <Top>0.86cm</Top>
+            <Left>0.00904cm</Left>
+            <Height>0cm</Height>
+            <Width>15.98522cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox9">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Plan de acción: " + Parameters!actionPlan.Value</Value>
-                    <Style />
+                    <Value>Responsable:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>remarks</rd:DefaultName>
-            <Left>0.15875cm</Left>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.41795cm</Left>
             <Height>0.6cm</Height>
-            <Width>15.66699cm</Width>
+            <Width>4.09626cm</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -474,38 +364,55 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>8.55235cm</Top>
-        <Left>0.23907cm</Left>
-        <Height>1.235cm</Height>
-        <Width>16.0202cm</Width>
+        <Top>10.6655cm</Top>
+        <Left>0.09008cm</Left>
+        <Height>0.88646cm</Height>
+        <Width>15.99426cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
-            <Style>Solid</Style>
+            <Style>None</Style>
           </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
-      <Rectangle Name="marco4">
+      <Rectangle Name="Rectangle7">
         <ReportItems>
-          <Textbox Name="remarks4">
+          <Line Name="Line4">
+            <Top>0.86cm</Top>
+            <Left>0.00904cm</Left>
+            <Height>0cm</Height>
+            <Width>15.99426cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox10">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Responsable: " + Parameters!providerName.Value + ". " + Parameters!providerTipoDni.Value +": " + Parameters!providerDni.Value</Value>
-                    <Style />
+                    <Value>Autor:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>remarks</rd:DefaultName>
-            <Top>0.15875cm</Top>
-            <Left>0.15875cm</Left>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.12347cm</Top>
+            <Left>0.41795cm</Left>
             <Height>0.6cm</Height>
-            <Width>15.66699cm</Width>
+            <Width>4.09626cm</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -518,23 +425,197 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>9.7906cm</Top>
-        <Left>0.23907cm</Left>
-        <Height>0.9175cm</Height>
-        <Width>16.0202cm</Width>
+        <Top>13.07321cm</Top>
+        <Left>0.08104cm</Left>
+        <Height>0.88646cm</Height>
+        <Width>16.0033cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
-            <Style>Solid</Style>
+            <Style>None</Style>
           </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
+      <Textbox Name="remarks">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>= Parameters!author.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>remarks</rd:DefaultName>
+        <Top>14.43352cm</Top>
+        <Left>0.88889cm</Left>
+        <Height>0.6cm</Height>
+        <Width>14.73962cm</Width>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="remarks4">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>= Parameters!providerName.Value + ". " + Parameters!providerTipoDni.Value +": " + Parameters!providerDni.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>remarks</rd:DefaultName>
+        <Top>11.89352cm</Top>
+        <Left>0.93432cm</Left>
+        <Height>0.6cm</Height>
+        <Width>14.69419cm</Width>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>4.31995in</Height>
+    <Height>6.06995in</Height>
     <Style />
   </Body>
-  <Width>6.5in</Width>
+  <Width>6.36367in</Width>
   <Page>
+    <PageHeader>
+      <Height>1.56104cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>REPORTE EVALUACIÓN TÉCNICA DE PROVEEDORES</Value>
+                  <Style>
+                    <FontFamily>Calibri</FontFamily>
+                    <FontSize>16pt</FontSize>
+                    <Color>White</Color>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Left>3.70816cm</Left>
+          <Height>1.4cm</Height>
+          <Width>12.37618cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <BackgroundColor>#f87b00</BackgroundColor>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>1pt</PaddingLeft>
+            <PaddingRight>1pt</PaddingRight>
+            <PaddingTop>1pt</PaddingTop>
+            <PaddingBottom>1pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="CustomerImage">
+          <Source>External</Source>
+          <Value>=Parameters!currentCompanyLogo.Value</Value>
+          <Sizing>Fit</Sizing>
+          <Left>0.10816cm</Left>
+          <Height>1.4cm</Height>
+          <Width>3.6cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageHeader>
+    <PageFooter>
+      <Height>1.24354cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox12">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>="PROVEEDORES ONLINE - www.proveedoresonline.co - ©2016 Publicar S.A"</Value>
+                  <Style>
+                    <FontFamily>Segoe UI Light</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox9</rd:DefaultName>
+          <Top>0.14979cm</Top>
+          <Left>0.10816cm</Left>
+          <Height>0.97042cm</Height>
+          <Width>15.97618cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <VerticalAlign>Middle</VerticalAlign>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>
