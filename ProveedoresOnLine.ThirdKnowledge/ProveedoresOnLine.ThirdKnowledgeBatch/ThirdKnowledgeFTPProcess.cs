@@ -51,8 +51,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             Stream responseStream = response.GetResponseStream();
                             StreamReader reader = new StreamReader(responseStream);
                             string xml = reader.ReadToEnd();
-                            XDocument CurrentXMLAnswer = XDocument.Parse(xml);
-                            List<BatchXMLResultModel> oResult = new List<BatchXMLResultModel>();
+                            XDocument CurrentXMLAnswer = XDocument.Parse(xml);                            
                             oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
                             //Set results to model
                             CurrentXMLAnswer.Descendants("Resultado").All(
@@ -224,7 +223,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                             Enable = true,
                                         });
                                         #endregion
-
+                                        oInfoCreate.DetailInfo = oInfoCreate.DetailInfo.OrderBy(y => y.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupId).
+                                                            ThenBy(y => y.Value).ToList();                                            
                                         oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
                                         #endregion
                                     }                                   
