@@ -45,13 +45,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          PlanId = cm.Field<int>("PlanId"),
                          PlanPublicId = cm.Field<string>("PlanPublicId"),
                          CompanyPublicId = cm.Field<string>("CompanyPublicId"),
+                         IsLimited = Enable = cm.Field<UInt64>("IsLimited") == 1 ? true : false,
                          QueriesByPeriod = cm.Field<int>("QueriesByPeriod"),
                          InitDate = cm.Field<DateTime>("InitDate"),
                          EndDate = cm.Field<DateTime>("EndDate"),
 
                          StatusId = cm.Field<int>("StatusId"),
                          StatusName = cm.Field<string>("StatusName"),
-
+                                                  
                          DaysByPeriod = cm.Field<int>("DaysByPeriod"),
                          Enable = cm.Field<UInt64>("Enable") == 1 ? true : false,
                          LastModify = cm.Field<DateTime>("LastModify"),
@@ -63,6 +64,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          DaysByPeriod = cmg.Key.DaysByPeriod,
                          PlanPublicId = cmg.Key.PlanPublicId,
                          QueriesByPeriod = cmg.Key.QueriesByPeriod,
+                         IsLimited = cmg.Key.IsLimited,
                          InitDate = cmg.Key.InitDate,
                          EndDate = cmg.Key.EndDate,
                          Status = new TDCatalogModel()
@@ -81,6 +83,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              {
                                  PeriodPublicId = pinf.Field<string>("PeriodPublicId"),
                                  AssignedQueries = pinf.Field<int>("AssignedQueries"),
+                                 PerIsLimited = pinf.Field<UInt64>("PerIsLimited") == 1 ? true : false,
                                  InitDate = pinf.Field<DateTime>("InfoInitDate"),
                                  EndDate = pinf.Field<DateTime>("InfoEndDate"),
                                  TotalQueries = pinf.Field<int>("TotalQueries"),
@@ -92,6 +95,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              {
                                  AssignedQueries = pinfgr.Key.AssignedQueries,
                                  PeriodPublicId = pinfgr.Key.PeriodPublicId,
+                                 IsLimited = pinfgr.Key.PerIsLimited,
                                  InitDate = pinfgr.Key.InitDate,
                                  EndDate = pinfgr.Key.EndDate,
                                  TotalQueries = pinfgr.Key.TotalQueries,
@@ -104,7 +108,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
+        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, bool IsLimited, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -116,6 +120,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vInitDate", InitDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vEndDate", EndDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIsLimited", IsLimited == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -131,7 +136,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                 return null;
         }
 
-        public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
+        public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, bool IsLimited, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -142,6 +147,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vInitDate", InitDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vEndDate", EndDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIsLimited", IsLimited == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -183,6 +189,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                       group cm by new
                       {
                           PeriodPublicId = cm.Field<string>("PeriodPublicId"),
+                          IsLimited = Enable = cm.Field<UInt64>("IsLimited") == 1 ? true : false,
                           AssignedQueries = cm.Field<int>("AssignedQueries"),
                           InitDate = cm.Field<DateTime>("InitDate"),
                           EndDate = cm.Field<DateTime>("EndDate"),
@@ -194,6 +201,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                       select new PeriodModel()
                       {
                           AssignedQueries = cmg.Key.AssignedQueries,
+                          IsLimited = cmg.Key.IsLimited,
                           PeriodPublicId = cmg.Key.PeriodPublicId,
                           InitDate = cmg.Key.InitDate,
                           EndDate = cmg.Key.EndDate,
@@ -300,6 +308,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          QueriesByPeriod = cm.Field<int>("QueriesByPeriod"),
                          InitDate = cm.Field<DateTime>("InitDate"),
                          EndDate = cm.Field<DateTime>("EndDate"),
+                         PlanIsLimited = cm.Field<UInt64>("IsLimited") == 1 ? true : false,
 
                          StatusId = cm.Field<int>("StatusId"),
                          StatusName = cm.Field<string>("StatusName"),
@@ -313,6 +322,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                      {
                          CompanyPublicId = CustomerPublicId,
                          DaysByPeriod = cmg.Key.DaysByPeriod,
+                         IsLimited = cmg.Key.PlanIsLimited,
                          PlanPublicId = cmg.Key.PlanPublicId,
                          QueriesByPeriod = cmg.Key.QueriesByPeriod,
                          InitDate = cmg.Key.InitDate,
@@ -333,6 +343,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              {
                                  PeriodPublicId = pinf.Field<string>("PeriodPublicId"),
                                  AssignedQueries = pinf.Field<int>("AssignedQueries"),
+                                 PerIsLimited = pinf.Field<UInt64>("PerIsLimited") == 1 ? true : false,
                                  InitDate = pinf.Field<DateTime>("PerInitDate"),
                                  EndDate = pinf.Field<DateTime>("PerEndDate"),
                                  TotalQueries = pinf.Field<int>("TotalQueries"),
@@ -344,6 +355,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                              {
                                  AssignedQueries = pinfgr.Key.AssignedQueries,
                                  PlanPublicId = cmg.Key.PlanPublicId,
+                                 IsLimited = pinfgr.Key.PerIsLimited,
                                  PeriodPublicId = pinfgr.Key.PeriodPublicId,
                                  InitDate = pinfgr.Key.InitDate,
                                  EndDate = pinfgr.Key.EndDate,

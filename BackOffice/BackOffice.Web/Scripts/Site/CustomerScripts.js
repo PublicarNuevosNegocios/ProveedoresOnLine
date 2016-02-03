@@ -100,7 +100,7 @@ var Customer_SearchObject = {
             }, {
                 title: 'Reporte',
                 template: function (dataItem) {
-                    return '<a href="' + BaseUrl.SiteUrl + 'Customer/DownloadReport?CustomerPublicId=' + dataItem.CustomerPublicId + '">Descargar proveedores</a>' ;
+                    return '<a href="' + BaseUrl.SiteUrl + 'Customer/DownloadReport?CustomerPublicId=' + dataItem.CustomerPublicId + '">Descargar proveedores</a>';
                 },
                 width: '32px'
             }, {
@@ -2151,6 +2151,7 @@ var ThirdKnowledgeObject = {
                             Status: { editable: true, nullable: false, validation: { requires: true } },
                             DaysByPeriod: { editable: true, nullable: false, validation: { requires: true } },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
+                            PlanIsLimited: { editable: true, type: 'boolean', defaultValue: false },
                         },
                     }
                 },
@@ -2230,6 +2231,20 @@ var ThirdKnowledgeObject = {
                 }
             },
             columns: [{
+                field: 'PlanIsLimited',
+                title: 'Consultas Ilimitadas',
+                width: '160px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.PlanIsLimited == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'QueriesByPeriod',
                 title: 'Consultas por periodo',
                 width: '160px',
@@ -2357,6 +2372,7 @@ var ThirdKnowledgeObject = {
                             PeriodEndDate: { editable: true, nullable: false, validation: { requires: true } },
                             TotalQueries: { editable: true, nullable: false, validation: { requires: true } },
                             PeriodEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            PerIsLimited: { editable: true, type: 'boolean', defaultValue: true },
                             PeriodLastModify: { editable: true, nullable: false, validation: { requires: true } },
                             PeriodCreateDate: { editable: true, nullable: false, validation: { requires: true } },
                         },
@@ -2433,6 +2449,20 @@ var ThirdKnowledgeObject = {
                 }
             },
             columns: [{
+                field: 'PerIsLimited',
+                title: 'Consultas Ilimitadas',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.PerIsLimited == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'AssignedQueries',
                 title: 'Consultas Asignadas',
                 width: '150px',

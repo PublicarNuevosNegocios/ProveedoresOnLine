@@ -67,12 +67,12 @@
                 @(Html.Partial(Url.Content(strFieldType),
                                         new DocumentManagement.Models.Provider.ProviderFieldModel()
                                         {
-                                            ProviderPublicId = Model.ChangesControlModel.FirstOrDefault().ProviderPublicId,
+                                            ProviderPublicId = Model.ChangesControlModel.Count > 0 ? Model.ChangesControlModel.FirstOrDefault().ProviderPublicId : string.Empty,
                                             RenderScripts = false,
                                             RealtedField = Item,
-                                            RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
-                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                                ToList(),
+                                            RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo != null && Model.RealtedProvider.RelatedProviderInfo.Count > 0 ?
+                                                Model.RealtedProvider.RelatedProviderInfo.Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                ToList() : new List<DocumentManagement.Provider.Models.Provider.ProviderInfoModel>(),
                                             ProviderOptions = Model.ProviderOptions,
                                             FieldType = strFieldType,
                                             IsModified = Model.ShowChanges == true ? ShowChanges : false,
@@ -131,7 +131,7 @@ else
                 ProviderOptions = Model.ProviderOptions,
                 FieldType = strFieldType,
                 IsModified = Model.ShowChanges == true ? ShowChanges : false,
-                ProviderPublicId = Model.ChangesControlModel.FirstOrDefault().ProviderPublicId,
+                ProviderPublicId = Model.ChangesControlModel.Count > 0 ? Model.ChangesControlModel.FirstOrDefault().ProviderPublicId : string.Empty,
             };
         ItemModel.IsModified = Model.ShowChanges == true ? ShowChanges : false;
         if (ItemModel.RealtedField.IsRequired)

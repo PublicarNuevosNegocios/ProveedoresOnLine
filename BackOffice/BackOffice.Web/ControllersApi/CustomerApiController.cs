@@ -561,6 +561,7 @@ namespace BackOffice.Web.ControllersApi
                 oToUpsert.CreateDate = Convert.ToDateTime(oDataToUpsert.CreateDate);
                 oToUpsert.DaysByPeriod = oDataToUpsert.DaysByPeriod;
                 oToUpsert.Enable = oDataToUpsert.Enable;
+                oToUpsert.IsLimited = oDataToUpsert.PlanIsLimited;
                 oToUpsert.EndDate = Convert.ToDateTime(oDataToUpsert.EndDate);
                 oToUpsert.LastModify = DateTime.Now;
                 oToUpsert.PlanPublicId = oDataToUpsert.PlanPublicId;

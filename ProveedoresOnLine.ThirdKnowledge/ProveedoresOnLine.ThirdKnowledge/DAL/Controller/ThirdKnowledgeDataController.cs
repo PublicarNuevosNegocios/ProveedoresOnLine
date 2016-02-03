@@ -38,14 +38,14 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.GetAllPlanByCustomer(CustomerPublicId, Enable);
         }
 
-        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
+        public string PlanUpsert(string PlanPublicId, string CompanyPublicId, int QueriesByPeriod, bool IsLimited, int DaysByPeriod, TDCatalogModel Status, DateTime InitDate, DateTime EndDate, bool Enable)
         {
-            return DataFactory.PlanUpsert(PlanPublicId, CompanyPublicId, QueriesByPeriod, DaysByPeriod, Status, InitDate, EndDate, Enable);
+            return DataFactory.PlanUpsert(PlanPublicId, CompanyPublicId, QueriesByPeriod, IsLimited, DaysByPeriod, Status, InitDate, EndDate, Enable);
         }
 
-        public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
+        public string PeriodUpsert(string PeriodPublicId, string PlanPublicId, int AssignedQueries, bool IsLimited, int TotalQueries, DateTime InitDate, DateTime EndDate, bool Enable)
         {
-            return DataFactory.PeriodUpsert(PeriodPublicId, PlanPublicId, AssignedQueries, TotalQueries, InitDate, EndDate, Enable);
+            return DataFactory.PeriodUpsert(PeriodPublicId, PlanPublicId, AssignedQueries, IsLimited, TotalQueries, InitDate, EndDate, Enable);
         }
 
         public List<PeriodModel> GetPeriodByPlanPublicId(string PlanPublicId, bool Enable)
