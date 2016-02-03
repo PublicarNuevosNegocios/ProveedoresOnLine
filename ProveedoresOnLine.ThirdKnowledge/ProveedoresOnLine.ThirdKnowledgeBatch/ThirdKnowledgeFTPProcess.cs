@@ -161,7 +161,21 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                             {
                                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
                                             },
-                                            Value = !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value : string.Empty,
+                                            Value = !string.IsNullOrEmpty(x.Element("IdGrupoLista").Value) && 
+                                                    x.Element("IdGrupoLista").Value == "1" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Alta": string.Empty :
+                                                    x.Element("IdGrupoLista").Value == "2" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Media" : string.Empty :
+                                                    x.Element("IdGrupoLista").Value == "3" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Media" : string.Empty :
+                                                    x.Element("IdGrupoLista").Value == "4" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Baja" : string.Empty :
+                                                    string.Empty,
+                                            Enable = true,
+                                        });
+                                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                        {
+                                            ItemInfoType = new TDCatalogModel()
+                                            {
+                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupId,
+                                            },
+                                            Value = !string.IsNullOrEmpty(x.Element("IdGrupoLista").Value) ? x.Element("IdGrupoLista").Value : string.Empty,
                                             Enable = true,
                                         });
                                         oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()

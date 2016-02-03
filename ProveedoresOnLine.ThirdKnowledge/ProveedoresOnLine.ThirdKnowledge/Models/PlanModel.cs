@@ -13,6 +13,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
         public string CompanyPublicId { get; set; }
 
         public int QueriesByPeriod { get; set; }
+        
+        public bool  IsLimited { get; set; }
 
         public DateTime InitDate { get; set; }
 

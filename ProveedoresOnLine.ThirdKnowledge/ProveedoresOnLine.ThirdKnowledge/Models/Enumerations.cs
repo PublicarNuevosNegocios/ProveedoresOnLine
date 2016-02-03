@@ -19,17 +19,18 @@
             RequestName = 301013,
             QueryId = 301014,
             GroupName = 301015,
+            GroupId = 301022,
             Link = 301016,
             MoreInfo = 301017,
             Zone = 301018,
             LastModifyDate = 301019,
             RegisterDate = 301020,
-            FileURL = 301021,
+            FileURL = 301021,            
         }
 
         public enum enumNotificationType
         {
             ThirdKnowledgeNotification = 1801001,
-        }
+        }        
     }
 }
