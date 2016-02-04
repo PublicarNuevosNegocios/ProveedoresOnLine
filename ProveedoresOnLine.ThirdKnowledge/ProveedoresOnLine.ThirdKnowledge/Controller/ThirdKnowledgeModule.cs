@@ -37,7 +37,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 if (Result != null && Result.FirstOrDefault().IdConsulta != "No existen registros asociados a los parámetros de consulta.")
                 {
-                    Result = Result.OrderByDescending(x => x.IdTipoLista).ToArray();
+                    Result = Result.OrderBy(x => x.IdGrupo).ToArray();
                     #region Answer Procces
                     Result.All(x =>
                                    {
@@ -152,7 +152,21 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
                                                },
-                                               Value = !string.IsNullOrEmpty(x.NombreGrupo) ? x.NombreGrupo : string.Empty,
+                                               Value = !string.IsNullOrEmpty(x.IdGrupo) &&
+                                                        x.IdGrupo == "1" ? !string.IsNullOrEmpty(x.NombreGrupo) ? x.NombreGrupo + " - Criticidad Alta" : string.Empty :
+                                                        x.IdGrupo == "2" ? !string.IsNullOrEmpty(x.NombreGrupo) ? x.NombreGrupo + " - Criticidad Media" : string.Empty :
+                                                        x.IdGrupo == "3" ? !string.IsNullOrEmpty(x.NombreGrupo) ? x.NombreGrupo + " - Criticidad Media" : string.Empty :
+                                                        x.IdGrupo == "4" ? !string.IsNullOrEmpty(x.NombreGrupo) ? x.NombreGrupo + " - Criticidad Baja" : string.Empty :
+                                                        string.Empty,
+                                               Enable = true,
+                                           });
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupId,
+                                               },
+                                               Value = !string.IsNullOrEmpty(x.IdGrupo) ? x.IdGrupo : string.Empty,
                                                Enable = true,
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
@@ -246,6 +260,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                       (oPlanModelToUpsert.PlanPublicId,
                                                       oPlanModelToUpsert.CompanyPublicId,
                                                       oPlanModelToUpsert.QueriesByPeriod,
+                                                      oPlanModelToUpsert.IsLimited,
                                                       oPlanModelToUpsert.DaysByPeriod,
                                                       oPlanModelToUpsert.Status,
                                                       oPlanModelToUpsert.InitDate,
@@ -297,6 +312,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                             x.PeriodPublicId,
                                                             oPlanToReCalculate.PlanPublicId,
                                                             oPlanToReCalculate.QueriesByPeriod,
+                                                            oPlanToReCalculate.IsLimited,
                                                             x.TotalQueries,
                                                             x.InitDate,
                                                             x.EndDate,
@@ -353,6 +369,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                             x.PeriodPublicId,
                                                             x.PlanPublicId,
                                                             x.AssignedQueries,
+                                                            oPlanToReCalculate.IsLimited,
                                                             x.TotalQueries,
                                                             x.InitDate,
                                                             x.EndDate,
@@ -376,7 +393,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
         public static string PeriodoUpsert(PeriodModel oPeriodModel)
         {
             return ProveedoresOnLine.ThirdKnowledge.DAL.Controller.ThirdKnowledgeDataController.Instance.PeriodUpsert(oPeriodModel.PeriodPublicId,
-                       oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
+                       oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.IsLimited, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
         }
 
         public static List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)

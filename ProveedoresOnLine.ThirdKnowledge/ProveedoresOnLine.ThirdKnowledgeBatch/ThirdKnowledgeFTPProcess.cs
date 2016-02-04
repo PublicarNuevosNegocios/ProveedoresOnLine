@@ -51,8 +51,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             Stream responseStream = response.GetResponseStream();
                             StreamReader reader = new StreamReader(responseStream);
                             string xml = reader.ReadToEnd();
-                            XDocument CurrentXMLAnswer = XDocument.Parse(xml);
-                            List<BatchXMLResultModel> oResult = new List<BatchXMLResultModel>();
+                            XDocument CurrentXMLAnswer = XDocument.Parse(xml);                            
                             oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
                             //Set results to model
                             CurrentXMLAnswer.Descendants("Resultado").All(
@@ -161,7 +160,21 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                             {
                                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
                                             },
-                                            Value = !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value : string.Empty,
+                                            Value = !string.IsNullOrEmpty(x.Element("IdGrupoLista").Value) && 
+                                                    x.Element("IdGrupoLista").Value == "1" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Alta": string.Empty :
+                                                    x.Element("IdGrupoLista").Value == "2" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Media" : string.Empty :
+                                                    x.Element("IdGrupoLista").Value == "3" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Media" : string.Empty :
+                                                    x.Element("IdGrupoLista").Value == "4" ? !string.IsNullOrEmpty(x.Element("NombreGrupoLista").Value) ? x.Element("NombreGrupoLista").Value + " - Criticidad Baja" : string.Empty :
+                                                    string.Empty,
+                                            Enable = true,
+                                        });
+                                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                        {
+                                            ItemInfoType = new TDCatalogModel()
+                                            {
+                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupId,
+                                            },
+                                            Value = !string.IsNullOrEmpty(x.Element("IdGrupoLista").Value) ? x.Element("IdGrupoLista").Value : string.Empty,
                                             Enable = true,
                                         });
                                         oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
@@ -210,7 +223,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                             Enable = true,
                                         });
                                         #endregion
-
+                                        oInfoCreate.DetailInfo = oInfoCreate.DetailInfo.OrderBy(y => y.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupId).
+                                                            ThenBy(y => y.Value).ToList();                                            
                                         oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
                                         #endregion
                                     }                                   

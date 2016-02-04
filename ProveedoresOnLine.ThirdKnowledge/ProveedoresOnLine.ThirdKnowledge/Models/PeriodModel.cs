@@ -17,6 +17,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
         public DateTime InitDate { get; set; }
 
         public DateTime EndDate { get; set; }
+        
+        public bool IsLimited { get; set; }
 
         public int TotalQueries { get; set; }
 

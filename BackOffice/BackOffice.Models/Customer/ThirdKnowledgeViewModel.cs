@@ -13,6 +13,7 @@ namespace BackOffice.Models.Customer
         public string CreateDate { get; set; }
         public int DaysByPeriod { get; set; }
         public bool Enable { get; set; }
+        public bool PlanIsLimited { get; set; }
         public string EndDate { get; set; }
         public string InitDate { get; set; }
         public string LastModify { get; set; }
@@ -30,6 +31,7 @@ namespace BackOffice.Models.Customer
         public string PeriodPublicId { get; set; }
         public string PeriodInitDate { get; set; }
         public string PeriodEndDate { get; set; }
+        public bool PerIsLimited { get; set; }
         public int TotalQueries { get; set; }
         public bool PeriodEnable { get; set; }
         public string PeriodLastModify { get; set; }
@@ -56,6 +58,7 @@ namespace BackOffice.Models.Customer
             CreateDate = RelatedPlan.CreateDate.ToString();
             DaysByPeriod = RelatedPlan.DaysByPeriod;
             Enable = RelatedPlan.Enable;
+            PlanIsLimited = RelatedPlan.IsLimited;
             EndDate = RelatedPlan.EndDate.ToString();
             InitDate = RelatedPlan.InitDate.ToString();
             LastModify = RelatedPlan.LastModify.ToString();
@@ -72,6 +75,7 @@ namespace BackOffice.Models.Customer
             PeriodPublicId = RelatedPeriodModel.PeriodPublicId;
             PeriodInitDate = RelatedPeriodModel.InitDate.ToString();
             PeriodEndDate = RelatedPeriodModel.EndDate.ToString();
+            PerIsLimited = RelatedPeriodModel.IsLimited;
             TotalQueries = RelatedPeriodModel.TotalQueries;
             PeriodEnable = RelatedPeriodModel.Enable;
             PeriodLastModify = RelatedPeriodModel.LastModify.ToString();
