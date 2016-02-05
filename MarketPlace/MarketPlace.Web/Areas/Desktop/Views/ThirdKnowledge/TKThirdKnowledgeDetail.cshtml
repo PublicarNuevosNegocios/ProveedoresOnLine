@@ -162,9 +162,20 @@
                         <br /><br />
                         <label>LA BÚSQUEDA POR</label>
                         <br />
-                        <label class="POMPNoresultRequestText">@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty("No disponible").FirstOrDefault().ToString()</label>
+                            if (@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                            {
+                                <label class="POMPNoresultRequestText">Nombre:&nbsp;@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString()</label>
+                            }
+                    if (@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0 && @obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                            {
+                                <label class="POMPNoresultRequestText">&nbsp; / &nbsp;</label>
+                            }
+                            if (@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                            {
+                                <label class="POMPNoresultRequestText">Identificación:&nbsp;@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString()</label>
+                            }
                         <br /><br />
-                        <label class="POMPNoresultText">no presentó coincidencias</label>
+                        <label class="POMPNoresultText">no arrojó coincidencias</label>
                         }
                     </div>
                 </div>
