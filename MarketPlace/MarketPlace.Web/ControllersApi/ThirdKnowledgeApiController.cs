@@ -69,7 +69,7 @@ namespace MarketPlace.Web.ControllersApi
                             //Init Finally Tuple, Group by ItemGroup Name
                             List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
                             List<string> Item1 = new List<string>();
-                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null)
+                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null && oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess)
                             {
                                 oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.All(x =>
                                 {

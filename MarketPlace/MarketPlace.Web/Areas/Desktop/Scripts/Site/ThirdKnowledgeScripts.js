@@ -89,7 +89,9 @@ var Third_KnowledgeSimpleSearchObject = {
                         });
                     }
                     else {
-                        resultDiv = '<div class="POMPResultSection text-center"><label>' + "La búsqueda no arrojó ninguna coincidencia " + "</label>"
+                        resultDiv = '<div class="row"><div class="col-md-11 col-sm-11 text-center"><br/><br/><br/><label>LA BÚSQUEDA</label><br/><label class="POMPNoresultText">no presentó coincidencias</label></div></div>',
+
+                            //'<div class="POMPResultSection text-center"><label>' + "La búsqueda no arrojó ninguna coincidencia " + "</label>"
                         $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                     }
 
