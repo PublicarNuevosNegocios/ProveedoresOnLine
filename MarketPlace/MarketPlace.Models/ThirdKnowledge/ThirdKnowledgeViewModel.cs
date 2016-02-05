@@ -55,7 +55,7 @@ namespace MarketPlace.Models.Company
         public string RegisterDate { get; set; }
         public string LastModifyDate { get; set; }
         public string Message { get; set; }
-        public string FileURL { get; set; }
+        public string FileURL { get; set; }        
 
         #region Third Knowledge Search
 
@@ -94,7 +94,7 @@ namespace MarketPlace.Models.Company
             RegisterDate = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RegisterDate).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
             LastModifyDate = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.LastModifyDate).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
             Message = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Message).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
-            FileURL = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.FileURL).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
+            FileURL = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.FileURL).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();            
         }
 
         public ThirdKnowledgeViewModel()

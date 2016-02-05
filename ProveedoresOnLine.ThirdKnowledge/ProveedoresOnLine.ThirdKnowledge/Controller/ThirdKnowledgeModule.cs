@@ -234,7 +234,34 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     QueryUpsert(oQueryToCreate);
                 }
                 else
-                {                  
+                {
+                    TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();                    
+                    oInfoCreate.QueryPublicId = oQueryToCreate.QueryPublicId;
+                    oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
+
+                    #region Create Detail
+                    oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                    {
+                        ItemInfoType = new TDCatalogModel()
+                        {
+                            ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
+                        },
+                        Value = !string.IsNullOrEmpty(Name) ? Name : string.Empty,
+                        Enable = true,
+                    });        
+                    oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                    {
+                        ItemInfoType = new TDCatalogModel()
+                        {
+                            ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                        },
+                        Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
+                        Enable = true,
+                    });                    
+                    #endregion
+
+                    oQueryToCreate.RelatedQueryBasicInfoModel.Add(oInfoCreate);
+    
                     oQueryToCreate.IsSuccess = false;
                     QueryUpsert(oQueryToCreate);
                 }

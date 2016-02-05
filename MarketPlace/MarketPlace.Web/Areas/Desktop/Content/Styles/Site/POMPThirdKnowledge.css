@@ -357,3 +357,9 @@
     width: 180px;
     line-height: 20px;
 }
+.POMPNoresultRequestText {
+    font-weight:normal;
+}
+.POMPNoresultText {
+    color: #ff8300;
+}
