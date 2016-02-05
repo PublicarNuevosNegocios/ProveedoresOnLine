@@ -75,7 +75,7 @@
                 }
             }
             <div class="container-fluid POMPTKDetailContainer">
-                @if (Model.RelatedThidKnowledgeSearch != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x=>x!=null).Select(x=>x.IsSuccess).FirstOrDefault().ToString().CompareTo("True") == 1)
+                @if (Model.RelatedThidKnowledgeSearch != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x=>x!=null).Select(x=>x.IsSuccess).FirstOrDefault().ToString().CompareTo("True") == 0)
                 {
                     foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
                     {
@@ -166,7 +166,7 @@
                             {
                                 <label class="POMPNoresultRequestText">Nombre:&nbsp;@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString()</label>
                             }
-                    if (@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0 && @obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                            if (@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0 && @obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
                             {
                                 <label class="POMPNoresultRequestText">&nbsp; / &nbsp;</label>
                             }

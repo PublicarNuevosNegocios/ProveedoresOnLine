@@ -57,14 +57,23 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                                            #region Create Detail
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                                                                              {
-                                                                                  ItemInfoType = new TDCatalogModel()
-                                                                                  {
-                                                                                      ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
-                                                                                  },
-                                                                                  Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
-                                                                                  Enable = true,
-                                                                              });
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                                               },
+                                               Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
+                                               Enable = true,
+                                           });
+                                           oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                           {
+                                               ItemInfoType = new TDCatalogModel()
+                                               {
+                                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
+                                               },
+                                               Value = !string.IsNullOrEmpty(Name) ? Name : string.Empty,
+                                               Enable = true,
+                                           });        
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
@@ -136,7 +145,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                                },
                                                Value = !string.IsNullOrEmpty(x.Estado) ? x.Estado : string.Empty,
                                                Enable = true,
-                                           });                                          
+                                           });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
                                                ItemInfoType = new TDCatalogModel()
@@ -235,7 +244,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                 }
                 else
                 {
-                    TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();                    
+                    TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
                     oInfoCreate.QueryPublicId = oQueryToCreate.QueryPublicId;
                     oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
@@ -248,7 +257,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         },
                         Value = !string.IsNullOrEmpty(Name) ? Name : string.Empty,
                         Enable = true,
-                    });        
+                    });
                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                     {
                         ItemInfoType = new TDCatalogModel()
@@ -257,11 +266,11 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         },
                         Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
                         Enable = true,
-                    });                    
+                    });
                     #endregion
 
                     oQueryToCreate.RelatedQueryBasicInfoModel.Add(oInfoCreate);
-    
+
                     oQueryToCreate.IsSuccess = false;
                     QueryUpsert(oQueryToCreate);
                 }
