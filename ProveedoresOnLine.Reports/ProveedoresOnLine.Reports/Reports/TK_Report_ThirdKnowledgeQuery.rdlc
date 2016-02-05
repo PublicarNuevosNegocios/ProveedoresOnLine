@@ -62,7 +62,7 @@
         <Top>0.37358cm</Top>
         <Left>0.45719cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.8336cm</Width>
+        <Width>3.7861cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -93,9 +93,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>0.37358cm</Top>
-        <Left>3.46718cm</Left>
+        <Left>4.41968cm</Left>
         <Height>0.57354cm</Height>
-        <Width>9.03737cm</Width>
+        <Width>7.89966cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -130,7 +130,7 @@
         <Top>1.15053cm</Top>
         <Left>0.45717cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.8336cm</Width>
+        <Width>3.7861cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -161,9 +161,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>1.15053cm</Top>
-        <Left>3.46718cm</Left>
+        <Left>4.41968cm</Left>
         <Height>0.57354cm</Height>
-        <Width>9.03735cm</Width>
+        <Width>7.89964cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -196,9 +196,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>0.37358cm</Top>
-        <Left>12.97197cm</Left>
+        <Left>12.65447cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.09818cm</Width>
+        <Width>4.1036cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -229,9 +229,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>0.37358cm</Top>
-        <Left>16.24654cm</Left>
+        <Left>16.93447cm</Left>
         <Height>0.57354cm</Height>
-        <Width>8.80418cm</Width>
+        <Width>8.11625cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -264,9 +264,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>1.15053cm</Top>
-        <Left>12.97196cm</Left>
+        <Left>12.65446cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.09819cm</Width>
+        <Width>4.10361cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -297,9 +297,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>1.15053cm</Top>
-        <Left>16.24654cm</Left>
+        <Left>16.93447cm</Left>
         <Height>0.57354cm</Height>
-        <Width>8.80417cm</Width>
+        <Width>8.11624cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -318,10 +318,10 @@
               <Width>2.55965cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.27421cm</Width>
+              <Width>2.67109cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.615cm</Width>
+              <Width>4.21812cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>4.18163cm</Width>
@@ -341,7 +341,7 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.53538cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -352,7 +352,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Alias</Value>
+                              <Value>ALIAS</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -387,7 +387,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Identificación</Value>
+                              <Value>IDENTIFICACIÓN</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -422,7 +422,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Nombre</Value>
+                              <Value>NOMBRE</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -457,7 +457,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Delito</Value>
+                              <Value>DELITO</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -492,7 +492,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Peps</Value>
+                              <Value>PEPS</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -527,7 +527,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Prioridad</Value>
+                              <Value>PRIORIDAD</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -562,7 +562,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Estado</Value>
+                              <Value>ESTADO</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -597,7 +597,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Lista</Value>
+                              <Value>LISTA</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -626,12 +626,13 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.69413cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="Alias">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -665,6 +666,7 @@
                   <CellContents>
                     <Textbox Name="IdentificationResult">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -698,6 +700,7 @@
                   <CellContents>
                     <Textbox Name="NameResult">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -731,6 +734,7 @@
                   <CellContents>
                     <Textbox Name="Offense">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -764,6 +768,7 @@
                   <CellContents>
                     <Textbox Name="Peps">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -797,6 +802,7 @@
                   <CellContents>
                     <Textbox Name="Priority">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -830,6 +836,7 @@
                   <CellContents>
                     <Textbox Name="Status">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -863,6 +870,7 @@
                   <CellContents>
                     <Textbox Name="ListName">
                       <CanGrow>true</CanGrow>
+                      <CanShrink>true</CanShrink>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -918,12 +926,18 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <FixedColumnHeaders>true</FixedColumnHeaders>
+        <FixedRowHeaders>true</FixedRowHeaders>
+        <KeepTogether>true</KeepTogether>
         <DataSetName>DS_ThirdKnowledgeReport</DataSetName>
-        <Top>8.74844cm</Top>
+        <Top>4.01769cm</Top>
         <Left>0.29413cm</Left>
-        <Height>1.2cm</Height>
+        <Height>1.22951cm</Height>
         <Width>24.75662cm</Width>
         <ZIndex>9</ZIndex>
+        <Visibility>
+          <Hidden>= IIF (Parameters!IsSuccess.Value = False, true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -937,7 +951,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>  Informe de resultados:</Value>
+                <Value>    Informe de resultados:</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                   <Color>DimGray</Color>
@@ -948,10 +962,13 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>7.53989cm</Top>
+        <Top>2.99964cm</Top>
         <Height>0.78521cm</Height>
         <Width>25.44798cm</Width>
         <ZIndex>10</ZIndex>
+        <Visibility>
+          <Hidden>= IIF (Parameters!IsSuccess.Value = False, true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -975,7 +992,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Búsqueda realizada:</Value>
+                <Value>Nombre consultado:</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -991,7 +1008,7 @@
         <Top>1.90046cm</Top>
         <Left>0.45718cm</Left>
         <Height>0.57354cm</Height>
-        <Width>2.8336cm</Width>
+        <Width>3.7861cm</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -1010,7 +1027,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!Content.Value</Value>
+                <Value>=Parameters!searchName.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1022,10 +1039,63 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>1.90046cm</Top>
-        <Left>3.46718cm</Left>
+        <Left>4.41968cm</Left>
         <Height>0.57354cm</Height>
-        <Width>9.03736cm</Width>
+        <Width>7.89965cm</Width>
         <ZIndex>12</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Image Name="Image1">
+        <Source>External</Source>
+        <Value>=Parameters!ThirdKnowledgeText.Value</Value>
+        <Sizing>Fit</Sizing>
+        <Top>5.90866cm</Top>
+        <Left>0.29413cm</Left>
+        <Height>4.06364cm</Height>
+        <Width>24.75658cm</Width>
+        <ZIndex>13</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Textbox Name="Textbox36">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Microsoft.VisualBasic.Interaction.IIF(Parameters!IsSuccess.Value = "False", "NO ARROJÓ COINCIDENCIAS", "")</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <Color>#f87b00</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>3.10696cm</Top>
+        <Left>0.45719cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>24.59352cm</Width>
+        <ZIndex>14</ZIndex>
+        <Visibility>
+          <Hidden>= IIF (Parameters!IsSuccess.Value = False, false,true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1043,11 +1113,12 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>= IIF (Parameters!IsSuccess.Value = "False", "NO ARROJÓ COINCIDENCIAS","")</Value>
+                <Value>Indentifación consultada:</Value>
                 <Style>
-                  <FontStyle>Italic</FontStyle>
+                  <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <Color>#f87b00</Color>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>DimGray</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1056,10 +1127,10 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>1.90046cm</Top>
-        <Left>12.97196cm</Left>
+        <Left>12.65447cm</Left>
         <Height>0.57354cm</Height>
-        <Width>12.07875cm</Width>
-        <ZIndex>13</ZIndex>
+        <Width>4.1036cm</Width>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1070,29 +1141,47 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Image Name="Image1">
-        <Source>External</Source>
-        <Value>=Parameters!ThirdKnowledgeText.Value</Value>
-        <Sizing>Fit</Sizing>
-        <Top>2.95591cm</Top>
-        <Left>0.29413cm</Left>
-        <Height>4.30176cm</Height>
-        <Width>24.75658cm</Width>
-        <ZIndex>14</ZIndex>
+      <Textbox Name="Textbox37">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!searchIdentification.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>1.90046cm</Top>
+        <Left>16.93447cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>8.11624cm</Width>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
         </Style>
-      </Image>
+      </Textbox>
     </ReportItems>
-    <Height>10.32014cm</Height>
+    <Height>10.16139cm</Height>
     <Style />
   </Body>
   <Width>25.44798cm</Width>
   <Page>
     <PageHeader>
-      <Height>2.47827cm</Height>
+      <Height>2.5841cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1168,7 +1257,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.38392cm</Height>
+      <Height>1.51621cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1320,12 +1409,17 @@
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Content">
+    <ReportParameter Name="IsSuccess">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="IsSuccess">
+    <ReportParameter Name="searchName">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="searchIdentification">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
