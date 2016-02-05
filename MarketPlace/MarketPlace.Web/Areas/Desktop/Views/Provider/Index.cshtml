@@ -133,9 +133,18 @@
         <div id="POMPManualTittle" class="div-centered text-center">Manuales</div>
         <div id="POMPManualIcons" class="div-centered  text-center">
             <div class="row">
-                <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Conocimiento de Terceros" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_TkManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                @if (IsEvaluator)
+                {
+                    <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                }
+                @if (IsProcessModuleEnable)
+                {
+                    <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                }                
+                @if (IsThirdKnowledgeModeuleEnable)
+                {
+                    <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Conocimiento de Terceros" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_TkManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                }                
             </div>
         </div>
     </div>
