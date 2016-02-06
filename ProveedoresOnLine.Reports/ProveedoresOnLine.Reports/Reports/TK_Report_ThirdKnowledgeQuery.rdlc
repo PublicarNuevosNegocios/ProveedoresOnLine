@@ -926,9 +926,6 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <FixedColumnHeaders>true</FixedColumnHeaders>
-        <FixedRowHeaders>true</FixedRowHeaders>
-        <KeepTogether>true</KeepTogether>
         <DataSetName>DS_ThirdKnowledgeReport</DataSetName>
         <Top>4.01769cm</Top>
         <Left>0.29413cm</Left>
