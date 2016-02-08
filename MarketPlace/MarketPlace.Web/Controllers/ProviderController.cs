@@ -4901,6 +4901,25 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
+                        //Company persons Contact info
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
+                        {
+                            Name = "Información de Personas de Contacto",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.GIPersonContactInfo,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 1,
+                            IsSelected =
+                                (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactInfo &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
+
+
                         //Branch
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
