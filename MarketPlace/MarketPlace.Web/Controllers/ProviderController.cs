@@ -4992,6 +4992,24 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
+                        //RUT
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
+                        {
+                            Name = "Registro Único Tributario",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.LIRutInfo,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 1,
+                            IsSelected =
+                                (oCurrentAction == MVC.Provider.ActionNames.LIRutInfo &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
+
                         //get is selected menu
                         oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
@@ -5009,6 +5027,26 @@ namespace MarketPlace.Web.Controllers
                             Position = 5,
                             ChildMenu = new List<GenericMenu>(),
                         };
+
+
+
+                        //Aditional Documents
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
+                        {
+                            Name = "Información Anexa",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.ADAditionalDocument,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 0,
+                            IsSelected =
+                                    (oCurrentAction == MVC.Provider.ActionNames.ADAditionalDocument &&
+                                    oCurrentController == MVC.Provider.Name),
+                        });
 
                         //Aditional Data
                         oMenuAux.ChildMenu.Add(new GenericMenu()
