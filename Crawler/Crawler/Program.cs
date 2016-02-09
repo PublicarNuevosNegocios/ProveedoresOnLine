@@ -28,6 +28,8 @@ namespace Crawler
                 return true;
             });
 
+            //Crawler.Manager.CrawlerManager.addQuestions();
+
             //crawl provider info
             //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("2056", "ADAC5173");
             Console.WriteLine("\n Presione cualquier tecla...");
