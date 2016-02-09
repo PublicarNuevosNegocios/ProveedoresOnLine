@@ -14,4 +14,15 @@
         </div>
         <br />
     }
+
+    if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_ClientePolipropileno].Value)
+    {
+        <div class="row">
+            <div class="col-sm-12 text-left"><span class="POMPComparisonTitle">Reportes Generales</span></div>
+        </div>
+        <div class="row text-left POMPSearchResultsOrder">
+            <div style="margin-left:10%;" class="col-sm-4 text-center POMPExcelIcon2LeftAlign"><a href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
+        </div>
+        <br />
+    }
 }
