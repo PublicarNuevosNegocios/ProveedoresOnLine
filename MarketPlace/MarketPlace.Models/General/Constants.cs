@@ -87,7 +87,17 @@
         public const string C_Manual_ProjectManual = "Manual_ProjectManual";
 
         public const string C_Manual_TkManual = "Manual_TktManual";
-                
+
+        public const string C_Manual_ClientPolipropileno = "Manual_ClientPolipropileno";
+
+        #endregion
+
+        #region Customers
+
+        public const string CC_CompanyPublicId_Publicar = "CompanyPublicId_Publicar";
+
+        public const string CC_CompanyPublicId_ClientePolipropileno = "CompanyPublicId_ClientePolipropileno";
+
         #endregion
 
         #endregion

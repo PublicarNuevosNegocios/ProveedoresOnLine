@@ -22,7 +22,7 @@
                         <div class="col-sm-12">
                             @if (!string.IsNullOrEmpty(item.BR_City))
                             {
-                                <strong>@item.BR_City @item.BR_Name</strong>
+                                <strong>@item.BR_City.</strong>
                             }
                             else
                             {
@@ -33,6 +33,16 @@
                     <br />
                     <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row">
+                            @if (!string.IsNullOrEmpty(item.BR_Name))
+                            {
+                                <div class="col-sm-12 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Nombre</label>
+                                    <br />
+                                    <span>  @item.BR_Name</span>
+                                </div>
+                            }  
+
                             @if (!string.IsNullOrEmpty(item.BR_Representative))
                             {
                                 <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
@@ -131,7 +141,7 @@
                                         }
                                     </div>
                                 }
-                            }
+                            }  
                         </div>
                         <br />
                     </div>
