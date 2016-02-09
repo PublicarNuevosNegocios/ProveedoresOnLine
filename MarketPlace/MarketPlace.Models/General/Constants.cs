@@ -51,6 +51,8 @@
 
         public const string C_Settings_File_RemoteDirectory = "File_RemoteDirectory";
 
+        public const string C_Settings_File_ThirdKnowledgeRemoteDirectory = "File_ThirdKnowledgeRemoteDirectory";        
+
         #endregion
 
         #region Company

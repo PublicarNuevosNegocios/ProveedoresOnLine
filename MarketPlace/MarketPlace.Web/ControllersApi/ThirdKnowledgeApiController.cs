@@ -259,9 +259,7 @@ namespace MarketPlace.Web.ControllersApi
                         //load file to s3
                         strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                             (strFilePath,
-                            Models.General.InternalSettings.Instance
-                                [Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                                 CompanyPublicId + "_" + DateTime.Now + "\\");
+                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value);
 
                         TDQueryModel oQueryToCreate = new TDQueryModel()
                         {
@@ -365,7 +363,6 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public Tuple<bool, string> FileVerify(string FilePath, string FileName, string PeriodPublicId)
         {
-
             var Excel = new FileInfo(FilePath);
 
             List<PlanModel> oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);

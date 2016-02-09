@@ -30,6 +30,10 @@
 
         public const string C_Settings_TK_QueryUrl = "TK_QueryUrl";
 
+        public const string C_Settings_File_TempDirectory = "File_TempDirectory";
+
+        public const string C_Setings_File_S3FilePath = "File_S3FilePath";
+
         #region Notifications
 
         public const string N_ThirdKnowledgeEndMassiveMessage = "N_ThirdKnowledgeEndMassiveMessage";

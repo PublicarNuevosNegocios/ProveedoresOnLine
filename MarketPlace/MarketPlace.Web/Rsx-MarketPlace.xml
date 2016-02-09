@@ -43,6 +43,7 @@
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\MarketPlace\</key>
+    <key name="File_ThirdKnowledgeRemoteDirectory">\MarketPlace\ThirdKnowledge\</key>
 
     <!--Company params-->
     <key name="Company_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/dafaultProvider.png</key>

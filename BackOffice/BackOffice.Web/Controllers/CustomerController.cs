@@ -760,7 +760,7 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
-        #region MyRegion
+        #region Reports
 
         public virtual ActionResult DownloadReport(string CustomerPublicId)
         {

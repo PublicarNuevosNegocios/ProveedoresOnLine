@@ -13,16 +13,22 @@
 
     <!--FTP_FTPFIleName-->
     <key name="ThirdKnowedge_UploadFTPFileName">FTP_ThirdKnowledge</key>
-        
+
     <!--WS_UserName-->
     <key name="ThirdKnowedge_FTPUserName">FTP_PUBLICAR</key>
-    
+
     <!--WS_Password-->
     <key name="ThirdKnowedge_FTPPassworUser">p1u2b3l415c6@778*</key>
 
     <key name="TK_UploadSuccessFileAgent">POL_UploadSuccessFile_Mail</key>
 
     <key name="TK_ReadyResultAgent">POL_ReadyResult_Mail</key>
+
+    <!--Temp Folder-->
+    <key name="File_TempDirectory">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\TempDirectory\</key>
+    
+    <!--S3 Path File-->
+    <key name="File_S3FilePath">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/ThirdKnowledge/</key>
 
     <key name="TK_QueryUrl">https://localhost:44309/MarketPlace/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={QueryPublicId}</key>
 
