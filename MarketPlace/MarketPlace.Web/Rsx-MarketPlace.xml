@@ -30,9 +30,13 @@
     <key name="Manual_SurveyManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ProveedoresOnLine_ManualEvaluaci%C3%B3nDesempe%C3%B1o.pdf</key>
     <key name="Manual_ProjectManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/Manual+Busqueda+de+Proveedores.pdf</key>
     <key name="Manual_TktManual">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ProveedoresOnLIne_ManualConocimientodeTerceros.pdf</key>
+    <key name="Manual_ClientPolipropileno">https://s3.amazonaws.com/proveedoresonline/MarketPlace/Manuales/Manual+Busqueda+de+Proveedores+-+Clientes.pdf</key>    
 
     <key name="Report_ExcelReportIcon">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/excel.png</key>
     <key name="Report_PdfReportIcon">https://s3.amazonaws.com/stgproveedoresonline/MarketPlace/SiteImages/pdfdownload.png</key>
+
+    <key name="CompanyPublicId_Publicar">DA5C572E</key>
+    <key name="CompanyPublicId_ClientePolipropileno">10A0C1D5</key>
 
     <key name="Desktop_Analytics">
       <![CDATA[

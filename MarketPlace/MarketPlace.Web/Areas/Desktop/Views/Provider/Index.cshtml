@@ -144,7 +144,12 @@
                 @if (IsThirdKnowledgeModeuleEnable)
                 {
                     <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Conocimiento de Terceros" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_TkManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                }                
+                } 
+                @if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_Publicar].Value ||
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_ClientePolipropileno].Value)
+                {
+                    <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Búsqueda de Proveedores" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ClientPolipropileno].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                }
             </div>
         </div>
     </div>
