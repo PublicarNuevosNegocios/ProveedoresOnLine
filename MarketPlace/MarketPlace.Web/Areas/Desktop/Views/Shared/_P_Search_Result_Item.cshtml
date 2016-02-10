@@ -71,8 +71,8 @@
                                     controller = MVC.Provider.Name,
                                     action = MVC.Provider.ActionNames.GIProviderInfo,
                                     ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
-                                }))">                
-                    <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
+                                }))">
+                <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
             </a>
         }
         else
@@ -107,7 +107,7 @@
             <div class="POMPSearchResultAlertComparWrapper">
                 <div>
                     @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
-                {
+                    {
                         <a class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -137,7 +137,28 @@
                 }
             </div>
         }
-        
+
+        @*Customer Validate*@
+        @if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_ClientePolipropileno].Value)
+        {
+            <div class="POMPSearchResultAlertComparWrapper">
+                <div>
+                    @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
+                    {
+                        <a class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIBlackList,
+                                ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }))">
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
 
         <!--Provider rate-->
         <div class="POMPSearchResultProvRating">
