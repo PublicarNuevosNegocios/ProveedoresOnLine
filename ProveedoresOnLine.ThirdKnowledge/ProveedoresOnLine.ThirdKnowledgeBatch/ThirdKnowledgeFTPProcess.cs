@@ -13,6 +13,7 @@ using LinqToExcel.Domain;
 using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Enums;
 using System.Reflection;
+using Excel = Microsoft.Office.Interop.Excel;
 
 
 namespace ProveedoresOnLine.ThirdKnowledgeBatch
@@ -59,12 +60,13 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             StreamReader reader = new StreamReader(responseStream);
                             string xml = reader.ReadToEnd();
                             XDocument CurrentXMLAnswer = XDocument.Parse(xml);
-                            oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();                            
+                            oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
+                            
+                            List<Tuple<string, string, string>> oCoincidences = new List<Tuple<string, string, string>>();
                             //Set results to model
                             CurrentXMLAnswer.Descendants("Resultado").All(
                                 x =>
-                                {
-                                    List<Tuple<string, string, string>> oCoincidences = new List<Tuple<string, string, string>>();
+                                {                                    
                                     if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta.")
                                     {
                                         #region QueryInfo
@@ -237,14 +239,14 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         #endregion
 
                                         //Create Info Conincidences                                        
-                                        oCoincidences.Add(new Tuple<string, string, string>(x.Element("TipoDocumento").Value != null ? x.Element("TipoDocumento").Value : string.Empty
-                                                                                           , x.Element("IdentificacionConsulta").Value != null ? x.Element("IdentificacionConsulta").Value : string.Empty
-                                                                                           , x.Element("NombreConsulta").Value != null ? x.Element("NombreConsulta").Value : string.Empty));                                        
-                                    }
-                                    //Call Function
-                                    CreateQueryInfo(oQuery, oCoincidences);
+                                        oCoincidences.Add(new Tuple<string, string, string>(x.Element("TipoDocumento").Value != null && x.Element("TipoDocumento").Value != "N"? x.Element("TipoDocumento").Value : string.Empty
+                                                                                           , x.Element("IdentificacionConsulta").Value != null && x.Element("IdentificacionConsulta").Value != "N" ? x.Element("IdentificacionConsulta").Value : string.Empty
+                                                                                           , x.Element("NombreConsulta").Value != null && x.Element("NombreConsulta").Value != "N" ? x.Element("NombreConsulta").Value : string.Empty));                                        
+                                    }               
                                     return true;
                                 });
+
+                            CreateQueryInfo(oQuery, oCoincidences);
 
                             //Update Status query
                             oQuery.QueryStatus = new TDCatalogModel()
@@ -351,106 +353,116 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
         private static void CreateQueryInfo(TDQueryModel oQuery, List<Tuple<string, string, string>> oCoincidences)
         {
-            //Instance App to read excel
-            Application app = new Application();
-
-            //Local Path
-            string strFolder = ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_File_TempDirectory].Value;
-            if (!System.IO.Directory.Exists(strFolder))
-                System.IO.Directory.CreateDirectory(strFolder);
-
-            using (WebClient webClient = new WebClient())
+            try
             {
-                //Get file from S3 using File Name           
-                webClient.DownloadFile(ThirdKnowledge.Models.InternalSettings.Instance[
-                                    ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Setings_File_S3FilePath].Value + oQuery.FileName, strFolder + oQuery.FileName);
+                //Instance App to read excel
+                Application app = new Application();
 
-                //Open File DownLoaded
-                Workbook book = app.Workbooks.Open(strFolder + oQuery.FileName,
-                       Missing.Value, Missing.Value, Missing.Value,
-                       Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                       Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                       Missing.Value, Missing.Value, Missing.Value);
+                //Local Path
+                string strFolder = ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_File_TempDirectory].Value;
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+                oQuery.FileName = oQuery.FileName.Replace("xml", "xlsx");
 
-                //Save As .xls
-                book.SaveAs(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
-                book.Close();
-
-                ExcelQueryFactory XlsInfo = new ExcelQueryFactory(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
-
-                //Set model Params
-                List<ExcelModel> oExcelToProcessInfo =
-                (from x in XlsInfo.Worksheet<ExcelModel>(0)
-                 select x).ToList();
-
-                //Exclude Coincidences
-                List<ExcelModel> oExclude = null;
-                if (oCoincidences != null)
+                using (WebClient webClient = new WebClient())
                 {
-                    oExclude = new List<ExcelModel>();
-                    oCoincidences.All(x =>
+                    //Get file from S3 using File Name           
+                    webClient.DownloadFile(ThirdKnowledge.Models.InternalSettings.Instance[
+                                        ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Setings_File_S3FilePath].Value + oQuery.FileName, strFolder + oQuery.FileName);
+
+                    //Open File DownLoaded
+                    Workbook book = app.Workbooks.Open(strFolder + oQuery.FileName,
+                           Missing.Value, Missing.Value, Missing.Value,
+                           Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                           Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                           Missing.Value, Missing.Value, Missing.Value);
+
+                    //Save As .xls
+                    book.SaveAs(strFolder + oQuery.FileName.Replace("xlsx", "xls"), fileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8);
+                    book.Close();
+
+                    ExcelQueryFactory XlsInfo = new ExcelQueryFactory(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
+
+                    //Set model Params
+                    List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExcelToProcessInfo =
+                    (from x in XlsInfo.Worksheet<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel>(0)
+                     select x).ToList();
+
+                    //Exclude Coincidences
+                    List<ExcelModel> oExclude = null;
+                    if (oCoincidences != null)
                     {
-                        oExclude.Add(new ExcelModel()
+                        oExclude = new List<ExcelModel>();
+                        oCoincidences.All(x =>
                         {
-                            TIPOPERSONA = x.Item1,
-                            NUMEIDEN = x.Item1,
-                            NOMBRES = x.Item3,
+                            oExclude.Add(new ExcelModel()
+                            {
+                                TIPOPERSONA = x.Item1,
+                                NUMEIDEN = x.Item2,
+                                NOMBRES = x.Item3,
+                            });
+                            return true;
                         });
-                        return true;
-                    });
-                }
-                if (oExclude.Count != null)
-                    oExcelToProcessInfo = oExcelToProcessInfo.Except(oExclude).ToList();
+                    }
+                    if (oExclude != null)
+                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => oExclude.Any(z => z.NUMEIDEN != x.NUMEIDEN && z.NOMBRES != x.NOMBRES)).ToList(); //TODO: 
 
-                if (oExcelToProcessInfo != null)
-                {
-                    oExcelToProcessInfo.All(x =>
+                    if (oExcelToProcessInfo != null)
                     {
-                        //Create QueryInfo
-                        oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
-
-                        TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
-                        oInfoCreate.QueryPublicId = oQuery.QueryPublicId;
-                        oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
-
-                        #region Create Detail
-                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                        oExcelToProcessInfo.All(x =>
                         {
-                            ItemInfoType = new TDCatalogModel()
+                            //Create QueryInfo
+                            oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
+
+                            TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
+                            oInfoCreate.QueryPublicId = oQuery.QueryPublicId;
+                            oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
+
+                            #region Create Detail
+                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                             {
-                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
-                            },
-                            Value = !string.IsNullOrEmpty(x.NOMBRES) ? x.NOMBRES : string.Empty,
-                            Enable = true,
-                        });
-                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                        {
-                            ItemInfoType = new TDCatalogModel()
+                                ItemInfoType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
+                                },
+                                Value = !string.IsNullOrEmpty(x.NOMBRES) ? x.NOMBRES : string.Empty,
+                                Enable = true,
+                            });
+                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                             {
-                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
-                            },
-                            Value = !string.IsNullOrEmpty(x.NUMEIDEN) ? x.NUMEIDEN : string.Empty,
-                            Enable = true,
+                                ItemInfoType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                                },
+                                Value = !string.IsNullOrEmpty(x.NUMEIDEN) ? x.NUMEIDEN : string.Empty,
+                                Enable = true,
+                            });
+                            #endregion
+
+                            oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
+
+                            oQuery.IsSuccess = false;
+                            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
+                            return true;
                         });
-                        #endregion
 
-                        oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
+                    }
+                    //Remove all Files
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFolder + oQuery.FileName))
+                        System.IO.File.Delete(strFolder + oQuery.FileName);
 
-                        oQuery.IsSuccess = false;
-                        ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
-                        return true;
-                    });
-
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFolder + oQuery.FileName.Replace("xlsx", "xls")))
+                        System.IO.File.Delete(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
                 }
-                //Remove all Files
-                //remove temporal file
-                if (System.IO.File.Exists(strFolder + oQuery.FileName))
-                    System.IO.File.Delete(strFolder + oQuery.FileName);
-
-                //remove temporal file
-                if (System.IO.File.Exists(strFolder + oQuery.FileName.Replace("xlsx", "xls")))
-                    System.IO.File.Delete(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
             }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
         } 
         #endregion
     }

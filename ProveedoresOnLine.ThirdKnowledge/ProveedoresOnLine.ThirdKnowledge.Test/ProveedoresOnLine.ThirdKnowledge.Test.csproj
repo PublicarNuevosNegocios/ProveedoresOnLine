@@ -52,6 +52,11 @@
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.14.0.0.1\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Data.dll</HintPath>
