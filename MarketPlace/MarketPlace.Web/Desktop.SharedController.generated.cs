@@ -112,6 +112,7 @@ namespace T4MVC.Desktop
                 public readonly string _TK_Search_Result_Item = "_TK_Search_Result_Item";
                 public readonly string _TK_Search_Single_Detail_Result_Item = "_TK_Search_Single_Detail_Result_Item";
                 public readonly string _TK_SingleSearch = "_TK_SingleSearch";
+                public readonly string _TK_ThirdKnowledgeDetail = "_TK_ThirdKnowledgeDetail";
             }
             public readonly string _CH_ProjectByResponsible = "~/Areas/Desktop/Views/Shared/_CH_ProjectByResponsible.cshtml";
             public readonly string _CH_ProjectByState = "~/Areas/Desktop/Views/Shared/_CH_ProjectByState.cshtml";
@@ -187,6 +188,7 @@ namespace T4MVC.Desktop
             public readonly string _TK_Search_Result_Item = "~/Areas/Desktop/Views/Shared/_TK_Search_Result_Item.cshtml";
             public readonly string _TK_Search_Single_Detail_Result_Item = "~/Areas/Desktop/Views/Shared/_TK_Search_Single_Detail_Result_Item.cshtml";
             public readonly string _TK_SingleSearch = "~/Areas/Desktop/Views/Shared/_TK_SingleSearch.cshtml";
+            public readonly string _TK_ThirdKnowledgeDetail = "~/Areas/Desktop/Views/Shared/_TK_ThirdKnowledgeDetail.cshtml";
         }
     }
 

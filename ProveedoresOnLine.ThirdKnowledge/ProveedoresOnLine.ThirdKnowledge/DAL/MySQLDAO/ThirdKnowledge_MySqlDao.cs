@@ -436,18 +436,23 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublicId, bool Enable)
+        public List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublicId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vQueryPublicId", QueryPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+
+            TotalRows = 0;
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "MP_TK_GetQueryByPublicId",
+                CommandText = "MP_TK_GetQueryByPublicId_Pager",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -457,6 +462,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
                 oReturn =
                     (from q in response.DataTableResult.AsEnumerable()
                      where !q.IsNull("QueryPublicId")

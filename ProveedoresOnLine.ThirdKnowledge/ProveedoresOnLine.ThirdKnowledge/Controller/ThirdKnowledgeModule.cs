@@ -437,9 +437,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
             return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearch(CustomerPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
         }
 
-        public static List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublic, bool Enable)
+        public static List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublic, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearchByPublicId(CustomerPublicId, QueryPublic, Enable);
+            return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearchByPublicId(CustomerPublicId, QueryPublic, Enable, PageNumber, RowCount, out TotalRows);
         }
 
         public static bool AccessFTPClient(string FileName, string FilePath, string PeriodPublicId)
