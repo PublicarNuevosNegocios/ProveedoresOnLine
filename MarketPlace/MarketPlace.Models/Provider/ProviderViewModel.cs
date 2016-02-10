@@ -79,5 +79,7 @@ namespace MarketPlace.Models.Provider
         public List<Tuple<string, List<TDQueryInfoModel>>> RelatedSingleSearch { get; set; }
 
         public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
+
+        public List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> Group { get; set; }
     }
 }

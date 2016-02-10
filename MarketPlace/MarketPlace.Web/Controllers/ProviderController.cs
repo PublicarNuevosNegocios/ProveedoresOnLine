@@ -4938,6 +4938,27 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
+                        if (vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+                        {
+                            //Listas Restrictivas
+                            oMenuAux.ChildMenu.Add(new GenericMenu()
+                            {
+                                Name = "Listas Restrictivas",
+                                Url = Url.RouteUrl
+                                        (Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Provider.Name,
+                                            action = MVC.Provider.ActionNames.GIBlackList,
+                                            ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                        }),
+                                Position = 4,
+                                IsSelected =
+                                    (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
+                                    oCurrentController == MVC.Provider.Name),
+                            });
+                        }
+
                         //Seguimientos
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {

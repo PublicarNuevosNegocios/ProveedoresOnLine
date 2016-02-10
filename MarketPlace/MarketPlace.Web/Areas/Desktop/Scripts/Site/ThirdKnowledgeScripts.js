@@ -178,23 +178,27 @@ var Third_KnowledgeSearchObject = {
 
 var Third_KnowledgeDetailSearch= {
       QueryPublicId: ''
+    , PageNumber: 0
+    , RowCount: 0
     , InitDate: ''
     , EndDate: ''
     , Enable: ''
     , IsSuccess: ''
-    , PageNumber: 0
-    , RowCount: 0
+    
 
     ,Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
+
         this.QueryPublicId = vInitObject.QueryPublicId;
         this.InitDate = vInitObject.InitDate;
         this.EndDate = vInitObject.EndDate;
-        this.Enable = vInitObject.Enable;
-        this.IsSuccess = vInitObject.IsSuccess;
         this.PageNumber = vInitObject.PageNumber;
         this.RowCount = vInitObject.RowCount;
+
+        this.Enable = vInitObject.Enable;
+        this.IsSuccess = vInitObject.IsSuccess;
+       
     },
     RenderAsync: function () {
         //Change event
@@ -203,44 +207,41 @@ var Third_KnowledgeDetailSearch= {
         });
     },
     Search: function (vSearchObject) {
-            $.ajax({
-                //url: BaseUrl.ApiUrl + '/TKThirdKnowledgeDetail?TKThirdKnowledgeDetail=true&QueryPublicId=' + vSearchObject.QueryPublicId + '&InitDate=' + vSearchObject.InitDate + '&EndDate=' + vSearchObject.EndDate + '&Enable=' + vSearchObject.Enable + '&IsSuccess=' + vSearchObject.IsSuccess + '&PageNumber=' + vSearchObject.PageNumber,
-                url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKThirdKnowledgeDetail=true&QueryPublicId=' + '1F23540C' + '&InitDate=' + '0001-01-01' + '&EndDate=' + '0001-01-01' + '&Enable=' + 1 + '&IsSuccess=' + 'no' + '&PageNumber=' + 0,
+                $.ajax({
+                url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKThirdKnowledgeDetail=true&QueryPublicId=' + vSearchObject.QueryPublicId + '&InitDate=' + vSearchObject.InitDate + '&EndDate=' + vSearchObject.EndDate + '&Enable=' + 1 + '&IsSuccess=' + 'no' + '&PageNumber=' + vSearchObject.PageNumber,
                 dataType: 'json',
                 success: function (result) {
-
                     if (result != null) {
-                       
-                        result.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.forEach(function (result_query) {
-                            result_query.RelatedQueryBasicInfoModel.forEach(function (result_items) {
-                                /*obtengo los grupos de listas*/
-                                result_items.DetailInfo.forEach(function (groups_values) {
-                                    if (groups_valuesItemInfoType.ItemId == 301015) {
-                                        console.log();
-                                    }
 
-                                    
-                                });
+                        var InitDate= result.RelatedThidKnowledgeSearch.InitDate;
+                        var EndDate = result.RelatedThidKnowledgeSearch.EndDate;
 
-                                debugger;
-
-
-
-                                Console.log(group.Alias);
+                        $("#TKDetailContainer").empty();
+                        result.Group.forEach(function (group) {
+                            var titulo = '<div class="row"><div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>' + group.m_Item1 + '</strong></div></div>';
+                            $("#TKDetailContainer").append(titulo);
+                            var content_title = '<br /><div class="row"><div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div><div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div><div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div><div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div><div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div></div><br />';
+                            $("#TKDetailContainer").append(content_title);
+                            group.m_Item2.forEach(function (content) {
+                                var status = "Inactivo";
+                                if (content.Status == "True") {
+                                    status = "Activo";
+                                }
+                                var content_info = '<div class="row POMPBorderbottom">'+
+                                                   '<div class="col-sm-1 POMPProviderBoxInfo text-center"><p>'+content.Priority+'</p></div>'+
+                                                   '<div class="col-sm-1 POMPProviderBoxInfo text-center"><p>' +status+ '</p></div>' +
+                                                   '<div class="col-sm-4 POMPProviderBoxInfo text-center"><p>'+content.NameResult+'</p></div>'+
+                                                   '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>'+content.IdentificationResult+'</p></div>'+
+                                                   '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>' + content.Alias + '</p></div>' +
+                                                   '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p><a href="/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + content.QueryPublicId + '&amp;ReturnUrl=%2FDesktop%2FThirdKnowledge%2FTKThirdKnowledgeDetail%3FQueryPublicId%3D' + content.QueryPublicId + '%26InitDate%3D' + InitDate + '%26EndDate%3D' + EndDate + '">Ver Detalle</a></p></div>' +
+                                                   '</div><br />';
+                                $("#TKDetailContainer").append(content_info);
                             });
                         });
-
-
-                        debugger;
-                        alert("llego Chinooo" + result);
-                       // Provider_SearchObject.OpenCompare(Provider_SearchObject.CompareId);
                     }
                 },
                 error: function (result) {
                 }
             });
-      
-
-       
     },
 }

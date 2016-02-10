@@ -91,9 +91,9 @@ namespace MarketPlace.Web.ControllersApi
                                     }
                                     return true;
                                 });
-                                if (Group != null)                                
+                                if (Group != null)
                                     oModel.RelatedSingleSearch = Group;
-                                
+
 
                                 if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId != null)
                                 {
@@ -329,34 +329,68 @@ namespace MarketPlace.Web.ControllersApi
             , string Enable
             , string IsSuccess
             , int PageNumber
-            ) {
+            )
+        {
 
-                ProviderViewModel oModel = new ProviderViewModel();
-                oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
-                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
-                int TotalRows = 0;
-                List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
-                    (SessionModel.CurrentCompany.CompanyPublicId
-                    , QueryPublicId
-                    , Enable == "1" ? true : false
-                    , PageNumber
-                    , Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim())
-                    , out TotalRows
-                    );
-                oModel.RelatedThidKnowledgeSearch.TotalRows = TotalRows;
-                oModel.RelatedThidKnowledgeSearch.TotalPages = (int)Math.Ceiling((decimal)((decimal)oModel.RelatedThidKnowledgeSearch.TotalRows / (decimal)oModel.RelatedThidKnowledgeSearch.RowCount));
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
+            oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
+            int TotalRows = 0;
+            List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
+                (SessionModel.CurrentCompany.CompanyPublicId
+                , QueryPublicId
+                , Enable == "1" ? true : false
+                , PageNumber
+                , Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim())
+                , out TotalRows
+                );
+            oModel.RelatedThidKnowledgeSearch.TotalRows = TotalRows;
+            oModel.RelatedThidKnowledgeSearch.TotalPages = (int)Math.Ceiling((decimal)((decimal)oModel.RelatedThidKnowledgeSearch.TotalRows / (decimal)oModel.RelatedThidKnowledgeSearch.RowCount));
 
-                if (oQueryResult != null && oQueryResult.Count > 0)
-                    oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
-                else if (IsSuccess == "Finalizado")
-                    oModel.RelatedThidKnowledgeSearch.Message = "La búsqueda no arrojó resultados.";
+            if (oQueryResult != null && oQueryResult.Count > 0)
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
+            else if (IsSuccess == "Finalizado")
+                oModel.RelatedThidKnowledgeSearch.Message = "La búsqueda no arrojó resultados.";
 
-                if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate))
-                {
-                    oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
-                    oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
-                }
+            if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate))
+            {
+                oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
+                oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
+            }
 
+            if (oModel != null)
+            {
+                List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> oGroup = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
+                List<string> Item1 = new List<string>();
+
+                    oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.All(
+                    item =>
+                    {
+                        item.RelatedQueryBasicInfoModel.All(x =>
+                        {
+                            Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                            return true;
+                        });
+                        Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                        List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
+                        Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
+
+                        Item1.All(x =>
+                        {
+                            if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                            {
+                                oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
+                                oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
+                                oGroup.Add(oTupleItem);
+                            }
+                            return true;
+                        });
+                        return true;
+                    });
+
+                oModel.Group = oGroup;
+            }
             return oModel;
         }
 
