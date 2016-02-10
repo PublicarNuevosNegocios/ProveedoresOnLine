@@ -13,116 +13,115 @@
 
     @*Validación de Modulos por Rol*@
     @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
-            {
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
-                {
-            @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
-    if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
     {
-        var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
-
-        if (Model.RelatedBlackListInfo != null && Model.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail || module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.NewClient)
         {
-            <div class="row POMPSectionTitlesBox">
-                <div class="col-sm-6 col-lg-6 text-left">
-                    <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
-                </div>
-                <div class="col-sm-6 col-lg-6 text-right">
-                    <form id="frmThirdKnowledgeUpsert"
-                          method="post"
-                          action="@(Url.Action
-                                                    (MVC.Provider.ActionNames.GIBlackList,
-                                                    MVC.Provider.Name,
-                                                    new
-                                                    {
-                                                        ProviderPublicId = Request["ProviderPublicId"],
-                                                    }))">
-                        <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                        <input type="hidden" name="DownloadReport" value="true" />
-                    </form>
-                </div>
-            </div>
-        <div>
-            <br />
-            <p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
-            <br />
-        </div>
-            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
-            foreach (var item in ShowAlertModel)
+            @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
+            if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
             {
-                foreach (var info in item.BlackListInfo)
+                var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
+
+                if (Model.RelatedBlackListInfo != null && Model.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
                 {
-                    if (info.ItemInfoType.ItemName == "RazonSocial")
+                    <div class="row POMPSectionTitlesBox">
+                        <div class="col-sm-6 col-lg-6 text-left">
+                            <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
+                        </div>
+                        <div class="col-sm-6 col-lg-6 text-right">
+                            <form id="frmThirdKnowledgeUpsert"
+                                    method="post"
+                                    action="@(Url.Action
+                                                                    (MVC.Provider.ActionNames.GIBlackList,
+                                                                    MVC.Provider.Name,
+                                                                    new
+                                                                    {
+                                                                        ProviderPublicId = Request["ProviderPublicId"],
+                                                                    }))">
+                                <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                <input type="hidden" name="DownloadReport" value="true" />
+                            </form>
+                        </div>
+                    </div>
+                            <div>
+                                <br />
+                                <p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
+                                <br />
+                            </div>
+                    List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+                    foreach (var item in ShowAlertModel)
                     {
-                        <br />
+                        foreach (var info in item.BlackListInfo)
+                        {
+                            if (info.ItemInfoType.ItemName == "RazonSocial")
+                            {
+                                <br />
                                         <hr class="POMPProviderRestrictiveLIstSeparator" />
-                                        <div class="col-xs-4">
-                                            <div class="col-xs-12">
-                                                <label>
-                                                    Razón Social/Nombre
-                                                </label>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <span>@info.Value</span>
-                                            </div>
-                                        </div>
-                    }
-                    else if (info.ItemInfoType.ItemName == "IdentificationNumber")
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>
-                                    Número de Identificación
-                                </label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@info.Value</span>
-                            </div>
-                        </div>
-                    }
-                    else if (info.ItemInfoType.ItemName == "Cargo")
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>
-                                    Cargo
-                                </label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@info.Value</span>
-                            </div>
-                        </div>
-                    }
-                    else if (info.ItemInfoType.ItemName != "SearchType" &&
-                             info.ItemInfoType.ItemName != "BlackListStatus" &&
-                             info.ItemInfoType.ItemName != "ProviderPublicId" &&
-                             info.ItemInfoType.ItemName != "IdentificationType")
-                    {
-                        <div class="col-xs-4">
-                            <div class="col-xs-12">
-                                <label>
-                                    @info.ItemInfoType.ItemName
-                                </label>
-                            </div>
-                            <div class="col-xs-12">
-                                <span>@info.Value</span>
-                            </div>
-                        </div>
+                                                        <div class="col-xs-4">
+                                                            <div class="col-xs-12">
+                                                                <label>
+                                                                    Razón Social/Nombre
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-xs-12">
+                                                                <span>@info.Value</span>
+                                                            </div>
+                                                        </div>
+                            }
+                            else if (info.ItemInfoType.ItemName == "IdentificationNumber")
+                            {
+                                <div class="col-xs-4">
+                                    <div class="col-xs-12">
+                                        <label>
+                                            Número de Identificación
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span>@info.Value</span>
+                                    </div>
+                                </div>
+                            }
+                            else if (info.ItemInfoType.ItemName == "Cargo")
+                            {
+                                <div class="col-xs-4">
+                                    <div class="col-xs-12">
+                                        <label>
+                                            Cargo
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span>@info.Value</span>
+                                    </div>
+                                </div>
+                            }
+                            else if (info.ItemInfoType.ItemName != "SearchType" &&
+                                        info.ItemInfoType.ItemName != "BlackListStatus" &&
+                                        info.ItemInfoType.ItemName != "ProviderPublicId" &&
+                                        info.ItemInfoType.ItemName != "IdentificationType")
+                            {
+                                <div class="col-xs-4">
+                                    <div class="col-xs-12">
+                                        <label>
+                                            @info.ItemInfoType.ItemName
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span>@info.Value</span>
+                                    </div>
+                                </div>
+                            }
+                        }
                     }
                 }
-            }
-        }
-        else
-        {
-            <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                <div class="col-xs-12">
-                    <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
-                </div>
-            </div>
+                else
+                {
+                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+                        <div class="col-xs-12">
+                            <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
+                        </div>
+                    </div>
 
                 }
             }
-
         }
     }
 </div>

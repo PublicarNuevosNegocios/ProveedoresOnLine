@@ -160,15 +160,7 @@ namespace DocumentManagement.Web.Controllers
                         CustomerProviderInfo.Value = "201";
                         ListCustomerProviderInfo.Add(CustomerProviderInfo);
                     }
-
-                    //CustomerProviderInfo = new ProviderInfoModel();
-                    //CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
-                    //                                      oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
-                    //                                                Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
-                    //CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
-                    //CustomerProviderInfo.Value = Salesforce;
-                    //ListCustomerProviderInfo.Add(CustomerProviderInfo);
-
+  
                     CustomerProviderInfo = new ProviderInfoModel();
                     CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
                                                           oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 378).
@@ -251,11 +243,7 @@ namespace DocumentManagement.Web.Controllers
                 {
                     RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
                 };
-                return View(oModel);
-                //return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
-                //{
-                //    CustomerPublicId = CustomerPublicId
-                //});
+                return View(oModel);                
             }
             else
             {
@@ -320,7 +308,6 @@ namespace DocumentManagement.Web.Controllers
                     ProviderModel oResultValidate = new ProviderModel();
                     ProviderModel oInfoValidate = new ProviderModel();
                     oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), CustomerPublicId);
-                    //oInfoValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByInfoType(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), 401);
 
                     //Create ProviderCustomerInfo
                     List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
