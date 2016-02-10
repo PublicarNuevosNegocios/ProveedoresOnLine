@@ -238,7 +238,7 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId
                 , QueryPublicId
                 , Enable == "1" ? true : false
-                ,0
+                ,0//FIRST PAGE
                 , Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim())
                 ,out TotalRows
                 );
@@ -334,6 +334,44 @@ namespace MarketPlace.Web.Controllers
             }
 
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
+
+
+            if (oModel != null)
+            {
+                List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> oGroup = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
+                List<string> Item1 = new List<string>();
+
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.All(
+                item =>
+                {
+                    item.RelatedQueryBasicInfoModel.All(x =>
+                    {
+                        Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                        return true;
+                    });
+                    Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+                    List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
+                    Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
+
+                    Item1.All(x =>
+                    {
+                        if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                        {
+                            oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
+                            oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
+                            oGroup.Add(oTupleItem);
+                        }
+                        return true;
+                    });
+                    return true;
+                });
+
+                oModel.Group = oGroup;
+            }
+
+
+
 
             return View(oModel);
         }

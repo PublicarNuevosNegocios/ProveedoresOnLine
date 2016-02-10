@@ -3,61 +3,37 @@
     ViewBag.Title = "Proveedores OnLine - Consulta Individual";
     Model.RenderScripts = false;
 }
-
-<div class="container-fluid POMPTKDetailContainer">
-    @if (Model.RelatedThidKnowledgeSearch != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x != null).Select(x => x.IsSuccess).FirstOrDefault().ToString().CompareTo("True") == 0)
+@*
+    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
+*@
+<div class="container-fluid POMPTKDetailContainer" id="TKDetailContainer">
+    @if (Model.Group != null && Model.Group.Count >= 0)
     {
-        foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+        foreach (var col in Model.Group)
         {
-            List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> Group = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
-            List<string> Item1 = new List<string>();
-
-            item.RelatedQueryBasicInfoModel.All(x =>
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div>
+                <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div>
+                <div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div>
+                <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div>
+                <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div>
+            </div>
+            <br />
+            foreach (var subItem in col.Item2)
             {
-                Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
-                return true;
-            });
-            Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
-
-            List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
-            Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
-
-            Item1.All(x =>
-            {
-                if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
-                {
-                    oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
-                    oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
-                    Group.Add(oTupleItem);
-                }
-                return true;
-            });
-
-            foreach (var col in Group)
-            {
-                <div class="row">
-                    <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div>
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div>
-                    <div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div>
-                </div>
-                <br />
-                foreach (var subItem in col.Item2)
-                {
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
-                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
-                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
-                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
-                        <div class="col-sm-2 POMPProviderBoxInfo text-center">
-                            <p>
-                                <a href="@(Url.RouteUrl
+                <div class="row POMPBorderbottom">
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
+                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
+                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
+                    <div class="col-sm-2 POMPProviderBoxInfo text-center">
+                        <p>
+                            <a href="@(Url.RouteUrl
                                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                                             new
                                             {
@@ -74,14 +50,13 @@
                                                             EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                         })
                                                 }))">Ver Detalle</a>
-                            </p>
-                        </div>
+                        </p>
                     </div>
-                    <br />
-                }
-                <br />
+                </div>
                 <br />
             }
+            <br />
+            <br />
         }
     }
     else
@@ -121,40 +96,40 @@
                 }
             </div>
         </div>
-
     }
 </div>
+
 <div class="row">
-    <div class="col-sm-12 text-center">
-
-        <nav>
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>               
-                @{
-                    for (int i = 0; i < Model.RelatedThidKnowledgeSearch.TotalPages; i++)
-                    {
+    <div class="col-sm-11 text-center">
+        @{
+            if (Model.RelatedThidKnowledgeSearch.TotalPages > 1){
+                <nav>
+                    <ul class="pagination">
                         <li>
-                            <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i)});">@(i + 1)</a>
+                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:0,QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Anterior">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
                         </li>
-                    }
-                 }
-                <li>
-                    <a href="#" aria-label="Siguiente">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+                        @{
+                            for (int i = 1; i <= Model.RelatedThidKnowledgeSearch.TotalPages; i++)
+                            {
+                                <li>
+                                    <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});">@(i)</a>
+                                </li>
+                            }
+                        }
+                        <li>
+                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgeSearch.TotalPages-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Siguiente">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            }
+        }
     </div>
 </div>
-
 <script type="text/javascript">
-
     $(document).ready(function () {
         Third_KnowledgeDetailSearch.Init({
             ObjectId: 'ThirdKnowledge',
