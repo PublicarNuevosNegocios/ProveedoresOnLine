@@ -26,6 +26,8 @@
 
         public const string C_Settings_Grid_RowCountDefault = "Grid_RowCountDefault";
 
+        public const string C_Settings_Paginator_PagesLimit = "Paginator_PagesLimit";
+        
         public const string C_Settings_Grid_AutoCompleteRow = "MP_AutoCompleteRow";
 
         public const string C_Settings_DateFormat_Kendo = "DateFormat_Kendo";
