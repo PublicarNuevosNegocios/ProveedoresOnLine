@@ -8,6 +8,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Models
 {
     public class TDQueryModel
     {
+
         public string QueryPublicId { get; set; }
 
         public string CompayPublicId {get; set; }

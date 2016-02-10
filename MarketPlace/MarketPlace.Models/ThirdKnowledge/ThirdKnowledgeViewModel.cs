@@ -65,6 +65,12 @@ namespace MarketPlace.Models.Company
 
         public DateTime EndDate { get; set; }
 
+        public int TotalRows { get; set; }
+
+        public int RowCount { get { return Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()); } }
+
+        public int TotalPages { get; set; }
+
         #endregion
 
         public ThirdKnowledgeViewModel(ProveedoresOnLine.ThirdKnowledge.Models.PlanModel oCurrenPlan)

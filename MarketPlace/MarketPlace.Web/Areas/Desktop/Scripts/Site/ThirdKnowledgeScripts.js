@@ -176,3 +176,71 @@ var Third_KnowledgeSearchObject = {
     },
 };
 
+var Third_KnowledgeDetailSearch= {
+      QueryPublicId: ''
+    , InitDate: ''
+    , EndDate: ''
+    , Enable: ''
+    , IsSuccess: ''
+    , PageNumber: 0
+    , RowCount: 0
+
+    ,Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+        this.QueryPublicId = vInitObject.QueryPublicId;
+        this.InitDate = vInitObject.InitDate;
+        this.EndDate = vInitObject.EndDate;
+        this.Enable = vInitObject.Enable;
+        this.IsSuccess = vInitObject.IsSuccess;
+        this.PageNumber = vInitObject.PageNumber;
+        this.RowCount = vInitObject.RowCount;
+    },
+    RenderAsync: function () {
+        //Change event
+        $('#' + Third_KnowledgeDetailSearch.ObjectId + '_FilterId').click(function () {
+            Third_KnowledgeDetailSearch.Search(vInitObject);
+        });
+    },
+    Search: function (vSearchObject) {
+            $.ajax({
+                //url: BaseUrl.ApiUrl + '/TKThirdKnowledgeDetail?TKThirdKnowledgeDetail=true&QueryPublicId=' + vSearchObject.QueryPublicId + '&InitDate=' + vSearchObject.InitDate + '&EndDate=' + vSearchObject.EndDate + '&Enable=' + vSearchObject.Enable + '&IsSuccess=' + vSearchObject.IsSuccess + '&PageNumber=' + vSearchObject.PageNumber,
+                url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKThirdKnowledgeDetail=true&QueryPublicId=' + '1F23540C' + '&InitDate=' + '0001-01-01' + '&EndDate=' + '0001-01-01' + '&Enable=' + 1 + '&IsSuccess=' + 'no' + '&PageNumber=' + 0,
+                dataType: 'json',
+                success: function (result) {
+
+                    if (result != null) {
+                       
+                        result.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.forEach(function (result_query) {
+                            result_query.RelatedQueryBasicInfoModel.forEach(function (result_items) {
+                                /*obtengo los grupos de listas*/
+                                result_items.DetailInfo.forEach(function (groups_values) {
+                                    if (groups_valuesItemInfoType.ItemId == 301015) {
+                                        console.log();
+                                    }
+
+                                    
+                                });
+
+                                debugger;
+
+
+
+                                Console.log(group.Alias);
+                            });
+                        });
+
+
+                        debugger;
+                        alert("llego Chinooo" + result);
+                       // Provider_SearchObject.OpenCompare(Provider_SearchObject.CompareId);
+                    }
+                },
+                error: function (result) {
+                }
+            });
+      
+
+       
+    },
+}

@@ -321,6 +321,48 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public ProviderViewModel TKThirdKnowledgeDetail(
+              string TKThirdKnowledgeDetail
+            , string QueryPublicId
+            , string InitDate
+            , string EndDate
+            , string Enable
+            , string IsSuccess
+            , int PageNumber
+            ) {
+
+                ProviderViewModel oModel = new ProviderViewModel();
+                oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
+                int TotalRows = 0;
+                List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
+                    (SessionModel.CurrentCompany.CompanyPublicId
+                    , QueryPublicId
+                    , Enable == "1" ? true : false
+                    , PageNumber
+                    , Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim())
+                    , out TotalRows
+                    );
+                oModel.RelatedThidKnowledgeSearch.TotalRows = TotalRows;
+                oModel.RelatedThidKnowledgeSearch.TotalPages = (int)Math.Ceiling((decimal)((decimal)oModel.RelatedThidKnowledgeSearch.TotalRows / (decimal)oModel.RelatedThidKnowledgeSearch.RowCount));
+
+                if (oQueryResult != null && oQueryResult.Count > 0)
+                    oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
+                else if (IsSuccess == "Finalizado")
+                    oModel.RelatedThidKnowledgeSearch.Message = "La búsqueda no arrojó resultados.";
+
+                if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate))
+                {
+                    oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
+                    oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
+                }
+
+            return oModel;
+        }
+
+
         #region ThirdKnowledge Charts
 
         [HttpPost]
