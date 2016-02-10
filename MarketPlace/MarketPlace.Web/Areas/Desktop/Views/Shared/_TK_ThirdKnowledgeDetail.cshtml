@@ -102,24 +102,36 @@
 <div class="row">
     <div class="col-sm-11 text-center">
         @{
-            if (Model.RelatedThidKnowledgeSearch.TotalPages > 1){
+            if (Model.RelatedThidKnowledgeSearch.TotalPages > 1)
+            {
                 <nav>
                     <ul class="pagination">
                         <li>
-                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:0,QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Anterior">
+                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:0,QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Primero">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgeSearch.TotalPages-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Anterior">
+                                <span aria-hidden="true">&lsaquo;</span>
+                            </a>
+                        </li>
                         @{
-                            for (int i = 1; i <= Model.RelatedThidKnowledgeSearch.TotalPages; i++)
+                            for (int i = Model.RelatedThidKnowledgeSearch.StartPage; i <= Model.RelatedThidKnowledgeSearch.PagesLimit; i++)
                             {
                                 <li>
-                                    <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});">@(i)</a>
+                                    <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});">@(i+1)</a>
                                 </li>
                             }
                         }
                         <li>
-                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgeSearch.TotalPages-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Siguiente">
+                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@( Model.RelatedThidKnowledgeSearch.LastPage+1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Siguiente">
+                                <span aria-hidden="true">&rsaquo;</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgeSearch.TotalPages-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Último">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

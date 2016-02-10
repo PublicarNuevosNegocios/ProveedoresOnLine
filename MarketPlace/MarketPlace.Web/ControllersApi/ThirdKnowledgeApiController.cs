@@ -347,6 +347,13 @@ namespace MarketPlace.Web.ControllersApi
             oModel.RelatedThidKnowledgeSearch.TotalRows = TotalRows;
             oModel.RelatedThidKnowledgeSearch.TotalPages = (int)Math.Ceiling((decimal)((decimal)oModel.RelatedThidKnowledgeSearch.TotalRows / (decimal)oModel.RelatedThidKnowledgeSearch.RowCount));
 
+            /*calc lastpage*/
+
+            if (PageNumber == oModel.RelatedThidKnowledgeSearch.LastPage)
+            {
+                oModel.RelatedThidKnowledgeSearch.LastPage += oModel.RelatedThidKnowledgeSearch.PagesLimit;
+            }
+
             if (oQueryResult != null && oQueryResult.Count > 0)
                 oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;
             else if (IsSuccess == "Finalizado")

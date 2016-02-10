@@ -71,7 +71,7 @@ namespace MarketPlace.Models.Company
 
         public int TotalPages { get; set; }
 
-        public int PagesLimit { get { return Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()); } }
+        public int PagesLimit { get { return Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Paginator_PagesLimit].Value.Trim()); } }
 
         public int LastPage { get; set; }
 
