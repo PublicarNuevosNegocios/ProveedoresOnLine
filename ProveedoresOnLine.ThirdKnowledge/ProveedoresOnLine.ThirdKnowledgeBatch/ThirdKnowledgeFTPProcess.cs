@@ -403,7 +403,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                         });
                     }
                     if (oExclude != null)
-                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => !oExclude.Any(z => z.NUMEIDEN == x.NUMEIDEN || z.NOMBRES == x.NOMBRES)).ToList(); //TODO: 
+                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => !oExclude.Any(z => z.NUMEIDEN == x.NUMEIDEN || z.NOMBRES == x.NOMBRES)).ToList(); 
 
                     if (oExcelToProcessInfo != null)
                     {
@@ -417,6 +417,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
                             #region Create Detail
+                           
                             oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                             {
                                 ItemInfoType = new TDCatalogModel()
@@ -433,6 +434,15 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                     ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
                                 },
                                 Value = !string.IsNullOrEmpty(x.NUMEIDEN) ? x.NUMEIDEN : string.Empty,
+                                Enable = true,
+                            });
+                             oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                            {
+                                ItemInfoType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
+                                },
+                                Value = "SIN COINCIDENCIAS",
                                 Enable = true,
                             });
                             #endregion
