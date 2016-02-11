@@ -2,6 +2,19 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
+      <Rectangle Name="Rectangle3">
+        <KeepTogether>true</KeepTogether>
+        <Top>0.17639cm</Top>
+        <Left>0.16156cm</Left>
+        <Height>2.91747cm</Height>
+        <Width>16.19725cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#f6f6f6</BackgroundColor>
+        </Style>
+      </Rectangle>
       <Rectangle Name="Rectangle2">
         <ReportItems>
           <Textbox Name="Textbox67">
@@ -24,7 +37,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox64</rd:DefaultName>
-            <Top>4.44447cm</Top>
+            <Top>4.47622cm</Top>
             <Left>0.40245cm</Left>
             <Height>0.3673cm</Height>
             <Width>0.26614cm</Width>
@@ -899,10 +912,11 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>2.00229cm</Top>
+        <Top>4.22479cm</Top>
         <Left>0.16156cm</Left>
         <Height>11.03292cm</Height>
         <Width>16.19725cm</Width>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -928,11 +942,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.0795cm</Top>
+        <Top>3.27025cm</Top>
         <Left>0.1345cm</Left>
         <Height>0.78521cm</Height>
-        <Width>16.33104cm</Width>
-        <ZIndex>1</ZIndex>
+        <Width>16.22431cm</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -953,11 +967,11 @@
         <Source>External</Source>
         <Value>=Parameters!ThirdKnowledgeText.Value</Value>
         <Sizing>FitProportional</Sizing>
-        <Top>13.2116cm</Top>
+        <Top>15.4341cm</Top>
         <Left>0.25681cm</Left>
         <Height>4.05562cm</Height>
         <Width>16.102cm</Width>
-        <ZIndex>2</ZIndex>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -984,11 +998,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox64</rd:DefaultName>
-        <Top>17.58272cm</Top>
+        <Top>19.74172cm</Top>
         <Left>0.1345cm</Left>
         <Height>0.39905cm</Height>
         <Width>0.26614cm</Width>
-        <ZIndex>3</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1021,11 +1035,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox64</rd:DefaultName>
-        <Top>17.58272cm</Top>
+        <Top>19.74172cm</Top>
         <Left>0.31577cm</Left>
         <Height>0.39905cm</Height>
-        <Width>16.11404cm</Width>
-        <ZIndex>4</ZIndex>
+        <Width>16.01129cm</Width>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1055,11 +1069,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>17.53463cm</Top>
+        <Top>19.69363cm</Top>
         <Left>0.11253cm</Left>
         <Height>0.12375cm</Height>
-        <Width>16.34903cm</Width>
-        <ZIndex>5</ZIndex>
+        <Width>16.24628cm</Width>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1095,11 +1109,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>0.23432cm</Top>
+        <Top>0.42482cm</Top>
         <Left>0.55938cm</Left>
         <Height>0.57354cm</Height>
-        <Width>1.49219cm</Width>
-        <ZIndex>6</ZIndex>
+        <Width>4.16395cm</Width>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1128,11 +1142,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>0.23432cm</Top>
-        <Left>2.19267cm</Left>
+        <Top>0.42482cm</Top>
+        <Left>4.8351cm</Left>
         <Height>0.57354cm</Height>
-        <Width>5.65309cm</Width>
-        <ZIndex>7</ZIndex>
+        <Width>8.48971cm</Width>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1162,11 +1176,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>0.23432cm</Top>
-        <Left>8.17784cm</Left>
+        <Top>1.04775cm</Top>
+        <Left>0.55938cm</Left>
         <Height>0.57354cm</Height>
-        <Width>3.07086cm</Width>
-        <ZIndex>8</ZIndex>
+        <Width>4.16395cm</Width>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1195,11 +1209,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>0.23432cm</Top>
-        <Left>11.42509cm</Left>
+        <Top>1.04775cm</Top>
+        <Left>4.8351cm</Left>
         <Height>0.57354cm</Height>
-        <Width>4.75351cm</Width>
-        <ZIndex>9</ZIndex>
+        <Width>8.48971cm</Width>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1229,11 +1243,145 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.19239cm</Top>
+        <Top>3.38314cm</Top>
         <Left>0.56401cm</Left>
         <Height>0.57354cm</Height>
         <Width>15.61438cm</Width>
-        <ZIndex>10</ZIndex>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox26">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Nombre consultado:</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>1.67068cm</Top>
+        <Left>0.55939cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>4.16394cm</Width>
+        <ZIndex>12</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox58">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!SearchName.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>1.67068cm</Top>
+        <Left>4.8351cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>8.48971cm</Width>
+        <ZIndex>13</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox27">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Identificación Consultada:</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>2.29361cm</Top>
+        <Left>0.55939cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>4.16394cm</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox59">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!SearchIdentification.Value</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox19</rd:DefaultName>
+        <Top>2.29361cm</Top>
+        <Left>4.8351cm</Left>
+        <Height>0.57354cm</Height>
+        <Width>8.48971cm</Width>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1245,10 +1393,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>7.15212in</Height>
+    <Height>7.98352in</Height>
     <Style />
   </Body>
-  <Width>6.48863in</Width>
+  <Width>6.44048in</Width>
   <Page>
     <PageHeader>
       <Height>2.15908cm</Height>
@@ -1280,7 +1428,7 @@
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0.66675cm</Top>
               <Height>0.83813cm</Height>
-              <Width>12.53972cm</Width>
+              <Width>12.35951cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1296,7 +1444,7 @@
           <KeepTogether>true</KeepTogether>
           <Left>3.81909cm</Left>
           <Height>2.01167cm</Height>
-          <Width>12.66203cm</Width>
+          <Width>12.53972cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1326,7 +1474,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.30807cm</Height>
+      <Height>1.25352cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1467,6 +1615,16 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Group">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SearchName">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SearchIdentification">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
