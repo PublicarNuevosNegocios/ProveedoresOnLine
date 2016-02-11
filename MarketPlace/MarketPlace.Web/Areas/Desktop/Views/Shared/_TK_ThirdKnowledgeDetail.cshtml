@@ -11,6 +11,29 @@
     {
         foreach (var col in Model.Group)
         {
+            if (col.Item1 == "SIN COINCIDENCIAS")
+            {
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Nombre Consultado</strong></div>
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Identificación Consultada</strong></div>
+
+                </div>
+                <br />
+                foreach (var subItem in col.Item2)
+                {
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.RequestName).Select(x => x.Value).FirstOrDefault()</p></div>
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).FirstOrDefault()</p></div>
+                    </div>
+                    <br />
+                }
+                <br />
+                <br />
+            }
             <div class="row">
                 <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
             </div>
@@ -117,12 +140,12 @@
                             </a>
                         </li>
                         @{
-                            for (int i = Model.RelatedThidKnowledgeSearch.StartPage; i <= Model.RelatedThidKnowledgeSearch.PagesLimit; i++)
-                            {
-                                <li>
-                                    <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});">@(i+1)</a>
-                                </li>
-                            }
+                for (int i = Model.RelatedThidKnowledgeSearch.StartPage; i <= Model.RelatedThidKnowledgeSearch.PagesLimit; i++)
+                {
+                    <li>
+                        <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});">@(i + 1)</a>
+                    </li>
+                }
                         }
                         <li>
                             <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@( Model.RelatedThidKnowledgeSearch.LastPage+1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Siguiente">
