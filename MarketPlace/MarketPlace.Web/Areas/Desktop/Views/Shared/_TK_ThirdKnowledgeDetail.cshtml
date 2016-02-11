@@ -18,22 +18,48 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Nombre Consultado</strong></div>
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Identificación Consultada</strong></div>
+
+                    <div class="col-sm-4 POMPProviderBoxInfo text-left"><strong>Nombre Consultado</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo text-left"><strong>Identificación Consultada</strong></div>
 
                 </div>
+        
+        
                 <br />
                 foreach (var subItem in col.Item2)
                 {
                     <div class="row POMPBorderbottom">
-                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.RequestName).Select(x => x.Value).FirstOrDefault()</p></div>
-                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).FirstOrDefault()</p></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo text-left"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.RequestName).Select(x => x.Value).FirstOrDefault()</p></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo text-left"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).FirstOrDefault()</p></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo text-right">
+                            <p>
+                                <a href="@(Url.RouteUrl
+                                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                            new
+                                            {
+                                                controller = MVC.ThirdKnowledge.Name,
+                                                action = MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                                QueryBasicPublicId = subItem.QueryBasicPublicId,
+                                                ReturnUrl = Url.Action
+                                                        (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
+                                                        MVC.ThirdKnowledge.Name,
+                                                        new
+                                                        {
+                                                            QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
+                                                            InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
+                                                            EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+                                                        })
+                                                }))">Ver Detalle</a>
+                            </p>
+                        </div>
+
                     </div>
                     <br />
                 }
                 <br />
                 <br />
             }
+            
             <div class="row">
                 <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
             </div>
