@@ -117,7 +117,7 @@ namespace MarketPlace.Web.Controllers
                 QueryDetailInfo = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryDetailGetByBasicPublicID(QueryBasicPublicId);
                 
                 List<TDQueryModel> oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId(
-                                                    SessionModel.CurrentCompany.CompanyPublicId, QueryDetailInfo.QueryPublicId, true, 0, 20, out oTotalRows);
+                    SessionModel.CurrentCompany.CompanyPublicId, QueryDetailInfo != null ? QueryDetailInfo.QueryPublicId : string.Empty, true, 0, 20, out oTotalRows);
                 oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel(QueryDetailInfo.DetailInfo);
 
                 if (ReturnUrl == "null")
