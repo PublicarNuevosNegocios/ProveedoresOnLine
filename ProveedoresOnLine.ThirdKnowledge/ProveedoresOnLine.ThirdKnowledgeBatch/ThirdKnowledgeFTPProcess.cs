@@ -245,9 +245,6 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                     }               
                                     return true;
                                 });
-
-                            CreateQueryInfo(oQuery, oCoincidences);
-
                             //Update Status query
                             oQuery.QueryStatus = new TDCatalogModel()
                             {
@@ -257,6 +254,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             CreateReadyResultNotification(oQuery);
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
 
+                            CreateQueryInfo(oQuery, oCoincidences);
                             LogFile("Success:: QueryPublicId '" + oQuery.QueryPublicId + "' :: Validation is success");
                         }
                         catch (Exception err)
@@ -405,7 +403,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                         });
                     }
                     if (oExclude != null)
-                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => oExclude.Any(z => z.NUMEIDEN != x.NUMEIDEN && z.NOMBRES != x.NOMBRES)).ToList(); //TODO: 
+                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => !oExclude.Any(z => z.NUMEIDEN == x.NUMEIDEN || z.NOMBRES == x.NOMBRES)).ToList(); 
 
                     if (oExcelToProcessInfo != null)
                     {
@@ -419,6 +417,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
                             #region Create Detail
+                           
                             oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                             {
                                 ItemInfoType = new TDCatalogModel()
@@ -437,11 +436,19 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                 Value = !string.IsNullOrEmpty(x.NUMEIDEN) ? x.NUMEIDEN : string.Empty,
                                 Enable = true,
                             });
+                             oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                            {
+                                ItemInfoType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
+                                },
+                                Value = "SIN COINCIDENCIAS",
+                                Enable = true,
+                            });
                             #endregion
 
                             oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
-
-                            oQuery.IsSuccess = false;
+                                                        
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
                             return true;
                         });

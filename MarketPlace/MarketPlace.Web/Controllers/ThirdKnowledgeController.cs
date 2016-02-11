@@ -349,7 +349,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     item.RelatedQueryBasicInfoModel.All(x =>
                     {
-                        Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                        Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());                        
                         return true;
                     });
                     Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
@@ -372,10 +372,6 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.Group = oGroup;
             }
-
-
-
-
             return View(oModel);
         }
 
