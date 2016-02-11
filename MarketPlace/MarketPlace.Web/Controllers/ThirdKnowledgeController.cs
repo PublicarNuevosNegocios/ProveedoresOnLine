@@ -111,15 +111,20 @@ namespace MarketPlace.Web.Controllers
                 if (SessionModel.CurrentURL != null)
                     SessionModel.CurrentURL = null;
 
+                int oTotalRows = 0;
+
                 //Get The Active Plan By Customer 
                 QueryDetailInfo = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryDetailGetByBasicPublicID(QueryBasicPublicId);
-
+                
+                List<TDQueryModel> oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId(
+                                                    SessionModel.CurrentCompany.CompanyPublicId, QueryDetailInfo.QueryPublicId, true, 0, 20, out oTotalRows);
                 oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel(QueryDetailInfo.DetailInfo);
 
                 if (ReturnUrl == "null")
                     oModel.RelatedThidKnowledgeSearch.ReturnUrl = ReturnUrl;
 
                 oModel.RelatedThidKnowledgeSearch.QueryBasicPublicId = QueryBasicPublicId;
+                oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel;
 
                 //Get report generator
                 if (Request["DownloadReport"] == "true")
