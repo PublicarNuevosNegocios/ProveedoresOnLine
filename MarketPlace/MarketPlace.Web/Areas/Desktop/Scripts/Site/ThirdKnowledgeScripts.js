@@ -238,7 +238,7 @@ var Third_KnowledgeDetailSearch = {
                                     }                                   
                                 });
                                 content_info += '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>' +
-                                                '<a href="/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + content.QueryBasicPublicId +
+                                                '<a href="' + BaseUrl.SiteUrl + '/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + content.QueryBasicPublicId +
                                                 '&ReturnUrl='+
                                                 '&InitDate=' + InitDate +
                                                 '&EndDate=' + EndDate +
