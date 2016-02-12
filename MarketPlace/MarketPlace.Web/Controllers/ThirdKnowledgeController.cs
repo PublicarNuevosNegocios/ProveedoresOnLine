@@ -238,6 +238,11 @@ namespace MarketPlace.Web.Controllers
             , string Enable
             , string IsSuccess)
         {
+
+            int row_count = Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim());
+            if (Request["DownloadReport"] == "true")             
+                row_count = 10000;
+
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
@@ -247,7 +252,7 @@ namespace MarketPlace.Web.Controllers
                 , QueryPublicId
                 , Enable == "1" ? true : false
                 ,0//FIRST PAGE
-                , Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim())
+                , row_count
                 ,out TotalRows
                 );
             oModel.RelatedThidKnowledgeSearch.TotalRows = TotalRows;
@@ -301,7 +306,14 @@ namespace MarketPlace.Web.Controllers
                     return true;
                 });
 
-                oModel.Group = oGroup;
+                List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> oGroupOrder = new List<Tuple<string,List<TDQueryInfoModel>>>();
+
+                oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "LISTAS RESTRICTIVAS - Criticidad Alta"));
+                oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media"));
+                oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "LISTAS FINANCIERAS - Criticidad Media"));
+                oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "LISTAS PEPS - Criticidad Baja"));
+                oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "SIN COINCIDENCIAS"));
+                oModel.Group = oGroupOrder;
             }
 
 
@@ -310,6 +322,7 @@ namespace MarketPlace.Web.Controllers
             {
                 #region Set Parameters
                 //Get Request
+
                 var obbkRQB = oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.RelatedQueryBasicInfoModel != null).FirstOrDefault().RelatedQueryBasicInfoModel.Where(i => i.DetailInfo != null).FirstOrDefault();
                 string searchName = "";
                 string searchIdentification = "";
