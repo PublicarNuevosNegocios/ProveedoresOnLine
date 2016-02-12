@@ -24,7 +24,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class DS_ThirdKnowledgeReport : global::System.Data.DataSet {
         
-        private ThirdKnowledgeReportDataTable tableThirdKnowledgeReport;
+        private ThirdKnowledgeReport_fncDataTable tableThirdKnowledgeReport_fnc;
+        
+        private ThirdKnowledgeReport_rstDataTable tableThirdKnowledgeReport_rst;
+        
+        private ThirdKnowledgeReport_dceDataTable tableThirdKnowledgeReport_dce;
+        
+        private ThirdKnowledgeReport_ppsDataTable tableThirdKnowledgeReport_pps;
+        
+        private ThirdKnowledgeReport_sncDataTable tableThirdKnowledgeReport_snc;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -54,8 +62,20 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["ThirdKnowledgeReport"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReportDataTable(ds.Tables["ThirdKnowledgeReport"]));
+                if ((ds.Tables["ThirdKnowledgeReport_fnc"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_fncDataTable(ds.Tables["ThirdKnowledgeReport_fnc"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_rst"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_rstDataTable(ds.Tables["ThirdKnowledgeReport_rst"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_dce"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_dceDataTable(ds.Tables["ThirdKnowledgeReport_dce"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_pps"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_ppsDataTable(ds.Tables["ThirdKnowledgeReport_pps"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_snc"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_sncDataTable(ds.Tables["ThirdKnowledgeReport_snc"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +99,49 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ThirdKnowledgeReportDataTable ThirdKnowledgeReport {
+        public ThirdKnowledgeReport_fncDataTable ThirdKnowledgeReport_fnc {
             get {
-                return this.tableThirdKnowledgeReport;
+                return this.tableThirdKnowledgeReport_fnc;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ThirdKnowledgeReport_rstDataTable ThirdKnowledgeReport_rst {
+            get {
+                return this.tableThirdKnowledgeReport_rst;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ThirdKnowledgeReport_dceDataTable ThirdKnowledgeReport_dce {
+            get {
+                return this.tableThirdKnowledgeReport_dce;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ThirdKnowledgeReport_ppsDataTable ThirdKnowledgeReport_pps {
+            get {
+                return this.tableThirdKnowledgeReport_pps;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ThirdKnowledgeReport_sncDataTable ThirdKnowledgeReport_snc {
+            get {
+                return this.tableThirdKnowledgeReport_snc;
             }
         }
         
@@ -152,8 +212,20 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["ThirdKnowledgeReport"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReportDataTable(ds.Tables["ThirdKnowledgeReport"]));
+                if ((ds.Tables["ThirdKnowledgeReport_fnc"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_fncDataTable(ds.Tables["ThirdKnowledgeReport_fnc"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_rst"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_rstDataTable(ds.Tables["ThirdKnowledgeReport_rst"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_dce"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_dceDataTable(ds.Tables["ThirdKnowledgeReport_dce"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_pps"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_ppsDataTable(ds.Tables["ThirdKnowledgeReport_pps"]));
+                }
+                if ((ds.Tables["ThirdKnowledgeReport_snc"] != null)) {
+                    base.Tables.Add(new ThirdKnowledgeReport_sncDataTable(ds.Tables["ThirdKnowledgeReport_snc"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +260,34 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableThirdKnowledgeReport = ((ThirdKnowledgeReportDataTable)(base.Tables["ThirdKnowledgeReport"]));
+            this.tableThirdKnowledgeReport_fnc = ((ThirdKnowledgeReport_fncDataTable)(base.Tables["ThirdKnowledgeReport_fnc"]));
             if ((initTable == true)) {
-                if ((this.tableThirdKnowledgeReport != null)) {
-                    this.tableThirdKnowledgeReport.InitVars();
+                if ((this.tableThirdKnowledgeReport_fnc != null)) {
+                    this.tableThirdKnowledgeReport_fnc.InitVars();
+                }
+            }
+            this.tableThirdKnowledgeReport_rst = ((ThirdKnowledgeReport_rstDataTable)(base.Tables["ThirdKnowledgeReport_rst"]));
+            if ((initTable == true)) {
+                if ((this.tableThirdKnowledgeReport_rst != null)) {
+                    this.tableThirdKnowledgeReport_rst.InitVars();
+                }
+            }
+            this.tableThirdKnowledgeReport_dce = ((ThirdKnowledgeReport_dceDataTable)(base.Tables["ThirdKnowledgeReport_dce"]));
+            if ((initTable == true)) {
+                if ((this.tableThirdKnowledgeReport_dce != null)) {
+                    this.tableThirdKnowledgeReport_dce.InitVars();
+                }
+            }
+            this.tableThirdKnowledgeReport_pps = ((ThirdKnowledgeReport_ppsDataTable)(base.Tables["ThirdKnowledgeReport_pps"]));
+            if ((initTable == true)) {
+                if ((this.tableThirdKnowledgeReport_pps != null)) {
+                    this.tableThirdKnowledgeReport_pps.InitVars();
+                }
+            }
+            this.tableThirdKnowledgeReport_snc = ((ThirdKnowledgeReport_sncDataTable)(base.Tables["ThirdKnowledgeReport_snc"]));
+            if ((initTable == true)) {
+                if ((this.tableThirdKnowledgeReport_snc != null)) {
+                    this.tableThirdKnowledgeReport_snc.InitVars();
                 }
             }
         }
@@ -204,13 +300,45 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             this.Namespace = "http://tempuri.org/DS_ThirdKnowledgeReport.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableThirdKnowledgeReport = new ThirdKnowledgeReportDataTable();
-            base.Tables.Add(this.tableThirdKnowledgeReport);
+            this.tableThirdKnowledgeReport_fnc = new ThirdKnowledgeReport_fncDataTable();
+            base.Tables.Add(this.tableThirdKnowledgeReport_fnc);
+            this.tableThirdKnowledgeReport_rst = new ThirdKnowledgeReport_rstDataTable();
+            base.Tables.Add(this.tableThirdKnowledgeReport_rst);
+            this.tableThirdKnowledgeReport_dce = new ThirdKnowledgeReport_dceDataTable();
+            base.Tables.Add(this.tableThirdKnowledgeReport_dce);
+            this.tableThirdKnowledgeReport_pps = new ThirdKnowledgeReport_ppsDataTable();
+            base.Tables.Add(this.tableThirdKnowledgeReport_pps);
+            this.tableThirdKnowledgeReport_snc = new ThirdKnowledgeReport_sncDataTable();
+            base.Tables.Add(this.tableThirdKnowledgeReport_snc);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeThirdKnowledgeReport() {
+        private bool ShouldSerializeThirdKnowledgeReport_fnc() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeThirdKnowledgeReport_rst() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeThirdKnowledgeReport_dce() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeThirdKnowledgeReport_pps() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeThirdKnowledgeReport_snc() {
             return false;
         }
         
@@ -270,14 +398,26 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReportRowChangeEventHandler(object sender, ThirdKnowledgeReportRowChangeEvent e);
+        public delegate void ThirdKnowledgeReport_fncRowChangeEventHandler(object sender, ThirdKnowledgeReport_fncRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void ThirdKnowledgeReport_rstRowChangeEventHandler(object sender, ThirdKnowledgeReport_rstRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void ThirdKnowledgeReport_dceRowChangeEventHandler(object sender, ThirdKnowledgeReport_dceRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void ThirdKnowledgeReport_ppsRowChangeEventHandler(object sender, ThirdKnowledgeReport_ppsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void ThirdKnowledgeReport_sncRowChangeEventHandler(object sender, ThirdKnowledgeReport_sncRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ThirdKnowledgeReportDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReportRow> {
+        public partial class ThirdKnowledgeReport_fncDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_fncRow> {
             
             private global::System.Data.DataColumn columnAlias;
             
@@ -297,8 +437,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReportDataTable() {
-                this.TableName = "ThirdKnowledgeReport";
+            public ThirdKnowledgeReport_fncDataTable() {
+                this.TableName = "ThirdKnowledgeReport_fnc";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -306,7 +446,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReportDataTable(global::System.Data.DataTable table) {
+            internal ThirdKnowledgeReport_fncDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -323,7 +463,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ThirdKnowledgeReportDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected ThirdKnowledgeReport_fncDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -403,34 +543,34 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReportRow this[int index] {
+            public ThirdKnowledgeReport_fncRow this[int index] {
                 get {
-                    return ((ThirdKnowledgeReportRow)(this.Rows[index]));
+                    return ((ThirdKnowledgeReport_fncRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReportRowChangeEventHandler ThirdKnowledgeReportRowChanging;
+            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReportRowChangeEventHandler ThirdKnowledgeReportRowChanged;
+            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReportRowChangeEventHandler ThirdKnowledgeReportRowDeleting;
+            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReportRowChangeEventHandler ThirdKnowledgeReportRowDeleted;
+            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddThirdKnowledgeReportRow(ThirdKnowledgeReportRow row) {
+            public void AddThirdKnowledgeReport_fncRow(ThirdKnowledgeReport_fncRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReportRow AddThirdKnowledgeReportRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
-                ThirdKnowledgeReportRow rowThirdKnowledgeReportRow = ((ThirdKnowledgeReportRow)(this.NewRow()));
+            public ThirdKnowledgeReport_fncRow AddThirdKnowledgeReport_fncRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+                ThirdKnowledgeReport_fncRow rowThirdKnowledgeReport_fncRow = ((ThirdKnowledgeReport_fncRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Alias,
                         IdentificationResult,
@@ -440,15 +580,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         Priority,
                         Status,
                         ListName};
-                rowThirdKnowledgeReportRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowThirdKnowledgeReportRow);
-                return rowThirdKnowledgeReportRow;
+                rowThirdKnowledgeReport_fncRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowThirdKnowledgeReport_fncRow);
+                return rowThirdKnowledgeReport_fncRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ThirdKnowledgeReportDataTable cln = ((ThirdKnowledgeReportDataTable)(base.Clone()));
+                ThirdKnowledgeReport_fncDataTable cln = ((ThirdKnowledgeReport_fncDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -456,7 +596,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ThirdKnowledgeReportDataTable();
+                return new ThirdKnowledgeReport_fncDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -495,28 +635,28 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReportRow NewThirdKnowledgeReportRow() {
-                return ((ThirdKnowledgeReportRow)(this.NewRow()));
+            public ThirdKnowledgeReport_fncRow NewThirdKnowledgeReport_fncRow() {
+                return ((ThirdKnowledgeReport_fncRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ThirdKnowledgeReportRow(builder);
+                return new ThirdKnowledgeReport_fncRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ThirdKnowledgeReportRow);
+                return typeof(ThirdKnowledgeReport_fncRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ThirdKnowledgeReportRowChanged != null)) {
-                    this.ThirdKnowledgeReportRowChanged(this, new ThirdKnowledgeReportRowChangeEvent(((ThirdKnowledgeReportRow)(e.Row)), e.Action));
+                if ((this.ThirdKnowledgeReport_fncRowChanged != null)) {
+                    this.ThirdKnowledgeReport_fncRowChanged(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
                 }
             }
             
@@ -524,8 +664,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ThirdKnowledgeReportRowChanging != null)) {
-                    this.ThirdKnowledgeReportRowChanging(this, new ThirdKnowledgeReportRowChangeEvent(((ThirdKnowledgeReportRow)(e.Row)), e.Action));
+                if ((this.ThirdKnowledgeReport_fncRowChanging != null)) {
+                    this.ThirdKnowledgeReport_fncRowChanging(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
                 }
             }
             
@@ -533,8 +673,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ThirdKnowledgeReportRowDeleted != null)) {
-                    this.ThirdKnowledgeReportRowDeleted(this, new ThirdKnowledgeReportRowChangeEvent(((ThirdKnowledgeReportRow)(e.Row)), e.Action));
+                if ((this.ThirdKnowledgeReport_fncRowDeleted != null)) {
+                    this.ThirdKnowledgeReport_fncRowDeleted(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
                 }
             }
             
@@ -542,14 +682,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ThirdKnowledgeReportRowDeleting != null)) {
-                    this.ThirdKnowledgeReportRowDeleting(this, new ThirdKnowledgeReportRowChangeEvent(((ThirdKnowledgeReportRow)(e.Row)), e.Action));
+                if ((this.ThirdKnowledgeReport_fncRowDeleting != null)) {
+                    this.ThirdKnowledgeReport_fncRowDeleting(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveThirdKnowledgeReportRow(ThirdKnowledgeReportRow row) {
+            public void RemoveThirdKnowledgeReport_fncRow(ThirdKnowledgeReport_fncRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -576,7 +716,1303 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ThirdKnowledgeReportDataTable";
+                attribute2.FixedValue = "ThirdKnowledgeReport_fncDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ThirdKnowledgeReport_rstDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_rstRow> {
+            
+            private global::System.Data.DataColumn columnAlias;
+            
+            private global::System.Data.DataColumn columnIdentificationResult;
+            
+            private global::System.Data.DataColumn columnNameResult;
+            
+            private global::System.Data.DataColumn columnOffense;
+            
+            private global::System.Data.DataColumn columnPeps;
+            
+            private global::System.Data.DataColumn columnPriority;
+            
+            private global::System.Data.DataColumn columnStatus;
+            
+            private global::System.Data.DataColumn columnListName;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_rstDataTable() {
+                this.TableName = "ThirdKnowledgeReport_rst";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_rstDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected ThirdKnowledgeReport_rstDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AliasColumn {
+                get {
+                    return this.columnAlias;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationResultColumn {
+                get {
+                    return this.columnIdentificationResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameResultColumn {
+                get {
+                    return this.columnNameResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OffenseColumn {
+                get {
+                    return this.columnOffense;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PepsColumn {
+                get {
+                    return this.columnPeps;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PriorityColumn {
+                get {
+                    return this.columnPriority;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StatusColumn {
+                get {
+                    return this.columnStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ListNameColumn {
+                get {
+                    return this.columnListName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_rstRow this[int index] {
+                get {
+                    return ((ThirdKnowledgeReport_rstRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddThirdKnowledgeReport_rstRow(ThirdKnowledgeReport_rstRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_rstRow AddThirdKnowledgeReport_rstRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+                ThirdKnowledgeReport_rstRow rowThirdKnowledgeReport_rstRow = ((ThirdKnowledgeReport_rstRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Alias,
+                        IdentificationResult,
+                        NameResult,
+                        Offense,
+                        Peps,
+                        Priority,
+                        Status,
+                        ListName};
+                rowThirdKnowledgeReport_rstRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowThirdKnowledgeReport_rstRow);
+                return rowThirdKnowledgeReport_rstRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ThirdKnowledgeReport_rstDataTable cln = ((ThirdKnowledgeReport_rstDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ThirdKnowledgeReport_rstDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnAlias = base.Columns["Alias"];
+                this.columnIdentificationResult = base.Columns["IdentificationResult"];
+                this.columnNameResult = base.Columns["NameResult"];
+                this.columnOffense = base.Columns["Offense"];
+                this.columnPeps = base.Columns["Peps"];
+                this.columnPriority = base.Columns["Priority"];
+                this.columnStatus = base.Columns["Status"];
+                this.columnListName = base.Columns["ListName"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlias);
+                this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationResult);
+                this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameResult);
+                this.columnOffense = new global::System.Data.DataColumn("Offense", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOffense);
+                this.columnPeps = new global::System.Data.DataColumn("Peps", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeps);
+                this.columnPriority = new global::System.Data.DataColumn("Priority", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriority);
+                this.columnStatus = new global::System.Data.DataColumn("Status", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus);
+                this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnListName);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_rstRow NewThirdKnowledgeReport_rstRow() {
+                return ((ThirdKnowledgeReport_rstRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ThirdKnowledgeReport_rstRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ThirdKnowledgeReport_rstRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ThirdKnowledgeReport_rstRowChanged != null)) {
+                    this.ThirdKnowledgeReport_rstRowChanged(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ThirdKnowledgeReport_rstRowChanging != null)) {
+                    this.ThirdKnowledgeReport_rstRowChanging(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ThirdKnowledgeReport_rstRowDeleted != null)) {
+                    this.ThirdKnowledgeReport_rstRowDeleted(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ThirdKnowledgeReport_rstRowDeleting != null)) {
+                    this.ThirdKnowledgeReport_rstRowDeleting(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveThirdKnowledgeReport_rstRow(ThirdKnowledgeReport_rstRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DS_ThirdKnowledgeReport ds = new DS_ThirdKnowledgeReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ThirdKnowledgeReport_rstDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ThirdKnowledgeReport_dceDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_dceRow> {
+            
+            private global::System.Data.DataColumn columnAlias;
+            
+            private global::System.Data.DataColumn columnIdentificationResult;
+            
+            private global::System.Data.DataColumn columnNameResult;
+            
+            private global::System.Data.DataColumn columnOffense;
+            
+            private global::System.Data.DataColumn columnPeps;
+            
+            private global::System.Data.DataColumn columnPriority;
+            
+            private global::System.Data.DataColumn columnStatus;
+            
+            private global::System.Data.DataColumn columnListName;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_dceDataTable() {
+                this.TableName = "ThirdKnowledgeReport_dce";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_dceDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected ThirdKnowledgeReport_dceDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AliasColumn {
+                get {
+                    return this.columnAlias;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationResultColumn {
+                get {
+                    return this.columnIdentificationResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameResultColumn {
+                get {
+                    return this.columnNameResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OffenseColumn {
+                get {
+                    return this.columnOffense;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PepsColumn {
+                get {
+                    return this.columnPeps;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PriorityColumn {
+                get {
+                    return this.columnPriority;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StatusColumn {
+                get {
+                    return this.columnStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ListNameColumn {
+                get {
+                    return this.columnListName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_dceRow this[int index] {
+                get {
+                    return ((ThirdKnowledgeReport_dceRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddThirdKnowledgeReport_dceRow(ThirdKnowledgeReport_dceRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_dceRow AddThirdKnowledgeReport_dceRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+                ThirdKnowledgeReport_dceRow rowThirdKnowledgeReport_dceRow = ((ThirdKnowledgeReport_dceRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Alias,
+                        IdentificationResult,
+                        NameResult,
+                        Offense,
+                        Peps,
+                        Priority,
+                        Status,
+                        ListName};
+                rowThirdKnowledgeReport_dceRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowThirdKnowledgeReport_dceRow);
+                return rowThirdKnowledgeReport_dceRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ThirdKnowledgeReport_dceDataTable cln = ((ThirdKnowledgeReport_dceDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ThirdKnowledgeReport_dceDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnAlias = base.Columns["Alias"];
+                this.columnIdentificationResult = base.Columns["IdentificationResult"];
+                this.columnNameResult = base.Columns["NameResult"];
+                this.columnOffense = base.Columns["Offense"];
+                this.columnPeps = base.Columns["Peps"];
+                this.columnPriority = base.Columns["Priority"];
+                this.columnStatus = base.Columns["Status"];
+                this.columnListName = base.Columns["ListName"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlias);
+                this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationResult);
+                this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameResult);
+                this.columnOffense = new global::System.Data.DataColumn("Offense", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOffense);
+                this.columnPeps = new global::System.Data.DataColumn("Peps", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeps);
+                this.columnPriority = new global::System.Data.DataColumn("Priority", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriority);
+                this.columnStatus = new global::System.Data.DataColumn("Status", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus);
+                this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnListName);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_dceRow NewThirdKnowledgeReport_dceRow() {
+                return ((ThirdKnowledgeReport_dceRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ThirdKnowledgeReport_dceRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ThirdKnowledgeReport_dceRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ThirdKnowledgeReport_dceRowChanged != null)) {
+                    this.ThirdKnowledgeReport_dceRowChanged(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ThirdKnowledgeReport_dceRowChanging != null)) {
+                    this.ThirdKnowledgeReport_dceRowChanging(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ThirdKnowledgeReport_dceRowDeleted != null)) {
+                    this.ThirdKnowledgeReport_dceRowDeleted(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ThirdKnowledgeReport_dceRowDeleting != null)) {
+                    this.ThirdKnowledgeReport_dceRowDeleting(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveThirdKnowledgeReport_dceRow(ThirdKnowledgeReport_dceRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DS_ThirdKnowledgeReport ds = new DS_ThirdKnowledgeReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ThirdKnowledgeReport_dceDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ThirdKnowledgeReport_ppsDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_ppsRow> {
+            
+            private global::System.Data.DataColumn columnAlias;
+            
+            private global::System.Data.DataColumn columnIdentificationResult;
+            
+            private global::System.Data.DataColumn columnNameResult;
+            
+            private global::System.Data.DataColumn columnOffense;
+            
+            private global::System.Data.DataColumn columnPeps;
+            
+            private global::System.Data.DataColumn columnPriority;
+            
+            private global::System.Data.DataColumn columnStatus;
+            
+            private global::System.Data.DataColumn columnListName;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_ppsDataTable() {
+                this.TableName = "ThirdKnowledgeReport_pps";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_ppsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected ThirdKnowledgeReport_ppsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AliasColumn {
+                get {
+                    return this.columnAlias;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationResultColumn {
+                get {
+                    return this.columnIdentificationResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameResultColumn {
+                get {
+                    return this.columnNameResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OffenseColumn {
+                get {
+                    return this.columnOffense;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PepsColumn {
+                get {
+                    return this.columnPeps;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PriorityColumn {
+                get {
+                    return this.columnPriority;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StatusColumn {
+                get {
+                    return this.columnStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ListNameColumn {
+                get {
+                    return this.columnListName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_ppsRow this[int index] {
+                get {
+                    return ((ThirdKnowledgeReport_ppsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddThirdKnowledgeReport_ppsRow(ThirdKnowledgeReport_ppsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_ppsRow AddThirdKnowledgeReport_ppsRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+                ThirdKnowledgeReport_ppsRow rowThirdKnowledgeReport_ppsRow = ((ThirdKnowledgeReport_ppsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Alias,
+                        IdentificationResult,
+                        NameResult,
+                        Offense,
+                        Peps,
+                        Priority,
+                        Status,
+                        ListName};
+                rowThirdKnowledgeReport_ppsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowThirdKnowledgeReport_ppsRow);
+                return rowThirdKnowledgeReport_ppsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ThirdKnowledgeReport_ppsDataTable cln = ((ThirdKnowledgeReport_ppsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ThirdKnowledgeReport_ppsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnAlias = base.Columns["Alias"];
+                this.columnIdentificationResult = base.Columns["IdentificationResult"];
+                this.columnNameResult = base.Columns["NameResult"];
+                this.columnOffense = base.Columns["Offense"];
+                this.columnPeps = base.Columns["Peps"];
+                this.columnPriority = base.Columns["Priority"];
+                this.columnStatus = base.Columns["Status"];
+                this.columnListName = base.Columns["ListName"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlias);
+                this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationResult);
+                this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameResult);
+                this.columnOffense = new global::System.Data.DataColumn("Offense", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOffense);
+                this.columnPeps = new global::System.Data.DataColumn("Peps", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeps);
+                this.columnPriority = new global::System.Data.DataColumn("Priority", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriority);
+                this.columnStatus = new global::System.Data.DataColumn("Status", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus);
+                this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnListName);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_ppsRow NewThirdKnowledgeReport_ppsRow() {
+                return ((ThirdKnowledgeReport_ppsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ThirdKnowledgeReport_ppsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ThirdKnowledgeReport_ppsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ThirdKnowledgeReport_ppsRowChanged != null)) {
+                    this.ThirdKnowledgeReport_ppsRowChanged(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ThirdKnowledgeReport_ppsRowChanging != null)) {
+                    this.ThirdKnowledgeReport_ppsRowChanging(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ThirdKnowledgeReport_ppsRowDeleted != null)) {
+                    this.ThirdKnowledgeReport_ppsRowDeleted(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ThirdKnowledgeReport_ppsRowDeleting != null)) {
+                    this.ThirdKnowledgeReport_ppsRowDeleting(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveThirdKnowledgeReport_ppsRow(ThirdKnowledgeReport_ppsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DS_ThirdKnowledgeReport ds = new DS_ThirdKnowledgeReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ThirdKnowledgeReport_ppsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ThirdKnowledgeReport_sncDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_sncRow> {
+            
+            private global::System.Data.DataColumn columnIdentificationResult;
+            
+            private global::System.Data.DataColumn columnNameResult;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_sncDataTable() {
+                this.TableName = "ThirdKnowledgeReport_snc";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_sncDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected ThirdKnowledgeReport_sncDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationResultColumn {
+                get {
+                    return this.columnIdentificationResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameResultColumn {
+                get {
+                    return this.columnNameResult;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_sncRow this[int index] {
+                get {
+                    return ((ThirdKnowledgeReport_sncRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddThirdKnowledgeReport_sncRow(ThirdKnowledgeReport_sncRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_sncRow AddThirdKnowledgeReport_sncRow(string IdentificationResult, string NameResult) {
+                ThirdKnowledgeReport_sncRow rowThirdKnowledgeReport_sncRow = ((ThirdKnowledgeReport_sncRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        IdentificationResult,
+                        NameResult};
+                rowThirdKnowledgeReport_sncRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowThirdKnowledgeReport_sncRow);
+                return rowThirdKnowledgeReport_sncRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ThirdKnowledgeReport_sncDataTable cln = ((ThirdKnowledgeReport_sncDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ThirdKnowledgeReport_sncDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnIdentificationResult = base.Columns["IdentificationResult"];
+                this.columnNameResult = base.Columns["NameResult"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationResult);
+                this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameResult);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_sncRow NewThirdKnowledgeReport_sncRow() {
+                return ((ThirdKnowledgeReport_sncRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ThirdKnowledgeReport_sncRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ThirdKnowledgeReport_sncRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ThirdKnowledgeReport_sncRowChanged != null)) {
+                    this.ThirdKnowledgeReport_sncRowChanged(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ThirdKnowledgeReport_sncRowChanging != null)) {
+                    this.ThirdKnowledgeReport_sncRowChanging(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ThirdKnowledgeReport_sncRowDeleted != null)) {
+                    this.ThirdKnowledgeReport_sncRowDeleted(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ThirdKnowledgeReport_sncRowDeleting != null)) {
+                    this.ThirdKnowledgeReport_sncRowDeleting(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveThirdKnowledgeReport_sncRow(ThirdKnowledgeReport_sncRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DS_ThirdKnowledgeReport ds = new DS_ThirdKnowledgeReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ThirdKnowledgeReport_sncDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -620,15 +2056,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ThirdKnowledgeReportRow : global::System.Data.DataRow {
+        public partial class ThirdKnowledgeReport_fncRow : global::System.Data.DataRow {
             
-            private ThirdKnowledgeReportDataTable tableThirdKnowledgeReport;
+            private ThirdKnowledgeReport_fncDataTable tableThirdKnowledgeReport_fnc;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReportRow(global::System.Data.DataRowBuilder rb) : 
+            internal ThirdKnowledgeReport_fncRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableThirdKnowledgeReport = ((ThirdKnowledgeReportDataTable)(this.Table));
+                this.tableThirdKnowledgeReport_fnc = ((ThirdKnowledgeReport_fncDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -636,14 +2072,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Alias {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.AliasColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.AliasColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.AliasColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.AliasColumn] = value;
                 }
             }
             
@@ -652,15 +2088,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.IdentificationResultColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport\' is DB" +
-                                "Null.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_fnc\' i" +
+                                "s DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.IdentificationResultColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn] = value;
                 }
             }
             
@@ -669,14 +2105,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.NameResultColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.NameResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.NameResultColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.NameResultColumn] = value;
                 }
             }
             
@@ -685,14 +2121,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Offense {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.OffenseColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.OffenseColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.OffenseColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.OffenseColumn] = value;
                 }
             }
             
@@ -701,14 +2137,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Peps {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.PepsColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.PepsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.PepsColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.PepsColumn] = value;
                 }
             }
             
@@ -717,14 +2153,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Priority {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.PriorityColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.PriorityColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.PriorityColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.PriorityColumn] = value;
                 }
             }
             
@@ -733,14 +2169,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Status {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.StatusColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.StatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.StatusColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.StatusColumn] = value;
                 }
             }
             
@@ -749,111 +2185,903 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string ListName {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport.ListNameColumn]));
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.ListNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport.ListNameColumn] = value;
+                    this[this.tableThirdKnowledgeReport_fnc.ListNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsAliasNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.AliasColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.AliasColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetAliasNull() {
-                this[this.tableThirdKnowledgeReport.AliasColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.AliasColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.IdentificationResultColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationResultNull() {
-                this[this.tableThirdKnowledgeReport.IdentificationResultColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.NameResultColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.NameResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameResultNull() {
-                this[this.tableThirdKnowledgeReport.NameResultColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.NameResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOffenseNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.OffenseColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.OffenseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetOffenseNull() {
-                this[this.tableThirdKnowledgeReport.OffenseColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.OffenseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPepsNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.PepsColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.PepsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPepsNull() {
-                this[this.tableThirdKnowledgeReport.PepsColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.PepsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPriorityNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.PriorityColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.PriorityColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPriorityNull() {
-                this[this.tableThirdKnowledgeReport.PriorityColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.PriorityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStatusNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.StatusColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.StatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStatusNull() {
-                this[this.tableThirdKnowledgeReport.StatusColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.StatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsListNameNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport.ListNameColumn);
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.ListNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetListNameNull() {
-                this[this.tableThirdKnowledgeReport.ListNameColumn] = global::System.Convert.DBNull;
+                this[this.tableThirdKnowledgeReport_fnc.ListNameColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ThirdKnowledgeReport_rstRow : global::System.Data.DataRow {
+            
+            private ThirdKnowledgeReport_rstDataTable tableThirdKnowledgeReport_rst;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_rstRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableThirdKnowledgeReport_rst = ((ThirdKnowledgeReport_rstDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Alias {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.AliasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.AliasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IdentificationResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.IdentificationResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_rst\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.IdentificationResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NameResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.NameResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.NameResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Offense {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.OffenseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.OffenseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Peps {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.PepsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.PepsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Priority {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.PriorityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.PriorityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Status {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.StatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.StatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ListName {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.ListNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.ListNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAliasNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.AliasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAliasNull() {
+                this[this.tableThirdKnowledgeReport_rst.AliasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.IdentificationResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationResultNull() {
+                this[this.tableThirdKnowledgeReport_rst.IdentificationResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.NameResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameResultNull() {
+                this[this.tableThirdKnowledgeReport_rst.NameResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOffenseNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.OffenseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOffenseNull() {
+                this[this.tableThirdKnowledgeReport_rst.OffenseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPepsNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.PepsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPepsNull() {
+                this[this.tableThirdKnowledgeReport_rst.PepsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPriorityNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.PriorityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPriorityNull() {
+                this[this.tableThirdKnowledgeReport_rst.PriorityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStatusNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.StatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStatusNull() {
+                this[this.tableThirdKnowledgeReport_rst.StatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsListNameNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.ListNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetListNameNull() {
+                this[this.tableThirdKnowledgeReport_rst.ListNameColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ThirdKnowledgeReport_dceRow : global::System.Data.DataRow {
+            
+            private ThirdKnowledgeReport_dceDataTable tableThirdKnowledgeReport_dce;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_dceRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableThirdKnowledgeReport_dce = ((ThirdKnowledgeReport_dceDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Alias {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.AliasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.AliasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IdentificationResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.IdentificationResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_dce\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.IdentificationResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NameResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.NameResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.NameResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Offense {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.OffenseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.OffenseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Peps {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.PepsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.PepsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Priority {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.PriorityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.PriorityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Status {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.StatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.StatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ListName {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.ListNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.ListNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAliasNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.AliasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAliasNull() {
+                this[this.tableThirdKnowledgeReport_dce.AliasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.IdentificationResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationResultNull() {
+                this[this.tableThirdKnowledgeReport_dce.IdentificationResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.NameResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameResultNull() {
+                this[this.tableThirdKnowledgeReport_dce.NameResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOffenseNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.OffenseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOffenseNull() {
+                this[this.tableThirdKnowledgeReport_dce.OffenseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPepsNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.PepsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPepsNull() {
+                this[this.tableThirdKnowledgeReport_dce.PepsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPriorityNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.PriorityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPriorityNull() {
+                this[this.tableThirdKnowledgeReport_dce.PriorityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStatusNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.StatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStatusNull() {
+                this[this.tableThirdKnowledgeReport_dce.StatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsListNameNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.ListNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetListNameNull() {
+                this[this.tableThirdKnowledgeReport_dce.ListNameColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ThirdKnowledgeReport_ppsRow : global::System.Data.DataRow {
+            
+            private ThirdKnowledgeReport_ppsDataTable tableThirdKnowledgeReport_pps;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_ppsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableThirdKnowledgeReport_pps = ((ThirdKnowledgeReport_ppsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Alias {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.AliasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.AliasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IdentificationResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.IdentificationResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_pps\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.IdentificationResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NameResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.NameResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.NameResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Offense {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.OffenseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.OffenseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Peps {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.PepsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.PepsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Priority {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.PriorityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.PriorityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Status {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.StatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.StatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ListName {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.ListNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.ListNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAliasNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.AliasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAliasNull() {
+                this[this.tableThirdKnowledgeReport_pps.AliasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.IdentificationResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationResultNull() {
+                this[this.tableThirdKnowledgeReport_pps.IdentificationResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.NameResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameResultNull() {
+                this[this.tableThirdKnowledgeReport_pps.NameResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOffenseNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.OffenseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOffenseNull() {
+                this[this.tableThirdKnowledgeReport_pps.OffenseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPepsNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.PepsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPepsNull() {
+                this[this.tableThirdKnowledgeReport_pps.PepsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPriorityNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.PriorityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPriorityNull() {
+                this[this.tableThirdKnowledgeReport_pps.PriorityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStatusNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.StatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStatusNull() {
+                this[this.tableThirdKnowledgeReport_pps.StatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsListNameNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.ListNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetListNameNull() {
+                this[this.tableThirdKnowledgeReport_pps.ListNameColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ThirdKnowledgeReport_sncRow : global::System.Data.DataRow {
+            
+            private ThirdKnowledgeReport_sncDataTable tableThirdKnowledgeReport_snc;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ThirdKnowledgeReport_sncRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableThirdKnowledgeReport_snc = ((ThirdKnowledgeReport_sncDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IdentificationResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_snc.IdentificationResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_snc\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_snc.IdentificationResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NameResult {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_snc.NameResultColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_snc\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_snc.NameResultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_snc.IdentificationResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationResultNull() {
+                this[this.tableThirdKnowledgeReport_snc.IdentificationResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameResultNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_snc.NameResultColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameResultNull() {
+                this[this.tableThirdKnowledgeReport_snc.NameResultColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -861,22 +3089,158 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReportRowChangeEvent : global::System.EventArgs {
+        public class ThirdKnowledgeReport_fncRowChangeEvent : global::System.EventArgs {
             
-            private ThirdKnowledgeReportRow eventRow;
+            private ThirdKnowledgeReport_fncRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReportRowChangeEvent(ThirdKnowledgeReportRow row, global::System.Data.DataRowAction action) {
+            public ThirdKnowledgeReport_fncRowChangeEvent(ThirdKnowledgeReport_fncRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReportRow Row {
+            public ThirdKnowledgeReport_fncRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class ThirdKnowledgeReport_rstRowChangeEvent : global::System.EventArgs {
+            
+            private ThirdKnowledgeReport_rstRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_rstRowChangeEvent(ThirdKnowledgeReport_rstRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_rstRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class ThirdKnowledgeReport_dceRowChangeEvent : global::System.EventArgs {
+            
+            private ThirdKnowledgeReport_dceRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_dceRowChangeEvent(ThirdKnowledgeReport_dceRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_dceRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class ThirdKnowledgeReport_ppsRowChangeEvent : global::System.EventArgs {
+            
+            private ThirdKnowledgeReport_ppsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_ppsRowChangeEvent(ThirdKnowledgeReport_ppsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_ppsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class ThirdKnowledgeReport_sncRowChangeEvent : global::System.EventArgs {
+            
+            private ThirdKnowledgeReport_sncRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_sncRowChangeEvent(ThirdKnowledgeReport_sncRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ThirdKnowledgeReport_sncRow Row {
                 get {
                     return this.eventRow;
                 }

@@ -98,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DataSet\DS_BlackListReport.cs">
       <DependentUpon>DS_BlackListReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_BlackListReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,6 +115,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_FinancialReport.cs">
       <DependentUpon>DS_FinancialReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_FinancialReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -132,6 +134,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.cs">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -140,6 +143,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Terceros.cs">
       <DependentUpon>DS_GerencialReport_Terceros.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Terceros.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,6 +152,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.cs">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -156,6 +161,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.cs">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -164,6 +170,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.cs">
       <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -172,6 +179,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.cs">
       <DependentUpon>DS_ThirdKnowledgeReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.Designer.cs">
       <AutoGen>True</AutoGen>

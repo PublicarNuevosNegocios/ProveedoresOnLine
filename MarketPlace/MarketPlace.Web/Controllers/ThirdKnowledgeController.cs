@@ -267,83 +267,6 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
             }
 
-            //Get report generator
-            if (Request["DownloadReport"] == "true")
-            {
-                #region Set Parameters
-                //Get Request
-                var obbkRQB = oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.RelatedQueryBasicInfoModel != null).FirstOrDefault().RelatedQueryBasicInfoModel.Where(i => i.DetailInfo != null).FirstOrDefault();
-                string searchName = "";
-                string searchIdentification = "";
-                if (obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
-                {
-                    searchName = obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
-                }
-                if (obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
-                {
-                    searchIdentification += obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
-                }
-
-                List<ReportParameter> parameters = new List<ReportParameter>();
-
-                //Customer Info
-                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
-                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
-                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
-                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
-
-                //Query Info
-                parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
-                parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty("No hay campo").FirstOrDefault()));
-                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.AddHours(-5).ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
-                parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
-                parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryStatus != null).Select(x => x.QueryStatus.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
-                parameters.Add(new ReportParameter("searchName", searchName));
-                parameters.Add(new ReportParameter("searchIdentification", searchIdentification));
-                parameters.Add(new ReportParameter("IsSuccess",oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x != null).Select(x => x.IsSuccess).FirstOrDefault().ToString()));
-
-                DataTable data = new DataTable();
-                data.Columns.Add("Alias");
-                data.Columns.Add("IdentificationResult");
-                data.Columns.Add("NameResult");
-                data.Columns.Add("Offense");
-                data.Columns.Add("Peps");
-                data.Columns.Add("Priority");
-                data.Columns.Add("Status");
-                data.Columns.Add("ListName");
-
-                DataRow row;
-                foreach (var query in oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().RelatedQueryBasicInfoModel)
-                {
-                    row = data.NewRow();
-
-                    row["Alias"] = query.Alias;
-                    row["IdentificationResult"] = query.IdentificationResult;
-                    row["NameResult"] = query.NameResult;
-                    row["Offense"] = query.Offense;
-                    row["Peps"] = query.Peps;
-                    row["Priority"] = query.Priority;
-                    row["Status"] = query.Status == "True" ? "Activo" : "Inactivo";
-                    row["ListName"] = query.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.ListName).
-                        Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
-
-                    data.Rows.Add(row);
-                }
-
-                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryReport(
-                                                                enumCategoryInfoType.PDF.ToString(),
-                                                                data,
-                                                                parameters,
-                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_ThirdKnowledgeQuery.rdlc");
-
-                parameters = null;
-                return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
-
-                #endregion
-            }
-
             oModel.ProviderMenu = GetThirdKnowledgeControllerMenu();
 
 
@@ -380,6 +303,186 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.Group = oGroup;
             }
+
+
+            //Get report generator
+            if (Request["DownloadReport"] == "true")
+            {
+                #region Set Parameters
+                //Get Request
+                var obbkRQB = oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.RelatedQueryBasicInfoModel != null).FirstOrDefault().RelatedQueryBasicInfoModel.Where(i => i.DetailInfo != null).FirstOrDefault();
+                string searchName = "";
+                string searchIdentification = "";
+                if (obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                {
+                    searchName = obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
+                }
+                if (obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                {
+                    searchIdentification += obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
+                }
+
+                List<ReportParameter> parameters = new List<ReportParameter>();
+
+                //Customer Info
+                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+
+                //Query Info
+                parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
+                parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.AddHours(-5).ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryStatus != null).Select(x => x.QueryStatus.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("searchName", searchName));
+                parameters.Add(new ReportParameter("searchIdentification", searchIdentification));
+                parameters.Add(new ReportParameter("IsSuccess", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x != null).Select(x => x.IsSuccess).FirstOrDefault().ToString()));
+
+                /*data for rls*/
+                DataTable data_rst = new DataTable();
+                data_rst.Columns.Add("Alias");
+                data_rst.Columns.Add("IdentificationResult");
+                data_rst.Columns.Add("NameResult");
+                data_rst.Columns.Add("Offense");
+                data_rst.Columns.Add("Peps");
+                data_rst.Columns.Add("Priority");
+                data_rst.Columns.Add("Status");
+                data_rst.Columns.Add("ListName");
+                DataRow row_rst;
+                List<TDQueryInfoModel> lrs = oModel.Group.Where(x => x.Item1 == "LISTAS RESTRICTIVAS - Criticidad Alta").Select(x => x.Item2).FirstOrDefault();
+                if (lrs != null)
+                lrs.All(y=>{
+                    row_rst = data_rst.NewRow();
+                    row_rst["Alias"] = y.Alias;
+                    row_rst["IdentificationResult"] = y.IdentificationResult;
+                    row_rst["NameResult"] = y.NameResult;
+                    row_rst["Offense"] = y.Offense;
+                    row_rst["Peps"] = y.Peps;
+                    row_rst["Priority"] = y.Priority;
+                    row_rst["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                    row_rst["ListName"] = "LISTAS RESTRICTIVAS - Criticidad Alta";
+                    data_rst.Rows.Add(row_rst);
+                    return true;
+                });
+
+                /*data for dce*/
+                DataTable data_dce = new DataTable();
+                data_dce.Columns.Add("Alias");
+                data_dce.Columns.Add("IdentificationResult");
+                data_dce.Columns.Add("NameResult");
+                data_dce.Columns.Add("Offense");
+                data_dce.Columns.Add("Peps");
+                data_dce.Columns.Add("Priority");
+                data_dce.Columns.Add("Status");
+                data_dce.Columns.Add("ListName");
+                DataRow row_dce;
+                List<TDQueryInfoModel> dce = oModel.Group.Where(x => x.Item1 == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media").Select(x => x.Item2).FirstOrDefault();
+                if (dce != null)
+                dce.All(y =>
+                {
+                    row_dce = data_dce.NewRow();
+                    row_dce["Alias"] = y.Alias;
+                    row_dce["IdentificationResult"] = y.IdentificationResult;
+                    row_dce["NameResult"] = y.NameResult;
+                    row_dce["Offense"] = y.Offense;
+                    row_dce["Peps"] = y.Peps;
+                    row_dce["Priority"] = y.Priority;
+                    row_dce["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                    row_dce["ListName"] = "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media";
+                    data_dce.Rows.Add(row_dce);
+                    return true;
+                });
+
+                /*data for fnc*/
+                DataTable data_fnc = new DataTable();
+                data_fnc.Columns.Add("Alias");
+                data_fnc.Columns.Add("IdentificationResult");
+                data_fnc.Columns.Add("NameResult");
+                data_fnc.Columns.Add("Offense");
+                data_fnc.Columns.Add("Peps");
+                data_fnc.Columns.Add("Priority");
+                data_fnc.Columns.Add("Status");
+                data_fnc.Columns.Add("ListName");
+                DataRow row_fnc;
+                List<TDQueryInfoModel> fnc = oModel.Group.Where(x => x.Item1 == "LISTAS FINANCIERAS - Criticidad Media").Select(x => x.Item2).FirstOrDefault();
+                if (fnc!=null)
+                fnc.All(y =>
+                {
+                    row_fnc = data_fnc.NewRow();
+                    row_fnc["Alias"] = y.Alias;
+                    row_fnc["IdentificationResult"] = y.IdentificationResult;
+                    row_fnc["NameResult"] = y.NameResult;
+                    row_fnc["Offense"] = y.Offense;
+                    row_fnc["Peps"] = y.Peps;
+                    row_fnc["Priority"] = y.Priority;
+                    row_fnc["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                    row_fnc["ListName"] = "LISTAS FINANCIERAS - Criticidad Media";
+                    data_fnc.Rows.Add(row_fnc);
+                    return true;
+                });
+
+                /*data for psp*/
+                DataTable data_psp = new DataTable();
+                data_psp.Columns.Add("Alias");
+                data_psp.Columns.Add("IdentificationResult");
+                data_psp.Columns.Add("NameResult");
+                data_psp.Columns.Add("Offense");
+                data_psp.Columns.Add("Peps");
+                data_psp.Columns.Add("Priority");
+                data_psp.Columns.Add("Status");
+                data_psp.Columns.Add("ListName");
+                DataRow row_psp;
+                List<TDQueryInfoModel> psp = oModel.Group.Where(x => x.Item1 == "LISTAS PEPS - Criticidad Baja").Select(x => x.Item2).FirstOrDefault();
+                if (psp != null)
+                psp.All(y =>
+                {
+                    row_psp = data_psp.NewRow();
+                    row_psp["Alias"] = y.Alias;
+                    row_psp["IdentificationResult"] = y.IdentificationResult;
+                    row_psp["NameResult"] = y.NameResult;
+                    row_psp["Offense"] = y.Offense;
+                    row_psp["Peps"] = y.Peps;
+                    row_psp["Priority"] = y.Priority;
+                    row_psp["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                    row_psp["ListName"] = "LISTAS PEPS - Criticidad Baja";
+                    data_psp.Rows.Add(row_psp);
+                    return true;
+                });
+
+
+                /*data for snv*/
+                DataTable data_snc = new DataTable();
+                data_snc.Columns.Add("IdentificationResult");
+                data_snc.Columns.Add("NameResult");
+                DataRow row_snc;
+                List<TDQueryInfoModel> snc = oModel.Group.Where(x => x.Item1 == "SIN COINCIDENCIAS").Select(x => x.Item2).FirstOrDefault();
+                if (snc != null)
+                snc.All(y =>
+                {
+                    row_snc = data_snc.NewRow();
+                    row_snc["IdentificationResult"] = y.DetailInfo.Where(x => x.ItemInfoType != null && x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).FirstOrDefault().ToString();
+                    row_snc["NameResult"] = y.DetailInfo.Where(x => x.ItemInfoType != null && x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.RequestName).Select(x => x.Value).FirstOrDefault().ToString();
+                    data_snc.Rows.Add(row_snc);
+                    return true;
+                });
+
+                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryReport(
+                                                                enumCategoryInfoType.Excel.ToString(),
+                                                                data_rst,
+                                                                data_dce,
+                                                                data_fnc,
+                                                                data_psp,
+                                                                data_snc,
+                                                                parameters,
+                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_ThirdKnowledgeQuery.rdlc");
+                parameters = null;
+                return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
+
+                #endregion
+            }
+
             return View(oModel);
         }
 
