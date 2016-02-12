@@ -13,7 +13,7 @@
     <key name="Login_DefaultUserUrl">http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/dafaultProvider.png</key>
 
     <!--Generic params-->
-    <key name="Grid_RowCountDefault">20</key>
+    <key name="Grid_RowCountDefault">10</key>
     
     <key name="Paginator_PagesLimit">10</key>
 
