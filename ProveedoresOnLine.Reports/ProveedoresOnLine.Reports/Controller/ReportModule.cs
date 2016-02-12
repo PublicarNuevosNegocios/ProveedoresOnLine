@@ -378,6 +378,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_ThirdKnowledgeQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
         }
