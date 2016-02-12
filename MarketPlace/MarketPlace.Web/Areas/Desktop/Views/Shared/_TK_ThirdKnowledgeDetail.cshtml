@@ -59,30 +59,31 @@
                 <br />
                 <br />
             }
-
-            <div class="row">
-                <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div>
-                <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div>
-                <div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div>
-                <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div>
-                <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div>
-            </div>
-            <br />
-            foreach (var subItem in col.Item2)
+            else
             {
-                <div class="row POMPBorderbottom">
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
-                    <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center">
-                        <p>
-                            <a href="@(Url.RouteUrl
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>@col.Item1</strong></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div>
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div>
+                    <div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div>
+                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div>
+                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div>
+                </div>
+                <br />
+                foreach (var subItem in col.Item2)
+                {
+                    <div class="row POMPBorderbottom">
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
+                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
+                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
+                        <div class="col-sm-2 POMPProviderBoxInfo text-center">
+                            <p>
+                                <a href="@(Url.RouteUrl
                                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                                             new
                                             {
@@ -99,13 +100,14 @@
                                                             EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                         })
                                                 }))">Ver Detalle</a>
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                    <br />
+                }
+                <br />
                 <br />
             }
-            <br />
-            <br />
         }
     }
     else
