@@ -10,6 +10,7 @@ var Third_KnowledgeSimpleSearchObject = {
     SimpleSearch: function () {
         debugger;
         Third_KnowledgeSimpleSearchObject.Loading_Generic_Show();
+        debugger;
         if ($('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').length > 0) {
             $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
             var validator = $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_EditProjectDialog_Form').data("kendoValidator");
@@ -20,12 +21,12 @@ var Third_KnowledgeSimpleSearchObject = {
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
                 success: function (result) {
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
+                    debugger;
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var tittlestDiv = '';
                     var resultDiv = '';
                     if (result.RelatedSingleSearch != null && result.RelatedSingleSearch.length > 0) {
                         $.each(result.RelatedSingleSearch, function (item, value) {
-                            debugger;
                             resultDiv = '';
 
                             tittlestDiv = '<div class="col-sm-1 col-lg-1 POMPProviderBoxInfo"><strong>Prioridad</strong></div>'
@@ -47,7 +48,6 @@ var Third_KnowledgeSimpleSearchObject = {
                             resultDiv += '<br/>';
                             resultDiv += '<div class="conatiner-fluid POMPTKDetailContainer">';
                             $.each(value.m_Item2, function (item, value) {
-                                debugger;
                                 resultDiv += '<div class="row text-center">';
                                 if (value.Priority != null) {
                                     resultDiv += '<div class="col-sm-1 col-lg-1">' + value.Priority + '</div>';
