@@ -6,6 +6,10 @@
 @*
     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
 *@
+<div class="POMPSearchResultsPager">
+    <!--Pager-->
+    @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Result_Pager, Model.RelatedThidKnowledgeSearch)
+</div>
 <div class="container-fluid POMPTKDetailContainer" id="TKDetailContainer">
     @if (Model.Group != null && Model.Group.Count >= 0)
     {
@@ -150,42 +154,9 @@
     }
 </div>
 
-<div class="row">
-    <div class="col-sm-11 text-center">
-        @{
-            if (Model.RelatedThidKnowledgeSearch.TotalPages > 1)
-            {
-                <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:0,QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Primero">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        @{
-                            for (int i = 0; i <= Model.RelatedThidKnowledgeSearch.TotalPages - 1; i++)
-                            {
-                                <li>
-                                    <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});">@(i + 1)</a>
-                                </li>
-                            }
-                        }
-                        <li>
-                            <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgeSearch.TotalPages-1),QueryPublicId:'@(Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"))', EndDate:'@(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"))'});" aria-label="Último">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                </nav>
-            }
-        }
-    </div>
+<div class="POMPSearchResultsPager">
+    <!--Pager-->
+    @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Result_Pager, Model.RelatedThidKnowledgeSearch)
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        Third_KnowledgeDetailSearch.Init({
-            ObjectId: 'ThirdKnowledge',
-        });
-    });
-</script>
+
+

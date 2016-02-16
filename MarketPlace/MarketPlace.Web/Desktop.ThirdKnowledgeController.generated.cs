@@ -141,6 +141,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionParamsClass_TKThirdKnowledgeDetail
         {
             public readonly string QueryPublicId = "QueryPublicId";
+            public readonly string PageNumber = "PageNumber";
             public readonly string InitDate = "InitDate";
             public readonly string EndDate = "EndDate";
             public readonly string Enable = "Enable";
@@ -240,18 +241,19 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void TKThirdKnowledgeDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryPublicId, string InitDate, string EndDate, string Enable, string IsSuccess);
+        partial void TKThirdKnowledgeDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string QueryPublicId, string PageNumber, string InitDate, string EndDate, string Enable, string IsSuccess);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TKThirdKnowledgeDetail(string QueryPublicId, string InitDate, string EndDate, string Enable, string IsSuccess)
+        public override System.Web.Mvc.ActionResult TKThirdKnowledgeDetail(string QueryPublicId, string PageNumber, string InitDate, string EndDate, string Enable, string IsSuccess)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TKThirdKnowledgeDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "QueryPublicId", QueryPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "InitDate", InitDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Enable", Enable);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "IsSuccess", IsSuccess);
-            TKThirdKnowledgeDetailOverride(callInfo, QueryPublicId, InitDate, EndDate, Enable, IsSuccess);
+            TKThirdKnowledgeDetailOverride(callInfo, QueryPublicId, PageNumber, InitDate, EndDate, Enable, IsSuccess);
             return callInfo;
         }
 
