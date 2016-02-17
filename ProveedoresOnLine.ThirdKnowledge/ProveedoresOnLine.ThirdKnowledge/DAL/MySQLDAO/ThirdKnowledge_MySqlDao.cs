@@ -487,7 +487,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "MP_TK_GetQueryByPublicId_Pager",
+                CommandText = "MP_TK_GetQueryByPublicId",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
