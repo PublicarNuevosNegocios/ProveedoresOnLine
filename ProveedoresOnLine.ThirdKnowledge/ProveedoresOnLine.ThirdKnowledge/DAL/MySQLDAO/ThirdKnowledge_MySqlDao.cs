@@ -369,22 +369,24 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, int SearchType, int Status, out int TotalRows)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vSearchOrderType", SearchOrderType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vOrderOrientation", OrderOrientation == true ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStartDate", StartDate));
+            lstParams.Add(DataInstance.CreateTypedParameter("vDateEnd", EndtDate));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchType", SearchType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStatus", Status));
 
             TotalRows = 0;
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "MP_TK_Search",
+                CommandText = "MP_TK_Search_Pager",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });

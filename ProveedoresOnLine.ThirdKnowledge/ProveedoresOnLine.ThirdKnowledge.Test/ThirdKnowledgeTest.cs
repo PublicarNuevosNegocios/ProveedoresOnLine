@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ProveedoresOnLine.ThirdKnowledge.Test
 {
@@ -60,7 +61,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
             int TotalRows = 0;
 
             List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch
-                ("DA5C572E", 1, true, 0, 10000, out TotalRows);
+                ("DA5C572E", "2016-02-02", "2016-02-14", 0, 1, 201001, 501001, out TotalRows);
 
             Assert.AreEqual(true, oReturn != null);
         }
