@@ -443,13 +443,13 @@ var Provider_CompanyContactObject = {
                             CP_PersonContactType: { editable: true },
                             CP_PersonContactTypeId: { editable: false },
 
-                            CP_IdentificationType: { editable: true, validation: { required: false } },
+                            CP_IdentificationType: { editable: true },
                             CP_IdentificationTypeId: { editable: false },
 
-                            CP_IdentificationNumber: { editable: true, validation: { required: false } },
+                            CP_IdentificationNumber: { editable: true },
                             CP_IdentificationNumberId: { editable: false },
 
-                            CP_IdentificationCity: { editable: true, validation: { required: false } },
+                            CP_IdentificationCity: { editable: true },
                             CP_IdentificationCityId: { editable: false },
 
                             CP_IdentificationFile: { editable: true },
@@ -458,13 +458,13 @@ var Provider_CompanyContactObject = {
                             CP_Name: { editable: true, validation: { required: true } },
                             CP_NameId: { editable: false },
 
-                            CP_Phone: { editable: true, validation: { required: false } },
+                            CP_Phone: { editable: true },
                             CP_PhoneId: { editable: false },
 
-                            CP_Email: { editable: true, validation: { required: false, email: true } },
+                            CP_Email: { editable: true, validation: { email: true } },
                             CP_EmailId: { editable: false },
 
-                            CP_Negotiation: { editable: true, validation: { required: false } },
+                            CP_Negotiation: { editable: true },
                             CP_NegotiationId: { editable: false },
                         }
                     }

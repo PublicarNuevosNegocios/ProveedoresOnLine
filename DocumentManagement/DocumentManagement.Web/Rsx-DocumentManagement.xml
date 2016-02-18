@@ -36,16 +36,16 @@
 
     <!--Field Params-->
     <key name="Field_Types">_P_FieldEmail,_P_FieldFile,_P_FieldFormPdf,_P_FieldLegalTerms,_P_FieldNumber,_P_FieldPartners,_P_FieldQuantity,_P_FieldText,_P_FieldAutocomplete,_P_FieldMultipleFile</key>
-    <key name="_P_FieldAutocomplete">307,</key>
-    <key name="_P_FieldEmail">303,306,310,313,326,328,330,332,372,</key>
-    <key name="_P_FieldFile">343,344,345,346,347,348,353,354,355,356,357,358,359,360,361,368,371,373,</key>
-    <key name="_P_FieldFormPdf">365,369,370,374,375,376,</key>
+    <key name="_P_FieldAutocomplete"></key>
+    <key name="_P_FieldEmail">306,313,326,328,330,332,372,</key>
+    <key name="_P_FieldFile">343,344,345,346,347,353,354,355,356,357,358,359,360,361,371,373,386,387,342,</key>
+    <key name="_P_FieldFormPdf">365,369,370,374,375,376,388,389,390,391,392,</key>
     <key name="_P_FieldLegalTerms">363,364,</key>
     <key name="_P_FieldNumber">314,367,</key>
-    <key name="_P_FieldPartners">342,</key>
+    <key name="_P_FieldPartners"></key>
     <key name="_P_FieldQuantity">334,335,336,337,338,339,340,</key>
-    <key name="_P_FieldText">301,302,304,305,308,309,311,312,315,316,317,318,319,320,321,322,323,324,325,327,329,331,333,341,350,366,</key>
-    <key name="_P_FieldMultipleFile">349,362,351,352,377,</key>
+    <key name="_P_FieldText">301,302,304,305,308,309,311,312,315,316,317,318,319,320,321,322,323,324,325,327,329,331,333,366,385</key>
+    <key name="_P_FieldMultipleFile">349,362,351,352,377,393,</key>
 
     <key name="_P_FieldFormPdf_365_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_365_FormText">Descargar formulario pdf.</key>
@@ -64,6 +64,21 @@
     
     <key name="_P_FieldFormPdf_376_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Carta_autorizacion_transferencia_bancaria.docx</key>
     <key name="_P_FieldFormPdf_376_FormText">Descargar carta de autorización .doc</key>
+    
+    <key name="_P_FieldFormPdf_388_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Acuerdo+Confidencialidad+Proveedores.docx</key>
+    <key name="_P_FieldFormPdf_388_FormText">Descargar acuerdo de confidencialidad de proveedores .doc</key>
+    
+    <key name="_P_FieldFormPdf_389_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Cuestionario++HSE+Contratistas.doc</key>
+    <key name="_P_FieldFormPdf_389_FormText">Descargar cuestionario HSE contratistas .doc</key>
+    
+    <key name="_P_FieldFormPdf_390_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Formato+registro+de+proveedor.xls</key>
+    <key name="_P_FieldFormPdf_390_FormText">Descargar formato de registro de proveedores .xls</key>
+    
+    <key name="_P_FieldFormPdf_391_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/FCC+Persona+natural+Version+2013+-+V2.pdf</key>
+    <key name="_P_FieldFormPdf_391_FormText">Descargar formulario persona natural .pdf</key>
+    
+    <key name="_P_FieldFormPdf_392_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/FCC+Persona+juridica+Version+2013+-+V2.pdf</key>
+    <key name="_P_FieldFormPdf_392_FormText">Descargar formulario persona jurídica .pdf</key>
       
     <key name="_P_FieldLegalTerms_363_LegalText">
       <![CDATA[
