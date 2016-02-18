@@ -38,13 +38,25 @@
                 }
                 else
                 {
+                    
+                    string initDate = "";
+                    string endDate = "";
+                    if (Request.Params["InitDate"] != null)
+                    {
+                        initDate = Request.Params["InitDate"];
+                    }
+                    if (Request.Params["EndDate"] != null)
+                    {
+                        endDate = Request.Params["EndDate"];
+                    }
+
                     <div class="col-sm-3 POMPTKDateInit">
                         <span>Desde:</span>
-                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="filtrarFecha" value="" />
+                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="filtrarFecha" value="@initDate" />
                     </div>
                     <div class="col-sm-3 POMPTKDateEnd">
                         <span>Hasta:</span>
-                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="filtrarFecha" value="" />
+                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="filtrarFecha" value="@endDate" />
                     </div>
                 }
                 @*genero por request*@
