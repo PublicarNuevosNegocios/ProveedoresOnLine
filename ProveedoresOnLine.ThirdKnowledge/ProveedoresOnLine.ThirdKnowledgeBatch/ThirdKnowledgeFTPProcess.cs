@@ -239,9 +239,9 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         #endregion
 
                                         //Create Info Conincidences                                        
-                                        oCoincidences.Add(new Tuple<string, string, string>(x.Element("TipoDocumento").Value != null && x.Element("TipoDocumento").Value != "N"? x.Element("TipoDocumento").Value : string.Empty
-                                                                                           , x.Element("IdentificacionConsulta").Value != null && x.Element("IdentificacionConsulta").Value != "N" ? x.Element("IdentificacionConsulta").Value : string.Empty
-                                                                                           , x.Element("NombreConsulta").Value != null && x.Element("NombreConsulta").Value != "N" ? x.Element("NombreConsulta").Value : string.Empty));                                        
+                                        oCoincidences.Add(new Tuple<string, string, string>(x.Element("TipoDocumento") != null && x.Element("TipoDocumento").Value != "N"? x.Element("TipoDocumento").Value : string.Empty
+                                                                                           , x.Element("IdentificacionConsulta") != null && x.Element("IdentificacionConsulta").Value != "N" ? x.Element("IdentificacionConsulta").Value : string.Empty
+                                                                                           , x.Element("NombreConsulta") != null && x.Element("NombreConsulta").Value != "N" ? x.Element("NombreConsulta").Value : string.Empty));                                        
                                     }               
                                     return true;
                                 });
@@ -252,6 +252,9 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             };
 
                             CreateReadyResultNotification(oQuery);
+
+
+
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
 
                             CreateQueryInfo(oQuery, oCoincidences);

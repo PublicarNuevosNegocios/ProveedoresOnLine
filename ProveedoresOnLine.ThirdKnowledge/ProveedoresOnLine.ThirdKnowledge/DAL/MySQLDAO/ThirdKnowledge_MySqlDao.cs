@@ -432,42 +432,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          },
                          Enable = qg.Key.QueryEnable == 1 ? true : false,
                          PeriodPublicId = qg.Key.PeriodPublicId,
-                         CreateDate = qg.Key.QueryCreateDate,
-                         //RelatedQueryBasicInfoModel =
-                         //    (from qinf in response.DataTableResult.AsEnumerable()
-                         //     where !qinf.IsNull("QueryBasicInfoId") &&
-                         //            qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
-                         //     group qinf by new
-                         //     {
-                         //         QueryBasicInfoId = qinf.Field<int>("QueryBasicInfoId"),
-                         //     }
-                         //     into qinfg
-                         //     select new Models.TDQueryInfoModel()
-                         //     {
-                         //         QueryBasicInfoId = qinfg.Key.QueryBasicInfoId,
-                         //         DetailInfo =
-                         //           (from qdinf in response.DataTableResult.AsEnumerable()
-                         //            where !qdinf.IsNull("QueryNameId") &&
-                         //            qdinf.Field<int>("QueryBasicInfoId") == qinfg.Key.QueryBasicInfoId
-                         //            group qdinf by new
-                         //            {
-                         //                QueryNameId = qdinf.Field<int>("QueryNameId"),
-                         //                QueryNameInfoTypeId = qdinf.Field<int>("QueryNameInfoTypeId"),
-                         //                QueryNameInfoType = qdinf.Field<string>("QueryNameInfoType"),
-                         //                QueryNameValue = qdinf.Field<string>("QueryNameValue")
-                         //            }
-                         //             into qdinfg
-                         //            select new TDQueryDetailInfoModel()
-                         //            {
-                         //                QueryDetailInfoId = qdinfg.Key.QueryNameId,
-                         //                ItemInfoType = new TDCatalogModel()
-                         //                {
-                         //                    ItemId = qdinfg.Key.QueryNameInfoTypeId,
-                         //                    ItemName = qdinfg.Key.QueryNameInfoType,
-                         //                },
-                         //                Value = qdinfg.Key.QueryNameValue,
-                         //            }).ToList()
-                         //     }).ToList()
+                         CreateDate = qg.Key.QueryCreateDate,                         
                      }).ToList();
             }
             return oReturn;

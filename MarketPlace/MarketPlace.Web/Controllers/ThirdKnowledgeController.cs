@@ -215,21 +215,8 @@ namespace MarketPlace.Web.Controllers
                 out TotalRows);
             
             oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.TotalRows = TotalRows;
-           
-            if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate) &&
-                oQueryModel != null && oQueryModel.Count > 0)
-            {
-                //oQueryModel = oQueryModel.Where(x =>
-                //                                    Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
-                //                                    Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
-                //                                    Select(x => x).ToList();
-
-                //oModel.RelatedThidKnowledgeSearch.InitDate = Convert.ToDateTime(InitDate);
-                //oModel.RelatedThidKnowledgeSearch.EndDate = Convert.ToDateTime(EndDate);
-
-                //oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel.OrderByDescending(x => x.CreateDate).ToList();
-            }
-            else if (oQueryModel != null && oQueryModel.Count > 0)
+                      
+            if (oQueryModel != null && oQueryModel.Count > 0)
             {
                 oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryModel.OrderByDescending(x => x.CreateDate).ToList(); 
             }

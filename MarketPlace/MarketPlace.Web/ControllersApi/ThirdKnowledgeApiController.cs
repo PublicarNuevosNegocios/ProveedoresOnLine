@@ -396,7 +396,7 @@ namespace MarketPlace.Web.ControllersApi
                     }
                     else
                     {
-                        return new Tuple<bool, string>(true, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString());
+                        return new Tuple<bool, string>(false, oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries.ToString());
                     }
                 }
             }
