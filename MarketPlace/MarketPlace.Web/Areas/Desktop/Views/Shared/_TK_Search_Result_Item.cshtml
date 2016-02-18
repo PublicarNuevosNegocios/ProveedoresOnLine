@@ -45,7 +45,10 @@
                 {
                     <div class="col-sm-2 POMPProviderBoxInfo"><span><a>Ver archivo</a></span></div> //Poner url del archivo cargado en consula masiva.
                 }*@
-                <div class="col-sm-2 POMPProviderBoxInfo ThirdKnowledge_Detail"><a href="@(Url.RouteUrl
+
+                @if (item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized) { 
+                    
+                    <div class="col-sm-2 POMPProviderBoxInfo ThirdKnowledge_Detail"><a href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -56,6 +59,7 @@
                                                                             EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                                             Enable = "1",
                                                                             }))">Ver Detalle</a></div>
+                }
             </div>
         </div>
         <br />
