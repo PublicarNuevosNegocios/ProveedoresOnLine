@@ -1,0 +1,36 @@
+﻿@model MarketPlace.Models.ThirdKnowledge.ThirdKnowledgeViewModel
+@{
+    Tuple<int, int> oPageInfo = Model.RelatedThidKnowledgePager.GetStartEndPage();
+}
+@if (oPageInfo.Item2 > oPageInfo.Item1)
+{
+    <ul>
+        @if (Model.RelatedThidKnowledgePager.PageNumber > 0)
+        {
+            <li>
+                <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber - 1),QueryPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'', EndDate:''});">< Anterior</a>
+            </li>
+        }
+        @for (int i = oPageInfo.Item1; i <= oPageInfo.Item2; i++)
+        {
+            <li>
+                @if ((Model.RelatedThidKnowledgePager.PageNumber + 1) == i)
+                {
+                    <a class="selected" href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i - 1),QueryPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'', EndDate:''});">@i</a>
+                }
+                else
+                {
+                    <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(i - 1),QueryPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'', EndDate:''});">@i</a>
+                }
+
+            </li>
+        }
+        @if ((Model.RelatedThidKnowledgePager.PageNumber + 1) < Model.RelatedThidKnowledgePager.TotalPages)
+        {
+            <li>
+                <a href="javascript:Third_KnowledgeDetailSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber + 1),QueryPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'', EndDate:''});">Siguiente ></a>
+            </li>
+        }
+    </ul>
+}
+

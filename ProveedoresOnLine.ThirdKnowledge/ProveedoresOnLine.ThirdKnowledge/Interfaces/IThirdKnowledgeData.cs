@@ -18,9 +18,9 @@ namespace ProveedoresOnLine.ThirdKnowledge.Interfaces
 
         #region MarketPlace
 
-        List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable);        
+        List<Models.PlanModel> GetCurrenPeriod(string CustomerPublicId, bool Enable);
 
-        List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
+        List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, int SearchType, int Status, out int TotalRows);
 
         List<Models.TDQueryModel> ThirdKnowledgeSearchByPublicId(string CustomerPublicId, string QueryPublic, bool Enable, int PageNumber, int RowCount, out int TotalRows);
 

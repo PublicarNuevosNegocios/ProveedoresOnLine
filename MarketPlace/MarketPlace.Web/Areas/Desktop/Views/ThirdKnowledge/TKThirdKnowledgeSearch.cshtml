@@ -12,6 +12,12 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
 
+    <div class="POMPSearchResultsPager">
+        <!--Pager-->@*
+            @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Result_Pager, Model.RelatedThidKnowledgeSearch)
+        *@
+    </div>
+
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Mis Consultas</label>
         <div class="container-fluid POMPContainerDetail">

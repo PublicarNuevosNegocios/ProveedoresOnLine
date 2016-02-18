@@ -2,6 +2,7 @@
 using MarketPlace.Models.Compare;
 using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using MarketPlace.Models.ThirdKnowledge;
 using Microsoft.Reporting.WebForms;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
@@ -233,33 +234,34 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKThirdKnowledgeDetail(
             string QueryPublicId
+            , string PageNumber
             , string InitDate
             , string EndDate
             , string Enable
             , string IsSuccess)
         {
 
-            int row_count = Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim());
-            if (Request["DownloadReport"] == "true")             
-                row_count = 10000;
+            int oTotalRowsAux = Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim());
+            if (Request["DownloadReport"] == "true")
+                oTotalRowsAux = 10000;
 
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();
+            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager = new Models.ThirdKnowledge.ThirdKnowledgeSearchViewModel()
+            {
+                PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0,
+            };
             int TotalRows = 0;
             List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearchByPublicId
                 (SessionModel.CurrentCompany.CompanyPublicId
                 , QueryPublicId
                 , Enable == "1" ? true : false
-                ,0//FIRST PAGE
-                , row_count
-                ,out TotalRows
-                );
-            oModel.RelatedThidKnowledgeSearch.TotalRows = TotalRows;
-            oModel.RelatedThidKnowledgeSearch.TotalPages = (int)Math.Ceiling((decimal)((decimal)oModel.RelatedThidKnowledgeSearch.TotalRows / (decimal)oModel.RelatedThidKnowledgeSearch.RowCount));
-            
-            oModel.RelatedThidKnowledgeSearch.StartPage = 0;
-            oModel.RelatedThidKnowledgeSearch.LastPage = oModel.RelatedThidKnowledgeSearch.PagesLimit;
+                , oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber
+                , oTotalRowsAux
+                ,out TotalRows);
+
+            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.TotalRows = TotalRows;            
 
             if (oQueryResult != null && oQueryResult.Count > 0)
                 oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = oQueryResult;

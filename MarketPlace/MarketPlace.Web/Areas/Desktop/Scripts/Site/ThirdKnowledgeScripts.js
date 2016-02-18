@@ -180,6 +180,7 @@ var Third_KnowledgeDetailSearch = {
     QueryPublicId: ''
     , PageNumber: 0
     , RowCount: 0
+    , SearchUrl:''
     , InitDate: ''
     , EndDate: ''
     , Enable: ''
@@ -200,84 +201,23 @@ var Third_KnowledgeDetailSearch = {
         this.IsSuccess = vInitObject.IsSuccess;
 
     },
+
     RenderAsync: function () {
         //Change event
         $('#' + Third_KnowledgeDetailSearch.ObjectId + '_FilterId').click(function () {
             Third_KnowledgeDetailSearch.Search(vInitObject);
         });
     },
+
     Search: function (vSearchObject) {
-        $.ajax({
-            url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKThirdKnowledgeDetail=true&QueryPublicId=' + vSearchObject.QueryPublicId + '&InitDate=' + vSearchObject.InitDate + '&EndDate=' + vSearchObject.EndDate + '&Enable=' + 1 + '&IsSuccess=' + 'no' + '&PageNumber=' + vSearchObject.PageNumber,
-            dataType: 'json',
-            success: function (result) {
-                if (result != null) {
-                    var InitDate = result.RelatedThidKnowledgeSearch.InitDate;
-                    var EndDate = result.RelatedThidKnowledgeSearch.EndDate;
-                    debugger;
-                    $("#TKDetailContainer").empty();
-                    result.Group.forEach(function (group) {
+        debugger
+        var oUrl = this.SearchUrl + '?QueryPublicId=' + vSearchObject.QueryPublicId;
+        oUrl += '&InitDate=' + '';
+        oUrl += '&EndDate=' + '';
 
-                        if (group.m_Item1 == "SIN COINCIDENCIAS") {
-                            var titulo = '<div class="row"><div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>' + group.m_Item1 + '</strong></div></div>';
-                            $("#TKDetailContainer").append(titulo);
-                            var content_title =
-                                     '<div class="row">'
-                                    + '<div class="col-sm-4 POMPProviderBoxInfo text-left"><strong>Nombre Consultado</strong></div>'
-                                    + '<div class="col-sm-4 POMPProviderBoxInfo text-left"><strong>Identificación Consultada</strong></div>'
-                                    + '</div><br/>';
-                            $("#TKDetailContainer").append(content_title);
-
-                            group.m_Item2.forEach(function (content) {
-                                debugger;
-                                var content_info = '<div class="row POMPBorderbottom">';
-                                $.each(content.DetailInfo, function (item, value) {
-                                    debugger;
-                                    if (value.Value != "SIN COINCIDENCIAS") {
-                                        content_info += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>' + value.Value + '</p></div>';
-                                    }                                   
-                                });
-                                content_info += '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>' +
-                                                '<a href="' + BaseUrl.SiteUrl + '/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + content.QueryBasicPublicId +
-                                                '&ReturnUrl='+
-                                                '&InitDate=' + InitDate +
-                                                '&EndDate=' + EndDate +
-                                                '">Ver Detalle</a></p></div>';
-                                content_info += '</div><br />';
-                                $("#TKDetailContainer").append(content_info);
-                            });
-                        }
-                        else {
-                            var titulo = '<div class="row"><div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>' + group.m_Item1 + '</strong></div></div>';
-                            $("#TKDetailContainer").append(titulo);
-                            var content_title = '<br /><div class="row"><div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div><div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div><div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div><div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div><div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div></div><br />';
-                            $("#TKDetailContainer").append(content_title);
-                            group.m_Item2.forEach(function (content) {
-                                var status = "Inactivo";
-                                if (content.Status == "True") {
-                                    status = "Activo";
-                                }
-                                var content_info = '<div class="row POMPBorderbottom">' +
-                                                   '<div class="col-sm-1 POMPProviderBoxInfo text-center"><p>' + content.Priority + '</p></div>' +
-                                                   '<div class="col-sm-1 POMPProviderBoxInfo text-center"><p>' + status + '</p></div>' +
-                                                   '<div class="col-sm-4 POMPProviderBoxInfo text-center"><p>' + content.NameResult + '</p></div>' +
-                                                   '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>' + content.IdentificationResult + '</p></div>' +
-                                                   '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>' + content.Alias + '</p></div>' +
-                                                   '<div class="col-sm-2 POMPProviderBoxInfo text-center"><p>' + 
-                                                   '<a href="/ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + content.QueryPublicId +
-                                                   '&ReturnUrl='+
-                                                   '&InitDate=' + InitDate +
-                                                   '&EndDate=' + EndDate +
-                                                   '">Ver Detalle</a></p></div>' +
-                                                   '</div><br />';
-                                $("#TKDetailContainer").append(content_info);
-                            });
-                        }
-                    });
-                }
-            },
-            error: function (result) {
-            }
-        });
+        if (vSearchObject != null && vSearchObject.PageNumber != null) {
+            oUrl += '&PageNumber=' + vSearchObject.PageNumber;
+        }
+        window.location = oUrl;       
     },
 }

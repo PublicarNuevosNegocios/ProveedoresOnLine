@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Models.General;
+using MarketPlace.Models.ThirdKnowledge;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketPlace.Models.Company
+namespace MarketPlace.Models.ThirdKnowledge
 {
     public class ThirdKnowledgeViewModel
     {
@@ -19,6 +20,8 @@ namespace MarketPlace.Models.Company
         public ProveedoresOnLine.ThirdKnowledge.Models.PeriodModel CurrentPeriodModel { get; set; }
 
         public List<MarketPlace.Models.General.GenericMenu> ThirdKnowledgeMenu { get; set; }
+
+        public ThirdKnowledgeSearchViewModel RelatedThidKnowledgePager { get; set; }
 
         public bool ShowAlerForQueries { get; set; }
 
@@ -63,20 +66,7 @@ namespace MarketPlace.Models.Company
 
         public DateTime InitDate { get; set; }
 
-        public DateTime EndDate { get; set; }
-
-        public int TotalRows { get; set; }
-
-        public int RowCount { get { return Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()); } }
-
-        public int TotalPages { get; set; }
-
-        public int PagesLimit { get { return Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Paginator_PagesLimit].Value.Trim()); } }
-
-        public int LastPage { get; set; }
-
-        public int StartPage { get; set; }
-
+        public DateTime EndDate { get; set; }      
         #endregion
 
         public ThirdKnowledgeViewModel(ProveedoresOnLine.ThirdKnowledge.Models.PlanModel oCurrenPlan)
@@ -112,6 +102,6 @@ namespace MarketPlace.Models.Company
         public ThirdKnowledgeViewModel()
         {
 
-        }
+        }      
     }
 }

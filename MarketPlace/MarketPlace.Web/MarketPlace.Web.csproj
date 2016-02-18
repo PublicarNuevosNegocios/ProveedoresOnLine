@@ -1246,6 +1246,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_TK_ThirdKnowledgeDetail.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Areas\Desktop\Views\Shared\_TK_ThirdKnowledgeSearch_Result_Pager.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

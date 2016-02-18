@@ -94,7 +94,16 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
+            Third_KnowledgeDetailSearch.Init({
+                ObjectId: 'ThirdKnowledge',
+                QueryPublicId: '@Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().QueryPublicId',
+                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                                {
+                                    controller = MVC.ThirdKnowledge.Name,
+                                    action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail
+                                }))',
+            });
         });
     </script>
 }
