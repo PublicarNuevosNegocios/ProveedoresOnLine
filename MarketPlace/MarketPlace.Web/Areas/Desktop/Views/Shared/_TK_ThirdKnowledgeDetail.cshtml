@@ -3,9 +3,6 @@
     ViewBag.Title = "Proveedores OnLine - Consulta Individual";
     Model.RenderScripts = false;
 }
-@*
-    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
-*@
 <div class="POMPSearchResultsPager">
     <!--Pager-->
     @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Result_Pager, Model.RelatedThidKnowledgeSearch)
@@ -122,9 +119,9 @@
         if (Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0)
         {
             var obbkRQB = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.RelatedQueryBasicInfoModel != null).FirstOrDefault().RelatedQueryBasicInfoModel.Where(i => i.DetailInfo != null).FirstOrDefault();
-                <br /><br />
-                <label>LA BÚSQUEDA POR</label>
-                <br />
+            <br /><br />
+                    <label>LA BÚSQUEDA POR</label>
+                    <br />
             if (@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
             {
                 <label class="POMPNoresultRequestText">Nombre:&nbsp;@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301013).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString()</label>
@@ -137,16 +134,16 @@
             {
                 <label class="POMPNoresultRequestText">Identificación:&nbsp;@obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == 301012).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString()</label>
             }
-                <br /><br />
-                <label class="POMPNoresultText">no arrojó coincidencias</label>
+            <br /><br />
+                    <label class="POMPNoresultText">no arrojó coincidencias</label>
         }
         else
         {
-                <br /><br />
-                <label>LA BÚSQUEDA</label>
-                <br />
-                <br />
-                <label class="POMPNoresultText">no arrojó coincidencias</label>
+            <br /><br />
+                    <label>LA BÚSQUEDA</label>
+                    <br />
+                    <br />
+                    <label class="POMPNoresultText">no arrojó coincidencias</label>
         }
                 }
             </div>

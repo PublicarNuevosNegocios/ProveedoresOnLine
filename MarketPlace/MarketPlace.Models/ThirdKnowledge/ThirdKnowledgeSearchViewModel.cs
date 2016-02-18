@@ -24,7 +24,7 @@ namespace MarketPlace.Models.ThirdKnowledge
 
         public Tuple<int, int> GetStartEndPage()
         {
-            int ItemsxPage = 10;
+            int ItemsxPage = Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Paginator_PagesLimit].Value.Trim()); ;
 
             int oStart = (int)((PageNumber - (ItemsxPage / 2)) > 0 ? (PageNumber - (ItemsxPage / 2)) : 1);
             int oEnd = (int)(TotalPages >= oStart + (ItemsxPage / 2) ? oStart + (ItemsxPage / 2) : TotalPages);

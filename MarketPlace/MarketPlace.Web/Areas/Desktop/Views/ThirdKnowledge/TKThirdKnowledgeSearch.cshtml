@@ -21,36 +21,91 @@
                             Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 &&
                             Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
                             Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                    {
-                        var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
-                        var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
-
-                    <div class="col-sm-5 text-right">
+                {
+                    var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
+                    var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
+                    <div class="col-sm-3 text-right POMPTKDateInit">
                         <span>Desde:</span>
                         <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="@InitDate" />
                     </div>
-                        <div class="col-sm-5 text-left">
-                            <span>Hasta:</span>
-                            <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="@EndDate" />
-                        </div>
-                    }
-                    else
-                    {
-                    <div class="col-sm-5">
-                        <span>Desde:</span>
-                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="" />
+                    <div class="col-sm-1 POMPTKtoText">
+
                     </div>
-                        <div class="col-sm-5">
-                            <span>Hasta:</span>
-                            <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="" />
-                        </div>
+                    <div class="col-sm-3 text-left POMPTKDateEnd">
+                        <span>Hasta:</span>
+                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="@EndDate" />
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3 POMPTKDateInit">
+                        <span>Desde:</span>
+                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="filtrarFecha" value="" />
+                    </div>
+                    <div class="col-sm-3 POMPTKDateEnd">
+                        <span>Hasta:</span>
+                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="filtrarFecha" value="" />
+                    </div>
+                }
+                @*genero por request*@
+                @{
+                    string selected_masive = "";
+                    string selected_single = "";
+                    if (Request.Params["SearchType"] != null)
+                    {
+                        switch (Request.Params["SearchType"])
+                        {
+                            case "201001":
+                                selected_single = "selected";
+                                break;
+                            case "201002":
+                                selected_masive = "selected";
+                                break;
+                        }
                     }
-                <div class="col-sm-2">
+                    <div class="col-sm-2 POMPTKCmbType">
+                        <span>Tipo:</span>
+                        <select id="ThirdKnowledge_QueryType" class="orderInput">
+                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple)" @selected_single>Individual</option>
+                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive)" @selected_masive>Masiva</option>
+
+                        </select>
+                    </div>
+                    if (Request.Params["Status"] != null)
+                    {
+                        switch (Request.Params["Status"])
+                        {
+                            case "501001":
+                                selected_single = "selected";
+                                break;
+                            case "501002":
+                                selected_masive = "selected";
+                                break;
+                        }
+                    }
+                    <div class="col-sm-3 POMPTKCmbStatus">
+                        <span>Estado:</span>
+                        <select id="ThirdKnowledge_QueryStatus" class="orderInput">
+                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)" @selected_single>Finalizada</option>
+                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.InProcess)" @selected_masive>En Proceso</option>
+                        </select>
+                    </div>
+                }
+                <div class="col-sm-2 POMPTKSButtonPosition">
                     <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_Filter" id="ThirdKnowledge_FilterId" value="Filtrar" />
                 </div>
             </div>
+            <div class="row text-left POMPSearchResultsPager">
+                <!--Pager-->
+                @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Pager, Model.RelatedThidKnowledgeSearch)
+            </div>
             <br />
             @Html.Partial(MVC.Desktop.Shared.Views._TK_Search_Result_Item, Model)
+            <br />
+            <div class="row text-left POMPSearchResultsPager">
+                <!--Pager-->
+                @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Pager, Model.RelatedThidKnowledgeSearch)
+            </div>
         </div>
     </div>
 </div>
