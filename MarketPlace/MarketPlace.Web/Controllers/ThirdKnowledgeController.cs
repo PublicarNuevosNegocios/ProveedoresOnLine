@@ -185,26 +185,37 @@ namespace MarketPlace.Web.Controllers
         }
 
         public virtual ActionResult TKThirdKnowledgeSearch(
-            string SearchOrderType,
-            string OrderOrientation,
             string PageNumber,
             string InitDate,
-            string EndDate)
-        {
+            string EndDate,
+            string SearchType,
+            string Status
+            )
+            {
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryModel = new List<TDQueryModel>();
 
-            int TotalRows;
+
+            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager = new Models.ThirdKnowledge.ThirdKnowledgeSearchViewModel()
+            {
+                PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0,
+            };
+            int TotalRows = 0;
+            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber = Convert.ToInt32(PageNumber);
 
             oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch(
                 SessionModel.CurrentCompany.CompanyPublicId,
-                Convert.ToInt32(SearchOrderType),
-                OrderOrientation == "1" ? true : false,
-                Convert.ToInt32(PageNumber),
-                20,
+                !string.IsNullOrEmpty(InitDate) ? InitDate : "",
+                !string.IsNullOrEmpty(EndDate) ? EndDate : "",
+                oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber,
+                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()),
+                !string.IsNullOrEmpty(SearchType) ? Convert.ToInt32(SearchType) : (int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple,
+                !string.IsNullOrEmpty(Status) ? Convert.ToInt32(Status) : (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized,
                 out TotalRows);
-
+            
+            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.TotalRows = TotalRows;
+           
             if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate) &&
                 oQueryModel != null && oQueryModel.Count > 0)
             {

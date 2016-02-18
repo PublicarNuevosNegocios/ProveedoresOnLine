@@ -168,13 +168,19 @@ var Third_KnowledgeSearchObject = {
         var oUrl = this.SearchUrl;
         oUrl += '?InitDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_EndDateId').val();
-
+        oUrl += '&SearchType=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_QueryType').val();
+        oUrl += '&Status=' + $('#' + Third_KnowledgeSearchObject.ObjectId + '_QueryStatus').val();
         if (vSearchObject != null && vSearchObject.PageNumber != null) {
             oUrl += '&PageNumber=' + vSearchObject.PageNumber;
         }
-        window.location = oUrl;
+       window.location = oUrl;
     },
 };
+
+
+
+
+
 
 var Third_KnowledgeDetailSearch = {
     QueryPublicId: ''
@@ -204,6 +210,7 @@ var Third_KnowledgeDetailSearch = {
 
     RenderAsync: function () {
         //Change event
+        
         $('#' + Third_KnowledgeDetailSearch.ObjectId + '_FilterId').click(function () {
             Third_KnowledgeDetailSearch.Search(vInitObject);
         });
@@ -219,5 +226,64 @@ var Third_KnowledgeDetailSearch = {
             oUrl += '&PageNumber=' + vSearchObject.PageNumber;
         }
         window.location = oUrl;       
+    },
+}
+
+var Third_KnowledgeSearch = {
+    CustomerPublicId: ''
+    , PageNumber: 0
+    , RowCount: 0
+    , SearchUrl: ''
+    , InitDate: ''
+    , EndDate: ''
+    , SearchType: ''
+    , Status: ''
+
+
+    , Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+
+        this.CustomerPublicId = vInitObject.CustomerPublicId;
+        this.InitDate = vInitObject.InitDate;
+        this.EndDate = vInitObject.EndDate;
+        this.PageNumber = vInitObject.PageNumber;
+        this.RowCount = vInitObject.RowCount;
+
+        this.SearchType = vInitObject.SearchType;
+        this.Status = vInitObject.Status;
+
+    },
+
+    RenderAsync: function () {
+        //Change event
+        $('#' + Third_KnowledgeSearch.ObjectId + '_FilterId').click(function () {
+            Third_KnowledgeSearch.Search(vInitObject);
+        });
+    },
+
+    Search: function (vSearchObject) {
+        var oUrl = this.SearchUrl + '?CustomerPublicId=' + vSearchObject.CustomerPublicId;
+        oUrl += '&InitDate=' + '';
+        oUrl += '&EndDate=' + '';
+        oUrl += '&SearchType=' + '';
+        oUrl += '&Status=' + '';
+
+        if (vSearchObject != null && vSearchObject.PageNumber != null) {
+            oUrl += '&PageNumber=' + vSearchObject.PageNumber;
+        }
+        if (vSearchObject != null && vSearchObject.InitDate != null) {
+            oUrl += '&InitDate=' + vSearchObject.InitDate;
+        }
+        if (vSearchObject != null && vSearchObject.EndDate != null) {
+            oUrl += '&EndDate=' + vSearchObject.EndDate;
+        }
+        if (vSearchObject != null && vSearchObject.SearchType != null) {
+            oUrl += '&SearchType=' + vSearchObject.SearchType;
+        }
+        if (vSearchObject != null && vSearchObject.Status != null) {
+            oUrl += '&Status=' + vSearchObject.Status;
+        }
+        window.location = oUrl;
     },
 }

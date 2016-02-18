@@ -363,3 +363,27 @@
 .POMPNoresultText {
     color: #ff8300;
 }
+
+.POMPTKfromText {
+    left: 2px !important;
+    top: 15px;
+}
+.POMPTKDateInit {
+    left: 5px !important;
+}
+.POMPTKDateEnd {
+    left: -20px !important;
+}
+.POMPTKCmbType {
+    left: -40px;
+    top: 13px;
+}
+.POMPTKCmbStatus {
+    left: -60px;
+    top: 12px;
+    width: 185px;
+}
+.POMPTKSButtonPosition {
+    left: 343px;
+    top: -25px;
+}
