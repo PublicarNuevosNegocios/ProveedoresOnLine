@@ -69,10 +69,15 @@
                     </div>
                     string selected_masive = "";
                     string selected_single = "";
+                    string selected_single_tpy = "";
+                    string selected_option_sts = "";
                     if (Request.Params["SearchType"] != null)
                     {
                         switch (Request.Params["SearchType"])
                         {
+                            case "":
+                                selected_single_tpy = "selected";
+                                break;
                             case "201001":
                                 selected_single = "selected";
                                 break;
@@ -83,6 +88,7 @@
                     }
                     <div class="col-sm-2 POMPTKCmbType">
                         <select id="ThirdKnowledge_QueryType" class="form-control">
+                            <option value="" @selected_single_tpy>Seleccionar</option>
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple)" @selected_single>Individual</option>
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive)" @selected_masive>Masiva</option>
 
@@ -96,6 +102,9 @@
                     {
                         switch (Request.Params["Status"])
                         {
+                            case "":
+                                selected_option_sts = "selected";
+                                break;       
                             case "501001":
                                 selected_single = "selected";
                                 break;
@@ -107,6 +116,7 @@
                     <div class="col-sm-3 POMPTKCmbStatus">
                         
                         <select id="ThirdKnowledge_QueryStatus" class="form-control">
+                            <option value="" @selected_option_sts>Seleccionar</option>
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)" @selected_single>Finalizada</option>
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.InProcess)" @selected_masive>En Progreso</option>
                         </select>

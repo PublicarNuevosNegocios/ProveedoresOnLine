@@ -369,7 +369,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, int SearchType, int Status, out int TotalRows)
+        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, string SearchType, string Status, out int TotalRows)
         {
             List<IDbDataParameter> lstParams = new List<IDbDataParameter>();
 

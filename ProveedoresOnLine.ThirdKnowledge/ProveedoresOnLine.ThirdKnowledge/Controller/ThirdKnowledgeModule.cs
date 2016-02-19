@@ -441,7 +441,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                        oPeriodModel.PlanPublicId, oPeriodModel.AssignedQueries, oPeriodModel.IsLimited, oPeriodModel.TotalQueries, oPeriodModel.InitDate, oPeriodModel.EndDate, oPeriodModel.Enable);
         }
 
-        public static List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, int SearchType, int Status, out int TotalRows)
+        public static List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, string SearchType, string Status, out int TotalRows)
         {
             return ThirdKnowledgeDataController.Instance.ThirdKnowledgeSearch(CustomerPublicId, StartDate, EndtDate, PageNumber, RowCount, SearchType, Status, out TotalRows);
         }

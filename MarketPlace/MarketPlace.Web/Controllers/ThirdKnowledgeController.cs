@@ -203,8 +203,8 @@ namespace MarketPlace.Web.Controllers
                 !string.IsNullOrEmpty(EndDate) ? EndDate : "",
                 oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber,
                 Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()),
-                !string.IsNullOrEmpty(SearchType) ? Convert.ToInt32(SearchType) : (int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple,
-                !string.IsNullOrEmpty(Status) ? Convert.ToInt32(Status) : (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized,
+                SearchType,
+                Status,
                 out TotalRows);
 
             oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.TotalRows = TotalRows;

@@ -3,8 +3,8 @@
     Tuple<int, int> oPageInfo = Model.RelatedThidKnowledgePager.GetStartEndPage();
     string initdate = Request.Params["InitDate"] == null ? "" : Request.Params["InitDate"].ToString().Replace(",", "") ;
     string endate = Request.Params["EndDate"] == null ? "" : endate = Request.Params["EndDate"].ToString().Replace(",", "");
-    string searchtype = Request.Params["SearchType"] == null ? "0" : searchtype = Request.Params["SearchType"].ToString().Replace(",", "");
-    string status = Request.Params["Status"] == null ? "0" : status = Request.Params["Status"].ToString().Replace(",", "");
+    string searchtype = Request.Params["SearchType"] == null ? "" : searchtype = Request.Params["SearchType"].ToString().Replace(",", "");
+    string status = Request.Params["Status"] == null ? "" : status = Request.Params["Status"].ToString().Replace(",", "");
 }
 @if (oPageInfo.Item2 > oPageInfo.Item1)
 {

@@ -61,7 +61,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Test
             int TotalRows = 0;
 
             List<TDQueryModel> oReturn = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch
-                ("DA5C572E", "2016-02-02", "2016-02-14", 0, 1, 201001, 501001, out TotalRows);
+                ("DA5C572E", "2016-02-02", "2016-02-14", 0, 1, "201001", "501001", out TotalRows);
 
             Assert.AreEqual(true, oReturn != null);
         }
