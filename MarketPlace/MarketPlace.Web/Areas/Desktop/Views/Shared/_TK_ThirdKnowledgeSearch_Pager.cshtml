@@ -8,7 +8,7 @@
         @if (Model.RelatedThidKnowledgePager.PageNumber > 0)
         {
             <li>
-                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"]', EndDate:'@Request.Params["EndDate"]',SearchType:'@Request.Params["SearchType"]', Status:'@Request.Params["Status"]'});">< Anterior</a>
+                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",", "")',SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">< Anterior</a>
             </li>
         }
         @for (int i = oPageInfo.Item1; i <= oPageInfo.Item2; i++)
@@ -16,11 +16,11 @@
             <li>
                 @if ((Model.RelatedThidKnowledgePager.PageNumber + 1) == i)
                 {
-                    <a class="selected" href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"]', EndDate:'@Request.Params["EndDate"]', SearchType:'@Request.Params["SearchType"]', Status:'@Request.Params["Status"]'});">@i</a>
+                    <a class="selected" href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",","")', SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">@i</a>
                 }
                 else
                 {
-                    <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"]', EndDate:'@Request.Params["EndDate"]',SearchType:'@Request.Params["SearchType"]', Status:'@Request.Params["Status"]'});">@i</a>
+                    <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",", "")',SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">@i</a>
                 }
 
             </li>
@@ -28,7 +28,7 @@
         @if ((Model.RelatedThidKnowledgePager.PageNumber + 1) < Model.RelatedThidKnowledgePager.TotalPages)
         {
             <li>
-                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber + 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"]', EndDate:'@Request.Params["EndDate"]',SearchType:'@Request.Params["SearchType"]', Status:'@Request.Params["Status"]'});">Siguiente ></a>
+                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber + 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",", "")',SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">Siguiente ></a>
             </li>
         }
     </ul>

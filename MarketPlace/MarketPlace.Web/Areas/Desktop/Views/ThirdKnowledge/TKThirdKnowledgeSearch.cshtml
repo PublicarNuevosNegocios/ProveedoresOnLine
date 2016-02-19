@@ -26,19 +26,18 @@
                     var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
                     <div class="col-sm-3 text-right POMPTKDateInit">
                         <span>Desde:</span>
-                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" value="@InitDate" />
+                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="form-control POMPTKDateInputText" value="@InitDate" />
                     </div>
                     <div class="col-sm-1 POMPTKtoText">
 
                     </div>
                     <div class="col-sm-3 text-left POMPTKDateEnd">
                         <span>Hasta:</span>
-                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" value="@EndDate" />
+                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="form-control POMPTKDateInputText" value="@EndDate" />
                     </div>
                 }
                 else
                 {
-                    
                     string initDate = "";
                     string endDate = "";
                     if (Request.Params["InitDate"] != null)
@@ -50,17 +49,24 @@
                         endDate = Request.Params["EndDate"];
                     }
 
-                    <div class="col-sm-3 POMPTKDateInit">
+                    <div class="col-sm-1 POMPTKfromText">
                         <span>Desde:</span>
-                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="filtrarFecha" value="@initDate" />
+                    </div>
+                    <div class="col-sm-3 POMPTKDateInit">
+                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="form-control POMPTKDateInputText" value="@initDate" />
+                    </div>
+                    <div class="col-sm-1 POMPTKtoText">
+                        <span>Hasta:</span>
                     </div>
                     <div class="col-sm-3 POMPTKDateEnd">
-                        <span>Hasta:</span>
-                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="filtrarFecha" value="@endDate" />
+                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="form-control POMPTKDateInputText" value="@endDate" />
                     </div>
                 }
                 @*genero por request*@
                 @{
+                    <div class="col-sm-1 POMPTKCmbTypeText">
+                        <span>Tipo:</span>
+                    </div>
                     string selected_masive = "";
                     string selected_single = "";
                     if (Request.Params["SearchType"] != null)
@@ -76,12 +82,15 @@
                         }
                     }
                     <div class="col-sm-2 POMPTKCmbType">
-                        <span>Tipo:</span>
-                        <select id="ThirdKnowledge_QueryType" class="orderInput">
+                        <select id="ThirdKnowledge_QueryType" class="form-control">
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple)" @selected_single>Individual</option>
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive)" @selected_masive>Masiva</option>
 
                         </select>
+                    </div>
+                    
+                    <div class="col-sm-1 POMPTKCmbStatusText">
+                        <span>Estado:</span>
                     </div>
                     if (Request.Params["Status"] != null)
                     {
@@ -96,15 +105,15 @@
                         }
                     }
                     <div class="col-sm-3 POMPTKCmbStatus">
-                        <span>Estado:</span>
-                        <select id="ThirdKnowledge_QueryStatus" class="orderInput">
+                        
+                        <select id="ThirdKnowledge_QueryStatus" class="form-control">
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)" @selected_single>Finalizada</option>
-                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.InProcess)" @selected_masive>En Proceso</option>
+                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.InProcess)" @selected_masive>En Progreso</option>
                         </select>
                     </div>
                 }
-                <div class="col-sm-2 POMPTKSButtonPosition">
-                    <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_Filter" id="ThirdKnowledge_FilterId" value="Filtrar" />
+                <div class="col-sm-1 POMPTKSButtonPosition">
+                    <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_FilterId" id="ThirdKnowledge_FilterId" value="Filtrar" />
                 </div>
             </div>
             <div class="row text-left POMPSearchResultsPager">
@@ -126,6 +135,7 @@
 <div id="loading"></div>
 
 
+
 @{
     Model.RenderScripts = true;
 }
@@ -135,17 +145,16 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Third_KnowledgeSearchObject.Init({
+            Third_KnowledgeSearch.Init({
                 ObjectId: 'ThirdKnowledge',
                 SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
-                            {
-                                controller = MVC.ThirdKnowledge.Name,
-                                action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch
-                            }))',
+                                {
+                                    controller = MVC.ThirdKnowledge.Name,
+                                    action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeSearch
+                                }))',
             });
-
-            Third_KnowledgeSearchObject.RenderAsync();
+            Third_KnowledgeSearch.RenderAsync();
         });
-    </script>
+</script>
 }
