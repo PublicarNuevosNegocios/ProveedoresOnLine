@@ -3,8 +3,8 @@
 @if (!Model.RenderScripts && Model.RelatedThidKnowledgeSearch != null)
 {
     foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
-    {
-        var QueryPublicId = item.QueryPublicId;
+        {
+            var QueryPublicId = item.QueryPublicId;
         <div class="row POMPSectionTitlesBox">
             <div class="col-xs-10">
                 <strong>Tipo de consulta:</strong>&nbsp;<span>@item.SearchType.ItemName</span>
@@ -23,7 +23,7 @@
                                     }))">
                         Volver a consultar
                     </a>
-                </div>
+        </div>
             }
         </div>
         <br />
@@ -56,7 +56,7 @@
                 }
                 @if (item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)
                 {
-
+                    
                     <div class="col-sm-2 text-right POMPProviderBoxInfo ThirdKnowledge_Detail">
                         <a href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -74,13 +74,13 @@
             </div>
         </div>
         <br />
-    }
+        }
 }
 <div class="row POMPPoweredby">
     <div class="col-ms-12 text-right">
         <label class="POMPPoweredby-font">Powered by Risk Consulting</label>
     </div>
-</div>
+</div> 
 
 @{
     string UrlReturn = Url.Action(MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch, MVC.ThirdKnowledge.Name);

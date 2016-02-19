@@ -15,7 +15,31 @@
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Mis Consultas</label>
         <div class="container-fluid POMPContainerDetail">
-            <div class="row text-center">
+            @if (Model.RelatedThidKnowledgeSearch.CurrentPlanModel != null)
+            {
+                <div class="row POMPTKSearchInfoPlan">
+                    <div class="col-xs-5">
+                        <label>Periodo Actual @Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") @(" - ") @Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyyy-MM-dd") </label>
+                    </div>
+                    <div class="col-xs-7 text-right">
+
+                        @if (Model.RelatedThidKnowledgeSearch.CurrentPlanModel.IsLimited)
+                        {
+                            <label>Plan Ilimitado - </label>
+                            <label>Total Consultas Realizadas</label>
+                            <label id="ThirdKnowledge_Queries">@Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+                        }
+                        else
+                        {
+                            <label>Consultas </label>
+                            <label id="ThirdKnowledge_Queries">@Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+                            <label>De @Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
+                        }
+                    </div>
+                </div>
+                <br />
+            }
+            <div class="row text-center POMPTKSearchContainer">
                 @if (
                             Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
                             Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 &&
@@ -94,7 +118,7 @@
 
                         </select>
                     </div>
-                    
+
                     <div class="col-sm-1 POMPTKCmbStatusText">
                         <span>Estado:</span>
                     </div>
@@ -104,7 +128,7 @@
                         {
                             case "":
                                 selected_option_sts = "selected";
-                                break;       
+                                break;
                             case "501001":
                                 selected_single = "selected";
                                 break;
@@ -114,7 +138,7 @@
                         }
                     }
                     <div class="col-sm-3 POMPTKCmbStatus">
-                        
+
                         <select id="ThirdKnowledge_QueryStatus" class="form-control">
                             <option value="" @selected_option_sts>Seleccionar</option>
                             <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)" @selected_single>Finalizada</option>
@@ -126,11 +150,14 @@
                     <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_FilterId" id="ThirdKnowledge_FilterId" value="Filtrar" />
                 </div>
             </div>
-            <div class="row text-left POMPSearchResultsPager">
-                <!--Pager-->
-                @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Pager, Model.RelatedThidKnowledgeSearch)
-            </div>
-            <br />
+
+            <div class="row POMPSearchResultsPager POMPTKSearchPager">
+                <div class="col-sm-12 text-right">
+                    <!--Pager-->
+                    @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Pager, Model.RelatedThidKnowledgeSearch)&nbsp;|&nbsp;
+                    <span class="POMPTKTotalPagesText">Total Páginas: @(Model.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.TotalPages - 1)</span>
+                </div>
+           </div>
             @Html.Partial(MVC.Desktop.Shared.Views._TK_Search_Result_Item, Model)
             <br />
             <div class="row text-left POMPSearchResultsPager">
