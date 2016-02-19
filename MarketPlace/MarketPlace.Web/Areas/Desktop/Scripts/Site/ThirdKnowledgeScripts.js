@@ -285,4 +285,19 @@ var Third_KnowledgeSearch = {
             window.location = oUrl;
         }
     },
+
+    Third_Knowledge_ReSearchMasive: function (vPediodPublicId, vCustomerPublicId, vFileName) {
+        Third_KnowledgeSimpleSearchObject.Loading_Generic_Show();
+        $.ajax({
+            type: "POST",
+            url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKReSearchMasive=true&CompanyPublicId=' + vCustomerPublicId + '&PeriodPublicId=' + vPediodPublicId + '&FileName=' + vFileName,
+            success: function (result) {
+                Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();               
+            },
+            error: function (result) {
+                Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
+            },
+        })
+    }
 }
+

@@ -3,16 +3,16 @@
 @if (!Model.RenderScripts && Model.RelatedThidKnowledgeSearch != null)
 {
     foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
-        {
-            var QueryPublicId = item.QueryPublicId;
+    {
+        var QueryPublicId = item.QueryPublicId;
         <div class="row POMPSectionTitlesBox">
-            <div class="col-xs-10">
-                <strong>Tipo de consulta:</strong>&nbsp;<span>@item.SearchType.ItemName</span>
-            </div>
-            @if (item.SearchType.ItemId == 201001) //Consulta Simple
-            {
-                <div class="col-xs-2 text-right ThirdKnowledge_Detail">
-                    <a href="@(Url.RouteUrl
+        <div class="col-xs-10">
+        <strong>Tipo de consulta:</strong>&nbsp;<span>@item.SearchType.ItemName</span>
+        </div>
+        @if (item.SearchType.ItemId == 201001) //Consulta Simple
+        {
+            <div class="col-xs-2 text-right ThirdKnowledge_Detail">
+            <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
@@ -20,45 +20,61 @@
                                     action = MVC.ThirdKnowledge.ActionNames.TKSingleSearch,
                                     Name = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0] != null ? item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value : null,
                                     IdentificationNumber = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1] != null ? item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1].Value : null,
-                                    }))">
-                        Volver a consultar
-                    </a>
-        </div>
-            }
+                                }))">
+                Volver a consultar
+            </a>
+            </div>
+        }
+        else
+        {
+            <div class="col-xs-2 text-right ThirdKnowledge_Detail">
+                <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.ThirdKnowledge.Name,
+                                    action = MVC.ThirdKnowledge.ActionNames.TKSingleSearch,
+                                    Name = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0] != null ? item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value : null,
+                                    IdentificationNumber = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1] != null ? item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1].Value : null,
+                                }))">
+                    Volver a consultar
+                </a>
+            </div>
+        }
         </div>
         <br />
         <div class="POMPTKDetailContainer">
-            <div class="row">
-                <div class="col-sm-3   POMPProviderBoxInfo"><strong>Usuario</strong></div>
-                <div class="col-sm-3 POMPProviderBoxInfo"><strong>Fecha de Consulta</strong></div>
-                <div class="col-sm-1 POMPProviderBoxInfo"><strong>Estado</strong></div>
-                <div class="col-sm-3 POMPProviderBoxInfo"><strong>Consulta Realizada</strong></div>
-                <div class="col-sm-2 POMPProviderBoxInfo"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 POMPProviderBoxInfo"><span>@item.User</span></div>
-                <div class="col-sm-3 POMPProviderBoxInfo"><span>@item.CreateDate.AddHours(-5)</span></div>
-                <div class="col-sm-1 POMPProviderBoxInfo"><span>@(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")</span></div>
-                @if (item.SearchType.ItemId == 201001)
-                {
-                    <div class="col-sm-3 POMPProviderBoxInfo">
-                        <span>
-                            @(item.RelatedQueryBasicInfoModel != null && item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1] != null &&
+        <div class="row">
+        <div class="col-sm-3   POMPProviderBoxInfo"><strong>Usuario</strong></div>
+        <div class="col-sm-3 POMPProviderBoxInfo"><strong>Fecha de Consulta</strong></div>
+        <div class="col-sm-1 POMPProviderBoxInfo"><strong>Estado</strong></div>
+        <div class="col-sm-3 POMPProviderBoxInfo"><strong>Consulta Realizada</strong></div>
+        <div class="col-sm-2 POMPProviderBoxInfo"></div>
+        </div>
+        <div class="row">
+        <div class="col-sm-3 POMPProviderBoxInfo"><span>@item.User</span></div>
+        <div class="col-sm-3 POMPProviderBoxInfo"><span>@item.CreateDate.AddHours(-5)</span></div>
+        <div class="col-sm-1 POMPProviderBoxInfo"><span>@(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")</span></div>
+        @if (item.SearchType.ItemId == 201001)
+        {
+            <div class="col-sm-3 POMPProviderBoxInfo">
+            <span>
+            @(item.RelatedQueryBasicInfoModel != null && item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1] != null &&
                                                                     item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value != null ?
                                                                     item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value + " - " +
                                                                     item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1].Value : "N/A")
-                        </span>
-                    </div>
-                }
-                else
-                {
+            </span>
+            </div>
+        }
+        else
+        {
                     <div class="col-sm-3 POMPProviderBoxInfo"><span><a>Ver archivo</a></span></div> //Poner url del archivo cargado en consula masiva.
-                }
-                @if (item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)
-                {
-                    
-                    <div class="col-sm-2 text-right POMPProviderBoxInfo ThirdKnowledge_Detail">
-                        <a href="@(Url.RouteUrl
+        }
+        @if (item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)
+        {
+
+            <div class="col-sm-2 text-right POMPProviderBoxInfo ThirdKnowledge_Detail">
+            <a href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -68,19 +84,19 @@
                                                                             InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
                                                                             EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                                             Enable = "1",
-                                                                            }))">Ver Detalle</a>
-                    </div>
-                }
+                                                                        }))">Ver Detalle</a>
             </div>
+        }
+        </div>
         </div>
         <br />
-        }
+    }
 }
 <div class="row POMPPoweredby">
     <div class="col-ms-12 text-right">
         <label class="POMPPoweredby-font">Powered by Risk Consulting</label>
     </div>
-</div> 
+</div>
 
 @{
     string UrlReturn = Url.Action(MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch, MVC.ThirdKnowledge.Name);
@@ -92,6 +108,6 @@
         Third_KnowledgeSimpleSearchObject.Init({
             ObjectId: 'ThirdKnowledge',
             Url: '@UrlReturn',
-        });
-    });
-</script>
+            });
+            });
+            </script>
