@@ -67,7 +67,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.Controller
             return DataFactory.GetCurrenPeriod(CustomerPublicId, Enable);
         }
 
-        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, int SearchType, int Status, out int TotalRows)
+        public List<Models.TDQueryModel> ThirdKnowledgeSearch(string CustomerPublicId, string StartDate, string EndtDate, int PageNumber, int RowCount, string SearchType, string Status, out int TotalRows)
         {
             return DataFactory.ThirdKnowledgeSearch(CustomerPublicId, StartDate, EndtDate, PageNumber, RowCount, SearchType, Status, out TotalRows);
         }
