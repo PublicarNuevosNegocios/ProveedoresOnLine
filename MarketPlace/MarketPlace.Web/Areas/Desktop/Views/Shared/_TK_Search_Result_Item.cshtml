@@ -24,7 +24,7 @@
                 <div class="col-sm-2 POMPProviderBoxInfo"><span>@(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")</span></div>
                 @if (item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized) { 
                     
-                    <div class="col-sm-2 POMPProviderBoxInfo ThirdKnowledge_Detail"><a href="@(Url.RouteUrl
+                    <div class="col-sm-2 text-right POMPProviderBoxInfo ThirdKnowledge_Detail"><a href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {

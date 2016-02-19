@@ -190,6 +190,15 @@ namespace MarketPlace.Web.Controllers
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryModel = new List<TDQueryModel>();
 
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
+            oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
+            if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
+            {
+                oModel.RelatedThidKnowledgeSearch.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
+            }
+
+
+
             oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager = new Models.ThirdKnowledge.ThirdKnowledgeSearchViewModel()
             {
                 PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0,
