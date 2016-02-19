@@ -195,7 +195,7 @@ namespace MarketPlace.Web.Controllers
                 PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0,
             };
             int TotalRows = 0;
-            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber = Convert.ToInt32(PageNumber);
+            oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0;
 
             oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch(
                 SessionModel.CurrentCompany.CompanyPublicId,

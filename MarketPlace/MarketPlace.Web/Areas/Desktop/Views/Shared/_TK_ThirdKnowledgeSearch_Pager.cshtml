@@ -1,6 +1,10 @@
 ﻿@model MarketPlace.Models.ThirdKnowledge.ThirdKnowledgeViewModel
 @{
     Tuple<int, int> oPageInfo = Model.RelatedThidKnowledgePager.GetStartEndPage();
+    string initdate = Request.Params["InitDate"] == null ? "" : Request.Params["InitDate"].ToString().Replace(",", "") ;
+    string endate = Request.Params["EndDate"] == null ? "" : endate = Request.Params["EndDate"].ToString().Replace(",", "");
+    string searchtype = Request.Params["SearchType"] == null ? "0" : searchtype = Request.Params["SearchType"].ToString().Replace(",", "");
+    string status = Request.Params["Status"] == null ? "0" : status = Request.Params["Status"].ToString().Replace(",", "");
 }
 @if (oPageInfo.Item2 > oPageInfo.Item1)
 {
@@ -8,7 +12,7 @@
         @if (Model.RelatedThidKnowledgePager.PageNumber > 0)
         {
             <li>
-                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",", "")',SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">< Anterior</a>
+                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@initdate', EndDate:'@endate',SearchType:'@searchtype', Status:'@status'});">< Anterior</a>
             </li>
         }
         @for (int i = oPageInfo.Item1; i <= oPageInfo.Item2; i++)
@@ -16,11 +20,12 @@
             <li>
                 @if ((Model.RelatedThidKnowledgePager.PageNumber + 1) == i)
                 {
-                    <a class="selected" href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",","")', SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">@i</a>
+                   
+                    <a class="selected" href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@initdate', EndDate:'@endate', SearchType:'@searchtype', Status:'@status'});">@i</a>
                 }
                 else
                 {
-                    <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",", "")',SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">@i</a>
+                    <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(i - 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@initdate', EndDate:'@endate',SearchType:'@searchtype', Status:'@status'});">@i</a>
                 }
 
             </li>
@@ -28,7 +33,7 @@
         @if ((Model.RelatedThidKnowledgePager.PageNumber + 1) < Model.RelatedThidKnowledgePager.TotalPages)
         {
             <li>
-                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber + 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@Request.Params["InitDate"].ToString().Replace(",", "")', EndDate:'@Request.Params["EndDate"].ToString().Replace(",", "")',SearchType:'@Request.Params["SearchType"].ToString().Replace(",", "")', Status:'@Request.Params["Status"].ToString().Replace(",", "")'});">Siguiente ></a>
+                <a href="javascript:Third_KnowledgeSearch.Search({PageNumber:@(Model.RelatedThidKnowledgePager.PageNumber + 1),CustomerPublicId:'@(Model.ThirdKnowledgeResult.Select(x => x.QueryPublicId).FirstOrDefault().ToString())',InitDate:'@initdate', EndDate:'@endate',SearchType:'@searchtype', Status:'@status'});">Siguiente ></a>
             </li>
         }
     </ul>

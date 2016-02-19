@@ -267,6 +267,15 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                         Value = !string.IsNullOrEmpty(IdentificationNumber) ? IdentificationNumber : string.Empty,
                         Enable = true,
                     });
+                    oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                    {
+                        ItemInfoType = new TDCatalogModel()
+                        {
+                            ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
+                        },
+                        Value = "SIN COINCIDENCIAS",
+                        Enable = true,
+                    });
                     #endregion
 
                     oQueryToCreate.RelatedQueryBasicInfoModel.Add(oInfoCreate);
