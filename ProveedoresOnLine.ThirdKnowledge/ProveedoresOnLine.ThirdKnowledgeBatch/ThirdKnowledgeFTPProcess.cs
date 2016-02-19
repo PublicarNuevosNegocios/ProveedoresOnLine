@@ -252,9 +252,6 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             };
 
                             CreateReadyResultNotification(oQuery);
-
-
-
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
 
                             CreateQueryInfo(oQuery, oCoincidences);
