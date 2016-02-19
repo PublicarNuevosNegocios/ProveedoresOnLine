@@ -26,11 +26,11 @@ namespace MarketPlace.Web.Controllers
             return View();
         }
 
-        public virtual ActionResult TKSingleSearch()
+        public virtual ActionResult TKSingleSearch(string Name, string IdentificationNumber)
         {
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel();
-            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();        
 
             try
             {
@@ -46,7 +46,15 @@ namespace MarketPlace.Web.Controllers
                 if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
                 {
                     oModel.RelatedThirdKnowledge.HasPlan = true;
-
+                    if (!string.IsNullOrEmpty(Name) || !string.IsNullOrEmpty(IdentificationNumber))
+                    {
+                        oModel.RelatedThirdKnowledge.SearchNameParam = Name;
+                        oModel.RelatedThirdKnowledge.SearchIdNumberParam = IdentificationNumber;
+                        oModel.RelatedThirdKnowledge.ReSearch = true;
+                    }
+                    else                   
+                        oModel.RelatedThirdKnowledge.ReSearch = false;
+                   
                     //Get The Most Recently Period When Plan is More Than One
                     oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
                 }

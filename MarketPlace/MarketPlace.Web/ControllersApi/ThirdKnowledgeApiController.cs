@@ -404,5 +404,124 @@ namespace MarketPlace.Web.ControllersApi
         }
 
         #endregion Private Functions
+
+        [HttpPost]
+        [HttpGet]
+        public ProviderViewModel TKSingleReSearch(string TKSingleReSearch, string IdentificationNumber, string Name)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+            oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel();
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
+
+            try
+            {
+                //Get The Active Plan By Customer
+                oCurrentPeriodList = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetCurrenPeriod(SessionModel.CurrentCompany.CompanyPublicId, true);
+
+                if (oCurrentPeriodList != null && oCurrentPeriodList.Count > 0)
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = true;
+
+                    //Get The Most Recently Period When Plan is More Than One
+                    oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
+
+                    #region Upsert Process
+
+                    if (System.Web.HttpContext.Current.Request["UpsertRequest"] == "true")
+                    {
+                        //Set Current Sale
+                        if (oModel.RelatedThirdKnowledge != null)
+                        {
+                            //Save Query
+                            TDQueryModel oQueryToCreate = new TDQueryModel()
+                            {
+                                IsSuccess = true,
+                                PeriodPublicId = oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                                SearchType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)enumThirdKnowledgeQueryType.Simple,
+                                },
+                                User = SessionModel.CurrentLoginUser.Email,
+                                QueryStatus = new TDCatalogModel()
+                                {
+                                    ItemId = (int)enumThirdKnowledgeQueryStatus.Finalized
+                                },
+                            };
+                            oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
+                            oModel.RelatedThidKnowledgeSearch.CollumnsResult = new TDQueryModel();
+
+                            //Get Reqsult
+                            oModel.RelatedThidKnowledgeSearch.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
+                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,IdentificationNumber,Name, oQueryToCreate);
+                            
+                            //Init Finally Tuple, Group by ItemGroup Name
+                            List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
+                            List<string> Item1 = new List<string>();
+                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null && oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess)
+                            {
+                                oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.All(x =>
+                                {
+                                    Item1.Add(x.DetailInfo.Where(y => y.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.GroupName).Select(y => y.Value).FirstOrDefault());
+                                    return true;
+                                });
+                                Item1 = Item1.GroupBy(x => x).Select(grp => grp.Last()).ToList();
+
+                                List<TDQueryInfoModel> oItem2 = new List<TDQueryInfoModel>();
+                                Tuple<string, List<TDQueryInfoModel>> oTupleItem = new Tuple<string, List<TDQueryInfoModel>>("", new List<TDQueryInfoModel>());
+
+                                Item1.All(x =>
+                                {
+                                    if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
+                                    {
+                                        oItem2 = oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
+                                        oTupleItem = new Tuple<string, List<TDQueryInfoModel>>(x, oItem2);
+                                        Group.Add(oTupleItem);
+                                    }
+                                    return true;
+                                });
+                                if (Group != null)
+                                    oModel.RelatedSingleSearch = Group;
+
+
+                                if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId != null)
+                                {
+                                    //Set New Score
+                                    oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries = (oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault().TotalQueries + 1);
+
+                                    //Period Upsert
+                                    oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.PeriodoUpsert(
+                                        oCurrentPeriodList.FirstOrDefault().RelatedPeriodModel.FirstOrDefault());
+                                }
+                            }
+                        }
+                        else
+                        {
+                            TDQueryModel oQueryToCreate = new TDQueryModel()
+                            {
+                                IsSuccess = false,
+                                PeriodPublicId = oModel.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
+                                SearchType = new TDCatalogModel()
+                                {
+                                    ItemId = (int)enumThirdKnowledgeQueryType.Simple,
+                                },
+                                User = SessionModel.CurrentLoginUser.Email,
+                            };
+                        }
+                    }
+
+                    #endregion Upsert Process
+                }
+                else
+                {
+                    oModel.RelatedThirdKnowledge.HasPlan = false;
+                }
+                return oModel;
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
+
     }
 }

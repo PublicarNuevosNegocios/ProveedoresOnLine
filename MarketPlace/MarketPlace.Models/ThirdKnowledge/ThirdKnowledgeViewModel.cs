@@ -29,6 +29,13 @@ namespace MarketPlace.Models.ThirdKnowledge
 
         public bool HasPlan { get; set; }
 
+        //Params to Research
+        public string SearchNameParam { get; set; }
+
+        public string SearchIdNumberParam { get; set; }
+
+        public bool ReSearch { get; set; }
+
         //Temp Cols
         public TDQueryModel CollumnsResult { get; set; }
 
