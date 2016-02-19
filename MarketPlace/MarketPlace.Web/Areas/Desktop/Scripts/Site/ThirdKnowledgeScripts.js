@@ -8,9 +8,10 @@ var Third_KnowledgeSimpleSearchObject = {
         this.Url = vInitObject.Url;
         this.ReSearch = vInitObject.ReSearch;
 
-        if (this.ReSearch) {
+        if (this.ReSearch == "True") {
             debugger;
             //Call Research Function
+            Third_KnowledgeSimpleSearchObject.SimpleSearch();
         }
     },
 

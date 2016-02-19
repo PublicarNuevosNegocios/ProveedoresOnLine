@@ -432,7 +432,42 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          },
                          Enable = qg.Key.QueryEnable == 1 ? true : false,
                          PeriodPublicId = qg.Key.PeriodPublicId,
-                         CreateDate = qg.Key.QueryCreateDate,                         
+                         CreateDate = qg.Key.QueryCreateDate,
+                         RelatedQueryBasicInfoModel =
+                             (from qinf in response.DataTableResult.AsEnumerable()
+                              where !qinf.IsNull("QueryBasicInfoId") &&
+                                     qinf.Field<string>("QueryPublicId") == qg.Key.QueryPublicId
+                              group qinf by new
+                              {
+                                  QueryBasicInfoId = qinf.Field<int>("QueryBasicInfoId"),
+                              }
+                                  into qinfg
+                                  select new Models.TDQueryInfoModel()
+                                  {
+                                      QueryBasicInfoId = qinfg.Key.QueryBasicInfoId,
+                                      DetailInfo =
+                                        (from qdinf in response.DataTableResult.AsEnumerable()
+                                         where !qdinf.IsNull("QueryDetailInfoId") &&
+                                         qdinf.Field<int>("QueryBasicInfoId") == qinfg.Key.QueryBasicInfoId
+                                         group qdinf by new
+                                         {
+                                             QueryDetailInfoId = qdinf.Field<int>("QueryDetailInfoId"),
+                                             QueryDetailInfoTypeId = qdinf.Field<int>("QueryDetailInfoTypeId"),
+                                             QueryDetailInfoType = qdinf.Field<string>("QueryDetailInfoType"),
+                                             QueryDetailInfoValue = qdinf.Field<string>("QueryDetailInfoValue")
+                                         }
+                                             into qdinfg
+                                             select new TDQueryDetailInfoModel()
+                                             {
+                                                 QueryDetailInfoId = qdinfg.Key.QueryDetailInfoId,
+                                                 ItemInfoType = new TDCatalogModel()
+                                                 {
+                                                     ItemId = qdinfg.Key.QueryDetailInfoTypeId,
+                                                     ItemName = qdinfg.Key.QueryDetailInfoType,
+                                                 },
+                                                 Value = qdinfg.Key.QueryDetailInfoValue,
+                                             }).ToList()
+                                  }).ToList()
                      }).ToList();
             }
             return oReturn;
