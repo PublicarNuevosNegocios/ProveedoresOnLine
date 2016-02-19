@@ -149,6 +149,9 @@
         public const string MP_CP_ColIdName = "MP_CP_ColIdName";
 
         public const string C_Settings_TK_UploadSuccessFileAgent = "TK_UploadSuccessFileAgent";
+
+        public const string TK_Research_Image = "TK_Research_Image";
+
         #endregion
 
         #region Notifications
