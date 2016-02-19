@@ -1805,7 +1805,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 Parameters = lstParams
             });
         }
-
+        
         #endregion
 
         #region Company Search
@@ -2379,6 +2379,70 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      }).ToList();
             }
             return oReturn;
+        }
+
+        public int RoleModuleUpsert(int RoleCompanyId, int? RoleModuleId, int RoleModuleType, string RoleModule, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleModuleId", RoleModuleId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleModuleType", RoleModuleType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleModule", RoleModule));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_RoleModule_Upsert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public int ModuleOptionUpsert(int RoleModuleId, int? ModuleOptionId, int ModuleOptionType, string ModuleOption, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleModuleId", RoleModuleId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionsId", ModuleOptionId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionType", ModuleOptionType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOption", ModuleOption));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_ModuleOption_Upsert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionId", ModuleOptionId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionInfoId", ModuleOptionInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionInfoType", ModuleOptionInfoType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_ModuleOptionInfo_Upsert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
         #endregion

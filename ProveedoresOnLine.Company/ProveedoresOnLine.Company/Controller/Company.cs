@@ -882,6 +882,21 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MP_UserCompanySearch(CompanyPublicId, SearchParam, RoleCompanyId, PageNumber, RowCount);
         }
 
+        public static int RoleModuleUpsert(int RoleCompanyId, int? RoleModuleId, int RoleModuleType, string RoleModule, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.RoleModuleUpsert(RoleCompanyId, RoleModuleId, RoleModuleType, RoleModule, Enable);
+        }
+
+        public static int ModuleOptionUpsert(int RoleModuleId, int? ModuleOptionId, int ModuleOptionType, string ModuleOption, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.ModuleOptionUpsert(RoleModuleId, ModuleOptionId, ModuleOptionType, ModuleOption, Enable);
+        }
+
+        public static int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
+        }
+
         #endregion
 
         #region Generic Log

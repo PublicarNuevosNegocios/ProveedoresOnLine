@@ -312,6 +312,21 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.MP_UserCompanySearch(CompanyPublicId, SearchParam, RoleCompanyId, PageNumber, RowCount);
         }
 
+        public int RoleModuleUpsert(int RoleCompanyId, int? RoleModuleId, int RoleModuleType, string RoleModule, bool Enable)
+        {
+            return DataFactory.RoleModuleUpsert(RoleCompanyId, RoleModuleId, RoleModuleType, RoleModule, Enable);
+        }
+
+        public int ModuleOptionUpsert(int RoleModuleId, int? ModuleOptionId, int ModuleOptionType, string ModuleOption, bool Enable)
+        {
+            return DataFactory.ModuleOptionUpsert(RoleModuleId, ModuleOptionId, ModuleOptionType, ModuleOption, Enable);
+        }
+
+        public int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
+        }
+
         #endregion
 
         #region Restrictive List
