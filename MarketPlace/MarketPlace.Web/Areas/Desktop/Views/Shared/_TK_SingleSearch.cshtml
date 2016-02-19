@@ -3,8 +3,6 @@
 <label class="POMPSectionTitles">Consulta Individual de Terceros</label>
 
 <div class="container-fluid POMPTKContainerDetail">
-
-
     @if (Model.RelatedThirdKnowledge.HasPlan)
     {
         <div class="row POMPSectionTitlesBox">
@@ -86,7 +84,7 @@
         Third_KnowledgeSimpleSearchObject.Init({
             ObjectId: 'ThirdKnowledge',
             Url: '@UrlReturn',
-            ReSearch: '@Model.RelatedThidKnowledgeSearch.ReSearch'
+            ReSearch: '@Model.RelatedThirdKnowledge.ReSearch'
         });
     });
 </script>
