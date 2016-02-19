@@ -31,8 +31,22 @@
 
     <form id="ThirdKnowledge_Form" action="@Url.Content("~/api/ThirdKnowledgeApi?TKSingleSearch=true")" method="post">
         <div class="container-fluid POMPTKDetailContainer">
-            <input type="text" class="POMPNameSearch" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
-            <input type="text" class="POMPIDSearch" name="IdentificationNumber" value="" placeholder="Buscar por Número de identificación" />
+            @if (!string.IsNullOrEmpty(Model.RelatedThirdKnowledge.SearchNameParam))
+            {
+                <input type="text" class="POMPNameSearch" name="Name" value="@Model.RelatedThirdKnowledge.SearchNameParam" placeholder="Buscar por Nombre y Apellidos" />
+            }
+            else
+            {
+                <input type="text" class="POMPNameSearch" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
+            }
+            @if (!string.IsNullOrEmpty(Model.RelatedThirdKnowledge.SearchIdNumberParam))
+            {
+                <input type="text" class="POMPIDSearch" name="IdentificationNumber" value="@Model.RelatedThirdKnowledge.SearchIdNumberParam" placeholder="Buscar por Número de identificación" />
+            }
+            else
+            {
+                <input type="text" class="POMPIDSearch" name="IdentificationNumber" value="" placeholder="Buscar por Número de identificación" />
+            }
             <input type="hidden" name="UpsertRequest" value="true" />
             @{
                 if (Model.RelatedThirdKnowledge.HasPlan)
@@ -72,6 +86,7 @@
         Third_KnowledgeSimpleSearchObject.Init({
             ObjectId: 'ThirdKnowledge',
             Url: '@UrlReturn',
+            ReSearch: '@Model.RelatedThidKnowledgeSearch.ReSearch'
         });
     });
 </script>
