@@ -2324,10 +2324,105 @@ namespace DocumentManagement.Web.Controllers
                 #endregion
 
                 #region Sarlaft
-                List<Tuple<string, HomologateModel>> oSarlaftToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.ChaimberOfCommerceInfoType).Select(x => x).ToList();
+                List<Tuple<string, HomologateModel>> oSarlaftToSync = oContactHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.SARLAFTInfoType).Select(x => x).ToList();
 
                 if (oSarlaftToSync != null && oSarlaftToSync.Count > 0)
                 {
+                    #region SARLAFT
+                    if (oSarlaftToSync != null && oSarlaftToSync.Count > 0)
+                    {
+                        //Build obj provider 
+                        ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProviderModel = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicid),
+                            RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(oCompanyPublicid, (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT, true),
+                        };
+                        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oSARLAFTToUpsert = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = oProviderModel.RelatedLegal != null ? oProviderModel.RelatedLegal.Where(x => x.ItemType.ItemId == 
+                                    (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT).
+                                    Select(x => x.ItemId).FirstOrDefault() : 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT,
+                            },
+                            ItemName = oChaimberOfCommerceToSync.Where(y => y.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT)
+                                    .Select(y => y.Item1).FirstOrDefault() != null ? 
+                                    Request.Form[oGeneralHomologateData.Where(y => y.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT).
+                                    Select(y => y.Item1).FirstOrDefault().Replace("Sync_", "")] : string.Empty,
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                        oSarlaftToSync.All(x =>
+                        {
+                            oSARLAFTToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+
+                                ItemInfoId = oProviderModel.RelatedLegal != null ? oProviderModel.RelatedLegal.Where(p => p.ItemInfo != null).
+                                                            Select(p => p.ItemInfo.Where(y => y.ItemInfoType.ItemId == x.Item2.Target.ItemId).Select(y => y).FirstOrDefault().ItemInfoId).FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalInfoType.SF_PersonType,
+                                },
+                                Value = x.Item2.Target.ItemId.ToString(),                                  
+                                Enable = true,
+                            });
+                            oSARLAFTToUpsert.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+
+                                ItemInfoId = oProviderModel.RelatedLegal != null ? oProviderModel.RelatedLegal.Where(p => p.ItemInfo != null).
+                                                            Select(p => p.ItemInfo.Where(y => y.ItemInfoType.ItemId == x.Item2.Target.ItemId).Select(y => y).FirstOrDefault().ItemInfoId).FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)DocumentManagement.Provider.Models.Enumerations.enumLegalInfoType.SF_SARLAFTFile,
+                                },
+                                Value = Request.Form[x.Item1.Replace("Sync_", "") + " _File"],
+                                Enable = true,
+                            });
+                            return true;
+                        });
+                        oProviderModel.RelatedLegal = oSARLAFTToUpsert;
+
+                        //Upsertinfo BO
+                        oProviderModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProviderModel);
+
+                        //Upsert Changes Sincronized
+                        oSarlaftToSync.All(x =>
+                        {
+                            List<ChangesControlModel> oChangesToUpsert = oModel.ChangesControlModel.
+                                                                Where(y => y.ProviderInfoId == int.Parse(x.Item1.Split('-').Last())).
+                                                                Select(y =>
+                                                                {
+                                                                    y.Enable = false; y.Status.ItemId =
+                                                                    (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                    return y;
+                                                                }).ToList();
+                            if (oSarlaftToSync.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT).Select(p => p.Item1).FirstOrDefault() != null)
+                            {
+                                oChangesToUpsert.AddRange(oModel.ChangesControlModel.Where(y => y.ProviderInfoId ==
+                                int.Parse(oGeneralHomologateData.Where(p => p.Item2.Target.ItemId == (int)DocumentManagement.Provider.Models.Enumerations.enumLegalType.SARLAFT)
+                                                        .Select(p => p.Item1).FirstOrDefault().Split('-').Last())).
+                                                            Select(y =>
+                                                            {
+                                                                y.Enable = false; y.Status.ItemId =
+                                                                (int)DocumentManagement.Provider.Models.Enumerations.enumChangesStatus.IsValidated;
+                                                                return y;
+                                                            }).ToList());
+                            }
+                            oChangesToUpsert.All(
+                            ch =>
+                            {
+                                DocumentManagement.Provider.Controller.Provider.ChangesControlUpsert(ch);
+                                return true;
+                            });
+                            return true;
+                        });
+                    }
+                    #endregion
                 }
                 #endregion
             }
