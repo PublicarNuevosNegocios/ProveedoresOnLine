@@ -286,18 +286,23 @@ var Third_KnowledgeSearch = {
         }
     },
 
-    Third_Knowledge_ReSearchMasive: function (vPediodPublicId, vCustomerPublicId, vFileName) {
+    Third_Knowledge_ReSearchMasive: function (vReSearchObj) {
+        debugger;
         Third_KnowledgeSimpleSearchObject.Loading_Generic_Show();
         $.ajax({
             type: "POST",
-            url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKReSearchMasive=true&CompanyPublicId=' + vCustomerPublicId + '&PeriodPublicId=' + vPediodPublicId + '&FileName=' + vFileName,
+            url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKReSearchMasive=true&CompanyPublicId=' + vReSearchObj.CustomerPublicId + '&PeriodPublicId=' + vReSearchObj.PediodPublicId + '&FileName=' + vReSearchObj.FileName,
             success: function (result) {
-                Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();               
+                Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
+                debugger;
+                Dialog_ShowMessage("Carga Exitosa", "El archivo es correcto, en unos momentos recibirá un correo con el respectivo resultado de la validación.", window.location.href);
+
             },
             error: function (result) {
                 Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
+                Dialog_ShowMessage("Error", "Ocurrió un problema al realizar la consulta, por favor verifique su conexión a internet.", window.location.href);
+                debugger;
             },
         })
     }
 }
-

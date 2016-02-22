@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 
@@ -326,7 +327,7 @@ namespace MarketPlace.Web.ControllersApi
         {
             FileModel oReturn = new FileModel();
 
-            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
+            if (!string.IsNullOrEmpty(FileName))
             {
                 //get folder
                 string strFolder = System.Web.HttpContext.Current.Server.MapPath
@@ -336,70 +337,72 @@ namespace MarketPlace.Web.ControllersApi
                 if (!System.IO.Directory.Exists(strFolder))
                     System.IO.Directory.CreateDirectory(strFolder);
 
-                //get File
-                var UploadFile = System.Web.HttpContext.Current.Request.Files["ThirdKnowledge_FileUpload"];
-
-                if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
+                //Download Excel to process
+                using (WebClient webClient = new WebClient())
                 {
-                    string oFileName = "ThirdKnowledgeFile_" +
-                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                        UploadFile.FileName.Split('.').DefaultIfEmpty("xlsx").LastOrDefault();
-                    oFileName = oFileName.Split('.').LastOrDefault() == "xls" ? oFileName.Replace("xls", "xlsx") : oFileName;
-                    string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
+                    //Get file from S3 using File Name           
+                    webClient.DownloadFile(Models.General.InternalSettings.Instance[
+                    Models.General.Constants.TK_File_S3FilePath].Value + FileName, strFolder + "ReSearch_" + FileName);
 
-                    UploadFile.SaveAs(strFilePath);
+                    ////Get file from S3 using File Name           
+                    //webClient.DownloadFile(ThirdKnowledge.Models.InternalSettings.Instance[
+                    //                    ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Setings_File_S3FilePath].Value + oQuery.FileName, strFolder + oQuery.FileName);
+                }
 
-                    Tuple<bool, string> oVerifyResult = this.FileVerify(strFilePath, oFileName, PeriodPublicId);
-                    bool isValidFile = oVerifyResult.Item1;
+                string oFileName = "ReSearch_" + FileName;
 
-                    string strRemoteFile = string.Empty;
-                    if (isValidFile)
+                string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
+
+                Tuple<bool, string> oVerifyResult = this.FileVerify(strFilePath, oFileName, PeriodPublicId);
+                bool isValidFile = oVerifyResult.Item1;
+
+                string strRemoteFile = string.Empty;
+                if (isValidFile)
+                {
+                    //load file to s3
+                    strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                        (strFilePath,
+                        Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value);
+
+                    TDQueryModel oQueryToCreate = new TDQueryModel()
                     {
-                        //load file to s3
-                        strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                            (strFilePath,
-                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value);
-
-                        TDQueryModel oQueryToCreate = new TDQueryModel()
+                        IsSuccess = isValidFile,
+                        PeriodPublicId = PeriodPublicId,
+                        QueryStatus = new TDCatalogModel()
                         {
-                            IsSuccess = isValidFile,
-                            PeriodPublicId = PeriodPublicId,
-                            QueryStatus = new TDCatalogModel()
-                            {
-                                ItemId = (int)enumThirdKnowledgeQueryStatus.InProcess
-                            },
-                            SearchType = new TDCatalogModel()
-                            {
-                                ItemId = (int)enumThirdKnowledgeQueryType.Masive,
-                            },
-                            User = SessionModel.CurrentLoginUser.Email,
-                            FileName = oFileName,
-                        };
+                            ItemId = (int)enumThirdKnowledgeQueryStatus.InProcess
+                        },
+                        SearchType = new TDCatalogModel()
+                        {
+                            ItemId = (int)enumThirdKnowledgeQueryType.Masive,
+                        },
+                        User = SessionModel.CurrentLoginUser.Email,
+                        FileName = oFileName,
+                    };
 
-                        oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQueryToCreate);
+                    oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQueryToCreate);
 
-                        //Send Message
-                        MessageModule.Client.Models.NotificationModel oDataMessage = new MessageModule.Client.Models.NotificationModel();
-                        oDataMessage.CompanyPublicId = CompanyPublicId;
-                        oDataMessage.User = SessionModel.CurrentLoginUser.Email;
-                        oDataMessage.CompanyLogo = SessionModel.CurrentCompany_CompanyLogo;
-                        oDataMessage.CompanyName = SessionModel.CurrentCompany.CompanyName;
-                        oDataMessage.IdentificationType = SessionModel.CurrentCompany.IdentificationType.ItemName;
-                        oDataMessage.IdentificationNumber = SessionModel.CurrentCompany.IdentificationNumber;
+                    //Send Message
+                    MessageModule.Client.Models.NotificationModel oDataMessage = new MessageModule.Client.Models.NotificationModel();
+                    oDataMessage.CompanyPublicId = CompanyPublicId;
+                    oDataMessage.User = SessionModel.CurrentLoginUser.Email;
+                    oDataMessage.CompanyLogo = SessionModel.CurrentCompany_CompanyLogo;
+                    oDataMessage.CompanyName = SessionModel.CurrentCompany.CompanyName;
+                    oDataMessage.IdentificationType = SessionModel.CurrentCompany.IdentificationType.ItemName;
+                    oDataMessage.IdentificationNumber = SessionModel.CurrentCompany.IdentificationNumber;
 
-                        #region Notification
+                    #region Notification
 
-                        oDataMessage.Label = Models.General.InternalSettings.Instance
-                                [Models.General.Constants.N_ThirdKnowledgeUploadMassiveMessage].Value;
-                        oDataMessage.Url = Models.General.InternalSettings.Instance
-                                [Models.General.Constants.N_UrlThirdKnowledgeQuery].Value.Replace("{{QueryPublicId}}", oQueryToCreate.QueryPublicId);
-                        oDataMessage.NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification;
-                        oDataMessage.Enable = true;
+                    oDataMessage.Label = Models.General.InternalSettings.Instance
+                            [Models.General.Constants.N_ThirdKnowledgeUploadMassiveMessage].Value;
+                    oDataMessage.Url = Models.General.InternalSettings.Instance
+                            [Models.General.Constants.N_UrlThirdKnowledgeQuery].Value.Replace("{{QueryPublicId}}", oQueryToCreate.QueryPublicId);
+                    oDataMessage.NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification;
+                    oDataMessage.Enable = true;
 
-                        #endregion
+                    #endregion
 
-                        ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.CreateUploadNotification(oDataMessage);
-                    }
+                    ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.CreateUploadNotification(oDataMessage);
 
                     //remove temporal file
                     if (System.IO.File.Exists(strFilePath))
@@ -407,17 +410,17 @@ namespace MarketPlace.Web.ControllersApi
 
                     oReturn = new FileModel()
                     {
-                        FileName = UploadFile.FileName,
+                        FileName = "ReSearch" + FileName,
                         ServerUrl = strRemoteFile,
-                        LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correcto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
-                                                    "El Archivo " + UploadFile.FileName + " no es correcto, por favor verifique el nombre de las columnas y el formato.",
+                        LoadMessage = isValidFile ? "El Archivo " + "ReSearch" + FileName + " es correcto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
+                                                    "El Archivo " + "ReSearch" + FileName + " no es correcto, por favor verifique el nombre de las columnas y el formato.",
                         AdditionalInfo = oVerifyResult.Item2,
                     };
                 }
             }
             return oReturn;
         }
-      
+
         #region ThirdKnowledge Charts
 
         [HttpPost]
@@ -469,7 +472,7 @@ namespace MarketPlace.Web.ControllersApi
             {
                 // Get the work book in the file
                 ExcelWorkbook workBook = package.Workbook;
-                
+
                 if (workBook != null)
                 {
                     object[,] values = (object[,])workBook.Worksheets.First().Cells["A1:C1"].Value;
@@ -550,8 +553,8 @@ namespace MarketPlace.Web.ControllersApi
 
                             //Get Reqsult
                             oModel.RelatedThidKnowledgeSearch.CollumnsResult = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.SimpleRequest(oCurrentPeriodList.FirstOrDefault().
-                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId,IdentificationNumber,Name, oQueryToCreate);
-                            
+                                            RelatedPeriodModel.FirstOrDefault().PeriodPublicId, IdentificationNumber, Name, oQueryToCreate);
+
                             //Init Finally Tuple, Group by ItemGroup Name
                             List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
                             List<string> Item1 = new List<string>();

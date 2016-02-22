@@ -152,6 +152,8 @@
 
         public const string TK_Research_Image = "TK_Research_Image";
 
+        public const string TK_File_S3FilePath = "File_S3FilePath";
+
         #endregion
 
         #region Notifications

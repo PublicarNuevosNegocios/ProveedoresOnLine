@@ -412,6 +412,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                          QueryEnable = q.Field<UInt64>("QueryEnable"),
                          PeriodPublicId = q.Field<string>("PeriodPublicId"),
                          QueryPublicId = q.Field<string>("QueryPublicId"),
+                         FileName = q.Field<string>("FileName"),
                          QueryCreateDate = q.Field<DateTime>("QueryCreateDate"),
                      }
                          into qg
@@ -419,6 +420,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.DAL.MySQLDAO
                      {
                          QueryPublicId = qg.Key.QueryPublicId,
                          IsSuccess = qg.Key.IsSuccess == 1 ? true : false,
+                         FileName = qg.Key.FileName,
                          SearchType = new TDCatalogModel()
                          {
                              ItemId = qg.Key.SearchTypeId,
