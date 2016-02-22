@@ -9,7 +9,7 @@
             <div class="col-xs-10">
                 <strong>Tipo de consulta:</strong>&nbsp;<span>@item.SearchType.ItemName</span>
             </div>
-            @if (item.SearchType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple && Model.RelatedThidKnowledgeSearch.CurrentPlanModel.Status.ItemId == 101001) //Consulta Simple
+            @if (item.SearchType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple && Model.RelatedThidKnowledgeSearch.CurrentPlanModel != null && Model.RelatedThidKnowledgeSearch.CurrentPlanModel.Status.ItemId == 101001) //Consulta Simple
             {
                 <div class="col-xs-2 text-right ThirdKnowledge_Detail">
                     <a href="@(Url.RouteUrl
@@ -25,10 +25,11 @@
                     </a>
                 </div>
             }
-            else if (item.SearchType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive && Model.RelatedThidKnowledgeSearch.CurrentPlanModel.Status.ItemId == 101001)           
+            else if (item.SearchType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive && Model.RelatedThidKnowledgeSearch.CurrentPlanModel != null && Model.RelatedThidKnowledgeSearch.CurrentPlanModel.Status.ItemId == 101001)           
             {
                 <div class="col-xs-2 text-right ThirdKnowledge_Detail">
-                    <a class="POMPButtons" href="javascript:Third_KnowledgeSearch.Third_Knowledge_ReSearchMasive({vPediodPublicId:'@Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId',vCustomerPublicId:'@Model.RelatedThidKnowledgeSearch.CurrentPlanModel.CompanyPublicId', vFileName:@item.FileName});">Volver a consultar</a>                    
+                    <a  href="javascript:Third_KnowledgeSearch.Third_Knowledge_ReSearchMasive({PediodPublicId:'@Model.RelatedThidKnowledgeSearch.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().PeriodPublicId',CustomerPublicId:'@Model.RelatedThidKnowledgeSearch.CurrentPlanModel.CompanyPublicId',FileName:'@item.FileName'});">
+                    <i class="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.TK_Research_Image].Value"></i>&nbsp;&nbsp;&nbsp;</a>                    
                 </div>
             }
         </div>
@@ -87,6 +88,9 @@
         <label class="POMPPoweredby-font">Powered by Risk Consulting</label>
     </div>
 </div>
+
+@*Templates*@
+<div id="loading"></div>
 
 @{
     string UrlReturn = Url.Action(MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch, MVC.ThirdKnowledge.Name);

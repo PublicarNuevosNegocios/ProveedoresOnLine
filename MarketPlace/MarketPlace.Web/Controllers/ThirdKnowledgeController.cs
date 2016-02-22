@@ -204,10 +204,7 @@ namespace MarketPlace.Web.Controllers
             {
                 oModel.RelatedThidKnowledgeSearch.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
             }
-
-            List<PlanModel> CurrentPlan = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.GetAllPlanByCustomer(SessionModel.CurrentCompany.CompanyPublicId, true);
-            //oModel.RelatedThidKnowledgeSearch.HasPlan = CurrentPlan != null ? false : CurrentPlan.FirstOrDefault().
-            
+           
             oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager = new Models.ThirdKnowledge.ThirdKnowledgeSearchViewModel()
             {
                 PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0,

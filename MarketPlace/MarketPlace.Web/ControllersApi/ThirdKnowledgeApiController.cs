@@ -327,7 +327,7 @@ namespace MarketPlace.Web.ControllersApi
         {
             FileModel oReturn = new FileModel();
 
-            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
+            if (!string.IsNullOrEmpty(FileName))
             {
                 //get folder
                 string strFolder = System.Web.HttpContext.Current.Server.MapPath
@@ -341,14 +341,15 @@ namespace MarketPlace.Web.ControllersApi
                 using (WebClient webClient = new WebClient())
                 {
                     //Get file from S3 using File Name           
-                    webClient.DownloadFile(System.Web.HttpContext.Current.Server.MapPath
-                    (Models.General.InternalSettings.Instance[
-                    Models.General.Constants.TK_File_S3FilePath].Value) + "ReSearch" + FileName, strFolder + FileName);
+                    webClient.DownloadFile(Models.General.InternalSettings.Instance[
+                    Models.General.Constants.TK_File_S3FilePath].Value + FileName, strFolder + "ReSearch_" + FileName);
+
+                    ////Get file from S3 using File Name           
+                    //webClient.DownloadFile(ThirdKnowledge.Models.InternalSettings.Instance[
+                    //                    ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Setings_File_S3FilePath].Value + oQuery.FileName, strFolder + oQuery.FileName);
                 }
 
-                string oFileName = System.Web.HttpContext.Current.Server.MapPath
-                    (Models.General.InternalSettings.Instance[
-                    Models.General.Constants.TK_File_S3FilePath].Value) + "ReSearch" + FileName;
+                string oFileName = "ReSearch_" + FileName;
 
                 string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
 
