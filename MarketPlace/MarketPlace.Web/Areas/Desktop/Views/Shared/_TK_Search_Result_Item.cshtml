@@ -36,19 +36,19 @@
         <br />
         <div class="POMPTKDetailContainer">
             <div class="row">
-                <div class="col-sm-3   POMPProviderBoxInfo"><strong>Usuario</strong></div>
+                <div class="col-sm-3 POMPProviderBoxInfo"><strong>Usuario</strong></div>
                 <div class="col-sm-3 POMPProviderBoxInfo"><strong>Fecha de Consulta</strong></div>
-                <div class="col-sm-1 POMPProviderBoxInfo"><strong>Estado</strong></div>
-                <div class="col-sm-3 POMPProviderBoxInfo"><strong>Consulta Realizada</strong></div>
+                <div class="col-sm-2 POMPProviderBoxInfo"><strong>Estado</strong></div>
+                <div class="col-sm-2 POMPProviderBoxInfo"><strong>Consulta Realizada</strong></div>
                 <div class="col-sm-2 POMPProviderBoxInfo"></div>
             </div>
             <div class="row">
                 <div class="col-sm-3 POMPProviderBoxInfo"><span>@item.User</span></div>
                 <div class="col-sm-3 POMPProviderBoxInfo"><span>@item.CreateDate.AddHours(-5)</span></div>
-                <div class="col-sm-1 POMPProviderBoxInfo"><span>@(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")</span></div>
+                <div class="col-sm-2 POMPProviderBoxInfo"><span>@(item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized == true ? "Finalizado" : "En Progreso")</span></div>
                 @if (item.SearchType.ItemId == 201001)
                 {
-                    <div class="col-sm-3 POMPProviderBoxInfo">
+                    <div class="col-sm-2 POMPProviderBoxInfo">
                         <span>
                             @(item.RelatedQueryBasicInfoModel != null && item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[1] != null &&
                                                                     item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value != null ?
@@ -59,7 +59,7 @@
                 }
                 else
                 {
-                    <div class="col-sm-3 POMPProviderBoxInfo"><span><a>Ver archivo</a></span></div> //Poner url del archivo cargado en consula masiva.
+                    <div class="col-sm-2 POMPProviderBoxInfo"><span><a>Ver archivo</a></span></div> //Poner url del archivo cargado en consula masiva.
                 }
                 @if (item.QueryStatus.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)
                 {
