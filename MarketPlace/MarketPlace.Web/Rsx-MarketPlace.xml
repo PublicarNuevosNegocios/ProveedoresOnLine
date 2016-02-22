@@ -13,7 +13,7 @@
     <key name="Login_DefaultUserUrl">http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/dafaultProvider.png</key>
 
     <!--Generic params-->
-    <key name="Grid_RowCountDefault">10</key>
+    <key name="Grid_RowCountDefault">5</key>
     
     <key name="Paginator_PagesLimit">10</key>
 
@@ -70,7 +70,10 @@
 
     <!--ThirdKnowledgeReportText-->
     <key name="TK_TextImage"><![CDATA[https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ThirdKnowledgeText.PNG]]></key>
-
+    
+    <!--ThirdKnowledgeIconResearch-->
+    <key name="TK_Research_Image">glyphicon glyphicon-repeat</key>
+    
     <!--ThirdKnowledge-->
     <key name="MP_CP_UploadTemplate">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/PlantillaCargueMasivoPOL.xlsx</key>
     <key name="MP_CP_ColPersonType">TIPOPERSONA</key>
