@@ -292,10 +292,12 @@ var Third_KnowledgeSearch = {
             type: "POST",
             url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKReSearchMasive=true&CompanyPublicId=' + vCustomerPublicId + '&PeriodPublicId=' + vPediodPublicId + '&FileName=' + vFileName,
             success: function (result) {
-                Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();               
+                Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
+                alert("Archivo válido");
             },
             error: function (result) {
                 Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
+                alert("Archivo no válido");
             },
         })
     }
