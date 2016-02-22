@@ -2135,9 +2135,10 @@ namespace DocumentManagement.Web.Controllers
             List<Tuple<string, HomologateModel>> oLegalHomologateData = oGeneralHomologateData.Where(x => (x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.ChaimberOfCommerceInfoType ||
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.RUTInfoType ||
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.SARLAFTInfoType ||
+                                                                                                             x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.PersonType||                                                                                                             
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.ResolucionesInfoType ||
                                                                                                              x.Item2 != null && x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.CIFINInfoType)).Select(x => x).ToList();
-            if (oLegalHomologateData != null)
+            if (oLegalHomologateData.Count > 0)
             {
                 #region Chaimber Of Commerce
                 List<Tuple<string, HomologateModel>> oChaimberOfCommerceToSync = oLegalHomologateData.Where(x => x.Item2.Target.CatalogId == (int)DocumentManagement.Provider.Models.Enumerations.enumCatalog.ChaimberOfCommerceInfoType).Select(x => x).ToList();
@@ -2750,8 +2751,6 @@ namespace DocumentManagement.Web.Controllers
                 }
                 #endregion
             }
-
-
             #endregion
             return oReturn;
         }
