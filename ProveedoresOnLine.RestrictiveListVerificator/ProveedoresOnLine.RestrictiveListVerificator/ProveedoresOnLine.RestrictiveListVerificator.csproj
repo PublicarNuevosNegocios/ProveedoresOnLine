@@ -39,6 +39,15 @@
     <Reference Include="MySql.Web">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Web.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.Company">
+      <HintPath>\\ProjectConfigFiles\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.Company.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyProvider">
+      <HintPath>\\ProjectConfigFiles\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SettingsManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,16 +57,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\RestrictiveListVerificator.cs" />
+    <Compile Include="DAL\Controller\RestrictiveListVerificatorDataController.cs" />
+    <Compile Include="DAL\Controller\RestrictiveListVerificatorDataFactory.cs" />
     <Compile Include="DAL\MySQLDAO\RestrictiveListVerificator_MySqlDao.cs" />
+    <Compile Include="Interfaces\IRestrictiveListVerificatorData.cs" />
+    <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\ProviderStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="DAL\Controller\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListVerificator\developer\" /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

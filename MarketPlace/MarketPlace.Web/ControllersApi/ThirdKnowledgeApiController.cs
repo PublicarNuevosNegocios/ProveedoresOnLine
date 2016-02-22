@@ -70,7 +70,7 @@ namespace MarketPlace.Web.ControllersApi
                             //Init Finally Tuple, Group by ItemGroup Name
                             List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
                             List<string> Item1 = new List<string>();
-                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null)
+                            if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null && oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess)
                             {
                                 oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.All(x =>
                                 {
@@ -94,6 +94,7 @@ namespace MarketPlace.Web.ControllersApi
                                 });
                                 if (Group != null)
                                     oModel.RelatedSingleSearch = Group;
+
 
                                 if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId != null)
                                 {
@@ -224,6 +225,104 @@ namespace MarketPlace.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public FileModel TKLoadFile(string TKLoadFile, string CompanyPublicId, string PeriodPublicId)
+        {
+            FileModel oReturn = new FileModel();
+
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
+            {
+                //get folder
+                string strFolder = System.Web.HttpContext.Current.Server.MapPath
+                    (Models.General.InternalSettings.Instance
+                    [Models.General.Constants.C_Settings_File_TempDirectory].Value);
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                //get File
+                var UploadFile = System.Web.HttpContext.Current.Request.Files["ThirdKnowledge_FileUpload"];
+
+                if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
+                {
+                    string oFileName = "ThirdKnowledgeFile_" +
+                            CompanyPublicId + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                        UploadFile.FileName.Split('.').DefaultIfEmpty("xlsx").LastOrDefault();
+                    oFileName = oFileName.Split('.').LastOrDefault() == "xls" ? oFileName.Replace("xls", "xlsx") : oFileName;
+                    string strFilePath = strFolder.TrimEnd('\\') + "\\" + oFileName;
+
+                    UploadFile.SaveAs(strFilePath);
+
+                    Tuple<bool, string> oVerifyResult = this.FileVerify(strFilePath, oFileName, PeriodPublicId);
+                    bool isValidFile = oVerifyResult.Item1;
+
+                    string strRemoteFile = string.Empty;
+                    if (isValidFile)
+                    {
+                        //load file to s3
+                        strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                            (strFilePath,
+                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value);
+
+                        TDQueryModel oQueryToCreate = new TDQueryModel()
+                        {
+                            IsSuccess = isValidFile,
+                            PeriodPublicId = PeriodPublicId,
+                            QueryStatus = new TDCatalogModel()
+                            {
+                                ItemId = (int)enumThirdKnowledgeQueryStatus.InProcess
+                            },
+                            SearchType = new TDCatalogModel()
+                            {
+                                ItemId = (int)enumThirdKnowledgeQueryType.Masive,
+                            },
+                            User = SessionModel.CurrentLoginUser.Email,
+                            FileName = oFileName,
+                        };
+
+                        oQueryToCreate = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQueryToCreate);
+
+                        //Send Message
+                        MessageModule.Client.Models.NotificationModel oDataMessage = new MessageModule.Client.Models.NotificationModel();
+                        oDataMessage.CompanyPublicId = CompanyPublicId;
+                        oDataMessage.User = SessionModel.CurrentLoginUser.Email;
+                        oDataMessage.CompanyLogo = SessionModel.CurrentCompany_CompanyLogo;
+                        oDataMessage.CompanyName = SessionModel.CurrentCompany.CompanyName;
+                        oDataMessage.IdentificationType = SessionModel.CurrentCompany.IdentificationType.ItemName;
+                        oDataMessage.IdentificationNumber = SessionModel.CurrentCompany.IdentificationNumber;
+
+                        #region Notification
+
+                        oDataMessage.Label = Models.General.InternalSettings.Instance
+                                [Models.General.Constants.N_ThirdKnowledgeUploadMassiveMessage].Value;
+                        oDataMessage.Url = Models.General.InternalSettings.Instance
+                                [Models.General.Constants.N_UrlThirdKnowledgeQuery].Value.Replace("{{QueryPublicId}}", oQueryToCreate.QueryPublicId);
+                        oDataMessage.NotificationType = (int)MarketPlace.Models.General.enumNotificationType.ThirdKnowledgeNotification;
+                        oDataMessage.Enable = true;
+
+                        #endregion
+
+                        ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.CreateUploadNotification(oDataMessage);
+                    }
+
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFilePath))
+                        System.IO.File.Delete(strFilePath);
+
+                    oReturn = new FileModel()
+                    {
+                        FileName = UploadFile.FileName,
+                        ServerUrl = strRemoteFile,
+                        LoadMessage = isValidFile ? "El Archivo " + UploadFile.FileName + " es correcto, en unos momentos recibirá un correo con el respectivo resultado de la validación." :
+                                                    "El Archivo " + UploadFile.FileName + " no es correcto, por favor verifique el nombre de las columnas y el formato.",
+                        AdditionalInfo = oVerifyResult.Item2,
+                    };
+                }
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public FileModel TKReSearchMasive(string TKReSearchMasive, string CompanyPublicId, string PeriodPublicId, string FileName)
         {
             FileModel oReturn = new FileModel();
 

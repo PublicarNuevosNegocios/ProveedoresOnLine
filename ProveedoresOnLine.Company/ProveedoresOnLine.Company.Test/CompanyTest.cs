@@ -341,5 +341,29 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn != null);
         }
 
+        [TestMethod]
+        public void RoleModule()
+        {
+            int oReturn = ProveedoresOnLine.Company.Controller.Company.RoleModuleUpsert(1, null, 1, "801001", true);
+
+            Assert.AreEqual(true, oReturn > 0);
+        }
+
+        [TestMethod]
+        public void ModuleOption()
+        {
+            int oReturn = ProveedoresOnLine.Company.Controller.Company.ModuleOptionUpsert(1, null, 1, "802001", true);
+
+            Assert.AreEqual(true, oReturn > 0);
+        }
+
+        [TestMethod]
+        public void ModuleOptionInfo()
+        {
+            int oReturn = ProveedoresOnLine.Company.Controller.Company.ModuleOptionInfoUpsert(1, null, 1, "Value", "LargeValue", true);
+
+            Assert.AreEqual(true, oReturn > 0);
+        }
+
     }
 }
