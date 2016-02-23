@@ -39,7 +39,7 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller
 
         public RestrictiveListVerificatorDataController()
         {
-            ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller.RestrictiveListVerificatorDataFactory factory = new ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller.RestrictiveListVerificatorDataFactory();
+            RestrictiveListVerificatorDataFactory factory = new RestrictiveListVerificatorDataFactory();
             DataFactory = factory.GetRestrictiveListVerificatorInstance();
         }
     }
