@@ -307,6 +307,10 @@
 
         public enum enumCatalog
         {
+            //Company
+            CompanyType = 202,
+            CompanyInfoType = 203,
+
             //Contact
             CompanyContactInfoType = 209,
             PersonContactInfoType = 206,
