@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.RestrictiveListVerificator.Models;
+﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+using ProveedoresOnLine.RestrictiveListVerificator.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,16 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.Controller
     {
         public static byte[] GenerateXLSByStatus()
         {
-            #region Crete Excel
+
 
             //Write the document
             StringBuilder data = new StringBuilder();
             string strSep = ";";
 
-            List<ProviderStatusModel> oProviderResult =
-                ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller.RestrictiveListVerificatorDataController.Instance.getProviderByStatus(902001, "DA5C572E");
-
+            List<ProviderModel> oProviderResult =
+                ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller.RestrictiveListVerificatorDataController.Instance.GetProviderByStatus(902001, "DA5C572E");
+            #region Crete Excel
+            /*
             oProviderResult.All(x =>
             {
                 if (oProviderResult.IndexOf(x) == 0)
@@ -63,11 +65,11 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.Controller
                 }
                 return true;
             });
-
+            */
             byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
 
             #endregion Crete Excel
-
+            
             return buffer;
         }
     }

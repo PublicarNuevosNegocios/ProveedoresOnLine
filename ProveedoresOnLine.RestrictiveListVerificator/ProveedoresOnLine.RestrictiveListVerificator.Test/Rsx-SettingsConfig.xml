@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
-
   <Module name="RestrictiveListVerificator">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\RestrictiveListVerificator\Rsx-RestrictiveListVerificator.xml</key>
   </Module>

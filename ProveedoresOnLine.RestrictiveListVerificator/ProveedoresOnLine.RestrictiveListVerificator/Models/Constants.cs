@@ -8,13 +8,10 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.Models
 {
     public class Constants
     {
-        public const string C_POL_CompanyConnectionName = "POL_CompanyConnection";
+        public const string C_POL_CompanyProviderConnection = "POL_CompanyProviderConnection";
 
         #region Internal Settings
 
-        public const string C_SettingsModuleName = "Company";
-        public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
-        public const string C_Settings_SurveyGeneralReport = "SurveyGeneralReport";
         #endregion
     }
 }
