@@ -174,7 +174,6 @@
             CD_PartnerName = 607001,
             CD_PartnerIdentificationNumber = 607002,
             CD_PartnerRank = 607003,
-
         }
 
         #endregion
@@ -308,6 +307,10 @@
 
         public enum enumCatalog
         {
+            //Company
+            CompanyType = 202,
+            CompanyInfoType = 203,
+
             //Contact
             CompanyContactInfoType = 209,
             PersonContactInfoType = 206,
@@ -320,6 +323,7 @@
             CIFINInfoType = 604,
             SARLAFTInfoType = 605,
             ResolucionesInfoType = 606,
+            PersonType = 213,
 
             //Finantial
             OrgStructure = 506,
@@ -357,7 +361,6 @@
             CommercialIdentification = 329,
             CommercialPhone = 321,
             CommercialEmail = 328,
-
 
             //Catalog Finnancial Contact
             FinnancialName = 322,
