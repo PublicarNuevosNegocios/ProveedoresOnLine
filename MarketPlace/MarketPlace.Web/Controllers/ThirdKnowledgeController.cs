@@ -324,16 +324,16 @@ namespace MarketPlace.Web.Controllers
                 #region Set Parameters
                 //Get Request
 
-                var obbkRQB = oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.RelatedQueryBasicInfoModel != null).FirstOrDefault().RelatedQueryBasicInfoModel.Where(i => i.DetailInfo != null).FirstOrDefault();
+                var objRelatedQueryBasicInfo = oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.RelatedQueryBasicInfoModel != null).FirstOrDefault().RelatedQueryBasicInfoModel.Where(i => i.DetailInfo != null).FirstOrDefault();
                 string searchName = "";
                 string searchIdentification = "";
-                if (obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                if (objRelatedQueryBasicInfo.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
                 {
-                    searchName = obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
+                    searchName = objRelatedQueryBasicInfo.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
                 }
-                if (obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
+                if (objRelatedQueryBasicInfo.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString().Length > 0)
                 {
-                    searchIdentification += obbkRQB.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
+                    searchIdentification += objRelatedQueryBasicInfo.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(y => y.Value).DefaultIfEmpty(String.Empty).FirstOrDefault().ToString();
                 }
 
                 List<ReportParameter> parameters = new List<ReportParameter>();
@@ -377,7 +377,7 @@ namespace MarketPlace.Web.Controllers
                         row_rst["Peps"] = y.Peps;
                         row_rst["Priority"] = y.Priority;
                         row_rst["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
-                        row_rst["ListName"] = "LISTAS RESTRICTIVAS - Criticidad Alta";
+                        row_rst["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_rst.Rows.Add(row_rst);
                         return true;
                     });
@@ -405,7 +405,7 @@ namespace MarketPlace.Web.Controllers
                         row_dce["Peps"] = y.Peps;
                         row_dce["Priority"] = y.Priority;
                         row_dce["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
-                        row_dce["ListName"] = "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media";
+                        row_dce["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_dce.Rows.Add(row_dce);
                         return true;
                     });
@@ -433,7 +433,7 @@ namespace MarketPlace.Web.Controllers
                         row_fnc["Peps"] = y.Peps;
                         row_fnc["Priority"] = y.Priority;
                         row_fnc["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
-                        row_fnc["ListName"] = "LISTAS FINANCIERAS - Criticidad Media";
+                        row_fnc["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_fnc.Rows.Add(row_fnc);
                         return true;
                     });
@@ -461,7 +461,7 @@ namespace MarketPlace.Web.Controllers
                         row_psp["Peps"] = y.Peps;
                         row_psp["Priority"] = y.Priority;
                         row_psp["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
-                        row_psp["ListName"] = "LISTAS PEPS - Criticidad Baja";
+                        row_psp["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_psp.Rows.Add(row_psp);
                         return true;
                     });
