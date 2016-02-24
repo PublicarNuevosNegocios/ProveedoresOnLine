@@ -10,7 +10,7 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller
     {
         public ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData GetRestrictiveListVerificatorInstance()
         {
-            Type typetoreturn = Type.GetType("ProveedoresOnLine.RestrictiveListVerificator.DAL.MySQLDAO.RestrictiveListVerificator_MySqlDao,ProveedoresOnLine.RestrictiveListVerificator");
+            Type typetoreturn = Type.GetType("ProveedoresOnLine.RestrictiveListVerificator.DAL.MySQLDAO.RestrictiveListVerificator_MySqlDao, ProveedoresOnLine.RestrictiveListVerificator");
             ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData oRetorno = (ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }

@@ -47,10 +47,6 @@
     <Reference Include="MySql.Web">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Web.dll</HintPath>
     </Reference>
-    <Reference Include="ProveedoresOnLine.RestrictiveListVerificator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListVerificator\developer\ProveedoresOnLine.RestrictiveListVerificator.dll</HintPath>
-    </Reference>
     <Reference Include="SettingsManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
     </Reference>
@@ -81,11 +77,19 @@
     <Content Include="Rsx-RestrictiveListVerificator.xml" />
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service References\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.RestrictiveListVerificator.Batch\ProveedoresOnLine.RestrictiveListVerificatorBatch.csproj">
+      <Project>{a4da5525-9503-42b8-9df8-ae2e3784e5cc}</Project>
+      <Name>ProveedoresOnLine.RestrictiveListVerificatorBatch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProveedoresOnLine.RestrictiveListVerificator\ProveedoresOnLine.RestrictiveListVerificator.csproj">
+      <Project>{ea5f1417-5676-48b4-81b8-afa18be61861}</Project>
+      <Name>ProveedoresOnLine.RestrictiveListVerificator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -12,8 +12,6 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.Controller
     {
         public static byte[] GenerateXLSByStatus()
         {
-
-
             //Write the document
             StringBuilder data = new StringBuilder();
             string strSep = ";";
