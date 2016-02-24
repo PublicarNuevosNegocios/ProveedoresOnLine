@@ -1720,8 +1720,9 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyName", RoleCompanyName));
             lstParams.Add(DataInstance.CreateTypedParameter("vParentRoleCompanyId", ParentRoleCompanyId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {
@@ -2446,17 +2447,17 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<RoleCompanyModel> GetRoleCompanySearch(string CustomerPublicId, bool Enable, out int TotalRows)
+        public List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", vSearchParam));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "getRoleCompanyByCustomerPublicId",
+                CommandText = "C_RoleCompany_Search",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
