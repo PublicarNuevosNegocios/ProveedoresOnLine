@@ -896,9 +896,9 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
         }
 
-        public static List<RoleCompanyModel> GetRoleCompanySearch(string CustomerPublicId, bool Enable, out int TotalRows)
+        public static List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
         {
-            return DAL.Controller.CompanyDataController.Instance.GetRoleCompanySearch(CustomerPublicId, Enable, out TotalRows);
+            return DAL.Controller.CompanyDataController.Instance.GetRoleCompanySearch(vSearchParam, Enable, out TotalRows);
         }
 
         public static RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable)

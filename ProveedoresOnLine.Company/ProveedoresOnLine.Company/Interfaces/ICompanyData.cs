@@ -141,7 +141,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable);
 
-        List<RoleCompanyModel> GetRoleCompanySearch(string CustomerPublicId, bool Enable, out int TotalRows);
+        List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows);
 
         RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable);
 

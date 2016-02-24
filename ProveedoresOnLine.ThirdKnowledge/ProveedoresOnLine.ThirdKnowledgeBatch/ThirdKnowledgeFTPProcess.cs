@@ -107,7 +107,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                             {
                                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Priotity,
                                             },
-                                            Value = !string.IsNullOrEmpty(x.Element("Prioridad").Value) ? x.Element("Alias").Value : string.Empty,
+                                            Value = !string.IsNullOrEmpty(x.Element("Prioridad").Value) ? x.Element("Prioridad").Value : string.Empty,
                                             Enable = true,
                                         });
                                         oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
@@ -116,7 +116,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                             {
                                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RegisterDate,
                                             },
-                                            Value = !string.IsNullOrEmpty(x.Element("FechaRegistro").Value) ? x.Element("Alias").Value : string.Empty,
+                                            Value = !string.IsNullOrEmpty(x.Element("FechaRegistro").Value) ? x.Element("FechaRegistro").Value : string.Empty,
                                             Enable = true,
                                         });
                                         oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
