@@ -328,9 +328,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
         }
 
-        public List<RoleCompanyModel> GetRoleCompanySearch(string CustomerPublicId, bool Enable, out int TotalRows)
+        public List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
         {
-            return DataFactory.GetRoleCompanySearch(CustomerPublicId, Enable, out TotalRows);
+            return DataFactory.GetRoleCompanySearch(vSearchParam, Enable, out TotalRows);
         }
 
         public RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable)
