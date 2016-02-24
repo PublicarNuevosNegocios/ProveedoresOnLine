@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Role;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -327,6 +328,15 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
         }
 
+        public List<RoleCompanyModel> GetRoleCompanySearch(string CustomerPublicId, bool Enable, out int TotalRows)
+        {
+            return DataFactory.GetRoleCompanySearch(CustomerPublicId, Enable, out TotalRows);
+        }
+
+        public RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable)
+        {
+            return DataFactory.GetRoleModuleSearch(RoleCompanyId, Enable);
+        }
         #endregion
 
         #region Restrictive List
