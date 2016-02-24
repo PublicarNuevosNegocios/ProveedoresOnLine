@@ -88,22 +88,25 @@
 @{
     Model.RenderScripts = true;
 }
+@{
+    var QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 ? Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().QueryPublicId : string.Empty;
+}
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            Third_KnowledgeDetailSearch.Init({
-                ObjectId: 'ThirdKnowledge',
-                QueryPublicId: '@Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().QueryPublicId',
-                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+    $(document).ready(function () {
+        Third_KnowledgeDetailSearch.Init({
+            ObjectId: 'ThirdKnowledge',
+            QueryPublicId: '@QueryPublicId',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                                 {
                                     controller = MVC.ThirdKnowledge.Name,
                                     action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail
                                 }))',
-            });
         });
+    });
     </script>
 }
