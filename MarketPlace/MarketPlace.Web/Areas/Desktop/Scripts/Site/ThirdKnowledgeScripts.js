@@ -29,9 +29,10 @@ var Third_KnowledgeSimpleSearchObject = {
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var tittlestDiv = '';
                     var resultDiv = '';
-                    if (result.RelatedSingleSearch != null && result.RelatedSingleSearch.length > 0) {
-                        $.each(result.RelatedSingleSearch, function (item, value) {
-                            if (value.m_Item1 == "SIN COINCIDENCIAS") {
+                    //&& result.RelatedThidKnowledgeSearch.length > 0
+                    if (result.RelatedThidKnowledgeSearch != null) {
+                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {
+                            if (value.DetailInfo[2].Value == "SIN COINCIDENCIAS") {
                                 resultDiv = '';
                                 resultDiv += '<div class="row">' +
                                 '<div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>SIN COINCIDENCIAS</strong></div>' +
@@ -42,17 +43,14 @@ var Third_KnowledgeSimpleSearchObject = {
                                 '<div class="col-sm-4 POMPProviderBoxInfo text-left"><strong>Identificación Consultada</strong></div>' +
                                 '</div><br />';
                                 resultDiv += '<div class="row POMPBorderbottom">';
-                                $.each(value.m_Item2, function (item, value) {
-                                    
-                                    resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
-                                    resultDiv += value.DetailInfo[0].Value + '</p></div>';
-                                    resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
-                                    resultDiv += value.DetailInfo[1].Value + '</p></div>';
-                                    resultDiv += '  <div class="col-sm-4 POMPProviderBoxInfo text-right"><p>' +
-                                                '<a target = "_blank" href="' + BaseUrl.SiteUrl + 'ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + value.QueryBasicPublicId +
-                                                '">Ver Detalle</a>' +
-                                                '</p></div></div> <br /> <br /> <br />';
-                                })
+                                resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
+                                resultDiv += value.DetailInfo[0].Value + '</p></div>';
+                                resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
+                                resultDiv += value.DetailInfo[1].Value + '</p></div>';
+                                resultDiv += '  <div class="col-sm-4 POMPProviderBoxInfo text-right"><p>' +
+                                            '<a target = "_blank" href="' + BaseUrl.SiteUrl + 'ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + value.QueryBasicPublicId +
+                                            '">Ver Detalle</a>' +
+                                            '</p></div></div> <br /> <br /> <br />';
                                 $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                             }
                             else {                                
@@ -211,7 +209,6 @@ var Third_KnowledgeDetailSearch = {
     },
 
     Search: function (vSearchObject) {
-        debugger
         var oUrl = this.SearchUrl + '?QueryPublicId=' + vSearchObject.QueryPublicId;
         oUrl += '&InitDate=' + '';
         oUrl += '&EndDate=' + '';
@@ -287,21 +284,18 @@ var Third_KnowledgeSearch = {
     },
 
     Third_Knowledge_ReSearchMasive: function (vReSearchObj) {
-        debugger;
         Third_KnowledgeSimpleSearchObject.Loading_Generic_Show();
         $.ajax({
             type: "POST",
             url: BaseUrl.ApiUrl + '/ThirdKnowledgeApi?TKReSearchMasive=true&CompanyPublicId=' + vReSearchObj.CustomerPublicId + '&PeriodPublicId=' + vReSearchObj.PediodPublicId + '&FileName=' + vReSearchObj.FileName,
             success: function (result) {
                 Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
-                debugger;
                 Dialog_ShowMessage("Carga Exitosa", "El archivo es correcto, en unos momentos recibirá un correo con el respectivo resultado de la validación.", window.location.href);
 
             },
             error: function (result) {
                 Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
                 Dialog_ShowMessage("Error", "Ocurrió un problema al realizar la consulta, por favor verifique su conexión a internet.", window.location.href);
-                debugger;
             },
         })
     }
