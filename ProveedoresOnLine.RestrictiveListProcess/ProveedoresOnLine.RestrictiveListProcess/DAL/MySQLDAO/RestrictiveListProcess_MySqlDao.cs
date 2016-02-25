@@ -21,10 +21,8 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.RestrictiveListProcess.Models.Constants.R_POL_RestrictiveListProcessConnectionName);
         }
 
-
-        public List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
+        public List<CompanyModel> GetProviderByStatus(int Status, string CustomerPublicId)
         {
-            
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
@@ -38,22 +36,25 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                 Parameters = lstParams
             });
 
-            List<CompanyModel> oProvidersList = null;
+            List<CompanyModel> oCompanyList = null;
 
             if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
             {
-                oProvidersList = (
+                oCompanyList = (
                     from cm in response.DataTableResult.AsEnumerable()
                     where !cm.IsNull("ProviderId")
                     group cm by new
                          {
                              CompanyName = cm.Field<string>("ProviderName"),
                              CompanyPublicId = cm.Field<string>("ProviderPublicId"),
-                             Enable = cm.Field<int>("Enable") == 1 ? true : false,
-                             IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel() { ItemId = cm.Field<int>("ProviderIdentificationTypeId"), ItemName = cm.Field<string>("ProviderIdentificationTypeName") },
+                             Enable = cm.Field<UInt64>("Enable") == 1 ? true : false,
+                             IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel() 
+                             { 
+                                 ItemId = cm.Field<int>("ProviderIdentificationTypeId"), 
+                                 ItemName = cm.Field<string>("ProviderIdentificationTypeName") 
+                             },
                              IdentificationNumber = cm.Field<string>("ProviderIdentificationNumber"),
                          } into cmg
-
                     select new CompanyModel()
                     {
                         CompanyName = cmg.Key.CompanyName,
@@ -63,31 +64,8 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                         IdentificationNumber = cmg.Key.IdentificationNumber
                     }
                  ).ToList();
-                            
             }
-
-            List<ProviderModel> oProviders = new List<ProviderModel>();
-
-            oProvidersList.All(x=>{
-
-                oProviders.Add(new ProviderModel
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(x.CompanyPublicId),
-                });
-                return true;
-            });
-
-            //Set the legal i
-            oProviders.All(x =>
-            {
-                x.RelatedLegal = new List<GenericItemModel>();
-                x.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
-                    (x.RelatedCompany.CompanyPublicId, (int)enumLegalType.Designations, true);
-                return true;
-            });
-
-            return oProviders;
+            return oCompanyList;
         }
-
     }
 }

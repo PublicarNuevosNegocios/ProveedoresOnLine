@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.Controller
         #endregion
 
         #region Provider Functions
-            public List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
+            public List<CompanyModel> GetProviderByStatus(int Status, string CustomerPublicId)
             {
                 return DataFactory.GetProviderByStatus(Status, CustomerPublicId);
             }

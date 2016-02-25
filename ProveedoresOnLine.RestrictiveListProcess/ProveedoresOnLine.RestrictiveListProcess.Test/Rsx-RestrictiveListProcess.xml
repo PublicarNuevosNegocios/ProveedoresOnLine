@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Settings>
-  <Reports>
-    <key name="RestrictiveListProcessPath">
-      <![CDATA[
-        C:\PublicarPO\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Test\
-      ]]>
-    </key>
-  </Reports>
-</Settings>
+<SettingsConfig>
+  <Module name="Company">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
+  </Module>
+</SettingsConfig>

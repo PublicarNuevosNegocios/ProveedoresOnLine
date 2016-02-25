@@ -11,8 +11,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models
         public const string R_POL_RestrictiveListProcessConnectionName = "POL_RestrictiveListProcessConnection";
 
         #region Internal Settings
-            public const string R_SettingsModuleName = "RestrictiveListProcess";
-            public const string R_RestrictiveListProcessPath = "RestrictiveListProcessPath";
+        
+        public const string R_SettingsModuleName = "RestrictiveListProcess";
+        
+        public const string R_RestrictiveListProcessPath = "RestrictiveListProcessPath";
+
         #endregion
     }
 }
