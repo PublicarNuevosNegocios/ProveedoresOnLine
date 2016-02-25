@@ -1,6 +1,8 @@
 ﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Interfaces;
+using ProveedoresOnLine.RestrictiveListProcess.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,11 +38,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                 Parameters = lstParams
             });
 
-            List<CompanyModel> oProvidersReturn = null;
+            List<CompanyModel> oProvidersList = null;
 
             if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
             {
-                oProvidersReturn = (
+                oProvidersList = (
                     from cm in response.DataTableResult.AsEnumerable()
                     where !cm.IsNull("ProviderId")
                     group cm by new
@@ -64,19 +66,27 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                             
             }
 
-            List<ProviderModel> oReturn = null;
+            List<ProviderModel> oProviders = new List<ProviderModel>();
 
-            /* get basic customer info  */
-            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
-            {
-                oReturn.Add(new ProviderModel
+            oProvidersList.All(x=>{
+
+                oProviders.Add(new ProviderModel
                 {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
-
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(x.CompanyPublicId),
                 });
-            }
+                return true;
+            });
 
-            return oReturn;
+            //Set the legal i
+            oProviders.All(x =>
+            {
+                x.RelatedLegal = new List<GenericItemModel>();
+                x.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
+                    (x.RelatedCompany.CompanyPublicId, (int)enumLegalType.Designations, true);
+                return true;
+            });
+
+            return oProviders;
         }
 
     }

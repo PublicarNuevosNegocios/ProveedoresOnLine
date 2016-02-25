@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.RestrictiveListProcess.Models
 {
-    public class Enumerations
-    {
-        public enum enumProviderStatus
+         public enum enumProviderStatus
         {
             CreacionNacional = 902001,
             ProcesoNacional = 902002,
@@ -22,5 +20,12 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models
             InactivoNacional = 902011,
             InactivoExtranjero = 902012,
         }
-    }
+
+        #region Legal
+            public enum enumLegalType
+            {
+                Designations = 601007,
+            }
+        #endregion
+
 }
