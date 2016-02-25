@@ -88,6 +88,10 @@
 @{
     Model.RenderScripts = true;
 }
+
+@{
+    var QueryPublicId = Model.RelatedThidKnowledgeSearch != null ? Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().QueryPublicId : string.Empty;
+}
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
