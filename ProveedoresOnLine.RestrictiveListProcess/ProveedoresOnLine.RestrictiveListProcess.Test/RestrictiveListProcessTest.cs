@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
     public class RestrictiveListProcessTest
     {
         [TestMethod]
-        public void TestDll()
+        public void GetProviderByStatus()
         {
-            string test = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.DllTest();
+            List<ProviderModel> objProviderModel = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetProviderByStatus(902005, "DA5C572E");
         }
 
     }

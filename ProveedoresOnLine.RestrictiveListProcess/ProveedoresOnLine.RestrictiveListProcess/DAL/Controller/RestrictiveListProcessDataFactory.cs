@@ -9,7 +9,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.Controller
     internal class RestrictiveListProcessDataFactory
     {
 
-         public ProveedoresOnLine.RestrictiveListProcess.Interfaces.IRestrictiveListProcess GetReportsInstance()
+        public ProveedoresOnLine.RestrictiveListProcess.Interfaces.IRestrictiveListProcess GetRestrictiveListProcessInstance()
         {
             Type typetoreturn = Type.GetType("ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO.RestrictiveListProcess_MySqlDao, ProveedoresOnLine.RestrictiveListProcess");
             ProveedoresOnLine.RestrictiveListProcess.Interfaces.IRestrictiveListProcess oRetorno = (ProveedoresOnLine.RestrictiveListProcess.Interfaces.IRestrictiveListProcess)Activator.CreateInstance(typetoreturn);
