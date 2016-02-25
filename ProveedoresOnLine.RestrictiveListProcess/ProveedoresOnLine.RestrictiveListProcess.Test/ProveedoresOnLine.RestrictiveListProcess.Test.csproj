@@ -81,17 +81,17 @@
     <Compile Include="RestrictiveListProcessTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.csproj">
-      <Project>{bf8a7986-d093-44df-951c-6ca13609e9a9}</Project>
-      <Name>ProveedoresOnLine.RestrictiveListProcess</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Rsx-RestrictiveListProcess.xml" />
     <Content Include="Rsx-SettingsConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.csproj">
+      <Project>{bf8a7986-d093-44df-951c-6ca13609e9a9}</Project>
+      <Name>ProveedoresOnLine.RestrictiveListProcess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

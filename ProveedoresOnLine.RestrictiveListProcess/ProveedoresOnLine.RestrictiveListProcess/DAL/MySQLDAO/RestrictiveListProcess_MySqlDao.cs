@@ -20,6 +20,22 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
 
         public List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
         {
+
+            //CompanyModel
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStatus", Status));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "BP_GetProviderByStatus",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
             return null;
         }
 
