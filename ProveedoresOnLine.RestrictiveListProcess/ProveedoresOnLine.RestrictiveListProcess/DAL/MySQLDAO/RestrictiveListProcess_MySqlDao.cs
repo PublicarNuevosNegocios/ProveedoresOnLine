@@ -1,7 +1,9 @@
-﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
 
         public List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
         {
-
-            //CompanyModel
-
+            
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
@@ -36,7 +36,47 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                 Parameters = lstParams
             });
 
-            return null;
+            List<CompanyModel> oProvidersReturn = null;
+
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oProvidersReturn = (
+                    from cm in response.DataTableResult.AsEnumerable()
+                    where !cm.IsNull("ProviderId")
+                    group cm by new
+                         {
+                             CompanyName = cm.Field<string>("ProviderName"),
+                             CompanyPublicId = cm.Field<string>("ProviderPublicId"),
+                             Enable = cm.Field<int>("Enable") == 1 ? true : false,
+                             IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel() { ItemId = cm.Field<int>("ProviderIdentificationTypeId"), ItemName = cm.Field<string>("ProviderIdentificationTypeName") },
+                             IdentificationNumber = cm.Field<string>("ProviderIdentificationNumber"),
+                         } into cmg
+
+                    select new CompanyModel()
+                    {
+                        CompanyName = cmg.Key.CompanyName,
+                        CompanyPublicId = cmg.Key.CompanyPublicId,
+                        Enable = cmg.Key.Enable,
+                        IdentificationType = cmg.Key.IdentificationType,
+                        IdentificationNumber = cmg.Key.IdentificationNumber
+                    }
+                 ).ToList();
+                            
+            }
+
+            List<ProviderModel> oReturn = null;
+
+            /* get basic customer info  */
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn.Add(new ProviderModel
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+
+                });
+            }
+
+            return oReturn;
         }
 
     }

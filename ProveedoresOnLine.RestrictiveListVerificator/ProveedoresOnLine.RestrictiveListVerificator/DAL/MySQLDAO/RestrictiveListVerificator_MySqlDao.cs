@@ -31,29 +31,25 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.DAL.MyQSLDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
-
+            
             List<ProviderModel> oReturn = null;
 
 
             /* Obtengo la informacion básica de todos los proveedores */
-
-
-
             if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
             {
-                
                 oReturn.Add(new ProviderModel
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 });                
             }
+            
 
-
-            //List<ProviderStatusModel> oReturn = null;
-            /*
+            List<ProviderStatusModel> oReturnProviders = null;
+            
             if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
             {
-                oReturn =
+                oReturnProviders =
                     (
                         from cm in response.DataTableResult.AsEnumerable()
                         where !cm.IsNull("ProviderId")
@@ -87,7 +83,7 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.DAL.MyQSLDAO
                             },
                         }).ToList();
             }
-            */
+
             return oReturn;
         }
     }
