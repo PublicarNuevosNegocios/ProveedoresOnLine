@@ -29,10 +29,9 @@ var Third_KnowledgeSimpleSearchObject = {
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var tittlestDiv = '';
                     var resultDiv = '';
-                    //&& result.RelatedThidKnowledgeSearch.length > 0
-                    if (result.RelatedThidKnowledgeSearch != null) {
-                        $.each(result.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel, function (item, value) {
-                            if (value.DetailInfo[2].Value == "SIN COINCIDENCIAS") {
+                    if (result.RelatedSingleSearch != null && result.RelatedSingleSearch.length > 0) {
+                        $.each(result.RelatedSingleSearch, function (item, value) {
+                            if (value.m_Item1 == "SIN COINCIDENCIAS") {
                                 resultDiv = '';
                                 resultDiv += '<div class="row">' +
                                 '<div class="col-sm-12 col-lg-12 POMPTKDetailTitle"><strong>SIN COINCIDENCIAS</strong></div>' +
@@ -43,14 +42,17 @@ var Third_KnowledgeSimpleSearchObject = {
                                 '<div class="col-sm-4 POMPProviderBoxInfo text-left"><strong>Identificación Consultada</strong></div>' +
                                 '</div><br />';
                                 resultDiv += '<div class="row POMPBorderbottom">';
-                                resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
-                                resultDiv += value.DetailInfo[0].Value + '</p></div>';
-                                resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
-                                resultDiv += value.DetailInfo[1].Value + '</p></div>';
-                                resultDiv += '  <div class="col-sm-4 POMPProviderBoxInfo text-right"><p>' +
-                                            '<a target = "_blank" href="' + BaseUrl.SiteUrl + 'ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + value.QueryBasicPublicId +
-                                            '">Ver Detalle</a>' +
-                                            '</p></div></div> <br /> <br /> <br />';
+                                $.each(value.m_Item2, function (item, value) {
+
+                                    resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
+                                    resultDiv += value.DetailInfo[0].Value + '</p></div>';
+                                    resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
+                                    resultDiv += value.DetailInfo[1].Value + '</p></div>';
+                                    resultDiv += '  <div class="col-sm-4 POMPProviderBoxInfo text-right"><p>' +
+                                                '<a target = "_blank" href="' + BaseUrl.SiteUrl + 'ThirdKnowledge/TKDetailSingleSearch?QueryBasicPublicId=' + value.QueryBasicPublicId +
+                                                '">Ver Detalle</a>' +
+                                                '</p></div></div> <br /> <br /> <br />';
+                                })
                                 $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
                             }
                             else {
@@ -61,9 +63,9 @@ var Third_KnowledgeSimpleSearchObject = {
                                             + '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo"><strong>No. Identificación</strong></div>'
                                             + '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo"><strong>Alias</strong></div>'
                                             + '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo"></div>';
-                                debugger;
+
                                 resultDiv += '<div class="row text-center">';
-                                resultDiv += '<div id="POMPSSResultName" class="col-xs-12 text-left"  style="padding-top:7px"><strong>' + value.DetailInfo[11].Value + '</strong></div>'
+                                resultDiv += '<div id="POMPSSResultName" class="col-xs-12 text-left"  style="padding-top:7px"><strong>' + value.m_Item1 + '</strong></div>'
                                 resultDiv += '</div>';
                                 resultDiv += '<div class="conatiner-fluid POMPTKDetailContainer">';
                                 resultDiv += '<div class="row text-center">';
@@ -73,42 +75,42 @@ var Third_KnowledgeSimpleSearchObject = {
                                 resultDiv += '</div>';
                                 resultDiv += '<br/>';
                                 resultDiv += '<div class="conatiner-fluid POMPTKDetailContainer">';
-                                debugger;
-                                resultDiv += '<div class="row text-center">';
-                                if (value.Priority != null) {
-                                    resultDiv += '<div class="col-sm-1 col-lg-1">' + value.Priority + '</div>';
-                                }
-                                if (value.Status != null) {
-                                    var statusName = "";
-                                    if (value.Status == "True") {
-                                        statusName = "Activo";
+                                $.each(value.m_Item2, function (item, value) {
+                                    resultDiv += '<div class="row text-center">';
+                                    if (value.Priority != null) {
+                                        resultDiv += '<div class="col-sm-1 col-lg-1">' + value.Priority + '</div>';
                                     }
-                                    else {
-                                        statusName = "Inactivo";
+                                    if (value.Status != null) {
+                                        var statusName = "";
+                                        if (value.Status == "True") {
+                                            statusName = "Activo";
+                                        }
+                                        else {
+                                            statusName = "Inactivo";
+                                        }
+                                        resultDiv += '<div class="col-sm-1 col-lg-1 POMPProviderBoxInfo">' + statusName + '</div>';
                                     }
-                                    resultDiv += '<div class="col-sm-1 col-lg-1 POMPProviderBoxInfo">' + statusName + '</div>';
-                                }
 
-                                if (value.NameResult != null) {
-                                    resultDiv += '<div class="col-sm-4 col-lg-4 POMPProviderBoxInfo">' + value.NameResult + '</div>';
-                                }
+                                    if (value.NameResult != null) {
+                                        resultDiv += '<div class="col-sm-4 col-lg-4 POMPProviderBoxInfo">' + value.NameResult + '</div>';
+                                    }
 
-                                if (value.IdentificationResult != null) {
-                                    resultDiv += '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo">' + value.IdentificationResult + '</div>';
-                                }
+                                    if (value.IdentificationResult != null) {
+                                        resultDiv += '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo">' + value.IdentificationResult + '</div>';
+                                    }
 
-                                if (value.Alias != null) {
-                                    resultDiv += '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo">' + value.Alias + '</div>';
-                                }
+                                    if (value.Alias != null) {
+                                        resultDiv += '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo">' + value.Alias + '</div>';
+                                    }
 
-                                if (value.QueryBasicPublicId != null) {
-                                    resultDiv += '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo">' + '<a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a>' + '</div>';
-                                }
-                                resultDiv += '</div>';
-                                resultDiv += '<div class="row text-center">';
-                                resultDiv += '<hr class="Tk-DetailSingleSearchSeparator"/>';
-                                resultDiv += '</div>';
-
+                                    if (value.QueryBasicPublicId != null) {
+                                        resultDiv += '<div class="col-sm-2 col-lg-2 POMPProviderBoxInfo">' + '<a target = "_blank" href="' + Third_KnowledgeSimpleSearchObject.Url + '?QueryBasicPublicId=' + value.QueryBasicPublicId + '&ReturnUrl=null">' + "Ver Detalle" + '</a>' + '</div>';
+                                    }
+                                    resultDiv += '</div>';
+                                    resultDiv += '<div class="row text-center">';
+                                    resultDiv += '<hr class="Tk-DetailSingleSearchSeparator"/>';
+                                    resultDiv += '</div>';
+                                });
                                 resultDiv += '</div><br/><br/>';
 
                                 $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').append(resultDiv);
