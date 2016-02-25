@@ -8,7 +8,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models
 {
     public class Constants
     {
-        public const string R_POL_RestrictiveListProcessConnectionName = "POL_RestrictiveListProcess";
+        public const string R_POL_RestrictiveListProcessConnectionName = "POL_RestrictiveListProcessConnection";
 
         #region Internal Settings
             public const string R_SettingsModuleName = "RestrictiveListProcess";
