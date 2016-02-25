@@ -10,6 +10,6 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.Interfaces
 {
     internal interface IRestrictiveListVerificatorData
     {
-        List<ProviderStatusModel> getProviderByStatus(int Status, string CustomerPublicId);
+        List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId);
     }
 }

@@ -51,6 +51,8 @@
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.XML" />
@@ -69,14 +71,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestrictiveListValidator.cs" />
+    <Compile Include="RestrictiveListValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Rsx-RestrictiveListVerificator.xml" />
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Service References\" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProveedoresOnLine.RestrictiveListVerificator.Batch\ProveedoresOnLine.RestrictiveListVerificatorBatch.csproj">

@@ -28,14 +28,19 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller
 
         #endregion
 
-        #region Excel 
+        #region Provider Functions
 
-        public List<ProviderStatusModel> getProviderByStatus(int Status, string CustomerPublicId)
+        public List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
         {
-             return DataFactory.getProviderByStatus(Status, CustomerPublicId);
+             return DataFactory.GetProviderByStatus(Status, CustomerPublicId);
         }
 
         #endregion
 
+        public RestrictiveListVerificatorDataController()
+        {
+            RestrictiveListVerificatorDataFactory factory = new RestrictiveListVerificatorDataFactory();
+            DataFactory = factory.GetRestrictiveListVerificatorInstance();
+        }
     }
 }

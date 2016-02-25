@@ -2,6 +2,7 @@
 using iTextSharp.text.pdf;
 using ProveedoresOnLine.AsociateProvider.Client.Models;
 using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.Company.Models.Role;
 using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
@@ -492,56 +493,7 @@ namespace ProveedoresOnLine.Company.Controller
             }
             return CompanyToUpsert;
         }
-
-        public static CompanyModel RoleCompanyUpsert(CompanyModel CompanyToUpsert)
-        {
-            if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
-                CompanyToUpsert.RelatedRole != null &&
-                CompanyToUpsert.RelatedRole.Count > 0)
-            {
-                CompanyToUpsert.RelatedRole.All(cmpinf =>
-                {
-                    LogManager.Models.LogModel oLog = GetGenericLogModel();
-                    try
-                    {
-                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.RoleCompanyUpsert
-                            (CompanyToUpsert.CompanyPublicId,
-                            cmpinf.ItemId > 0 ? (int?)cmpinf.ItemId : null,
-                            cmpinf.ItemName,
-                            cmpinf.ParentItem != null && cmpinf.ParentItem.ItemId > 0 ? (int?)cmpinf.ParentItem.ItemId : null,
-                            cmpinf.Enable);
-
-                        RoleCompanyInfoUpsert(cmpinf);
-                        oLog.IsSuccess = true;
-
-                    }
-                    catch (Exception err)
-                    {
-                        oLog.IsSuccess = false;
-                        oLog.Message = err.Message + " - " + err.StackTrace;
-
-                        throw err;
-                    }
-                    finally
-                    {
-                        oLog.LogObject = cmpinf;
-
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CompanyPublicId",
-                            Value = CompanyToUpsert.CompanyPublicId,
-                        });
-
-                        LogManager.ClientLog.AddLog(oLog);
-                    }
-
-                    return true;
-                });
-            }
-            return CompanyToUpsert;
-
-        }
-
+        
         public static GenericItemModel RoleCompanyInfoUpsert(GenericItemModel RoleCompanyToUpsert)
         {
             if (RoleCompanyToUpsert.ItemId > 0 &&
@@ -590,9 +542,7 @@ namespace ProveedoresOnLine.Company.Controller
 
             return RoleCompanyToUpsert;
         }
-
-
-
+        
         public static UserCompany UserCompanyUpsert(UserCompany UserCompanyToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
@@ -882,6 +832,55 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MP_UserCompanySearch(CompanyPublicId, SearchParam, RoleCompanyId, PageNumber, RowCount);
         }
 
+        public static CompanyModel RoleCompanyUpsert(CompanyModel CompanyToUpsert)
+        {
+            if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
+                CompanyToUpsert.RelatedRole != null &&
+                CompanyToUpsert.RelatedRole.Count > 0)
+            {
+                CompanyToUpsert.RelatedRole.All(cmpinf =>
+                {
+                    LogManager.Models.LogModel oLog = GetGenericLogModel();
+                    try
+                    {
+                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.RoleCompanyUpsert
+                            (CompanyToUpsert.CompanyPublicId,
+                            cmpinf.ItemId > 0 ? (int?)cmpinf.ItemId : null,
+                            cmpinf.ItemName,
+                            cmpinf.ParentItem != null && cmpinf.ParentItem.ItemId > 0 ? (int?)cmpinf.ParentItem.ItemId : null,
+                            cmpinf.Enable);
+
+                        RoleCompanyInfoUpsert(cmpinf);
+                        oLog.IsSuccess = true;
+
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = cmpinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CompanyPublicId",
+                            Value = CompanyToUpsert.CompanyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+            return CompanyToUpsert;
+
+        }
+
         public static int RoleModuleUpsert(int RoleCompanyId, int? RoleModuleId, int RoleModuleType, string RoleModule, bool Enable)
         {
             return DAL.Controller.CompanyDataController.Instance.RoleModuleUpsert(RoleCompanyId, RoleModuleId, RoleModuleType, RoleModule, Enable);
@@ -895,6 +894,16 @@ namespace ProveedoresOnLine.Company.Controller
         public static int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable)
         {
             return DAL.Controller.CompanyDataController.Instance.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
+        }
+
+        public static List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.GetRoleCompanySearch(vSearchParam, Enable, out TotalRows);
+        }
+
+        public static RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.GetRoleModuleSearch(RoleCompanyId, Enable);
         }
 
         #endregion

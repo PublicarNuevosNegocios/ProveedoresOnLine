@@ -41,45 +41,44 @@
                             })))" method="post" enctype="multipart/form-data">
         <ul class="DMFormGenericFields">
             @{
+                foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
+                {
+                    //get partial view to render
+                    string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
+                        FieldInfoTypes.
+                        Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+                        Select(strView => strView.Key).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                    bool ShowChanges = false;
 
-    foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
-    {
-        //get partial view to render
-        string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
-            FieldInfoTypes.
-            Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
-            Select(strView => strView.Key).
-            DefaultIfEmpty(string.Empty).
-            FirstOrDefault();
-        bool ShowChanges = false;
-
-        if (Model.RealtedProvider.RelatedProviderInfo.
-                                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                    ToList().Count > 0)
-        {
-            ShowChanges = Model.ChangesControlModel.Any(y => y.ProviderInfoId == (Model.RealtedProvider.RelatedProviderInfo.
-                                                   Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                                   ToList().FirstOrDefault().ProviderInfoId)) ? true : false;
-        }
-        if (!string.IsNullOrEmpty(strFieldType))
-        {
-            <li>
-                @(Html.Partial(Url.Content(strFieldType),
-                                        new DocumentManagement.Models.Provider.ProviderFieldModel()
-                                        {
-                                            ProviderPublicId = Model.ChangesControlModel.Count > 0 ? Model.ChangesControlModel.FirstOrDefault().ProviderPublicId : string.Empty,
-                                            RenderScripts = false,
-                                            RealtedField = Item,
-                                            RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo != null && Model.RealtedProvider.RelatedProviderInfo.Count > 0 ?
-                                                Model.RealtedProvider.RelatedProviderInfo.Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                                ToList() : new List<DocumentManagement.Provider.Models.Provider.ProviderInfoModel>(),
-                                            ProviderOptions = Model.ProviderOptions,
-                                            FieldType = strFieldType,
-                                            IsModified = Model.ShowChanges == true ? ShowChanges : false,
-                                        }))
-            </li>
-        }
-    }
+                    if (Model.RealtedProvider.RelatedProviderInfo.
+                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                ToList().Count > 0)
+                    {
+                        ShowChanges = Model.ChangesControlModel.Any(y => y.ProviderInfoId == (Model.RealtedProvider.RelatedProviderInfo.
+                                                               Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                               ToList().FirstOrDefault().ProviderInfoId)) ? true : false;
+                    }
+                    if (!string.IsNullOrEmpty(strFieldType))
+                    {
+                        <li>
+                            @(Html.Partial(Url.Content(strFieldType),
+                                new DocumentManagement.Models.Provider.ProviderFieldModel()
+                                {
+                                    ProviderPublicId = Model.ChangesControlModel.Count > 0 ? Model.ChangesControlModel.FirstOrDefault().ProviderPublicId : string.Empty,
+                                    RenderScripts = false,
+                                    RealtedField = Item,
+                                    RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo != null && Model.RealtedProvider.RelatedProviderInfo.Count > 0 ?
+                                        Model.RealtedProvider.RelatedProviderInfo.Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                        ToList() : new List<DocumentManagement.Provider.Models.Provider.ProviderInfoModel>(),
+                                    ProviderOptions = Model.ProviderOptions,
+                                    FieldType = strFieldType,
+                                    IsModified = Model.ShowChanges == true ? ShowChanges : false,
+                                }))
+                        </li>
+                    }
+                }
             }
         </ul>
         @Html.Partial(MVC.Shared.Views._P_StepNavigator)

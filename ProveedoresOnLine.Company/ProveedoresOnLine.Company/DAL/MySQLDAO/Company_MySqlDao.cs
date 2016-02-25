@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.Company.Models.Role;
 
 namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 {
@@ -1719,8 +1720,9 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyName", RoleCompanyName));
             lstParams.Add(DataInstance.CreateTypedParameter("vParentRoleCompanyId", ParentRoleCompanyId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {
@@ -2443,6 +2445,128 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             });
 
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", vSearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_RoleCompany_Search",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<RoleCompanyModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null
+                && response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("oTotalRows");
+
+                oReturn =
+                    (from rc in response.DataTableResult.AsEnumerable()
+                     where !rc.IsNull("RoleCompanyId")
+                     group rc by new
+                     {
+                         RoleCompanyId = rc.Field<int>("RoleCompanyId"),
+                         RoleCompanyName = rc.Field<string>("RoleCompanyName"),
+                         ParentRoleCompany = rc.Field<Int64>("ParentRoleCompany"),
+                         Enable = rc.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = rc.Field<DateTime>("LastModify"),
+                         CreateDate = rc.Field<DateTime>("CreateDate"),
+
+                         CompanyPublicId = rc.Field<string>("CompanyPublicId"),
+                         CompanyName = rc.Field<string>("CompanyName"),
+                     } into rci
+                     select new RoleCompanyModel()
+                     {
+                         RelatedCompany = new CompanyModel()
+                         {
+                             CompanyPublicId = rci.Key.CompanyPublicId,
+                             CompanyName = rci.Key.CompanyName,
+                         },
+                         RoleCompanyId = rci.Key.RoleCompanyId,
+                         RoleCompanyName = rci.Key.RoleCompanyName,
+                         ParentRoleCompany = Convert.ToInt32(rci.Key.ParentRoleCompany),
+                         Enable = rci.Key.Enable,
+                         LastModify = rci.Key.LastModify,
+                         CreateDate = rci.Key.CreateDate,
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "getRoleModuleByRoleCompanyId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            RoleCompanyModel oReturn = null;
+
+            if (response.DataTableResult != null
+                && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from rc in response.DataTableResult.AsEnumerable()
+                     where !rc.IsNull("RoleModuleId")
+                     group rc by new
+                     {
+                         RoleCompanyId = rc.Field<int>("RoleCompanyId"),
+                         RoleCompanyName = rc.Field<string>("RoleCompanyName"),
+                     } into rcg
+                     select new RoleCompanyModel()
+                     {
+                         RoleCompanyId = rcg.Key.RoleCompanyId,
+                         RoleCompanyName = rcg.Key.RoleCompanyName,
+                         RoleModule =
+                            (from rm in response.DataTableResult.AsEnumerable()
+                             where !rm.IsNull("RoleModuleId") &&
+                                   rm.Field<int>("RoleCompanyId") == rcg.Key.RoleCompanyId
+                             group rm by new
+                             {
+                                 RoleModuleId = rm.Field<int>("RoleModuleId"),
+                                 RoleModule = rm.Field<string>("RoleModule"),
+                                 RoleModuleTypeId = rm.Field<int>("RoleModuleTypeId"),
+                                 RoleModuleTypeName = rm.Field<string>("RoleModuleTypeName"),
+                                 Enable = rm.Field<UInt64>("Enable") == 1 ? true : false,
+                                 LastModify = rm.Field<DateTime>("LastModify"),
+                                 CreateDate = rm.Field<DateTime>("CreateDate"),
+                             } into rmg
+                             select new RoleModuleModel()
+                             {
+                                 RoleModuleId = rmg.Key.RoleModuleId,
+                                 RoleModule = rmg.Key.RoleModule,
+                                 RoleModuleType = new CatalogModel()
+                                 {
+                                     ItemId = rmg.Key.RoleModuleTypeId,
+                                     ItemName = rmg.Key.RoleModuleTypeName,
+                                 },
+                                 Enable = rmg.Key.Enable,
+                                 LastModify = rmg.Key.LastModify,
+                                 CreateDate = rmg.Key.CreateDate,
+                             }).ToList(),
+                     }).FirstOrDefault();
+            }
+
+            return oReturn;
         }
 
         #endregion

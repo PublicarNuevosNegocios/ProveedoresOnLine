@@ -8,9 +8,9 @@ namespace ProveedoresOnLine.RestrictiveListVerificator.DAL.Controller
 {
     internal class RestrictiveListVerificatorDataFactory
     {
-        public ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData GetCompanyInstance()
+        public ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData GetRestrictiveListVerificatorInstance()
         {
-            Type typetoreturn = Type.GetType("ProveedoresOnLine.Company.DAL.MySQLDAO.Company_MySqlDao,ProveedoresOnLine.Company");
+            Type typetoreturn = Type.GetType("ProveedoresOnLine.RestrictiveListVerificator.DAL.MySQLDAO.RestrictiveListVerificator_MySqlDao, ProveedoresOnLine.RestrictiveListVerificator");
             ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData oRetorno = (ProveedoresOnLine.RestrictiveListVerificator.Interfaces.IRestrictiveListVerificatorData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }

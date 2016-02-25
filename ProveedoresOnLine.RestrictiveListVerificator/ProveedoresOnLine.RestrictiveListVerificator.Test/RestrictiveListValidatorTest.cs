@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 namespace ProveedoresOnLine.RestrictiveListVerificator.Test
 {
     [TestClass]
-    class RestrictiveListValidator
+    public class RestrictiveListValidatorTest
     {
         [TestMethod]
         public void GenerateXLSByProviderStatus()
         {
-            byte[] buffer = ProveedoresOnLine.RestrictiveListVerificator.Controller.RestrictiveListVerificator.GenerateXLSByStatus();
-            
+            var buffer = ProveedoresOnLine.RestrictiveListVerificator.Controller.RestrictiveListVerificator.GenerateXLSByStatus();
         }
     }
 }

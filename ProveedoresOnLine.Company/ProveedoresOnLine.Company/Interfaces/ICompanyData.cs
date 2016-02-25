@@ -1,5 +1,6 @@
 ﻿using ProveedoresOnLine.Company.Models;
 using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.Company.Models.Role;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,6 +140,10 @@ namespace ProveedoresOnLine.Company.Interfaces
         int ModuleOptionUpsert(int RoleModuleId, int? ModuleOptionId, int ModuleOptionType, string ModuleOption, bool Enable);
 
         int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable);
+
+        List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows);
+
+        RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable);
 
         #endregion
 
