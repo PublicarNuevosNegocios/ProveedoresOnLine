@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Reports>
+    <key name="RestrictiveListProcessPath">
+      <![CDATA[
+        C:\PublicarPO\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Test\
+      ]]>
+    </key>
+  </Reports>
+</Settings>

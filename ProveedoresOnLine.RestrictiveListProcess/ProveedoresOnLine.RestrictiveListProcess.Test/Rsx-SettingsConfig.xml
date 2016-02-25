@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="Reports">
+    <key name="location">C:\PublicarPO\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-Reports.xml</key>
+  </Module>
+</SettingsConfig>
