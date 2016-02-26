@@ -15,6 +15,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
         public void GetProviderByStatus()
         {
             List<ProviderModel> objProviderModel = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetProviderByStatus(902005, "DA5C572E");
+            Assert.IsNotNull(objProviderModel);
         }
     }
 }

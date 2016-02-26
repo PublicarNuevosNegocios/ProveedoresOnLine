@@ -19,29 +19,23 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess
         public string CreateDate { get; set; }
         public List<ProviderModel> RelatedProvider { get; set; }
 
-        public List<string> oStrListProviderStatus;
+        public List<string> oStrListProviderStatus = new List<string>();
         public List<string> strListProviderStatus
         {
             get
             {
-                if (oStrListProviderStatus == null)
+                if (oStrListProviderStatus.Count == 0)
                 {
-                    string[] strProviderStatus = {                                    
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionExtranjero),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionNacional),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ImposibleContactarExtranjero),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ImposibleContactarNacional),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.InactivoExtranjero),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.InactivoNacional),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ProcesoExtranjero),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ProcesoNacional),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ValidadoBasicaNacional),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ValidadoCompletaExtranjero),
-                                                    Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ValidadoCompletaNacional),
-                                                };
-
-                    oStrListProviderStatus = strListProviderStatus;
-
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionExtranjero));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ImposibleContactarExtranjero));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ImposibleContactarNacional));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.InactivoExtranjero));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.InactivoNacional));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ProcesoExtranjero));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ProcesoNacional));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ValidadoBasicaNacional));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ValidadoCompletaExtranjero));
+                    oStrListProviderStatus.Add(Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.ValidadoCompletaNacional));
                 }
                 return oStrListProviderStatus;
             }
