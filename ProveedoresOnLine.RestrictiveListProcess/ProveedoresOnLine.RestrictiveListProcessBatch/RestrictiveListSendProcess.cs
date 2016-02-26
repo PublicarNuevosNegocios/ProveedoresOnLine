@@ -26,7 +26,76 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
 
                     if (oModelToProcess.RelatedProvider.Count > 0)
                     {
-                        
+                        //Write the document
+                        StringBuilder data = new StringBuilder();
+                        string strSep = ";";
+
+                        oModelToProcess.RelatedProvider.All(y =>
+                        {
+                            if (oModelToProcess.RelatedProvider.IndexOf(y) == 0)
+                            {
+                                data.AppendLine
+                                ("\"" + ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColPersonType].Value  + "\"" + strSep + //Seting
+                                    "\"" + "IdentificationType" + "\"" + strSep +
+                                    "\"" + "IdentificationNumber" + "\"" + strSep +
+                                    "\"" + "SearchType" + "\"" + strSep +
+                                    "\"" + "Cargo" + "\"" + strSep +
+                                    "\"" + "ProviderPublicId" + "\"" + strSep +
+                                    "\"" + "BlackListStatus" + "\"");
+                                data.AppendLine
+                                    ("\"" + y.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                    "\"" + y.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                                    "\"" + y.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                                    "\"" + "Company" + "\"" + strSep +
+                                    "\"" + "N/A" + "\"" + strSep +
+                                    "\"" + y.RelatedCompany.CompanyPublicId + "\"");
+                                if (y.RelatedLegal != null && y.RelatedLegal.Count > 0)
+                                {
+                                    y.RelatedLegal.All(z =>
+                                    {
+                                        data.AppendLine
+                                            (
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + "CC" + "\"" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + "Person" + "\"" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + y.RelatedCompany.CompanyPublicId + "\""
+                                            );
+                                        return true;
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                data.AppendLine
+                                    ("\"" + y.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                    "\"" + y.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                                    "\"" + y.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                                    "\"" + "Company" + "\"" + strSep +
+                                    "\"" + "N/A" + "\"" + strSep +
+                                    "\"" + y.RelatedCompany.CompanyPublicId + "\"");
+                                if (y.RelatedLegal != null && y.RelatedLegal.Count > 0)
+                                {
+                                    y.RelatedLegal.All(z =>
+                                    {
+                                        data.AppendLine
+                                            (
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + "CC" + "\"" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + "Person" + "\"" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + y.RelatedCompany.CompanyPublicId + "\""
+                                            );
+                                        return true;
+                                    });
+                                }
+                            }
+                            return true;
+                        });
+
+                        byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
                     }
 
                     return true;

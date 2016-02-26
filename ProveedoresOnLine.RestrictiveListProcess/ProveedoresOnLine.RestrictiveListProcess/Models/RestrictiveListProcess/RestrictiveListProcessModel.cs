@@ -40,22 +40,5 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess
                 return oStrListProviderStatus;
             }
         }
-
-        // private string oCI_ContactType;
-        //public string CI_ContactType
-        //{
-        //    get
-        //    {
-        //        if (string.IsNullOrEmpty(oCI_ContactType))
-        //        {
-        //            oCI_ContactType = RelatedContactInfo.ItemInfo.
-        //               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.CompanyContactType).
-        //               Select(y => y.Value).
-        //               DefaultIfEmpty(string.Empty).
-        //               FirstOrDefault();
-        //        }
-        //        return oCI_ContactType;
-        //    }
-        //}
     }
 }

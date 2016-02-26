@@ -43,6 +43,5 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
             return DAL.Controller.RestrictiveListProcessDataController.Instance.GetAllProvidersInProcess();
         }
         #endregion
-
     }
 }

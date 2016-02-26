@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
-  <Module name="Company">
+  <Module name="RestrictiveListProcess">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
-  </Module>
+
+    <key name="TK_CP_ColPersonType">TIPOPERSONA</key>
+    <key name="TK_CP_ColIdNumber">NUMEIDEN</key>
+    <key name="TK_CP_ColIdName">NOMBRES</key>
+    
+  </Module>  
 </SettingsConfig>
