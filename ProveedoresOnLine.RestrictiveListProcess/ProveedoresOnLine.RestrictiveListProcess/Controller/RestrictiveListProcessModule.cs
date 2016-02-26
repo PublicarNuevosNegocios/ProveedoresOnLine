@@ -37,7 +37,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
             return oProviderList;
         }
 
-        public List<RestrictiveListProcessModel> GetAllProvidersInProcess()
+        public static List<RestrictiveListProcessModel> GetAllProvidersInProcess()
         {
             return DAL.Controller.RestrictiveListProcessDataController.Instance.GetAllProvidersInProcess();
         }
