@@ -14,8 +14,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
     public class RestrictiveListProcessModule
     {
         #region Provider Functions
-
-        public static List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
+            public static List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
         {
             List<ProviderModel> oProviderList = new List<ProviderModel>();
             List<CompanyModel> oCompanyModeResult = DAL.Controller.RestrictiveListProcessDataController.Instance.GetProviderByStatus(Status, CustomerPublicId);
@@ -36,12 +35,14 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
 
             return oProviderList;
         }
+        #endregion
 
-        public static List<RestrictiveListProcessModel> GetAllProvidersInProcess()
+        #region RestrictiveList Functions
+            public static List<RestrictiveListProcessModel> GetAllProvidersInProcess()
         {
             return DAL.Controller.RestrictiveListProcessDataController.Instance.GetAllProvidersInProcess();
         }
-
         #endregion
+
     }
 }

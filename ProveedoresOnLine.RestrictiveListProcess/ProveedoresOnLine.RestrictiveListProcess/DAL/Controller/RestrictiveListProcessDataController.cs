@@ -36,13 +36,20 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.Controller
         #endregion
 
         #region Provider Functions
+            
             public List<CompanyModel> GetProviderByStatus(int Status, string CustomerPublicId)
             {
                 return DataFactory.GetProviderByStatus(Status, CustomerPublicId);
             }
+            
             public List<RestrictiveListProcessModel> GetAllProvidersInProcess() {
                 return DataFactory.GetAllProvidersInProcess();            
             }
+            
+            public string RestrictiveListProcess(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable, string LastModify, string CreateDate) {
+                return DataFactory.RestrictiveListProcess(BlackListProcessId, FilePath, ProcessStatus, IsSuccess, ProviderStatus, Enable, LastModify, CreateDate);
+            }
+        
         #endregion
 
     }

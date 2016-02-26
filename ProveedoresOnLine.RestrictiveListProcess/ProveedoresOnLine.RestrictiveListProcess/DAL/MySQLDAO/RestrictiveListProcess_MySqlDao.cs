@@ -113,6 +113,30 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
 
             return oProvidersInProcess;
         }
-    
+
+        public string RestrictiveListProcess(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable, string LastModify, string CreateDate)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            
+            lstParams.Add(DataInstance.CreateTypedParameter("vBlackListProcessId", BlackListProcessId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFilePath", FilePath));
+            lstParams.Add(DataInstance.CreateTypedParameter("ProcessStatus", ProcessStatus));
+            lstParams.Add(DataInstance.CreateTypedParameter("IsSuccess", IsSuccess));
+            lstParams.Add(DataInstance.CreateTypedParameter("ProviderStatus", ProviderStatus));
+            lstParams.Add(DataInstance.CreateTypedParameter("Enable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("LastModify", LastModify);
+            lstParams.Add(DataInstance.CreateTypedParameter("CreateDate", CreateDate));
+            
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "MP_CP_Survey_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return response.ScalarResult.ToString();
+        }
+
     }
 }
