@@ -1,5 +1,6 @@
 ﻿using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
+using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Interfaces
     internal interface IRestrictiveListProcess
     {
         List<CompanyModel> GetProviderByStatus(int Status, string CustomerPublicId);
+
+        List<RestrictiveListProcessModel> GetAllProvidersInProcess();
     }
 }

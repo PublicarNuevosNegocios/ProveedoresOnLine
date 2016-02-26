@@ -2,6 +2,7 @@
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Models;
+using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
             });
 
             return oProviderList;
+        }
+
+        public List<RestrictiveListProcessModel> GetAllProvidersInProcess()
+        {
+            return DAL.Controller.RestrictiveListProcessDataController.Instance.GetAllProvidersInProcess();
         }
 
         #endregion

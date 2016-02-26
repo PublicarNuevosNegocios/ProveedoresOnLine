@@ -9,7 +9,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess
 {
     public class RestrictiveListProcessModel
     {
-        public int BlackListProcessId { get; set; }
+        public UInt64 BlackListProcessId { get; set; }
         public string FilePath { get; set; }
         public bool ProcessStatus { get; set; }
         public bool IsSuccess { get; set; }

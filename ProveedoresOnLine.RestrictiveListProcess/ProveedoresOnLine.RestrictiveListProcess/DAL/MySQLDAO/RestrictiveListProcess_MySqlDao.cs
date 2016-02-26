@@ -3,6 +3,7 @@ using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Interfaces;
 using ProveedoresOnLine.RestrictiveListProcess.Models;
+using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -67,5 +68,51 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
             }
             return oCompanyList;
         }
+
+        public List<RestrictiveListProcessModel> GetAllProvidersInProcess()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_BlackListFileProcess_GetAllInProcess",
+                CommandType = System.Data.CommandType.StoredProcedure
+            });
+
+            List<RestrictiveListProcessModel>oProvidersInProcess = null;
+
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oProvidersInProcess = (
+                        from cm in response.DataTableResult.AsEnumerable()
+                        where !cm.IsNull("BlackListProcessId")
+                        group cm by new
+                                {
+                                    //cm.Field<UInt64>("Enable") == 1 ? true : false,
+                                    BlackListProcessId = cm.Field<UInt64>("UInt64"),
+                                    FilePath = cm.Field<string>("FilePath"),
+                                    ProcessStatus = cm.Field<UInt64>("ProcessStatus") == 1 ? true : false,
+                                    IsSuccess = cm.Field<UInt64>("ProviderName") == 1 ? true : false,
+                                    ProviderStatus = cm.Field<string>("IsSuccess"),
+                                    Enable = cm.Field<UInt64>("Enable") == 1 ? true : false,
+                                    LastModify = cm.Field<string>("LastModify"),
+                                    CreateDate = cm.Field<string>("CreateDate"),
+                                } into cmg
+
+                        select new RestrictiveListProcessModel() {
+                            BlackListProcessId = cmg.Key.BlackListProcessId,
+                            FilePath = cmg.Key.FilePath,
+                            ProcessStatus = cmg.Key.ProcessStatus,
+                            IsSuccess = cmg.Key.IsSuccess,
+                            ProviderStatus = cmg.Key.ProviderStatus,
+                            Enable = cmg.Key.Enable,
+                            LastModify = cmg.Key.LastModify,
+                            CreateDate = cmg.Key.CreateDate
+                        }
+                    ).ToList();
+            }
+
+            return oProvidersInProcess;
+        }
+    
     }
 }
