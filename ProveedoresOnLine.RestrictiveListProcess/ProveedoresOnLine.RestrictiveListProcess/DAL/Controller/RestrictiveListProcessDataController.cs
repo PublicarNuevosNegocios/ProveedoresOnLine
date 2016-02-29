@@ -46,8 +46,8 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.Controller
                 return DataFactory.GetAllProvidersInProcess();            
             }
             
-            public string RestrictiveListProcess(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable, string LastModify, string CreateDate) {
-                return DataFactory.RestrictiveListProcess(BlackListProcessId, FilePath, ProcessStatus, IsSuccess, ProviderStatus, Enable, LastModify, CreateDate);
+            public string BlackListProcessUpsert(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable, string LastModify, string CreateDate) {
+                return DataFactory.BlackListProcessUpsert(BlackListProcessId, FilePath, ProcessStatus, IsSuccess, ProviderStatus, Enable, LastModify, CreateDate);
             }
         
         #endregion
