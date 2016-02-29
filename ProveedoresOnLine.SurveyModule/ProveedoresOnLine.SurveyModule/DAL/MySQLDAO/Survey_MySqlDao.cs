@@ -459,7 +459,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "MP_CP_Survey_Upsert",
+                CommandText = "CP_BlackListProcess_Upsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });

@@ -78,7 +78,7 @@
                 {
                     <div class="row POMPBorderbottom">
                         <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
-                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status == "True" ? "Activo" : "Inactivo")</p></div>
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status.ToLower() == "true" ? "Activo" : "Inactivo")</p></div>
                         <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
                         <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
                         <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
