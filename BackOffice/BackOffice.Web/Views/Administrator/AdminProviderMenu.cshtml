@@ -18,7 +18,8 @@
             <label class="POBOSectionTitles">Administración de información del proveedor</label>
             <a href="@(Url.Action(
                 MVC.Administrator.ActionNames.AdminModule,
-                MVC.Administrator.Name))">Regresar al listado de módulos</a>
+                MVC.Administrator.Name,
+                new { RoleCompanyId = Model.RelatedRole.RoleCompanyId }))">Regresar al listado de módulos</a>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
@@ -71,7 +72,7 @@
             $(document).ready(function () {
                 Admin_CompanyRoleObject.Init({
                     ObjectId: 'divGridAdminProvider',
-                    RoleModuleId: '@(1)',
+                    RoleModuleId: '@(Model.RelatedRole.RoleModule.FirstOrDefault().RoleModuleId)',
                     RoleOptionInfoUpsertUrl: '@AdminOptionInfoUrl',
                     ModuleList: @Html.Raw(oModuleOptionList),
                     ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Option)',

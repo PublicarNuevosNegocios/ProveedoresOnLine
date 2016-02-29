@@ -2409,7 +2409,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vRoleModuleId", RoleModuleId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionsId", ModuleOptionId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionId", ModuleOptionId));
             lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionType", ModuleOptionType));
             lstParams.Add(DataInstance.CreateTypedParameter("vModuleOption", ModuleOption));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));

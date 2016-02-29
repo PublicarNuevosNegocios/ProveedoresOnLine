@@ -178,6 +178,7 @@ namespace BackOffice.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_AdminProviderMenu
         {
+            public readonly string RoleCompanyId = "RoleCompanyId";
             public readonly string RoleModuleId = "RoleModuleId";
         }
         static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
@@ -398,14 +399,15 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void AdminProviderMenuOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleModuleId);
+        partial void AdminProviderMenuOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleCompanyId, int RoleModuleId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AdminProviderMenu(int RoleModuleId)
+        public override System.Web.Mvc.ActionResult AdminProviderMenu(int RoleCompanyId, int RoleModuleId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminProviderMenu);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleModuleId", RoleModuleId);
-            AdminProviderMenuOverride(callInfo, RoleModuleId);
+            AdminProviderMenuOverride(callInfo, RoleCompanyId, RoleModuleId);
             return callInfo;
         }
 

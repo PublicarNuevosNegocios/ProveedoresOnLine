@@ -1997,7 +1997,6 @@ var Admin_CompanyRoleObject = {
                         var data = this.dataItem(tr);
                         //validate SurveyConfigId attribute
                         if (data.RoleCompanyId != null && data.RoleCompanyId.length > 0) {
-                            debugger;
                             window.location = Admin_CompanyRoleObject.RoleModuleUpsertUrl.replace(/\${RoleCompanyId}/gi, data.RoleCompanyId);
                         }
                     }
@@ -2038,7 +2037,7 @@ var Admin_CompanyRoleObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al cargar la información.');
                             }
                         });
                     },
@@ -2052,11 +2051,11 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se agregó el nuevo módulo');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al agregar el nuevo módulo');
                             }
                         });
                     },
@@ -2070,10 +2069,11 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('succes', 'Se edito el registro');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al editar el registro');
                             }
                         });
                     },
@@ -2138,7 +2138,8 @@ var Admin_CompanyRoleObject = {
                         var data = this.dataItem(tr);
                         //validate SurveyConfigId attribute
                         if (data.RoleModuleId != null && data.RoleModuleId.length > 0) {
-                            window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace(/\${RoleModuleId}/gi, data.RoleModuleId);
+                            debugger;
+                            window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace('amp;','').replace(/\${RoleCompanyId}/gi, Admin_CompanyRoleObject.RoleCompanyId).replace(/\${RoleModuleId}/gi, data.RoleModuleId);
                         }
                     }
                 }],
@@ -2178,45 +2179,46 @@ var Admin_CompanyRoleObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al cargar la información');
                             }
                         });
                     },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', '0');
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', '');
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', '');
-                    //        }
-                    //    });
-                    //},
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionUpsert=true&RoleModuleId=' + Admin_CompanyRoleObject.RoleModuleId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se agregó un nuevo menú');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'El menú no se pudo agregar');
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionUpsert=true&RoleModuleId=' + Admin_CompanyRoleObject.RoleModuleId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('sucess', 'Se modificó el registro correctamente');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al modificar el registro');
+                            }
+                        });
+                    },
                 },
                 requestStart: function () {
                     kendo.ui.progress($("#loading"), true);
@@ -2248,7 +2250,7 @@ var Admin_CompanyRoleObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción';
                     $.each(Admin_CompanyRoleObject.ModuleList, function (item, value) {
-                        if (value.ItemId == dataItem.RoleModule) {
+                        if (value.ItemId == dataItem.ModuleOption) {
                             oReturn = value.ItemName;
                         }
                     });
