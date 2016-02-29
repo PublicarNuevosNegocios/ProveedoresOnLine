@@ -10,7 +10,7 @@ namespace BackOffice.Models.Admin
     {
         ProveedoresOnLine.Company.Models.Util.GenericItemModel oModuleOptions { get; set; }
 
-        public int ModuleOptionId { get; set; }
+        public string ModuleOptionId { get; set; }
 
         public string ModuleOption { get; set; }
 
@@ -30,7 +30,7 @@ namespace BackOffice.Models.Admin
         {
             this.oModuleOptions = oRelatedModuleOption;
 
-            this.ModuleOptionId = oModuleOptions.ItemId;
+            this.ModuleOptionId = oModuleOptions.ItemId.ToString();
 
             this.ModuleOption = oModuleOptions.ItemName;
 

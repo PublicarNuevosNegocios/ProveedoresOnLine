@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
+using ProveedoresOnLine.Company.Models.Role;
 
 namespace ProveedoresOnLine.Company.Test
 {
@@ -371,9 +372,27 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void ModuleOption()
         {
-            int oReturn = ProveedoresOnLine.Company.Controller.Company.ModuleOptionUpsert(1, null, 1, "802001", true);
+            RoleModuleModel oReturn = new RoleModuleModel()
+            {
+                RoleModuleId = 1,
+                ModuleOption = new List<Models.Util.GenericItemModel>()
+                {
+                    new Models.Util.GenericItemModel()
+                    {
+                        ItemId = 1,
+                        ItemName = "Prueba",
+                        ItemType = new Models.Util.CatalogModel()
+                        {
+                            ItemId = 802001,
+                        },
+                        Enable = true,
+                    },
+                },
+            };
 
-            Assert.AreEqual(true, oReturn > 0);
+            ProveedoresOnLine.Company.Controller.Company.ModuleOptionUpsert(oReturn);
+
+            Assert.AreEqual(true, oReturn != null);
         }
 
         [TestMethod]

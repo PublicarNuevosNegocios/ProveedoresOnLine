@@ -60,7 +60,7 @@
 
         string AdminOptionUrl = Url.Action
         (MVC.Administrator.ActionNames.AdminProviderMenu,
-        MVC.Administrator.Name) + "?RoleModuleId=${RoleModuleId}";
+        MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}&RoleModuleId=${RoleModuleId}";
     }
 
     <script type="text/javascript">
@@ -68,7 +68,7 @@
             Admin_CompanyRoleObject.Init({
                 ObjectId: 'divGridAdminModule',
                 RoleCompanyId: '@(Model.RelatedRole.RoleCompanyId)',
-                RoleOptionUpsertUrl: '@AdminOptionUrl',
+                RoleOptionUpsertUrl: '@(AdminOptionUrl)',
                 ModuleList: @Html.Raw(oModuleOptionList),
                 ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Module)',
             });
