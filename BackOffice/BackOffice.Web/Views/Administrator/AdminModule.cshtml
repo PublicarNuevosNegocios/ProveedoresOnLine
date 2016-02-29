@@ -1,0 +1,78 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Administrar Módulos";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Administración de módulos del rol: @Model.RelatedRole.RoleCompanyName</label>
+            <a href="@(Url.Action(
+                MVC.Administrator.ActionNames.AdminRole,
+                MVC.Administrator.Name))">Regresar al listado de roles</a>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="loading"></div>
+            <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+            <div id="divGridAdminModule"></div>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridAdminModule_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridAdminModule_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridAdminModule_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+    @{
+        string oModuleOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 804).ToList());
+
+        string AdminOptionUrl = Url.Action
+        (MVC.Administrator.ActionNames.AdminProviderMenu,
+        MVC.Administrator.Name) + "?RoleModuleId=${RoleModuleId}";
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Admin_CompanyRoleObject.Init({
+                ObjectId: 'divGridAdminModule',
+                RoleCompanyId: '@(Model.RelatedRole.RoleCompanyId)',
+                RoleOptionUpsertUrl: '@AdminOptionUrl',
+                ModuleList: @Html.Raw(oModuleOptionList),
+                ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Module)',
+            });
+            Admin_CompanyRoleObject.RenderAsync();
+        });
+    </script>
+}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
+using ProveedoresOnLine.RestrictiveListProcess.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,24 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
         {
             List<RestrictiveListProcessModel> objRestictiiveListInProcess = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetAllProvidersInProcess();
             Assert.IsNotNull(objRestictiiveListInProcess);
+        }
+
+        [TestMethod]
+        public void BlackListProcessUpsert()
+        {
+            BlackListProcessModel oBlackListProcessModel = new BlackListProcessModel() { 
+                BlackListProcessId = 5,
+                CreateDate = "29-02-2016",
+                Enable = true,
+                FilePath ="C:\\ProveedoresOnline\\Testitotosotos\\",
+                IsSuccess = true,
+                LastModify = "29-02-2016",
+                ProcessStatus = true,
+                ProviderStatus = Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionNacional),
+            };
+
+            string strUpsertStatus = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.BlackListProcessUpsert(oBlackListProcessModel);
+            Assert.IsNotNull(strUpsertStatus);
         }
 
     }

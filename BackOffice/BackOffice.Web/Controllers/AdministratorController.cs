@@ -199,6 +199,51 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminRole()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
+        public virtual ActionResult AdminModule(int RoleCompanyId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedRole = ProveedoresOnLine.Company.Controller.Company.GetRoleCompanyByRoleCompanyId(RoleCompanyId),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
+        public virtual ActionResult AdminProviderMenu(int RoleModuleId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
+        public virtual ActionResult AdminReports()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -385,6 +430,50 @@ namespace BackOffice.Web.Controllers
             oReturn.Add(oMenuAux);
 
             #endregion Restrictive List
+
+            #region Admin Role
+
+            //header
+            oMenuAux = new Models.General.GenericMenu()
+            {
+                Name = "Administración de Roles",
+                Position = 2,
+                ChildMenu = new List<Models.General.GenericMenu>(),
+            };
+
+            //Admin Role
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "Administrar Roles",
+                Url = Url.Action
+                    (MVC.Administrator.ActionNames.AdminRole,
+                    MVC.Administrator.Name),
+                Position = 1,
+                IsSelected =
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminRole &&
+                    oCurrentController == MVC.Administrator.Name),
+            });
+
+            //Admin Reports
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "Administrar Reportes",
+                Url = Url.Action
+                    (MVC.Administrator.ActionNames.AdminReports,
+                    MVC.Administrator.Name),
+                Position = 1,
+                IsSelected =
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminReports &&
+                    oCurrentController == MVC.Administrator.Name),
+            });
+
+            //get is selected menu
+            oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+            //add menu
+            oReturn.Add(oMenuAux);
+
+            #endregion
 
             #region last next menu
 

@@ -14,6 +14,8 @@ namespace BackOffice.Models.Provider
 
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; set; }
 
+        public ProveedoresOnLine.Company.Models.Role.RoleCompanyModel RelatedRole { get; set; }
+
         public List<BackOffice.Models.General.GenericMenu> ProviderMenu { get; set; }
 
         public BackOffice.Models.General.GenericMenu CurrentSubMenu
