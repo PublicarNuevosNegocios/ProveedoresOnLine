@@ -74,6 +74,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\RestrictiveListProcess\RestrictiveListProcessModel.cs" />
+    <Compile Include="Models\Util\BlackListProcessModel.cs" />
     <Compile Include="Models\Util\InternalSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
