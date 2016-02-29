@@ -31,12 +31,12 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
         public void BlackListProcessUpsert()
         {
             BlackListProcessModel oBlackListProcessModel = new BlackListProcessModel() { 
-                BlackListProcessId = 0,
-                CreateDate = DateTime.Now.ToString("dd-mm-yyyy"),
+                BlackListProcessId = 5,
+                CreateDate = "29-02-2016",
                 Enable = true,
-                FilePath ="C:\\ProveedoresOnline\\Test\\",
+                FilePath ="C:\\ProveedoresOnline\\Testitotosotos\\",
                 IsSuccess = true,
-                LastModify = DateTime.Now.ToString("dd-mm-yyyy"),
+                LastModify = "29-02-2016",
                 ProcessStatus = true,
                 ProviderStatus = Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionNacional),
             };
