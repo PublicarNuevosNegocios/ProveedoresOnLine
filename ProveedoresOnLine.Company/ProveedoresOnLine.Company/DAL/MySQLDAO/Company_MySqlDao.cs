@@ -32,12 +32,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "U_Tree_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_Tree_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -197,12 +197,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "U_Category_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_Category_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
 
@@ -220,12 +220,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "U_CategoryInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_CategoryInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -240,12 +240,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "U_TreeCategory_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_TreeCategory_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
         }
 
         public int CatalogItemUpsert(int CatalogId, int? ItemId, string Name, bool Enable)
@@ -258,12 +258,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "U_CatalogItem_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_CatalogItem_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -458,12 +458,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "U_Category_SearchByICA",
-                    CommandType = CommandType.StoredProcedure,
-                    Parameters = lstParams,
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByICA",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
             List<GenericItemModel> oReturn = null;
             TotalRows = 0;
@@ -540,18 +540,18 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                    (from b in response.DataTableResult.AsEnumerable()
                     where !b.IsNull("BankId")
                     group b by new
-                      {
-                          BankId = b.Field<int>("BankId"),
-                          BankName = b.Field<string>("BankName"),
-                          BankEnable = b.Field<UInt64>("BankEnable") == 1 ? true : false,
-                      } into bg
+                    {
+                        BankId = b.Field<int>("BankId"),
+                        BankName = b.Field<string>("BankName"),
+                        BankEnable = b.Field<UInt64>("BankEnable") == 1 ? true : false,
+                    } into bg
                     select new GenericItemModel()
-                   {
-                       ItemId = bg.Key.BankId,
-                       ItemName = bg.Key.BankName,
-                       Enable = bg.Key.BankEnable,
+                    {
+                        ItemId = bg.Key.BankId,
+                        ItemName = bg.Key.BankName,
+                        Enable = bg.Key.BankEnable,
 
-                       ItemInfo =
+                        ItemInfo =
                        (from binf in response.DataTableResult.AsEnumerable()
                         where !binf.IsNull("BankInfoId")
                             && binf.Field<int>("BankId") == bg.Key.BankId
@@ -570,7 +570,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                             },
                             Value = bginfg.Key.BankInfoValue,
                         }).ToList(),
-                   }).ToList();
+                    }).ToList();
             }
             return oReturn;
         }
@@ -621,12 +621,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "U_Category_SearchByRuleAdmin",
-                    CommandType = CommandType.StoredProcedure,
-                    Parameters = lstParams,
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByRuleAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
             List<GenericItemModel> oReturn = null;
             TotalRows = 0;
@@ -1033,11 +1033,11 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          ItemName = ba.Field<string>("BankName"),
                      }
                          into bank
-                         select new GenericItemModel()
-                         {
-                             ItemId = bank.Key.ItemId,
-                             ItemName = bank.Key.ItemName,
-                         }).ToList();
+                     select new GenericItemModel()
+                     {
+                         ItemId = bank.Key.ItemId,
+                         ItemName = bank.Key.ItemName,
+                     }).ToList();
             }
 
             return oReturn;
@@ -1236,12 +1236,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "U_Category_SearchByEcoGroupAdmin",
-                    CommandType = CommandType.StoredProcedure,
-                    Parameters = lstParams,
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByEcoGroupAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
             TotalRows = 0;
@@ -1278,12 +1278,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "U_Category_SearchByTreeAdmin",
-                    CommandType = CommandType.StoredProcedure,
-                    Parameters = lstParams,
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByTreeAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
 
@@ -1571,26 +1571,26 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 response.DataTableResult.Rows.Count > 0)
             {
                 oReturn = new MinimumWageModel()
-                     {
-                         MinimumWageId = response.DataTableResult.Rows[0].Field<int>("MinimumWageId"),
-                         Country = new CatalogModel()
-                         {
-                             ItemId = response.DataTableResult.Rows[0].Field<int>("CountryId"),
-                             ItemName = response.DataTableResult.Rows[0].Field<string>("CountryName"),
-                         },
-                         Year = response.DataTableResult.Rows[0].Field<int>("Year"),
+                {
+                    MinimumWageId = response.DataTableResult.Rows[0].Field<int>("MinimumWageId"),
+                    Country = new CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("CountryId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("CountryName"),
+                    },
+                    Year = response.DataTableResult.Rows[0].Field<int>("Year"),
 
-                         MoneyType = new CatalogModel()
-                         {
-                             ItemId = response.DataTableResult.Rows[0].Field<int>("MoneyType"),
-                             ItemName = response.DataTableResult.Rows[0].Field<string>("MoneyTypeName"),
-                             ItemEnable = response.DataTableResult.Rows[0].Field<UInt64>("MoneyTypeEnable") == 1 ? true : false,
-                         },
-                         Value = response.DataTableResult.Rows[0].Field<decimal>("Value"),
-                         Enable = response.DataTableResult.Rows[0].Field<UInt64>("Enable") == 1 ? true : false,
-                         LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
-                         CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate")
-                     };
+                    MoneyType = new CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("MoneyType"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("MoneyTypeName"),
+                        ItemEnable = response.DataTableResult.Rows[0].Field<UInt64>("MoneyTypeEnable") == 1 ? true : false,
+                    },
+                    Value = response.DataTableResult.Rows[0].Field<decimal>("Value"),
+                    Enable = response.DataTableResult.Rows[0].Field<UInt64>("Enable") == 1 ? true : false,
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate")
+                };
 
             }
             return oReturn;
@@ -1704,12 +1704,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "C_CompanyInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_CompanyInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -1725,12 +1725,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "C_RoleCompany_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_RoleCompany_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
 
@@ -1748,12 +1748,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "C_RoleCompanyInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_RoleCompanyInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -1768,12 +1768,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "C_UserCompany_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_UserCompany_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
             return Convert.ToInt32(response.ScalarResult);
         }
@@ -1807,7 +1807,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 Parameters = lstParams
             });
         }
-        
+
         #endregion
 
         #region Company Search
@@ -2196,18 +2196,18 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          RoleCompanyEnable = u.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
                      }
                          into ui
-                         select new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                     select new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                     {
+                         UserCompanyId = ui.Key.UserCompanyId,
+                         User = ui.Key.User,
+                         Enable = ui.Key.UserCompanyEnable,
+                         RelatedRole = new GenericItemModel()
                          {
-                             UserCompanyId = ui.Key.UserCompanyId,
-                             User = ui.Key.User,
-                             Enable = ui.Key.UserCompanyEnable,
-                             RelatedRole = new GenericItemModel()
-                             {
-                                 ItemId = ui.Key.RoleCompanyId,
-                                 ItemName = ui.Key.RoleCompanyName,
-                                 Enable = ui.Key.RoleCompanyEnable,
-                             }
-                         }).ToList();
+                             ItemId = ui.Key.RoleCompanyId,
+                             ItemName = ui.Key.RoleCompanyName,
+                             Enable = ui.Key.RoleCompanyEnable,
+                         }
+                     }).ToList();
             }
 
             return oReturn;
@@ -2504,6 +2504,59 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public RoleCompanyModel GetRoleCompanyByRoleCompanyId(int RoleCompanyId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_RoleCompany_GetByRoleCompanyId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            RoleCompanyModel oReturn = null;
+
+            if (response.DataTableResult != null
+                && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from rc in response.DataTableResult.AsEnumerable()
+                     where !rc.IsNull("RoleCompanyId")
+                     group rc by new
+                     {
+                         RoleCompanyId = rc.Field<int>("RoleCompanyId"),
+                         RoleCompanyName = rc.Field<string>("RoleCompanyName"),
+                         ParentRoleCompany = rc.Field<Int64>("ParentRoleCompany"),
+                         Enable = rc.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = rc.Field<DateTime>("LastModify"),
+                         CreateDate = rc.Field<DateTime>("CreateDate"),
+
+                         CompanyPublicId = rc.Field<string>("CompanyPublicId"),
+                         CompanyName = rc.Field<string>("CompanyName"),
+                     } into rci
+                     select new RoleCompanyModel()
+                     {
+                         RelatedCompany = new CompanyModel()
+                         {
+                             CompanyPublicId = rci.Key.CompanyPublicId,
+                             CompanyName = rci.Key.CompanyName,
+                         },
+                         RoleCompanyId = rci.Key.RoleCompanyId,
+                         RoleCompanyName = rci.Key.RoleCompanyName,
+                         ParentRoleCompany = Convert.ToInt32(rci.Key.ParentRoleCompany),
+                         Enable = rci.Key.Enable,
+                         LastModify = rci.Key.LastModify,
+                         CreateDate = rci.Key.CreateDate,
+                     }).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
         public RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -2514,7 +2567,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "getRoleModuleByRoleCompanyId",
+                CommandText = "C_RoleModule_GetByRoleCompanyId",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -2564,6 +2617,58 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                  CreateDate = rmg.Key.CreateDate,
                              }).ToList(),
                      }).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
+        public List<GenericItemModel> GetModuleOptionSearch(int RoleModuleId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleModuleId", RoleModuleId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vViewEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_ModuleOption_Search",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = new List<GenericItemModel>();
+
+            if (response.DataTableResult != null
+                && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from mo in response.DataTableResult.AsEnumerable()
+                     where !mo.IsNull("ModuleOptionId")
+                     group mo by new
+                     {
+                         ModuleOptionId = mo.Field<int>("ModuleOptionId"),
+                         ModuleOptionTypeId = mo.Field<int>("ModuleOptionTypeId"),
+                         ModuleOptionTypeName = mo.Field<string>("ModuleOptionTypeName"),
+                         ModuleOption = mo.Field<string>("ModuleOption"),
+                         Enable = mo.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = mo.Field<DateTime>("LastModify"),
+                         CreateDate = mo.Field<DateTime>("CreateDate"),
+                     }
+                    into mog
+                     select new GenericItemModel()
+                     {
+                         ItemId = mog.Key.ModuleOptionId,
+                         ItemName = mog.Key.ModuleOption,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = mog.Key.ModuleOptionTypeId,
+                             ItemName = mog.Key.ModuleOptionTypeName,
+                         },
+                         Enable = mog.Key.Enable,
+                         LastModify = mog.Key.LastModify,
+                         CreateDate = mog.Key.CreateDate,
+                     }).ToList();
             }
 
             return oReturn;
