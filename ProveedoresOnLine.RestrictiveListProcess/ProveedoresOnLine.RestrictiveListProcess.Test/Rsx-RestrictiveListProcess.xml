@@ -6,6 +6,8 @@
     <key name="TK_CP_ColPersonType">TIPOPERSONA</key>
     <key name="TK_CP_ColIdNumber">NUMEIDEN</key>
     <key name="TK_CP_ColIdName">NOMBRES</key>
+
+    <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
     
   </Module>  
 </SettingsConfig>

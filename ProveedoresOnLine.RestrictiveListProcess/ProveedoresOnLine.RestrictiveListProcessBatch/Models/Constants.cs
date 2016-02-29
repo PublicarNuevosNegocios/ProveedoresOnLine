@@ -23,7 +23,9 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch.Models
 
         #region Internal Settings
 
-        public const string C_SettingsModuleName = "RestrictiveListProcessBatch";
+        public const string C_SettingsModuleNameBatch = "RestrictiveListProcessBatch";
+
+        public const string C_Settings_PublicarPublicId = "PublicarPublicId";
 
         #endregion
     }

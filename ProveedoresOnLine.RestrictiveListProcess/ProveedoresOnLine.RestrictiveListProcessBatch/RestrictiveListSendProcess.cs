@@ -1,5 +1,6 @@
 ﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
+using ProveedoresOnLine.RestrictiveListProcessBatch.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                 //Build Excel File for Provider Status
                 oModelToProcess.strListProviderStatus.All(x =>
                 {
-                    oModelToProcess.RelatedProvider = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetProviderByStatus(Convert.ToInt32(x), "aaaaa");
+                    oModelToProcess.RelatedProvider = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetProviderByStatus(Convert.ToInt32(x), ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_Settings_PublicarPublicId].Value);
 
                     if (oModelToProcess.RelatedProvider.Count > 0)
                     {
@@ -55,11 +56,11 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                                     {
                                         data.AppendLine
                                             (
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                                 "\"" + "CC" + "\"" + strSep +
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                                 "\"" + "Person" + "\"" + strSep +
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
                                                 "\"" + y.RelatedCompany.CompanyPublicId + "\""
                                             );
                                         return true;
@@ -81,11 +82,11 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                                     {
                                         data.AppendLine
                                             (
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                                 "\"" + "CC" + "\"" + strSep +
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                                 "\"" + "Person" + "\"" + strSep +
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
+                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
                                                 "\"" + y.RelatedCompany.CompanyPublicId + "\""
                                             );
                                         return true;

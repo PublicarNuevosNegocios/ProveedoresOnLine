@@ -8,31 +8,27 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch.Models.General
 {
     public class InternalSettings : System.Collections.DictionaryBase
     {
-        public class InternalSettings : System.Collections.DictionaryBase
+        private static InternalSettings oInstance;
+        public static InternalSettings Instance
         {
-            private static InternalSettings oInstance;
-            public static InternalSettings Instance
+            get
             {
-                get
-                {
-                    if (oInstance == null)
-                        oInstance = new InternalSettings();
-                    return oInstance;
-                }
+                if (oInstance == null)
+                    oInstance = new InternalSettings();
+                return oInstance;
             }
+        }
 
-            public SettingsManager.Models.SettingModel this[string SettingName]
+        public SettingsManager.Models.SettingModel this[string SettingName]
+        {
+            get { return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.RestrictiveListProcess.Models.Constants.R_SettingsModuleName][SettingName]; }
+        }
+        public int Count
+        {
+            get
             {
-                get { return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.RestrictiveListProcess.Models.Constants.R_SettingsModuleName][SettingName]; }
+                return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.RestrictiveListProcess.Models.Constants.R_SettingsModuleName].Count;
             }
-            public int Count
-            {
-                get
-                {
-                    return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.RestrictiveListProcess.Models.Constants.R_SettingsModuleName].Count;
-                }
-            }
-
         }
     }
 }

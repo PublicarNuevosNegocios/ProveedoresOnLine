@@ -124,7 +124,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("IsSuccess", IsSuccess));
             lstParams.Add(DataInstance.CreateTypedParameter("ProviderStatus", ProviderStatus));
             lstParams.Add(DataInstance.CreateTypedParameter("Enable", Enable));
-            lstParams.Add(DataInstance.CreateTypedParameter("LastModify", LastModify);
+            lstParams.Add(DataInstance.CreateTypedParameter("LastModify", LastModify));
             lstParams.Add(DataInstance.CreateTypedParameter("CreateDate", CreateDate));
             
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()

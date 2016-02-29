@@ -20,4 +20,12 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch.Models
         InactivoNacional = 902011,
         InactivoExtranjero = 902012,
     }
+
+    public enum enumLegalDesignationsInfoType
+    {
+        //Designations
+        CD_PartnerName = 607001,
+        CD_PartnerIdentificationNumber = 607002,
+        CD_PartnerRank = 607003,
+    }
 }

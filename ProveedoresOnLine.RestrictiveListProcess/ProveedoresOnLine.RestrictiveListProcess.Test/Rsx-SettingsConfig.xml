@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
-  <Module name="Reports">
-    <key name="location">C:\PublicarPO\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-Reports.xml</key>
+  <Module name="RestrictiveListProcess">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
+
+    <key name="TK_CP_ColPersonType">TIPOPERSONA</key>
+    <key name="TK_CP_ColIdNumber">NUMEIDEN</key>
+    <key name="TK_CP_ColIdName">NOMBRES</key>
+
+    <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
+
   </Module>
 </SettingsConfig>
