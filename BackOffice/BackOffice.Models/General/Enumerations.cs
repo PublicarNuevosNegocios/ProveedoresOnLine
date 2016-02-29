@@ -569,4 +569,16 @@
         SpecificPerson = 1405002,
     }
     #endregion
+
+    #region Role
+
+    public enum enumAdminRole
+    {
+        Role = 801002,
+        Module = 801001,
+        Option = 801003,
+        OptionInfo = 801004,
+    }
+
+    #endregion
 }

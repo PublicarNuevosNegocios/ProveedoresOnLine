@@ -121,6 +121,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DownloadReport()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadReport);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
@@ -152,6 +158,7 @@ namespace BackOffice.Web.Controllers
             public readonly string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
             public readonly string TDAssignedPlan = "TDAssignedPlan";
             public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
+            public readonly string DownloadReport = "DownloadReport";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -169,6 +176,7 @@ namespace BackOffice.Web.Controllers
             public const string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
             public const string TDAssignedPlan = "TDAssignedPlan";
             public const string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
+            public const string DownloadReport = "DownloadReport";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -257,6 +265,14 @@ namespace BackOffice.Web.Controllers
         public ActionParamsClass_ADAditionalDocumentsUpsert ADAditionalDocumentsUpsertParams { get { return s_params_ADAditionalDocumentsUpsert; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ADAditionalDocumentsUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_DownloadReport s_params_DownloadReport = new ActionParamsClass_DownloadReport();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DownloadReport DownloadReportParams { get { return s_params_DownloadReport; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DownloadReport
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
         }
@@ -444,6 +460,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalDocumentsUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             ADAditionalDocumentsUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DownloadReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DownloadReport(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadReport);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            DownloadReportOverride(callInfo, CustomerPublicId);
             return callInfo;
         }
 

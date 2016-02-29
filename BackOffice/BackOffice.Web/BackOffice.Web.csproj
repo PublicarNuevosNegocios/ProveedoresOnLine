@@ -1130,6 +1130,10 @@
     <Content Include="Views\Customer\ADAditionalDocumentsUpsert.cshtml" />
     <Content Include="Views\Provider\ADAditionalDocuments.cshtml" />
     <Content Include="Views\Provider\ADAditionalData.cshtml" />
+    <Content Include="Views\Administrator\AdminRole.cshtml" />
+    <Content Include="Views\Administrator\AdminReports.cshtml" />
+    <Content Include="Views\Administrator\AdminModule.cshtml" />
+    <Content Include="Views\Administrator\AdminProviderMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

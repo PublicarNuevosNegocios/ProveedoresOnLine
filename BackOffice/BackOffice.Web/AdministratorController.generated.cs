@@ -73,6 +73,18 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminModule()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminModule);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminProviderMenu()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminProviderMenu);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
@@ -105,6 +117,10 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminTreeUpsert = "AdminTreeUpsert";
             public readonly string AdminTRMUpsert = "AdminTRMUpsert";
             public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
+            public readonly string AdminRole = "AdminRole";
+            public readonly string AdminModule = "AdminModule";
+            public readonly string AdminProviderMenu = "AdminProviderMenu";
+            public readonly string AdminReports = "AdminReports";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -123,6 +139,10 @@ namespace BackOffice.Web.Controllers
             public const string AdminTreeUpsert = "AdminTreeUpsert";
             public const string AdminTRMUpsert = "AdminTRMUpsert";
             public const string AdminRLUploadProvider = "AdminRLUploadProvider";
+            public const string AdminRole = "AdminRole";
+            public const string AdminModule = "AdminModule";
+            public const string AdminProviderMenu = "AdminProviderMenu";
+            public const string AdminReports = "AdminReports";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -143,6 +163,22 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_AdminRLUploadProvider
         {
             public readonly string ExcelFile = "ExcelFile";
+        }
+        static readonly ActionParamsClass_AdminModule s_params_AdminModule = new ActionParamsClass_AdminModule();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminModule AdminModuleParams { get { return s_params_AdminModule; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminModule
+        {
+            public readonly string RoleCompanyId = "RoleCompanyId";
+        }
+        static readonly ActionParamsClass_AdminProviderMenu s_params_AdminProviderMenu = new ActionParamsClass_AdminProviderMenu();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminProviderMenu AdminProviderMenuParams { get { return s_params_AdminProviderMenu; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminProviderMenu
+        {
+            public readonly string RoleModuleId = "RoleModuleId";
         }
         static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -167,8 +203,12 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
                 public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
+                public readonly string AdminModule = "AdminModule";
+                public readonly string AdminProviderMenu = "AdminProviderMenu";
+                public readonly string AdminReports = "AdminReports";
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
                 public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
+                public readonly string AdminRole = "AdminRole";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
                 public readonly string AdminTRMUpsert = "AdminTRMUpsert";
@@ -180,8 +220,12 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminEcoActivityUpsert = "~/Views/Administrator/AdminEcoActivityUpsert.cshtml";
             public readonly string AdminEcoGroupUpsert = "~/Views/Administrator/AdminEcoGroupUpsert.cshtml";
             public readonly string AdminGeoUpsert = "~/Views/Administrator/AdminGeoUpsert.cshtml";
+            public readonly string AdminModule = "~/Views/Administrator/AdminModule.cshtml";
+            public readonly string AdminProviderMenu = "~/Views/Administrator/AdminProviderMenu.cshtml";
+            public readonly string AdminReports = "~/Views/Administrator/AdminReports.cshtml";
             public readonly string AdminResolutionUpsert = "~/Views/Administrator/AdminResolutionUpsert.cshtml";
             public readonly string AdminRLUploadProvider = "~/Views/Administrator/AdminRLUploadProvider.cshtml";
+            public readonly string AdminRole = "~/Views/Administrator/AdminRole.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Administrator/AdminRulesUpsert.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Administrator/AdminTreeUpsert.cshtml";
             public readonly string AdminTRMUpsert = "~/Views/Administrator/AdminTRMUpsert.cshtml";
@@ -327,6 +371,52 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRLUploadProvider);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ExcelFile", ExcelFile);
             AdminRLUploadProviderOverride(callInfo, ExcelFile);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminRoleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminRole()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRole);
+            AdminRoleOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminModuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleCompanyId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminModule(int RoleCompanyId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminModule);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
+            AdminModuleOverride(callInfo, RoleCompanyId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminProviderMenuOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleModuleId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminProviderMenu(int RoleModuleId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminProviderMenu);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleModuleId", RoleModuleId);
+            AdminProviderMenuOverride(callInfo, RoleModuleId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminReportsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminReports()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminReports);
+            AdminReportsOverride(callInfo);
             return callInfo;
         }
 
