@@ -344,9 +344,28 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void RoleModule()
         {
-            int oReturn = ProveedoresOnLine.Company.Controller.Company.RoleModuleUpsert(1, null, 1, "801001", true);
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyToUpsert = new Models.Company.CompanyModel();
 
-            Assert.AreEqual(true, oReturn > 0);
+            oCompanyToUpsert.RelatedCompanyRole = new Models.Role.RoleCompanyModel()
+            {
+                CompanyId = 1,
+                RoleModule = new List<Models.Role.RoleModuleModel>()
+                {
+                    new Models.Role.RoleModuleModel()
+                    {
+                        RoleModuleId = 0,
+                        RoleModule = "801001",
+                        RoleModuleType = new Models.Util.CatalogModel() {
+                            ItemId = 801001
+                        },
+                        Enable = true,
+                    }
+                }
+            };
+
+            oCompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.RoleModuleUpsert(oCompanyToUpsert);
+
+            Assert.AreEqual(true, oCompanyToUpsert.RelatedCompanyRole.RoleModule.Count > 0);
         }
 
         [TestMethod]

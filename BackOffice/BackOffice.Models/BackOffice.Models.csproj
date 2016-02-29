@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminModuleOptionViewModel.cs" />
+    <Compile Include="Admin\AdminRoleCompanyViewModel.cs" />
+    <Compile Include="Admin\AdminRoleModuleViewModel.cs" />
     <Compile Include="Admin\AdminViewModel.cs" />
     <Compile Include="Admin\AdminCategoryViewModel.cs" />
     <Compile Include="Customer\AditionalDocumentsViewModel.cs" />

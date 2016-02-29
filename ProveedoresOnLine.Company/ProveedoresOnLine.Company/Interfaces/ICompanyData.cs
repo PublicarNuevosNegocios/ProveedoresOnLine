@@ -1,6 +1,7 @@
 ﻿using ProveedoresOnLine.Company.Models;
 using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Role;
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -143,7 +144,11 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows);
 
+        RoleCompanyModel GetRoleCompanyByRoleCompanyId(int RoleCompanyId);
+
         RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable);
+
+        List<GenericItemModel> GetModuleOptionSearch(int RoleModuleId, bool Enable);        
 
         #endregion
 

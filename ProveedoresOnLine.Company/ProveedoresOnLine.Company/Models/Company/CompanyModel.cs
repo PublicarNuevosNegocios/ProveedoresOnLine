@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.Company.Models.Util;
+﻿using ProveedoresOnLine.Company.Models.Role;
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace ProveedoresOnLine.Company.Models.Company
         public List<GenericItemModel> RelatedContact { get; set; }
 
         public List<GenericItemModel> RelatedRole { get; set; }
+
+        public RoleCompanyModel RelatedCompanyRole { get; set; }
 
         public List<UserCompany> RelatedUser { get; set; }
     }

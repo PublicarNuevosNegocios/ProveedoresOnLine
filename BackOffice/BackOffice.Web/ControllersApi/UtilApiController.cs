@@ -1108,5 +1108,172 @@ namespace BackOffice.Web.ControllersApi
         }
 
         #endregion Project Config
+
+        #region RoleCompany
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminRoleCompanyViewModel> RoleCompanyAdmin
+            (string RoleCompanyAdmin,
+            string SearchParam,
+            string ViewEnable)
+        {
+            List<AdminRoleCompanyViewModel> oReturn = new List<AdminRoleCompanyViewModel>();
+            List<ProveedoresOnLine.Company.Models.Role.RoleCompanyModel> oExchange = new List<ProveedoresOnLine.Company.Models.Role.RoleCompanyModel>();
+
+            int TotalRows = 0;
+
+            if (RoleCompanyAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.GetRoleCompanySearch(SearchParam, ViewEnable == "true" ? true : false, out TotalRows);
+            }
+
+            if (oExchange != null)
+            {
+                oExchange.All(x =>
+                {
+                    oReturn.Add(new AdminRoleCompanyViewModel(x, TotalRows));
+
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminRoleCompanyViewModel> RoleCompanyUpsert
+            (string RoleCompanyUpsert)
+        {
+            List<AdminRoleCompanyViewModel> oReturn = new List<AdminRoleCompanyViewModel>();
+
+            if (RoleCompanyUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                AdminRoleCompanyViewModel oDataToUpsert =
+                   (AdminRoleCompanyViewModel)
+                   (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                   Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                               typeof(AdminRoleCompanyViewModel));
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oRoleCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = oDataToUpsert.RelatedCompanyPublicId,
+                    CompanyName = oDataToUpsert.RelatedCompanyName,
+                    RelatedCompanyRole = new ProveedoresOnLine.Company.Models.Role.RoleCompanyModel()
+                    {
+                        RoleCompanyId = !string.IsNullOrEmpty(oDataToUpsert.RoleCompanyId) ? Convert.ToInt32(oDataToUpsert.RoleCompanyId) : 0,
+                        RoleCompanyName = oDataToUpsert.RoleCompanyName,
+                        Enable = Convert.ToBoolean(oDataToUpsert.Enable),
+                    },
+                };
+
+                ProveedoresOnLine.Company.Controller.Company.RoleCompanyUpsert(oRoleCompany);
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminRoleModuleViewModel> RoleModuleAdmin
+            (string RoleModuleAdmin,
+            string RoleCompanyId,
+            string ViewEnable)
+        {
+            List<AdminRoleModuleViewModel> oReturn = new List<AdminRoleModuleViewModel>();
+            ProveedoresOnLine.Company.Models.Role.RoleCompanyModel oExchange = new ProveedoresOnLine.Company.Models.Role.RoleCompanyModel();
+
+            if (RoleModuleAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.GetRoleModuleSearch(Convert.ToInt32(RoleCompanyId), ViewEnable == "true" ? true : false);
+            }
+
+            if (oExchange != null)
+            {
+                oExchange.RoleModule.All(x =>
+                {
+                    oReturn.Add(new AdminRoleModuleViewModel(x));
+
+                    return true;
+                });
+            }
+
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminRoleCompanyViewModel> RoleModuleUpsert
+            (string RoleModuleUpsert,
+            string RoleCompanyId)
+        {
+            List<AdminRoleCompanyViewModel> oReturn = new List<AdminRoleCompanyViewModel>();
+
+            if (RoleModuleUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                AdminRoleModuleViewModel oDataToUpsert =
+                   (AdminRoleModuleViewModel)
+                   (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                   Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                               typeof(AdminRoleModuleViewModel));
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oModuleRole = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    RelatedCompanyRole = new ProveedoresOnLine.Company.Models.Role.RoleCompanyModel()
+                    {
+                        RoleCompanyId = Convert.ToInt32(RoleCompanyId),
+                        RoleModule = new List<ProveedoresOnLine.Company.Models.Role.RoleModuleModel>()
+                        {
+                            new ProveedoresOnLine.Company.Models.Role.RoleModuleModel()
+                            {
+                                RoleModuleId = !string.IsNullOrEmpty(oDataToUpsert.RoleModuleId) ? Convert.ToInt32(oDataToUpsert.RoleModuleId) : 0,
+                                RoleModule = oDataToUpsert.RoleModule,
+                                RoleModuleType = new CatalogModel() {
+                                    ItemId = (int)BackOffice.Models.General.enumAdminRole.Module,
+                                },
+                                Enable = oDataToUpsert.Enable,
+                            }
+                        }
+                    }
+                };
+
+                ProveedoresOnLine.Company.Controller.Company.RoleModuleUpsert(oModuleRole);
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminModuleOptionViewModel> ModuleOptionAdmin
+            (string ModuleOptionAdmin,
+            string RoleModuleId,
+            string ViewEnable)
+        {
+            List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
+            List<GenericItemModel> oExchange = new List<GenericItemModel>();
+
+            if (ModuleOptionAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.GetModuleOptionSearch(Convert.ToInt32(RoleModuleId), Convert.ToBoolean(ViewEnable));
+            }
+
+            if (oExchange != null && oExchange.Count > 0)
+            {
+                oExchange.All(x =>
+                {
+                    oReturn.Add(new AdminModuleOptionViewModel(x));
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }
