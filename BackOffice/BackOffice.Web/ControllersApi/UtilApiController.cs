@@ -1,5 +1,6 @@
 ﻿using BackOffice.Models.Admin;
 using BackOffice.Models.General;
+using ProveedoresOnLine.Company.Models.Role;
 using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
@@ -1246,7 +1247,7 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
-
+        
         [HttpPost]
         [HttpGet]
         public List<AdminModuleOptionViewModel> ModuleOptionAdmin
@@ -1270,6 +1271,87 @@ namespace BackOffice.Web.ControllersApi
                     return true;
                 });
             }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminModuleOptionViewModel> ModuleOptionUpsert
+            (string ModuleOptionUpsert,
+            string RoleModuleId)
+        {
+            List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
+
+            if (ModuleOptionUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                AdminModuleOptionViewModel oDataToUpsert =
+                   (AdminModuleOptionViewModel)
+                   (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                   Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                               typeof(AdminModuleOptionViewModel));
+
+                RoleModuleModel oOptionModule = new RoleModuleModel()
+                {
+                    RoleModuleId = Convert.ToInt32(RoleModuleId),
+                    ModuleOption = new List<GenericItemModel>()
+                     {
+                         new GenericItemModel()
+                         {
+                             ItemId = !string.IsNullOrEmpty(oDataToUpsert.ModuleOptionId) ? Convert.ToInt32(oDataToUpsert.ModuleOptionId) : 0,
+                             ItemName = oDataToUpsert.ModuleOption,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = (int)BackOffice.Models.General.enumAdminRole.Option,
+                             },
+                             Enable = oDataToUpsert.Enable,
+                         },
+                     },
+                };
+
+                ProveedoresOnLine.Company.Controller.Company.ModuleOptionUpsert(oOptionModule);
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminModuleOptionViewModel> ModuleOptionInfoAdmin
+            (string ModuleOptionInfoAdmin,
+            string ModuleOptionId,
+            string ViewEnable)
+        {
+            List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
+            List<GenericItemInfoModel> oExchange = new List<GenericItemInfoModel>();
+
+            if (ModuleOptionInfoAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.GetModuleOptionInfoSearch(Convert.ToInt32(ModuleOptionId), Convert.ToBoolean(ViewEnable));
+
+                if (oExchange != null &&
+                    oExchange.Count > 0)
+                {
+                    oExchange.All(x =>
+                    {
+                        oReturn.Add(new AdminModuleOptionViewModel(x));
+
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminModuleOptionViewModel> ModuleOptionInfoUpsert
+            (string ModuleOptionInfoUpsert,
+            string ModuleOptionId)
+        {
+            List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
 
             return oReturn;
         }

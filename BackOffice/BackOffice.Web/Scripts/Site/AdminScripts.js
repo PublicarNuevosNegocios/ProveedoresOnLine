@@ -1689,7 +1689,6 @@
 
 var Admin_CompanyRoleObject = {
     ObjectId: '',
-    ObjectType: '',
     RoleCompanyId: '',
     RoleModuleId: '',
     RoleOptionId: '',
@@ -1739,18 +1738,18 @@ var Admin_CompanyRoleObject = {
         });
     },
 
-    RenderAsync: function () {
-        if (Admin_CompanyRoleObject.ObjectType == '801002') {
+    RenderAsync: function (vRenderObject) {
+        if (vRenderObject.ObjectType == '801002') {
             Admin_CompanyRoleObject.RenderRoleCompanyUpsert();
         }
-        else if (Admin_CompanyRoleObject.ObjectType == '801001') {
+        else if (vRenderObject.ObjectType == '801001') {
             Admin_CompanyRoleObject.RenderRoleModuleUpsert();
         }
-        else if (Admin_CompanyRoleObject.ObjectType == '801003') {
-            Admin_CompanyRoleObject.RenderModuleOptionUpsert();
+        else if (vRenderObject.ObjectType == '801003') {
+            Admin_CompanyRoleObject.RenderModuleOptionUpsert(vRenderObject);
         }
-        else if (Admin_CompanyRoleObject.ObjectType == '801004') {
-
+        else if (vRenderObject.ObjectType == '801004') {
+            Admin_CompanyRoleObject.RenderModuleOptionInfoUpsert(vRenderObject);
         }
 
         //Render config options
@@ -1997,7 +1996,6 @@ var Admin_CompanyRoleObject = {
                         var data = this.dataItem(tr);
                         //validate SurveyConfigId attribute
                         if (data.RoleCompanyId != null && data.RoleCompanyId.length > 0) {
-                            debugger;
                             window.location = Admin_CompanyRoleObject.RoleModuleUpsertUrl.replace(/\${RoleCompanyId}/gi, data.RoleCompanyId);
                         }
                     }
@@ -2038,7 +2036,7 @@ var Admin_CompanyRoleObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al cargar la información.');
                             }
                         });
                     },
@@ -2052,11 +2050,11 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se agregó el nuevo módulo');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al agregar el nuevo módulo');
                             }
                         });
                     },
@@ -2070,10 +2068,11 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('succes', 'Se edito el registro');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al editar el registro');
                             }
                         });
                     },
@@ -2125,7 +2124,7 @@ var Admin_CompanyRoleObject = {
                             optionLabel: 'Seleccione una opción'
                         });
                 },
-            },  {
+            }, {
                 title: "&nbsp;",
                 width: "200px",
                 command: [{
@@ -2138,7 +2137,16 @@ var Admin_CompanyRoleObject = {
                         var data = this.dataItem(tr);
                         //validate SurveyConfigId attribute
                         if (data.RoleModuleId != null && data.RoleModuleId.length > 0) {
-                            window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace(/\${RoleModuleId}/gi, data.RoleModuleId);
+                            //validate to redirect for selected module
+                            if (data.RoleModule == "804001") {
+                                window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace('amp;', '').replace(/\${RoleCompanyId}/gi, Admin_CompanyRoleObject.RoleCompanyId).replace(/\${RoleModuleId}/gi, data.RoleModuleId);
+                            }
+                            else if (data.RoleModule == "804003") {
+                                window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace('amp;', '').replace(/\${RoleCompanyId}/gi, Admin_CompanyRoleObject.RoleCompanyId).replace(/\${RoleModuleId}/gi, data.RoleModuleId);
+                            }
+                            else {
+                                Message('error', 'El módulo seleccionado no tiene opciones por agregar.');
+                            }                            
                         }
                     }
                 }],
@@ -2146,8 +2154,8 @@ var Admin_CompanyRoleObject = {
         });
     },
 
-    RenderModuleOptionUpsert: function () {
-        $('#' + Admin_CompanyRoleObject.ObjectId).kendoGrid({
+    RenderModuleOptionUpsert: function (vRenderObject) {
+        $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).kendoGrid({
             editable: true,
             navigatable: false,
             pageable: false,
@@ -2178,45 +2186,46 @@ var Admin_CompanyRoleObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al cargar la información');
                             }
                         });
                     },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', '0');
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', '');
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', '');
-                    //        }
-                    //    });
-                    //},
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionUpsert=true&RoleModuleId=' + Admin_CompanyRoleObject.RoleModuleId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se agregó un nuevo menú');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'El menú no se pudo agregar');
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionUpsert=true&RoleModuleId=' + Admin_CompanyRoleObject.RoleModuleId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('sucess', 'Se modificó el registro correctamente');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al modificar el registro');
+                            }
+                        });
+                    },
                 },
                 requestStart: function () {
                     kendo.ui.progress($("#loading"), true);
@@ -2248,7 +2257,7 @@ var Admin_CompanyRoleObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción';
                     $.each(Admin_CompanyRoleObject.ModuleList, function (item, value) {
-                        if (value.ItemId == dataItem.RoleModule) {
+                        if (value.ItemId == dataItem.ModuleOption) {
                             oReturn = value.ItemName;
                         }
                     });
@@ -2277,8 +2286,13 @@ var Admin_CompanyRoleObject = {
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
                         //validate SurveyConfigId attribute
-                        if (data.RoleModuleId != null && data.RoleModuleId.length > 0) {
-                            //window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace(/\${RoleModuleId}/gi, data.RoleModuleId);
+                        if (data.ModuleOptionId != null && data.ModuleOptionId.length > 0) {
+
+                            Admin_CompanyRoleObject.ModuleOptionId = data.ModuleOptionId;
+                            Admin_CompanyRoleObject.RenderAsync({
+                                ObjectType: '801004',
+                                Title: data.ModuleOptionTypeName,
+                            });
                         }
                     }
                 }],
@@ -2286,7 +2300,137 @@ var Admin_CompanyRoleObject = {
         });
     },
 
-    RenderModuleOptionInfoUpsert: function () {
+    RenderModuleOptionInfoUpsert: function (vRenderObject) {
+        if ($('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data("kendoGrid")) {
+            //destroy kendo grid if exist
+
+            // destroy the Grid
+            $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data("kendoGrid").destroy();
+            // empty the Grid content (inner HTML)
+            $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).empty();
+        }
+
+        $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).kendoGrid({
+            editable: true,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() }],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'RoleModuleId',
+                        fields: {
+                            RoleModule: { editable: true, nullable: false },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoAdmin=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId + '&ViewEnable=' + Admin_CompanyRoleObject.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al cargar la información.');
+                            }
+                        });
+                    },
+                    //create: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //            Message('success', 'Se agregó el nuevo módulo');
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //            Message('error', 'Error al agregar el nuevo módulo');
+                    //        }
+                    //    });
+                    //},
+                    //update: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //            Message('succes', 'Se edito el registro');
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //            Message('error', 'Error al editar el registro');
+                    //        }
+                    //    });
+                    //},
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
+            },
+            columns: [{
+                field: 'Enable',
+                title: 'Enable',
+                width: '50px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si';
+                    }
+                    else {
+                        oReturn = 'No';
+                    }
+
+                    return oReturn;
+                },
+            }, {
+                field: 'RoleModule',
+                title: 'Módulo',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción';
+                    $.each(Admin_CompanyRoleObject.ModuleList, function (item, value) {
+                        if (value.ItemId == dataItem.RoleModule) {
+                            oReturn = value.ItemName;
+                        }
+                    });
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CompanyRoleObject.ModuleList,
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }],
+        });
     },
 }
 

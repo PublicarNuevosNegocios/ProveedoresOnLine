@@ -63,9 +63,10 @@
                 Admin_CompanyRoleObject.Init({
                     ObjectId: 'divGridAdminRole',
                     RoleModuleUpsertUrl: '@AdminModuleUrl',
+                });
+                Admin_CompanyRoleObject.RenderAsync({
                     ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Role)',
                 });
-                Admin_CompanyRoleObject.RenderAsync();
             });
     </script>
 }

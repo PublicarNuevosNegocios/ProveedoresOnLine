@@ -2409,7 +2409,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vRoleModuleId", RoleModuleId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionsId", ModuleOptionId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionId", ModuleOptionId));
             lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionType", ModuleOptionType));
             lstParams.Add(DataInstance.CreateTypedParameter("vModuleOption", ModuleOption));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
@@ -2668,6 +2668,59 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          Enable = mog.Key.Enable,
                          LastModify = mog.Key.LastModify,
                          CreateDate = mog.Key.CreateDate,
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vModuleOptionId", ModuleOptionId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_ModuleOptionInfo_Search",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemInfoModel> oReturn = new List<GenericItemInfoModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from moi in response.DataTableResult.AsEnumerable()
+                     where !moi.IsNull("ModuleOptionInfoId")
+                     group moi by new
+                     {
+                         ModuleOptionInfoId = moi.Field<int>("ModuleOptionInfoId"),
+                         ModuleOptionInfoTypeId = moi.Field<int>("ModuleOptionInfoTypeId"),
+                         ModuleOptionInfoTypeName = moi.Field<string>("ModuleOptionInfoTypeName"),
+                         ModuleOptionInfoValue = moi.Field<string>("ModuleOptionInfoValue"),
+                         ModuleOptionInfoLargeValue = moi.Field<string>("ModuleOptionInfoLargeValue"),
+                         Enable = moi.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = moi.Field<DateTime>("LastModify"),
+                         CreateDate = moi.Field<DateTime>("CreateDate"),
+                     } into moig
+                     select new GenericItemInfoModel()
+                     {
+                         ItemInfoId = moig.Key.ModuleOptionInfoId,
+                         ItemInfoType = new CatalogModel()
+                         {
+                             ItemId = moig.Key.ModuleOptionInfoTypeId,
+                             ItemName = moig.Key.ModuleOptionInfoTypeName,
+                         },
+                         Value = moig.Key.ModuleOptionInfoValue,
+                         LargeValue = moig.Key.ModuleOptionInfoLargeValue,
+                         Enable = moig.Key.Enable,
+                         LastModify = moig.Key.LastModify,
+                         CreateDate = moig.Key.CreateDate,
                      }).ToList();
             }
 

@@ -18,14 +18,18 @@
             <label class="POBOSectionTitles">Administración de información del proveedor</label>
             <a href="@(Url.Action(
                 MVC.Administrator.ActionNames.AdminModule,
-                MVC.Administrator.Name))">Regresar al listado de módulos</a>
+                MVC.Administrator.Name,
+                new { RoleCompanyId = Model.RelatedRole.RoleCompanyId }))">Regresar al listado de módulos</a>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <div id="loading"></div>
-            <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
-            <div id="divGridAdminProvider"></div>
+            <label>Administración de menú del proveedor</label>
+            <div id="divGridOption_@((int)BackOffice.Models.General.enumAdminRole.Option)"></div>
+            <br />
+            <label>Adminitración de sub-menú del proveedor</label>
+            <div id="divGridOption_@((int)BackOffice.Models.General.enumAdminRole.OptionInfo)"></div>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
@@ -36,19 +40,14 @@
 
 <!--templates-->
 <div style="display:none;">
-
-    <div id="divGridAdminProvider_ShortcutToolTipTemplate">
+    <!--template provider info menu-->
+    <div id="divGridOption_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
     </div>
 
-    <div id="divGridAdminProvider_ViewEnablesTemplate">
+    <div id="divGridOption_ViewEnablesTemplate">
         <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridAdminProvider_ViewEnable" type="checkbox" checked="checked" />
-    </div>
-
-    <div id="divGridAdminProvider_SearchTemplate">
-        <input class="POBOSurveySearchInput" id="divGridAdminProvider_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar rol por nombre o por cliente" />
-        <a class="POBOSearchEvaluations" href="javascript:Admin_CompanyRoleObject.Search();">Buscar</a>
+        <input class="POBOProviderGridEnableContact" id="divGridOption_ViewEnable" type="checkbox" checked="checked" />
     </div>
 </div>
 
@@ -70,13 +69,14 @@
     <script type="text/javascript">
             $(document).ready(function () {
                 Admin_CompanyRoleObject.Init({
-                    ObjectId: 'divGridAdminProvider',
-                    RoleModuleId: '@(1)',
+                    ObjectId: 'divGridOption',
+                    RoleModuleId: '@(Model.RelatedRole.RoleModule.FirstOrDefault().RoleModuleId)',
                     RoleOptionInfoUpsertUrl: '@AdminOptionInfoUrl',
                     ModuleList: @Html.Raw(oModuleOptionList),
+                });
+                Admin_CompanyRoleObject.RenderAsync({
                     ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Option)',
                 });
-                Admin_CompanyRoleObject.RenderAsync();
             });
     </script>
 }

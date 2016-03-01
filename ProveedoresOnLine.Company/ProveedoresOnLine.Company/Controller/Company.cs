@@ -922,9 +922,52 @@ namespace ProveedoresOnLine.Company.Controller
             return CompanyToUpsert;
         }
 
-        public static int ModuleOptionUpsert(int RoleModuleId, int? ModuleOptionId, int ModuleOptionType, string ModuleOption, bool Enable)
+        public static RoleModuleModel ModuleOptionUpsert(RoleModuleModel RoleModuleToUpsert)
         {
-            return DAL.Controller.CompanyDataController.Instance.ModuleOptionUpsert(RoleModuleId, ModuleOptionId, ModuleOptionType, ModuleOption, Enable);
+            if (RoleModuleToUpsert != null &&
+                RoleModuleToUpsert.ModuleOption != null &&
+                RoleModuleToUpsert.ModuleOption.Count > 0)
+            {
+                LogManager.Models.LogModel oLog = GetGenericLogModel();
+
+                RoleModuleToUpsert.ModuleOption.All(x =>
+                {
+                    try
+                    {
+                        x.ItemId = DAL.Controller.CompanyDataController.Instance.ModuleOptionUpsert(
+                            RoleModuleToUpsert.RoleModuleId,
+                            x.ItemId,
+                            x.ItemType.ItemId,
+                            x.ItemName,
+                            x.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = x;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ModuleOptionId",
+                            Value = x.ItemId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return RoleModuleToUpsert;
         }
 
         public static int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable)
@@ -950,6 +993,11 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<GenericItemModel> GetModuleOptionSearch(int RoleModuleId, bool Enable)
         {
             return DAL.Controller.CompanyDataController.Instance.GetModuleOptionSearch(RoleModuleId, Enable);
+        }
+
+        public static List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.GetModuleOptionInfoSearch(ModuleOptionId, Enable);
         }
 
         #endregion
