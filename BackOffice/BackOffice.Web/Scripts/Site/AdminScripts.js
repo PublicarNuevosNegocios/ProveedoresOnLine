@@ -1739,7 +1739,6 @@ var Admin_CompanyRoleObject = {
     },
 
     RenderAsync: function (vRenderObject) {
-        debugger;
         if (vRenderObject.ObjectType == '801002') {
             Admin_CompanyRoleObject.RenderRoleCompanyUpsert();
         }
@@ -2139,7 +2138,6 @@ var Admin_CompanyRoleObject = {
                         //validate SurveyConfigId attribute
                         if (data.RoleModuleId != null && data.RoleModuleId.length > 0) {
                             //validate to redirect for selected module
-                            debugger;
                             if (data.RoleModule == "804001") {
                                 window.location = Admin_CompanyRoleObject.RoleOptionUpsertUrl.replace('amp;', '').replace(/\${RoleCompanyId}/gi, Admin_CompanyRoleObject.RoleCompanyId).replace(/\${RoleModuleId}/gi, data.RoleModuleId);
                             }
@@ -2288,7 +2286,6 @@ var Admin_CompanyRoleObject = {
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
                         //validate SurveyConfigId attribute
-                        debugger;
                         if (data.ModuleOptionId != null && data.ModuleOptionId.length > 0) {
 
                             Admin_CompanyRoleObject.ModuleOptionId = data.ModuleOptionId;
