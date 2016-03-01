@@ -1316,6 +1316,46 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<AdminModuleOptionViewModel> ModuleOptionInfoAdmin
+            (string ModuleOptionInfoAdmin,
+            string ModuleOptionId,
+            string ViewEnable)
+        {
+            List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
+            List<GenericItemInfoModel> oExchange = new List<GenericItemInfoModel>();
+
+            if (ModuleOptionInfoAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.GetModuleOptionInfoSearch(Convert.ToInt32(ModuleOptionId), Convert.ToBoolean(ViewEnable));
+
+                if (oExchange != null &&
+                    oExchange.Count > 0)
+                {
+                    oExchange.All(x =>
+                    {
+                        oReturn.Add(new AdminModuleOptionViewModel(x));
+
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminModuleOptionViewModel> ModuleOptionInfoUpsert
+            (string ModuleOptionInfoUpsert,
+            string ModuleOptionId)
+        {
+            List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
+
+            return oReturn;
+        }
+
         #endregion
     }
 }

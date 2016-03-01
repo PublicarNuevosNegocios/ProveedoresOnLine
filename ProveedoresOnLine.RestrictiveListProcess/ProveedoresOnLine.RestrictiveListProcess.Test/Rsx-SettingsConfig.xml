@@ -4,6 +4,12 @@
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
   </Module>  
   <Module name="RestrictiveListProcess">
-    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\RestrictiveListProcess\Rsx-RestrictiveListProcess.xml</key>
+    <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-RestrictiveListProcess.xml</key>
+  </Module>
+  <Module name="ThirdKnowledge">
+    <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\Rsx-ThirdKnowledge.xml</key>
+  </Module>
+  <Module name="FileRepository">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-FileRepository.xml</key>
   </Module>
 </SettingsConfig>

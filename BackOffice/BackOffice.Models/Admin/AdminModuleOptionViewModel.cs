@@ -10,6 +10,11 @@ namespace BackOffice.Models.Admin
     {
         ProveedoresOnLine.Company.Models.Util.GenericItemModel oModuleOptions { get; set; }
 
+        ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel oModuleOptionInfo { get; set; }
+
+
+        #region ModuleOption
+
         public string ModuleOptionId { get; set; }
 
         public string ModuleOption { get; set; }
@@ -17,6 +22,22 @@ namespace BackOffice.Models.Admin
         public string ModuleOptionTypeId { get; set; }
 
         public string ModuleOptionTypeName { get; set; }
+
+        #endregion
+
+        #region ModuleOptionInfo
+
+        public string ModuleOptionInfoId { get; set; }
+
+        public string ModuleOptionInfoTypeId { get; set; }
+
+        public string ModuleOptionInfoTypeName { get; set; }
+
+        public string ModuleOptionInfoValue { get; set; }
+
+        public string ModuleOptionInfoLargeValue { get; set; }
+
+        #endregion
 
         public bool Enable { get; set; }
 
@@ -43,6 +64,27 @@ namespace BackOffice.Models.Admin
             this.LastModify = oModuleOptions.LastModify.ToString();
 
             this.CreateDate = oModuleOptions.CreateDate.ToString();
+        }
+
+        public AdminModuleOptionViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel oRelatedModuleOptionInfo)
+        {
+            oModuleOptionInfo = oRelatedModuleOptionInfo;
+
+            this.ModuleOptionInfoId = oModuleOptionInfo.ItemInfoId.ToString();
+
+            this.ModuleOptionInfoTypeId = oModuleOptionInfo.ItemInfoType.ItemId.ToString();
+
+            this.ModuleOptionInfoTypeName = oModuleOptionInfo.ItemInfoType.ItemName;
+
+            this.ModuleOptionInfoValue = oModuleOptionInfo.Value;
+
+            this.ModuleOptionInfoLargeValue = oModuleOptionInfo.LargeValue;
+
+            this.Enable = oModuleOptionInfo.Enable;
+
+            this.LastModify = oModuleOptionInfo.LastModify.ToString();
+
+            this.CreateDate = oModuleOptionInfo.CreateDate.ToString();
         }
     }
 }

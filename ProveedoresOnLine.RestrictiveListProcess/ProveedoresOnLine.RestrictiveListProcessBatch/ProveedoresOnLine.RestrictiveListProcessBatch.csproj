@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
@@ -45,6 +48,12 @@
     <Reference Include="ProveedoresOnLine.CompanyProvider">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.FileManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.ThirdKnowledge">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\developer\ProveedoresOnLine.ThirdKnowledge.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -54,6 +63,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,6 +83,9 @@
       <Project>{bf8a7986-d093-44df-951c-6ca13609e9a9}</Project>
       <Name>ProveedoresOnLine.RestrictiveListProcess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

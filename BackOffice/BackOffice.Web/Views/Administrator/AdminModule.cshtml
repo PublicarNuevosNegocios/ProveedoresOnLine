@@ -70,9 +70,10 @@
                 RoleCompanyId: '@(Model.RelatedRole.RoleCompanyId)',
                 RoleOptionUpsertUrl: '@(AdminOptionUrl)',
                 ModuleList: @Html.Raw(oModuleOptionList),
+            });
+            Admin_CompanyRoleObject.RenderAsync({
                 ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Module)',
             });
-            Admin_CompanyRoleObject.RenderAsync();
         });
     </script>
 }

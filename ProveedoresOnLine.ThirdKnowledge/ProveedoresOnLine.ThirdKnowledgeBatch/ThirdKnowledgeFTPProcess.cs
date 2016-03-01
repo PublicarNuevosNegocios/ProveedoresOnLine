@@ -452,8 +452,8 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
                             return true;
                         });
-
                     }
+
                     //Remove all Files
                     //remove temporal file
                     if (System.IO.File.Exists(strFolder + oQuery.FileName))

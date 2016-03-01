@@ -995,6 +995,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.GetModuleOptionSearch(RoleModuleId, Enable);
         }
 
+        public static List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.GetModuleOptionInfoSearch(ModuleOptionId, Enable);
+        }
+
         #endregion
 
         #region Generic Log

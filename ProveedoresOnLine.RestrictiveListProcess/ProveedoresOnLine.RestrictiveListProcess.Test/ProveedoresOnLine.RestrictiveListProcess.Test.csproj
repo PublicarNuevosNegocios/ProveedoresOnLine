@@ -38,6 +38,9 @@
     <Reference Include="ADO">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\ADO.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Data.dll</HintPath>
     </Reference>
@@ -56,6 +59,12 @@
     <Reference Include="ProveedoresOnLine.CompanyProvider">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.FileManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.ThirdKnowledge">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\developer\ProveedoresOnLine.ThirdKnowledge.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -63,6 +72,7 @@
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -83,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Rsx-RestrictiveListProcess.xml" />
