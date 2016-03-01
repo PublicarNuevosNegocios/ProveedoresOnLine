@@ -27,6 +27,10 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch.Models
 
         public const string C_Settings_PublicarPublicId = "PublicarPublicId";
 
+        public const string C_Settings_File_TempDirectory = "TK_CP_File_TempDirectory";
+
+        public const string C_Settings_File_ExcelDirectory = "TK_CP_File_ExcelDirectory";
+
         #endregion
     }
 }

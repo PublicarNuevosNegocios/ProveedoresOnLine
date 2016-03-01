@@ -1,8 +1,10 @@
-﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+﻿using OfficeOpenXml;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
 using ProveedoresOnLine.RestrictiveListProcessBatch.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +21,12 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                 //Set RestrictiveListProcessModel
                 RestrictiveListProcessModel oModelToProcess = new RestrictiveListProcessModel();
                 oModelToProcess.RelatedProvider = new List<ProviderModel>();
-                
+
+                string strFolder = ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_Settings_File_TempDirectory].Value;
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
                 //Build Excel File for Provider Status
                 oModelToProcess.strListProviderStatus.All(x =>
                 {
@@ -28,40 +35,67 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                     if (oModelToProcess.RelatedProvider.Count > 0)
                     {
                         //Write the document
-                        StringBuilder data = new StringBuilder();
-                        string strSep = ";";
+                        // Set the file name and get the output directory
+                        string fileName = "BlackList_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmss") + ".xlsx";
 
-                        oModelToProcess.RelatedProvider.All(y =>
+                        // Create the file using the FileInfo object
+                        FileInfo file = new FileInfo(strFolder + fileName);
+
+                        // Create the package and make sure you wrap it in a using statement
+                        using (var package = new ExcelPackage(file))
                         {
-                            if (oModelToProcess.RelatedProvider.IndexOf(y) == 0)
+                            // add a new worksheet to the empty workbook
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Hoja 1");
+
+                            // Start adding the header
+                            // First of all the first row
+                            worksheet.Cells[1, 1].Value = ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColPersonType].Value;
+                            worksheet.Cells[1, 2].Value = ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColIdNumber].Value;
+                            worksheet.Cells[1, 3].Value = ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColIdName].Value;
+
+                            int row = 1;
+                            oModelToProcess.RelatedProvider.All(y =>
                             {
-                                data.AppendLine
-                                ("\"" + ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColPersonType].Value    + "\"" + strSep +
-                                    "\"" + ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColIdNumber].Value + "\"" + strSep +
-                                    "\"" + ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_TK_CP_ColIdName].Value + "\"");
-                                data.AppendLine
-                                    ("\"" + "J" + "\"" + "" + strSep +
-                                    "\"" + y.RelatedCompany.IdentificationNumber + "\"" + strSep +
-                                    "\"" + y.RelatedCompany.IdentificationType.ItemName + "\"");
+                                row++;
+
+                                //Company
+                                worksheet.Cells[row, 1].Value = "J";
+                                worksheet.Cells[row, 2].Value = y.RelatedCompany.IdentificationNumber;
+                                worksheet.Cells[row, 3].Value = y.RelatedCompany.CompanyName;
+
                                 if (y.RelatedLegal != null && y.RelatedLegal.Count > 0)
                                 {
                                     y.RelatedLegal.All(z =>
                                     {
-                                        data.AppendLine
-                                            (
-                                                "\"" + "J" + "\"" + strSep +
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +                                                
-                                                "\"" + z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"");
+                                        row++;
+
+                                        //Persons
+                                        worksheet.Cells[row, 1].Value = "N";
+                                        worksheet.Cells[row, 2].Value = z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault();
+                                        worksheet.Cells[row, 3].Value = z.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault();
+
                                         return true;
                                     });
                                 }
-                            }                           
-                            return true;
-                        });
+                                return true;
+                            });
 
-                        byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
+                            package.Save();
+                        }
+
+                        string oFileCompleteName = strFolder + fileName;
+                        //UpLoad file to s3
+                        string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile(oFileCompleteName, "https://s3.amazonaws.com/devproveedoresonline/MarketPlace/ThirdKnowledge/");
+                            //ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_Settings_File_ExcelDirectory].Value);
+
+                        //Upload File
+                        bool isLoaded = false;
+                        isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(fileName, strFolder, string.Empty);
+
+                        //remove temporal file
+                        if (System.IO.File.Exists(strFolder + fileName))
+                            System.IO.File.Delete(strFolder + fileName);
                     }
-
                     return true;
                 });
 
