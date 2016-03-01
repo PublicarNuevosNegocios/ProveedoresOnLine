@@ -183,3 +183,34 @@ $(document).ready(function () {
         }
     });
 });
+
+var ReportViewerObj = {    
+    RenderReportViewer: function (vInitObject) {
+        debugger;
+        var Form = '';
+        var cmbToAppend = '<select>';
+
+        $.each(vInitObject.Options, function (item, value)
+        {
+            debugger;
+            if (value == "EXCEL" || value == "Excel" ) {
+                cmbToAppend += ' <option value="xlsx">' + value + '</option>';
+            }
+            else if (value == "Pdf" || value == "PDF") {
+                cmbToAppend += ' <option value="pdf">' + value + '</option>';
+            }            
+        });        
+        cmbToAppend += '</select>';
+        Fomr = $('#' + vInitObject.ObjectId + '_DialogForm').append(cmbToAppend);
+
+        $('#' + vInitObject.ObjectId + '_Dialog').dialog({
+            modal: true,
+            buttons: {               
+                'Descargar': function () {
+                    $('#' + vInitObject.ObjectId + '_DialogForm').submit();
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+}
