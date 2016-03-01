@@ -349,6 +349,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.GetModuleOptionSearch(RoleModuleId, Enable);
         }
 
+        public List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable)
+        {
+            return DataFactory.GetModuleOptionInfoSearch(ModuleOptionId, Enable);
+        }
+
         #endregion
 
         #region Restrictive List

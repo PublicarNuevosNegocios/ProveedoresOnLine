@@ -148,7 +148,9 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         RoleCompanyModel GetRoleModuleSearch(int RoleCompanyId, bool Enable);
 
-        List<GenericItemModel> GetModuleOptionSearch(int RoleModuleId, bool Enable);        
+        List<GenericItemModel> GetModuleOptionSearch(int RoleModuleId, bool Enable);
+
+        List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable);
 
         #endregion
 
