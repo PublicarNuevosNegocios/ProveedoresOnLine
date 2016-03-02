@@ -41,9 +41,9 @@
                                                     }))">
 
                                     @{
-                                        <a id="POMPButtonDownloadReports" title="Descargar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['PDF','EXCEL'],ObjectId:'ThirdKnowledge'})">Descargar Reporte</a>
+                                        <a id="POMPButtonDownloadReports" title="Descargar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['PDF','EXCEL'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Descargar Reporte</a>
                                     }
-                                    <input type="hidden" name="DownloadReport" value="true" />
+                                    @*<input type="hidden" name="DownloadReport" value="true" />*@
                                 </form>
                             </div>
                             <div class="row text-center ThirdKnowledge_GoBack">
@@ -91,7 +91,7 @@
             InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
             EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
         })" method="post">
-        <input type="hidden" name="DownloadReport" value="true" />
+        
 
     </form>
 </div>
@@ -106,17 +106,9 @@
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 
-    <script type="text/javascript">
-       
-
-        Options = ["Excel", "PDF"];
-
+    <script type="text/javascript">       
 
         $(document).ready(function () {
-
-
-
-
             Third_KnowledgeDetailSearch.Init({
                 ObjectId: 'ThirdKnowledge',
                 QueryPublicId: '@QueryPublicId',

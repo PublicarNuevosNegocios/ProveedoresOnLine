@@ -188,8 +188,7 @@ var ReportViewerObj = {
     RenderReportViewer: function (vInitObject) {
         debugger;
         var Form = '';
-        var cmbToAppend = '<select name= "fileType">';
-
+        var cmbToAppend = '<select name= "'+ vInitObject.ObjectId +'_cmbFormat">';        
         $.each(vInitObject.Options, function (item, value)
         {
             debugger;
@@ -202,11 +201,13 @@ var ReportViewerObj = {
         });        
         cmbToAppend += '</select>';
 
-        $('#ui-id-1').val("titulo");
+        cmbToAppend += '<input type="hidden" name="DownloadReport" id="DownloadReport" value="true" />';
+         
         Form = $('#' + vInitObject.ObjectId + '_DialogForm').empty();
         Form = $('#' + vInitObject.ObjectId + '_DialogForm').append(cmbToAppend);
 
         $('#' + vInitObject.ObjectId + '_Dialog').dialog({
+            tittle:vInitObject.Tittle,
             modal: true,
             buttons: {               
                 'Descargar': function () {
