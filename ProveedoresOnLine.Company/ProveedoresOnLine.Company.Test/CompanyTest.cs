@@ -398,9 +398,27 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void ModuleOptionInfo()
         {
-            int oReturn = ProveedoresOnLine.Company.Controller.Company.ModuleOptionInfoUpsert(1, null, 1, "Value", "LargeValue", true);
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oModel = new Models.Util.GenericItemModel()
+            {
+                ItemId = 1,
+                ItemInfo = new List<Models.Util.GenericItemInfoModel>()
+                {
+                    new Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new Models.Util.CatalogModel()
+                        {
+                            ItemId = 801001,
+                        },
+                        Value = "806001",
+                        Enable = true,
+                    },
+                },
+            };
 
-            Assert.AreEqual(true, oReturn > 0);
+            ProveedoresOnLine.Company.Controller.Company.ModuleOptionInfoUpsert(oModel);
+
+            Assert.AreEqual(true, oModel.ItemInfo != null && oModel.ItemInfo.Count > 0);
         }
 
     }

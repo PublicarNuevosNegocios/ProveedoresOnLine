@@ -63,6 +63,28 @@
         string oModuleOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
         Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 805).ToList());
 
+        string oGeneralInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 807).ToList());
+
+        string oLegalInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 808).ToList());
+
+        string oFinancialInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 809).ToList());
+
+        string oCommercialInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 810).ToList());
+
+        string oHSEQInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 811).ToList());
+
+        string oAditionallInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 812).ToList());
+
+        string oSurveyInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 813).ToList());
+
+
         string AdminOptionInfoUrl = "";
     }
 
@@ -73,6 +95,14 @@
                     RoleModuleId: '@(Model.RelatedRole.RoleModule.FirstOrDefault().RoleModuleId)',
                     RoleOptionInfoUpsertUrl: '@AdminOptionInfoUrl',
                     ModuleList: @Html.Raw(oModuleOptionList),
+                    //Provider info menu items
+                    GeneralInfoList: @Html.Raw(oGeneralInfoList),
+                    LegalInfoList: @Html.Raw(oLegalInfoList),
+                    FinancialInfoList: @Html.Raw(oFinancialInfoList),
+                    CommercialInfoList: @Html.Raw(oCommercialInfoList),
+                    HSEQInfoList: @Html.Raw(oHSEQInfoList),
+                    AditionallInfoList: @Html.Raw(oAditionallInfoList),
+                    SurveyInfoList: @Html.Raw(oSurveyInfoList),
                 });
                 Admin_CompanyRoleObject.RenderAsync({
                     ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Option)',
