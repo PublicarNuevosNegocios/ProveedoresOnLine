@@ -22,20 +22,7 @@
                     </div>
                     <div class="col-sm-4 text-right">
                         <div class="POMPDownloadReportsTop">
-                            <form id="frmThirdKnowledgeUpsert"
-                                    method="post"
-                                    action="@(Url.Action
-                                    (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
-                                    MVC.ThirdKnowledge.Name,
-                                    new
-                                    {
-                                        QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
-                                        ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
-                                    }))">
-                                <button class="POMPButtonDownloadReport_TK" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                <input type="hidden" name="DownloadReport" value="true" />
-                            </form>
-
+                                <button class="POMPButtonDownloadReport_TK" type="submit" title="Generar Reporte" onclick="javascript: ReportViewerObj.RenderReportViewer({ Options: ['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()', '@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'], ObjectId: 'ThirdKnowledge', Tittle: 'Reporte detalle de consulta' })">Generar Reporte</button>
                         </div>
                     </div>
                 </div>
@@ -138,6 +125,19 @@
        
     </div> 
 </div>
+
+@* Templates *@
+<div id="ThirdKnowledge_Dialog">
+    <form id="ThirdKnowledge_DialogForm" action="@(Url.Action
+                                    (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                    MVC.ThirdKnowledge.Name,
+                                    new
+                                    {
+                                        QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
+                                        ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
+                                    }))" method="post"></form>
+</div>
+
 
 @{
     Model.RenderScripts = true;
