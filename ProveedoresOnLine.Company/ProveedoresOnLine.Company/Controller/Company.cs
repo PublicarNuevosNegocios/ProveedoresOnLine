@@ -970,9 +970,53 @@ namespace ProveedoresOnLine.Company.Controller
             return RoleModuleToUpsert;
         }
 
-        public static int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable)
+        public static GenericItemModel ModuleOptionInfoUpsert(GenericItemModel GenericItemToUpsert)
         {
-            return DAL.Controller.CompanyDataController.Instance.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
+            if (GenericItemToUpsert != null &&
+                GenericItemToUpsert.ItemInfo != null &&
+                GenericItemToUpsert.ItemInfo.Count > 0)
+            {
+                LogManager.Models.LogModel oLog = GetGenericLogModel();
+
+                GenericItemToUpsert.ItemInfo.All(x =>
+                {
+                    try
+                    {
+                        x.ItemInfoId = DAL.Controller.CompanyDataController.Instance.ModuleOptionInfoUpsert(
+                            GenericItemToUpsert.ItemId,
+                            x.ItemInfoId,
+                            x.ItemInfoType.ItemId,
+                            x.Value,
+                            x.LargeValue,
+                            x.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = x;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ModuleOptionInfoId",
+                            Value = x.ItemInfoId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return GenericItemToUpsert;
         }
 
         public static List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)

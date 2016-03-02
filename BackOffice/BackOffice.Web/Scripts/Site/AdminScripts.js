@@ -1696,6 +1696,16 @@ var Admin_CompanyRoleObject = {
     RoleOptionUpsertUrl: '',
     RoleOptionInfoUpsertUrl: '',
     ModuleList: '',
+    //ProviderList
+    GeneralInfoList: '',
+    LegalInfoList: '',
+    FinancialInfoList: '',
+    CommercialInfoList: '',
+    HSEQInfoList: '',
+    AditionallInfoList: '',
+    SurveyInfoList: '',
+
+    ProviderInfoList: '',
     AdminOptions: new Array(),
 
     Init: function (vInitObject) {
@@ -1708,6 +1718,15 @@ var Admin_CompanyRoleObject = {
         this.RoleOptionUpsertUrl = vInitObject.RoleOptionUpsertUrl;
         this.RoleOptionInfoUpsertUrl = vInitObject.RoleOptionInfoUpsertUrl;
         this.ModuleList = vInitObject.ModuleList;
+        //ProviderInfo menu
+        this.GeneralInfoList = vInitObject.GeneralInfoList;
+        this.LegalInfoList = vInitObject.LegalInfoList;
+        this.FinancialInfoList = vInitObject.FinancialInfoList;
+        this.CommercialInfoList = vInitObject.CommercialInfoList;
+        this.HSEQInfoList = vInitObject.HSEQInfoList;
+        this.AditionallInfoList = vInitObject.AditionallInfoList;
+        this.SurveyInfoList = vInitObject.SurveyInfoList;
+
         if (vInitObject.AdminOptions != null) {
             $.each(vInitObject.AdminOptions, function (item, value) {
                 Admin_CompanyRoleObject.AdminOptions[value.Key] = value.Value;
@@ -2146,7 +2165,7 @@ var Admin_CompanyRoleObject = {
                             }
                             else {
                                 Message('error', 'El módulo seleccionado no tiene opciones por agregar.');
-                            }                            
+                            }
                         }
                     }
                 }],
@@ -2291,7 +2310,7 @@ var Admin_CompanyRoleObject = {
                             Admin_CompanyRoleObject.ModuleOptionId = data.ModuleOptionId;
                             Admin_CompanyRoleObject.RenderAsync({
                                 ObjectType: '801004',
-                                Title: data.ModuleOptionTypeName,
+                                SelectedObject: data.ModuleOption,
                             });
                         }
                     }
@@ -2310,6 +2329,30 @@ var Admin_CompanyRoleObject = {
             $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).empty();
         }
 
+        Admin_CompanyRoleObject.ProviderInfoList = '';
+
+        if (vRenderObject.SelectedObject == '805001') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.GeneralInfoList;
+        }
+        else if (vRenderObject.SelectedObject == '805002') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.LegalInfoList;
+        }
+        else if (vRenderObject.SelectedObject == '805003') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.FinancialInfoList;
+        }
+        else if (vRenderObject.SelectedObject == '805004') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.CommercialInfoList;
+        }
+        else if (vRenderObject.SelectedObject == '805005') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.HSEQInfoList;
+        }
+        else if (vRenderObject.SelectedObject == '805006') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.AditionallInfoList;
+        }
+        else if (vRenderObject.SelectedObject == '805007') {
+            Admin_CompanyRoleObject.ProviderInfoList = Admin_CompanyRoleObject.SurveyInfoList;
+        }
+
         $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).kendoGrid({
             editable: true,
             navigatable: false,
@@ -2324,9 +2367,9 @@ var Admin_CompanyRoleObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: 'RoleModuleId',
+                        id: 'ModuleOptionInfoId',
                         fields: {
-                            RoleModule: { editable: true, nullable: false },
+                            ModuleOptionInfoValue: { editable: true, nullable: false },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
                         }
                     }
@@ -2345,42 +2388,44 @@ var Admin_CompanyRoleObject = {
                             }
                         });
                     },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se agregó el nuevo módulo');
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', 'Error al agregar el nuevo módulo');
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?RoleModuleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('succes', 'Se edito el registro');
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', 'Error al editar el registro');
-                    //        }
-                    //    });
-                    //},
+                    create: function (options) {
+                        debugger;
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoUpsert=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se agregó satisfactoriamente');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al agregar el nuevo módulo');
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        debugger;
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoUpsert=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('succes', 'Se edito el registro');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error al editar el registro');
+                            }
+                        });
+                    },
                 },
                 requestStart: function () {
                     kendo.ui.progress($("#loading"), true);
@@ -2391,7 +2436,7 @@ var Admin_CompanyRoleObject = {
             },
             columns: [{
                 field: 'Enable',
-                title: 'Enable',
+                title: 'Habilitado',
                 width: '50px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -2406,13 +2451,13 @@ var Admin_CompanyRoleObject = {
                     return oReturn;
                 },
             }, {
-                field: 'RoleModule',
-                title: 'Módulo',
+                field: 'ModuleOptionInfoValue',
+                title: 'Sub-menu',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción';
-                    $.each(Admin_CompanyRoleObject.ModuleList, function (item, value) {
-                        if (value.ItemId == dataItem.RoleModule) {
+                    $.each(Admin_CompanyRoleObject.ProviderInfoList, function (item, value) {
+                        if (value.ItemId == dataItem.ModuleOptionInfoValue) {
                             oReturn = value.ItemName;
                         }
                     });
@@ -2423,7 +2468,7 @@ var Admin_CompanyRoleObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Admin_CompanyRoleObject.ModuleList,
+                            dataSource: Admin_CompanyRoleObject.ProviderInfoList,
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
