@@ -39,8 +39,11 @@
                                                         InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
                                                         EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                     }))">
-                                    <button id="POMPButtonDownloadReports" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                    <input type="hidden" name="DownloadReport" value="true" />
+
+                                    @{
+                                        <a id="POMPButtonDownloadReports" title="Descargar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['PDF','EXCEL'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Descargar Reporte</a>
+                                    }
+                                    @*<input type="hidden" name="DownloadReport" value="true" />*@
                                 </form>
                             </div>
                             <div class="row text-center ThirdKnowledge_GoBack">
@@ -78,11 +81,19 @@
             @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeDetail, Model)
         </div>
     </div>
-    <div class="row POMPPoweredby">
-        <div class="col-ms-12 text-right">
-            <label class="POMPPoweredby-font">Powered by Risk Consulting</label>
-        </div>
-    </div>
+</div>
+
+@* Templates *@
+<div id="ThirdKnowledge_Dialog">
+    <form id="ThirdKnowledge_DialogForm" action="@Url.Action(MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,MVC.ThirdKnowledge.Name,new
+          {
+            QueryPublicId =Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
+            InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
+            EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+        })" method="post">
+        
+
+    </form>
 </div>
 
 @{
@@ -95,11 +106,12 @@
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 
-    <script type="text/javascript">
+    <script type="text/javascript">       
+
         $(document).ready(function () {
             Third_KnowledgeDetailSearch.Init({
                 ObjectId: 'ThirdKnowledge',
-            QueryPublicId: '@QueryPublicId',
+                QueryPublicId: '@QueryPublicId',
                 SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                                 {
