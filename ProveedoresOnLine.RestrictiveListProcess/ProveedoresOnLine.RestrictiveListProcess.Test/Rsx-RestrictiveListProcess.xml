@@ -13,7 +13,7 @@
     <key name="TK_CP_File_TempDirectory">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\TempDirectory\</key>
 
     <!--S3 Path File-->
-    <key name="TK_CP_File_ExcelDirectory">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/ThirdKnowledge/</key>
+    <key name="TK_CP_File_ExcelDirectory">/BatchProcessFile/</key>
 
   </RestrictiveListProcess>
 </Settings>

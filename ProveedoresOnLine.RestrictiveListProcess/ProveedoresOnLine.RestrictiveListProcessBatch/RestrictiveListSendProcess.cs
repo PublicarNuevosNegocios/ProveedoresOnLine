@@ -85,12 +85,13 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
 
                         string oFileCompleteName = strFolder + fileName;
                         //UpLoad file to s3
-                        string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile(oFileCompleteName, "https://s3.amazonaws.com/devproveedoresonline/MarketPlace/ThirdKnowledge/");
-                            //ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_Settings_File_ExcelDirectory].Value);
+                        string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile(oFileCompleteName,
+                            ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[
+                            ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_Settings_File_ExcelDirectory].Value);
 
                         //Upload File
                         bool isLoaded = false;
-                        isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(fileName, strFolder, string.Empty);
+                        isLoaded = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.AccessFTPClient(fileName, oFileCompleteName, string.Empty);
 
                         //remove temporal file
                         if (System.IO.File.Exists(strFolder + fileName))

@@ -33,6 +33,13 @@
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="FileRepository.Manager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\FileRepository.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="FileRepository.S3">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\FileRepository.S3.dll</HintPath>
+    </Reference>
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
