@@ -186,28 +186,23 @@ $(document).ready(function () {
 
 var ReportViewerObj = {    
     RenderReportViewer: function (vInitObject) {
-        debugger;
         var Form = '';
-        var cmbToAppend = '<select name= "'+ vInitObject.ObjectId +'_cmbFormat">';        
+        var cmbToAppend = '<center><span>Formatos disponibles<span>:&nbsp;&nbsp;<select name= "' + vInitObject.ObjectId + '_cmbFormat">';
         $.each(vInitObject.Options, function (item, value)
         {
-            debugger;
             if (value == "EXCEL" || value == "Excel" ) {
-                cmbToAppend += '<option value="xlsx">' + value + '</option>';
+                cmbToAppend += '<option value="Excel">' + value + '</option>';
             }
             else if (value == "Pdf" || value == "PDF") {
                 cmbToAppend += ' <option value="pdf">' + value + '</option>';
             }            
         });        
-        cmbToAppend += '</select>';
-
+        cmbToAppend += '</select></center>';
         cmbToAppend += '<input type="hidden" name="DownloadReport" id="DownloadReport" value="true" />';
-         
         Form = $('#' + vInitObject.ObjectId + '_DialogForm').empty();
         Form = $('#' + vInitObject.ObjectId + '_DialogForm').append(cmbToAppend);
-
         $('#' + vInitObject.ObjectId + '_Dialog').dialog({
-            tittle:vInitObject.Tittle,
+            title:vInitObject.Tittle,
             modal: true,
             buttons: {               
                 'Descargar': function () {

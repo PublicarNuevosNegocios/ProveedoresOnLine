@@ -34,7 +34,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
                 BlackListProcessId = 5,
                 CreateDate = "29-02-2016",
                 Enable = true,
-                FilePath ="C:\\ProveedoresOnline\\Testitotosotos\\",
+                FilePath ="C:\\ProveedoresOnline\\Test\\",
                 IsSuccess = true,
                 LastModify = "29-02-2016",
                 ProcessStatus = true,

@@ -28,23 +28,9 @@
                         </div>
                         <div class="col-xs-4 text-center ThirdKnowledge_ListDetail">
                             <div class="row text-center">
-                                <form id="frmThirdKnowledgeUpsert"
-                                      method="post"
-                                      action="@(Url.Action
-                                                    (MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,
-                                                    MVC.ThirdKnowledge.Name,
-                                                    new
-                                                    {
-                                                        QueryPublicId = Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
-                                                        InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
-                                                        EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
-                                                    }))">
-
                                     @{
-                                        <a id="POMPButtonDownloadReports" title="Descargar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['PDF','EXCEL'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Descargar Reporte</a>
+                                        <a class="POMPButtons" title="Generar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
                                     }
-                                    @*<input type="hidden" name="DownloadReport" value="true" />*@
-                                </form>
                             </div>
                             <div class="row text-center ThirdKnowledge_GoBack">
                                 @*Return Buttom*@

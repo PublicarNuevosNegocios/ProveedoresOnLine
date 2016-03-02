@@ -171,10 +171,10 @@ namespace MarketPlace.Web.Controllers
                     parameters.Add(new ReportParameter("ReportCreateDate", DateTime.Now.ToString()));
                     parameters.Add(new ReportParameter("Group", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.GroupName) ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
 
-
+                    string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
 
                     Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryDetailReport(
-                                                                    enumCategoryInfoType.PDF.ToString(),
+                                                                    fileFormat,
                                                                     parameters,
                                                                     Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_ThirdKnowledgeQueryDetail.rdlc");
 
@@ -321,6 +321,8 @@ namespace MarketPlace.Web.Controllers
             //Get report generator
             if (Request["DownloadReport"] == "true")
             {
+                
+
                 #region Set Parameters
                 //Get Request
 
@@ -482,9 +484,9 @@ namespace MarketPlace.Web.Controllers
                         data_snc.Rows.Add(row_snc);
                         return true;
                     });
-
+                string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
                 Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryReport(
-                                                                enumCategoryInfoType.Excel.ToString(),
+                                                                fileFormat,
                                                                 data_rst,
                                                                 data_dce,
                                                                 data_fnc,
