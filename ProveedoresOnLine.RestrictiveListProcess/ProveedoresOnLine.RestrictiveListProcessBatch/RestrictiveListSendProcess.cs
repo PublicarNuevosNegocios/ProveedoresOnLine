@@ -36,7 +36,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                     {
                         //Write the document
                         // Set the file name and get the output directory
-                        string fileName = "BlackList_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmss") + ".xlsx";
+                        string fileName = "BlackList_" + x +"_"+ DateTime.Now.ToString("yyyy_MM_dd_hhmmss") + ".xlsx";
 
                         // Create the file using the FileInfo object
                         FileInfo file = new FileInfo(strFolder + fileName);
@@ -96,6 +96,21 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                         //remove temporal file
                         if (System.IO.File.Exists(strFolder + fileName))
                             System.IO.File.Delete(strFolder + fileName);
+
+                        //Create BlackListProces
+                        RestrictiveListProcessModel oProcessToCreate = new RestrictiveListProcessModel()
+                        {
+                            BlackListProcessId = 0,
+                            Enable = true,
+                            FilePath = strRemoteFile,
+                            IsSuccess = true,
+                            ProcessStatus = false,
+                            ProviderStatus = x
+                        };
+
+                        int oProcessToCreateId = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.BlackListProcessUpsert(oProcessToCreate);
+
+                        LogFile("Success:: BlackListProcessId '" + oProcessToCreateId + "':: ProviderStatus '" + oProcessToCreate.ProviderStatus + "':: Validation is success");
                     }
                     return true;
                 });
@@ -120,7 +135,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                 if (!System.IO.Directory.Exists(LogFile))
                     System.IO.Directory.CreateDirectory(LogFile);
 
-                LogFile += "\\" + "Log_SurveySendProcess_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+                LogFile += "\\" + "Log_BlacListWriteProcess_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
 
                 using (System.IO.StreamWriter sw = System.IO.File.AppendText(LogFile))
                 {
@@ -132,7 +147,5 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
         }
 
         #endregion
-
     }
-
 }
