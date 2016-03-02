@@ -30,7 +30,7 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThirdKnowledge = new ThirdKnowledgeViewModel();
-            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();        
+            List<PlanModel> oCurrentPeriodList = new List<PlanModel>();
 
             try
             {
@@ -52,9 +52,9 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedThirdKnowledge.SearchIdNumberParam = IdentificationNumber;
                         oModel.RelatedThirdKnowledge.ReSearch = true;
                     }
-                    else                   
+                    else
                         oModel.RelatedThirdKnowledge.ReSearch = false;
-                   
+
                     //Get The Most Recently Period When Plan is More Than One
                     oModel.RelatedThirdKnowledge.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
                 }
@@ -171,10 +171,10 @@ namespace MarketPlace.Web.Controllers
                     parameters.Add(new ReportParameter("ReportCreateDate", DateTime.Now.ToString()));
                     parameters.Add(new ReportParameter("Group", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.GroupName) ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
 
-
+                    string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
 
                     Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryDetailReport(
-                                                                    enumCategoryInfoType.PDF.ToString(),
+                                                                    fileFormat,
                                                                     parameters,
                                                                     Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_ThirdKnowledgeQueryDetail.rdlc");
 
@@ -204,7 +204,7 @@ namespace MarketPlace.Web.Controllers
             {
                 oModel.RelatedThidKnowledgeSearch.CurrentPlanModel = oCurrentPeriodList.OrderByDescending(x => x.CreateDate).First();
             }
-           
+
             oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager = new Models.ThirdKnowledge.ThirdKnowledgeSearchViewModel()
             {
                 PageNumber = !string.IsNullOrEmpty(PageNumber) ? Convert.ToInt32(PageNumber) : 0,
@@ -347,7 +347,7 @@ namespace MarketPlace.Web.Controllers
                 //Query Info
                 parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
                 parameters.Add(new ReportParameter("User", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.User != null).Select(x => x.User).DefaultIfEmpty("No hay campo").FirstOrDefault()));
-                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate.AddHours(-5).ToString() != null).Select(x => x.CreateDate.ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
+                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.CreateDate != null).Select(x => x.CreateDate.AddHours(-5).ToString().ToString()).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("QueryType", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.SearchType != null).Select(x => x.SearchType.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryStatus != null).Select(x => x.QueryStatus.ItemName).DefaultIfEmpty("No hay campo").FirstOrDefault()));
                 parameters.Add(new ReportParameter("searchName", searchName));
@@ -376,7 +376,7 @@ namespace MarketPlace.Web.Controllers
                         row_rst["Offense"] = y.Offense;
                         row_rst["Peps"] = y.Peps;
                         row_rst["Priority"] = y.Priority;
-                        row_rst["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                        row_rst["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
                         row_rst["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_rst.Rows.Add(row_rst);
                         return true;
@@ -404,7 +404,7 @@ namespace MarketPlace.Web.Controllers
                         row_dce["Offense"] = y.Offense;
                         row_dce["Peps"] = y.Peps;
                         row_dce["Priority"] = y.Priority;
-                        row_dce["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                        row_dce["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
                         row_dce["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_dce.Rows.Add(row_dce);
                         return true;
@@ -432,7 +432,7 @@ namespace MarketPlace.Web.Controllers
                         row_fnc["Offense"] = y.Offense;
                         row_fnc["Peps"] = y.Peps;
                         row_fnc["Priority"] = y.Priority;
-                        row_fnc["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                        row_fnc["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
                         row_fnc["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_fnc.Rows.Add(row_fnc);
                         return true;
@@ -460,7 +460,7 @@ namespace MarketPlace.Web.Controllers
                         row_psp["Offense"] = y.Offense;
                         row_psp["Peps"] = y.Peps;
                         row_psp["Priority"] = y.Priority;
-                        row_psp["Status"] = y.Status == "True" ? "Activo" : "Inactivo";
+                        row_psp["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
                         row_psp["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
                         data_psp.Rows.Add(row_psp);
                         return true;
@@ -482,9 +482,9 @@ namespace MarketPlace.Web.Controllers
                         data_snc.Rows.Add(row_snc);
                         return true;
                     });
-
+                string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
                 Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryReport(
-                                                                enumCategoryInfoType.Excel.ToString(),
+                                                                fileFormat,
                                                                 data_rst,
                                                                 data_dce,
                                                                 data_fnc,

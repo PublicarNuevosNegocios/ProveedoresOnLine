@@ -1353,6 +1353,37 @@ namespace BackOffice.Web.ControllersApi
         {
             List<AdminModuleOptionViewModel> oReturn = new List<AdminModuleOptionViewModel>();
 
+            if (ModuleOptionInfoUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                AdminModuleOptionViewModel oDataToUpsert =
+                  (AdminModuleOptionViewModel)
+                  (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                  Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                              typeof(AdminModuleOptionViewModel));
+
+                GenericItemModel oOptionInfoModel = new GenericItemModel()
+                {
+                    ItemId = Convert.ToInt32(ModuleOptionId),
+                    ItemInfo = new List<GenericItemInfoModel>()
+                    {
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = !string.IsNullOrEmpty(oDataToUpsert.ModuleOptionInfoId) ? Convert.ToInt32(oDataToUpsert.ModuleOptionInfoId) : 0,
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumAdminRole.OptionInfo,
+                            },
+                            Value = oDataToUpsert.ModuleOptionInfoValue,
+                            LargeValue = oDataToUpsert.ModuleOptionInfoLargeValue,
+                            Enable = Convert.ToBoolean(oDataToUpsert.Enable),
+                        },
+                    },
+                };
+
+                ProveedoresOnLine.Company.Controller.Company.ModuleOptionInfoUpsert(oOptionInfoModel);
+            }
+
             return oReturn;
         }
 

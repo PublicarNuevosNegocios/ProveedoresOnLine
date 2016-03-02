@@ -51,6 +51,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
@@ -122,6 +123,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyEvaluatorDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
@@ -175,6 +177,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GerencialReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
@@ -268,6 +271,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SelectionProcess + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
         }
@@ -317,6 +321,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_SurveyGeneralReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
         }
@@ -416,7 +421,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
-
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_ThirdKnowledgeQueryDetailReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
         }
@@ -467,7 +472,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
-
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GIBlackListQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
 
         }
@@ -534,6 +539,7 @@ namespace ProveedoresOnLine.Reports.Controller
                 out fileNameExtension,
                 out streams,
                 out warnings);
+            if (FormatType == "Excel") { FormatType = "xls"; }
             return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_FinancialReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
         }
 
