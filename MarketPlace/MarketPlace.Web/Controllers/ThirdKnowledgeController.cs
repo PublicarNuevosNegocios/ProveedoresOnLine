@@ -139,18 +139,14 @@ namespace MarketPlace.Web.Controllers
                 if (Request["DownloadReport"] == "true")
                 {
                     #region Set Parameters
-
                     List<ReportParameter> parameters = new List<ReportParameter>();
-
                     //Customer Info
                     parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
                     parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
                     parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
                     parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
-
                     parameters.Add(new ReportParameter("SearchName", oModel.RelatedThidKnowledgeSearch.RequestName));
                     parameters.Add(new ReportParameter("SearchIdentification", oModel.RelatedThidKnowledgeSearch.IdNumberRequest));
-
                     //Query Detail Info
                     parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
                     parameters.Add(new ReportParameter("NameResult", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.NameResult) ? oModel.RelatedThidKnowledgeSearch.NameResult : "--"));
@@ -166,18 +162,15 @@ namespace MarketPlace.Web.Controllers
                     parameters.Add(new ReportParameter("QueryCreateDate", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.RegisterDate) ? oModel.RelatedThidKnowledgeSearch.RegisterDate : "--"));
                     parameters.Add(new ReportParameter("Link", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.Link) ? oModel.RelatedThidKnowledgeSearch.Link : "--"));
                     parameters.Add(new ReportParameter("MoreInformation", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.MoreInfo) ? oModel.RelatedThidKnowledgeSearch.MoreInfo : "--"));
-
                     parameters.Add(new ReportParameter("User", SessionModel.CurrentLoginUser.Name.ToString() + " " + SessionModel.CurrentLoginUser.LastName.ToString()));
                     parameters.Add(new ReportParameter("ReportCreateDate", DateTime.Now.ToString()));
                     parameters.Add(new ReportParameter("Group", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.GroupName) ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
-
+                    parameters.Add(new ReportParameter("Status", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.Status) ? oModel.RelatedThidKnowledgeSearch.Status : "--"));
                     string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
-
                     Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryDetailReport(
                                                                     fileFormat,
                                                                     parameters,
                                                                     Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_ThirdKnowledgeQueryDetail.rdlc");
-
                     parameters = null;
                     return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
 
