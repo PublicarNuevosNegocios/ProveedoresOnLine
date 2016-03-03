@@ -1781,11 +1781,19 @@ var Admin_CompanyRoleObject = {
             Admin_CompanyRoleObject.RenderSelectionOptionUpsert(vRenderObject);
         }
 
+
         //Render config options
         Admin_CompanyRoleObject.ConfigKeyBoard();
-        Admin_CompanyRoleObject.ConfigEvents();
-        Admin_CompanyRoleObject.GetViewEnable();
         Admin_CompanyRoleObject.GetSearchParam();
+        if (vRenderObject.ObjectType == '801004' || vRenderObject.ObjectType == '801003') {
+            Admin_CompanyRoleObject.GetViewEnableOptions(vRenderObject);
+            Admin_CompanyRoleObject.ConfigEventsOptions(vRenderObject);
+        }
+        else
+        {
+            Admin_CompanyRoleObject.ConfigEvents();
+            Admin_CompanyRoleObject.GetViewEnable();
+        }
     },
 
     ConfigKeyBoard: function () {
@@ -1821,8 +1829,19 @@ var Admin_CompanyRoleObject = {
         });
     },
 
+    ConfigEventsOptions: function (vRenderObject) {
+        //config grid visible enables event
+        $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType + '_ViewEnable').change(function () {
+            $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data('kendoGrid').dataSource.read();
+        });
+    },
+
     GetViewEnable: function () {
         return $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+    GetViewEnableOptions: function (vRenderObject) {
+        return $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType + '_ViewEnable').length > 0 ? $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType + '_ViewEnable').is(':checked') : true;
     },
 
     Search: function () {
@@ -1842,6 +1861,8 @@ var Admin_CompanyRoleObject = {
             toolbar:
                 [
                     { name: 'create', text: 'Nuevo' },
+                    { name: 'save', text: 'Guardar' },
+                    { name: 'cancel', text: 'Descartar' },
                     { name: 'Search', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_SearchTemplate').html() },
                     { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnablesTemplate').html() },
                     { name: 'ShortcutToolTip', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() },
@@ -1891,6 +1912,8 @@ var Admin_CompanyRoleObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -1909,6 +1932,8 @@ var Admin_CompanyRoleObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se editó el registro ' + options.data.RelatedCompanyName + '.');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2083,7 +2108,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se agregó el nuevo módulo');
+                                Message('success', 'Se creó el registro');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2101,7 +2128,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('succes', 'Se edito el registro');
+                                Message('success', 'Se editó el registro');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2197,7 +2226,7 @@ var Admin_CompanyRoleObject = {
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType + '_ViewEnablesTemplate').html() },
                 { name: 'ShortcutToolTip', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() }],
             dataSource: {
                 schema: {
@@ -2212,7 +2241,7 @@ var Admin_CompanyRoleObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionAdmin=true&RoleModuleId=' + Admin_CompanyRoleObject.RoleModuleId + '&ViewEnable=' + Admin_CompanyRoleObject.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionAdmin=true&RoleModuleId=' + Admin_CompanyRoleObject.RoleModuleId + '&ViewEnable=' + Admin_CompanyRoleObject.GetViewEnableOptions(vRenderObject),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2233,7 +2262,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se agregó un nuevo menú');
+                                Message('success', 'Se creó el registro');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2251,7 +2282,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('sucess', 'Se modificó el registro correctamente');
+                                Message('success', 'Se modificó el registro correctamente');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2376,7 +2409,7 @@ var Admin_CompanyRoleObject = {
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId +'_' + vRenderObject.ObjectType + '_ViewEnablesTemplate').html() },
                 { name: 'ShortcutToolTip', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() }],
             dataSource: {
                 schema: {
@@ -2391,7 +2424,7 @@ var Admin_CompanyRoleObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoAdmin=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId + '&ViewEnable=' + Admin_CompanyRoleObject.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoAdmin=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId + '&ViewEnable=' + Admin_CompanyRoleObject.GetViewEnableOptions(vRenderObject),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2413,6 +2446,8 @@ var Admin_CompanyRoleObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se agregó satisfactoriamente');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2430,7 +2465,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('succes', 'Se edito el registro');
+                                Message('success', 'Se edito el registro');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2537,6 +2574,8 @@ var Admin_CompanyRoleObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se agregó un nuevo menú');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2554,7 +2593,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('sucess', 'Se modificó el registro correctamente');
+                                Message('success', 'Se modificó el registro correctamente');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2661,6 +2702,8 @@ var Admin_CompanyRoleObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se agregó el nuevo módulo');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2678,7 +2721,9 @@ var Admin_CompanyRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('succes', 'Se edito el registro');
+                                Message('success', 'Se edito el registro');
+
+                                $('#' + Admin_CompanyRoleObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
