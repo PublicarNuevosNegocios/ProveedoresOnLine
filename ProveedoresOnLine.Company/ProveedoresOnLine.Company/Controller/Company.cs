@@ -380,6 +380,8 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CatalogGetAllModuleOptions();
         }
 
+
+
         #endregion
 
         #region Util MP
@@ -1017,6 +1019,54 @@ namespace ProveedoresOnLine.Company.Controller
             }
 
             return GenericItemToUpsert;
+        }
+
+        public static RoleCompanyModel ReportRoleUpsert(RoleCompanyModel RoleCompanyToUpsert)
+        {
+            if (RoleCompanyToUpsert != null &&
+                RoleCompanyToUpsert.RelatedReport != null &&
+                RoleCompanyToUpsert.RelatedReport.Count > 0)
+            {
+                LogManager.Models.LogModel oLog = GetGenericLogModel();
+
+                RoleCompanyToUpsert.RelatedReport.All(x =>
+                {
+                    try
+                    {
+                        x.ItemId = DAL.Controller.CompanyDataController.Instance.ReportRoleUpsert
+                        (RoleCompanyToUpsert.RoleCompanyId,
+                        x.ItemId,
+                        x.ItemName,
+                        x.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = x;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ReportCompanyId",
+                            Value = x.ItemId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            //return 
+            return RoleCompanyToUpsert;
         }
 
         public static List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)

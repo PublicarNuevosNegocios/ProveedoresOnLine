@@ -329,6 +329,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
         }
 
+        public int ReportRoleUpsert(int RoleCompanyId, int? ReportCompanyId, string ReportCompanyName, bool Enable)
+        {
+            return DataFactory.ReportRoleUpsert(RoleCompanyId, ReportCompanyId, ReportCompanyName, Enable);
+        }
+
         public List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
         {
             return DataFactory.GetRoleCompanySearch(vSearchParam, Enable, out TotalRows);

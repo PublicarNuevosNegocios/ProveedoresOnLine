@@ -580,5 +580,15 @@
         OptionInfo = 801004,
     }
 
+    public enum enumAdminModule
+    {
+        ProviderInformation = 804001,
+        ProviderComparison = 804002,
+        SelectionProcess = 804003,
+        Statistics = 804004,
+        ThirdKnowledge = 804005,
+        Reports = 804006,
+    }
+
     #endregion
 }

@@ -83,9 +83,6 @@
 
         string oSurveyInfoList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
         Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 813).ToList());
-
-
-        string AdminOptionInfoUrl = "";
     }
 
     <script type="text/javascript">
@@ -93,7 +90,6 @@
                 Admin_CompanyRoleObject.Init({
                     ObjectId: 'divGridOption',
                     RoleModuleId: '@(Model.RelatedRole.RoleModule.FirstOrDefault().RoleModuleId)',
-                    RoleOptionInfoUpsertUrl: '@AdminOptionInfoUrl',
                     ModuleList: @Html.Raw(oModuleOptionList),
                     //Provider info menu items
                     GeneralInfoList: @Html.Raw(oGeneralInfoList),

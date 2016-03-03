@@ -1,8 +1,57 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Geolocalización";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Administrar reportes por rol";
+    Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Administración de Reportes por Rol</label>
+            <div id="loading"></div>
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    <div id="divGridAdminReport_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridAdminReport_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridAdminReport_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
+    <div id="divGridAdminReport_SearchTemplate">
+        <input class="POBOSurveySearchInput" id="divGridAdminReport_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar reporte por nombre o por rol" />
+        <a class="POBOSearchEvaluations" href="javascript:Admin_CompanyRoleObject.Search();">Buscar</a>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                Admin_ReportRoleObject.Init({
+                    ObjectId: 'divGridAdminReport',
+                });
+                Admin_ReportRoleObject.RenderReportRoleUpsert();
+            });
+    </script>
 }
