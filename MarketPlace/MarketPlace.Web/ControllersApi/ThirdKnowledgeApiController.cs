@@ -261,7 +261,7 @@ namespace MarketPlace.Web.ControllersApi
                         //load file to s3
                         strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                             (strFilePath,
-                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value);
+                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value );
 
                         TDQueryModel oQueryToCreate = new TDQueryModel()
                         {

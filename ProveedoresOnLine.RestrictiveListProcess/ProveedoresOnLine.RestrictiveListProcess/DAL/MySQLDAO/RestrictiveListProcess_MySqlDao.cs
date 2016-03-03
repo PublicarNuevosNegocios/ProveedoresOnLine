@@ -87,8 +87,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                         where !cm.IsNull("BlackListProcessId")
                         group cm by new
                                 {
-                                    //cm.Field<UInt64>("Enable") == 1 ? true : false,
-                                    BlackListProcessId = cm.Field<UInt64>("UInt64"),
+                                    BlackListProcessId = cm.Field<int>("BlackListProcessId"),
                                     FilePath = cm.Field<string>("FilePath"),
                                     ProcessStatus = cm.Field<UInt64>("ProcessStatus") == 1 ? true : false,
                                     IsSuccess = cm.Field<UInt64>("ProviderName") == 1 ? true : false,
@@ -114,7 +113,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
             return oProvidersInProcess;
         }
 
-        public string BlackListProcessUpsert(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable, string LastModify, string CreateDate)
+        public int BlackListProcessUpsert(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
             
@@ -124,9 +123,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vIsSuccess", IsSuccess));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderStatus", ProviderStatus));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
-            lstParams.Add(DataInstance.CreateTypedParameter("vLastModify", LastModify));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCreateDate", CreateDate));
-            
+
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
@@ -135,7 +132,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                 Parameters = lstParams
             });
 
-            return response.ScalarResult.ToString();
+            return Convert.ToInt32(response.ScalarResult.ToString());
         }
 
     }

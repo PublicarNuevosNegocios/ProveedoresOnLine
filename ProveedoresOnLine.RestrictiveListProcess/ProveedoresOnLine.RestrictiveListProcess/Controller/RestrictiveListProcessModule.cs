@@ -15,38 +15,40 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
     public class RestrictiveListProcessModule
     {
         #region Provider Functions
-            public static List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
+        public static List<ProviderModel> GetProviderByStatus(int Status, string CustomerPublicId)
+        {
+            List<ProviderModel> oProviderList = new List<ProviderModel>();
+            List<CompanyModel> oCompanyModeResult = DAL.Controller.RestrictiveListProcessDataController.Instance.GetProviderByStatus(Status, CustomerPublicId);
+
+            //Set Related Company to ProviderModel
+            oCompanyModeResult.All(x =>
             {
-                List<ProviderModel> oProviderList = new List<ProviderModel>();
-                List<CompanyModel> oCompanyModeResult = DAL.Controller.RestrictiveListProcessDataController.Instance.GetProviderByStatus(Status, CustomerPublicId);
+                oProviderList.Add(new ProviderModel() { RelatedCompany = x });
+                return true;
+            });
+            //Set Related Legal to ProviderModel
+            oProviderList.All(prv =>
+            {
+                prv.RelatedLegal = new List<GenericItemModel>();
+                prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumLegalType.Designations, true);
+                return true;
+            });
 
-                //Set Related Company to ProviderModel
-                oCompanyModeResult.All(x =>
-                {
-                    oProviderList.Add(new ProviderModel() { RelatedCompany = x });                
-                    return true;
-                });
-                //Set Related Legal to ProviderModel
-                oProviderList.All(prv =>
-                {
-                    prv.RelatedLegal = new List<GenericItemModel>();  
-                    prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId,(int)enumLegalType.Designations, true);
-                    return true;
-                });
-
-                return oProviderList;
-            }
+            return oProviderList;
+        }
         #endregion
 
         #region RestrictiveList Functions
-            public static List<RestrictiveListProcessModel> GetAllProvidersInProcess()
-            {
-                return DAL.Controller.RestrictiveListProcessDataController.Instance.GetAllProvidersInProcess();
-            }
-            public static string BlackListProcessUpsert(BlackListProcessModel oBlackListProcessModel)
-            {
-                return DAL.Controller.RestrictiveListProcessDataController.Instance.BlackListProcessUpsert(oBlackListProcessModel.BlackListProcessId, oBlackListProcessModel.FilePath, oBlackListProcessModel.ProcessStatus, oBlackListProcessModel.IsSuccess, oBlackListProcessModel.ProviderStatus, oBlackListProcessModel.Enable, oBlackListProcessModel.LastModify, oBlackListProcessModel.CreateDate);
-            }
+        
+        public static List<RestrictiveListProcessModel> GetAllProvidersInProcess()
+        {
+            return DAL.Controller.RestrictiveListProcessDataController.Instance.GetAllProvidersInProcess();
+        }
+
+        public static int BlackListProcessUpsert(RestrictiveListProcessModel oBlackListProcessModel)
+        {
+            return DAL.Controller.RestrictiveListProcessDataController.Instance.BlackListProcessUpsert(oBlackListProcessModel.BlackListProcessId, oBlackListProcessModel.FilePath, oBlackListProcessModel.ProcessStatus, oBlackListProcessModel.IsSuccess, oBlackListProcessModel.ProviderStatus, oBlackListProcessModel.Enable);
+        }
         #endregion
     }
 }

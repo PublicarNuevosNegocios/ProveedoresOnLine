@@ -30,7 +30,8 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
         [TestMethod]
         public void BlackListProcessUpsert()
         {
-            BlackListProcessModel oBlackListProcessModel = new BlackListProcessModel() { 
+            RestrictiveListProcessModel oBlackListProcessModel = new RestrictiveListProcessModel()
+            { 
                 BlackListProcessId = 5,
                 CreateDate = "29-02-2016",
                 Enable = true,
@@ -41,7 +42,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
                 ProviderStatus = Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionNacional),
             };
 
-            string strUpsertStatus = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.BlackListProcessUpsert(oBlackListProcessModel);
+            int strUpsertStatus = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.BlackListProcessUpsert(oBlackListProcessModel);
             Assert.IsNotNull(strUpsertStatus);
         }
 
