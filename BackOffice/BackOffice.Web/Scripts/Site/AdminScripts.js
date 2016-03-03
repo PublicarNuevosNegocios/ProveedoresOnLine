@@ -1924,16 +1924,10 @@ var Admin_CompanyRoleObject = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
-            editable: {
-                mode: "popup",
-                window: {
-                    title: "Area de configuración",
-                }
-            },
             columns: [{
                 field: 'Enable',
                 title: 'Habilitado',
-                width: '50px',
+                width: '40px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1949,7 +1943,7 @@ var Admin_CompanyRoleObject = {
             }, {
                 field: 'RelatedCompanyName',
                 title: 'Comprador Relacionado',
-                width: '150px',
+                width: '160px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.RelatedCompanyName != null) {
@@ -2008,14 +2002,11 @@ var Admin_CompanyRoleObject = {
             }, {
                 field: 'RoleCompanyName',
                 title: 'Rol',
-                width: '150px',
+                width: '140px',
             }, {
                 title: "&nbsp;",
                 width: "200px",
                 command: [{
-                    name: 'edit',
-                    text: 'Editar'
-                }, {
                     name: 'Detail',
                     text: 'Agregar módulos',
                     click: function (e) {
