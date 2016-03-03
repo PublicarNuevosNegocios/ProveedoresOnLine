@@ -2471,9 +2471,9 @@ namespace MarketPlace.Web.Controllers
             #endregion Kcontratación
 
             #endregion Set Parameters
-
+            string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
             Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
-                                                            enumCategoryInfoType.PDF.ToString(),
+                                                            fileFormat,
                                                             data,
                                                             data2,
                                                             data3,

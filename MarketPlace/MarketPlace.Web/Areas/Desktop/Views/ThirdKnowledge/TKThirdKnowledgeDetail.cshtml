@@ -86,7 +86,7 @@
     Model.RenderScripts = true;
 }
 @{
-    var QueryPublicId = Model.RelatedThidKnowledgeSearch != null ? Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().QueryPublicId : string.Empty;
+    var QueryPublicId = Model.RelatedThidKnowledgeSearch != null && Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 ? Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.FirstOrDefault().QueryPublicId : string.Empty;
 }
 @section inlinescripts
 {
