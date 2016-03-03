@@ -380,6 +380,8 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CatalogGetAllModuleOptions();
         }
 
+
+
         #endregion
 
         #region Util MP

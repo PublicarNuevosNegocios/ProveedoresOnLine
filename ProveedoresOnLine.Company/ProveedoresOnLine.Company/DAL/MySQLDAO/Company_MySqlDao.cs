@@ -1625,6 +1625,26 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllRoleByCompany()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Util MP

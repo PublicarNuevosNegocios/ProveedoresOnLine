@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Administrar Módulos";
+    ViewBag.Title = "Administrar Opciones del Proceso de Selección";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -15,17 +15,17 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de módulos del rol: @Model.RelatedRole.RoleCompanyName</label>
+            <label class="POBOSectionTitles">Administración de opciones del proceso de selección.</label>
             <a href="@(Url.Action(
-                MVC.Administrator.ActionNames.AdminRole,
-                MVC.Administrator.Name))">Regresar al listado de roles</a>
+                MVC.Administrator.ActionNames.AdminModule,
+                MVC.Administrator.Name,
+                new { RoleCompanyId = Model.RelatedRole.RoleCompanyId }))">Regresar al listado de módulos</a>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <div id="loading"></div>
-            <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
-            <div id="divGridAdminModule"></div>
+            <div id="divGridSelectionOption"></div>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
@@ -36,13 +36,14 @@
 
 <!--templates-->
 <div style="display:none;">
-    <div id="divGridAdminModule_ShortcutToolTipTemplate">
+    <!--template provider info menu-->
+    <div id="divGridSelectionOption_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
     </div>
 
-    <div id="divGridAdminModule_ViewEnablesTemplate">
+    <div id="divGridSelectionOption_ViewEnablesTemplate">
         <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridAdminModule_ViewEnable" type="checkbox" checked="checked" />
+        <input class="POBOProviderGridEnableContact" id="divGridSelectionOption_ViewEnable" type="checkbox" checked="checked" />
     </div>
 </div>
 
@@ -56,28 +57,18 @@
 
     @{
         string oModuleOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 804).ToList());
-
-        string AdminOptionUrl = Url.Action
-        (MVC.Administrator.ActionNames.AdminProviderMenu,
-        MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}&RoleModuleId=${RoleModuleId}";
-
-        string AdminSelectionUrl = Url.Action
-            (MVC.Administrator.ActionNames.AdminSelectionOption,
-            MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}&RoleModuleId=${RoleModuleId}";
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 806).ToList());
     }
 
     <script type="text/javascript">
         $(document).ready(function () {
             Admin_CompanyRoleObject.Init({
-                ObjectId: 'divGridAdminModule',
-                RoleCompanyId: '@(Model.RelatedRole.RoleCompanyId)',
-                RoleOptionUpsertUrl: '@(AdminOptionUrl)',
-                SelectionOptionUpsertUrl: '@(AdminSelectionUrl)',
+                ObjectId: 'divGridSelectionOption',
+                RoleModuleId: '@(Model.RelatedRole.RoleModule.FirstOrDefault().RoleModuleId)',
                 ModuleList: @Html.Raw(oModuleOptionList),
             });
             Admin_CompanyRoleObject.RenderAsync({
-                ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Module)',
+                ObjectType: '@((int)BackOffice.Models.General.enumAdminModule.SelectionProcess)',
             });
         });
     </script>

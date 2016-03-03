@@ -80,6 +80,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions();
 
+        List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllRoleByCompany();
+
         #endregion
 
         #region Util MP

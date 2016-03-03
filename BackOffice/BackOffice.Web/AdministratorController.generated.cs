@@ -85,6 +85,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminSelectionOption()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminSelectionOption);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
@@ -120,6 +126,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminRole = "AdminRole";
             public readonly string AdminModule = "AdminModule";
             public readonly string AdminProviderMenu = "AdminProviderMenu";
+            public readonly string AdminSelectionOption = "AdminSelectionOption";
             public readonly string AdminReports = "AdminReports";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
@@ -142,6 +149,7 @@ namespace BackOffice.Web.Controllers
             public const string AdminRole = "AdminRole";
             public const string AdminModule = "AdminModule";
             public const string AdminProviderMenu = "AdminProviderMenu";
+            public const string AdminSelectionOption = "AdminSelectionOption";
             public const string AdminReports = "AdminReports";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
@@ -181,6 +189,15 @@ namespace BackOffice.Web.Controllers
             public readonly string RoleCompanyId = "RoleCompanyId";
             public readonly string RoleModuleId = "RoleModuleId";
         }
+        static readonly ActionParamsClass_AdminSelectionOption s_params_AdminSelectionOption = new ActionParamsClass_AdminSelectionOption();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminSelectionOption AdminSelectionOptionParams { get { return s_params_AdminSelectionOption; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminSelectionOption
+        {
+            public readonly string RoleCompanyId = "RoleCompanyId";
+            public readonly string RoleModuleId = "RoleModuleId";
+        }
         static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
@@ -211,6 +228,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
                 public readonly string AdminRole = "AdminRole";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
+                public readonly string AdminSelectionOption = "AdminSelectionOption";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
                 public readonly string AdminTRMUpsert = "AdminTRMUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
@@ -228,6 +246,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminRLUploadProvider = "~/Views/Administrator/AdminRLUploadProvider.cshtml";
             public readonly string AdminRole = "~/Views/Administrator/AdminRole.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Administrator/AdminRulesUpsert.cshtml";
+            public readonly string AdminSelectionOption = "~/Views/Administrator/AdminSelectionOption.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Administrator/AdminTreeUpsert.cshtml";
             public readonly string AdminTRMUpsert = "~/Views/Administrator/AdminTRMUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Administrator/AdminUserUpsert.cshtml";
@@ -408,6 +427,19 @@ namespace BackOffice.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleModuleId", RoleModuleId);
             AdminProviderMenuOverride(callInfo, RoleCompanyId, RoleModuleId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminSelectionOptionOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleCompanyId, int RoleModuleId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminSelectionOption(int RoleCompanyId, int RoleModuleId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminSelectionOption);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleModuleId", RoleModuleId);
+            AdminSelectionOptionOverride(callInfo, RoleCompanyId, RoleModuleId);
             return callInfo;
         }
 
