@@ -3148,6 +3148,7 @@
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <Format>n0</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3183,6 +3184,7 @@
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                             <TextRun>
@@ -3190,6 +3192,7 @@
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>9pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
