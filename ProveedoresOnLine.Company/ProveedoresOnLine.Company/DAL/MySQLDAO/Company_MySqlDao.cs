@@ -2467,6 +2467,26 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public int ReportRoleUpsert(int RoleCompanyId, int? ReportCompanyId, string ReportCompanyName, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportCompanyId", ReportCompanyId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportCompanyName", ReportCompanyName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "C_ReportCompany_Upsert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return response.NonQueryResult;
+        }
+
         public List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -2742,6 +2762,62 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          LastModify = moig.Key.LastModify,
                          CreateDate = moig.Key.CreateDate,
                      }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public RoleCompanyModel GetReportCompanySearch(string vSearch, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearch", vSearch));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            RoleCompanyModel oReturn = new RoleCompanyModel();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from rc in response.DataTableResult.AsEnumerable()
+                     where !rc.IsNull("RoleCompanyId")
+                     group rc by new
+                     {
+                         RoleCompanyId = rc.Field<int>("RoleCompanyId"),
+                     } into rcg
+                     select new RoleCompanyModel()
+                     {
+                         RoleCompanyId = rcg.Key.RoleCompanyId,
+                         RelatedReport =
+                            (from rr in response.DataTableResult.AsEnumerable()
+                             where !rr.IsNull("ReportCompanyId")
+                                    && rr.Field<int>("RoleCompanyId") == rcg.Key.RoleCompanyId
+                             group rr by new
+                             {
+                                 ReportCompanyId = rr.Field<int>("ReportCompanyId"),
+                                 ReportCompanyName = rr.Field<string>("ReportCompanyName"),
+                                 Enable = rr.Field<UInt64>("Enable") == 1 ? true : false,
+                                 LastModify = rr.Field<DateTime>("LastModify"),
+                                 CreateDate = rr.Field<DateTime>("CreateDate"),
+                             } into rrg
+                             select new GenericItemModel()
+                             {
+                                 ItemId = rrg.Key.ReportCompanyId,
+                                 ItemName = rrg.Key.ReportCompanyName,
+                                 Enable = rrg.Key.Enable,
+                                 LastModify = rrg.Key.LastModify,
+                                 CreateDate = rrg.Key.CreateDate,
+                             }).ToList()
+                     }).FirstOrDefault();
             }
 
             return oReturn;

@@ -22,6 +22,8 @@ namespace ProveedoresOnLine.Company.Models.Role
 
         public List<RoleModuleModel> RoleModule { get; set; }
 
+        public List<GenericItemModel> RelatedReport { get; set; }
+
         public bool Enable { get; set; }
 
         public DateTime LastModify { get; set; }
