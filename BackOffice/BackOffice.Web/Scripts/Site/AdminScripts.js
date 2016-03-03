@@ -1693,9 +1693,11 @@ var Admin_CompanyRoleObject = {
     RoleModuleId: '',
     RoleOptionId: '',
     RoleModuleUpsertUrl: '',
+    ReportModuleUpsertUrl: '',
     RoleOptionUpsertUrl: '',
     SelectionOptionUpsertUrl: '',
     ModuleList: '',
+    ReportList: '',
     //ProviderList
     GeneralInfoList: '',
     LegalInfoList: '',
@@ -1715,9 +1717,11 @@ var Admin_CompanyRoleObject = {
         this.RoleModuleId = vInitObject.RoleModuleId;
         this.RoleOptionId = vInitObject.RoleOptionId;
         this.RoleModuleUpsertUrl = vInitObject.RoleModuleUpsertUrl;
+        this.ReportModuleUpsertUrl = vInitObject.ReportModuleUpsertUrl;
         this.RoleOptionUpsertUrl = vInitObject.RoleOptionUpsertUrl;
         this.SelectionOptionUpsertUrl = vInitObject.SelectionOptionUpsertUrl;
         this.ModuleList = vInitObject.ModuleList;
+        this.ReportList = vInitObject.ReportList;
         //ProviderInfo menu
         this.GeneralInfoList = vInitObject.GeneralInfoList;
         this.LegalInfoList = vInitObject.LegalInfoList;
@@ -1769,6 +1773,9 @@ var Admin_CompanyRoleObject = {
         }
         else if (vRenderObject.ObjectType == '801004') {
             Admin_CompanyRoleObject.RenderModuleOptionInfoUpsert(vRenderObject);
+        }
+        else if (vRenderObject.ObjectType == '801005') {
+            Admin_CompanyRoleObject.RenderReportRoleUpsert();
         }
         else if (vRenderObject.ObjectType == '804003') {
             Admin_CompanyRoleObject.RenderSelectionOptionUpsert(vRenderObject);
@@ -2021,6 +2028,19 @@ var Admin_CompanyRoleObject = {
                             window.location = Admin_CompanyRoleObject.RoleModuleUpsertUrl.replace(/\${RoleCompanyId}/gi, data.RoleCompanyId);
                         }
                     }
+                }, {
+                    name: 'AddReports',
+                    text: 'Agregar Reportes',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigId attribute
+                        if (data.RoleCompanyId != null && data.RoleCompanyId.length > 0) {
+                            window.location = Admin_CompanyRoleObject.ReportModuleUpsertUrl.replace(/\${RoleCompanyId}/gi, data.RoleCompanyId);
+                        }
+                    },
                 }],
             }],
         });
@@ -2392,7 +2412,6 @@ var Admin_CompanyRoleObject = {
                         });
                     },
                     create: function (options) {
-                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoUpsert=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId,
                             dataType: 'json',
@@ -2411,7 +2430,6 @@ var Admin_CompanyRoleObject = {
                         });
                     },
                     update: function (options) {
-                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?ModuleOptionInfoUpsert=true&ModuleOptionId=' + Admin_CompanyRoleObject.ModuleOptionId,
                             dataType: 'json',
@@ -2603,70 +2621,47 @@ var Admin_CompanyRoleObject = {
                 },
             }],
         });
-    }
-}
-
-var Admin_ReportRoleObject = {
-    ObjectId: '',
-    RoleCompanyId: '',
-    ProviderInfoList: '',
-
-    Init: function (vInitObject) {
-        this.ObjectId = vInitObject.ObjectId;
-        this.RoleCompanyId = vInitObject.RoleCompanyId;
-        this.ProviderInfoList = vInitObject.ProviderInfoList;
     },
 
     RenderReportRoleUpsert: function () {
-        $('#' + Admin_ReportRoleObject.ObjectId).kendoGrid({
+        $('#' + Admin_CompanyRoleObject.ObjectId).kendoGrid({
             editable: true,
-            navigatable: true,
-            pageable: true,
+            navigatable: false,
+            pageable: false,
             scrollable: true,
             toolbar:
-                [
-                    { name: 'create', text: 'Nuevo' },
-                    { name: 'Search', template: $('#' + Admin_ReportRoleObject.ObjectId + '_SearchTemplate').html() },
-                    { name: 'ViewEnable', template: $('#' + Admin_ReportRoleObject.ObjectId + '_ViewEnablesTemplate').html() },
-                    { name: 'ShortcutToolTip', template: $('#' + Admin_ReportRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() },
-                ],
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() }],
             dataSource: {
-                pageSize: 20,
-                serverPaging: true,
                 schema: {
-                    total: function (data) {
-                        if (data && data.length > 0) {
-                            return data[0].AllTotalRows;
-                        }
-                        return 0;
-                    },
                     model: {
-                        id: 'RoleCompanyId',
+                        id: 'ReportRoleId',
                         fields: {
-                            RoleCompanyName: { editable: true, nullable: false },
+                            ReportRole: { editable: true, nullable: false },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
-                            RelatedCompanyName: { editable: true, nullable: false },
-                            RelatedCompanyPublicId: { editable: false },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?RoleCompanyAdmin=true&SearchParam=' + Admin_ReportRoleObject.GetSearchParam() + '&ViewEnable=' + Admin_ReportRoleObject.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/UtilApi?ReportRoleAdmin=true&vSearch=' + Admin_CompanyRoleObject.RoleCompanyId + '&vViewEnable=' + Admin_CompanyRoleObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', 'Error al cargar la información.');
                             }
                         });
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?RoleCompanyUpsert=true',
+                            url: BaseUrl.ApiUrl + '/UtilApi?ReportRoleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2674,17 +2669,17 @@ var Admin_ReportRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se creó el registro');
+                                Message('success', 'Se agregó el nuevo módulo');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', 'Se produjo un error.');
+                                Message('error', 'Error al agregar el nuevo módulo');
                             }
                         });
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?RoleCompanyUpsert=true',
+                            url: BaseUrl.ApiUrl + '/UtilApi?ReportRoleUpsert=true&RoleCompanyId=' + Admin_CompanyRoleObject.RoleCompanyId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2692,11 +2687,11 @@ var Admin_ReportRoleObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se editó el registro ' + options.data.RelatedCompanyName + '.');
+                                Message('succes', 'Se edito el registro');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', 'El registro ' + options.data.RelatedCompanyName + ' tuvo un error al modificarse.');
+                                Message('error', 'Error al editar el registro');
                             }
                         });
                     },
@@ -2708,15 +2703,9 @@ var Admin_ReportRoleObject = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
-            editable: {
-                mode: "popup",
-                window: {
-                    title: "Area de configuración",
-                }
-            },
             columns: [{
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Enable',
                 width: '50px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -2731,71 +2720,32 @@ var Admin_ReportRoleObject = {
                     return oReturn;
                 },
             }, {
-                field: 'RelatedCompanyName',
-                title: 'Comprador Relacionado',
+                field: 'ReportRole',
+                title: 'Módulo',
                 width: '150px',
                 template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.RelatedCompanyName != null) {
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
+                    var oReturn = 'Seleccione una opción';
+                    $.each(Admin_CompanyRoleObject.ReportList, function (item, value) {
+                        if (value.ItemId == dataItem.ReportRole) {
+                            oReturn = value.ItemName;
                         }
-                        else {
-                            oReturn = '';
-                        }
-                        oReturn = oReturn + dataItem.RelatedCompanyName;
-                    }
+                    });
+
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    var isSelected = false;
-                    // create an input element
-                    var input = $('<input/>');
-                    // set its name to the field to which the column is bound ('name' in this case)
-                    input.attr('value', options.model[options.field]);
-                    // append it to the container
-                    input.appendTo(container);
-                    // initialize a Kendo UI AutoComplete
-                    input.kendoAutoComplete({
-                        dataTextField: 'CP_Customer',
-                        select: function (e) {
-                            isSelected = true;
-                            var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name
-                            options.model[options.field] = selectedItem.CP_Customer;
-                            options.model['RelatedCompanyPublicId'] = selectedItem.CP_CustomerPublicId;
-                            options.model['RelatedCompanyName'] = selectedItem.CP_Customer;
-                            //enable made changes
-                            options.model.dirty = true;
-                        },
-                        dataSource: {
-                            type: 'json',
-                            serverFiltering: true,
-                            transport: {
-                                read: function (options) {
-                                    $.ajax({
-                                        url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=null',
-                                        dataType: 'json',
-                                        success: function (result) {
-                                            options.success(result);
-                                        },
-                                        error: function (result) {
-                                            options.error(result);
-                                            Message('error', result);
-                                        }
-                                    });
-                                },
-                            }
-                        }
-                    });
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CompanyRoleObject.ReportList,
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
                 },
-            }, {
-                field: 'RoleCompanyName',
-                title: 'Rol',
-                width: '150px',
             }],
         });
-    }
+    },
 }
 
 /*Message*/

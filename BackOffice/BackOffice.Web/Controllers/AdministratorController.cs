@@ -266,11 +266,12 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult AdminReports()
+        public virtual ActionResult AdminReports(int RoleCompanyId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedRole = ProveedoresOnLine.Company.Controller.Company.GetRoleCompanyByRoleCompanyId(RoleCompanyId),
             };
 
             oModel.ProviderMenu = GetAdminMenu(oModel);
@@ -484,19 +485,6 @@ namespace BackOffice.Web.Controllers
                 Position = 1,
                 IsSelected =
                     (oCurrentAction == MVC.Administrator.ActionNames.AdminRole &&
-                    oCurrentController == MVC.Administrator.Name),
-            });
-
-            //Admin Reports
-            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-            {
-                Name = "Administrar Reportes",
-                Url = Url.Action
-                    (MVC.Administrator.ActionNames.AdminReports,
-                    MVC.Administrator.Name),
-                Position = 1,
-                IsSelected =
-                    (oCurrentAction == MVC.Administrator.ActionNames.AdminReports &&
                     oCurrentController == MVC.Administrator.Name),
             });
 

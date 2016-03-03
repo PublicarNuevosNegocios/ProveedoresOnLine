@@ -53,6 +53,10 @@
     string AdminModuleUrl = Url.Action
         (MVC.Administrator.ActionNames.AdminModule,
         MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}";
+
+    string AdminReportUrl = Url.Action
+        (MVC.Administrator.ActionNames.AdminReports,
+        MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}";
 }
 
 @section inlinescripts{
@@ -63,6 +67,7 @@
                 Admin_CompanyRoleObject.Init({
                     ObjectId: 'divGridAdminRole',
                     RoleModuleUpsertUrl: '@AdminModuleUrl',
+                    ReportModuleUpsertUrl: '@AdminReportUrl',
                 });
                 Admin_CompanyRoleObject.RenderAsync({
                     ObjectType: '@((int)BackOffice.Models.General.enumAdminRole.Role)',

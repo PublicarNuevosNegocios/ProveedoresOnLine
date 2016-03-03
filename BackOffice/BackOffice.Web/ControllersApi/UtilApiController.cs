@@ -1387,6 +1387,76 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<AdminReportRoleViewModel> ReportRoleAdmin
+            (string ReportRoleAdmin,
+            string vSearch,
+            string vViewEnable)
+        {
+            List<AdminReportRoleViewModel> oReturn = new List<AdminReportRoleViewModel>();
+            List<GenericItemModel> oExchange = new List<GenericItemModel>();
+
+            if (ReportRoleAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.GetReportRoleSearch(vSearch, Convert.ToBoolean(vViewEnable));
+
+                if (oExchange != null &&
+                    oExchange.Count > 0)
+                {
+                    oExchange.All(x =>
+                    {
+                        oReturn.Add(new AdminReportRoleViewModel(x));
+
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminReportRoleViewModel> ReportRoleUpsert
+            (string ReportRoleUpsert,
+            string RoleCompanyId)
+        {
+            List<AdminReportRoleViewModel> oReturn = new List<AdminReportRoleViewModel>();
+
+            if (ReportRoleUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                AdminReportRoleViewModel oDataToUpsert =
+                  (AdminReportRoleViewModel)
+                  (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                  Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                              typeof(AdminReportRoleViewModel));
+
+                RoleCompanyModel oRoleCompanyModel = new RoleCompanyModel()
+                {
+                    RoleCompanyId = Convert.ToInt32(RoleCompanyId),
+                    RelatedReport = new List<GenericItemModel>()
+                    {
+                        new GenericItemModel()
+                        {
+                            ItemId = !string.IsNullOrEmpty(oDataToUpsert.ReportRoleId) ? Convert.ToInt32(oDataToUpsert.ReportRoleId) : 0,
+                            ItemName = oDataToUpsert.ReportRole,
+                            ItemType = new CatalogModel()
+                            {
+                                ItemId = (int)enumAdminRole.Reports,
+                            },
+                            Enable = oDataToUpsert.Enable,
+                        },
+                    },
+                };
+
+                ProveedoresOnLine.Company.Controller.Company.ReportRoleUpsert(oRoleCompanyModel);
+            }
+
+            return oReturn;
+        }
+
         #endregion
     }
 }

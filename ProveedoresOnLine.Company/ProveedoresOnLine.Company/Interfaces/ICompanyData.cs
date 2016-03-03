@@ -80,8 +80,6 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions();
 
-        List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllRoleByCompany();
-
         #endregion
 
         #region Util MP
@@ -144,7 +142,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int ModuleOptionInfoUpsert(int ModuleOptionId, int? ModuleOptionInfoId, int ModuleOptionInfoType, string Value, string LargeValue, bool Enable);
 
-        int ReportRoleUpsert(int RoleCompanyId, int? ReportCompanyId, string ReportCompanyName, bool Enable);
+        int ReportRoleUpsert(int RoleCompanyId, int? ReportRoleId, int ReportRoleType, string ReportRole, bool Enable);
 
         List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows);
 
@@ -156,7 +154,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable);
 
-        RoleCompanyModel GetReportCompanySearch(string vSearch, bool Enable);
+        List<GenericItemModel> GetReportRoleSearch(string vSearch, bool Enable);
 
         #endregion
 
