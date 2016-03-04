@@ -2461,9 +2461,9 @@ namespace MarketPlace.Web.Controllers
                 row = data.NewRow();
 
                 row["EvaluationCriteria"] = item.FK_RoleType;
-                row["Provider"] = item.FK_TotalScore;
-                row["Consultant"] = item.FK_TotalOrgCapacityScore;
-                row["Builder"] = item.FK_TotalKValueScore;
+                row["Provider"] = Convert.ToDouble(item.FK_TotalScore).ToString("#,0.##");
+                row["Consultant"] = Convert.ToDouble(item.FK_TotalOrgCapacityScore).ToString("#,0.##");
+                row["Builder"] = Convert.ToDouble(item.FK_TotalKValueScore).ToString("#,0.##");
 
                 data.Rows.Add(row);
             }
@@ -3424,9 +3424,9 @@ namespace MarketPlace.Web.Controllers
                 row3 = data3.NewRow();
 
                 row3["EvaluationCriteria"] = item.FK_RoleType;
-                row3["Provider"] = item.FK_TotalScore;
-                row3["Consultant"] = item.FK_TotalOrgCapacityScore;
-                row3["Builder"] = item.FK_TotalKValueScore;
+                row3["Provider"] = Convert.ToDouble(item.FK_TotalScore).ToString("#,0.##");;
+                row3["Consultant"] = Convert.ToDouble(item.FK_TotalOrgCapacityScore).ToString("#,0.##");;
+                row3["Builder"] = Convert.ToDouble(item.FK_TotalKValueScore).ToString("#,0.##"); ;
 
                 data3.Rows.Add(row3);
             }
