@@ -22,6 +22,8 @@ namespace SessionManager.Models.POLMarketPlace
 
         public List<Session_UserCompany> RelatedUser { get; set; }
 
+        public Session_RoleCompanyModel RelatedUserRole { get; set; }
+
         public bool CurrentSessionCompany { get; set; }
     }
 }

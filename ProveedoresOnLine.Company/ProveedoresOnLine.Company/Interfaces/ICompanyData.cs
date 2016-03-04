@@ -134,6 +134,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User);
 
+        List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUserNew(string User);
+
         List<ProveedoresOnLine.Company.Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int? RoleCompanyId, int PageNumber, int RowCount);
 
         int RoleModuleUpsert(int RoleCompanyId, int? RoleModuleId, int RoleModuleType, string RoleModule, bool Enable);

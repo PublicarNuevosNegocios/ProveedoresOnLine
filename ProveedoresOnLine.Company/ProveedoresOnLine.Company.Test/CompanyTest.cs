@@ -254,6 +254,16 @@ namespace ProveedoresOnLine.Company.Test
         }
 
         [TestMethod]
+        public void MP_RoleCompanyGetByUserNew()
+        {
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUserNew
+                ("david.moncayo@publicar.com");
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
         public void CategorySearchByTreeAdmin()
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
