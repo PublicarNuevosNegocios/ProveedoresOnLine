@@ -17,8 +17,8 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess
         public bool IsSuccess { get; set; }
         public string ProviderStatus { get; set; }
         public bool Enable { get; set; }
-        public string LastModify { get; set; }
-        public string CreateDate { get; set; }
+        public DateTime LastModify { get; set; }
+        public DateTime CreateDate { get; set; }
 
         public List<ProviderModel> RelatedProvider { get; set; }
 

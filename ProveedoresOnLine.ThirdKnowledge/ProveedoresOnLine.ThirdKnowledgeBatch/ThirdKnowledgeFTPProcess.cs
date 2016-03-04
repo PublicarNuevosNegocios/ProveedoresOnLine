@@ -67,13 +67,14 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             CurrentXMLAnswer.Descendants("Resultado").All(
                                 x =>
                                 {                                    
-                                    if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta.")
+                                    if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta."
+                                        && x.Element("Estado").Value.ToLower() == "true")
                                     {
                                         #region QueryInfo
                                         TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
                                         oInfoCreate.Alias = x.Element("Alias").Value;
-                                        oInfoCreate.IdentificationResult = x.Element("DocumentoIdentidad").Value;
-                                        oInfoCreate.NameResult = x.Element("NombreCompleto").Value;
+                                        oInfoCreate.IdentificationResult = x.Element("IdentificacionConsulta").Value;
+                                        oInfoCreate.NameResult = x.Element("NombreConsulta").Value;
                                         oInfoCreate.Offense = x.Element("CargoDelito").Value;
                                         oInfoCreate.Peps = x.Element("Peps").Value;
                                         oInfoCreate.Priority = x.Element("Prioridad").Value;
@@ -230,6 +231,33 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Zone,
                                             },
                                             Value = x.Element("Zona").Value,
+                                            Enable = true,
+                                        });
+                                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                        {
+                                            ItemInfoType = new TDCatalogModel()
+                                            {
+                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
+                                            },
+                                            Value = x.Element("NombreConsulta").Value,
+                                            Enable = true,
+                                        });
+                                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                        {
+                                            ItemInfoType = new TDCatalogModel()
+                                            {
+                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
+                                            },
+                                            Value = x.Element("IdentificacionConsulta").Value,
+                                            Enable = true,
+                                        });
+                                        oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                                        {
+                                            ItemInfoType = new TDCatalogModel()
+                                            {
+                                                ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.TypeDocument,
+                                            },
+                                            Value = x.Element("TipoDocumento").Value,
                                             Enable = true,
                                         });
                                         #endregion

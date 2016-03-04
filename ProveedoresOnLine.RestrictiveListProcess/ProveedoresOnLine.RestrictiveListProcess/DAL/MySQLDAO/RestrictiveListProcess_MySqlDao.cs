@@ -90,11 +90,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
                                     BlackListProcessId = cm.Field<int>("BlackListProcessId"),
                                     FilePath = cm.Field<string>("FilePath"),
                                     ProcessStatus = cm.Field<UInt64>("ProcessStatus") == 1 ? true : false,
-                                    IsSuccess = cm.Field<UInt64>("ProviderName") == 1 ? true : false,
-                                    ProviderStatus = cm.Field<string>("IsSuccess"),
+                                    IsSuccess = cm.Field<UInt64>("IsSuccess") == 1 ? true : false,
+                                    ProviderStatus = cm.Field<string>("ProviderStatus"),
                                     Enable = cm.Field<UInt64>("Enable") == 1 ? true : false,
-                                    LastModify = cm.Field<string>("LastModify"),
-                                    CreateDate = cm.Field<string>("CreateDate"),
+                                    LastModify = cm.Field<DateTime>("LastModify"),
+                                    CreateDate = cm.Field<DateTime>("CreateDate"),
                                 } into cmg
 
                         select new RestrictiveListProcessModel() {

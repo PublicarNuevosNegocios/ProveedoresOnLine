@@ -11,5 +11,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
         {
             ProveedoresOnLine.RestrictiveListProcessBatch.RestrictiveListSendProcess.StartProcess();
         }
+
+        [TestMethod]
+        public void StartReadProcessTest()
+        {
+            ProveedoresOnLine.RestrictiveListProcessBatch.RestrictiveListReadProcess.StartProcess();
+        }
     }
 }

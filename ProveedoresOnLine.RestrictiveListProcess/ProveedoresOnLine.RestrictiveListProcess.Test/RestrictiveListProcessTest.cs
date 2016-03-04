@@ -33,11 +33,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
             RestrictiveListProcessModel oBlackListProcessModel = new RestrictiveListProcessModel()
             { 
                 BlackListProcessId = 5,
-                CreateDate = "29-02-2016",
+                CreateDate = DateTime.Now,
                 Enable = true,
                 FilePath ="C:\\ProveedoresOnline\\Test\\",
                 IsSuccess = true,
-                LastModify = "29-02-2016",
+                LastModify = DateTime.Now,
                 ProcessStatus = true,
                 ProviderStatus = Convert.ToString((int)ProveedoresOnLine.RestrictiveListProcess.Models.enumProviderStatus.CreacionNacional),
             };
