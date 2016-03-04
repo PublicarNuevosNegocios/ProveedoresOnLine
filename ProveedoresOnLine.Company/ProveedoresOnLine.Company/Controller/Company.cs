@@ -829,6 +829,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUserNew(string User)
+        {
+            return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUserNew(User);
+        }
+
         public static List<Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int? RoleCompanyId, int PageNumber, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.MP_UserCompanySearch(CompanyPublicId, SearchParam, RoleCompanyId, PageNumber, RowCount);

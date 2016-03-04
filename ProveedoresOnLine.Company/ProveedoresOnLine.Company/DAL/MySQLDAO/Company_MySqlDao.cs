@@ -2349,6 +2349,200 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUserNew(string User)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_C_RoleCompany_GetByUserNew",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<CompanyModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("CompanyPublicId")
+                     group c by new
+                     {
+                         CompanyPublicId = c.Field<string>("CompanyPublicId"),
+                         CompanyName = c.Field<string>("CompanyName"),
+                         IdentificationTypeId = c.Field<int>("IdentificationTypeId"),
+                         IdentificationTypeName = c.Field<string>("IdentificationTypeName"),
+                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
+                         CompanyTypeId = c.Field<int>("CompanyTypeId"),
+                         CompanyTypeName = c.Field<string>("CompanyTypeName"),
+                     } into cg
+                     select new CompanyModel()
+                     {
+                         CompanyPublicId = cg.Key.CompanyPublicId,
+                         CompanyName = cg.Key.CompanyName,
+                         IdentificationType = new CatalogModel()
+                         {
+                             ItemId = cg.Key.IdentificationTypeId,
+                             ItemName = cg.Key.IdentificationTypeName,
+                         },
+                         IdentificationNumber = cg.Key.IdentificationNumber,
+                         CompanyType = new CatalogModel()
+                         {
+                             ItemId = cg.Key.CompanyTypeId,
+                             ItemName = cg.Key.CompanyTypeName,
+                         },
+                         CompanyInfo =
+                            (from cinf in response.DataTableResult.AsEnumerable()
+                             where !cinf.IsNull("CompanyInfoId") &&
+                                    cinf.Field<string>("CompanyPublicId") == cg.Key.CompanyPublicId
+                             group cinf by new
+                             {
+                                 CompanyInfoId = cinf.Field<int>("CompanyInfoId"),
+                                 CompanyInfoTypeId = cinf.Field<int>("CompanyInfoTypeId"),
+                                 CompanyInfoTypeName = cinf.Field<string>("CompanyInfoTypeName"),
+                                 CompanyInfoTypeValue = cinf.Field<string>("CompanyInfoTypeValue"),
+                                 CompanyInfoTypeLargeValue = cinf.Field<string>("CompanyInfoTypeLargeValue"),
+                                 CompanyInfoValueName = cinf.Field<string>("CompanyInfoValueName"),
+                             } into cinfg
+                             select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                             {
+                                 ItemInfoId = cinfg.Key.CompanyInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = cinfg.Key.CompanyInfoTypeId,
+                                     ItemName = cinfg.Key.CompanyInfoTypeName,
+                                 },
+                                 Value = cinfg.Key.CompanyInfoTypeValue,
+                                 LargeValue = cinfg.Key.CompanyInfoTypeLargeValue,
+                                 ValueName = cinfg.Key.CompanyInfoValueName,
+                             }).ToList(),
+                         RelatedUser =
+                            (from uc in response.DataTableResult.AsEnumerable()
+                             where !uc.IsNull("UserCompanyId") &&
+                                    uc.Field<string>("CompanyPublicId") == cg.Key.CompanyPublicId
+                             group uc by new
+                             {
+                                 UserCompanyId = uc.Field<int>("UserCompanyId"),
+                                 User = uc.Field<string>("User"),
+                             } into ucg
+                             select new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                             {
+                                 UserCompanyId = ucg.Key.UserCompanyId,
+                                 User = ucg.Key.User,
+                                 RelatedCompanyRole =
+                                    (from rc in response.DataTableResult.AsEnumerable()
+                                     where !rc.IsNull("RoleCompanyId") &&
+                                           rc.Field<int>("UserCompanyId") == ucg.Key.UserCompanyId
+                                     group rc by new
+                                     {
+                                         RoleCompanyId = rc.Field<int>("RoleCompanyId"),
+                                         RoleCompanyName = rc.Field<string>("RoleCompanyName"),
+                                         ParentRoleCompany = rc.Field<int?>("ParentRoleCompany"),
+                                     }into rcg
+                                     select new RoleCompanyModel()
+                                     {
+                                         RoleCompanyId = rcg.Key.RoleCompanyId,
+                                         RoleCompanyName = rcg.Key.RoleCompanyName,
+                                         ParentRoleCompany = rcg.Key.ParentRoleCompany,
+                                         RoleModule = 
+                                            (from rm in response.DataTableResult.AsEnumerable()
+                                             where !rm.IsNull("RoleModuleId") &&
+                                                    rm.Field<int>("RoleCompanyId") == rcg.Key.RoleCompanyId
+                                             group rm by new
+                                             {
+                                                 RoleModuleId = rm.Field<int>("RoleModuleId"),
+                                                 RoleModuleTypeId = rm.Field<int>("RoleModuleTypeId"),
+                                                 RoleModuleTypeName = rm.Field<string>("RoleModuleTypeName"),
+                                                 RoleModuleName = rm.Field<string>("RoleModuleName"),
+                                             }into rmg
+                                             select new RoleModuleModel()
+                                             {
+                                                 RoleModuleId = rmg.Key.RoleModuleId,
+                                                 RoleModuleType = new CatalogModel()
+                                                 {
+                                                     ItemId = rmg.Key.RoleModuleTypeId,
+                                                     ItemName = rmg.Key.RoleModuleTypeName,
+                                                 },
+                                                 RoleModule = rmg.Key.RoleModuleName,
+                                                 ModuleOption =
+                                                    (from mo in response.DataTableResult.AsEnumerable()
+                                                     where !mo.IsNull("ModuleOptionId") &&
+                                                            mo.Field<int>("RoleModuleId") == rmg.Key.RoleModuleId
+                                                     group mo by new
+                                                     {
+                                                         ModuleOptionId = mo.Field<int>("ModuleOptionId"),
+                                                         ModuleOptionTypeId = mo.Field<int>("ModuleOptionTypeId"),
+                                                         ModuleOptionTypeName = mo.Field<string>("ModuleOptionTypeName"),
+                                                         ModuleOptionName = mo.Field<string>("ModuleOptionName"),
+                                                     }into mog
+                                                     select new GenericItemModel()
+                                                     {
+                                                         ItemId = mog.Key.ModuleOptionId,
+                                                         ItemType = new CatalogModel()
+                                                         {
+                                                             ItemId = mog.Key.ModuleOptionTypeId,
+                                                             ItemName = mog.Key.ModuleOptionTypeName,
+                                                         },
+                                                         ItemName = mog.Key.ModuleOptionName,
+                                                         ItemInfo =
+                                                            (from moi in response.DataTableResult.AsEnumerable()
+                                                             where !moi.IsNull("ModuleOptionInfoId") &&
+                                                                    moi.Field<int>("ModuleOptionId") == mog.Key.ModuleOptionId
+                                                             group moi by new
+                                                             {
+                                                                 ModuleOptionInfoId = moi.Field<int>("ModuleOptionInfoId"),
+                                                                 ModuleOptionInfoTypeId = moi.Field<int>("ModuleOptionInfoTypeId"),
+                                                                 ModuleOptionIngoTypeName = moi.Field<string>("ModuleOptionIngoTypeName"),
+                                                                 ModuleOptionInfoValue = moi.Field<string>("ModuleOptionInfoValue"),
+                                                                 ModuleOptionInfoLargeValue = moi.Field<string>("ModuleOptionInfoLargeValue"),
+                                                             }into moig
+                                                             select new GenericItemInfoModel()
+                                                             {
+                                                                 ItemInfoId = moig.Key.ModuleOptionInfoId,
+                                                                 ItemInfoType = new CatalogModel()
+                                                                 {
+                                                                     ItemId =  moig.Key.ModuleOptionInfoTypeId,
+                                                                     ItemName = moig.Key.ModuleOptionIngoTypeName,
+                                                                 },
+                                                                 Value = moig.Key.ModuleOptionInfoValue,
+                                                                 LargeValue = moig.Key.ModuleOptionInfoLargeValue,
+                                                             }).ToList()
+                                                     }).ToList(),
+                                             }).ToList(),
+                                         RelatedReport =
+                                            (from rr in response.DataTableResult.AsEnumerable()
+                                             where !rr.IsNull("ReportRoleId") &&
+                                                    rr.Field<int>("RoleCompanyId") == rcg.Key.RoleCompanyId
+                                             group rr by new
+                                             {
+                                                 ReportRoleId = rr.Field<int>("ReportRoleId"),
+                                                 ReportRoleTypeId = rr.Field<int>("ReportRoleTypeId"),
+                                                 ReportRoleTypeName = rr.Field<string>("ReportRoleTypeName"),
+                                                 ReportRoleName = rr.Field<string>("ReportRoleName"),
+                                             }into rrg
+                                             select new GenericItemModel()
+                                             {
+                                                 ItemId = rrg.Key.ReportRoleId,
+                                                 ItemType = new CatalogModel()
+                                                 {
+                                                     ItemId = rrg.Key.ReportRoleTypeId,
+                                                     ItemName = rrg.Key.ReportRoleTypeName,
+                                                 },
+                                                 ItemName = rrg.Key.ReportRoleName,
+                                             }).ToList(),
+                                     }).FirstOrDefault(),
+                             }).ToList(),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int? RoleCompanyId, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();

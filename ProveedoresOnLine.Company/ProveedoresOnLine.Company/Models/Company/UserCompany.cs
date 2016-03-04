@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.Company.Models.Util;
+﻿using ProveedoresOnLine.Company.Models.Role;
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace ProveedoresOnLine.Company.Models.Company
         public string User { get; set; }
 
         public GenericItemModel RelatedRole { get; set; }
+
+        public RoleCompanyModel RelatedCompanyRole { get; set; }
 
         public bool Enable { get; set; }
 
