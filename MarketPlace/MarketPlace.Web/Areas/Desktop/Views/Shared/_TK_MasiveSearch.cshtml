@@ -4,11 +4,23 @@
     @if (Model.RelatedThirdKnowledge.HasPlan)
     {
         <div class="row POMPSectionTitlesBox">
-            <div class="col-md-6">
-                <span>Periodo Actual: @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy/MM/dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy/MM/dd")</span>
+            <div class="col-xs-6">
+                <label>Periodo Actual @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().InitDate.ToString("yyyy-MM-dd") -  @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().EndDate.ToString("yyy-MM-dd")</label>
             </div>
-            <div class="col-md-4 text-right">
-                <span>Consultas:</span> <span id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</span><span> De: @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</span>
+            <div class="col-xs-4 text-right">
+
+                @if (Model.RelatedThirdKnowledge.CurrentPlanModel.IsLimited)
+                {
+                    <label>Plan Ilimitado - </label>
+                    <label>Total Consultas Realizadas</label>
+                    <label id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+                }
+                else
+                {
+                    <label>Consultas </label>
+                    <label id="ThirdKnowledge_Queries">@Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().TotalQueries</label>
+                    <label>De @Model.RelatedThirdKnowledge.CurrentPlanModel.RelatedPeriodModel.FirstOrDefault().AssignedQueries</label>
+                }
             </div>
 
             <div class="col-md-2 text-right">

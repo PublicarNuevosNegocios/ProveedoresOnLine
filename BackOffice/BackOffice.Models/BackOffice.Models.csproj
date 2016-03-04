@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminModuleOptionViewModel.cs" />
+    <Compile Include="Admin\AdminReportRoleViewModel.cs" />
     <Compile Include="Admin\AdminRoleCompanyViewModel.cs" />
     <Compile Include="Admin\AdminRoleModuleViewModel.cs" />
     <Compile Include="Admin\AdminViewModel.cs" />

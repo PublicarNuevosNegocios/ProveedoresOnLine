@@ -91,6 +91,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminReports()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminReports);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
@@ -197,6 +203,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string RoleCompanyId = "RoleCompanyId";
             public readonly string RoleModuleId = "RoleModuleId";
+        }
+        static readonly ActionParamsClass_AdminReports s_params_AdminReports = new ActionParamsClass_AdminReports();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminReports AdminReportsParams { get { return s_params_AdminReports; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminReports
+        {
+            public readonly string RoleCompanyId = "RoleCompanyId";
         }
         static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -444,13 +458,14 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void AdminReportsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void AdminReportsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleCompanyId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AdminReports()
+        public override System.Web.Mvc.ActionResult AdminReports(int RoleCompanyId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminReports);
-            AdminReportsOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
+            AdminReportsOverride(callInfo, RoleCompanyId);
             return callInfo;
         }
 

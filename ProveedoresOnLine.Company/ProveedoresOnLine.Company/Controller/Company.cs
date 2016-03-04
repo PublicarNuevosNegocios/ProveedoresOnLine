@@ -1036,6 +1036,7 @@ namespace ProveedoresOnLine.Company.Controller
                         x.ItemId = DAL.Controller.CompanyDataController.Instance.ReportRoleUpsert
                         (RoleCompanyToUpsert.RoleCompanyId,
                         x.ItemId,
+                        x.ItemType.ItemId,
                         x.ItemName,
                         x.Enable);
 
@@ -1054,7 +1055,7 @@ namespace ProveedoresOnLine.Company.Controller
 
                         oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
                         {
-                            LogInfoType = "ReportCompanyId",
+                            LogInfoType = "ReportRoleId",
                             Value = x.ItemId.ToString(),
                         });
 
@@ -1092,6 +1093,11 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable)
         {
             return DAL.Controller.CompanyDataController.Instance.GetModuleOptionInfoSearch(ModuleOptionId, Enable);
+        }
+
+        public static List<GenericItemModel> GetReportRoleSearch(string vSearch, bool Enable)
+        {
+            return DAL.Controller.CompanyDataController.Instance.GetReportRoleSearch(vSearch, Enable);
         }
 
         #endregion

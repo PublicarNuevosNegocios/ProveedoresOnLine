@@ -329,9 +329,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ModuleOptionInfoUpsert(ModuleOptionId, ModuleOptionInfoId, ModuleOptionInfoType, Value, LargeValue, Enable);
         }
 
-        public int ReportRoleUpsert(int RoleCompanyId, int? ReportCompanyId, string ReportCompanyName, bool Enable)
+        public int ReportRoleUpsert(int RoleCompanyId, int? ReportRoleId, int ReportRoleType, string ReportRole, bool Enable)
         {
-            return DataFactory.ReportRoleUpsert(RoleCompanyId, ReportCompanyId, ReportCompanyName, Enable);
+            return DataFactory.ReportRoleUpsert(RoleCompanyId, ReportRoleId, ReportRoleType, ReportRole, Enable);
         }
 
         public List<RoleCompanyModel> GetRoleCompanySearch(string vSearchParam, bool Enable, out int TotalRows)
@@ -357,6 +357,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         public List<GenericItemInfoModel> GetModuleOptionInfoSearch(int ModuleOptionId, bool Enable)
         {
             return DataFactory.GetModuleOptionInfoSearch(ModuleOptionId, Enable);
+        }
+
+        public List<GenericItemModel> GetReportRoleSearch(string vSearch, bool Enable)
+        {
+            return DataFactory.GetReportRoleSearch(vSearch, Enable);
         }
 
         #endregion

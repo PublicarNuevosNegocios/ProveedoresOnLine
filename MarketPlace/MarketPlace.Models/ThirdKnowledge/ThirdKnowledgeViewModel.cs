@@ -104,6 +104,7 @@ namespace MarketPlace.Models.ThirdKnowledge
             LastModifyDate = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.LastModifyDate).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
             Message = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Message).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
             FileURL = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.FileURL).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();            
+            Status = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.Status).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString().ToLower();
         }
 
         public ThirdKnowledgeViewModel()
