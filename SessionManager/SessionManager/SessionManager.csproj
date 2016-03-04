@@ -76,6 +76,8 @@
     <Compile Include="Models\POLMarketPlace\Session_GenericItemModel.cs" />
     <Compile Include="Models\POLMarketPlace\Session_GenericItemInfoModel.cs" />
     <Compile Include="Models\POLMarketPlace\MarketPlaceUser.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_RoleCompanyModel.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_RoleModuleModel.cs" />
     <Compile Include="Models\POLMarketPlace\Session_UserCompany.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionController.cs" />
