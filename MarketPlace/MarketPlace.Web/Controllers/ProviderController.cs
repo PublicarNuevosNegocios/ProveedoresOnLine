@@ -4203,7 +4203,7 @@ namespace MarketPlace.Web.Controllers
 
                     row["Unidad"] = oProviderBalanceSheetViewModel.AccountUnit;
                     row["Formula"] = oProviderBalanceSheetViewModel.AccountFormulaText;
-                    row["Interpretación"] = oProviderBalanceSheetViewModel.AccountFormulaDescription;
+                    row["Interpretación"] = oProviderBalanceSheetViewModel.AccountFormulaDescription.Replace("<br/>", "");
  
                     data.Rows.Add(row);
 
