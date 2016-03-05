@@ -16,6 +16,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Interfaces
         List<RestrictiveListProcessModel> GetAllProvidersInProcess();
 
         int BlackListProcessUpsert(int BlackListProcessId, string FilePath, bool ProcessStatus, bool IsSuccess, string ProviderStatus, bool Enable);
-        
+
+        string GetCompanyPublicIdByLegalId(int LegalId);
     }
 }

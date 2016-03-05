@@ -51,6 +51,10 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.Controller
             return DataFactory.BlackListProcessUpsert(BlackListProcessId, FilePath, ProcessStatus, IsSuccess, ProviderStatus, Enable);
         }
 
+        public string GetCompanyPublicIdByLegalId(int LegalId)
+        {
+            return DataFactory.GetCompanyPublicIdByLegalId(LegalId);
+        }
         #endregion
     }
 }

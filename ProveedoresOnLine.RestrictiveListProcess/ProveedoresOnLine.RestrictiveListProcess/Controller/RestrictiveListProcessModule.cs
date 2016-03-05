@@ -36,6 +36,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
 
             return oProviderList;
         }
+
+        public static string GetCompanyPublicIdByLegalId(int LegalId)
+        {
+            return DAL.Controller.RestrictiveListProcessDataController.Instance.GetCompanyPublicIdByLegalId(LegalId);
+        }
         #endregion
 
         #region RestrictiveList Functions

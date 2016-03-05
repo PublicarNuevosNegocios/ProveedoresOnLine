@@ -135,5 +135,21 @@ namespace ProveedoresOnLine.RestrictiveListProcess.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult.ToString());
         }
 
+        public string GetCompanyPublicIdByLegalId(int LegalId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vLegalId", LegalId));        
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "BP_CP_GetCompanyPublicIdByLegalId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return response.ScalarResult.ToString();
+        }
     }
 }

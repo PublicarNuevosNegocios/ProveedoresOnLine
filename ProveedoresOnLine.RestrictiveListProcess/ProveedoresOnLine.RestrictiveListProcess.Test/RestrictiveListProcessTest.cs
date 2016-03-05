@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
+using ProveedoresOnLine.RestrictiveListProcess.Controller;
 using ProveedoresOnLine.RestrictiveListProcess.Models.RestrictiveListProcess;
 using ProveedoresOnLine.RestrictiveListProcess.Models.Util;
 using System;
@@ -46,5 +47,11 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Test
             Assert.IsNotNull(strUpsertStatus);
         }
 
+        [TestMethod]
+        public void GetCompanyPublicIdByLegalId()
+        {
+            string oRetrn = RestrictiveListProcessModule.GetCompanyPublicIdByLegalId(2);
+            Assert.IsNotNull(oRetrn);
+        }
     }
 }

@@ -68,40 +68,31 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
 
                             //Get Provider by Status                        
                             Process.RelatedProvider = new List<ProviderModel>();
-                            
+
                             //Compare Company
                             List<ProviderModel> oProvidersToCompare = new List<ProviderModel>();
-                            
+
                             //Compare Persons                        
                             List<ProviderModel> oCompanyPersonToCompare = new List<ProviderModel>();
+                            List<GenericItemModel> oRelatedLegaToComapare = new List<GenericItemModel>();
 
                             //Get Providers By Status
                             Process.RelatedProvider = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetProviderByStatus(Convert.ToInt32(Process.ProviderStatus), ProveedoresOnLine.RestrictiveListProcessBatch.Models.General.InternalSettings.Instance[ProveedoresOnLine.RestrictiveListProcessBatch.Models.Constants.C_Settings_PublicarPublicId].Value);
 
-                            oCoincidences.All(p =>
+                            oProvidersToCompare = Process.RelatedProvider.Where(y => oCoincidences.Any(c => c.IdentificationResult == y.RelatedCompany.IdentificationNumber && y.RelatedCompany.CompanyName == c.NameResult)).ToList();
+                            
+                            //Get persons coincidences                           
+                            Process.RelatedProvider.All(prv =>
                             {
-                                oProvidersToCompare.Add(Process.RelatedProvider.Where(y => y.RelatedCompany.IdentificationNumber == p.IdentificationResult && y.RelatedCompany.CompanyName == p.NameResult).FirstOrDefault());
-
-                                Process.RelatedProvider.All(m =>
-                                    {
-                                        if (m.RelatedLegal.Where(l => l.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault() == p.IdentificationResult
-                                                                && l.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault() == p.NameResult) != null)
-                                        {
-                                            oCompanyPersonToCompare.Add(m);
-                                        }
-
-                                        return true;
-                                    });
+                                oRelatedLegaToComapare.AddRange(prv.RelatedLegal.Where(y => oCoincidences.Any(c => c.NameResult == y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(inf => inf.Value).FirstOrDefault() &&
+                                                                                                                   c.IdentificationResult == y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault())).ToList());
+                               
                                 return true;
-                            });
+                            });                            
 
-                            //Creacte Private Function to update blackList
-                            if (oProvidersToCompare.Count > 0)
-                                CreateBlackListProcess(oProvidersToCompare, oCoincidences);
-
-                            if (oCompanyPersonToCompare.Count > 0)
-                                CreateBlackListProcess(oCompanyPersonToCompare, oCoincidences);
-
+                            //Creacte Private Function to update blackList                            
+                            CreateBlackListProcess(oProvidersToCompare, oRelatedLegaToComapare, oCoincidences);
+                            
 
                             //Remove all Files
                             //remove temporal file
@@ -157,8 +148,8 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
             CurrentXMLAnswer.Descendants("Resultado").All(
                 x =>
                 {
-                    if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta."
-                        && x.Element("Estado").Value.ToLower() == "true")
+                    if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta.")
+                        //&& x.Element("Estado").Value.ToLower() == "true")
                     {
                         #region QueryInfo
                         TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
@@ -359,27 +350,27 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
             return oReturn;
         }
 
-        private static bool CreateBlackListProcess(List<ProviderModel> oProvidersToUpdate, List<TDQueryInfoModel> oCoincidences)
+        private static bool CreateBlackListProcess(List<ProviderModel> oProvidersToUpdate, List<GenericItemModel> oRelatedPersons ,List<TDQueryInfoModel> oCoincidences)
         {
             try
             {
-                if (oProvidersToUpdate.Count > 0)
+                #region Update blackList For Providers
+                if (oProvidersToUpdate != null)
                 {
                     List<TDQueryInfoModel> oCurrentCoincidences = new List<TDQueryInfoModel>();
 
-                    //For each  provider create de black List
+                    //For each  provider create de black List                  
                     oProvidersToUpdate.All(prv =>
                     {
                         if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.RelatedCompany.CompanyPublicId) && prv.RelatedCompany != null)
                         {
                             ProviderModel oProvider = new ProviderModel();
-                            oProvider.RelatedCompany = new CompanyModel();
-                            oProvider.RelatedCompany.CompanyInfo = new List<GenericItemInfoModel>();
+                            oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.RelatedCompany.CompanyPublicId);
 
                             oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                             {
-                                ItemInfoId = prv.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.UpdateAlert).
-                                        Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault(),
+                                ItemInfoId = oProvider.RelatedCompany.CompanyInfo != null ? oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.UpdateAlert).
+                                        Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
                                 ItemInfoType = new CatalogModel()
                                 {
                                     ItemId = (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.UpdateAlert,
@@ -390,7 +381,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
 
                             oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                             {
-                                ItemInfoId = prv.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.Alert).
+                                ItemInfoId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.Alert).
                                             Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault(),
                                 ItemInfoType = new CatalogModel()
                                 {
@@ -401,7 +392,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                             });
 
                             //Save DateTime of last Update Data
-                            ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
+                            ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProvider.RelatedCompany);
 
                             //Get coincidences for current provider
                             oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.RelatedCompany.CompanyName && x.IdentificationResult == prv.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
@@ -622,17 +613,293 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                         }
                         return true;
                     });
-                }
+                }                
+                
+                #endregion
 
+                #region Update blackList For Persons
+                if (oRelatedPersons != null)
+                {
+                    List<TDQueryInfoModel> oCurrentCoincidences = new List<TDQueryInfoModel>();
+                    List<ProviderModel> oPersonProvidersToUpdate = new List<ProviderModel>();
+                    oRelatedPersons.All(prs =>
+                        {
+                            oPersonProvidersToUpdate.Add(new ProviderModel()
+                                {
+                                    RelatedCompany = new CompanyModel() 
+                                    {
+                                        CompanyPublicId = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetCompanyPublicIdByLegalId(prs.ItemId),
+                                    },
+                                });
+                            return true;
+                        });
+
+                    //For each  provider create de black List                  
+                    oPersonProvidersToUpdate.All(prv =>
+                    {
+                        if (ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.RelatedCompany.CompanyPublicId) && prv.RelatedCompany != null)
+                        {
+                            ProviderModel oProvider = new ProviderModel();
+                            oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.RelatedCompany.CompanyPublicId);
+
+                            oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = oProvider.RelatedCompany.CompanyInfo != null ? oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.UpdateAlert).
+                                        Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.UpdateAlert,
+                                },
+                                Enable = true,
+                                Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                            });
+
+                            oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = oProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.Alert).
+                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault(),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumCompanyInfoType.Alert,
+                                },
+                                Enable = true,
+                                Value = ((int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumBlackList.BL_DontShowAlert).ToString(),
+                            });
+
+                            //Save DateTime of last Update Data
+                            ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProvider.RelatedCompany);
+
+                            //Get coincidences for current provider
+                            oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.RelatedCompany.CompanyName && x.IdentificationResult == prv.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
+
+                            oCurrentCoincidences.All(c =>
+                            {
+                                #region Operation
+
+                                ProviderModel oProviderToInsert = new ProviderModel();
+                                oProviderToInsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
+                                oProviderToInsert.RelatedCompany.CompanyInfo = new List<GenericItemInfoModel>();
+                                oProviderToInsert.RelatedCompany.CompanyPublicId = prv.RelatedCompany.CompanyPublicId;
+                                oProviderToInsert.RelatedBlackList = new List<BlackListModel>();
+
+                                CompanyModel BasicInfo = new CompanyModel();
+                                BasicInfo = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.RelatedCompany.CompanyPublicId);
+                                oProviderToInsert.RelatedBlackList.Add(new BlackListModel
+                                {
+                                    BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)ProveedoresOnLine.RestrictiveListProcessBatch.Models.enumBlackList.BL_ShowAlert,
+                                    },
+                                    User = "Proveedores OnLine Process",
+                                    FileUrl = "",
+                                    BlackListInfo = new List<GenericItemInfoModel>()
+                                });
+
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Alias",
+                                    },
+                                    Value = c.Alias,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Nombre Consultado",
+                                    },
+                                    Value = c.NameResult,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Identificación Consultada",
+                                    },
+                                    Value = c.IdentificationResult,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Cargo o Delito",
+                                    },
+                                    Value = c.Offense,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Peps",
+                                    },
+                                    Value = c.Peps,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Prioridad",
+                                    },
+                                    Value = c.Priority,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Estado",
+                                    },
+                                    Value = c.Status,
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Fecha Registro",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RegisterDate).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Documento de Identidad",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdentificationNumberResult).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Fecha de Actualizacion",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.LastModifyDate).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Nombre del Grupo",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Nombre Completo",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.NameResult).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Nombre de la Lista",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.ListName).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Otra Información",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.MoreInfo).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Zona",
+                                    },
+                                    Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Zone).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+
+                                List<ProviderModel> oProviderResultList = new List<ProviderModel>();
+                                oProviderResultList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert));
+
+                                var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
+
+                                #region Set Provider Info
+
+                                oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                                .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                                .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)enumCompanyInfoType.Alert,
+                                    },
+                                    Value = ((int)enumBlackList.BL_ShowAlert).ToString(),
+                                    Enable = true,
+                                });
+
+                                //Set large value With the items found
+                                //oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                                //{
+                                //    ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                //                .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                //                .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                                //    ItemInfoType = new CatalogModel()
+                                //    {
+                                //        ItemId = (int)enumCompanyInfoType.ListId,
+                                //    },
+                                //    LargeValue = string.Join(",", idResult),
+                                //    Enable = true,
+                                //});
+
+                                #endregion Set Provider Info
+                                ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
+                                #endregion Operation
+                                return true;
+                            });
+                        }
+                        return true;
+                    });
+                }                
+                #endregion               
                 return true;
             }
             catch (Exception)
             {
                 return false;
                 throw;
-            }           
-            
+            }
+
         }
+
         #region Log File
 
         private static void LogFile(string LogMessage)
