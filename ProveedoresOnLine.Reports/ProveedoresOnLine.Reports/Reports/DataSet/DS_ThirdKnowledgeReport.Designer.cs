@@ -419,8 +419,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ThirdKnowledgeReport_fncDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_fncRow> {
             
-            private global::System.Data.DataColumn columnAlias;
-            
             private global::System.Data.DataColumn columnIdentificationResult;
             
             private global::System.Data.DataColumn columnNameResult;
@@ -434,6 +432,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             private global::System.Data.DataColumn columnStatus;
             
             private global::System.Data.DataColumn columnListName;
+            
+            private global::System.Data.DataColumn columnIdentificationSearch;
+            
+            private global::System.Data.DataColumn columnNameSearch;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -466,14 +468,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             protected ThirdKnowledgeReport_fncDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AliasColumn {
-                get {
-                    return this.columnAlias;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -534,6 +528,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationSearchColumn {
+                get {
+                    return this.columnIdentificationSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameSearchColumn {
+                get {
+                    return this.columnNameSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -569,17 +579,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRow AddThirdKnowledgeReport_fncRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+            public ThirdKnowledgeReport_fncRow AddThirdKnowledgeReport_fncRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch) {
                 ThirdKnowledgeReport_fncRow rowThirdKnowledgeReport_fncRow = ((ThirdKnowledgeReport_fncRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Alias,
                         IdentificationResult,
                         NameResult,
                         Offense,
                         Peps,
                         Priority,
                         Status,
-                        ListName};
+                        ListName,
+                        IdentificationSearch,
+                        NameSearch};
                 rowThirdKnowledgeReport_fncRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowThirdKnowledgeReport_fncRow);
                 return rowThirdKnowledgeReport_fncRow;
@@ -602,7 +613,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnAlias = base.Columns["Alias"];
                 this.columnIdentificationResult = base.Columns["IdentificationResult"];
                 this.columnNameResult = base.Columns["NameResult"];
                 this.columnOffense = base.Columns["Offense"];
@@ -610,13 +620,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnPriority = base.Columns["Priority"];
                 this.columnStatus = base.Columns["Status"];
                 this.columnListName = base.Columns["ListName"];
+                this.columnIdentificationSearch = base.Columns["IdentificationSearch"];
+                this.columnNameSearch = base.Columns["NameSearch"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAlias);
                 this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdentificationResult);
                 this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
@@ -631,6 +641,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnStatus);
                 this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnListName);
+                this.columnIdentificationSearch = new global::System.Data.DataColumn("IdentificationSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationSearch);
+                this.columnNameSearch = new global::System.Data.DataColumn("NameSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameSearch);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -764,8 +778,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ThirdKnowledgeReport_rstDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_rstRow> {
             
-            private global::System.Data.DataColumn columnAlias;
-            
             private global::System.Data.DataColumn columnIdentificationResult;
             
             private global::System.Data.DataColumn columnNameResult;
@@ -779,6 +791,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             private global::System.Data.DataColumn columnStatus;
             
             private global::System.Data.DataColumn columnListName;
+            
+            private global::System.Data.DataColumn columnIdentificationSearch;
+            
+            private global::System.Data.DataColumn columnNameSearch;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -811,14 +827,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             protected ThirdKnowledgeReport_rstDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AliasColumn {
-                get {
-                    return this.columnAlias;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -879,6 +887,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationSearchColumn {
+                get {
+                    return this.columnIdentificationSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameSearchColumn {
+                get {
+                    return this.columnNameSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -914,17 +938,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRow AddThirdKnowledgeReport_rstRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+            public ThirdKnowledgeReport_rstRow AddThirdKnowledgeReport_rstRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch) {
                 ThirdKnowledgeReport_rstRow rowThirdKnowledgeReport_rstRow = ((ThirdKnowledgeReport_rstRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Alias,
                         IdentificationResult,
                         NameResult,
                         Offense,
                         Peps,
                         Priority,
                         Status,
-                        ListName};
+                        ListName,
+                        IdentificationSearch,
+                        NameSearch};
                 rowThirdKnowledgeReport_rstRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowThirdKnowledgeReport_rstRow);
                 return rowThirdKnowledgeReport_rstRow;
@@ -947,7 +972,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnAlias = base.Columns["Alias"];
                 this.columnIdentificationResult = base.Columns["IdentificationResult"];
                 this.columnNameResult = base.Columns["NameResult"];
                 this.columnOffense = base.Columns["Offense"];
@@ -955,13 +979,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnPriority = base.Columns["Priority"];
                 this.columnStatus = base.Columns["Status"];
                 this.columnListName = base.Columns["ListName"];
+                this.columnIdentificationSearch = base.Columns["IdentificationSearch"];
+                this.columnNameSearch = base.Columns["NameSearch"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAlias);
                 this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdentificationResult);
                 this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
@@ -976,6 +1000,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnStatus);
                 this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnListName);
+                this.columnIdentificationSearch = new global::System.Data.DataColumn("IdentificationSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationSearch);
+                this.columnNameSearch = new global::System.Data.DataColumn("NameSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameSearch);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1109,8 +1137,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ThirdKnowledgeReport_dceDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_dceRow> {
             
-            private global::System.Data.DataColumn columnAlias;
-            
             private global::System.Data.DataColumn columnIdentificationResult;
             
             private global::System.Data.DataColumn columnNameResult;
@@ -1124,6 +1150,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             private global::System.Data.DataColumn columnStatus;
             
             private global::System.Data.DataColumn columnListName;
+            
+            private global::System.Data.DataColumn columnIdentificationSearch;
+            
+            private global::System.Data.DataColumn columnNameSearch;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1156,14 +1186,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             protected ThirdKnowledgeReport_dceDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AliasColumn {
-                get {
-                    return this.columnAlias;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1224,6 +1246,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationSearchColumn {
+                get {
+                    return this.columnIdentificationSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameSearchColumn {
+                get {
+                    return this.columnNameSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1259,17 +1297,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRow AddThirdKnowledgeReport_dceRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+            public ThirdKnowledgeReport_dceRow AddThirdKnowledgeReport_dceRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch) {
                 ThirdKnowledgeReport_dceRow rowThirdKnowledgeReport_dceRow = ((ThirdKnowledgeReport_dceRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Alias,
                         IdentificationResult,
                         NameResult,
                         Offense,
                         Peps,
                         Priority,
                         Status,
-                        ListName};
+                        ListName,
+                        IdentificationSearch,
+                        NameSearch};
                 rowThirdKnowledgeReport_dceRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowThirdKnowledgeReport_dceRow);
                 return rowThirdKnowledgeReport_dceRow;
@@ -1292,7 +1331,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnAlias = base.Columns["Alias"];
                 this.columnIdentificationResult = base.Columns["IdentificationResult"];
                 this.columnNameResult = base.Columns["NameResult"];
                 this.columnOffense = base.Columns["Offense"];
@@ -1300,13 +1338,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnPriority = base.Columns["Priority"];
                 this.columnStatus = base.Columns["Status"];
                 this.columnListName = base.Columns["ListName"];
+                this.columnIdentificationSearch = base.Columns["IdentificationSearch"];
+                this.columnNameSearch = base.Columns["NameSearch"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAlias);
                 this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdentificationResult);
                 this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1321,6 +1359,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnStatus);
                 this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnListName);
+                this.columnIdentificationSearch = new global::System.Data.DataColumn("IdentificationSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationSearch);
+                this.columnNameSearch = new global::System.Data.DataColumn("NameSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameSearch);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1454,8 +1496,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ThirdKnowledgeReport_ppsDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_ppsRow> {
             
-            private global::System.Data.DataColumn columnAlias;
-            
             private global::System.Data.DataColumn columnIdentificationResult;
             
             private global::System.Data.DataColumn columnNameResult;
@@ -1469,6 +1509,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             private global::System.Data.DataColumn columnStatus;
             
             private global::System.Data.DataColumn columnListName;
+            
+            private global::System.Data.DataColumn columnIdentificationSearch;
+            
+            private global::System.Data.DataColumn columnNameSearch;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1501,14 +1545,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             protected ThirdKnowledgeReport_ppsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AliasColumn {
-                get {
-                    return this.columnAlias;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1569,6 +1605,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationSearchColumn {
+                get {
+                    return this.columnIdentificationSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameSearchColumn {
+                get {
+                    return this.columnNameSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1604,17 +1656,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRow AddThirdKnowledgeReport_ppsRow(string Alias, string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName) {
+            public ThirdKnowledgeReport_ppsRow AddThirdKnowledgeReport_ppsRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch) {
                 ThirdKnowledgeReport_ppsRow rowThirdKnowledgeReport_ppsRow = ((ThirdKnowledgeReport_ppsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Alias,
                         IdentificationResult,
                         NameResult,
                         Offense,
                         Peps,
                         Priority,
                         Status,
-                        ListName};
+                        ListName,
+                        IdentificationSearch,
+                        NameSearch};
                 rowThirdKnowledgeReport_ppsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowThirdKnowledgeReport_ppsRow);
                 return rowThirdKnowledgeReport_ppsRow;
@@ -1637,7 +1690,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnAlias = base.Columns["Alias"];
                 this.columnIdentificationResult = base.Columns["IdentificationResult"];
                 this.columnNameResult = base.Columns["NameResult"];
                 this.columnOffense = base.Columns["Offense"];
@@ -1645,13 +1697,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnPriority = base.Columns["Priority"];
                 this.columnStatus = base.Columns["Status"];
                 this.columnListName = base.Columns["ListName"];
+                this.columnIdentificationSearch = base.Columns["IdentificationSearch"];
+                this.columnNameSearch = base.Columns["NameSearch"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAlias);
                 this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdentificationResult);
                 this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1666,6 +1718,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnStatus);
                 this.columnListName = new global::System.Data.DataColumn("ListName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnListName);
+                this.columnIdentificationSearch = new global::System.Data.DataColumn("IdentificationSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationSearch);
+                this.columnNameSearch = new global::System.Data.DataColumn("NameSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameSearch);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1803,6 +1859,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnNameResult;
             
+            private global::System.Data.DataColumn columnIdentificationSearch;
+            
+            private global::System.Data.DataColumn columnNameSearch;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ThirdKnowledgeReport_sncDataTable() {
@@ -1854,6 +1914,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdentificationSearchColumn {
+                get {
+                    return this.columnIdentificationSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameSearchColumn {
+                get {
+                    return this.columnNameSearch;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1889,11 +1965,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRow AddThirdKnowledgeReport_sncRow(string IdentificationResult, string NameResult) {
+            public ThirdKnowledgeReport_sncRow AddThirdKnowledgeReport_sncRow(string IdentificationResult, string NameResult, string IdentificationSearch, string NameSearch) {
                 ThirdKnowledgeReport_sncRow rowThirdKnowledgeReport_sncRow = ((ThirdKnowledgeReport_sncRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IdentificationResult,
-                        NameResult};
+                        NameResult,
+                        IdentificationSearch,
+                        NameSearch};
                 rowThirdKnowledgeReport_sncRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowThirdKnowledgeReport_sncRow);
                 return rowThirdKnowledgeReport_sncRow;
@@ -1918,6 +1996,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             internal void InitVars() {
                 this.columnIdentificationResult = base.Columns["IdentificationResult"];
                 this.columnNameResult = base.Columns["NameResult"];
+                this.columnIdentificationSearch = base.Columns["IdentificationSearch"];
+                this.columnNameSearch = base.Columns["NameSearch"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1927,6 +2007,10 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnIdentificationResult);
                 this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNameResult);
+                this.columnIdentificationSearch = new global::System.Data.DataColumn("IdentificationSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdentificationSearch);
+                this.columnNameSearch = new global::System.Data.DataColumn("NameSearch", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNameSearch);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2069,22 +2153,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Alias {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.AliasColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_fnc.AliasColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string IdentificationResult {
                 get {
                     try {
@@ -2198,14 +2266,35 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAliasNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.AliasColumn);
+            public string IdentificationSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_fnc\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAliasNull() {
-                this[this.tableThirdKnowledgeReport_fnc.AliasColumn] = global::System.Convert.DBNull;
+            public string NameSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.NameSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_fnc.NameSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2291,6 +2380,30 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public void SetListNameNull() {
                 this[this.tableThirdKnowledgeReport_fnc.ListNameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationSearchNull() {
+                this[this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_fnc.NameSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameSearchNull() {
+                this[this.tableThirdKnowledgeReport_fnc.NameSearchColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2305,22 +2418,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             internal ThirdKnowledgeReport_rstRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableThirdKnowledgeReport_rst = ((ThirdKnowledgeReport_rstDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Alias {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.AliasColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_rst.AliasColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2438,14 +2535,35 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAliasNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.AliasColumn);
+            public string IdentificationSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_rst\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAliasNull() {
-                this[this.tableThirdKnowledgeReport_rst.AliasColumn] = global::System.Convert.DBNull;
+            public string NameSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_rst.NameSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_rst.NameSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2531,6 +2649,30 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public void SetListNameNull() {
                 this[this.tableThirdKnowledgeReport_rst.ListNameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationSearchNull() {
+                this[this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_rst.NameSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameSearchNull() {
+                this[this.tableThirdKnowledgeReport_rst.NameSearchColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2545,22 +2687,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             internal ThirdKnowledgeReport_dceRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableThirdKnowledgeReport_dce = ((ThirdKnowledgeReport_dceDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Alias {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.AliasColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_dce.AliasColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2678,14 +2804,35 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAliasNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.AliasColumn);
+            public string IdentificationSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_dce\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAliasNull() {
-                this[this.tableThirdKnowledgeReport_dce.AliasColumn] = global::System.Convert.DBNull;
+            public string NameSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_dce.NameSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_dce.NameSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2771,6 +2918,30 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public void SetListNameNull() {
                 this[this.tableThirdKnowledgeReport_dce.ListNameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationSearchNull() {
+                this[this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_dce.NameSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameSearchNull() {
+                this[this.tableThirdKnowledgeReport_dce.NameSearchColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2785,22 +2956,6 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             internal ThirdKnowledgeReport_ppsRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableThirdKnowledgeReport_pps = ((ThirdKnowledgeReport_ppsDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Alias {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.AliasColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Alias\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_pps.AliasColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2918,14 +3073,35 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAliasNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.AliasColumn);
+            public string IdentificationSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_pps\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAliasNull() {
-                this[this.tableThirdKnowledgeReport_pps.AliasColumn] = global::System.Convert.DBNull;
+            public string NameSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_pps.NameSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_pps.NameSearchColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3011,6 +3187,30 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public void SetListNameNull() {
                 this[this.tableThirdKnowledgeReport_pps.ListNameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationSearchNull() {
+                this[this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_pps.NameSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameSearchNull() {
+                this[this.tableThirdKnowledgeReport_pps.NameSearchColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -3062,6 +3262,39 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IdentificationSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_snc\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string NameSearch {
+                get {
+                    try {
+                        return ((string)(this[this.tableThirdKnowledgeReport_snc.NameSearchColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_snc\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableThirdKnowledgeReport_snc.NameSearchColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationResultNull() {
                 return this.IsNull(this.tableThirdKnowledgeReport_snc.IdentificationResultColumn);
             }
@@ -3082,6 +3315,30 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameResultNull() {
                 this[this.tableThirdKnowledgeReport_snc.NameResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdentificationSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdentificationSearchNull() {
+                this[this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameSearchNull() {
+                return this.IsNull(this.tableThirdKnowledgeReport_snc.NameSearchColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameSearchNull() {
+                this[this.tableThirdKnowledgeReport_snc.NameSearchColumn] = global::System.Convert.DBNull;
             }
         }
         
