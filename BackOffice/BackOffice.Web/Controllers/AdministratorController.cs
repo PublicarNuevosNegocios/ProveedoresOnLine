@@ -266,12 +266,11 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult AdminReports(int RoleCompanyId)
+        public virtual ActionResult AdminReports()
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-                RelatedRole = ProveedoresOnLine.Company.Controller.Company.GetRoleCompanyByRoleCompanyId(RoleCompanyId),
             };
 
             oModel.ProviderMenu = GetAdminMenu(oModel);
@@ -488,6 +487,19 @@ namespace BackOffice.Web.Controllers
                     oCurrentController == MVC.Administrator.Name),
             });
 
+            //Admin Reports
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "Administrar Reportes",
+                Url = Url.Action
+                    (MVC.Administrator.ActionNames.AdminReports,
+                    MVC.Administrator.Name),
+                Position = 1,
+                IsSelected =
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminReports &&
+                    oCurrentController == MVC.Administrator.Name),
+            });
+
             //get is selected menu
             oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
@@ -645,31 +657,31 @@ namespace BackOffice.Web.Controllers
                         #region Set Provider Info
 
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
-                    ItemInfoType = new CatalogModel()
-                    {
-                        ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
-                    },
-                    Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
-                    Enable = true,
-                });
+                        {
+                            ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
+                            },
+                            Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
+                            Enable = true,
+                        });
 
                         //Set large value With the items found
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
-                                .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
-                                .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
-                    ItemInfoType = new CatalogModel()
-                    {
-                        ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ListId,
-                    },
-                    LargeValue = string.Join(",", idResult),
-                    Enable = true,
-                });
+                        {
+                            ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ListId,
+                            },
+                            LargeValue = string.Join(",", idResult),
+                            Enable = true,
+                        });
 
                         #endregion Set Provider Info
 

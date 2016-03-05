@@ -28,4 +28,16 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch.Models
         CD_PartnerIdentificationNumber = 607002,
         CD_PartnerRank = 607003,
     }
+
+    public enum enumCompanyInfoType
+    {
+        UpdateAlert = 203012,
+        Alert = 203008,
+    }
+
+    public enum enumBlackList
+    {
+        BL_ShowAlert = 1101001,
+        BL_DontShowAlert = 1101002,
+    }
 }
