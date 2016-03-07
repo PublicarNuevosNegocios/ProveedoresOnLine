@@ -291,7 +291,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>15.31864cm</Top>
+        <Top>17.3313cm</Top>
         <Height>0.78521cm</Height>
         <Width>25.44798cm</Width>
         <ZIndex>8</ZIndex>
@@ -392,7 +392,7 @@
         <Source>External</Source>
         <Value>=Parameters!ThirdKnowledgeText.Value</Value>
         <Sizing>Fit</Sizing>
-        <Top>17.94191cm</Top>
+        <Top>20.16441cm</Top>
         <Left>0.29413cm</Left>
         <Height>4.06364cm</Height>
         <Width>24.75658cm</Width>
@@ -496,7 +496,6 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.12705cm</Top>
-        <Left>0cm</Left>
         <Height>0.78521cm</Height>
         <Width>25.44798cm</Width>
         <ZIndex>14</ZIndex>
@@ -537,7 +536,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>6.16447cm</Top>
+        <Top>6.76419cm</Top>
         <Height>0.78521cm</Height>
         <Width>25.44798cm</Width>
         <ZIndex>15</ZIndex>
@@ -578,7 +577,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>9.19924cm</Top>
+        <Top>10.27765cm</Top>
         <Height>0.78521cm</Height>
         <Width>25.44798cm</Width>
         <ZIndex>16</ZIndex>
@@ -619,7 +618,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>12.24724cm</Top>
+        <Top>13.84934cm</Top>
         <Height>0.78521cm</Height>
         <Width>25.44798cm</Width>
         <ZIndex>17</ZIndex>
@@ -1226,10 +1225,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet_rst</DataSetName>
-        <Top>4.23898cm</Top>
+        <Top>4.69965cm</Top>
         <Left>0.45719cm</Left>
         <Height>1.62333cm</Height>
-        <Width>24.53046cm</Width>
+        <Width>24.53047cm</Width>
         <ZIndex>18</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DataSet_rst") &gt; 0, false, true)</Hidden>
@@ -1816,10 +1815,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet_dce</DataSetName>
-        <Top>7.41711cm</Top>
-        <Left>0.45717cm</Left>
+        <Top>8.37884cm</Top>
+        <Left>0.45715cm</Left>
         <Height>1.57042cm</Height>
-        <Width>24.46742cm</Width>
+        <Width>24.46743cm</Width>
         <ZIndex>19</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DataSet_dce") &gt; 0, false, true)</Hidden>
@@ -2398,8 +2397,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet_fnc</DataSetName>
-        <Top>10.36143cm</Top>
-        <Left>0.45719cm</Left>
+        <Top>11.89229cm</Top>
+        <Left>0.45715cm</Left>
         <Height>1.57042cm</Height>
         <Width>24.4674cm</Width>
         <ZIndex>20</ZIndex>
@@ -2980,10 +2979,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet_psp</DataSetName>
-        <Top>13.47293cm</Top>
-        <Left>0.45717cm</Left>
+        <Top>15.46399cm</Top>
+        <Left>0.45712cm</Left>
         <Height>1.54396cm</Height>
-        <Width>24.46742cm</Width>
+        <Width>24.46743cm</Width>
         <ZIndex>21</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DataSet_psp") &gt; 0, false, true)</Hidden>
@@ -3137,7 +3136,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -3161,7 +3159,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet_snc</DataSetName>
-        <Top>16.46273cm</Top>
+        <Top>18.56662cm</Top>
         <Left>0.45719cm</Left>
         <Height>1.2cm</Height>
         <Width>9.06418cm</Width>
@@ -3175,8 +3173,168 @@
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="Textbox3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Prioridad :  1. Coincidencias  por nombre completo y número de identificación. 2. Coincidencias por número de identificación. 3. Coincidencias por nombre.</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontSize>6pt</FontSize>
+                  <Color>Gray</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>4.0466cm</Top>
+        <Left>0.45719cm</Left>
+        <Height>0.47666cm</Height>
+        <Width>18.39272cm</Width>
+        <ZIndex>23</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DataSet_rst") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Bottom</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox5">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Prioridad :  1. Coincidencias  por nombre completo y número de identificación. 2. Coincidencias por número de identificación. 3. Coincidencias por nombre.</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontSize>6pt</FontSize>
+                  <Color>Gray</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>7.72579cm</Top>
+        <Left>0.45719cm</Left>
+        <Height>0.47666cm</Height>
+        <Width>18.39272cm</Width>
+        <ZIndex>24</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DataSet_dce") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Bottom</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox7">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Prioridad :  1. Coincidencias  por nombre completo y número de identificación. 2. Coincidencias por número de identificación. 3. Coincidencias por nombre.</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontSize>6pt</FontSize>
+                  <Color>Gray</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>11.23924cm</Top>
+        <Left>0.45719cm</Left>
+        <Height>0.47666cm</Height>
+        <Width>18.39272cm</Width>
+        <ZIndex>25</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DataSet_fnc") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Bottom</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox9">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Prioridad :  1. Coincidencias  por nombre completo y número de identificación. 2. Coincidencias por número de identificación. 3. Coincidencias por nombre.</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontSize>6pt</FontSize>
+                  <Color>Gray</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>14.81094cm</Top>
+        <Left>0.45719cm</Left>
+        <Height>0.47666cm</Height>
+        <Width>18.39272cm</Width>
+        <ZIndex>26</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DataSet_psp") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Bottom</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>22.09022cm</Height>
+    <Height>24.45158cm</Height>
     <Style />
   </Body>
   <Width>25.44798cm</Width>
