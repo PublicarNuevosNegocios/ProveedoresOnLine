@@ -21,18 +21,21 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
             List<CompanyModel> oCompanyModeResult = DAL.Controller.RestrictiveListProcessDataController.Instance.GetProviderByStatus(Status, CustomerPublicId);
 
             //Set Related Company to ProviderModel
-            oCompanyModeResult.All(x =>
+            if (oCompanyModeResult != null)
             {
-                oProviderList.Add(new ProviderModel() { RelatedCompany = x });
-                return true;
-            });
-            //Set Related Legal to ProviderModel
-            oProviderList.All(prv =>
-            {
-                prv.RelatedLegal = new List<GenericItemModel>();
-                prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumLegalType.Designations, true);
-                return true;
-            });
+                oCompanyModeResult.All(x =>
+                {
+                    oProviderList.Add(new ProviderModel() { RelatedCompany = x });
+                    return true;
+                });
+                //Set Related Legal to ProviderModel
+                oProviderList.All(prv =>
+                {
+                    prv.RelatedLegal = new List<GenericItemModel>();
+                    prv.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(prv.RelatedCompany.CompanyPublicId, (int)enumLegalType.Designations, true);
+                    return true;
+                });
+            }           
 
             return oProviderList;
         }

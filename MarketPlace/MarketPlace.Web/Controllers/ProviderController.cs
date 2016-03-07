@@ -2644,6 +2644,48 @@ namespace MarketPlace.Web.Controllers
                                 "\"" + Representative + "\"");
                         }
                     }
+                    else
+                    {
+                        if (oProviderResult.IndexOf(x) == 0)
+                        {
+                            data.AppendLine
+                            ("\"" + "Tipo Identificacion" + "\"" + strSep +
+                                "\"" + "Numero Identificacion" + "\"" + strSep +
+                                "\"" + "Razon Social" + "\"" + strSep +
+                                "\"" + "País" + "\"" + strSep +
+
+                                "\"" + "Ciudad" + "\"" + strSep +
+                                "\"" + "Estado" + "\"" + strSep +
+
+                                "\"" + "Dirección" + "\"" + strSep +
+                                "\"" + "Telefono" + "\"" + strSep +
+
+                                "\"" + "Representante" + "\"");
+                            data.AppendLine
+                                ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                                "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                                "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + Country + "\"" + "" + strSep +
+                                "\"" + City + "\"" + strSep +
+                                "\"" + State + "\"" + "" + strSep +
+                                "\"" + Address + "\"" + strSep +
+                                "\"" + Telephone + "\"" + strSep +
+                                "\"" + Representative + "\"");
+                        }
+                        else
+                        {
+                            data.AppendLine
+                                ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                                "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                                "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + "ND" + "\"" + "" + strSep +
+                                "\"" + "ND" + "\"" + strSep +
+                                "\"" + "ND" + "\"" + "" + strSep +
+                                "\"" + "ND" + "\"" + strSep +
+                                "\"" + "ND" + "\"" + strSep +
+                                "\"" + "ND" + "\"");
+                        }
+                    }
                     return true;
                 });
 
