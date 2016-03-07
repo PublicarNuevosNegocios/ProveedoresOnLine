@@ -13,5 +13,7 @@ namespace SessionManager.Models.POLMarketPlace
         public string User { get; set; }
 
         public Session_GenericItemModel RelatedRole { get; set; }
+
+        public Session_RoleCompanyModel RelatedCompanyRole { get; set; }
     }
 }

@@ -266,11 +266,12 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult AdminReports()
+        public virtual ActionResult AdminReports(int RoleCompanyId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedRole = ProveedoresOnLine.Company.Controller.Company.GetRoleCompanyByRoleCompanyId(RoleCompanyId),
             };
 
             oModel.ProviderMenu = GetAdminMenu(oModel);

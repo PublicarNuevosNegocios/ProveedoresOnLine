@@ -1789,8 +1789,7 @@ var Admin_CompanyRoleObject = {
             Admin_CompanyRoleObject.GetViewEnableOptions(vRenderObject);
             Admin_CompanyRoleObject.ConfigEventsOptions(vRenderObject);
         }
-        else
-        {
+        else {
             Admin_CompanyRoleObject.ConfigEvents();
             Admin_CompanyRoleObject.GetViewEnable();
         }
@@ -1882,6 +1881,7 @@ var Admin_CompanyRoleObject = {
                         fields: {
                             RoleCompanyName: { editable: true, nullable: false },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
+                            ParentRoleCompany: { editable: true, type: 'boolean', defaultValue: true },
                             RelatedCompanyName: { editable: true, nullable: false },
                             RelatedCompanyPublicId: { editable: false },
                         }
@@ -2028,6 +2028,21 @@ var Admin_CompanyRoleObject = {
                 field: 'RoleCompanyName',
                 title: 'Rol',
                 width: '140px',
+            }, {
+                field: 'ParentRoleCompany',
+                title: 'Administrador',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.ParentRoleCompany == true) {
+                        oReturn = 'Si';
+                    }
+                    else {
+                        oReturn = 'No';
+                    }
+
+                    return oReturn;
+                }
             }, {
                 title: "&nbsp;",
                 width: "200px",
@@ -2409,7 +2424,7 @@ var Admin_CompanyRoleObject = {
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId +'_' + vRenderObject.ObjectType + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_' + vRenderObject.ObjectType + '_ViewEnablesTemplate').html() },
                 { name: 'ShortcutToolTip', template: $('#' + Admin_CompanyRoleObject.ObjectId + '_ShortcutToolTipTemplate').html() }],
             dataSource: {
                 schema: {

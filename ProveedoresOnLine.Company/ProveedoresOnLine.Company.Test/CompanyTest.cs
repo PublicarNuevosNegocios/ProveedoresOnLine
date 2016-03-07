@@ -353,6 +353,15 @@ namespace ProveedoresOnLine.Company.Test
         }
 
         [TestMethod]
+        public void GetRoleCompanySearch()
+        {
+            int oTotalRows = 0;
+            List<RoleCompanyModel> oReturn = ProveedoresOnLine.Company.Controller.Company.GetRoleCompanySearch("", true, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+        [TestMethod]
         public void RoleModule()
         {
             ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyToUpsert = new Models.Company.CompanyModel();
