@@ -16,7 +16,7 @@ namespace BackOffice.Models.Admin
 
         public string RoleCompanyName { get; set; }
 
-        public string ParentRoleCompany { get; set; }
+        public bool ParentRoleCompany { get; set; }
 
         public string RelatedCompanyPublicId { get; set; }
 
@@ -40,7 +40,7 @@ namespace BackOffice.Models.Admin
 
             RoleCompanyName = RelatedRoleCompany.RoleCompanyName;
 
-            ParentRoleCompany = RelatedRoleCompany.ParentRoleCompany.ToString();
+            ParentRoleCompany = RelatedRoleCompany.ParentRoleCompany == 1 ? true : false;
 
             Enable = RelatedRoleCompany.Enable;
 

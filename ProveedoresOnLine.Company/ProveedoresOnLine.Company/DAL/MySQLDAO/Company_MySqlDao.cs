@@ -2692,7 +2692,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      {
                          RoleCompanyId = rc.Field<int>("RoleCompanyId"),
                          RoleCompanyName = rc.Field<string>("RoleCompanyName"),
-                         ParentRoleCompany = rc.Field<Int64>("ParentRoleCompany"),
+                         ParentRoleCompany = rc.Field<int?>("ParentRoleCompany"),
                          Enable = rc.Field<UInt64>("Enable") == 1 ? true : false,
                          LastModify = rc.Field<DateTime>("LastModify"),
                          CreateDate = rc.Field<DateTime>("CreateDate"),
@@ -2709,7 +2709,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          },
                          RoleCompanyId = rci.Key.RoleCompanyId,
                          RoleCompanyName = rci.Key.RoleCompanyName,
-                         ParentRoleCompany = Convert.ToInt32(rci.Key.ParentRoleCompany),
+                         ParentRoleCompany = rci.Key.ParentRoleCompany,
                          Enable = rci.Key.Enable,
                          LastModify = rci.Key.LastModify,
                          CreateDate = rci.Key.CreateDate,

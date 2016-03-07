@@ -1158,6 +1158,13 @@ namespace BackOffice.Web.ControllersApi
                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
                                typeof(AdminRoleCompanyViewModel));
 
+                int? oParentRole;
+
+                if (oDataToUpsert.ParentRoleCompany == true)
+                    oParentRole = null;
+                else
+                    oParentRole = 0;
+
                 ProveedoresOnLine.Company.Models.Company.CompanyModel oRoleCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                 {
                     CompanyPublicId = oDataToUpsert.RelatedCompanyPublicId,
@@ -1166,6 +1173,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         RoleCompanyId = !string.IsNullOrEmpty(oDataToUpsert.RoleCompanyId) ? Convert.ToInt32(oDataToUpsert.RoleCompanyId) : 0,
                         RoleCompanyName = oDataToUpsert.RoleCompanyName,
+                        ParentRoleCompany = oParentRole,
                         Enable = Convert.ToBoolean(oDataToUpsert.Enable),
                     },
                 };

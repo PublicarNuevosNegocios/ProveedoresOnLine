@@ -852,7 +852,7 @@ namespace ProveedoresOnLine.Company.Controller
                         (CompanyToUpsert.CompanyPublicId,
                         CompanyToUpsert.RelatedCompanyRole.RoleCompanyId,
                         CompanyToUpsert.RelatedCompanyRole.RoleCompanyName,
-                        CompanyToUpsert.RelatedCompanyRole.ParentRoleCompany != null && CompanyToUpsert.RelatedCompanyRole.ParentRoleCompany > 0 ? CompanyToUpsert.RelatedCompanyRole.ParentRoleCompany : null,
+                        CompanyToUpsert.RelatedCompanyRole.ParentRoleCompany != null ? CompanyToUpsert.RelatedCompanyRole.ParentRoleCompany : null,
                         CompanyToUpsert.RelatedCompanyRole.Enable);
 
                     oLog.IsSuccess = true;
