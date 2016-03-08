@@ -597,6 +597,29 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult GIBlackListDetail(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            return View(oModel);
+        }
+
         #endregion General Info
 
         #region Legal Info
