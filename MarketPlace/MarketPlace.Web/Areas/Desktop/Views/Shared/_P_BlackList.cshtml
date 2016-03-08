@@ -44,55 +44,63 @@
                     </div>
                     <div class="container-fluid POMPContainerDetail">
                         @{
-                            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+                    List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+                            
+                            List<string> oGroupListName = new List<string>();
+
+                            foreach (var alert in ShowAlertModel)                            
+                            {
+                                oGroupListName.Add(alert.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).FirstOrDefault());
+                            }
+                            oGroupListName = oGroupListName.GroupBy(x => x).Select(x => x.First()).ToList();
+                            
+                            
                             /*get company info*/
                             foreach (var item in ShowAlertModel)
-                            {
-                                foreach (var info in item.BlackListInfo)
-                                {
-
-                                    if (info.ItemInfoType.ItemName == "Razón Social")
-                                    {
-                                        <div class="row POMPSectionTitlesBox">
-                                            <div class="col-xs-6">
-                                                <strong>Razón Social/Nombre:</strong>&nbsp;<span>@info.Value</span>
-                                            </div>
-                                            <div class="col-xs-6 text-right ThirdKnowledge_Detail">
-                                                <p class="POMPWarning">Se encontraron coincidencias en listas restrictivas.</p>
-                                            </div>
-                                        </div>
-                                    }
-
-                                    if (info.ItemInfoType.ItemName == "Nombre consultado")
-                                    {
-                                        <div class="POMPTKDetailContainer">
-
-                                            <div class="row">
-
-
-                                            </div>
-
-                                        </div>
-
-                                        <br />
-                                        <hr class="POMPProviderRestrictiveLIstSeparator" />
-                                        <div class="col-xs-4">
-                                            <div class="col-xs-12">
-                                                <label>
-                                                    Razón Social/Nombre
-                                                </label>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <span>@info.Value</span>
-                                            </div>
-                                        </div>
-                                    }
-
-                                }
+                            {                                
+                                <ul>
+                                    <li>
+                                        Prioridad
+                                    </li>
+                                    <li>
+                                        @item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).FirstOrDefault()
+                                    </li>
+                                    <li>
+                                        Estado
+                                    </li>
+                                    <li>
+                                        @item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).FirstOrDefault()
+                                    </li>
+                                    <li>
+                                       Nombre
+                                    </li>
+                                    <li>
+                                        @item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).FirstOrDefault()
+                                    </li>
+                                    <li>
+                                        Identificación
+                                    </li>
+                                    <li>
+                                        @item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificacion Consultada").Select(x => x.Value).FirstOrDefault()
+                                    </li>
+                                    <li>
+                                        Alias
+                                    </li>
+                                    <li>
+                                        @item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Alias").Select(x => x.Value).FirstOrDefault()
+                                    </li>
+                                    <li>
+                                        Nombre del Grupo
+                                    </li>
+                                    <li>
+                                        @item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).FirstOrDefault()
+                                    </li>
+                                    <li>
+                                        <a href="#">Ver Detalle</a>
+                                    </li>                                    
+                                </ul>                               
                             }
                          }
-                            /*get related-company info*/
-
                     </div>
                 }
                 else
@@ -102,7 +110,6 @@
                             <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
                         </div>
                     </div>
-
                 }
             }
         }
