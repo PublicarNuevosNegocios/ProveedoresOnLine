@@ -937,7 +937,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=IIF(Parameters!Status.Value = "true", "Activo" , "Inactivo")</Value>
+                    <Value>= IIF(Parameters!Offence.Value = "--","--",IIF(Parameters!Status.Value = "true", "Activo" , "Inactivo"))</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                       <FontSize>9pt</FontSize>
