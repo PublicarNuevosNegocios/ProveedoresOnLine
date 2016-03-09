@@ -11,109 +11,111 @@
 <label class="POMPSectionTitles">Listas Restrictivas</label>
 <div class="container-fluid">
 
-    @*Validación de Modulos por Rol*@
-    @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+    @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
+    if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
     {
-        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail || module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.NewClient)
-        {
-            @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
-            if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
-            {
-                var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
+    var maxDate = (from d in Model.RelatedBlackListInfo select d.CreateDate).Max();
 
-                if (Model.RelatedBlackListInfo != null && Model.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
-                {
-                    <div class="row POMPSectionTitlesBox">
-                        <div class="col-sm-6 col-lg-6 text-left">
-                            <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
-                        </div>
-                        <div class="col-sm-6 col-lg-6 text-right">
-                            <form id="frmThirdKnowledgeUpsert"
-                                    method="post"
-                                    action="@(Url.Action
+    if (Model.RelatedBlackListInfo != null && Model.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+    {
+    <div class="row POMPSectionTitlesBox">
+        <div class="col-sm-6 col-lg-6 text-left">
+            <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
+        </div>
+        <div class="col-sm-6 col-lg-6 text-right">
+            <form id="frmThirdKnowledgeUpsert"
+                  method="post"
+                  action="@(Url.Action
                                                                     (MVC.Provider.ActionNames.GIBlackList,
                                                                     MVC.Provider.Name,
                                                                     new
                                                                     {
                                                                         ProviderPublicId = Request["ProviderPublicId"],
                                                                     }))">
-                                <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                <input type="hidden" name="DownloadReport" value="true" />
-                            </form>
-                        </div>
+                <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                <input type="hidden" name="DownloadReport" value="true" />
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid POMPContainerDetail">
+        @{
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+            List<string> oGroupListName = new List<string>();
+            foreach (var alert in ShowAlertModel)
+            {
+                oGroupListName.Add(alert.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).FirstOrDefault());
+            }
+            oGroupListName = oGroupListName.GroupBy(x => x).Select(x => x.First()).ToList();
+
+            List<Tuple<string, List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel>>> GroupList = new List<Tuple<string, List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel>>>();
+            foreach (var grp in oGroupListName)
+            {
+                //GroupList.Add(Tuple<string, List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel>>());
+            }
+
+            /*get company info*/
+            foreach (var item in ShowAlertModel)
+            {
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>Prioridad</strong>
                     </div>
-                    <div class="container-fluid POMPContainerDetail">
+                    <div class="col-md-3">
+                        <strong>Estado</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Nombre</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Identificación</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                    </div>
+                    <div class="col-md-3">
                         @{
-                            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = Model.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
-                            List<string> oGroupListName = new List<string>();
-                            foreach (var alert in ShowAlertModel)
-                            {
-                                oGroupListName.Add(alert.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).FirstOrDefault());
-                            }
-                            oGroupListName = oGroupListName.GroupBy(x => x).Select(x => x.First()).ToList();
-                            /*get company info*/
-                                foreach (var item in ShowAlertModel)
-                                {
-                                    <br />
-                                    <div class="row">
-                                        <div  class="col-md-3">
-                                            <strong>Prioridad</strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <strong>Estado</strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <strong>Nombre</strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <strong>Identificación</strong>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            @{
-                                                string enable = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower()=="true"?"Activo":"Inactivo";
-                                            }
-                                            <span>@enable</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificacion Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <strong>Alias</strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <strong> Nombre del Grupo</strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <strong></strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <strong></strong>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Alias").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span></span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <p>
-                                                <a href="@(Url.RouteUrl
+                string enable = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower() == "true" ? "Activo" : "Inactivo";
+                        }
+                        <span>@enable</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificacion Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>Alias</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong> Nombre del Grupo</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong></strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong></strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Alias").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span></span>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <a href="@(Url.RouteUrl
                                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                                             new
                                             {
@@ -128,25 +130,24 @@
                                                             ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                                         })
                                                 }))">Ver Detalle</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <hr class="POMPProviderRestrictiveLIstSeparator" />
-                                }
-}
+                        </p>
                     </div>
-                }
-                else
-                {
-                    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
-                        <div class="col-xs-12">
-                            <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
-                        </div>
-                    </div>
-                }
+                </div>
+                <br />
+                <hr class="POMPProviderRestrictiveLIstSeparator" />
             }
         }
+    </div>
+    }
+    else
+    {
+    <div class="POMPEvalTitle" id="POMPEvalTitleMargin">
+        <div class="col-xs-12">
+            <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault()</label><p>No se encontraron coincidencias en listas restrictivas.</p>
+        </div>
+    </div>
+    }
+
     }
 </div>
 
