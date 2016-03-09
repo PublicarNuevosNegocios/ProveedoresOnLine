@@ -1,0 +1,148 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Detalle Consulta Individual";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+    
+        <div class="container-fluid">
+            <label class="POMPSectionTitles">Detalle de la consulta</label>
+            <div class="container-fluid POMPContainerDetail">
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-sm-8 text-left">
+                        @Model.RelatedThidKnowledgeSearch.GroupName 
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <div class="POMPDownloadReportsTop">
+                                <button class="POMPButtonDownloadReport_TK" type="submit" title="Generar Reporte" onclick="javascript: ReportViewerObj.RenderReportViewer({ Options: ['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()', '@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'], ObjectId: 'ThirdKnowledge', Tittle: 'Reporte detalle de consulta' })">Generar Reporte</button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                @if (Model.RelatedThidKnowledgeSearch.GroupName == "SIN COINCIDENCIAS")
+                {
+                    <div class="container-fluid POMPProviderDetailContainer">
+                        <div class="row">
+                            <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Tipo Consulta</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo text-center"><strong>Realizada por</strong></div>
+                            <div class="col-sm-3 POMPProviderBoxInfo text-center"><strong>Nombre Consultado</strong></div>
+                            <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>ID Consultado</strong></div>
+                            <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Fecha</strong></div>
+                        </div>
+                        <div class="row POMPBorderbottom">
+                            @foreach (var item in Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult)
+                            {
+
+                                <div class="col-sm-2 POMPProviderBoxInfo text-center"><span>@item.SearchType.ItemName</span></div>
+                                <div class="col-sm-3 POMPProviderBoxInfo text-center"><span>@item.User</span></div>
+                                <div class="col-sm-3 POMPProviderBoxInfo text-center"><span>@Model.RelatedThidKnowledgeSearch.RequestName</span></div>
+                                <div class="col-sm-2 POMPProviderBoxInfo text-center"><span>@Model.RelatedThidKnowledgeSearch.IdNumberRequest</span></div>
+                                <div class="col-sm-2 POMPProviderBoxInfo text-center"><span>@item.CreateDate.AddHours(-5)</span></div>
+
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="container-fluid POMPProviderDetailContainer">
+                        @if (Model.RelatedThidKnowledgeSearch != null)
+                        {
+                            <div class="row">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Nombre Encontrado</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Tipo de Documento</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Número de Identificación</strong></div>
+                            </div>
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.NameResult</span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.TypeDocument</span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.IdentificationNumberResult</span></div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Prioridad</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Cargo o Delito</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Peps</strong></div>
+                            </div>
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Priority</span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Offense</span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Peps</span></div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Nombre de la Lista</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Alias</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Última Actualización</strong></div>
+                            </div>
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.ListName</span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.Alias</span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.LastModifyDate</span></div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Fecha de Creación</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Link</strong></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><strong>Zona</strong></div>
+                            </div>
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.RegisterDate  </span></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><a target="_blank" href="@Model.RelatedThidKnowledgeSearch.Link">Ver Fuente</a></div>
+                                <div class="col-sm-4 POMPProviderBoxInfo"><span><span>@Model.RelatedThidKnowledgeSearch.Zone</span></span></div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-12 POMPProviderBoxInfo"><strong>Más Información</strong></div>
+                            </div>
+                            <div class="row POMPBorderbottom">
+                                <div class="col-sm-12 POMPProviderBoxInfo"><span>@Model.RelatedThidKnowledgeSearch.MoreInfo</span></div>
+                            </div>
+                            <br />
+                        }
+                        @if (Model.RelatedThidKnowledgeSearch.ReturnUrl != "null")
+                        {
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a href="javascript: window.history.back()" style="float: right;">Regresar a la búsqueda</a>
+                                </div>
+                            </div>
+                        }
+                        <br />
+                    </div>
+                }
+            </div>
+        </div>
+       
+    </div> 
+</div>
+
+@* Templates *@
+<div id="ThirdKnowledge_Dialog">
+    <form id="ThirdKnowledge_DialogForm" action="@(Url.Action
+                                    (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
+                                    MVC.ThirdKnowledge.Name,
+                                    new
+                                    {
+                                        QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
+                                        ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
+                                    }))" method="post"></form>
+</div>
+
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}

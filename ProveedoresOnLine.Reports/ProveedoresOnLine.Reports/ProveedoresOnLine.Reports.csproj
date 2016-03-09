@@ -312,6 +312,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\BL_General_Report.rdlc" />
     <EmbeddedResource Include="Reports\C_Report_GerencialInfo.rdlc" />
     <EmbeddedResource Include="Reports\F_FinancialReport.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_GeneralInfo.rdlc" />

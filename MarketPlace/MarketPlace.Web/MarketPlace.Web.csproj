@@ -1249,6 +1249,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_TK_ThirdKnowledgeSearch_Result_Pager.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_TK_ThirdKnowledgeSearch_Pager.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_ReportViewer.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GIBlackListDetail.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

@@ -103,6 +103,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult GIBlackListDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIBlackListDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceInfo);
@@ -263,6 +269,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string GIDistributorInfo = "GIDistributorInfo";
             public readonly string GITrackingInfo = "GITrackingInfo";
             public readonly string GIBlackList = "GIBlackList";
+            public readonly string GIBlackListDetail = "GIBlackListDetail";
             public readonly string LIChaimberOfCommerceInfo = "LIChaimberOfCommerceInfo";
             public readonly string LIRutInfo = "LIRutInfo";
             public readonly string LICIFINInfo = "LICIFINInfo";
@@ -299,6 +306,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string GIDistributorInfo = "GIDistributorInfo";
             public const string GITrackingInfo = "GITrackingInfo";
             public const string GIBlackList = "GIBlackList";
+            public const string GIBlackListDetail = "GIBlackListDetail";
             public const string LIChaimberOfCommerceInfo = "LIChaimberOfCommerceInfo";
             public const string LIRutInfo = "LIRutInfo";
             public const string LICIFINInfo = "LICIFINInfo";
@@ -384,6 +392,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public ActionParamsClass_GIBlackList GIBlackListParams { get { return s_params_GIBlackList; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_GIBlackList
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_GIBlackListDetail s_params_GIBlackListDetail = new ActionParamsClass_GIBlackListDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GIBlackListDetail GIBlackListDetailParams { get { return s_params_GIBlackListDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GIBlackListDetail
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -605,6 +621,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string FIKContract = "FIKContract";
                 public readonly string FITaxInfo = "FITaxInfo";
                 public readonly string GIBlackList = "GIBlackList";
+                public readonly string GIBlackListDetail = "GIBlackListDetail";
                 public readonly string GIBranchInfo = "GIBranchInfo";
                 public readonly string GIDistributorInfo = "GIDistributorInfo";
                 public readonly string GIPersonContactInfo = "GIPersonContactInfo";
@@ -636,6 +653,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string FIKContract = "~/Areas/Desktop/Views/Provider/FIKContract.cshtml";
             public readonly string FITaxInfo = "~/Areas/Desktop/Views/Provider/FITaxInfo.cshtml";
             public readonly string GIBlackList = "~/Areas/Desktop/Views/Provider/GIBlackList.cshtml";
+            public readonly string GIBlackListDetail = "~/Areas/Desktop/Views/Provider/GIBlackListDetail.cshtml";
             public readonly string GIBranchInfo = "~/Areas/Desktop/Views/Provider/GIBranchInfo.cshtml";
             public readonly string GIDistributorInfo = "~/Areas/Desktop/Views/Provider/GIDistributorInfo.cshtml";
             public readonly string GIPersonContactInfo = "~/Areas/Desktop/Views/Provider/GIPersonContactInfo.cshtml";
@@ -763,6 +781,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIBlackList);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             GIBlackListOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GIBlackListDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GIBlackListDetail(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIBlackListDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            GIBlackListDetailOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
