@@ -12,8 +12,13 @@ namespace MarketPlace.Web.Controllers
             {
                 //get user company info
 
+                //Last function
+                //List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany =
+                //    ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(Models.General.SessionModel.CurrentLoginUser.Email);
+
+                //New function
                 List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany =
-                    ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(Models.General.SessionModel.CurrentLoginUser.Email);
+                    ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUserNew(Models.General.SessionModel.CurrentLoginUser.Email);
 
                 Models.General.SessionModel.InitCompanyLogin(UserCompany);
 

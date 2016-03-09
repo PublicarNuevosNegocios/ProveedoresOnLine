@@ -589,6 +589,7 @@
         Statistics = 804004,
         ThirdKnowledge = 804005,
         Reports = 804006,
+        MyClients = 804007,
     }
 
     #endregion

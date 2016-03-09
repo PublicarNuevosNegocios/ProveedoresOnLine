@@ -6,10 +6,11 @@
 @{
     var email = 0;
 
-    if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem != null)
+    //new function
+    if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.ParentRoleCompany != null)
     {
         // NORMAL USER
-        email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
+        email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();//old
     }
 }
 

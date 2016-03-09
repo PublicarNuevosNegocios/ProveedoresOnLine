@@ -1,5 +1,9 @@
 ﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
 
+@{
+    List<int> oCurrentSubMenu = MarketPlace.Models.General.SessionModel.CurrentSelectionOption();
+}
+
 @if (!Model.RenderScripts)
 {
     <!--Comparison actions-->
@@ -17,10 +21,15 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare NewBid" style="display: @(Model.RelatedCompare == null ? "none" : "");">
-            <div class="POMPComparisonActionNewBid"></div>
-            <span>Iniciar proceso de selección</span>
-        </a>
+
+        @if (oCurrentSubMenu.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.CreateProcess))
+        {
+            <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare NewBid" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+                <div class="POMPComparisonActionNewBid"></div>
+                <span>Iniciar proceso de selección</span>
+            </a>
+        }
+
     </div>
     <!--Compare title-->
     <input type="text" id="Search_Compare_CompareName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedCompare == null ? string.Empty: Model.RelatedCompare.CompareName)" style="display: @(Model.RelatedCompare == null ? "none" : "");" />
@@ -52,10 +61,15 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare NewBid" style="display: @(Model.RelatedCompare == null ? "none" : "");">
-            <div class="POMPComparisonActionNewBid"></div>
-            <span>Iniciar Proceso de Selección</span>
-        </a>
+
+        @if (oCurrentSubMenu.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.CreateProcess))
+        {
+            <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare NewBid" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+                <div class="POMPComparisonActionNewBid"></div>
+                <span>Iniciar proceso de selección</span>
+            </a>
+        }
+
     </div>
 
     <!--templates-->

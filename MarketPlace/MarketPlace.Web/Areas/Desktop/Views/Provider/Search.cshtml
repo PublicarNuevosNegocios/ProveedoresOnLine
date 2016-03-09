@@ -26,26 +26,28 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
     </div>
 
-    @*Validación de Modulos por Rol*@
-    @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
-    {
-        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderCompare)
-        {
-            <div class="POMPComparisonListWrapper">
-                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Reports, Model)
+    @*new function*@
+    @*Validación de modulos*@
+    @{
+        List<int> oCurrentModule = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
-                @if (Model.RelatedProject != null)
+        <div class="POMPComparisonListWrapper">
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Reports, Model)
+
+            @if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
+            {
+                if (Model.RelatedProject != null)
                 {
-            <!--Project-->
+                    <!--Project-->
                     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
                 }
                 else
                 {
-            <!--Comparison-->
+                    <!--Comparison-->
                     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
                 }
-            </div>
-        }
+            }
+        </div>        
     }
 
     @if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_ClientePolipropileno].Value)

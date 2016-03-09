@@ -2,6 +2,8 @@
 
 @{
     var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+
+    List<int> oCurrentSelectionOption = MarketPlace.Models.General.SessionModel.CurrentSelectionOption();
 }
 
 @if (!Model.RenderScripts)
@@ -229,7 +231,10 @@
                                     Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
                                 {
                                     <li>
-                                        <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                                        @if (oCurrentSelectionOption.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.Aprove))
+                                        {
+                                            <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                                        }                                        
                                     </li>
                                 }
                                 else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval &&

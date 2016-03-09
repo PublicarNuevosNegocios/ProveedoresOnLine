@@ -128,7 +128,7 @@
                     <br />
                     <div class="row">
                         <div class="col-xs-9 text-right POMP_SurveyControls">
-                            @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+                            @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.ParentRoleCompany == null)
                             {
                                 <a href="@(Url.Action(MVC.Provider.ActionNames.SVSurveyDetail,MVC.Provider.Name, new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, SurveyPublicId = Model.RelatedSurvey.RelatedSurvey.ParentSurveyPublicId }))">Regresar a la evaluación.</a>
                             }
