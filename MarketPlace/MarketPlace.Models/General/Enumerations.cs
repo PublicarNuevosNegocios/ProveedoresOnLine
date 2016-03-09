@@ -783,4 +783,100 @@
     }
 
     #endregion
+
+    #region User Role
+
+    #region Modules
+
+    public enum enumModule
+    {
+        ProviderInfo = 804001,
+        ComparisionInfo = 804002,
+        SelectionInfo = 804003,
+        StatisticsInfo = 804004,
+        ThirdKnowledgeInfo = 804005,
+        ReportsInfo = 804006,
+        MyClients = 804007,
+    }
+
+    #endregion
+
+    #region ProviderMenu
+
+    public enum enumProviderMenu
+    {
+        GeneralInfo = 805001,
+        LegalInfo = 805002,
+        FinancialInfo = 805003,
+        CommercialInfo = 805004,
+        HSEQInfo = 805005,
+        AditionalInfo = 805006,
+        Survey = 805007,
+    }
+
+    public enum enumProviderSubMenu
+    {
+        //GeneralInfo
+        ProviderResume = 807001,
+        ContactPersonInfo = 807002,
+        Branches = 807003,
+        RepresentantInfo = 807004,
+        Tracing = 807005,
+        RestrictiveList = 807006,
+
+        //LegalInfo
+        ChaimberOfCommerce = 808001,
+        RUT = 808002,
+        Sarlaft = 808003,
+        Resolutions = 808004,
+
+        //FinancialInfo
+        FinancialStates = 809001,
+        IncomeStatement = 809002,
+        KContract = 809003,
+        BankInfo = 809004,
+
+        //CommercialInfo
+        Experiences = 810001,
+
+        //HSEQInfo
+        Certifications = 811001,
+        Secure = 811002,
+        Risk = 811003,
+
+        //AditionalInfo
+        AddInformation = 812001,
+        AddData = 812002,
+
+        //Survey
+        SurveyList = 813001,
+        SurveyReports = 813002,
+        SurveyProgram = 813003,
+    }
+
+    #endregion
+
+    #region Selection
+
+    public enum enumSelectionProcess
+    {
+        AddCritery = 806001,
+        AddProviders = 806002,
+        CloseProcess = 806003,
+        Aprove = 806004,
+        CreateProcess = 806005,
+    }
+
+    #endregion
+
+    #region Reports
+
+    public enum enumReports
+    {
+
+    }
+
+    #endregion
+
+    #endregion
 }

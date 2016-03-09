@@ -1831,7 +1831,7 @@ namespace MarketPlace.Web.Controllers
                             out oTotalRowsAux);
 
                     //Validar q no tenga evaluaciones
-                    if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+                    if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.ParentRoleCompany == null)
                     {
                         if (oSurveyResults != null)
                         {
@@ -4238,22 +4238,27 @@ namespace MarketPlace.Web.Controllers
                 string oCurrentController = CurrentControllerName;
                 string oCurrentAction = CurrentActionName;
 
-                foreach (var module in SessionModel.CurrentUserModules())
+                List<int> oCurrentProviderMenu = SessionModel.CurrentProviderMenu();
+                List<int> oCurrentProviderSubMenu;
+
+                GenericMenu oMenuAux;
+
+                #region GeneralInfo
+
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.GeneralInfo))
                 {
-                    GenericMenu oMenuAux;
-
-                    if (module == (int)enumMarketPlaceCustomerModules.ProviderDetail)
+                    //header
+                    oMenuAux = new GenericMenu()
                     {
-                        #region GeneralInfo
+                        Name = "Información General",
+                        Position = 0,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información General",
-                            Position = 0,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.GeneralInfo);
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.ProviderResume))
+                    {
                         //Basic info
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4271,7 +4276,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.ContactPersonInfo))
+                    {
                         //Company persons Contact info
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4289,7 +4297,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Branches))
+                    {
                         //Branch
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4307,7 +4318,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GIBranchInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.RepresentantInfo))
+                    {
                         //Distributors
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4325,7 +4339,11 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.RestrictiveList))
+                    {
+                        //add item and validate
                         if (vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
                         {
                             //Listas Restrictivas
@@ -4346,7 +4364,10 @@ namespace MarketPlace.Web.Controllers
                                     oCurrentController == MVC.Provider.Name),
                             });
                         }
+                    }                        
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Tracing))
+                    {
                         //Seguimientos
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4364,26 +4385,37 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.GITrackingInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                        //add menu
-                        oReturn.Add(oMenuAux);
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
 
-                        #endregion GeneralInfo
+                #endregion
 
-                        #region Legal Info
+                #region Legal Info
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información Legal",
-                            Position = 1,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
 
-                        //Balancesheet info
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.LegalInfo))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Información Legal",
+                        Position = 1,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
+
+                    oCurrentProviderSubMenu = new List<int>();
+
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.LegalInfo);
+
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.ChaimberOfCommerce))
+                    {
+                        //chaimber of commerce
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Cámara de Comercio",
@@ -4400,7 +4432,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.LIChaimberOfCommerceInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.RUT))
+                    {
                         //RUT
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4418,26 +4453,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.LIRutInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //CIFIN
-                        /*
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "CIFIN",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.LICIFINInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 2,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.LICIFINInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-                        */
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Sarlaft))
+                    {
                         //SARLAFT
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4455,43 +4474,56 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.LISARLAFTInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Resolutions))
+                    {
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Resoluciones",
                             Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.LIResolutionInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
+                                (Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.LIResolutionInfo,
+                                    ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                }),
                             Position = 4,
                             IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.LIResolutionInfo &&
-                                oCurrentController == MVC.Provider.Name),
+                            (oCurrentAction == MVC.Provider.ActionNames.LIResolutionInfo &&
+                            oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                        //add menu
-                        oReturn.Add(oMenuAux);
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
 
-                        #endregion Legal Info
+                #endregion
 
-                        #region Financial Info
+                #region Financial Info
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información Financiera",
-                            Position = 2,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.FinancialInfo))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Información Financiera",
+                        Position = 2,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
 
-                        //Balancesheet info
+                    oCurrentProviderSubMenu = new List<int>();
+
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.FinancialInfo);
+
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.FinancialStates))
+                    {
+                        //financial states
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Estados Financieros",
@@ -4508,26 +4540,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.FIBalanceSheetInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //Tax Info
-                        /*
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Impuestos",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.FITaxInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 1,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.FITaxInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-                        */
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.IncomeStatement))
+                    {
                         //income statement
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4545,7 +4561,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.FIIncomeStatementInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.BankInfo))
+                    {
                         //Bank Info
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4563,8 +4582,11 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.FIBankInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //income statement
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.KContract))
+                    {
+                        //K Contract
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "K Contratación",
@@ -4581,25 +4603,35 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.FIKContract &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                        //add menu
-                        oReturn.Add(oMenuAux);
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
 
-                        #endregion Financial Info
+                #endregion
 
-                        #region Commercial Info
+                #region Commercial Info
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información Comercial",
-                            Position = 3,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.CommercialInfo))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Información Comercial",
+                        Position = 3,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
 
+                    oCurrentProviderSubMenu = new List<int>();
+
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.CommercialInfo);
+
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Experiences))
+                    {
                         //Experience
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4617,25 +4649,35 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                        //add menu
-                        oReturn.Add(oMenuAux);
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
 
-                        #endregion Commercial Info
+                #endregion
 
-                        #region HSEQ Info
+                #region HSEQ Info
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información HSEQ",
-                            Position = 4,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.HSEQInfo))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Información HSEQ",
+                        Position = 4,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
 
+                    oCurrentProviderSubMenu = new List<int>();
+
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.HSEQInfo);
+
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Certifications))
+                    {
                         //Certifications
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4653,7 +4695,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.HICertificationsInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Secure))
+                    {
                         //Company healty politic
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4671,7 +4716,10 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.HIHealtyPoliticInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Risk))
+                    {
                         //Company healty politic
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4689,25 +4737,35 @@ namespace MarketPlace.Web.Controllers
                                 (oCurrentAction == MVC.Provider.ActionNames.HIRiskPoliciesInfo &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                        //add menu
-                        oReturn.Add(oMenuAux);
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
 
-                        #endregion HSEQ Info
+                #endregion
 
-                        #region Aditional Documents
+                #region Aditional Info
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información Adicional",
-                            Position = 5,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.AditionalInfo))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Información Adicional",
+                        Position = 5,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
 
+                    oCurrentProviderSubMenu = new List<int>();
+
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.AditionalInfo);
+
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.AddInformation))
+                    {
                         //Aditional Documents
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4725,7 +4783,10 @@ namespace MarketPlace.Web.Controllers
                                     (oCurrentAction == MVC.Provider.ActionNames.ADAditionalDocument &&
                                     oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.AddData))
+                    {
                         //Aditional Data
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4743,67 +4804,35 @@ namespace MarketPlace.Web.Controllers
                                     (oCurrentAction == MVC.Provider.ActionNames.ADAditionalData &&
                                     oCurrentController == MVC.Provider.Name),
                         });
-
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                        //add menu
-                        oReturn.Add(oMenuAux);
-
-                        #endregion Aditional Documents
                     }
 
-                    if (module == (int)enumMarketPlaceCustomerModules.ProviderBasicInfo)
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
+
+                #endregion
+
+                #region Survey Info
+
+                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.Survey))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
                     {
-                        #region GeneralInfo
+                        Name = "Evaluación de Desempeño",
+                        Position = 6,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
 
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información General",
-                            Position = 0,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
+                    oCurrentProviderSubMenu = new List<int>();
 
-                        //Basic info
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Resumen del Proveedor",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 0,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
+                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.Survey);
 
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                        //add menu
-                        oReturn.Add(oMenuAux);
-
-                        #endregion GeneralInfo
-                    }
-
-                    if (module == (int)enumMarketPlaceCustomerModules.ProviderRatingView)
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyList))
                     {
-                        #region Survey Info
-
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Evaluación de Desempeño",
-                            Position = 6,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
-
                         //survey list
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
@@ -4822,8 +4851,11 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentAction == MVC.Provider.ActionNames.SVSurveyDetail) &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                    }
 
-                        //survey list
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyReports))
+                    {
+                        //survey reports
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
                             Name = "Reportes de Evaluaciones",
@@ -4840,262 +4872,37 @@ namespace MarketPlace.Web.Controllers
                                     (oCurrentAction == MVC.Provider.ActionNames.SVSurveyReport &&
                                 oCurrentController == MVC.Provider.Name),
                         });
-
-                        if (SessionModel.CurrentUserModules().Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderRatingCreate))
-                        {
-                            //survey list
-                            oMenuAux.ChildMenu.Add(new GenericMenu()
-                            {
-                                Name = "Programar Evaluación",
-                                Url = Url.RouteUrl
-                                        (Models.General.Constants.C_Routes_Default,
-                                        new
-                                        {
-                                            controller = MVC.Provider.Name,
-                                            action = MVC.Provider.ActionNames.SVSurveyProgram,
-                                            ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                        }),
-                                Position = 2,
-                                IsSelected =
-                                        (oCurrentAction == MVC.Provider.ActionNames.SVSurveyProgram &&
-                                    oCurrentController == MVC.Provider.Name),
-                            });
-                        }
-
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                        //add menu
-                        oReturn.Add(oMenuAux);
-
-                        #endregion Survey Info
                     }
 
-                    if (module == (int)enumMarketPlaceCustomerModules.NewClient)
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyProgram))
                     {
-                        #region GeneralInfo
-
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información General",
-                            Position = 0,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
-
-                        //Basic info
+                        //survey program
                         oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
-                            Name = "Resumen del Proveedor",
+                            Name = "Programar Evaluación",
                             Url = Url.RouteUrl
                                     (Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 0,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-
-                        //Company persons Contact info
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Información de Personas de Contacto",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GIPersonContactInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 1,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-
-
-                        //Branch
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Sucursales",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GIBranchInfo,
+                                        action = MVC.Provider.ActionNames.SVSurveyProgram,
                                         ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                     }),
                             Position = 2,
                             IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.GIBranchInfo &&
+                                    (oCurrentAction == MVC.Provider.ActionNames.SVSurveyProgram &&
                                 oCurrentController == MVC.Provider.Name),
                         });
-
-                        if (vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
-                        {
-                            //Listas Restrictivas
-                            oMenuAux.ChildMenu.Add(new GenericMenu()
-                            {
-                                Name = "Listas Restrictivas",
-                                Url = Url.RouteUrl
-                                        (Models.General.Constants.C_Routes_Default,
-                                        new
-                                        {
-                                            controller = MVC.Provider.Name,
-                                            action = MVC.Provider.ActionNames.GIBlackList,
-                                            ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                        }),
-                                Position = 4,
-                                IsSelected =
-                                    (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
-                                    oCurrentController == MVC.Provider.Name),
-                            });
-                        }
-
-                        //Seguimientos
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Seguimientos",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.GITrackingInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 5,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.GITrackingInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-                        
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                        //add menu
-                        oReturn.Add(oMenuAux);
-
-                        #endregion GeneralInfo
-
-                        #region Legal Info
-
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información Legal",
-                            Position = 1,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
-
-                        //Balancesheet info
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Cámara de Comercio",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 0,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.LIChaimberOfCommerceInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-
-                        //RUT
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Registro Único Tributario",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.LIRutInfo,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 1,
-                            IsSelected =
-                                (oCurrentAction == MVC.Provider.ActionNames.LIRutInfo &&
-                                oCurrentController == MVC.Provider.Name),
-                        });
-
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                        //add menu
-                        oReturn.Add(oMenuAux);
-
-                        #endregion Legal Info
-
-                        #region Aditional Documents
-
-                        //header
-                        oMenuAux = new GenericMenu()
-                        {
-                            Name = "Información Adicional",
-                            Position = 5,
-                            ChildMenu = new List<GenericMenu>(),
-                        };
-
-
-
-                        //Aditional Documents
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Información Anexa",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.ADAditionalDocument,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 0,
-                            IsSelected =
-                                    (oCurrentAction == MVC.Provider.ActionNames.ADAditionalDocument &&
-                                    oCurrentController == MVC.Provider.Name),
-                        });
-
-                        //Aditional Data
-                        oMenuAux.ChildMenu.Add(new GenericMenu()
-                        {
-                            Name = "Datos Adicionales",
-                            Url = Url.RouteUrl
-                                    (Models.General.Constants.C_Routes_Default,
-                                    new
-                                    {
-                                        controller = MVC.Provider.Name,
-                                        action = MVC.Provider.ActionNames.ADAditionalData,
-                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                    }),
-                            Position = 1,
-                            IsSelected =
-                                    (oCurrentAction == MVC.Provider.ActionNames.ADAditionalData &&
-                                    oCurrentController == MVC.Provider.Name),
-                        });
-                        
-                        //get is selected menu
-                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                        //add menu
-                        oReturn.Add(oMenuAux);
-
-                        #endregion Aditional Documents
                     }
+
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                    //add menu
+                    oReturn.Add(oMenuAux);
                 }
+
+                #endregion
             }
             return oReturn;
         }

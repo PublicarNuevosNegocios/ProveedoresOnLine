@@ -1,5 +1,9 @@
 ﻿@model MarketPlace.Models.Project.ProjectViewModel
 
+@{ 
+    List<int> oCurrentSelectionOption = MarketPlace.Models.General.SessionModel.CurrentSelectionOption();
+}
+
 @if (!Model.RenderScripts)
 {
     //get current area evaluation status
@@ -17,7 +21,10 @@
             {
             <!--Request approve action-->
                 <li>
-                    <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                    @if (oCurrentSelectionOption.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.Aprove))
+                    {
+                        <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                    }                    
                     <!--Approval template-->
                     <div style="display:none;">
                         <div id="ProjectDetail_RequestApprovalDialog" title="Solicitar aprobación">

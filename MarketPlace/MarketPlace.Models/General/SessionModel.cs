@@ -118,32 +118,77 @@ namespace MarketPlace.Models.General
                              {
                                  UserCompanyId = ru.UserCompanyId,
                                  User = ru.User,
-                                 RelatedRole = new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
+                                 //RelatedRole = new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
+                                 //{
+                                 //    ItemId = ru.RelatedRole.ItemId,
+                                 //    ItemName = ru.RelatedRole.ItemName,
+                                 //    ParentItem = ru.RelatedRole.ParentItem == null ? null :
+                                 //           new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
+                                 //           {
+                                 //               ItemId = ru.RelatedRole.ParentItem.ItemId
+                                 //           },
+                                 //    ItemInfo =
+                                 //       (from ruinf in ru.RelatedRole.ItemInfo
+                                 //        select new SessionManager.Models.POLMarketPlace.Session_GenericItemInfoModel()
+                                 //        {
+                                 //            ItemInfoId = ruinf.ItemInfoId,
+                                 //            ItemInfoType = new SessionManager.Models.POLMarketPlace.Session_CatalogModel()
+                                 //            {
+                                 //                CatalogId = ruinf.ItemInfoType.CatalogId,
+                                 //                CatalogName = ruinf.ItemInfoType.CatalogName,
+                                 //                ItemId = ruinf.ItemInfoType.ItemId,
+                                 //                ItemName = ruinf.ItemInfoType.ItemName,
+                                 //            },
+                                 //            Value = ruinf.Value,
+                                 //            LargeValue = ruinf.LargeValue,
+                                 //        }).ToList(),
+                                 //},
+                                 RelatedCompanyRole = new SessionManager.Models.POLMarketPlace.Session_RoleCompanyModel()
                                  {
-                                     ItemId = ru.RelatedRole.ItemId,
-                                     ItemName = ru.RelatedRole.ItemName,
-                                     ParentItem = ru.RelatedRole.ParentItem == null ? null :
-                                            new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
-                                            {
-                                                ItemId = ru.RelatedRole.ParentItem.ItemId
-                                            },
-                                     ItemInfo =
-                                        (from ruinf in ru.RelatedRole.ItemInfo
-                                         select new SessionManager.Models.POLMarketPlace.Session_GenericItemInfoModel()
+                                     RoleCompanyId = ru.RelatedCompanyRole.RoleCompanyId,
+                                     RoleCompanyName = ru.RelatedCompanyRole.RoleCompanyName,
+                                     ParentRoleCompany = ru.RelatedCompanyRole.ParentRoleCompany,
+                                     RoleModule =
+                                        (from rm in ru.RelatedCompanyRole.RoleModule
+                                         select new SessionManager.Models.POLMarketPlace.Session_RoleModuleModel()
                                          {
-                                             ItemInfoId = ruinf.ItemInfoId,
-                                             ItemInfoType = new SessionManager.Models.POLMarketPlace.Session_CatalogModel()
+                                             RoleModuleId = rm.RoleModuleId,
+                                             RoleModuleType = new SessionManager.Models.POLMarketPlace.Session_CatalogModel()
                                              {
-                                                 CatalogId = ruinf.ItemInfoType.CatalogId,
-                                                 CatalogName = ruinf.ItemInfoType.CatalogName,
-                                                 ItemId = ruinf.ItemInfoType.ItemId,
-                                                 ItemName = ruinf.ItemInfoType.ItemName,
+                                                 ItemId = rm.RoleModuleType.ItemId,
+                                                 ItemName = rm.RoleModuleType.ItemName,
                                              },
-                                             Value = ruinf.Value,
-                                             LargeValue = ruinf.LargeValue,
+                                             RoleModule = rm.RoleModule,
+                                             ModuleOption =
+                                                (from mo in rm.ModuleOption
+                                                 select new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
+                                                 {
+                                                     ItemId = mo.ItemId,
+                                                     ItemName = mo.ItemName,
+                                                     ItemInfo =
+                                                        (from moi in mo.ItemInfo
+                                                         select new SessionManager.Models.POLMarketPlace.Session_GenericItemInfoModel()
+                                                         {
+                                                             ItemInfoId = moi.ItemInfoId,
+                                                             ItemInfoType = new SessionManager.Models.POLMarketPlace.Session_CatalogModel()
+                                                             {
+                                                                 ItemId = moi.ItemInfoType.ItemId,
+                                                                 ItemName = moi.ItemInfoType.ItemName,
+                                                             },
+                                                             Value = moi.Value,
+                                                             LargeValue = moi.LargeValue,
+                                                         }).ToList(),
+                                                 }).ToList(),
                                          }).ToList(),
-                                 }
-                             }).ToList()
+                                     RelatedReport =
+                                        (from rr in ru.RelatedCompanyRole.RelatedReport
+                                         select new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
+                                         {
+                                             ItemId = rr.ItemId,
+                                             ItemName = rr.ItemName,
+                                         }).ToList(),
+                                 },
+                             }).ToList(),
                      }).ToList();
             }
             //init session variable
@@ -181,17 +226,21 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    x.RelatedRole.ItemInfo
-                        .Where(y => y.ItemInfoType.ItemId == (int)enumRoleCompanyInfoType.Modules)
-                        .All(y =>
-                        {
-                            oReturn.AddRange
-                                (y.LargeValue.
-                                    Replace(" ", "").
-                                    Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                                            Select(z => Convert.ToInt32(z)));
-                            return true;
-                        });
+                    //old code
+                    //x.RelatedRole.ItemInfo
+                    //    .Where(y => y.ItemInfoType.ItemId == (int)enumRoleCompanyInfoType.Modules)
+                    //    .All(y =>
+                    //    {
+                    //        oReturn.AddRange
+                    //            (y.LargeValue.
+                    //                Replace(" ", "").
+                    //                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                    //                        Select(z => Convert.ToInt32(z)));
+                    //        return true;
+                    //    });
+
+                    //new function
+                    oReturn.AddRange(x.RelatedCompanyRole.RoleModule.Select(y => Convert.ToInt32(y.RoleModule)).ToList());
 
                     return true;
                 });
@@ -199,29 +248,89 @@ namespace MarketPlace.Models.General
             return oReturn;
         }
 
-        public static bool IsUserAuthorized()
+        public static List<int> CurrentProviderMenu()
         {
-            return (CurrentUserModules().Count > 0);
-        }
+            List<int> oReturn = new List<int>();
 
-        #endregion
-
-        #region Notifications
-
-        public static bool NewNotifications
-        {
-            get
+            if (CurrentCompany != null && CurrentCompany.RelatedUser != null)
             {
-                List<MessageModule.Client.Models.NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(CurrentCompany.CompanyPublicId, CurrentLoginUser.Email, true);
+                CurrentCompany.RelatedUser.All(x =>
+                {
+                    SessionManager.Models.POLMarketPlace.Session_RoleModuleModel oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y).FirstOrDefault();
 
-                bool oNewNotifications = false;
+                    oReturn.AddRange(oModel.ModuleOption.Select(y => Convert.ToInt32(y.ItemName)).ToList());
 
-                oNewNotifications =  oReturn != null ? true : false;
-
-                return oNewNotifications;
+                    return true;
+                });
             }
+
+            return oReturn;
         }
 
-        #endregion
+        public static List<int> CurrentProviderSubMenu(int oMenu)
+        {
+            List<int> oReturn = new List<int>();
+
+            if (CurrentCompany != null && CurrentCompany.RelatedUser != null)
+            {
+                CurrentCompany.RelatedUser.All(x =>
+                {
+                    List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y.ModuleOption).FirstOrDefault();
+                    oModel.All(z =>
+                    {
+                        oReturn.AddRange(z.ItemInfo.Select(i => Convert.ToInt32(i.Value)).ToList());
+
+                        return true;
+                    });
+
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        public static List<int> CurrentSelectionOption()
+        {
+            List<int> oReturn = new List<int>();
+
+            if (CurrentCompany != null && CurrentCompany.RelatedUser != null)
+            {
+                CurrentCompany.RelatedUser.All(x =>
+                {
+                List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.SelectionInfo).Select(y => y.ModuleOption).FirstOrDefault();
+                oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
+
+                return true;
+            });
+        }
+
+            return oReturn;
+        }
+
+    public static bool IsUserAuthorized()
+    {
+        return (CurrentUserModules().Count > 0);
     }
+
+    #endregion
+
+    #region Notifications
+
+    public static bool NewNotifications
+    {
+        get
+        {
+            List<MessageModule.Client.Models.NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(CurrentCompany.CompanyPublicId, CurrentLoginUser.Email, true);
+
+            bool oNewNotifications = false;
+
+            oNewNotifications = oReturn != null ? true : false;
+
+            return oNewNotifications;
+        }
+    }
+
+    #endregion
+}
 }

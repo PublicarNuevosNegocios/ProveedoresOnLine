@@ -27,35 +27,32 @@
                                 </div>
                             </div>
                         </div>
-
-                        @{List<int> oCurrentUserModules = MarketPlace.Models.General.SessionModel.CurrentUserModules();}
-                        @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate))
-                        {
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="col-xs-12 POMPProviderBoxInfo">
-                                        <label>Obra / Proyecto / Proceso Selección:</label>
-                                    </div>
-                                    <div class="col-xs-9 POMPProviderBoxInfo">
-                                        <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ProjectName" placeholder="Obra o proyecto" value="@if (Model.RelatedProject != null) { @Model.RelatedProject.ProjectName.ToString();}" />
-
-                                        @{
-                                            if (Model.RelatedProject != null)
-                                            {                                                
-                                                 <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        @{
+                            List<int> oCurrentSubMenu = MarketPlace.Models.General.SessionModel.CurrentSelectionOption();
+                            if (oCurrentSubMenu.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.CreateProcess))
+                            {
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-12 POMPProviderBoxInfo">
+                                            <label>Obra / Proyecto / Proceso Selección:</label>
+                                        </div>
+                                        <div class="col-xs-9 POMPProviderBoxInfo">
+                                            <input class="POMPEvaluationInput" id="Survey_ProgramSurvey_ProjectName" placeholder="Obra o proyecto" value="@if (Model.RelatedProject != null) { @Model.RelatedProject.ProjectName.ToString();}" />
+                                            
+                                                @if (Model.RelatedProject != null)
+                                                {
+                                                    <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
                                                                             controller = MVC.Project.Name,
                                                                             action = MVC.Project.ActionNames.ProjectDetail,
-                                                                            ProjectPublicId = Model.RelatedProject.ProjectPublicId                                                                            
-                                                                        }))"> Ver Detalle</a>
-                                            }
-                                        }
-
-
+                                                                            ProjectPublicId = Model.RelatedProject.ProjectPublicId
+                                                                        }))">Ver Detalle</a>
+                                                }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
 
                         <div class="row">

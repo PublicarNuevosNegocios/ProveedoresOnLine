@@ -127,7 +127,7 @@
 
 
                     <div class="col-xs-2 pull-right" id="POMPviewdetail">
-                        @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+                        @if (MarketPlace.Models.General.SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.ParentRoleCompany == null)
                         {
                             <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
                         }

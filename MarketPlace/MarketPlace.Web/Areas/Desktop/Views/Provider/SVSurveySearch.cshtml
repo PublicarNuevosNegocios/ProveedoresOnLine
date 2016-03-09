@@ -114,9 +114,10 @@
                         </div>
 
                         @*Validación de Modulos por Rol*@
-                        @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
-                        {
-                            if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                        @{
+                            List<int> oCurrentSubMenu = MarketPlace.Models.General.SessionModel.CurrentProviderSubMenu((int)MarketPlace.Models.General.enumProviderMenu.Survey);
+
+                            if (oCurrentSubMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderSubMenu.SurveyProgram))
                             {
                                 <div class="NewSurvey">
                                     <a class="POMPButtonsSurvey" id="POMPButtonSurveryNewEvaluation" href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -129,7 +130,6 @@
                                 </div>
                             }
                         }
-
                     </li>
                 </ul>
             </div>
@@ -152,18 +152,15 @@
                 else
                 {
                     @*Validación de Modulos por Rol*@
-                    foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+                    if (oCurrentSubMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderSubMenu.SurveyProgram))
                     {
-                        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
-                        {
-                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                         new
                                         {
                                             controller = MVC.Provider.Name,
                                             action = MVC.Provider.ActionNames.SVSurveyProgram,
                                             ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                         }))">La búsqueda no arrojó resultados o aún no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.</a>
-                        }
                     }
                 }
             </div>

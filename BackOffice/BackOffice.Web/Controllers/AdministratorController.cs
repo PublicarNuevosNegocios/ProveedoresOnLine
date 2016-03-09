@@ -488,19 +488,6 @@ namespace BackOffice.Web.Controllers
                     oCurrentController == MVC.Administrator.Name),
             });
 
-            //Admin Reports
-            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-            {
-                Name = "Administrar Reportes",
-                Url = Url.Action
-                    (MVC.Administrator.ActionNames.AdminReports,
-                    MVC.Administrator.Name),
-                Position = 1,
-                IsSelected =
-                    (oCurrentAction == MVC.Administrator.ActionNames.AdminReports &&
-                    oCurrentController == MVC.Administrator.Name),
-            });
-
             //get is selected menu
             oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 

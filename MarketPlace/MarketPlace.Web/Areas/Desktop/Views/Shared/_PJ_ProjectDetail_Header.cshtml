@@ -102,14 +102,22 @@
                         <span>@Model.ProjectCloseText</span>
                     </li>
                 }
+
+                @{
+                    List<int> oCurrentSelectionOption = MarketPlace.Models.General.SessionModel.CurrentSelectionOption();
+                }
+
                 @if (!IsProjectProviderDetail)
                 {
                     <!--Project actions-->
                     <li class="POMPProjectBidDataActions">
                         @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
-                    Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                            Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
                         {
-                            <a href="javascript:Project_ProjectDetailObject.ShowCloseProject();">Cerrar proceso de selección</a>
+                            if (oCurrentSelectionOption.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.CloseProcess))
+                            {
+                                <a href="javascript:Project_ProjectDetailObject.ShowCloseProject();">Cerrar proceso de selección</a>
+                            }
                         }
                         else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
                         {
@@ -121,20 +129,25 @@
                         }
 
                         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-                        Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
+                            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
                         {
-
-                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            if (oCurrentSelectionOption.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.AddProviders))
+                            {
+                                <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                         new
                                         {
                                             controller = MVC.Provider.Name,
                                             action = MVC.Provider.ActionNames.Search,
                                             ProjectPublicId = Model.ProjectPublicId,
                                         }))">Agregar proveedores al proceso de selección</a>
+                            }
                         }
                         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
                         {
-                            <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Agregar Criterios</a>
+                            if (oCurrentSelectionOption.Any(x => x == (int)MarketPlace.Models.General.enumSelectionProcess.AddCritery))
+                            {
+                                <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Agregar Criterios</a>
+                            }
                         }
                     </li>
                 }

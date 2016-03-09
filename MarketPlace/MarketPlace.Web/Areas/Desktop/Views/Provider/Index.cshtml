@@ -9,104 +9,132 @@
     bool IsProcessModuleEnable = false;
     bool IsThirdKnowledgeModeuleEnable = false;
 
-    List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+    //old code
+    //List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
 
-    Modules.All(x =>
-    {
-        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderBasicInfo)
-        {
-            IsBasicInfo = true;
-        }
-        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
-        {
-            IsProcessModuleEnable = true;
-        }
-        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
-        {
-            IsEvaluator = true;
-        }
-        else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ThirdKnowledge)
-        {
-            IsThirdKnowledgeModeuleEnable = true;
-        }
-        return true;
-    });
+    //new function
+    List<int> oCurrentUserModules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+
+    //old code
+    //Modules.All(x =>
+    //{
+    //    if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderBasicInfo)
+    //    {
+    //        IsBasicInfo = true;
+    //    }
+    //    else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
+    //    {
+    //        IsProcessModuleEnable = true;
+    //    }
+    //    else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+    //    {
+    //        IsEvaluator = true;
+    //    }
+    //    else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ThirdKnowledge)
+    //    {
+    //        IsThirdKnowledgeModeuleEnable = true;
+    //    }
+    //    return true;
+    //});
 
 }
 <div class="col-sm-12 col-lg-12">
     <div class="POMPChartContainer container-fluid">
         <div class="col-sm-12 col-lg-12 row-centered text-center">
             @*Validate single modules*@
-            @if (Modules.Count > 1)
+            @*new function*@
+            @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ProviderInfo))
+            {
+                <div class="col-sm-12 col-lg-6 col-centered">
+                    <div class="panel panel-default">
+                        <div class="panel-heading POMPChartPanelTitle">
+                            <h3 class="panel-title">Estado de Proveedores Nacionales</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Partial(MVC.Desktop.Shared.Views._CH_StateNationalProviders)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-lg-6  col-centered">
+                    <div class="panel panel-default">
+                        <div class="panel-heading POMPChartPanelTitle">
+                            <h3 class="panel-title">Estado de Proveedores Internacionales</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Partial(MVC.Desktop.Shared.Views._CH_StateAliensProviders)
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.SelectionInfo))
+            {
+                <div class="col-sm-12 col-lg-6  col-centered">
+                    <div class="panel panel-default">
+                        <div class="panel-heading POMPChartPanelTitle">
+                            <h3 class="panel-title">Procesos De Selección Por Estado</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @*add validation survey*@
+            <div class="col-sm-12 col-lg-6 text-center col-centered">
+                <div class="panel panel-default">
+                    <div class="panel-heading POMPChartPanelTitle">
+                        <h3 class="panel-title">Evaluaciones de Desempeño por Estado</h3>
+                    </div>
+                    <div class="panel-body">
+                        @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
+                    </div>
+                </div>
+            </div>
+
+            @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ThirdKnowledgeInfo))
+            {
+                <div class="col-sm-12 col-lg-6  col-centered">
+                    <div class="panel panel-default">
+                        <div class="panel-heading POMPChartPanelTitle">
+                            <h3 class="panel-title">Conocimiento De Terceros Consultas Por Periodo</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Partial(MVC.Desktop.Shared.Views._CH_TK_GetPeriodsByPlan)
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            @*old code*@
+            @*@if (Modules.Count > 1)
             {
                 if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
                 {
-                    <div class="col-sm-12 col-lg-6 col-centered">
-                        <div class="panel panel-default">
-                            <div class="panel-heading POMPChartPanelTitle">
-                                <h3 class="panel-title">Estado de Proveedores Nacionales</h3>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Partial(MVC.Desktop.Shared.Views._CH_StateNationalProviders)
-                            </div>
-                        </div>
-                    </div>
+                    
                 }
 
                 if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
                 {
-                    <div class="col-sm-12 col-lg-6  col-centered">
-                        <div class="panel panel-default">
-                            <div class="panel-heading POMPChartPanelTitle">
-                                <h3 class="panel-title">Estado de Proveedores Internacionales</h3>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Partial(MVC.Desktop.Shared.Views._CH_StateAliensProviders)
-                            </div>
-                        </div>
-                    </div>
+                    
                 }
 
                 if (IsProcessModuleEnable)
                 {
-                    <div class="col-sm-12 col-lg-6  col-centered">
-                        <div class="panel panel-default">
-                            <div class="panel-heading POMPChartPanelTitle">
-                                <h3 class="panel-title">Procesos De Selección Por Estado</h3>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 }
 
                 if (IsEvaluator)
                 {
-                    <div class="col-sm-12 col-lg-6 text-center col-centered">
-                        <div class="panel panel-default">
-                            <div class="panel-heading POMPChartPanelTitle">
-                                <h3 class="panel-title">Evaluaciones de Desempeño por Estado</h3>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
-                            </div>
-                        </div>
-                    </div>
+                    
                 }
                 if (IsThirdKnowledgeModeuleEnable)
                 {
-                    <div class="col-sm-12 col-lg-6  col-centered">
-                        <div class="panel panel-default">
-                            <div class="panel-heading POMPChartPanelTitle">
-                                <h3 class="panel-title">Conocimiento De Terceros Consultas Por Periodo</h3>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Partial(MVC.Desktop.Shared.Views._CH_TK_GetPeriodsByPlan)
-                            </div>
-                        </div>
-                    </div>
+                    
                 }
             }
             else
@@ -124,7 +152,7 @@
                         </div>
                     </div>
                 }
-            }
+            }*@
 
             
         </div>

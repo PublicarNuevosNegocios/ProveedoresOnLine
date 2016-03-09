@@ -274,13 +274,22 @@ namespace MarketPlace.Web.ControllersApi
                 ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
-            //Get By Responsable
-            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+
+            //new function
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.ParentRoleCompany == null)
                 oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
             else
-
                 oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
-                List<Tuple<string, int,int>>  oReturn = new List<Tuple<string, int,int>>(); 
+                List<Tuple<string, int, int>> oReturn = new List<Tuple<string, int, int>>();
+
+            //old code
+            //Get By Responsable
+            //if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+            //    oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
+            //else
+
+            //    oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
+            //    List<Tuple<string, int,int>>  oReturn = new List<Tuple<string, int,int>>(); 
             
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)

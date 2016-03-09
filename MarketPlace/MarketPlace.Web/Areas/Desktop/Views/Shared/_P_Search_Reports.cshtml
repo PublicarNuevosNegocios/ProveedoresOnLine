@@ -2,12 +2,31 @@
 
 @if (!Model.RenderScripts)
 {
-    if (MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider &&
-                      MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate))
+    if (MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumModule.ProviderInfo) ||
+        MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
     {
         <div class="row">
             <div class="col-sm-12 text-left"><span class="POMPComparisonTitle">Reportes Generales</span></div>
         </div>
+
+        <div class="row text-left POMPSearchResultsOrder">
+            @if (MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumModule.ProviderInfo))
+            {
+                <div class="col-sm-4 text-center"><a href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
+            }
+
+            @if (MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
+            {
+                <div id="RP_ComparativeReport POMPExcelIcon2LeftAlign" class="col-sm-4 text-center POMPExcelIcon1LeftAlign"><a href="javascript:Provider_SearchObject.ReportCompare()"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Comparativo</a></div>
+            }       
+        </div>
+        <br />
+    }
+
+    @*if (MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider &&
+                      MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate))
+    {
+
         <div class="row text-left POMPSearchResultsOrder">
             <div id="RP_ComparativeReport" class="col-sm-4 text-center POMPExcelIcon1LeftAlign"><a href="javascript:Provider_SearchObject.ReportCompare()"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Comparativo</a></div>
             <div class="col-sm-4 text-center POMPExcelIcon2LeftAlign"><a href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
@@ -24,5 +43,5 @@
             <div style="margin-left:10%;" class="col-sm-4 text-center POMPExcelIcon2LeftAlign"><a href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
         </div>
         <br />
-    }
+    }*@
 }
