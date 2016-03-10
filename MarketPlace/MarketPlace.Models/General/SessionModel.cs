@@ -298,39 +298,56 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.SelectionInfo).Select(y => y.ModuleOption).FirstOrDefault();
-                oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
+                    List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.SelectionInfo).Select(y => y.ModuleOption).FirstOrDefault();
+                    oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
 
-                return true;
-            });
-        }
+                    return true;
+                });
+            }
 
             return oReturn;
         }
 
-    public static bool IsUserAuthorized()
-    {
-        return (CurrentUserModules().Count > 0);
-    }
-
-    #endregion
-
-    #region Notifications
-
-    public static bool NewNotifications
-    {
-        get
+        public static List<int> CurrentReport()
         {
-            List<MessageModule.Client.Models.NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(CurrentCompany.CompanyPublicId, CurrentLoginUser.Email, true);
+            List<int> oReturn = new List<int>();
 
-            bool oNewNotifications = false;
+            if (CurrentCompany != null && CurrentCompany.RelatedUser != null)
+            {
+                CurrentCompany.RelatedUser.All(x =>
+                {
+                    oReturn.AddRange(x.RelatedCompanyRole.RelatedReport.Select(y => Convert.ToInt32(y.ItemName)));
 
-            oNewNotifications = oReturn != null ? true : false;
+                    return true;
+                });
+            }
 
-            return oNewNotifications;
+            return oReturn;
         }
-    }
 
-    #endregion
-}
+        public static bool IsUserAuthorized()
+        {
+            return (CurrentUserModules().Count > 0);
+        }
+
+        #endregion
+
+        #region Notifications
+
+        public static bool NewNotifications
+        {
+            get
+            {
+                List<MessageModule.Client.Models.NotificationModel> oReturn = MessageModule.Client.Controller.ClientController.NotificationGetByUser(CurrentCompany.CompanyPublicId, CurrentLoginUser.Email, true);
+
+                bool oNewNotifications = false;
+
+                oNewNotifications = oReturn != null ? true : false;
+
+                return oNewNotifications;
+            }
+        }
+
+        #endregion
+    }
 }

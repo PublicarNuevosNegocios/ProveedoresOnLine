@@ -27,15 +27,22 @@
                             <p class="ThirdKnowledge_marginBottom">Fecha:&nbsp;<span class="ThirdKnowledge_FilterDetail">@item.CreateDate.AddHours(-5)</span></p>
                         </div>
                         <div class="col-xs-4 text-center ThirdKnowledge_ListDetail">
-                            <div class="row text-center">
-                                    @{
-                                        <a class="POMPButtons" title="Generar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
-                                    }
-                            </div>
+                            @{
+                                List<int> oCurrentReport = MarketPlace.Models.General.SessionModel.CurrentReport();
+
+                                if (oCurrentReport.Any(x => x == (int)MarketPlace.Models.General.enumReports.TKReport))
+                                {
+                                    <div class="row text-center">
+                                        @{
+                                            <a class="POMPButtons" title="Generar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
+                                        }
+                                    </div>
+                                }
+                            }
                             <div class="row text-center ThirdKnowledge_GoBack">
                                 @*Return Buttom*@
                                 @if (!string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
-                            !string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                                    !string.IsNullOrEmpty(Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd")) && Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
                                 {
                                     <a href="@(Url.RouteUrl
                                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -59,7 +66,6 @@
                                 }
                             </div>
                         </div>
-
                     </div>
                 }
             }
@@ -74,14 +80,11 @@
 @* Templates *@
 <div id="ThirdKnowledge_Dialog">
     <form id="ThirdKnowledge_DialogForm" action="@Url.Action(MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,MVC.ThirdKnowledge.Name,new
-          {
-            QueryPublicId =Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
-            InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
-            EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
-        })" method="post">
-        
-
-    </form>
+        {
+        QueryPublicId =Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Where(x => x.QueryPublicId != null).Select(x => x.QueryPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault(),
+        InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
+        EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
+    })" method="post"></form>
 </div>
 
 @{
@@ -94,14 +97,14 @@
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 
-    <script type="text/javascript">       
+    <script type="text/javascript">
 
         $(document).ready(function () {
             Third_KnowledgeDetailSearch.Init({
                 ObjectId: 'ThirdKnowledge',
                 QueryPublicId: '@QueryPublicId',
                 SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
+                                new
                                 {
                                     controller = MVC.ThirdKnowledge.Name,
                                     action = MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail
