@@ -23,6 +23,9 @@
                     <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
                 </div>
                 <div class="col-sm-6 col-lg-6 text-right">
+
+                    <a class="POMPButtons" title="Generar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
+
                     <form id="frmThirdKnowledgeUpsert"
                           method="post"
                           action="@(Url.Action
@@ -159,6 +162,12 @@
     }
 </div>
 
+@* Templates *@
+<div id="ThirdKnowledge_Dialog">
+    <form id="ThirdKnowledge_DialogForm" action="@(Url.Action (MVC.Provider.ActionNames.GIBlackList, MVC.Provider.Name, 
+        new { ProviderPublicId = Request["ProviderPublicId"], }))" method="post">
+    </form>
+</div>
 
 @{
     Model.RenderScripts = true;

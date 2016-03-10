@@ -537,7 +537,7 @@ namespace MarketPlace.Web.Controllers
             if (Request["DownloadReport"] == "true")
             {
                 #region Set Parameters
-
+                /* Generar segun TK 
                 List<ReportParameter> parameters = new List<ReportParameter>();
 
                 //Customer Info
@@ -585,11 +585,11 @@ namespace MarketPlace.Web.Controllers
                                                                 enumCategoryInfoType.PDF.ToString(),
                                                                 data,
                                                                 parameters,
-                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "BL_Report_BlackListReport.rdlc");
+                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_GIBlackListReport.rdlc");
 
                 parameters = null;
                 return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
-
+                */
                 #endregion
             }
 
