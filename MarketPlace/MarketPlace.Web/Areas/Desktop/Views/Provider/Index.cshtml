@@ -2,47 +2,15 @@
 @{
     ViewBag.Title = "Proveedores OnLine - Proveedores";
     Layout = MVC.Desktop.Shared.Views._Layout;
-
-    /*Get session modules by user*/
-    bool IsBasicInfo = false;
-    bool IsEvaluator = false;
-    bool IsProcessModuleEnable = false;
-    bool IsThirdKnowledgeModeuleEnable = false;
-
-    //old code
-    //List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
-
-    //new function
+    
     List<int> oCurrentUserModules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
-
-    //old code
-    //Modules.All(x =>
-    //{
-    //    if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderBasicInfo)
-    //    {
-    //        IsBasicInfo = true;
-    //    }
-    //    else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
-    //    {
-    //        IsProcessModuleEnable = true;
-    //    }
-    //    else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
-    //    {
-    //        IsEvaluator = true;
-    //    }
-    //    else if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ThirdKnowledge)
-    //    {
-    //        IsThirdKnowledgeModeuleEnable = true;
-    //    }
-    //    return true;
-    //});
-
+    List<int> oCurrentUserMenu = MarketPlace.Models.General.SessionModel.CurrentProviderMenu();
+    List<int> oCurrentUserSubMenu = MarketPlace.Models.General.SessionModel.CurrentProviderSubMenu((int)MarketPlace.Models.General.enumProviderMenu.GeneralInfo);
 }
 <div class="col-sm-12 col-lg-12">
     <div class="POMPChartContainer container-fluid">
         <div class="col-sm-12 col-lg-12 row-centered text-center">
             @*Validate single modules*@
-            @*new function*@
             @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ProviderInfo))
             {
                 <div class="col-sm-12 col-lg-6 col-centered">
@@ -82,17 +50,20 @@
                 </div>
             }
 
-            @*add validation survey*@
-            <div class="col-sm-12 col-lg-6 text-center col-centered">
-                <div class="panel panel-default">
-                    <div class="panel-heading POMPChartPanelTitle">
-                        <h3 class="panel-title">Evaluaciones de Desempeño por Estado</h3>
-                    </div>
-                    <div class="panel-body">
-                        @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
+            @if (oCurrentUserMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderMenu.Survey))
+            {
+                @*add validation survey*@
+                <div class="col-sm-12 col-lg-6 text-center col-centered">
+                    <div class="panel panel-default">
+                        <div class="panel-heading POMPChartPanelTitle">
+                            <h3 class="panel-title">Evaluaciones de Desempeño por Estado</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
 
             @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ThirdKnowledgeInfo))
             {
@@ -106,77 +77,34 @@
                         </div>
                     </div>
                 </div>
-            }
-
-
-            @*old code*@
-            @*@if (Modules.Count > 1)
-            {
-                if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
-                {
-                    
-                }
-
-                if (!IsBasicInfo || MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.BuyerProvider)
-                {
-                    
-                }
-
-                if (IsProcessModuleEnable)
-                {
-                    
-
-                }
-
-                if (IsEvaluator)
-                {
-                    
-                }
-                if (IsThirdKnowledgeModeuleEnable)
-                {
-                    
-                }
-            }
-            else
-            {
-                if (IsThirdKnowledgeModeuleEnable)
-                {
-                    <div class="col-sm-12 col-lg-6  col-centered">
-                        <div class="panel panel-default">
-                            <div class="panel-heading POMPChartPanelTitle">
-                                <h3 class="panel-title">Conocimiento De Terceros Consultas Por Periodo</h3>
-                            </div>
-                            <div class="panel-body">
-                                @Html.Partial(MVC.Desktop.Shared.Views._CH_TK_GetPeriodsByPlan)
-                            </div>
-                        </div>
-                    </div>
-                }
-            }*@
-
-            
+            }            
         </div>
     </div>
     <div id="POMPManuals">
         <div id="POMPManualTittle" class="div-centered text-center">Manuales</div>
         <div id="POMPManualIcons" class="div-centered  text-center">
             <div class="row">
-                @if (IsEvaluator)
-                {
-                    <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                }
-                @if (IsProcessModuleEnable)
-                {
-                    <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                }                
-                @if (IsThirdKnowledgeModeuleEnable)
-                {
-                    <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Conocimiento de Terceros" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_TkManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
-                } 
-                @if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_Publicar].Value ||
+                @{
+                    if (oCurrentUserMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderMenu.Survey))
+                    {
+                        <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Evaluación de Desempeño" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_SurveyManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                    }
+
+                    if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.SelectionInfo))
+                    {
+                        <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Proceso de Selección" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ProjectManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                    }
+
+                    if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ThirdKnowledgeInfo))
+                    {
+                        <div class="col-xs-4 col-md-4 text-left"><a title="Manual de Conocimiento de Terceros" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_TkManual].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                    }
+
+                    if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_Publicar].Value ||
                     MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_ClientePolipropileno].Value)
-                {
-                    <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Búsqueda de Proveedores" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ClientPolipropileno].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                    {
+                        <div class="col-xs-4 col-md-4 text-right"><a title="Manual de Búsqueda de Proveedores" href="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Manual_ClientPolipropileno].Value" target="_new"><img class="POMPPdfIcon" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_PdfReportIcon].Value"></a></div>
+                    }
                 }
             </div>
         </div>
