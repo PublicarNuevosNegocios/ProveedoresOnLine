@@ -636,19 +636,23 @@ namespace MarketPlace.Web.Controllers
                 {
 
                     x.BlackListInfo.All(y => {
-                        if (y.ItemInfoType.ItemName == "Alias") { oModel.RelatedThidKnowledgeSearch.Alias = y.Value;}
-                        if (y.ItemInfoType.ItemName == "Nombre Consultado") { oModel.RelatedThidKnowledgeSearch.RequestName = y.Value; }
-                        if (y.ItemInfoType.ItemName == "Identificacion Consultada") { oModel.RelatedThidKnowledgeSearch.IdNumberRequest = y.Value; }
-                        if (y.ItemInfoType.ItemName == "Cargo") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value; }
-                        if (y.ItemInfoType.ItemName == "Estado") { oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult = y.Value; }
-                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.GroupName = y.Value; }
-                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value; }
-                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.Priority = y.Value; }
-                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.ListName = y.Value; }
-                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.InitDate = y.CreateDate; }
-                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.EndDate = y.LastModify; }
 
-                        
+                        if (y.ItemInfoType.ItemName == "Alias") { oModel.RelatedThidKnowledgeSearch.Alias = y.Value;}
+                        if (y.ItemInfoType.ItemName == "Nombre Consultado") { oModel.RelatedThidKnowledgeSearch.NameResult = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Identificacion Consultada") { oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Cargo o Delito") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Peps") { oModel.RelatedThidKnowledgeSearch.Peps = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Prioridad") { oModel.RelatedThidKnowledgeSearch.Priority = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Estado") { oModel.RelatedThidKnowledgeSearch.Status = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Fecha Registro") { oModel.RelatedThidKnowledgeSearch.RegisterDate = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Documento de Identidad") { oModel.RelatedThidKnowledgeSearch.IdNumberRequest = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Fecha de Actualizacion") { oModel.RelatedThidKnowledgeSearch.LastModifyDate = y.LastModify.ToString(); }
+                        if (y.ItemInfoType.ItemName == "Nombre del Grupo") { oModel.RelatedThidKnowledgeSearch.GroupName = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Nombre Completo") { oModel.RelatedThidKnowledgeSearch.RequestName = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Nombre de la Lista") { oModel.RelatedThidKnowledgeSearch.ListName = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Otra Información") { oModel.RelatedThidKnowledgeSearch.MoreInfo = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Zona") { oModel.RelatedThidKnowledgeSearch.Zone = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Link") { oModel.RelatedThidKnowledgeSearch.Link = y.LargeValue; }
                         return true;
                     });
 
