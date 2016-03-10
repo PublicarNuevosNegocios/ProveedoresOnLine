@@ -630,14 +630,25 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
 
-                oModel.RelatedBlackListInfo.Where(x => x.BlackListId == BlackListId).Select(x => {
+                List<BlackListModel> oBlackListInfo = oModel.RelatedBlackListInfo.Where(x => x.BlackListId == BlackListId).Select(x => x).ToList();
+                
+                oBlackListInfo.All(x=>
+                {
 
                     x.BlackListInfo.All(y => {
-                         y.ItemInfoType.ItemName==""
-    
-                             oModel.RelatedThidKnowledgeSearch.Alias = 
+                        if (y.ItemInfoType.ItemName == "Alias") { oModel.RelatedThidKnowledgeSearch.Alias = y.Value;}
+                        if (y.ItemInfoType.ItemName == "Nombre Consultado") { oModel.RelatedThidKnowledgeSearch.RequestName = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Identificacion Consultada") { oModel.RelatedThidKnowledgeSearch.IdNumberRequest = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Cargo") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value; }
+                        if (y.ItemInfoType.ItemName == "Estado") { oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult = y.Value; }
+                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.GroupName = y.Value; }
+                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value; }
+                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.Priority = y.Value; }
+                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.ListName = y.Value; }
+                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.InitDate = y.CreateDate; }
+                        if (y.ItemInfoType.ItemName == "") { oModel.RelatedThidKnowledgeSearch.EndDate = y.LastModify; }
 
-
+                        
                         return true;
                     });
 
