@@ -19,22 +19,29 @@
                 <div class="col-xs-9">
                     <label>Información Básica</label>
                 </div>
-                <div class="col-xs-3">
-                    <div class="POMPDownloadReportsTop">
-                        <form id="frmProviderUpsert"
-                              method="post"
-                              action="@(Url.Action
+                @{
+                    List<int> oCurrentReports = MarketPlace.Models.General.SessionModel.CurrentReport();
+
+                    if (oCurrentReports.Any(x => x == (int)MarketPlace.Models.General.enumReports.ProviderInfoReport))
+                    {
+                        <div class="col-xs-3">
+                            <div class="POMPDownloadReportsTop">
+                                <form id="frmProviderUpsert"
+                                      method="post"
+                                      action="@(Url.Action
                                     (MVC.Provider.ActionNames.GIProviderInfo,
                                     MVC.Provider.Name,
                                     new
                                     {
                                         ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                     }))">
-                            <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                            <input type="hidden" name="DownloadReport" value="true" />
-                        </form>
-                    </div>
-                </div>
+                                    <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                    <input type="hidden" name="DownloadReport" value="true" />
+                                </form>
+                            </div>
+                        </div>
+                    }
+                }                
             </div>
             @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
             {

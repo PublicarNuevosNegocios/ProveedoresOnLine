@@ -18,27 +18,34 @@
 
     <div class="POMPEvalTitle">
         <div class="col-xs-12">
-                <div class="POMPDownloadReportsTop" id="POMPBPS">
-                    <form action="@(Url.Action
-                    (MVC.Project.ActionNames.ProjectDetail,
-                    MVC.Project.Name,
-                    new
-                    {
-                        ProjectPublicId = Model.ProjectPublicId
-                    }))" method="post">
-                        <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+            @{
+                List<int> oCurrentReport = MarketPlace.Models.General.SessionModel.CurrentReport();
 
-                        @{
-                            if (Model.ProjectReportModel != null)
+                if (oCurrentReport.Any(x => x == (int)MarketPlace.Models.General.enumReports.SelectionReport))
+                {
+                    <div class="POMPDownloadReportsTop" id="POMPBPS">
+                        <form action="@(Url.Action
+                            (MVC.Project.ActionNames.ProjectDetail,
+                            MVC.Project.Name,
+                            new
                             {
-                                <input type="hidden" name="ReportFileName" value="@Model.ProjectReportModel.FileName" />
-                                <input type="hidden" name="ReportMimeType" value="@Model.ProjectReportModel.MimeType" />
-                                <input type="hidden" name="ReportArray" value="@Convert.ToBase64String(Model.ProjectReportModel.File)" />
-                                <input type="hidden" name="DownloadReport" value="true" />
+                                ProjectPublicId = Model.ProjectPublicId
+                            }))" method="post">
+                            <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+
+                            @{
+                                if (Model.ProjectReportModel != null)
+                                {
+                                    <input type="hidden" name="ReportFileName" value="@Model.ProjectReportModel.FileName" />
+                                    <input type="hidden" name="ReportMimeType" value="@Model.ProjectReportModel.MimeType" />
+                                    <input type="hidden" name="ReportArray" value="@Convert.ToBase64String(Model.ProjectReportModel.File)" />
+                                    <input type="hidden" name="DownloadReport" value="true" />
+                                }
                             }
-                        }
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                }
+            }
         </div>
     </div>
 

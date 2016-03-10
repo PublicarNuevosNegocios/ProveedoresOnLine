@@ -873,7 +873,13 @@
 
     public enum enumReports
     {
-
+        ComparativeReport = 814001,
+        GenearalReport = 814002,
+        ProviderInfoReport = 814003,
+        FinancialReport = 814004,
+        SurveyReport = 814005,
+        SelectionReport = 814006,
+        TKReport = 814007,
     }
 
     #endregion

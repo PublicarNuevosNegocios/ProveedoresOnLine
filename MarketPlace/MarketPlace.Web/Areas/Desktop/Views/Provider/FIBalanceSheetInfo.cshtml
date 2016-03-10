@@ -105,20 +105,27 @@
                                             }))">
                                 </form>
                             </div>
-                            <div class="col-md-3">
-                                <form id="frmProviderUpsert"
-                                      method="post"
-                                      action="@(Url.Action
+                            @{
+                                List<int> oCurrentReport = MarketPlace.Models.General.SessionModel.CurrentReport();
+
+                                if (oCurrentReport.Any(x => x == (int)MarketPlace.Models.General.enumReports.FinancialReport))
+                                {
+                                    <div class="col-md-3">
+                                        <form id="frmProviderUpsert"
+                                              method="post"
+                                              action="@(Url.Action
                                     (MVC.Provider.ActionNames.FIBalanceSheetInfo,
                                     MVC.Provider.Name,
                                     new
                                     {
                                         ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                     }))">
-                                    <button class="POMPButtonDownloadReport_Provider POMPButtonDownloadReport_fib" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                    <input type="hidden" name="DownloadReportFinancial" value="true" />
-                                </form>
-                            </div>
+                                            <button class="POMPButtonDownloadReport_Provider POMPButtonDownloadReport_fib" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                            <input type="hidden" name="DownloadReportFinancial" value="true" />
+                                        </form>
+                                    </div>
+                                }
+                            }                            
                         </div>
                     </li>
                 </ul>
