@@ -597,7 +597,7 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult GIBlackListDetail(string ProviderPublicId)
+        public virtual ActionResult GIBlackListDetail(string ProviderPublicId, int BlackListId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
@@ -617,6 +617,42 @@ namespace MarketPlace.Web.Controllers
                             x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
                 FirstOrDefault();
 
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                ////get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.RelatedTrackingInfo = new List<GenericItemModel>();
+
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
+
+                oModel.RelatedBlackListInfo.Where(x => x.BlackListId == BlackListId).Select(x => {
+
+                    x.BlackListInfo.All(y => {
+                         y.ItemInfoType.ItemName==""
+    
+                             oModel.RelatedThidKnowledgeSearch.Alias = 
+
+
+                        return true;
+                    });
+
+                    return true;
+                });
+
+
+                /*load tk-model*/
+                
+
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            
+            //
             return View(oModel);
         }
 

@@ -126,12 +126,14 @@
                                                                         controller = MVC.Provider.Name,
                                                                         action = MVC.Provider.ActionNames.GIBlackListDetail,
                                                                         ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                                                        BlackListId = item.BlackListId,
                                                                         ReturnUrl = Url.Action
                                                                                 (MVC.Provider.ActionNames.GIBlackListDetail,
                                                                                 MVC.Provider.Name,
                                                                                 new
                                                                                 {
                                                                                     ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                                                                    BlackListId = item.BlackListId,
                                                                                 })
                                                                         }))">Ver Detalle</a>
                                         </p>

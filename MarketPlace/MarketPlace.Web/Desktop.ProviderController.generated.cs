@@ -402,6 +402,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionParamsClass_GIBlackListDetail
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string BlackListId = "BlackListId";
         }
         static readonly ActionParamsClass_LIChaimberOfCommerceInfo s_params_LIChaimberOfCommerceInfo = new ActionParamsClass_LIChaimberOfCommerceInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -785,14 +786,15 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void GIBlackListDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void GIBlackListDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, int BlackListId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult GIBlackListDetail(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult GIBlackListDetail(string ProviderPublicId, int BlackListId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIBlackListDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            GIBlackListDetailOverride(callInfo, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "BlackListId", BlackListId);
+            GIBlackListDetailOverride(callInfo, ProviderPublicId, BlackListId);
             return callInfo;
         }
 
