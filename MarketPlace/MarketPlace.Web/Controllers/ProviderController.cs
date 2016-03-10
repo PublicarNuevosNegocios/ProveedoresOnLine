@@ -642,7 +642,7 @@ namespace MarketPlace.Web.Controllers
                         if (y.ItemInfoType.ItemName == "Estado") { oModel.RelatedThidKnowledgeSearch.Status = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Fecha Registro") { oModel.RelatedThidKnowledgeSearch.RegisterDate = y.Value == null ? string.Empty : Convert.ToDateTime(y.Value).AddHours(-5).ToString(); }
                         if (y.ItemInfoType.ItemName == "Documento de Identidad") { oModel.RelatedThidKnowledgeSearch.IdNumberRequest = y.Value == null ? string.Empty : y.Value; }
-                        if (y.ItemInfoType.ItemName == "Fecha de Actualizacion") { oModel.RelatedThidKnowledgeSearch.LastModifyDate = y.LastModify.ToString() == null ? string.Empty : y.LastModify.AddHours(-5).ToString(); }
+                        if (y.ItemInfoType.ItemName == "Fecha de Actualizacion") { oModel.RelatedThidKnowledgeSearch.LastModifyDate = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre del Grupo") { oModel.RelatedThidKnowledgeSearch.GroupName = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre Completo") { oModel.RelatedThidKnowledgeSearch.RequestName = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre de la Lista") { oModel.RelatedThidKnowledgeSearch.ListName = y.Value == null ? string.Empty : y.Value; }
