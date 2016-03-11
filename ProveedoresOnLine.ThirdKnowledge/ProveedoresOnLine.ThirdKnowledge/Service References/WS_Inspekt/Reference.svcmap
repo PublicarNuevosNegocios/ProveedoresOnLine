@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c9e56a2d-3f90-4333-b1c5-0d0357feb8cd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c18381a9-02bf-4ed3-8fd6-dc471577720f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://190.242.114.111:2021/WSInspektor.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="wsinspektor.wsdl" MetadataType="Wsdl" ID="33ed92c5-491c-4203-a2da-41ec6e3d454e" SourceId="1" SourceUrl="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx?wsdl" />
-    <MetadataFile FileName="wsinspektor.disco" MetadataType="Disco" ID="a7350ed1-8bca-4d3f-8b59-08aaaa764fbf" SourceId="1" SourceUrl="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx?disco" />
+    <MetadataFile FileName="WSInspektor.disco" MetadataType="Disco" ID="c86015a9-d741-4072-a3f9-8f62a6a043d3" SourceId="1" SourceUrl="http://190.242.114.111:2021/WSInspektor.asmx?disco" />
+    <MetadataFile FileName="WSInspektor.wsdl" MetadataType="Wsdl" ID="5b5fd0c5-ac46-4e64-8701-91775e5a5aba" SourceId="1" SourceUrl="http://190.242.114.111:2021/WSInspektor.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

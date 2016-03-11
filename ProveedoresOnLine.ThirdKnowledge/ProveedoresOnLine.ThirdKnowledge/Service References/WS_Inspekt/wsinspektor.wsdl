@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/SecureWebService/SecureWebService" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/SecureWebService/SecureWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/SecureWebService/SecureWebService" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/SecureWebService/SecureWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servicio de Consultas en Inspektor</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/SecureWebService/SecureWebService">
@@ -239,16 +239,16 @@
   <wsdl:service name="WS-Inspektor">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servicio de Consultas en Inspektor</wsdl:documentation>
     <wsdl:port name="WS-InspektorSoap" binding="tns:WS-InspektorSoap">
-      <soap:address location="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" />
+      <soap:address location="http://190.242.114.111:2021/WSInspektor.asmx" />
     </wsdl:port>
     <wsdl:port name="WS-InspektorSoap12" binding="tns:WS-InspektorSoap12">
-      <soap12:address location="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" />
+      <soap12:address location="http://190.242.114.111:2021/WSInspektor.asmx" />
     </wsdl:port>
     <wsdl:port name="WS-InspektorHttpGet" binding="tns:WS-InspektorHttpGet">
-      <http:address location="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" />
+      <http:address location="http://190.242.114.111:2021/WSInspektor.asmx" />
     </wsdl:port>
     <wsdl:port name="WS-InspektorHttpPost" binding="tns:WS-InspektorHttpPost">
-      <http:address location="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" />
+      <http:address location="http://190.242.114.111:2021/WSInspektor.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

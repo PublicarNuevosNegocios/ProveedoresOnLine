@@ -102,13 +102,13 @@
     <None Include="Service References\WS_Inspekt\ProveedoresOnLine.ThirdKnowledge.WS_Inspekt.Resultado.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\WS_Inspekt\wsinspektor.wsdl" />
+    <None Include="Service References\WS_Inspekt\WSInspektor.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\WS_Inspekt\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\WS_Inspekt\wsinspektor.disco" />
+    <None Include="Service References\WS_Inspekt\WSInspektor.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\WS_Inspekt\configuration91.svcinfo" />

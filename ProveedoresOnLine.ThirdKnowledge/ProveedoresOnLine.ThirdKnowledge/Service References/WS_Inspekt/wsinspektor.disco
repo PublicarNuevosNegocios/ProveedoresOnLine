@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx?wsdl" docRef="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" xmlns:q1="http://tempuri.org/SecureWebService/SecureWebService" binding="q1:WS-InspektorSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-  <soap address="https://wsinspektorssl.riskconsultingcolombia.com:444/wsinspektor.asmx" xmlns:q2="http://tempuri.org/SecureWebService/SecureWebService" binding="q2:WS-InspektorSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <contractRef ref="http://190.242.114.111:2021/WSInspektor.asmx?wsdl" docRef="http://190.242.114.111:2021/WSInspektor.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://190.242.114.111:2021/WSInspektor.asmx" xmlns:q1="http://tempuri.org/SecureWebService/SecureWebService" binding="q1:WS-InspektorSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://190.242.114.111:2021/WSInspektor.asmx" xmlns:q2="http://tempuri.org/SecureWebService/SecureWebService" binding="q2:WS-InspektorSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
 </discovery>

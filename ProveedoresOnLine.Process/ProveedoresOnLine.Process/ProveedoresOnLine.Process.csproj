@@ -86,6 +86,12 @@
     <Reference Include="ProveedoresOnLine.CompanyProviderBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProviderBatch\ProveedoresOnLine.CompanyProviderBatch.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.RestrictiveListProcess">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcess.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.RestrictiveListProcessBatch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcessBatch.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyBatch\developer\ProveedoresOnLine.SurveyBatch.dll</HintPath>
     </Reference>
