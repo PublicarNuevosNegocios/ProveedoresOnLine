@@ -21,9 +21,9 @@
                         @Model.RelatedThidKnowledgeSearch.GroupName 
                     </div>
                     <div class="col-sm-4 text-right">
-                        <!--<div class="POMPDownloadReportsTop">
+                        <div class="POMPDownloadReportsTop">
                                 <button class="POMPButtonDownloadReport_TK" type="submit" title="Generar Reporte" onclick="javascript: ReportViewerObj.RenderReportViewer({ Options: ['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()', '@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'], ObjectId: 'ThirdKnowledge', Tittle: 'Reporte detalle de consulta' })">Generar Reporte</button>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
                 <br />
@@ -134,12 +134,12 @@
 @* Templates *@
 <div id="ThirdKnowledge_Dialog">
     <form id="ThirdKnowledge_DialogForm" action="@(Url.Action
-                                    (MVC.ThirdKnowledge.ActionNames.TKDetailSingleSearch,
-                                    MVC.ThirdKnowledge.Name,
+                                    (MVC.Provider.ActionNames.GIBlackListDetail,
+                                    MVC.Provider.Name,
                                     new
                                     {
-                                        QueryBasicPublicId = Model.RelatedThidKnowledgeSearch.QueryBasicPublicId,
-                                        ReturnUrl = Model.RelatedThidKnowledgeSearch.ReturnUrl,
+                                        ProviderPublicId = Request["ProviderPublicId"],
+                                        BlackListId = Request["BlackListId"],
                                     }))" method="post"></form>
 </div>
 

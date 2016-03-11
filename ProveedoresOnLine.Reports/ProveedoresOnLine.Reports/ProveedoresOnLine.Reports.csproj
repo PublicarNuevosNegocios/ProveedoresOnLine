@@ -321,6 +321,7 @@
     <EmbeddedResource Include="Reports\BL_Report_BlackListReport.rdlc" />
     <EmbeddedResource Include="Reports\TK_Report_GIBlackListReport.rdlc" />
     <EmbeddedResource Include="Reports\TK_Report_ThirdKnowledgeQuery.rdlc" />
+    <EmbeddedResource Include="Reports\TK_Report_GIBlackListReportDetail.rdlc" />
     <EmbeddedResource Include="Reports\TK_Report_ThirdKnowledgeQueryDetail.rdlc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
