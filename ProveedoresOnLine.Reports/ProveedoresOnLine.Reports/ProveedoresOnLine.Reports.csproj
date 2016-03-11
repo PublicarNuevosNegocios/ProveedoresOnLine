@@ -143,11 +143,9 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_GIBlackListreport.cs">
       <DependentUpon>DS_GIBlackListreport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GIBlackListreport.Designer.cs">
-      <DependentUpon>DS_GIBlackListreport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\DataSet\DS_GIBlackListreport1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_GIBlackListreport.xsd</DependentUpon>
@@ -261,9 +259,9 @@
       <DependentUpon>DS_GIBlackListreport.xsd</DependentUpon>
     </None>
     <None Include="Reports\DataSet\DS_GIBlackListreport.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DS_GIBlackListreport1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_GIBlackListreport.Designer.cs</LastGenOutput>
     </None>
     <None Include="Reports\DataSet\DS_GIBlackListreport.xss">
       <DependentUpon>DS_GIBlackListreport.xsd</DependentUpon>

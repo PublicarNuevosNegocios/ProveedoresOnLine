@@ -11,8 +11,8 @@
     margin: 5px -9px 0px 0px;
     background: #ff8300;
     color: #fff;
-    height: 30px;
-    width: 180px;
+    height: 30px !important;
+    width: 180px !important;
     line-height: 20px;
     border: 0px !important;
     border-radius: 2px !important;

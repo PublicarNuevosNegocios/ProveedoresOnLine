@@ -500,14 +500,12 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult GIBlackList(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel();
-
             //Clean the season url saved
             if (SessionModel.CurrentURL != null)
                 SessionModel.CurrentURL = null;
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
@@ -527,72 +525,197 @@ namespace MarketPlace.Web.Controllers
                 ////get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedTrackingInfo = new List<GenericItemModel>();
-
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
-
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
-            //Get report generator
+            
             //Get report generator
             if (Request["DownloadReport"] == "true")
             {
-                #region Set Parameters
-                /* Generar segun TK 
-                List<ReportParameter> parameters = new List<ReportParameter>();
+                /*generate data for report*/
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = oModel.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+                List<string> oGroupListName = new List<string>();
+                foreach (var alert in ShowAlertModel)
+                {
+                    oGroupListName.Add(alert.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).FirstOrDefault());
+                }
+                oGroupListName = oGroupListName.GroupBy(x => x).Select(x => x.First()).ToList();
 
+                /*get company info*/
+                List<string> oOrderGroup = new List<string>();
+
+                oOrderGroup.Add(oGroupListName.Where(x => x == "LISTAS RESTRICTIVAS - Criticidad Alta").Select(x => x).FirstOrDefault());
+                oOrderGroup.Add(oGroupListName.Where(x => x == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media").Select(x => x).FirstOrDefault());
+                oOrderGroup.Add(oGroupListName.Where(x => x == "LISTAS FINANCIERAS - Criticidad Media").Select(x => x).FirstOrDefault());
+                oOrderGroup.Add(oGroupListName.Where(x => x == "LISTAS PEPS - Criticidad Baja").Select(x => x).FirstOrDefault());
+
+                string searchName = "";
+                string searchIdentification = "--";
+                string User = "ProveeodresOnLine";
+                string CreateDate = oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
+                string IsSuccess="--";
+
+                List<ReportParameter> parameters = new List<ReportParameter>();
                 //Customer Info
                 parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
                 parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
                 parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
                 parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
-
                 //Query Info
                 parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
-                parameters.Add(new ReportParameter("User", SessionModel.CurrentLoginUser.Name + " " + SessionModel.CurrentLoginUser.LastName));
-                parameters.Add(new ReportParameter("CreateDate", oModel.RelatedBlackListInfo.Where(x => x.CreateDate != null).Select(y => y.CreateDate).FirstOrDefault().ToString()));
-                parameters.Add(new ReportParameter("QueryType", "No hay campo"));
-                parameters.Add(new ReportParameter("Status", "No hay campo"));
+                parameters.Add(new ReportParameter("User", User));
+                parameters.Add(new ReportParameter("CreateDate", CreateDate));
+                parameters.Add(new ReportParameter("searchName", searchName));
+                parameters.Add(new ReportParameter("searchIdentification", searchIdentification));
+                parameters.Add(new ReportParameter("IsSuccess", IsSuccess));
 
-                DataTable data = new DataTable();
-                data.Columns.Add("name");
-                data.Columns.Add("id");
-                data.Columns.Add("cargo");
-                data.Columns.Add("prioridad");
-                data.Columns.Add("grupo_lista");
-                data.Columns.Add("lista");
-                data.Columns.Add("delito_cargo");
-                data.Columns.Add("estado");
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = oModel.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
-                DataRow row;
+                DataTable data_rst = new DataTable();
+                DataTable data_dce = new DataTable();
+                DataTable data_fnc = new DataTable();
+                DataTable data_psp = new DataTable();
 
-                oModel.RelatedBlackListInfo.All(query =>
+                foreach (var grp in oOrderGroup)
+                {
+                    /*Set data by group*/
+                    List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> oInfoToPrint = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel>();
+                    oInfoToPrint = ShowAlertModel.Where(x => x.BlackListInfo.Any(a => a.Value == grp)).Select(x => x).ToList();
+                    //rst "LISTAS RESTRICTIVAS - Criticidad Alta"
+                    if (grp!= null && grp.CompareTo("LISTAS RESTRICTIVAS - Criticidad Alta") == 0)
                     {
-                        row = data.NewRow();
+                        data_rst.Columns.Add("IdentificationResult");
+                        data_rst.Columns.Add("NameResult");
+                        data_rst.Columns.Add("Offense");
+                        data_rst.Columns.Add("Peps");
+                        data_rst.Columns.Add("Priority");
+                        data_rst.Columns.Add("Status");
+                        data_rst.Columns.Add("ListName");
+                        data_rst.Columns.Add("IdentificationSearch");
+                        data_rst.Columns.Add("NameSearch");
+                        data_rst.Columns.Add("Cargo");
+                        DataRow row_rst;
+                        foreach (var item in oInfoToPrint)
+                        {
+                            row_rst = data_rst.NewRow();
+                            row_rst["IdentificationResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Documento de Identidad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["NameResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Completo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["Offense"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo o Delito").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["Peps"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Peps").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["Priority"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["Status"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower();
+                            row_rst["ListName"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre de la Lista").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["IdentificationSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_rst["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            data_rst.Rows.Add(row_rst);
+                        }
+                        
+                    }
+                    //dce "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media"
+                    if (grp != null &&  grp.CompareTo("DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media") == 0)
+                    {
+                        data_dce.Columns.Add("IdentificationResult");
+                        data_dce.Columns.Add("NameResult");
+                        data_dce.Columns.Add("Offense");
+                        data_dce.Columns.Add("Peps");
+                        data_dce.Columns.Add("Priority");
+                        data_dce.Columns.Add("Status");
+                        data_dce.Columns.Add("ListName");
+                        data_dce.Columns.Add("IdentificationSearch");
+                        data_dce.Columns.Add("NameSearch");
+                        data_dce.Columns.Add("Cargo");
+                        DataRow row_dce;
+                        foreach (var item in oInfoToPrint)
+                        {
+                            row_dce = data_dce.NewRow();
+                            row_dce["IdentificationResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Documento de Identidad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["NameResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Completo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["Offense"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo o Delito").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["Peps"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Peps").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["Priority"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["Status"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower();
+                            row_dce["ListName"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre de la Lista").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["IdentificationSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_dce["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            data_dce.Rows.Add(row_dce);
+                        }                       
+                    }
+                    //fnc "LISTAS FINANCIERAS - Criticidad Media"
+                    if (grp != null &&  grp.CompareTo("LISTAS FINANCIERAS - Criticidad Media") == 0)
+                    {
+                        data_fnc.Columns.Add("IdentificationResult");
+                        data_fnc.Columns.Add("NameResult");
+                        data_fnc.Columns.Add("Offense");
+                        data_fnc.Columns.Add("Peps");
+                        data_fnc.Columns.Add("Priority");
+                        data_fnc.Columns.Add("Status");
+                        data_fnc.Columns.Add("ListName");
+                        data_fnc.Columns.Add("IdentificationSearch");
+                        data_fnc.Columns.Add("NameSearch");
+                        data_fnc.Columns.Add("Cargo");
+                        DataRow row_fnc;
+                        foreach (var item in oInfoToPrint)
+                        {
+                            row_fnc = data_fnc.NewRow();
+                            row_fnc["IdentificationResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Documento de Identidad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["NameResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Completo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["Offense"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo o Delito").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["Peps"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Peps").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["Priority"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["Status"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower();
+                            row_fnc["ListName"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre de la Lista").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["IdentificationSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_fnc["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            data_fnc.Rows.Add(row_fnc);
+                        }                       
+                    }
+                    //psp "LISTAS PEPS - Criticidad Baja"
+                    if (grp != null && grp.CompareTo("LISTAS PEPS - Criticidad Baja") == 0)
+                    {
+                        data_psp.Columns.Add("IdentificationResult");
+                        data_psp.Columns.Add("NameResult");
+                        data_psp.Columns.Add("Offense");
+                        data_psp.Columns.Add("Peps");
+                        data_psp.Columns.Add("Priority");
+                        data_psp.Columns.Add("Status");
+                        data_psp.Columns.Add("ListName");
+                        data_psp.Columns.Add("IdentificationSearch");
+                        data_psp.Columns.Add("NameSearch");
+                        data_psp.Columns.Add("Cargo");
+                        DataRow row_psp;
+                        foreach (var item in oInfoToPrint)
+                        {
+                            row_psp = data_psp.NewRow();
+                            row_psp["IdentificationResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Documento de Identidad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["NameResult"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Completo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["Offense"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo o Delito").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["Peps"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Peps").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["Priority"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["Status"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower();
+                            row_psp["ListName"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre de la Lista").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["IdentificationSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_psp["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            data_psp.Rows.Add(row_psp);
+                        }                        
+                    }
 
-                        row["name"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "RazonSocial").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["id"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "IdentificationType").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString() + " " + query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "IdentificationNumber").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["cargo"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["prioridad"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Prioridad").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["grupo_lista"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Grupo Lista").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["lista"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Lista").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["delito_cargo"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Delito, cargo o resultado de la consulta").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        row["estado"] = query.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToString();
-                        data.Rows.Add(row);
-                        return true;
-                    });
 
-                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.GIBlackList_QueryReport(
-                                                                enumCategoryInfoType.PDF.ToString(),
-                                                                data,
+                }
+                
+                string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
+                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_GIBlackListQueryReport(
+                                                                fileFormat,
+                                                                data_rst,
+                                                                data_dce,
+                                                                data_fnc,
+                                                                data_psp,
                                                                 parameters,
                                                                 Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_GIBlackListReport.rdlc");
-
                 parameters = null;
                 return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
-                */
-                #endregion
             }
-
 
             return View(oModel);
         }
@@ -655,8 +778,6 @@ namespace MarketPlace.Web.Controllers
                 });
             }
             //if report download
-
-
             oModel.ProviderMenu = GetProviderMenu(oModel);
             return View(oModel);
         }

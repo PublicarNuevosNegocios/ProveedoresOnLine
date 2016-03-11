@@ -23,21 +23,7 @@
                     <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
                 </div>
                 <div class="col-sm-6 col-lg-6 text-right">
-
-                    <a class="POMPButtons" title="Generar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
-
-                    <form id="frmThirdKnowledgeUpsert"
-                          method="post"
-                          action="@(Url.Action
-                                                                    (MVC.Provider.ActionNames.GIBlackList,
-                                                                    MVC.Provider.Name,
-                                                                    new
-                                                                    {
-                                                                        ProviderPublicId = Request["ProviderPublicId"],
-                                                                    }))">
-                        <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                        <input type="hidden" name="DownloadReport" value="true" />
-                    </form>
+                    <a class="POMPButtonDownloadReport_Provider btn" title="Generar Reporte" href="javascript:ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
                 </div>
             </div>
             <div class="container-fluid POMPContainerDetail">

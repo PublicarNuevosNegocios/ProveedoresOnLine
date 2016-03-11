@@ -24,15 +24,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class DS_GIBlackListreport : global::System.Data.DataSet {
         
-        private ThirdKnowledgeReport_fncDataTable tableThirdKnowledgeReport_fnc;
+        private BlackList_fncDataTable tableBlackList_fnc;
         
-        private ThirdKnowledgeReport_rstDataTable tableThirdKnowledgeReport_rst;
+        private BlackList_pspDataTable tableBlackList_psp;
         
-        private ThirdKnowledgeReport_dceDataTable tableThirdKnowledgeReport_dce;
+        private BlackList_rstDataTable tableBlackList_rst;
         
-        private ThirdKnowledgeReport_ppsDataTable tableThirdKnowledgeReport_pps;
-        
-        private ThirdKnowledgeReport_sncDataTable tableThirdKnowledgeReport_snc;
+        private BlasckList_dceDataTable tableBlasckList_dce;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -62,20 +60,17 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["ThirdKnowledgeReport_fnc"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_fncDataTable(ds.Tables["ThirdKnowledgeReport_fnc"]));
+                if ((ds.Tables["BlackList_fnc"] != null)) {
+                    base.Tables.Add(new BlackList_fncDataTable(ds.Tables["BlackList_fnc"]));
                 }
-                if ((ds.Tables["ThirdKnowledgeReport_rst"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_rstDataTable(ds.Tables["ThirdKnowledgeReport_rst"]));
+                if ((ds.Tables["BlackList_psp"] != null)) {
+                    base.Tables.Add(new BlackList_pspDataTable(ds.Tables["BlackList_psp"]));
                 }
-                if ((ds.Tables["ThirdKnowledgeReport_dce"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_dceDataTable(ds.Tables["ThirdKnowledgeReport_dce"]));
+                if ((ds.Tables["BlackList_rst"] != null)) {
+                    base.Tables.Add(new BlackList_rstDataTable(ds.Tables["BlackList_rst"]));
                 }
-                if ((ds.Tables["ThirdKnowledgeReport_pps"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_ppsDataTable(ds.Tables["ThirdKnowledgeReport_pps"]));
-                }
-                if ((ds.Tables["ThirdKnowledgeReport_snc"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_sncDataTable(ds.Tables["ThirdKnowledgeReport_snc"]));
+                if ((ds.Tables["BlasckList_dce"] != null)) {
+                    base.Tables.Add(new BlasckList_dceDataTable(ds.Tables["BlasckList_dce"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -99,9 +94,9 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ThirdKnowledgeReport_fncDataTable ThirdKnowledgeReport_fnc {
+        public BlackList_fncDataTable BlackList_fnc {
             get {
-                return this.tableThirdKnowledgeReport_fnc;
+                return this.tableBlackList_fnc;
             }
         }
         
@@ -109,9 +104,9 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ThirdKnowledgeReport_rstDataTable ThirdKnowledgeReport_rst {
+        public BlackList_pspDataTable BlackList_psp {
             get {
-                return this.tableThirdKnowledgeReport_rst;
+                return this.tableBlackList_psp;
             }
         }
         
@@ -119,9 +114,9 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ThirdKnowledgeReport_dceDataTable ThirdKnowledgeReport_dce {
+        public BlackList_rstDataTable BlackList_rst {
             get {
-                return this.tableThirdKnowledgeReport_dce;
+                return this.tableBlackList_rst;
             }
         }
         
@@ -129,19 +124,9 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ThirdKnowledgeReport_ppsDataTable ThirdKnowledgeReport_pps {
+        public BlasckList_dceDataTable BlasckList_dce {
             get {
-                return this.tableThirdKnowledgeReport_pps;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ThirdKnowledgeReport_sncDataTable ThirdKnowledgeReport_snc {
-            get {
-                return this.tableThirdKnowledgeReport_snc;
+                return this.tableBlasckList_dce;
             }
         }
         
@@ -212,20 +197,17 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["ThirdKnowledgeReport_fnc"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_fncDataTable(ds.Tables["ThirdKnowledgeReport_fnc"]));
+                if ((ds.Tables["BlackList_fnc"] != null)) {
+                    base.Tables.Add(new BlackList_fncDataTable(ds.Tables["BlackList_fnc"]));
                 }
-                if ((ds.Tables["ThirdKnowledgeReport_rst"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_rstDataTable(ds.Tables["ThirdKnowledgeReport_rst"]));
+                if ((ds.Tables["BlackList_psp"] != null)) {
+                    base.Tables.Add(new BlackList_pspDataTable(ds.Tables["BlackList_psp"]));
                 }
-                if ((ds.Tables["ThirdKnowledgeReport_dce"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_dceDataTable(ds.Tables["ThirdKnowledgeReport_dce"]));
+                if ((ds.Tables["BlackList_rst"] != null)) {
+                    base.Tables.Add(new BlackList_rstDataTable(ds.Tables["BlackList_rst"]));
                 }
-                if ((ds.Tables["ThirdKnowledgeReport_pps"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_ppsDataTable(ds.Tables["ThirdKnowledgeReport_pps"]));
-                }
-                if ((ds.Tables["ThirdKnowledgeReport_snc"] != null)) {
-                    base.Tables.Add(new ThirdKnowledgeReport_sncDataTable(ds.Tables["ThirdKnowledgeReport_snc"]));
+                if ((ds.Tables["BlasckList_dce"] != null)) {
+                    base.Tables.Add(new BlasckList_dceDataTable(ds.Tables["BlasckList_dce"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -260,34 +242,28 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableThirdKnowledgeReport_fnc = ((ThirdKnowledgeReport_fncDataTable)(base.Tables["ThirdKnowledgeReport_fnc"]));
+            this.tableBlackList_fnc = ((BlackList_fncDataTable)(base.Tables["BlackList_fnc"]));
             if ((initTable == true)) {
-                if ((this.tableThirdKnowledgeReport_fnc != null)) {
-                    this.tableThirdKnowledgeReport_fnc.InitVars();
+                if ((this.tableBlackList_fnc != null)) {
+                    this.tableBlackList_fnc.InitVars();
                 }
             }
-            this.tableThirdKnowledgeReport_rst = ((ThirdKnowledgeReport_rstDataTable)(base.Tables["ThirdKnowledgeReport_rst"]));
+            this.tableBlackList_psp = ((BlackList_pspDataTable)(base.Tables["BlackList_psp"]));
             if ((initTable == true)) {
-                if ((this.tableThirdKnowledgeReport_rst != null)) {
-                    this.tableThirdKnowledgeReport_rst.InitVars();
+                if ((this.tableBlackList_psp != null)) {
+                    this.tableBlackList_psp.InitVars();
                 }
             }
-            this.tableThirdKnowledgeReport_dce = ((ThirdKnowledgeReport_dceDataTable)(base.Tables["ThirdKnowledgeReport_dce"]));
+            this.tableBlackList_rst = ((BlackList_rstDataTable)(base.Tables["BlackList_rst"]));
             if ((initTable == true)) {
-                if ((this.tableThirdKnowledgeReport_dce != null)) {
-                    this.tableThirdKnowledgeReport_dce.InitVars();
+                if ((this.tableBlackList_rst != null)) {
+                    this.tableBlackList_rst.InitVars();
                 }
             }
-            this.tableThirdKnowledgeReport_pps = ((ThirdKnowledgeReport_ppsDataTable)(base.Tables["ThirdKnowledgeReport_pps"]));
+            this.tableBlasckList_dce = ((BlasckList_dceDataTable)(base.Tables["BlasckList_dce"]));
             if ((initTable == true)) {
-                if ((this.tableThirdKnowledgeReport_pps != null)) {
-                    this.tableThirdKnowledgeReport_pps.InitVars();
-                }
-            }
-            this.tableThirdKnowledgeReport_snc = ((ThirdKnowledgeReport_sncDataTable)(base.Tables["ThirdKnowledgeReport_snc"]));
-            if ((initTable == true)) {
-                if ((this.tableThirdKnowledgeReport_snc != null)) {
-                    this.tableThirdKnowledgeReport_snc.InitVars();
+                if ((this.tableBlasckList_dce != null)) {
+                    this.tableBlasckList_dce.InitVars();
                 }
             }
         }
@@ -300,45 +276,37 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             this.Namespace = "http://tempuri.org/DS_GIBlackListreport.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableThirdKnowledgeReport_fnc = new ThirdKnowledgeReport_fncDataTable();
-            base.Tables.Add(this.tableThirdKnowledgeReport_fnc);
-            this.tableThirdKnowledgeReport_rst = new ThirdKnowledgeReport_rstDataTable();
-            base.Tables.Add(this.tableThirdKnowledgeReport_rst);
-            this.tableThirdKnowledgeReport_dce = new ThirdKnowledgeReport_dceDataTable();
-            base.Tables.Add(this.tableThirdKnowledgeReport_dce);
-            this.tableThirdKnowledgeReport_pps = new ThirdKnowledgeReport_ppsDataTable();
-            base.Tables.Add(this.tableThirdKnowledgeReport_pps);
-            this.tableThirdKnowledgeReport_snc = new ThirdKnowledgeReport_sncDataTable();
-            base.Tables.Add(this.tableThirdKnowledgeReport_snc);
+            this.tableBlackList_fnc = new BlackList_fncDataTable();
+            base.Tables.Add(this.tableBlackList_fnc);
+            this.tableBlackList_psp = new BlackList_pspDataTable();
+            base.Tables.Add(this.tableBlackList_psp);
+            this.tableBlackList_rst = new BlackList_rstDataTable();
+            base.Tables.Add(this.tableBlackList_rst);
+            this.tableBlasckList_dce = new BlasckList_dceDataTable();
+            base.Tables.Add(this.tableBlasckList_dce);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeThirdKnowledgeReport_fnc() {
+        private bool ShouldSerializeBlackList_fnc() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeThirdKnowledgeReport_rst() {
+        private bool ShouldSerializeBlackList_psp() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeThirdKnowledgeReport_dce() {
+        private bool ShouldSerializeBlackList_rst() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeThirdKnowledgeReport_pps() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeThirdKnowledgeReport_snc() {
+        private bool ShouldSerializeBlasckList_dce() {
             return false;
         }
         
@@ -398,26 +366,23 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_fncRowChangeEventHandler(object sender, ThirdKnowledgeReport_fncRowChangeEvent e);
+        public delegate void BlackList_fncRowChangeEventHandler(object sender, BlackList_fncRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_rstRowChangeEventHandler(object sender, ThirdKnowledgeReport_rstRowChangeEvent e);
+        public delegate void BlackList_pspRowChangeEventHandler(object sender, BlackList_pspRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_dceRowChangeEventHandler(object sender, ThirdKnowledgeReport_dceRowChangeEvent e);
+        public delegate void BlackList_rstRowChangeEventHandler(object sender, BlackList_rstRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_ppsRowChangeEventHandler(object sender, ThirdKnowledgeReport_ppsRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_sncRowChangeEventHandler(object sender, ThirdKnowledgeReport_sncRowChangeEvent e);
+        public delegate void BlasckList_dceRowChangeEventHandler(object sender, BlasckList_dceRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ThirdKnowledgeReport_fncDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_fncRow> {
+        public partial class BlackList_fncDataTable : global::System.Data.TypedTableBase<BlackList_fncRow> {
             
             private global::System.Data.DataColumn columnIdentificationResult;
             
@@ -441,8 +406,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncDataTable() {
-                this.TableName = "ThirdKnowledgeReport_fnc";
+            public BlackList_fncDataTable() {
+                this.TableName = "BlackList_fnc";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -450,7 +415,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_fncDataTable(global::System.Data.DataTable table) {
+            internal BlackList_fncDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -467,7 +432,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ThirdKnowledgeReport_fncDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BlackList_fncDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -563,34 +528,34 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRow this[int index] {
+            public BlackList_fncRow this[int index] {
                 get {
-                    return ((ThirdKnowledgeReport_fncRow)(this.Rows[index]));
+                    return ((BlackList_fncRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowChanging;
+            public event BlackList_fncRowChangeEventHandler BlackList_fncRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowChanged;
+            public event BlackList_fncRowChangeEventHandler BlackList_fncRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowDeleting;
+            public event BlackList_fncRowChangeEventHandler BlackList_fncRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_fncRowChangeEventHandler ThirdKnowledgeReport_fncRowDeleted;
+            public event BlackList_fncRowChangeEventHandler BlackList_fncRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddThirdKnowledgeReport_fncRow(ThirdKnowledgeReport_fncRow row) {
+            public void AddBlackList_fncRow(BlackList_fncRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRow AddThirdKnowledgeReport_fncRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
-                ThirdKnowledgeReport_fncRow rowThirdKnowledgeReport_fncRow = ((ThirdKnowledgeReport_fncRow)(this.NewRow()));
+            public BlackList_fncRow AddBlackList_fncRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
+                BlackList_fncRow rowBlackList_fncRow = ((BlackList_fncRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IdentificationResult,
                         NameResult,
@@ -602,15 +567,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         IdentificationSearch,
                         NameSearch,
                         Cargo};
-                rowThirdKnowledgeReport_fncRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowThirdKnowledgeReport_fncRow);
-                return rowThirdKnowledgeReport_fncRow;
+                rowBlackList_fncRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBlackList_fncRow);
+                return rowBlackList_fncRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ThirdKnowledgeReport_fncDataTable cln = ((ThirdKnowledgeReport_fncDataTable)(base.Clone()));
+                BlackList_fncDataTable cln = ((BlackList_fncDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -618,7 +583,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ThirdKnowledgeReport_fncDataTable();
+                return new BlackList_fncDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -663,28 +628,28 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRow NewThirdKnowledgeReport_fncRow() {
-                return ((ThirdKnowledgeReport_fncRow)(this.NewRow()));
+            public BlackList_fncRow NewBlackList_fncRow() {
+                return ((BlackList_fncRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ThirdKnowledgeReport_fncRow(builder);
+                return new BlackList_fncRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ThirdKnowledgeReport_fncRow);
+                return typeof(BlackList_fncRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ThirdKnowledgeReport_fncRowChanged != null)) {
-                    this.ThirdKnowledgeReport_fncRowChanged(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
+                if ((this.BlackList_fncRowChanged != null)) {
+                    this.BlackList_fncRowChanged(this, new BlackList_fncRowChangeEvent(((BlackList_fncRow)(e.Row)), e.Action));
                 }
             }
             
@@ -692,8 +657,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ThirdKnowledgeReport_fncRowChanging != null)) {
-                    this.ThirdKnowledgeReport_fncRowChanging(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
+                if ((this.BlackList_fncRowChanging != null)) {
+                    this.BlackList_fncRowChanging(this, new BlackList_fncRowChangeEvent(((BlackList_fncRow)(e.Row)), e.Action));
                 }
             }
             
@@ -701,8 +666,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ThirdKnowledgeReport_fncRowDeleted != null)) {
-                    this.ThirdKnowledgeReport_fncRowDeleted(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
+                if ((this.BlackList_fncRowDeleted != null)) {
+                    this.BlackList_fncRowDeleted(this, new BlackList_fncRowChangeEvent(((BlackList_fncRow)(e.Row)), e.Action));
                 }
             }
             
@@ -710,14 +675,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ThirdKnowledgeReport_fncRowDeleting != null)) {
-                    this.ThirdKnowledgeReport_fncRowDeleting(this, new ThirdKnowledgeReport_fncRowChangeEvent(((ThirdKnowledgeReport_fncRow)(e.Row)), e.Action));
+                if ((this.BlackList_fncRowDeleting != null)) {
+                    this.BlackList_fncRowDeleting(this, new BlackList_fncRowChangeEvent(((BlackList_fncRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveThirdKnowledgeReport_fncRow(ThirdKnowledgeReport_fncRow row) {
+            public void RemoveBlackList_fncRow(BlackList_fncRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -744,7 +709,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ThirdKnowledgeReport_fncDataTable";
+                attribute2.FixedValue = "BlackList_fncDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -790,7 +755,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ThirdKnowledgeReport_rstDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_rstRow> {
+        public partial class BlackList_pspDataTable : global::System.Data.TypedTableBase<BlackList_pspRow> {
             
             private global::System.Data.DataColumn columnIdentificationResult;
             
@@ -814,8 +779,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstDataTable() {
-                this.TableName = "ThirdKnowledgeReport_rst";
+            public BlackList_pspDataTable() {
+                this.TableName = "BlackList_psp";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -823,7 +788,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_rstDataTable(global::System.Data.DataTable table) {
+            internal BlackList_pspDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -840,7 +805,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ThirdKnowledgeReport_rstDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BlackList_pspDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -936,34 +901,34 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRow this[int index] {
+            public BlackList_pspRow this[int index] {
                 get {
-                    return ((ThirdKnowledgeReport_rstRow)(this.Rows[index]));
+                    return ((BlackList_pspRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowChanging;
+            public event BlackList_pspRowChangeEventHandler BlackList_pspRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowChanged;
+            public event BlackList_pspRowChangeEventHandler BlackList_pspRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowDeleting;
+            public event BlackList_pspRowChangeEventHandler BlackList_pspRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_rstRowChangeEventHandler ThirdKnowledgeReport_rstRowDeleted;
+            public event BlackList_pspRowChangeEventHandler BlackList_pspRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddThirdKnowledgeReport_rstRow(ThirdKnowledgeReport_rstRow row) {
+            public void AddBlackList_pspRow(BlackList_pspRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRow AddThirdKnowledgeReport_rstRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
-                ThirdKnowledgeReport_rstRow rowThirdKnowledgeReport_rstRow = ((ThirdKnowledgeReport_rstRow)(this.NewRow()));
+            public BlackList_pspRow AddBlackList_pspRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
+                BlackList_pspRow rowBlackList_pspRow = ((BlackList_pspRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IdentificationResult,
                         NameResult,
@@ -975,15 +940,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         IdentificationSearch,
                         NameSearch,
                         Cargo};
-                rowThirdKnowledgeReport_rstRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowThirdKnowledgeReport_rstRow);
-                return rowThirdKnowledgeReport_rstRow;
+                rowBlackList_pspRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBlackList_pspRow);
+                return rowBlackList_pspRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ThirdKnowledgeReport_rstDataTable cln = ((ThirdKnowledgeReport_rstDataTable)(base.Clone()));
+                BlackList_pspDataTable cln = ((BlackList_pspDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -991,7 +956,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ThirdKnowledgeReport_rstDataTable();
+                return new BlackList_pspDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1036,28 +1001,28 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRow NewThirdKnowledgeReport_rstRow() {
-                return ((ThirdKnowledgeReport_rstRow)(this.NewRow()));
+            public BlackList_pspRow NewBlackList_pspRow() {
+                return ((BlackList_pspRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ThirdKnowledgeReport_rstRow(builder);
+                return new BlackList_pspRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ThirdKnowledgeReport_rstRow);
+                return typeof(BlackList_pspRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ThirdKnowledgeReport_rstRowChanged != null)) {
-                    this.ThirdKnowledgeReport_rstRowChanged(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                if ((this.BlackList_pspRowChanged != null)) {
+                    this.BlackList_pspRowChanged(this, new BlackList_pspRowChangeEvent(((BlackList_pspRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1065,8 +1030,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ThirdKnowledgeReport_rstRowChanging != null)) {
-                    this.ThirdKnowledgeReport_rstRowChanging(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                if ((this.BlackList_pspRowChanging != null)) {
+                    this.BlackList_pspRowChanging(this, new BlackList_pspRowChangeEvent(((BlackList_pspRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1074,8 +1039,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ThirdKnowledgeReport_rstRowDeleted != null)) {
-                    this.ThirdKnowledgeReport_rstRowDeleted(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                if ((this.BlackList_pspRowDeleted != null)) {
+                    this.BlackList_pspRowDeleted(this, new BlackList_pspRowChangeEvent(((BlackList_pspRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1083,14 +1048,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ThirdKnowledgeReport_rstRowDeleting != null)) {
-                    this.ThirdKnowledgeReport_rstRowDeleting(this, new ThirdKnowledgeReport_rstRowChangeEvent(((ThirdKnowledgeReport_rstRow)(e.Row)), e.Action));
+                if ((this.BlackList_pspRowDeleting != null)) {
+                    this.BlackList_pspRowDeleting(this, new BlackList_pspRowChangeEvent(((BlackList_pspRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveThirdKnowledgeReport_rstRow(ThirdKnowledgeReport_rstRow row) {
+            public void RemoveBlackList_pspRow(BlackList_pspRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1117,7 +1082,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ThirdKnowledgeReport_rstDataTable";
+                attribute2.FixedValue = "BlackList_pspDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1163,7 +1128,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ThirdKnowledgeReport_dceDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_dceRow> {
+        public partial class BlackList_rstDataTable : global::System.Data.TypedTableBase<BlackList_rstRow> {
             
             private global::System.Data.DataColumn columnIdentificationResult;
             
@@ -1187,8 +1152,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceDataTable() {
-                this.TableName = "ThirdKnowledgeReport_dce";
+            public BlackList_rstDataTable() {
+                this.TableName = "BlackList_rst";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -1196,7 +1161,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_dceDataTable(global::System.Data.DataTable table) {
+            internal BlackList_rstDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -1213,7 +1178,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ThirdKnowledgeReport_dceDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BlackList_rstDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -1309,34 +1274,34 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRow this[int index] {
+            public BlackList_rstRow this[int index] {
                 get {
-                    return ((ThirdKnowledgeReport_dceRow)(this.Rows[index]));
+                    return ((BlackList_rstRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowChanging;
+            public event BlackList_rstRowChangeEventHandler BlackList_rstRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowChanged;
+            public event BlackList_rstRowChangeEventHandler BlackList_rstRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowDeleting;
+            public event BlackList_rstRowChangeEventHandler BlackList_rstRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_dceRowChangeEventHandler ThirdKnowledgeReport_dceRowDeleted;
+            public event BlackList_rstRowChangeEventHandler BlackList_rstRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddThirdKnowledgeReport_dceRow(ThirdKnowledgeReport_dceRow row) {
+            public void AddBlackList_rstRow(BlackList_rstRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRow AddThirdKnowledgeReport_dceRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
-                ThirdKnowledgeReport_dceRow rowThirdKnowledgeReport_dceRow = ((ThirdKnowledgeReport_dceRow)(this.NewRow()));
+            public BlackList_rstRow AddBlackList_rstRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
+                BlackList_rstRow rowBlackList_rstRow = ((BlackList_rstRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IdentificationResult,
                         NameResult,
@@ -1348,15 +1313,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         IdentificationSearch,
                         NameSearch,
                         Cargo};
-                rowThirdKnowledgeReport_dceRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowThirdKnowledgeReport_dceRow);
-                return rowThirdKnowledgeReport_dceRow;
+                rowBlackList_rstRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBlackList_rstRow);
+                return rowBlackList_rstRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ThirdKnowledgeReport_dceDataTable cln = ((ThirdKnowledgeReport_dceDataTable)(base.Clone()));
+                BlackList_rstDataTable cln = ((BlackList_rstDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -1364,7 +1329,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ThirdKnowledgeReport_dceDataTable();
+                return new BlackList_rstDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1409,28 +1374,28 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRow NewThirdKnowledgeReport_dceRow() {
-                return ((ThirdKnowledgeReport_dceRow)(this.NewRow()));
+            public BlackList_rstRow NewBlackList_rstRow() {
+                return ((BlackList_rstRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ThirdKnowledgeReport_dceRow(builder);
+                return new BlackList_rstRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ThirdKnowledgeReport_dceRow);
+                return typeof(BlackList_rstRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ThirdKnowledgeReport_dceRowChanged != null)) {
-                    this.ThirdKnowledgeReport_dceRowChanged(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                if ((this.BlackList_rstRowChanged != null)) {
+                    this.BlackList_rstRowChanged(this, new BlackList_rstRowChangeEvent(((BlackList_rstRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1438,8 +1403,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ThirdKnowledgeReport_dceRowChanging != null)) {
-                    this.ThirdKnowledgeReport_dceRowChanging(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                if ((this.BlackList_rstRowChanging != null)) {
+                    this.BlackList_rstRowChanging(this, new BlackList_rstRowChangeEvent(((BlackList_rstRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1447,8 +1412,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ThirdKnowledgeReport_dceRowDeleted != null)) {
-                    this.ThirdKnowledgeReport_dceRowDeleted(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                if ((this.BlackList_rstRowDeleted != null)) {
+                    this.BlackList_rstRowDeleted(this, new BlackList_rstRowChangeEvent(((BlackList_rstRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1456,14 +1421,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ThirdKnowledgeReport_dceRowDeleting != null)) {
-                    this.ThirdKnowledgeReport_dceRowDeleting(this, new ThirdKnowledgeReport_dceRowChangeEvent(((ThirdKnowledgeReport_dceRow)(e.Row)), e.Action));
+                if ((this.BlackList_rstRowDeleting != null)) {
+                    this.BlackList_rstRowDeleting(this, new BlackList_rstRowChangeEvent(((BlackList_rstRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveThirdKnowledgeReport_dceRow(ThirdKnowledgeReport_dceRow row) {
+            public void RemoveBlackList_rstRow(BlackList_rstRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1490,7 +1455,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ThirdKnowledgeReport_dceDataTable";
+                attribute2.FixedValue = "BlackList_rstDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1536,7 +1501,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ThirdKnowledgeReport_ppsDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_ppsRow> {
+        public partial class BlasckList_dceDataTable : global::System.Data.TypedTableBase<BlasckList_dceRow> {
             
             private global::System.Data.DataColumn columnIdentificationResult;
             
@@ -1560,8 +1525,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsDataTable() {
-                this.TableName = "ThirdKnowledgeReport_pps";
+            public BlasckList_dceDataTable() {
+                this.TableName = "BlasckList_dce";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -1569,7 +1534,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_ppsDataTable(global::System.Data.DataTable table) {
+            internal BlasckList_dceDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -1586,7 +1551,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ThirdKnowledgeReport_ppsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BlasckList_dceDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -1682,34 +1647,34 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRow this[int index] {
+            public BlasckList_dceRow this[int index] {
                 get {
-                    return ((ThirdKnowledgeReport_ppsRow)(this.Rows[index]));
+                    return ((BlasckList_dceRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowChanging;
+            public event BlasckList_dceRowChangeEventHandler BlasckList_dceRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowChanged;
+            public event BlasckList_dceRowChangeEventHandler BlasckList_dceRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowDeleting;
+            public event BlasckList_dceRowChangeEventHandler BlasckList_dceRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_ppsRowChangeEventHandler ThirdKnowledgeReport_ppsRowDeleted;
+            public event BlasckList_dceRowChangeEventHandler BlasckList_dceRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddThirdKnowledgeReport_ppsRow(ThirdKnowledgeReport_ppsRow row) {
+            public void AddBlasckList_dceRow(BlasckList_dceRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRow AddThirdKnowledgeReport_ppsRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
-                ThirdKnowledgeReport_ppsRow rowThirdKnowledgeReport_ppsRow = ((ThirdKnowledgeReport_ppsRow)(this.NewRow()));
+            public BlasckList_dceRow AddBlasckList_dceRow(string IdentificationResult, string NameResult, string Offense, string Peps, string Priority, string Status, string ListName, string IdentificationSearch, string NameSearch, string Cargo) {
+                BlasckList_dceRow rowBlasckList_dceRow = ((BlasckList_dceRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IdentificationResult,
                         NameResult,
@@ -1721,15 +1686,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         IdentificationSearch,
                         NameSearch,
                         Cargo};
-                rowThirdKnowledgeReport_ppsRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowThirdKnowledgeReport_ppsRow);
-                return rowThirdKnowledgeReport_ppsRow;
+                rowBlasckList_dceRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBlasckList_dceRow);
+                return rowBlasckList_dceRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ThirdKnowledgeReport_ppsDataTable cln = ((ThirdKnowledgeReport_ppsDataTable)(base.Clone()));
+                BlasckList_dceDataTable cln = ((BlasckList_dceDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -1737,7 +1702,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ThirdKnowledgeReport_ppsDataTable();
+                return new BlasckList_dceDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1782,28 +1747,28 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRow NewThirdKnowledgeReport_ppsRow() {
-                return ((ThirdKnowledgeReport_ppsRow)(this.NewRow()));
+            public BlasckList_dceRow NewBlasckList_dceRow() {
+                return ((BlasckList_dceRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ThirdKnowledgeReport_ppsRow(builder);
+                return new BlasckList_dceRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ThirdKnowledgeReport_ppsRow);
+                return typeof(BlasckList_dceRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ThirdKnowledgeReport_ppsRowChanged != null)) {
-                    this.ThirdKnowledgeReport_ppsRowChanged(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                if ((this.BlasckList_dceRowChanged != null)) {
+                    this.BlasckList_dceRowChanged(this, new BlasckList_dceRowChangeEvent(((BlasckList_dceRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1811,8 +1776,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ThirdKnowledgeReport_ppsRowChanging != null)) {
-                    this.ThirdKnowledgeReport_ppsRowChanging(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                if ((this.BlasckList_dceRowChanging != null)) {
+                    this.BlasckList_dceRowChanging(this, new BlasckList_dceRowChangeEvent(((BlasckList_dceRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1820,8 +1785,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ThirdKnowledgeReport_ppsRowDeleted != null)) {
-                    this.ThirdKnowledgeReport_ppsRowDeleted(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                if ((this.BlasckList_dceRowDeleted != null)) {
+                    this.BlasckList_dceRowDeleted(this, new BlasckList_dceRowChangeEvent(((BlasckList_dceRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1829,14 +1794,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ThirdKnowledgeReport_ppsRowDeleting != null)) {
-                    this.ThirdKnowledgeReport_ppsRowDeleting(this, new ThirdKnowledgeReport_ppsRowChangeEvent(((ThirdKnowledgeReport_ppsRow)(e.Row)), e.Action));
+                if ((this.BlasckList_dceRowDeleting != null)) {
+                    this.BlasckList_dceRowDeleting(this, new BlasckList_dceRowChangeEvent(((BlasckList_dceRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveThirdKnowledgeReport_ppsRow(ThirdKnowledgeReport_ppsRow row) {
+            public void RemoveBlasckList_dceRow(BlasckList_dceRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1863,310 +1828,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ThirdKnowledgeReport_ppsDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ThirdKnowledgeReport_sncDataTable : global::System.Data.TypedTableBase<ThirdKnowledgeReport_sncRow> {
-            
-            private global::System.Data.DataColumn columnIdentificationResult;
-            
-            private global::System.Data.DataColumn columnNameResult;
-            
-            private global::System.Data.DataColumn columnIdentificationSearch;
-            
-            private global::System.Data.DataColumn columnNameSearch;
-            
-            private global::System.Data.DataColumn columnCargo;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncDataTable() {
-                this.TableName = "ThirdKnowledgeReport_snc";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_sncDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ThirdKnowledgeReport_sncDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IdentificationResultColumn {
-                get {
-                    return this.columnIdentificationResult;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NameResultColumn {
-                get {
-                    return this.columnNameResult;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IdentificationSearchColumn {
-                get {
-                    return this.columnIdentificationSearch;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NameSearchColumn {
-                get {
-                    return this.columnNameSearch;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CargoColumn {
-                get {
-                    return this.columnCargo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRow this[int index] {
-                get {
-                    return ((ThirdKnowledgeReport_sncRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ThirdKnowledgeReport_sncRowChangeEventHandler ThirdKnowledgeReport_sncRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddThirdKnowledgeReport_sncRow(ThirdKnowledgeReport_sncRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRow AddThirdKnowledgeReport_sncRow(string IdentificationResult, string NameResult, string IdentificationSearch, string NameSearch, string Cargo) {
-                ThirdKnowledgeReport_sncRow rowThirdKnowledgeReport_sncRow = ((ThirdKnowledgeReport_sncRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        IdentificationResult,
-                        NameResult,
-                        IdentificationSearch,
-                        NameSearch,
-                        Cargo};
-                rowThirdKnowledgeReport_sncRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowThirdKnowledgeReport_sncRow);
-                return rowThirdKnowledgeReport_sncRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                ThirdKnowledgeReport_sncDataTable cln = ((ThirdKnowledgeReport_sncDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new ThirdKnowledgeReport_sncDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnIdentificationResult = base.Columns["IdentificationResult"];
-                this.columnNameResult = base.Columns["NameResult"];
-                this.columnIdentificationSearch = base.Columns["IdentificationSearch"];
-                this.columnNameSearch = base.Columns["NameSearch"];
-                this.columnCargo = base.Columns["Cargo"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnIdentificationResult = new global::System.Data.DataColumn("IdentificationResult", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIdentificationResult);
-                this.columnNameResult = new global::System.Data.DataColumn("NameResult", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNameResult);
-                this.columnIdentificationSearch = new global::System.Data.DataColumn("IdentificationSearch", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIdentificationSearch);
-                this.columnNameSearch = new global::System.Data.DataColumn("NameSearch", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNameSearch);
-                this.columnCargo = new global::System.Data.DataColumn("Cargo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCargo);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRow NewThirdKnowledgeReport_sncRow() {
-                return ((ThirdKnowledgeReport_sncRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ThirdKnowledgeReport_sncRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(ThirdKnowledgeReport_sncRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ThirdKnowledgeReport_sncRowChanged != null)) {
-                    this.ThirdKnowledgeReport_sncRowChanged(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ThirdKnowledgeReport_sncRowChanging != null)) {
-                    this.ThirdKnowledgeReport_sncRowChanging(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ThirdKnowledgeReport_sncRowDeleted != null)) {
-                    this.ThirdKnowledgeReport_sncRowDeleted(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ThirdKnowledgeReport_sncRowDeleting != null)) {
-                    this.ThirdKnowledgeReport_sncRowDeleting(this, new ThirdKnowledgeReport_sncRowChangeEvent(((ThirdKnowledgeReport_sncRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveThirdKnowledgeReport_sncRow(ThirdKnowledgeReport_sncRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DS_GIBlackListreport ds = new DS_GIBlackListreport();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ThirdKnowledgeReport_sncDataTable";
+                attribute2.FixedValue = "BlasckList_dceDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -2210,15 +1872,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ThirdKnowledgeReport_fncRow : global::System.Data.DataRow {
+        public partial class BlackList_fncRow : global::System.Data.DataRow {
             
-            private ThirdKnowledgeReport_fncDataTable tableThirdKnowledgeReport_fnc;
+            private BlackList_fncDataTable tableBlackList_fnc;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_fncRow(global::System.Data.DataRowBuilder rb) : 
+            internal BlackList_fncRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableThirdKnowledgeReport_fnc = ((ThirdKnowledgeReport_fncDataTable)(this.Table));
+                this.tableBlackList_fnc = ((BlackList_fncDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2226,15 +1888,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.IdentificationResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_fnc\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn] = value;
+                    this[this.tableBlackList_fnc.IdentificationResultColumn] = value;
                 }
             }
             
@@ -2243,14 +1904,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.NameResultColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.NameResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.NameResultColumn] = value;
+                    this[this.tableBlackList_fnc.NameResultColumn] = value;
                 }
             }
             
@@ -2259,14 +1920,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Offense {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.OffenseColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.OffenseColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.OffenseColumn] = value;
+                    this[this.tableBlackList_fnc.OffenseColumn] = value;
                 }
             }
             
@@ -2275,14 +1936,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Peps {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.PepsColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.PepsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.PepsColumn] = value;
+                    this[this.tableBlackList_fnc.PepsColumn] = value;
                 }
             }
             
@@ -2291,14 +1952,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Priority {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.PriorityColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.PriorityColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.PriorityColumn] = value;
+                    this[this.tableBlackList_fnc.PriorityColumn] = value;
                 }
             }
             
@@ -2307,14 +1968,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Status {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.StatusColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.StatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.StatusColumn] = value;
+                    this[this.tableBlackList_fnc.StatusColumn] = value;
                 }
             }
             
@@ -2323,14 +1984,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string ListName {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.ListNameColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.ListNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.ListNameColumn] = value;
+                    this[this.tableBlackList_fnc.ListNameColumn] = value;
                 }
             }
             
@@ -2339,15 +2000,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.IdentificationSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_fnc\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn] = value;
+                    this[this.tableBlackList_fnc.IdentificationSearchColumn] = value;
                 }
             }
             
@@ -2356,14 +2016,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.NameSearchColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.NameSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.NameSearchColumn] = value;
+                    this[this.tableBlackList_fnc.NameSearchColumn] = value;
                 }
             }
             
@@ -2372,150 +2032,150 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Cargo {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_fnc.CargoColumn]));
+                        return ((string)(this[this.tableBlackList_fnc.CargoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'ThirdKnowledgeReport_fnc\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'BlackList_fnc\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_fnc.CargoColumn] = value;
+                    this[this.tableBlackList_fnc.CargoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn);
+                return this.IsNull(this.tableBlackList_fnc.IdentificationResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationResultNull() {
-                this[this.tableThirdKnowledgeReport_fnc.IdentificationResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.IdentificationResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.NameResultColumn);
+                return this.IsNull(this.tableBlackList_fnc.NameResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameResultNull() {
-                this[this.tableThirdKnowledgeReport_fnc.NameResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.NameResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOffenseNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.OffenseColumn);
+                return this.IsNull(this.tableBlackList_fnc.OffenseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetOffenseNull() {
-                this[this.tableThirdKnowledgeReport_fnc.OffenseColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.OffenseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPepsNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.PepsColumn);
+                return this.IsNull(this.tableBlackList_fnc.PepsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPepsNull() {
-                this[this.tableThirdKnowledgeReport_fnc.PepsColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.PepsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPriorityNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.PriorityColumn);
+                return this.IsNull(this.tableBlackList_fnc.PriorityColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPriorityNull() {
-                this[this.tableThirdKnowledgeReport_fnc.PriorityColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.PriorityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStatusNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.StatusColumn);
+                return this.IsNull(this.tableBlackList_fnc.StatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStatusNull() {
-                this[this.tableThirdKnowledgeReport_fnc.StatusColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.StatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsListNameNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.ListNameColumn);
+                return this.IsNull(this.tableBlackList_fnc.ListNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetListNameNull() {
-                this[this.tableThirdKnowledgeReport_fnc.ListNameColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.ListNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn);
+                return this.IsNull(this.tableBlackList_fnc.IdentificationSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationSearchNull() {
-                this[this.tableThirdKnowledgeReport_fnc.IdentificationSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.IdentificationSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.NameSearchColumn);
+                return this.IsNull(this.tableBlackList_fnc.NameSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameSearchNull() {
-                this[this.tableThirdKnowledgeReport_fnc.NameSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.NameSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCargoNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_fnc.CargoColumn);
+                return this.IsNull(this.tableBlackList_fnc.CargoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCargoNull() {
-                this[this.tableThirdKnowledgeReport_fnc.CargoColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_fnc.CargoColumn] = global::System.Convert.DBNull;
             }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ThirdKnowledgeReport_rstRow : global::System.Data.DataRow {
+        public partial class BlackList_pspRow : global::System.Data.DataRow {
             
-            private ThirdKnowledgeReport_rstDataTable tableThirdKnowledgeReport_rst;
+            private BlackList_pspDataTable tableBlackList_psp;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_rstRow(global::System.Data.DataRowBuilder rb) : 
+            internal BlackList_pspRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableThirdKnowledgeReport_rst = ((ThirdKnowledgeReport_rstDataTable)(this.Table));
+                this.tableBlackList_psp = ((BlackList_pspDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2523,15 +2183,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.IdentificationResultColumn]));
+                        return ((string)(this[this.tableBlackList_psp.IdentificationResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_rst\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.IdentificationResultColumn] = value;
+                    this[this.tableBlackList_psp.IdentificationResultColumn] = value;
                 }
             }
             
@@ -2540,14 +2199,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.NameResultColumn]));
+                        return ((string)(this[this.tableBlackList_psp.NameResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.NameResultColumn] = value;
+                    this[this.tableBlackList_psp.NameResultColumn] = value;
                 }
             }
             
@@ -2556,14 +2215,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Offense {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.OffenseColumn]));
+                        return ((string)(this[this.tableBlackList_psp.OffenseColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.OffenseColumn] = value;
+                    this[this.tableBlackList_psp.OffenseColumn] = value;
                 }
             }
             
@@ -2572,14 +2231,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Peps {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.PepsColumn]));
+                        return ((string)(this[this.tableBlackList_psp.PepsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.PepsColumn] = value;
+                    this[this.tableBlackList_psp.PepsColumn] = value;
                 }
             }
             
@@ -2588,14 +2247,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Priority {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.PriorityColumn]));
+                        return ((string)(this[this.tableBlackList_psp.PriorityColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.PriorityColumn] = value;
+                    this[this.tableBlackList_psp.PriorityColumn] = value;
                 }
             }
             
@@ -2604,14 +2263,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Status {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.StatusColumn]));
+                        return ((string)(this[this.tableBlackList_psp.StatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.StatusColumn] = value;
+                    this[this.tableBlackList_psp.StatusColumn] = value;
                 }
             }
             
@@ -2620,14 +2279,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string ListName {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.ListNameColumn]));
+                        return ((string)(this[this.tableBlackList_psp.ListNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.ListNameColumn] = value;
+                    this[this.tableBlackList_psp.ListNameColumn] = value;
                 }
             }
             
@@ -2636,15 +2295,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn]));
+                        return ((string)(this[this.tableBlackList_psp.IdentificationSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_rst\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn] = value;
+                    this[this.tableBlackList_psp.IdentificationSearchColumn] = value;
                 }
             }
             
@@ -2653,14 +2311,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.NameSearchColumn]));
+                        return ((string)(this[this.tableBlackList_psp.NameSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.NameSearchColumn] = value;
+                    this[this.tableBlackList_psp.NameSearchColumn] = value;
                 }
             }
             
@@ -2669,150 +2327,150 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Cargo {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_rst.CargoColumn]));
+                        return ((string)(this[this.tableBlackList_psp.CargoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'ThirdKnowledgeReport_rst\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'BlackList_psp\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_rst.CargoColumn] = value;
+                    this[this.tableBlackList_psp.CargoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.IdentificationResultColumn);
+                return this.IsNull(this.tableBlackList_psp.IdentificationResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationResultNull() {
-                this[this.tableThirdKnowledgeReport_rst.IdentificationResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.IdentificationResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.NameResultColumn);
+                return this.IsNull(this.tableBlackList_psp.NameResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameResultNull() {
-                this[this.tableThirdKnowledgeReport_rst.NameResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.NameResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOffenseNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.OffenseColumn);
+                return this.IsNull(this.tableBlackList_psp.OffenseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetOffenseNull() {
-                this[this.tableThirdKnowledgeReport_rst.OffenseColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.OffenseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPepsNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.PepsColumn);
+                return this.IsNull(this.tableBlackList_psp.PepsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPepsNull() {
-                this[this.tableThirdKnowledgeReport_rst.PepsColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.PepsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPriorityNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.PriorityColumn);
+                return this.IsNull(this.tableBlackList_psp.PriorityColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPriorityNull() {
-                this[this.tableThirdKnowledgeReport_rst.PriorityColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.PriorityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStatusNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.StatusColumn);
+                return this.IsNull(this.tableBlackList_psp.StatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStatusNull() {
-                this[this.tableThirdKnowledgeReport_rst.StatusColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.StatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsListNameNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.ListNameColumn);
+                return this.IsNull(this.tableBlackList_psp.ListNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetListNameNull() {
-                this[this.tableThirdKnowledgeReport_rst.ListNameColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.ListNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn);
+                return this.IsNull(this.tableBlackList_psp.IdentificationSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationSearchNull() {
-                this[this.tableThirdKnowledgeReport_rst.IdentificationSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.IdentificationSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.NameSearchColumn);
+                return this.IsNull(this.tableBlackList_psp.NameSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameSearchNull() {
-                this[this.tableThirdKnowledgeReport_rst.NameSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.NameSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCargoNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_rst.CargoColumn);
+                return this.IsNull(this.tableBlackList_psp.CargoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCargoNull() {
-                this[this.tableThirdKnowledgeReport_rst.CargoColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_psp.CargoColumn] = global::System.Convert.DBNull;
             }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ThirdKnowledgeReport_dceRow : global::System.Data.DataRow {
+        public partial class BlackList_rstRow : global::System.Data.DataRow {
             
-            private ThirdKnowledgeReport_dceDataTable tableThirdKnowledgeReport_dce;
+            private BlackList_rstDataTable tableBlackList_rst;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_dceRow(global::System.Data.DataRowBuilder rb) : 
+            internal BlackList_rstRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableThirdKnowledgeReport_dce = ((ThirdKnowledgeReport_dceDataTable)(this.Table));
+                this.tableBlackList_rst = ((BlackList_rstDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2820,15 +2478,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.IdentificationResultColumn]));
+                        return ((string)(this[this.tableBlackList_rst.IdentificationResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_dce\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.IdentificationResultColumn] = value;
+                    this[this.tableBlackList_rst.IdentificationResultColumn] = value;
                 }
             }
             
@@ -2837,14 +2494,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.NameResultColumn]));
+                        return ((string)(this[this.tableBlackList_rst.NameResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.NameResultColumn] = value;
+                    this[this.tableBlackList_rst.NameResultColumn] = value;
                 }
             }
             
@@ -2853,14 +2510,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Offense {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.OffenseColumn]));
+                        return ((string)(this[this.tableBlackList_rst.OffenseColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.OffenseColumn] = value;
+                    this[this.tableBlackList_rst.OffenseColumn] = value;
                 }
             }
             
@@ -2869,14 +2526,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Peps {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.PepsColumn]));
+                        return ((string)(this[this.tableBlackList_rst.PepsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.PepsColumn] = value;
+                    this[this.tableBlackList_rst.PepsColumn] = value;
                 }
             }
             
@@ -2885,14 +2542,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Priority {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.PriorityColumn]));
+                        return ((string)(this[this.tableBlackList_rst.PriorityColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.PriorityColumn] = value;
+                    this[this.tableBlackList_rst.PriorityColumn] = value;
                 }
             }
             
@@ -2901,14 +2558,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Status {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.StatusColumn]));
+                        return ((string)(this[this.tableBlackList_rst.StatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.StatusColumn] = value;
+                    this[this.tableBlackList_rst.StatusColumn] = value;
                 }
             }
             
@@ -2917,14 +2574,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string ListName {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.ListNameColumn]));
+                        return ((string)(this[this.tableBlackList_rst.ListNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.ListNameColumn] = value;
+                    this[this.tableBlackList_rst.ListNameColumn] = value;
                 }
             }
             
@@ -2933,15 +2590,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn]));
+                        return ((string)(this[this.tableBlackList_rst.IdentificationSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_dce\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn] = value;
+                    this[this.tableBlackList_rst.IdentificationSearchColumn] = value;
                 }
             }
             
@@ -2950,14 +2606,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.NameSearchColumn]));
+                        return ((string)(this[this.tableBlackList_rst.NameSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.NameSearchColumn] = value;
+                    this[this.tableBlackList_rst.NameSearchColumn] = value;
                 }
             }
             
@@ -2966,150 +2622,150 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Cargo {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_dce.CargoColumn]));
+                        return ((string)(this[this.tableBlackList_rst.CargoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'ThirdKnowledgeReport_dce\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'BlackList_rst\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_dce.CargoColumn] = value;
+                    this[this.tableBlackList_rst.CargoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.IdentificationResultColumn);
+                return this.IsNull(this.tableBlackList_rst.IdentificationResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationResultNull() {
-                this[this.tableThirdKnowledgeReport_dce.IdentificationResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.IdentificationResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.NameResultColumn);
+                return this.IsNull(this.tableBlackList_rst.NameResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameResultNull() {
-                this[this.tableThirdKnowledgeReport_dce.NameResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.NameResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOffenseNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.OffenseColumn);
+                return this.IsNull(this.tableBlackList_rst.OffenseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetOffenseNull() {
-                this[this.tableThirdKnowledgeReport_dce.OffenseColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.OffenseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPepsNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.PepsColumn);
+                return this.IsNull(this.tableBlackList_rst.PepsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPepsNull() {
-                this[this.tableThirdKnowledgeReport_dce.PepsColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.PepsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPriorityNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.PriorityColumn);
+                return this.IsNull(this.tableBlackList_rst.PriorityColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPriorityNull() {
-                this[this.tableThirdKnowledgeReport_dce.PriorityColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.PriorityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStatusNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.StatusColumn);
+                return this.IsNull(this.tableBlackList_rst.StatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStatusNull() {
-                this[this.tableThirdKnowledgeReport_dce.StatusColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.StatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsListNameNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.ListNameColumn);
+                return this.IsNull(this.tableBlackList_rst.ListNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetListNameNull() {
-                this[this.tableThirdKnowledgeReport_dce.ListNameColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.ListNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn);
+                return this.IsNull(this.tableBlackList_rst.IdentificationSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationSearchNull() {
-                this[this.tableThirdKnowledgeReport_dce.IdentificationSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.IdentificationSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.NameSearchColumn);
+                return this.IsNull(this.tableBlackList_rst.NameSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameSearchNull() {
-                this[this.tableThirdKnowledgeReport_dce.NameSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.NameSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCargoNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_dce.CargoColumn);
+                return this.IsNull(this.tableBlackList_rst.CargoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCargoNull() {
-                this[this.tableThirdKnowledgeReport_dce.CargoColumn] = global::System.Convert.DBNull;
+                this[this.tableBlackList_rst.CargoColumn] = global::System.Convert.DBNull;
             }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ThirdKnowledgeReport_ppsRow : global::System.Data.DataRow {
+        public partial class BlasckList_dceRow : global::System.Data.DataRow {
             
-            private ThirdKnowledgeReport_ppsDataTable tableThirdKnowledgeReport_pps;
+            private BlasckList_dceDataTable tableBlasckList_dce;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_ppsRow(global::System.Data.DataRowBuilder rb) : 
+            internal BlasckList_dceRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableThirdKnowledgeReport_pps = ((ThirdKnowledgeReport_ppsDataTable)(this.Table));
+                this.tableBlasckList_dce = ((BlasckList_dceDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3117,15 +2773,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.IdentificationResultColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.IdentificationResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_pps\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.IdentificationResultColumn] = value;
+                    this[this.tableBlasckList_dce.IdentificationResultColumn] = value;
                 }
             }
             
@@ -3134,14 +2789,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameResult {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.NameResultColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.NameResultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.NameResultColumn] = value;
+                    this[this.tableBlasckList_dce.NameResultColumn] = value;
                 }
             }
             
@@ -3150,14 +2805,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Offense {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.OffenseColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.OffenseColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Offense\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.OffenseColumn] = value;
+                    this[this.tableBlasckList_dce.OffenseColumn] = value;
                 }
             }
             
@@ -3166,14 +2821,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Peps {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.PepsColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.PepsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Peps\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.PepsColumn] = value;
+                    this[this.tableBlasckList_dce.PepsColumn] = value;
                 }
             }
             
@@ -3182,14 +2837,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Priority {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.PriorityColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.PriorityColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.PriorityColumn] = value;
+                    this[this.tableBlasckList_dce.PriorityColumn] = value;
                 }
             }
             
@@ -3198,14 +2853,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Status {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.StatusColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.StatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.StatusColumn] = value;
+                    this[this.tableBlasckList_dce.StatusColumn] = value;
                 }
             }
             
@@ -3214,14 +2869,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string ListName {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.ListNameColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.ListNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ListName\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.ListNameColumn] = value;
+                    this[this.tableBlasckList_dce.ListNameColumn] = value;
                 }
             }
             
@@ -3230,15 +2885,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string IdentificationSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.IdentificationSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_pps\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn] = value;
+                    this[this.tableBlasckList_dce.IdentificationSearchColumn] = value;
                 }
             }
             
@@ -3247,14 +2901,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string NameSearch {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.NameSearchColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.NameSearchColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.NameSearchColumn] = value;
+                    this[this.tableBlasckList_dce.NameSearchColumn] = value;
                 }
             }
             
@@ -3263,292 +2917,135 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             public string Cargo {
                 get {
                     try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_pps.CargoColumn]));
+                        return ((string)(this[this.tableBlasckList_dce.CargoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'ThirdKnowledgeReport_pps\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'BlasckList_dce\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableThirdKnowledgeReport_pps.CargoColumn] = value;
+                    this[this.tableBlasckList_dce.CargoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.IdentificationResultColumn);
+                return this.IsNull(this.tableBlasckList_dce.IdentificationResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationResultNull() {
-                this[this.tableThirdKnowledgeReport_pps.IdentificationResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.IdentificationResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.NameResultColumn);
+                return this.IsNull(this.tableBlasckList_dce.NameResultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameResultNull() {
-                this[this.tableThirdKnowledgeReport_pps.NameResultColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.NameResultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOffenseNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.OffenseColumn);
+                return this.IsNull(this.tableBlasckList_dce.OffenseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetOffenseNull() {
-                this[this.tableThirdKnowledgeReport_pps.OffenseColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.OffenseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPepsNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.PepsColumn);
+                return this.IsNull(this.tableBlasckList_dce.PepsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPepsNull() {
-                this[this.tableThirdKnowledgeReport_pps.PepsColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.PepsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPriorityNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.PriorityColumn);
+                return this.IsNull(this.tableBlasckList_dce.PriorityColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPriorityNull() {
-                this[this.tableThirdKnowledgeReport_pps.PriorityColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.PriorityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStatusNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.StatusColumn);
+                return this.IsNull(this.tableBlasckList_dce.StatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStatusNull() {
-                this[this.tableThirdKnowledgeReport_pps.StatusColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.StatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsListNameNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.ListNameColumn);
+                return this.IsNull(this.tableBlasckList_dce.ListNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetListNameNull() {
-                this[this.tableThirdKnowledgeReport_pps.ListNameColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.ListNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIdentificationSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn);
+                return this.IsNull(this.tableBlasckList_dce.IdentificationSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIdentificationSearchNull() {
-                this[this.tableThirdKnowledgeReport_pps.IdentificationSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.IdentificationSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.NameSearchColumn);
+                return this.IsNull(this.tableBlasckList_dce.NameSearchColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNameSearchNull() {
-                this[this.tableThirdKnowledgeReport_pps.NameSearchColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.NameSearchColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCargoNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_pps.CargoColumn);
+                return this.IsNull(this.tableBlasckList_dce.CargoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCargoNull() {
-                this[this.tableThirdKnowledgeReport_pps.CargoColumn] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class ThirdKnowledgeReport_sncRow : global::System.Data.DataRow {
-            
-            private ThirdKnowledgeReport_sncDataTable tableThirdKnowledgeReport_snc;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ThirdKnowledgeReport_sncRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableThirdKnowledgeReport_snc = ((ThirdKnowledgeReport_sncDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string IdentificationResult {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_snc.IdentificationResultColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationResult\' in table \'ThirdKnowledgeReport_snc\' i" +
-                                "s DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_snc.IdentificationResultColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string NameResult {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_snc.NameResultColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameResult\' in table \'ThirdKnowledgeReport_snc\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_snc.NameResultColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string IdentificationSearch {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IdentificationSearch\' in table \'ThirdKnowledgeReport_snc\' i" +
-                                "s DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string NameSearch {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_snc.NameSearchColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NameSearch\' in table \'ThirdKnowledgeReport_snc\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_snc.NameSearchColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Cargo {
-                get {
-                    try {
-                        return ((string)(this[this.tableThirdKnowledgeReport_snc.CargoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Cargo\' in table \'ThirdKnowledgeReport_snc\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableThirdKnowledgeReport_snc.CargoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsIdentificationResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_snc.IdentificationResultColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetIdentificationResultNull() {
-                this[this.tableThirdKnowledgeReport_snc.IdentificationResultColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNameResultNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_snc.NameResultColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNameResultNull() {
-                this[this.tableThirdKnowledgeReport_snc.NameResultColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsIdentificationSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetIdentificationSearchNull() {
-                this[this.tableThirdKnowledgeReport_snc.IdentificationSearchColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNameSearchNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_snc.NameSearchColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNameSearchNull() {
-                this[this.tableThirdKnowledgeReport_snc.NameSearchColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCargoNull() {
-                return this.IsNull(this.tableThirdKnowledgeReport_snc.CargoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCargoNull() {
-                this[this.tableThirdKnowledgeReport_snc.CargoColumn] = global::System.Convert.DBNull;
+                this[this.tableBlasckList_dce.CargoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3556,22 +3053,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_fncRowChangeEvent : global::System.EventArgs {
+        public class BlackList_fncRowChangeEvent : global::System.EventArgs {
             
-            private ThirdKnowledgeReport_fncRow eventRow;
+            private BlackList_fncRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRowChangeEvent(ThirdKnowledgeReport_fncRow row, global::System.Data.DataRowAction action) {
+            public BlackList_fncRowChangeEvent(BlackList_fncRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRow Row {
+            public BlackList_fncRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3590,22 +3087,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_rstRowChangeEvent : global::System.EventArgs {
+        public class BlackList_pspRowChangeEvent : global::System.EventArgs {
             
-            private ThirdKnowledgeReport_rstRow eventRow;
+            private BlackList_pspRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRowChangeEvent(ThirdKnowledgeReport_rstRow row, global::System.Data.DataRowAction action) {
+            public BlackList_pspRowChangeEvent(BlackList_pspRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRow Row {
+            public BlackList_pspRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3624,22 +3121,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_dceRowChangeEvent : global::System.EventArgs {
+        public class BlackList_rstRowChangeEvent : global::System.EventArgs {
             
-            private ThirdKnowledgeReport_dceRow eventRow;
+            private BlackList_rstRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRowChangeEvent(ThirdKnowledgeReport_dceRow row, global::System.Data.DataRowAction action) {
+            public BlackList_rstRowChangeEvent(BlackList_rstRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRow Row {
+            public BlackList_rstRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3658,56 +3155,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_ppsRowChangeEvent : global::System.EventArgs {
+        public class BlasckList_dceRowChangeEvent : global::System.EventArgs {
             
-            private ThirdKnowledgeReport_ppsRow eventRow;
+            private BlasckList_dceRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRowChangeEvent(ThirdKnowledgeReport_ppsRow row, global::System.Data.DataRowAction action) {
+            public BlasckList_dceRowChangeEvent(BlasckList_dceRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_sncRowChangeEvent : global::System.EventArgs {
-            
-            private ThirdKnowledgeReport_sncRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRowChangeEvent(ThirdKnowledgeReport_sncRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRow Row {
+            public BlasckList_dceRow Row {
                 get {
                     return this.eventRow;
                 }

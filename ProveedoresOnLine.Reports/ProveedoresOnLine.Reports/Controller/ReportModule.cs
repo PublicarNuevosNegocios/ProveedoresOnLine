@@ -544,5 +544,54 @@ namespace ProveedoresOnLine.Reports.Controller
         }
 
         #endregion
+
+        #region BlackList
+        public static Tuple<byte[], string, string> TK_GIBlackListQueryReport(string FormatType, DataTable data_rst, DataTable data_dce, DataTable data_fnc, DataTable data_psp, List<ReportParameter> ReportData, string FilePath)
+            {
+                LocalReport localReport = new LocalReport();
+                localReport.EnableExternalImages = true;
+                localReport.ReportPath = FilePath;
+                localReport.SetParameters(ReportData);
+                Microsoft.Reporting.WebForms.ReportDataSource src_rst = new Microsoft.Reporting.WebForms.ReportDataSource();
+                src_rst.Name = "DataSet_rst";
+                src_rst.Value = data_rst != null ? data_rst : new DataTable();
+                Microsoft.Reporting.WebForms.ReportDataSource src_dce = new Microsoft.Reporting.WebForms.ReportDataSource();
+                src_dce.Name = "DataSet_dce";
+                src_dce.Value = data_dce != null ? data_dce : new DataTable();
+                Microsoft.Reporting.WebForms.ReportDataSource src_fnc = new Microsoft.Reporting.WebForms.ReportDataSource();
+                src_fnc.Name = "DataSet_fnc";
+                src_fnc.Value = data_fnc != null ? data_fnc : new DataTable();
+                Microsoft.Reporting.WebForms.ReportDataSource src_psp = new Microsoft.Reporting.WebForms.ReportDataSource();
+                src_psp.Name = "DataSet_psp";
+                src_psp.Value = data_psp != null ? data_psp : new DataTable();
+                ReportDataSource source = new ReportDataSource();
+                source.Name = "DS_GIBlackListreport";
+                localReport.DataSources.Add(src_rst);
+                localReport.DataSources.Add(src_dce);
+                localReport.DataSources.Add(src_fnc);
+                localReport.DataSources.Add(src_psp);
+                string mimeType;
+                string encoding;
+                string fileNameExtension;
+                string deviceInfo =
+                           "<DeviceInfo>" +
+                           "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                           "</DeviceInfo>";
+                Warning[] warnings;
+                string[] streams;
+                byte[] renderedBytes;
+                renderedBytes = localReport.Render(
+                    FormatType,
+                    deviceInfo,
+                    out mimeType,
+                    out encoding,
+                    out fileNameExtension,
+                    out streams,
+                    out warnings);
+                if (FormatType == "Excel") { FormatType = "xls"; }
+                return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GIBlackListQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+            }
+        #endregion
+
     }
 }
