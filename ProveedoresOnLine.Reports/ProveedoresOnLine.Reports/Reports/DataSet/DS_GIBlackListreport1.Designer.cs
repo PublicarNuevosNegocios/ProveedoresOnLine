@@ -300,7 +300,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             this.Namespace = "http://tempuri.org/DS_GIBlackListreport.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableThirdKnowledgeReport_fnc = new ThirdKnowledgeReport_fncDataTable();
+            this.tableDS_GIBlackListreport_fnc = new DS_GIBlackListreport_fncDataTable();
             base.Tables.Add(this.tableThirdKnowledgeReport_fnc);
             this.tableThirdKnowledgeReport_rst = new ThirdKnowledgeReport_rstDataTable();
             base.Tables.Add(this.tableThirdKnowledgeReport_rst);
@@ -398,19 +398,19 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_fncRowChangeEventHandler(object sender, ThirdKnowledgeReport_fncRowChangeEvent e);
+        public delegate void DS_GIBlackListreport_fncRowChangeEventHandler(object sender, ThirdKnowledgeReport_fncRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_rstRowChangeEventHandler(object sender, ThirdKnowledgeReport_rstRowChangeEvent e);
+        public delegate void DS_GIBlackListreport_rstRowChangeEventHandler(object sender, ThirdKnowledgeReport_rstRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_dceRowChangeEventHandler(object sender, ThirdKnowledgeReport_dceRowChangeEvent e);
+        public delegate void DS_GIBlackListreport_dceRowChangeEventHandler(object sender, ThirdKnowledgeReport_dceRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_ppsRowChangeEventHandler(object sender, ThirdKnowledgeReport_ppsRowChangeEvent e);
+        public delegate void DS_GIBlackListreport_ppsRowChangeEventHandler(object sender, ThirdKnowledgeReport_ppsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ThirdKnowledgeReport_sncRowChangeEventHandler(object sender, ThirdKnowledgeReport_sncRowChangeEvent e);
+        public delegate void DS_GIBlackListreport_sncRowChangeEventHandler(object sender, ThirdKnowledgeReport_sncRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -3556,7 +3556,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_fncRowChangeEvent : global::System.EventArgs {
+        public class DS_GIBlackListreport_fncRowChangeEvent : global::System.EventArgs {
             
             private ThirdKnowledgeReport_fncRow eventRow;
             
@@ -3564,7 +3564,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_fncRowChangeEvent(ThirdKnowledgeReport_fncRow row, global::System.Data.DataRowAction action) {
+            public DS_GIBlackListreport_fncRowChangeEvent(ThirdKnowledgeReport_fncRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
@@ -3590,7 +3590,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_rstRowChangeEvent : global::System.EventArgs {
+        public class DS_GIBlackListreport_rstRowChangeEvent : global::System.EventArgs {
             
             private ThirdKnowledgeReport_rstRow eventRow;
             
@@ -3598,7 +3598,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_rstRowChangeEvent(ThirdKnowledgeReport_rstRow row, global::System.Data.DataRowAction action) {
+            public DS_GIBlackListreport_rstRowChangeEvent(ThirdKnowledgeReport_rstRow row, global::System.Data.DataRowAction action)
+            {
                 this.eventRow = row;
                 this.eventAction = action;
             }
@@ -3624,7 +3625,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_dceRowChangeEvent : global::System.EventArgs {
+        public class DS_GIBlackListreport_dceRowChangeEvent : global::System.EventArgs {
             
             private ThirdKnowledgeReport_dceRow eventRow;
             
@@ -3632,7 +3633,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_dceRowChangeEvent(ThirdKnowledgeReport_dceRow row, global::System.Data.DataRowAction action) {
+            public DS_GIBlackListreport_dceRowChangeEvent(ThirdKnowledgeReport_dceRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
@@ -3658,7 +3659,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_ppsRowChangeEvent : global::System.EventArgs {
+        public class DS_GIBlackListreport_ppsRowChangeEvent : global::System.EventArgs {
             
             private ThirdKnowledgeReport_ppsRow eventRow;
             
@@ -3666,7 +3667,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_ppsRowChangeEvent(ThirdKnowledgeReport_ppsRow row, global::System.Data.DataRowAction action) {
+            public DS_GIBlackListreport_ppsRowChangeEvent(ThirdKnowledgeReport_ppsRow row, global::System.Data.DataRowAction action)
+            {
                 this.eventRow = row;
                 this.eventAction = action;
             }
@@ -3692,7 +3694,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ThirdKnowledgeReport_sncRowChangeEvent : global::System.EventArgs {
+        public class DS_GIBlackListreport_sncRowChangeEvent : global::System.EventArgs {
             
             private ThirdKnowledgeReport_sncRow eventRow;
             
@@ -3700,7 +3702,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ThirdKnowledgeReport_sncRowChangeEvent(ThirdKnowledgeReport_sncRow row, global::System.Data.DataRowAction action) {
+            public DS_GIBlackListreport_sncRowChangeEvent(ThirdKnowledgeReport_sncRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
