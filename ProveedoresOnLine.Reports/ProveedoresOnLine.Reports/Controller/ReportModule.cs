@@ -546,7 +546,7 @@ namespace ProveedoresOnLine.Reports.Controller
         #endregion
 
         #region BlackList
-        public static Tuple<byte[], string, string> TK_GIBlackListQueryReport(string FormatType, DataTable data_rst, DataTable data_dce, DataTable data_fnc, DataTable data_psp, List<ReportParameter> ReportData, string FilePath)
+            public static Tuple<byte[], string, string> TK_GIBlackListQueryReport(string FormatType, DataTable data_rst, DataTable data_dce, DataTable data_fnc, DataTable data_psp, List<ReportParameter> ReportData, string FilePath)
             {
                 LocalReport localReport = new LocalReport();
                 localReport.EnableExternalImages = true;
@@ -590,6 +590,43 @@ namespace ProveedoresOnLine.Reports.Controller
                     out warnings);
                 if (FormatType == "Excel") { FormatType = "xls"; }
                 return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GIBlackListQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+            }
+            public static Tuple<byte[], string, string> TK_GIBlackListQueryDetailReport(string FormatType, List<ReportParameter> ReportData, string FilePath)
+            {
+                LocalReport localReport = new LocalReport();
+                localReport.EnableExternalImages = true;
+                localReport.ReportPath = FilePath;
+                localReport.SetParameters(ReportData);
+
+                string mimeType;
+                string encoding;
+                string fileNameExtension;
+                string deviceInfo =
+                           "<DeviceInfo>" +
+                           "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                           "  <PageWidth>8.5in</PageWidth>" +
+                           "  <PageHeight>11in</PageHeight>" +
+                           "  <MarginTop>0.5in</MarginTop>" +
+                           "  <MarginLeft>1in</MarginLeft>" +
+                           "  <MarginRight>1in</MarginRight>" +
+                           "  <MarginBottom>0.5in</MarginBottom>" +
+                           "</DeviceInfo>";
+
+                Warning[] warnings;
+                string[] streams;
+                byte[] renderedBytes;
+
+                renderedBytes = localReport.Render(
+                    FormatType,
+                    deviceInfo,
+                    out mimeType,
+                    out encoding,
+                    out fileNameExtension,
+                    out streams,
+                    out warnings);
+                if (FormatType == "Excel") { FormatType = "xls"; }
+                return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_GIBlackListDetailQueryReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+
             }
         #endregion
 

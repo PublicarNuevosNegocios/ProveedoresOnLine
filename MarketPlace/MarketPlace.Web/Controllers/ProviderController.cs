@@ -779,6 +779,51 @@ namespace MarketPlace.Web.Controllers
             }
             //if report download
             oModel.ProviderMenu = GetProviderMenu(oModel);
+
+
+            //Get report generator
+            if (Request["DownloadReport"] == "true")
+            {
+                #region Set Parameters
+                List<ReportParameter> parameters = new List<ReportParameter>();
+                //Customer Info
+                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName!=null?SessionModel.CurrentCompany.CompanyName : "--"));
+                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber!=null ? SessionModel.CurrentCompany.IdentificationNumber : "--"));
+                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName!=null?SessionModel.CurrentCompany.IdentificationType.ItemName:"--"));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo !=null?SessionModel.CurrentCompany_CompanyLogo : "--"));
+                parameters.Add(new ReportParameter("SearchName", oModel.RelatedThidKnowledgeSearch.NameResult!=null?oModel.RelatedThidKnowledgeSearch.NameResult : "--"));
+                parameters.Add(new ReportParameter("SearchIdentification", oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult!=null?oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult:"--"));
+                //Query Detail Info
+
+                parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value != null ? MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value : "--"));
+                parameters.Add(new ReportParameter("NameResult", oModel.RelatedThidKnowledgeSearch.RequestName != null && oModel.RelatedThidKnowledgeSearch.RequestName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.RequestName : "--"));
+                parameters.Add(new ReportParameter("IdentificationType", "--"));
+                parameters.Add(new ReportParameter("IdentificationNumber", oModel.RelatedThidKnowledgeSearch.IdNumberRequest != null ? oModel.RelatedThidKnowledgeSearch.IdNumberRequest : "--"));
+                parameters.Add(new ReportParameter("Zone",  oModel.RelatedThidKnowledgeSearch.Zone != null && oModel.RelatedThidKnowledgeSearch.Zone.Length > 0  ? oModel.RelatedThidKnowledgeSearch.Zone : "--"));
+                parameters.Add(new ReportParameter("Priority", oModel.RelatedThidKnowledgeSearch.Priority != null && oModel.RelatedThidKnowledgeSearch.Priority.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Priority : "--"));
+                parameters.Add(new ReportParameter("Offence", oModel.RelatedThidKnowledgeSearch.Offense != null && oModel.RelatedThidKnowledgeSearch.Offense.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Offense : "--"));
+                parameters.Add(new ReportParameter("Peps", oModel.RelatedThidKnowledgeSearch.Peps != null   && oModel.RelatedThidKnowledgeSearch.Peps.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Peps : "--"));
+                parameters.Add(new ReportParameter("ListName", oModel.RelatedThidKnowledgeSearch.ListName != null && oModel.RelatedThidKnowledgeSearch.ListName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.ListName : "--"));
+                parameters.Add(new ReportParameter("Alias", oModel.RelatedThidKnowledgeSearch.Alias != null   && oModel.RelatedThidKnowledgeSearch.Alias.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Alias : "--"));
+                parameters.Add(new ReportParameter("LastUpdate", oModel.RelatedThidKnowledgeSearch.LastModifyDate != null   && oModel.RelatedThidKnowledgeSearch.LastModifyDate.Length > 0 ? oModel.RelatedThidKnowledgeSearch.LastModifyDate : "--"));
+                parameters.Add(new ReportParameter("QueryCreateDate", DateTime.Now.AddHours(-5).ToString()));
+                parameters.Add(new ReportParameter("Link", oModel.RelatedThidKnowledgeSearch.Link != null  && oModel.RelatedThidKnowledgeSearch.Link.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Link : "--"));
+                parameters.Add(new ReportParameter("MoreInformation", oModel.RelatedThidKnowledgeSearch.MoreInfo != null  && oModel.RelatedThidKnowledgeSearch.MoreInfo.Length > 0 ? oModel.RelatedThidKnowledgeSearch.MoreInfo : "--"));
+                parameters.Add(new ReportParameter("User", "ProveedoresOnLine"));
+                parameters.Add(new ReportParameter("ReportCreateDate", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty("--").FirstOrDefault()));
+                parameters.Add(new ReportParameter("Group", oModel.RelatedThidKnowledgeSearch.GroupName != null  && oModel.RelatedThidKnowledgeSearch.GroupName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
+                parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.Status != null && oModel.RelatedThidKnowledgeSearch.Status.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Status : "--"));
+               
+                string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
+                Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryDetailReport(
+                                                                fileFormat,
+                                                                parameters,
+                                                                Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_GIBlackListReportDetail.rdlc");
+                parameters = null;
+                return File(ThirdKnowledgeReport.Item1, ThirdKnowledgeReport.Item2, ThirdKnowledgeReport.Item3);
+
+                #endregion
+            }
             return View(oModel);
         }
 
