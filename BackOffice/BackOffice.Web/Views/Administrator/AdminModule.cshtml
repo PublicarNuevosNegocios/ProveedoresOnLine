@@ -15,7 +15,9 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de módulos del rol: @Model.RelatedRole.RoleCompanyName</label>
+            <label class="POBOSectionTitles">Administración de módulos</label>
+            <br />
+            <label class="POBOSectionTitles">Rol: @Model.RelatedRole.RoleCompanyName - @Model.RelatedRole.RelatedCompany.CompanyName</label>
             <a href="@(Url.Action(
                 MVC.Administrator.ActionNames.AdminRole,
                 MVC.Administrator.Name))">Regresar al listado de roles</a>
