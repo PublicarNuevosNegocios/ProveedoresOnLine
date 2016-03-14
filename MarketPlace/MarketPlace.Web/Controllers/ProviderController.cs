@@ -782,7 +782,7 @@ namespace MarketPlace.Web.Controllers
 
 
             //Get report generator
-            if (Request["DownloadReport"] == "true")
+            if (Request["DownloadReport"] == "true" && oModel.RelatedBlackListInfo!= null && oModel.RelatedBlackListInfo.Count > 0)
             {
                 #region Set Parameters
                 List<ReportParameter> parameters = new List<ReportParameter>();
