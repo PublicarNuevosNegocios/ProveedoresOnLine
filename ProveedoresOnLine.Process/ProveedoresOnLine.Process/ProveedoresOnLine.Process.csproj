@@ -86,9 +86,6 @@
     <Reference Include="ProveedoresOnLine.CompanyProviderBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProviderBatch\ProveedoresOnLine.CompanyProviderBatch.dll</HintPath>
     </Reference>
-    <Reference Include="ProveedoresOnLine.RestrictiveListProcess">
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcess.dll</HintPath>
-    </Reference>
     <Reference Include="ProveedoresOnLine.RestrictiveListProcessBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcessBatch.dll</HintPath>
     </Reference>
@@ -120,6 +117,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\CompanyProviderProcessJob.cs" />
+    <Compile Include="Implement\RestrictiveListReadProcess.cs" />
+    <Compile Include="Implement\RestrictiveListSendProcess.cs" />
     <Compile Include="Implement\SurveyReminderProcessJob.cs" />
     <Compile Include="Implement\SurveySendProcessJob.cs" />
     <Compile Include="Implement\MessageModuleJob.cs" />

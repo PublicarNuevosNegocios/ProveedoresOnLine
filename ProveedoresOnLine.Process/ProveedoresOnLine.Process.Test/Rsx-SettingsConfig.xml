@@ -15,4 +15,7 @@
   <Module name="ThirdKnowledge">
     <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\Rsx-ThirdKnowledge.xml</key>
   </Module>
+  <Module name="RestrictiveListProcess">
+    <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-RestrictiveListProcess.xml</key>
+  </Module>
 </SettingsConfig>
