@@ -201,7 +201,7 @@ namespace MarketPlace.Web.Controllers
                 #region Basic Info
 
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = response.RelatedCompany;
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = oProvider.RelatedCompany;
 
                 oModel.ContactCompanyInfo = response.ContactCompanyInfo;
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();

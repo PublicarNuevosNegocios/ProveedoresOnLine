@@ -15,7 +15,7 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de información del proveedor</label>
+            <label class="POBOSectionTitles">Administración de la información del proveedor</label>
             <a href="@(Url.Action(
                 MVC.Administrator.ActionNames.AdminModule,
                 MVC.Administrator.Name,
@@ -28,7 +28,7 @@
             <label>Administración de menú del proveedor</label>
             <div id="divGridOption_@((int)BackOffice.Models.General.enumAdminRole.Option)"></div>
             <br />
-            <label>Adminitración de sub-menú del proveedor</label>
+            <label>Administración de sub-menú del proveedor</label>
             <div id="divGridOption_@((int)BackOffice.Models.General.enumAdminRole.OptionInfo)"></div>
             @{
                 Model.IsForm = false;

@@ -219,7 +219,7 @@ namespace MarketPlace.Web.Controllers
                         },
                         Enable = true,
                         EvaluatorRoleId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.UserCompanyId).FirstOrDefault(),
+                                                               Where(y => y.RelatedCompanyRole.RoleCompanyId != 0).Select(y => y.UserCompanyId).FirstOrDefault(),
 
                         ItemInfo = new List<GenericItemInfoModel>()
                         {
@@ -324,7 +324,7 @@ namespace MarketPlace.Web.Controllers
                                     ItemId = (int)enumSurveyItemInfoType.EvaluatorRol,
                                 },
                                 Value = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId.ToString()).FirstOrDefault(),
+                                                Where(y => y.RelatedCompanyRole.RoleCompanyId != 0).Select(y => y.RelatedCompanyRole.RoleCompanyId.ToString()).FirstOrDefault(),
                                 Enable = true,
                             },
                             new GenericItemInfoModel()
