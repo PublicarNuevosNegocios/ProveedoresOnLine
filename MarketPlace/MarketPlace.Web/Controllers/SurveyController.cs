@@ -84,7 +84,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem = oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem.
                                                 Where(x => x.EvaluatorRoleId == SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.UserCompanyId).FirstOrDefault()).Select(x => x).ToList();
+                                                               Where(y => y.RelatedCompanyRole.RoleCompanyId != 0).Select(y => y.UserCompanyId).FirstOrDefault()).Select(x => x).ToList();
 
                 //get current StepId
                 oModel.RelatedSurvey.CurrentStepId = string.IsNullOrEmpty(StepId) ? oModel.RelatedSurvey.GetSurveyConfigFirstStep() : Convert.ToInt32(StepId.Trim());
@@ -107,7 +107,7 @@ namespace MarketPlace.Web.Controllers
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
 
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.RoleCompanyId
                                 , SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User);
 
             //redirect
@@ -137,7 +137,7 @@ namespace MarketPlace.Web.Controllers
 
             //recalculate survey item values
             ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId,
-                                        SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId
+                                        SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedCompanyRole.RoleCompanyId
                                         , SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User);
 
             //redirect
