@@ -22,7 +22,7 @@
                     lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());
 
         var CurrentRolId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault();
+                                                Where(y => y.RelatedCompanyRole.RoleCompanyId != null).Select(y => y.RelatedCompanyRole.RoleCompanyId).FirstOrDefault();
         var RoleAutorizedArea =
             Model.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator && x.Value ==
                                             SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.

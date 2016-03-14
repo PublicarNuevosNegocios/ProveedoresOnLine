@@ -201,7 +201,7 @@ namespace MarketPlace.Web.Controllers
                 #region Basic Info
 
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = response.RelatedCompany;
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = oProvider.RelatedCompany;
 
                 oModel.ContactCompanyInfo = response.ContactCompanyInfo;
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
@@ -782,7 +782,7 @@ namespace MarketPlace.Web.Controllers
 
 
             //Get report generator
-            if (Request["DownloadReport"] == "true")
+            if (Request["DownloadReport"] == "true" && oModel.RelatedBlackListInfo!= null && oModel.RelatedBlackListInfo.Count > 0)
             {
                 #region Set Parameters
                 List<ReportParameter> parameters = new List<ReportParameter>();
