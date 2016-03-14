@@ -28,6 +28,24 @@
       <recover>false</recover>
     </job>
 
+    <job>
+      <name>RestrictiveListSendProcess</name>
+      <group>ProveedoresOnLineGroupJob</group>
+      <description>Restrictive List Send File Job</description>
+      <job-type>ProveedoresOnLine.Process.Implement.RestrictiveListSendProcess, ProveedoresOnLine.Process</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
+    <job>
+      <name>RestrictiveListReadProcess</name>
+      <group>ProveedoresOnLineGroupJob</group>
+      <description>Restrictive List Read File Job</description>
+      <job-type>ProveedoresOnLine.Process.Implement.RestrictiveListReadProcess, ProveedoresOnLine.Process</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
     <trigger>
       <simple>
         <name>ProveedoresOnLineTrigger</name>
@@ -45,6 +63,28 @@
         <group>ProveedoresOnLineGroupTrigger</group>
         <description>Simple trigger to fire MessageModule job</description>
         <job-name>SurveySendProcess</job-name>
+        <job-group>ProveedoresOnLine</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>10000</repeat-interval>
+      </simple>
+
+      <simple>
+        <name>RestrictiveListSendProcess</name>
+        <group>ProveedoresOnLineGroupTrigger</group>
+        <description>Simple trigger to fire  job</description>
+        <job-name>RestrictiveListSendProcess</job-name>
+        <job-group>ProveedoresOnLine</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>10000</repeat-interval>
+      </simple>
+
+      <simple>
+        <name>RestrictiveListReadProcess</name>
+        <group>ProveedoresOnLineGroupTrigger</group>
+        <description>Simple trigger to fire  job</description>
+        <job-name>RestrictiveListReadProcess</job-name>
         <job-group>ProveedoresOnLine</job-group>
         <misfire-instruction>SmartPolicy</misfire-instruction>
         <repeat-count>-1</repeat-count>

@@ -100,6 +100,9 @@
       <HintPath>..\packages\NetOffice.Core.1.7.3.0\lib\net45\OfficeApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ProveedoresOnLine.RestrictiveListProcessBatch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcessBatch.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz">
       <HintPath>..\packages\Quartz.2.3.1\lib\net40\Quartz.dll</HintPath>
     </Reference>
@@ -137,6 +140,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="RestrictiveListReadProcessJobTest.cs" />
+    <Compile Include="RestrictiveListSendProcessJobTest.cs" />
     <Compile Include="SurveyReminderProcessJobTest.cs" />
     <Compile Include="ThirdKnowledgeProcessJobTest.cs" />
     <Compile Include="SurveySendProcessJobTest.cs" />
