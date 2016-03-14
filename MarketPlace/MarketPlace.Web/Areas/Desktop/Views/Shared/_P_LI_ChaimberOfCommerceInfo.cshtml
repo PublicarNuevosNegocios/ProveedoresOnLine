@@ -9,11 +9,10 @@
         CurrentLegalInfo = Model.RelatedLegalInfo.Where(lg => lg.LegalType == MarketPlace.Models.General.enumLegalType.ChaimberOfCommerce).FirstOrDefault();
     }
 
+    <label class="POMPSectionTitles">Cámara de Comercio</label>
+
     if (CurrentLegalInfo != null)
     {
-
-        <label class="POMPSectionTitles">Cámara de Comercio</label>
-
         <div class="container-fluid POMPContainerDetail">
             <div class="row POMPSectionTitlesBox">
                 <div class="col-sm-12">

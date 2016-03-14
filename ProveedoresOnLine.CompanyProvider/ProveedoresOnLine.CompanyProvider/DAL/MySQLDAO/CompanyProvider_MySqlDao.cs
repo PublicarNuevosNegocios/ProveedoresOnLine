@@ -2643,9 +2643,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                     select new GenericChartsModelInfo()
                     {
                         Title = "Estado de mis proveedores",
-                        ItemType = sv.Field<string>("StateId"),
+                        ItemType = sv.Field<int>("StateId").ToString(),
                         ItemName = sv.Field<string>("State"),
-                        Count = (int)sv.Field<Int64>("Count"),
+                        Count = (int)sv.Field<UInt64>("Count"),
                     }).ToList();
             }
 
