@@ -34,7 +34,8 @@
         <div class="POMPComparisonListWrapper">
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Reports, Model)
 
-            @if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
+            @if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo) ||
+                oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.SelectionInfo))
             {
                 if (Model.RelatedProject != null)
                 {

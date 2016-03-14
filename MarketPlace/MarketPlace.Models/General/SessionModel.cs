@@ -226,22 +226,7 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    //old code
-                    //x.RelatedRole.ItemInfo
-                    //    .Where(y => y.ItemInfoType.ItemId == (int)enumRoleCompanyInfoType.Modules)
-                    //    .All(y =>
-                    //    {
-                    //        oReturn.AddRange
-                    //            (y.LargeValue.
-                    //                Replace(" ", "").
-                    //                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                    //                        Select(z => Convert.ToInt32(z)));
-                    //        return true;
-                    //    });
-
-                    //new function
                     oReturn.AddRange(x.RelatedCompanyRole.RoleModule.Select(y => Convert.ToInt32(y.RoleModule)).ToList());
-
                     return true;
                 });
             }
@@ -258,8 +243,10 @@ namespace MarketPlace.Models.General
                 {
                     SessionManager.Models.POLMarketPlace.Session_RoleModuleModel oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y).FirstOrDefault();
 
-                    oReturn.AddRange(oModel.ModuleOption.Select(y => Convert.ToInt32(y.ItemName)).ToList());
-
+                    if (oModel != null)
+                    {
+                        oReturn.AddRange(oModel.ModuleOption.Select(y => Convert.ToInt32(y.ItemName)).ToList());
+                    }
                     return true;
                 });
             }
@@ -276,13 +263,17 @@ namespace MarketPlace.Models.General
                 CurrentCompany.RelatedUser.All(x =>
                 {
                     List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y.ModuleOption).FirstOrDefault();
-                    oModel.All(z =>
+
+                    if (oModel != null &&
+                        oModel.Count > 0)
                     {
-                        oReturn.AddRange(z.ItemInfo.Select(i => Convert.ToInt32(i.Value)).ToList());
+                        oModel.All(z =>
+                        {
+                            oReturn.AddRange(z.ItemInfo.Select(i => Convert.ToInt32(i.Value)).ToList());
 
-                        return true;
-                    });
-
+                            return true;
+                        });
+                    }
                     return true;
                 });
             }
@@ -299,8 +290,11 @@ namespace MarketPlace.Models.General
                 CurrentCompany.RelatedUser.All(x =>
                 {
                     List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.SelectionInfo).Select(y => y.ModuleOption).FirstOrDefault();
-                    oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
-
+                    if (oModel != null &&
+                        oModel.Count > 0)
+                    {
+                        oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
+                    }
                     return true;
                 });
             }

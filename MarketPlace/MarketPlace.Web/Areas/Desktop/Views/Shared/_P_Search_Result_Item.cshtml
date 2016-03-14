@@ -125,7 +125,8 @@
                         }
                     </div>
                 }
-                @if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
+                @if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo) ||
+                    oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.SelectionInfo))
                 {
                     if (Model.Item2.ProviderAddRemoveEnable && MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider)
                     {
