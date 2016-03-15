@@ -55,6 +55,9 @@ namespace MarketPlace.Web.Controllers
             string oCurrentController = MarketPlace.Web.Controllers.BaseController.CurrentControllerName;
             string oCurrentAction = MarketPlace.Web.Controllers.BaseController.CurrentActionName;
 
+            List<int> oCurrentModule = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+            List<int> oCurrentMenu = MarketPlace.Models.General.SessionModel.CurrentProviderMenu();
+
             #region Stats
 
             MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
@@ -67,70 +70,64 @@ namespace MarketPlace.Web.Controllers
                 ChildMenu = new List<GenericMenu>(),
             };
 
-            foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+            if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ProviderInfo))
             {
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderStats)
+                //Provider Stats
+                oMenuAux.ChildMenu.Add(new GenericMenu()
                 {
-                    //Provider Stats
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
-                    {
-                        Name = "Proveedores",
-                        Url = Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Stats.Name,
-                                    action = MVC.Stats.ActionNames.STProviderStats
-                                }),
-                        Position = 0,
-                        IsSelected =
-                            (oCurrentAction == MVC.Stats.ActionNames.STProviderStats &&
-                            oCurrentController == MVC.Stats.Name)
-                    });
-                }
+                    Name = "Proveedores",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Stats.Name,
+                                action = MVC.Stats.ActionNames.STProviderStats
+                            }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Stats.ActionNames.STProviderStats &&
+                        oCurrentController == MVC.Stats.Name)
+                });
+            }
 
-
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+            if (oCurrentMenu.Any(x => x == (int)enumProviderMenu.Survey))
+            {
+                //Evalutaion Stats
+                oMenuAux.ChildMenu.Add(new GenericMenu()
                 {
-                    //Evalutaion Stats
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
-                    {
-                        Name = "Evaluación de Desempeño",
-                        Url = Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Stats.Name,
-                                    action = MVC.Stats.ActionNames.STSurveyStats
-                                }),
-                        Position = 1,
-                        IsSelected =
-                            (oCurrentAction == MVC.Stats.ActionNames.STSurveyStats &&
-                            oCurrentController == MVC.Stats.Name)
-                    });
-                }
+                    Name = "Evaluación de Desempeño",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Stats.Name,
+                                action = MVC.Stats.ActionNames.STSurveyStats
+                            }),
+                    Position = 1,
+                    IsSelected =
+                        (oCurrentAction == MVC.Stats.ActionNames.STSurveyStats &&
+                        oCurrentController == MVC.Stats.Name)
+                });
+            }
 
-          
-
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
+            if (oCurrentModule.Any(x => x == (int)enumModule.SelectionInfo))
+            {
+                //Project Stats
+                oMenuAux.ChildMenu.Add(new GenericMenu()
                 {
-                    //Project Stats
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
-                    {
-                        Name = "Proceso de Selección",
-                        Url = Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Stats.Name,
-                                    action = MVC.Stats.ActionNames.STProjectStats,
-                                }),
-                        Position = 2,
-                        IsSelected =
-                            (oCurrentAction == MVC.Stats.ActionNames.STProjectStats &&
-                            oCurrentController == MVC.Stats.Name)
-                    });
-                }
+                    Name = "Proceso de Selección",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Stats.Name,
+                                action = MVC.Stats.ActionNames.STProjectStats,
+                            }),
+                    Position = 2,
+                    IsSelected =
+                        (oCurrentAction == MVC.Stats.ActionNames.STProjectStats &&
+                        oCurrentController == MVC.Stats.Name)
+                });
             }
 
             //Other menu stats
