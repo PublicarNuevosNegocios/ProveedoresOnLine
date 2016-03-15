@@ -1234,7 +1234,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_N_Notifications.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_TK_Search_Single_Detail_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\ThirdKnowledge\TKDetailSingleSearch.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_CH_StateAliensProviders.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_StateForeingProviders.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_StateNationalProviders.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_SearchCompare_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_AD_AditionalData.cshtml" />

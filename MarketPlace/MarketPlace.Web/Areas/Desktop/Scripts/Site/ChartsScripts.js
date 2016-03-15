@@ -35,7 +35,7 @@ var Survey_ChartsObject = {
                     'options': {
                         colors: ['#FF6961', '#77DD77', '#966FD6', '#FDFD96', '#FFD1DC', '#03C03C', '#779ECB', '#C23B22'],
                         is3D: true,
-                        chartArea: { left: 150, top: 0, width: "70%", height: "80%" },
+                        chartArea: { left: 90, top: 0, width: "88%", height: "98%" },
                         height: "100%",
                         width: "100%"
                     },
