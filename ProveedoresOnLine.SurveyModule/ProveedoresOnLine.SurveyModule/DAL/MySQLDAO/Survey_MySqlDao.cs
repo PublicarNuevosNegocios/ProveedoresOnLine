@@ -807,7 +807,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                  SurveyConfigItemId = scit.Field<int>("SurveyConfigItemId"),
                                  SurveyConfigItemName = scit.Field<string>("SurveyConfigItemName"),
                                  SurveyConfigItemTypeId = scit.Field<int>("SurveyConfigItemTypeId"),
-                                 SurveyConfigItemTypeName = scit.Field<string>("SurveyConfigItemTypeName"),
+                                 SurveyConfigItemTypeName = scit.Field<string>("SurveyConfigItemTypeName"),                        
                                  ParentSurveyConfigItem = scit.Field<int?>("ParentSurveyConfigItem"),
                              } into scitg
                              select new GenericItemModel()
@@ -819,6 +819,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                      ItemId = scitg.Key.SurveyConfigItemTypeId,
                                      ItemName = scitg.Key.SurveyConfigItemTypeName,
                                  },
+                                 
                                  ParentItem = scitg.Key.ParentSurveyConfigItem == null ? null :
                                     new GenericItemModel()
                                     {

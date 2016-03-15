@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -140,7 +142,7 @@ namespace MarketPlace.Models.Survey
 
                 if (RelatedSurvey.ParentSurveyPublicId != null)
                 {
-                    return RelatedSurvey.User;                    
+                    return RelatedSurvey.User;
                 }
                 else
                 {
@@ -193,11 +195,15 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                return RelatedSurvey.SurveyInfo.
-                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).
-                    Select(y => y.Value).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
+                List<GenericItemInfoModel> oAssignedAreas = RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.CurrentArea).Select(inf => inf).ToList();
+                
+                string StartDate = string.Empty;
+                if (oAssignedAreas.Count > 0)
+                {
+                    StartDate = oAssignedAreas.OrderByDescending(x => x.LastModify).FirstOrDefault().LastModify.ToShortDateString();
+                }
+
+                return StartDate != null ? StartDate : string.Empty;
             }
         }
 
@@ -217,11 +223,15 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                return RelatedSurvey.SurveyInfo.
-                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).
-                    Select(y => y.Value).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
+                List<GenericItemInfoModel> oAssignedAreas = RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.CurrentArea).Select(inf => inf).ToList();
+
+                string EndDate = string.Empty;
+                if (oAssignedAreas.Count > 0)
+                {
+                    EndDate = oAssignedAreas.OrderByDescending(x => x.LastModify).LastOrDefault().LastModify.ToShortDateString();
+                }
+
+                return EndDate != null ? EndDate : string.Empty;
             }
         }
 
@@ -355,7 +365,7 @@ namespace MarketPlace.Models.Survey
                     DefaultIfEmpty(0).
                     FirstOrDefault()));
             }
-        }        
+        }
 
         public int SurveyRelatedProjectId
         {
