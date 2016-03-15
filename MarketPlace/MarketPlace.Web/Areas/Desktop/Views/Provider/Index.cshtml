@@ -13,24 +13,24 @@
             @*Validate single modules*@
             @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ProviderInfo))
             {
-                <div class="col-sm-12 col-lg-6 col-centered">
+                <div class="col-sm-12 col-lg-6 col-centered col-max">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Estado de Proveedores Nacionales</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body POMPChart-minHeight">
                             @Html.Partial(MVC.Desktop.Shared.Views._CH_StateNationalProviders)
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-lg-6  col-centered">
+                <div class="col-sm-12 col-lg-6  col-centered col-max">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Estado de Proveedores Internacionales</h3>
                         </div>
-                        <div class="panel-body">
-                            @Html.Partial(MVC.Desktop.Shared.Views._CH_StateAliensProviders)
+                        <div class="panel-body POMPChart-minHeight">
+                            @Html.Partial(MVC.Desktop.Shared.Views._CH_StateForeingProviders)
                         </div>
                     </div>
                 </div>
@@ -38,12 +38,12 @@
 
             @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.SelectionInfo))
             {
-                <div class="col-sm-12 col-lg-6  col-centered">
+                <div class="col-sm-12 col-lg-6  col-centered col-max">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Procesos De Selección Por Estado</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body POMPChart-minHeight">
                             @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
                         </div>
                     </div>
@@ -53,12 +53,12 @@
             @if (oCurrentUserMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderMenu.Survey))
             {
                 @*add validation survey*@
-                <div class="col-sm-12 col-lg-6 text-center col-centered">
+                <div class="col-sm-12 col-lg-6 text-center col-centered col-max">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Evaluaciones de Desempeño por Estado</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body POMPChart-minHeight">
                             @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
                         </div>
                     </div>
@@ -67,18 +67,19 @@
 
             @if (oCurrentUserModules.Any(x => x == (int)MarketPlace.Models.General.enumModule.ThirdKnowledgeInfo))
             {
-                <div class="col-sm-12 col-lg-6  col-centered">
+                <div class="col-sm-12 col-lg-6  col-centered col-max">
                     <div class="panel panel-default">
                         <div class="panel-heading POMPChartPanelTitle">
                             <h3 class="panel-title">Conocimiento De Terceros Consultas Por Periodo</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body POMPChart-minHeight">
                             @Html.Partial(MVC.Desktop.Shared.Views._CH_TK_GetPeriodsByPlan)
                         </div>
                     </div>
                 </div>
-            }            
+            }
         </div>
+
     </div>
     <div id="POMPManuals">
         <div id="POMPManualTittle" class="div-centered text-center">Manuales</div>

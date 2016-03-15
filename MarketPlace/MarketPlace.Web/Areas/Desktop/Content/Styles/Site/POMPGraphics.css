@@ -97,3 +97,10 @@ h1 {
    background-color:#ececec !important;
    border-bottom-color:#ff8300 !important;
 }
+
+.POMPChart-PanelAlign {
+    float: left;
+}
+.POMPChart-minHeight {
+    min-height: 306px;
+}

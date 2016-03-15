@@ -40,7 +40,7 @@ namespace T4MVC.Desktop
             {
                 public readonly string _CH_ProjectByResponsible = "_CH_ProjectByResponsible";
                 public readonly string _CH_ProjectByState = "_CH_ProjectByState";
-                public readonly string _CH_StateAliensProviders = "_CH_StateAliensProviders";
+                public readonly string _CH_StateForeingProviders = "_CH_StateForeingProviders";
                 public readonly string _CH_StateNationalProviders = "_CH_StateNationalProviders";
                 public readonly string _CH_StateProviders = "_CH_StateProviders";
                 public readonly string _CH_Survey = "_CH_Survey";
@@ -119,7 +119,7 @@ namespace T4MVC.Desktop
             }
             public readonly string _CH_ProjectByResponsible = "~/Areas/Desktop/Views/Shared/_CH_ProjectByResponsible.cshtml";
             public readonly string _CH_ProjectByState = "~/Areas/Desktop/Views/Shared/_CH_ProjectByState.cshtml";
-            public readonly string _CH_StateAliensProviders = "~/Areas/Desktop/Views/Shared/_CH_StateAliensProviders.cshtml";
+            public readonly string _CH_StateForeingProviders = "~/Areas/Desktop/Views/Shared/_CH_StateForeingProviders.cshtml";
             public readonly string _CH_StateNationalProviders = "~/Areas/Desktop/Views/Shared/_CH_StateNationalProviders.cshtml";
             public readonly string _CH_StateProviders = "~/Areas/Desktop/Views/Shared/_CH_StateProviders.cshtml";
             public readonly string _CH_Survey = "~/Areas/Desktop/Views/Shared/_CH_Survey.cshtml";
