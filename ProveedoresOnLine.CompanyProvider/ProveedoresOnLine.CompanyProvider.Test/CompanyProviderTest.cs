@@ -2036,7 +2036,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         [TestMethod]
         public void GetProvidersByState()
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = new List<GenericChartsModelInfo>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState("26D388E3");
         }
             
         #endregion
