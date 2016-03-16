@@ -1199,7 +1199,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=(FormatNumber(Fields!Area_Val_1.Value,2) + FormatNumber(Fields!Area_Val_2.Value,2) + FormatNumber(Fields!Area_Val_3.Value,2) + FormatNumber(Fields!Area_Val_4.Value,2))</Value>
+                              <Value>=((CDec (Fields!Area_Val_1.Value) + CDec (Fields!Area_Val_2.Value) + CDec (Fields!Area_Val_3.Value) + CDec (Fields!Area_Val_4.Value))/CDec (Fields!Calc_Areas.Value)) &amp; " %"</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1223,6 +1223,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -1589,10 +1590,14 @@
           <DataField>Area_Val_4</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Calc_Areas">
+          <DataField>Calc_Areas</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_SelectionProcessReport</rd:DataSetName>
-        <rd:SchemaPath>D:\Trabajo Documentos\Publicar SAS\DevPOL\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_SelectionProcessReport.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\ProvedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_SelectionProcessReport.xsd</rd:SchemaPath>
         <rd:TableName>areas</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
