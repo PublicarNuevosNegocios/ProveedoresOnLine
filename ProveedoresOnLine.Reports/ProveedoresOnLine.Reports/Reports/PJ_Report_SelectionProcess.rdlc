@@ -1059,7 +1059,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Area_1.Value</Value>
+                              <Value>=Fields!Area_1.Value + "%"</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1094,7 +1094,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Area_2.Value</Value>
+                              <Value>=Fields!Area_2.Value + "%"</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1129,7 +1129,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Area_3.Value</Value>
+                              <Value>=Fields!Area_3.Value + "%"</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1164,7 +1164,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Area_4.Value</Value>
+                              <Value>=Fields!Area_4.Value + "%"</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1199,7 +1199,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!estado.Value</Value>
+                              <Value>=(FormatNumber(Fields!Area_Val_1.Value,2) + FormatNumber(Fields!Area_Val_2.Value,2) + FormatNumber(Fields!Area_Val_3.Value,2) + FormatNumber(Fields!Area_Val_4.Value,2))</Value>
                               <Style>
                                 <FontFamily>Segoe UI Light</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1573,10 +1573,26 @@
           <DataField>Area_4</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Area_Val_1">
+          <DataField>Area_Val_1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_Val_2">
+          <DataField>Area_Val_2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_Val_3">
+          <DataField>Area_Val_3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Area_Val_4">
+          <DataField>Area_Val_4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_SelectionProcessReport</rd:DataSetName>
-        <rd:SchemaPath>C:\PublicarPO\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_SelectionProcessReport.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Trabajo Documentos\Publicar SAS\DevPOL\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_SelectionProcessReport.xsd</rd:SchemaPath>
         <rd:TableName>areas</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
