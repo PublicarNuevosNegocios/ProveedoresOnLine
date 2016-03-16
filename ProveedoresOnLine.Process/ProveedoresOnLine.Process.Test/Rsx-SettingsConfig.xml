@@ -18,4 +18,7 @@
   <Module name="RestrictiveListProcess">
     <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-RestrictiveListProcess.xml</key>
   </Module>
+  <Module name="FileRepository">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-FileRepository.xml</key>
+  </Module>
 </SettingsConfig>

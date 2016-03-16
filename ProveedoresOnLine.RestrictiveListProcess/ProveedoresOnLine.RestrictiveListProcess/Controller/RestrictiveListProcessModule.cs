@@ -37,7 +37,7 @@ namespace ProveedoresOnLine.RestrictiveListProcess.Controller
                 });
             }           
 
-            return oProviderList;
+             return oProviderList;
         }
 
         public static string GetCompanyPublicIdByLegalId(int LegalId)

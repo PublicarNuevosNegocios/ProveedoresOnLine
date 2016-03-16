@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Process.Implement
 {
-    public class RestrictiveListSendProcess
-    {
+    public class RestrictiveListSendProcess : Quartz.IJob
+    { 
         public void Execute(Quartz.IJobExecutionContext context)
         {
             ProveedoresOnLine.RestrictiveListProcessBatch.RestrictiveListSendProcess.StartProcess();
