@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Process.Implement
 {
-    public class RestrictiveListReadProcess
+    public class RestrictiveListReadProcess : Quartz.IJob
     {
         public void Execute(Quartz.IJobExecutionContext context)
         {
