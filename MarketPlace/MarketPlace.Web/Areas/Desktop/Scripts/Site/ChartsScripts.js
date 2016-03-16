@@ -789,7 +789,7 @@ var ProjectByStatus_ChartsObject = {
 
     RenderChatrProjectByStatus: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true',
+            url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByState=true',
             dataType: "json",
             async: false,
             success: function (result) {

@@ -885,4 +885,23 @@
     #endregion
 
     #endregion
+
+    #region Company Status
+
+    public enum enumCompanyStatus
+    {
+        NationalCreation = 902001,
+        NationalProcess = 902002,
+        NationalBasicValidate = 902004,
+        NationalFullValidate = 902005,
+        ForeignCreation = 902006,
+        ForeignProcess = 902007,
+        ForeignFullValidate = 902008,
+        NationalNoContact = 902009,
+        ForeignNoContact = 902010,
+        NationalInactive = 902011,
+        ForeignInactive = 902012,
+    }
+
+    #endregion
 }

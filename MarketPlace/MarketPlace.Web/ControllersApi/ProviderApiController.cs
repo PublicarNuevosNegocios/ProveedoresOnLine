@@ -107,26 +107,24 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
 
-            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = new List<GenericChartsModelInfo>();
-            foreach (ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo var in ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> oCurrentCharts = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+            oCurrentCharts.All(x =>
             {
                 if (
-                    var.ItemType.CompareTo("902001") == 0 ||
-                    var.ItemType.CompareTo("902002") == 0 ||
-                    var.ItemType.CompareTo("902003") == 0 ||
-                    var.ItemType.CompareTo("902004") == 0 ||
-                    var.ItemType.CompareTo("902005") == 0 ||
-                    var.ItemType.CompareTo("902009") == 0 ||
-                    var.ItemType.CompareTo("902011") == 0
+                    x.ItemType.CompareTo("902001") == 0 ||
+                    x.ItemType.CompareTo("902002") == 0 ||
+                    x.ItemType.CompareTo("902003") == 0 ||
+                    x.ItemType.CompareTo("902004") == 0 ||
+                    x.ItemType.CompareTo("902005") == 0 ||
+                    x.ItemType.CompareTo("902009") == 0 ||
+                    x.ItemType.CompareTo("902011") == 0
                     )
-
                 {
-                    nazi.Add(var);
+                    oRelatedChart.GenericChartsInfoModel.Add(x);
                 }
-            }
-            //Get Providers of the Company
-            oRelatedChart.GenericChartsInfoModel = nazi;
-            nazi = null;
+
+                    return true;
+            });
 
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
@@ -157,23 +155,23 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
 
-            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> alien = new List<GenericChartsModelInfo>();
-            foreach (ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo var in ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> oCurrentChart = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+            oCurrentChart.All(x =>
             {
                 if (
-                    var.ItemType.CompareTo("902006") == 0 ||
-                    var.ItemType.CompareTo("902007") == 0 ||
-                    var.ItemType.CompareTo("902008") == 0 ||
-                    var.ItemType.CompareTo("902010") == 0 ||
-                    var.ItemType.CompareTo("902012") == 0
+                    x.ItemType.CompareTo("902006") == 0 ||
+                    x.ItemType.CompareTo("902007") == 0 ||
+                    x.ItemType.CompareTo("902008") == 0 ||
+                    x.ItemType.CompareTo("902010") == 0 ||
+                    x.ItemType.CompareTo("902012") == 0
                     )
                 {
-                    alien.Add(var);
+                    oRelatedChart.GenericChartsInfoModel.Add(x);
                 }
-            }
-            //Get Providers of the Company
-            oRelatedChart.GenericChartsInfoModel = alien;
-            alien = null;
+
+                return true;
+            });
 
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
