@@ -161,8 +161,8 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
             CurrentXMLAnswer.Descendants("Resultado").All(
                 x =>
                 {
-                    if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta.")
-                        //&& x.Element("Estado").Value.ToLower() == "true")
+                    if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta."
+                        && x.Element("Estado").Value.ToLower() == "true" && x.Element("Estado").Value != "3")
                     {
                         #region QueryInfo
                         TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
@@ -626,33 +626,46 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                 if (oRelatedPersons != null && oRelatedPersons.Count > 0)
                 {
                     List<TDQueryInfoModel> oCurrentCoincidences = new List<TDQueryInfoModel>();
-                    List<ProviderModel> oPersonProvidersToUpdate = new List<ProviderModel>();
+                    //List<ProviderModel> oPersonProvidersToUpdate = new List<ProviderModel>();
+                    List<Tuple<ProviderModel, string>> oPersonsTuple = new List<Tuple<ProviderModel, string>>();
                     oRelatedPersons.All(prs =>
                         {
-                            oPersonProvidersToUpdate.Add(new ProviderModel()
+                            //oPersonProvidersToUpdate.Add(new ProviderModel()
+                            //    {
+                            //        RelatedCompany = new CompanyModel() 
+                            //        {
+                            //            CompanyPublicId = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetCompanyPublicIdByLegalId(prs.ItemId),
+                            //            CompanyName = prs.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(inf => inf.Value).FirstOrDefault(),
+                            //            IdentificationNumber = prs.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault(),                                        
+                            //        },
+                            //    });
+                            oPersonsTuple.Add(new Tuple<ProviderModel, string>(new ProviderModel()
                                 {
                                     RelatedCompany = new CompanyModel() 
                                     {
                                         CompanyPublicId = ProveedoresOnLine.RestrictiveListProcess.Controller.RestrictiveListProcessModule.GetCompanyPublicIdByLegalId(prs.ItemId),
                                         CompanyName = prs.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(inf => inf.Value).FirstOrDefault(),
-                                        IdentificationNumber = prs.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault(),
+                                        IdentificationNumber = prs.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault(),                                        
                                     },
-                                });
+                                },
+                                prs.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerRank).
+                                Select(inf => inf.Value).FirstOrDefault()));
                             return true;
                         });
 
-                    //For each  provider create de black List           
-                    oPersonProvidersToUpdate = oPersonProvidersToUpdate.GroupBy(x => x.RelatedCompany.IdentificationNumber).Select(x => x.FirstOrDefault()).ToList();
-                    oPersonProvidersToUpdate.All(prv =>
+                    //For each  provider create the black List  
+                    oPersonsTuple = oPersonsTuple.GroupBy(x => x.Item1.RelatedCompany.IdentificationNumber).Select(x => x.FirstOrDefault()).ToList();
+                    //oPersonProvidersToUpdate = oPersonProvidersToUpdate.GroupBy(x => x.RelatedCompany.IdentificationNumber).Select(x => x.FirstOrDefault()).ToList();
+                    oPersonsTuple.All(prv =>
                     {
                         //Valid differents providers
-                        if (oProvidersToUpdate != null && oProvidersToUpdate.Count > 0 && !oProvidersToUpdate.Any(x => x.RelatedCompany.IdentificationNumber != oPersonProvidersToUpdate.Select(y => y.RelatedCompany.IdentificationNumber).FirstOrDefault()))                        
-                            ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.RelatedCompany.CompanyPublicId);
+                        if (oProvidersToUpdate != null && oProvidersToUpdate.Count > 0 && !oProvidersToUpdate.Any(x => x.RelatedCompany.IdentificationNumber != oPersonsTuple.Select(y => y.Item1.RelatedCompany.IdentificationNumber).FirstOrDefault()))                        
+                            ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.Item1.RelatedCompany.CompanyPublicId);
                         
-                        if (prv.RelatedCompany != null)
+                        if (prv.Item1.RelatedCompany != null)
                         {
                             ProviderModel oProvider = new ProviderModel();
-                            oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.RelatedCompany.CompanyPublicId);
+                            oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.Item1.RelatedCompany.CompanyPublicId);
 
                             oProvider.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                             {
@@ -682,7 +695,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                             ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProvider.RelatedCompany);
 
                             //Get coincidences for current provider
-                            oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.RelatedCompany.CompanyName && x.IdentificationResult == prv.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
+                            oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.Item1.RelatedCompany.CompanyName && x.IdentificationResult == prv.Item1.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
 
                             oCurrentCoincidences.All(c =>
                             {
@@ -691,11 +704,11 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                                 ProviderModel oProviderToInsert = new ProviderModel();
                                 oProviderToInsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
                                 oProviderToInsert.RelatedCompany.CompanyInfo = new List<GenericItemInfoModel>();
-                                oProviderToInsert.RelatedCompany.CompanyPublicId = prv.RelatedCompany.CompanyPublicId;
+                                oProviderToInsert.RelatedCompany.CompanyPublicId = prv.Item1.RelatedCompany.CompanyPublicId;
                                 oProviderToInsert.RelatedBlackList = new List<BlackListModel>();
 
                                 CompanyModel BasicInfo = new CompanyModel();
-                                BasicInfo = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.RelatedCompany.CompanyPublicId);
+                                BasicInfo = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.Item1.RelatedCompany.CompanyPublicId);
                                 oProviderToInsert.RelatedBlackList.Add(new BlackListModel
                                 {
                                     BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
@@ -865,6 +878,16 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                                         ItemName = "Link",
                                     },
                                     Value = c.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Link).Select(x => x.Value).FirstOrDefault(),
+                                    Enable = true,
+                                });
+                                oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemName = "Cargo",
+                                    },
+                                    Value = prv.Item2,
                                     Enable = true,
                                 });
 
