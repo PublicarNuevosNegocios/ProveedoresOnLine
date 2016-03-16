@@ -118,31 +118,6 @@ namespace MarketPlace.Models.General
                              {
                                  UserCompanyId = ru.UserCompanyId,
                                  User = ru.User,
-                                 //RelatedRole = new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
-                                 //{
-                                 //    ItemId = ru.RelatedRole.ItemId,
-                                 //    ItemName = ru.RelatedRole.ItemName,
-                                 //    ParentItem = ru.RelatedRole.ParentItem == null ? null :
-                                 //           new SessionManager.Models.POLMarketPlace.Session_GenericItemModel()
-                                 //           {
-                                 //               ItemId = ru.RelatedRole.ParentItem.ItemId
-                                 //           },
-                                 //    ItemInfo =
-                                 //       (from ruinf in ru.RelatedRole.ItemInfo
-                                 //        select new SessionManager.Models.POLMarketPlace.Session_GenericItemInfoModel()
-                                 //        {
-                                 //            ItemInfoId = ruinf.ItemInfoId,
-                                 //            ItemInfoType = new SessionManager.Models.POLMarketPlace.Session_CatalogModel()
-                                 //            {
-                                 //                CatalogId = ruinf.ItemInfoType.CatalogId,
-                                 //                CatalogName = ruinf.ItemInfoType.CatalogName,
-                                 //                ItemId = ruinf.ItemInfoType.ItemId,
-                                 //                ItemName = ruinf.ItemInfoType.ItemName,
-                                 //            },
-                                 //            Value = ruinf.Value,
-                                 //            LargeValue = ruinf.LargeValue,
-                                 //        }).ToList(),
-                                 //},
                                  RelatedCompanyRole = new SessionManager.Models.POLMarketPlace.Session_RoleCompanyModel()
                                  {
                                      RoleCompanyId = ru.RelatedCompanyRole.RoleCompanyId,
