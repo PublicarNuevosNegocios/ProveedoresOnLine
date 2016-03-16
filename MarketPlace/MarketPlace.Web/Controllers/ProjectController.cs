@@ -199,11 +199,15 @@ namespace MarketPlace.Web.Controllers
             dtProvidersProject.Columns.Add("providerId", typeof(string));
             dtProvidersProject.Columns.Add("estado", typeof(string));
             int areas_name = 0;
+            int areas_calculate = 0;
             foreach (var oAreaItem in oModel.RelatedProjectConfig.GetEvaluationAreas())
             {
                 areas_name++;
                 dtProvidersProject.Columns.Add("Area_" + areas_name.ToString(), typeof(string));
+                dtProvidersProject.Columns.Add("Area_Val_" + areas_name.ToString(), typeof(string));
             }
+            dtProvidersProject.Columns.Add("Calc_Areas", typeof(string));
+
             foreach (var oProjectProvider in oModel.RelatedProjectProvider)
             {
                 DataRow rowProvider = dtProvidersProject.NewRow();
@@ -216,8 +220,10 @@ namespace MarketPlace.Web.Controllers
                 if (oModel.RelatedProjectConfig.GetEvaluationAreas() != null && oModel.RelatedProjectConfig.GetEvaluationAreas().Count > 0)
                 {
                     areas_name = 0;
+                    areas_calculate = 0;
                     foreach (var oAreaItem in oModel.RelatedProjectConfig.GetEvaluationAreas())
                     {
+                        areas_calculate++;
                         MarketPlace.Models.General.enumApprovalStatus? oApprovalAreaStatus = oProjectProvider.GetApprovalStatusByArea(oAreaItem.EvaluationItemId);
                         string oEvalResult = string.Empty, oEvalValue = string.Empty, oAprobate = string.Empty;
                         decimal oRatting = oProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
@@ -226,10 +232,12 @@ namespace MarketPlace.Web.Controllers
                             case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
                                 if (oRatting >= 100)
                                 {
+                                    oEvalValue = "100";
                                     oEvalResult = "Pasa";
                                 }
                                 else
                                 {
+                                    oEvalValue = "0";
                                     oEvalResult = "No Pasa";
                                 }
                                 break;
@@ -238,17 +246,18 @@ namespace MarketPlace.Web.Controllers
                                 if (oRatting >= oAreaItem.AprobalPercent)
                                 {
                                     oEvalResult = "Pasa";
-                                    oEvalValue = oRatting.ToString("#,0.##") + " %";
+                                    oEvalValue = oRatting.ToString("#,0.##");
                                 }
                                 else
                                 {
                                     oEvalResult = "No Pasa";
-                                    oEvalValue = oRatting.ToString("#,0.##") + " %";
+                                    oEvalValue = oRatting.ToString("#,0.##");
                                 }
                                 break;
 
                             case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
                                 oEvalResult = "Informativo";
+                                if (areas_calculate > 0) areas_calculate--;
                                 if (oRatting >= 100)
                                 {
                                     oEvalValue = "Pasa";
@@ -277,8 +286,12 @@ namespace MarketPlace.Web.Controllers
                             oAprobate = "Rechazado";
                         }
                         areas_name++;
-                        rowProvider["Area_" + areas_name.ToString()] = oEvalResult + " " + oEvalValue + " " + oAprobate;
+                        rowProvider["Area_" + areas_name.ToString()] = oEvalResult + " " + oEvalValue;// +" " + oAprobate;
+                        if ( oEvalValue.Length <= 0 || oEvalValue == null ) oEvalValue = "0";
+                        if (oEvalResult.CompareTo("Informativo") == 0) oEvalValue = "0";
+                        rowProvider["Area_Val_" + areas_name.ToString()] = Math.Ceiling(Convert.ToDouble(oEvalValue));
                     }
+                    rowProvider["Calc_Areas"] = areas_calculate.ToString();
                 }
                 string pj_state = "";
                 MarketPlace.Models.General.enumApprovalStatus? oApprovalProviderStatus = oProjectProvider.ApprovalStatus;
@@ -309,7 +322,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     pj_state = "Adjudicado";
                 }
-
+                
                 rowProvider["estado"] = pj_state;
                 dtProvidersProject.Rows.Add(rowProvider);
             }
