@@ -203,6 +203,7 @@ namespace MarketPlace.Web.Controllers
             {
                 areas_name++;
                 dtProvidersProject.Columns.Add("Area_" + areas_name.ToString(), typeof(string));
+                dtProvidersProject.Columns.Add("Area_Val_" + areas_name.ToString(), typeof(string));
             }
             foreach (var oProjectProvider in oModel.RelatedProjectProvider)
             {
@@ -226,6 +227,7 @@ namespace MarketPlace.Web.Controllers
                             case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
                                 if (oRatting >= 100)
                                 {
+                                    oEvalValue = "100";
                                     oEvalResult = "Pasa";
                                 }
                                 else
@@ -238,12 +240,12 @@ namespace MarketPlace.Web.Controllers
                                 if (oRatting >= oAreaItem.AprobalPercent)
                                 {
                                     oEvalResult = "Pasa";
-                                    oEvalValue = oRatting.ToString("#,0.##") + " %";
+                                    oEvalValue = oRatting.ToString("#,0.##");
                                 }
                                 else
                                 {
                                     oEvalResult = "No Pasa";
-                                    oEvalValue = oRatting.ToString("#,0.##") + " %";
+                                    oEvalValue = oRatting.ToString("#,0.##");
                                 }
                                 break;
 
@@ -277,7 +279,10 @@ namespace MarketPlace.Web.Controllers
                             oAprobate = "Rechazado";
                         }
                         areas_name++;
-                        rowProvider["Area_" + areas_name.ToString()] = oEvalResult + " " + oEvalValue + " " + oAprobate;
+                        rowProvider["Area_" + areas_name.ToString()] = oEvalResult + " " + oEvalValue;// +" " + oAprobate;
+                        rowProvider["Area_Val_" + areas_name.ToString()] = oEvalValue;
+
+                        
                     }
                 }
                 string pj_state = "";
@@ -309,7 +314,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     pj_state = "Adjudicado";
                 }
-
+                
                 rowProvider["estado"] = pj_state;
                 dtProvidersProject.Rows.Add(rowProvider);
             }

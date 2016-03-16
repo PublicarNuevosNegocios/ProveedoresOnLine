@@ -552,7 +552,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>NÚMERO DEL PROCESO DE SELECCIÓN</Value>
+                <Value>NÚMERO DEL PROCESO</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -985,11 +985,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
-                              <Style />
+                              <Value>TOTAL</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox63</rd:DefaultName>
