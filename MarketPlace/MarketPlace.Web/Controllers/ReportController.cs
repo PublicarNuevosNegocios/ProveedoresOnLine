@@ -204,79 +204,45 @@ namespace MarketPlace.Web.Controllers
 
             #region Reports
 
-            foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+            List<int> oCurrentModule = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+            List<int> oCurrentMenu = MarketPlace.Models.General.SessionModel.CurrentProviderMenu();
+
+            if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ReportsInfo) && 
+                oCurrentMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderMenu.Survey))
             {
                 MarketPlace.Models.General.GenericMenu oMenuAux = new GenericMenu();
-                /*
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
+
+                #region Survey Report
+                //header
+                oMenuAux = new Models.General.GenericMenu()
                 {
-                    #region Provider Report Menu
-                    
-                    //header
-                    oMenuAux = new GenericMenu()
-                    {
-                        Name = "Proveedores",
-                        Position = 0,
-                        ChildMenu = new List<GenericMenu>(),
-                    };
+                    Name = "Evaluación de Desempeño",
+                    Position = 0,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
 
-                    //Gerencial
-                    oMenuAux.ChildMenu.Add(new GenericMenu()
-                    {
-                        Name = "Informe Gerencial",
-                        Url = Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Report.Name,
-                                    action = MVC.Report.ActionNames.PRGeneral
-                                }),
-                        Position = 0,
-                        IsSelected =
-                            (oCurrentAction == MVC.Report.ActionNames.PRGeneral &&
-                            oCurrentController == MVC.Report.Name)
-                    });
-
-                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                    oReturn.Add(oMenuAux);
-                    
-                    #endregion
-                }*/
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                //Información General
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    #region Survey Report
-                    //header
-                    oMenuAux = new Models.General.GenericMenu()
-                    {
-                        Name = "Evaluación de Desempeño",
-                        Position = 0,
-                        ChildMenu = new List<Models.General.GenericMenu>(),
-                    };
+                    Name = "Información General",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Report.Name,
+                                action = MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport,
+                            }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport &&
+                        oCurrentController == MVC.Report.Name),
+                });
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                    //Información General
-                    oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                    {
-                        Name = "Información General",
-                        Url = Url.RouteUrl
-                                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Report.Name,
-                                    action = MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport,
-                                }),
-                        Position = 0,
-                        IsSelected =
-                            (oCurrentAction == MVC.Report.ActionNames.RP_SV_SurveyGeneralInfoReport &&
-                            oCurrentController == MVC.Report.Name),
-                    });
-                    //get is selected menu
-                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
-
-                    //add menu
-                    oReturn.Add(oMenuAux);
-                    #endregion
-                }
+                //add menu
+                oReturn.Add(oMenuAux);
+                #endregion
             }
 
             #endregion
