@@ -528,7 +528,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
-            
+
             //Get report generator
             if (Request["DownloadReport"] == "true")
             {
@@ -553,7 +553,7 @@ namespace MarketPlace.Web.Controllers
                 string searchIdentification = "--";
                 string User = "ProveeodresOnLine";
                 string CreateDate = oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault();
-                string IsSuccess="--";
+                string IsSuccess = "--";
 
                 List<ReportParameter> parameters = new List<ReportParameter>();
                 //Customer Info
@@ -580,7 +580,7 @@ namespace MarketPlace.Web.Controllers
                     List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> oInfoToPrint = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel>();
                     oInfoToPrint = ShowAlertModel.Where(x => x.BlackListInfo.Any(a => a.Value == grp)).Select(x => x).ToList();
                     //rst "LISTAS RESTRICTIVAS - Criticidad Alta"
-                    if (grp!= null && grp.CompareTo("LISTAS RESTRICTIVAS - Criticidad Alta") == 0)
+                    if (grp != null && grp.CompareTo("LISTAS RESTRICTIVAS - Criticidad Alta") == 0)
                     {
                         data_rst.Columns.Add("IdentificationResult");
                         data_rst.Columns.Add("NameResult");
@@ -608,10 +608,10 @@ namespace MarketPlace.Web.Controllers
                             row_rst["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             data_rst.Rows.Add(row_rst);
                         }
-                        
+
                     }
                     //dce "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media"
-                    if (grp != null &&  grp.CompareTo("DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media") == 0)
+                    if (grp != null && grp.CompareTo("DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media") == 0)
                     {
                         data_dce.Columns.Add("IdentificationResult");
                         data_dce.Columns.Add("NameResult");
@@ -638,10 +638,10 @@ namespace MarketPlace.Web.Controllers
                             row_dce["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             row_dce["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             data_dce.Rows.Add(row_dce);
-                        }                       
+                        }
                     }
                     //fnc "LISTAS FINANCIERAS - Criticidad Media"
-                    if (grp != null &&  grp.CompareTo("LISTAS FINANCIERAS - Criticidad Media") == 0)
+                    if (grp != null && grp.CompareTo("LISTAS FINANCIERAS - Criticidad Media") == 0)
                     {
                         data_fnc.Columns.Add("IdentificationResult");
                         data_fnc.Columns.Add("NameResult");
@@ -668,7 +668,7 @@ namespace MarketPlace.Web.Controllers
                             row_fnc["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             row_fnc["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             data_fnc.Rows.Add(row_fnc);
-                        }                       
+                        }
                     }
                     //psp "LISTAS PEPS - Criticidad Baja"
                     if (grp != null && grp.CompareTo("LISTAS PEPS - Criticidad Baja") == 0)
@@ -698,12 +698,12 @@ namespace MarketPlace.Web.Controllers
                             row_psp["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             row_psp["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             data_psp.Rows.Add(row_psp);
-                        }                        
+                        }
                     }
 
 
                 }
-                
+
                 string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
                 Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_GIBlackListQueryReport(
                                                                 fileFormat,
@@ -782,38 +782,38 @@ namespace MarketPlace.Web.Controllers
 
 
             //Get report generator
-            if (Request["DownloadReport"] == "true" && oModel.RelatedBlackListInfo!= null && oModel.RelatedBlackListInfo.Count > 0)
+            if (Request["DownloadReport"] == "true" && oModel.RelatedBlackListInfo != null && oModel.RelatedBlackListInfo.Count > 0)
             {
                 #region Set Parameters
                 List<ReportParameter> parameters = new List<ReportParameter>();
                 //Customer Info
-                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName!=null?SessionModel.CurrentCompany.CompanyName : "--"));
-                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber!=null ? SessionModel.CurrentCompany.IdentificationNumber : "--"));
-                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName!=null?SessionModel.CurrentCompany.IdentificationType.ItemName:"--"));
-                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo !=null?SessionModel.CurrentCompany_CompanyLogo : "--"));
-                parameters.Add(new ReportParameter("SearchName", oModel.RelatedThidKnowledgeSearch.NameResult!=null?oModel.RelatedThidKnowledgeSearch.NameResult : "--"));
-                parameters.Add(new ReportParameter("SearchIdentification", oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult!=null?oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult:"--"));
+                parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName != null ? SessionModel.CurrentCompany.CompanyName : "--"));
+                parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber != null ? SessionModel.CurrentCompany.IdentificationNumber : "--"));
+                parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName != null ? SessionModel.CurrentCompany.IdentificationType.ItemName : "--"));
+                parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo != null ? SessionModel.CurrentCompany_CompanyLogo : "--"));
+                parameters.Add(new ReportParameter("SearchName", oModel.RelatedThidKnowledgeSearch.NameResult != null ? oModel.RelatedThidKnowledgeSearch.NameResult : "--"));
+                parameters.Add(new ReportParameter("SearchIdentification", oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult != null ? oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult : "--"));
                 //Query Detail Info
 
                 parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value != null ? MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value : "--"));
                 parameters.Add(new ReportParameter("NameResult", oModel.RelatedThidKnowledgeSearch.RequestName != null && oModel.RelatedThidKnowledgeSearch.RequestName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.RequestName : "--"));
                 parameters.Add(new ReportParameter("IdentificationType", "--"));
                 parameters.Add(new ReportParameter("IdentificationNumber", oModel.RelatedThidKnowledgeSearch.IdNumberRequest != null ? oModel.RelatedThidKnowledgeSearch.IdNumberRequest : "--"));
-                parameters.Add(new ReportParameter("Zone",  oModel.RelatedThidKnowledgeSearch.Zone != null && oModel.RelatedThidKnowledgeSearch.Zone.Length > 0  ? oModel.RelatedThidKnowledgeSearch.Zone : "--"));
+                parameters.Add(new ReportParameter("Zone", oModel.RelatedThidKnowledgeSearch.Zone != null && oModel.RelatedThidKnowledgeSearch.Zone.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Zone : "--"));
                 parameters.Add(new ReportParameter("Priority", oModel.RelatedThidKnowledgeSearch.Priority != null && oModel.RelatedThidKnowledgeSearch.Priority.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Priority : "--"));
                 parameters.Add(new ReportParameter("Offence", oModel.RelatedThidKnowledgeSearch.Offense != null && oModel.RelatedThidKnowledgeSearch.Offense.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Offense : "--"));
-                parameters.Add(new ReportParameter("Peps", oModel.RelatedThidKnowledgeSearch.Peps != null   && oModel.RelatedThidKnowledgeSearch.Peps.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Peps : "--"));
+                parameters.Add(new ReportParameter("Peps", oModel.RelatedThidKnowledgeSearch.Peps != null && oModel.RelatedThidKnowledgeSearch.Peps.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Peps : "--"));
                 parameters.Add(new ReportParameter("ListName", oModel.RelatedThidKnowledgeSearch.ListName != null && oModel.RelatedThidKnowledgeSearch.ListName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.ListName : "--"));
-                parameters.Add(new ReportParameter("Alias", oModel.RelatedThidKnowledgeSearch.Alias != null   && oModel.RelatedThidKnowledgeSearch.Alias.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Alias : "--"));
-                parameters.Add(new ReportParameter("LastUpdate", oModel.RelatedThidKnowledgeSearch.LastModifyDate != null   && oModel.RelatedThidKnowledgeSearch.LastModifyDate.Length > 0 ? oModel.RelatedThidKnowledgeSearch.LastModifyDate : "--"));
+                parameters.Add(new ReportParameter("Alias", oModel.RelatedThidKnowledgeSearch.Alias != null && oModel.RelatedThidKnowledgeSearch.Alias.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Alias : "--"));
+                parameters.Add(new ReportParameter("LastUpdate", oModel.RelatedThidKnowledgeSearch.LastModifyDate != null && oModel.RelatedThidKnowledgeSearch.LastModifyDate.Length > 0 ? oModel.RelatedThidKnowledgeSearch.LastModifyDate : "--"));
                 parameters.Add(new ReportParameter("QueryCreateDate", DateTime.Now.AddHours(-5).ToString()));
-                parameters.Add(new ReportParameter("Link", oModel.RelatedThidKnowledgeSearch.Link != null  && oModel.RelatedThidKnowledgeSearch.Link.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Link : "--"));
-                parameters.Add(new ReportParameter("MoreInformation", oModel.RelatedThidKnowledgeSearch.MoreInfo != null  && oModel.RelatedThidKnowledgeSearch.MoreInfo.Length > 0 ? oModel.RelatedThidKnowledgeSearch.MoreInfo : "--"));
+                parameters.Add(new ReportParameter("Link", oModel.RelatedThidKnowledgeSearch.Link != null && oModel.RelatedThidKnowledgeSearch.Link.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Link : "--"));
+                parameters.Add(new ReportParameter("MoreInformation", oModel.RelatedThidKnowledgeSearch.MoreInfo != null && oModel.RelatedThidKnowledgeSearch.MoreInfo.Length > 0 ? oModel.RelatedThidKnowledgeSearch.MoreInfo : "--"));
                 parameters.Add(new ReportParameter("User", "ProveedoresOnLine"));
                 parameters.Add(new ReportParameter("ReportCreateDate", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty("--").FirstOrDefault()));
-                parameters.Add(new ReportParameter("Group", oModel.RelatedThidKnowledgeSearch.GroupName != null  && oModel.RelatedThidKnowledgeSearch.GroupName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
+                parameters.Add(new ReportParameter("Group", oModel.RelatedThidKnowledgeSearch.GroupName != null && oModel.RelatedThidKnowledgeSearch.GroupName.Length > 0 ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
                 parameters.Add(new ReportParameter("Status", oModel.RelatedThidKnowledgeSearch.Status != null && oModel.RelatedThidKnowledgeSearch.Status.Length > 0 ? oModel.RelatedThidKnowledgeSearch.Status : "--"));
-               
+
                 string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
                 Tuple<byte[], string, string> ThirdKnowledgeReport = ProveedoresOnLine.Reports.Controller.ReportModule.TK_QueryDetailReport(
                                                                 fileFormat,
@@ -3696,8 +3696,8 @@ namespace MarketPlace.Web.Controllers
                 row3 = data3.NewRow();
 
                 row3["EvaluationCriteria"] = item.FK_RoleType;
-                row3["Provider"] = Convert.ToDouble(item.FK_TotalScore).ToString("#,0.##");;
-                row3["Consultant"] = Convert.ToDouble(item.FK_TotalOrgCapacityScore).ToString("#,0.##");;
+                row3["Provider"] = Convert.ToDouble(item.FK_TotalScore).ToString("#,0.##"); ;
+                row3["Consultant"] = Convert.ToDouble(item.FK_TotalOrgCapacityScore).ToString("#,0.##"); ;
                 row3["Builder"] = Convert.ToDouble(item.FK_TotalKValueScore).ToString("#,0.##"); ;
 
                 data3.Rows.Add(row3);
@@ -3707,7 +3707,7 @@ namespace MarketPlace.Web.Controllers
 
             //get request info
             int oYear = 0;
-            if (oModel.RelatedCertificationBasicInfo != null && oModel.RelatedCertificationBasicInfo.Count  > 0)
+            if (oModel.RelatedCertificationBasicInfo != null && oModel.RelatedCertificationBasicInfo.Count > 0)
                 oYear = Int32.Parse(oModel.RelatedFinancialInfo.Where(x => x.SH_Year != null).Select(x => x.SH_Year).DefaultIfEmpty(null).FirstOrDefault());
 
             int oCurrencyValidate = 0;
@@ -3792,7 +3792,7 @@ namespace MarketPlace.Web.Controllers
             data.Columns.Add("Valor2");
             data.Columns.Add("AV2");
             data.Columns.Add("AH");
-            
+
             oModel.RelatedBalanceSheetInfo.All(x =>
             {
                 data = GetAllValues_Balance(data, x);
@@ -3850,7 +3850,7 @@ namespace MarketPlace.Web.Controllers
 
             #endregion
 
-            
+
 
             parameters.Add(new ReportParameter("BalanceLastYear", lastYear));
             parameters.Add(new ReportParameter("BalanceOldYear", oldYear));
@@ -4341,6 +4341,12 @@ namespace MarketPlace.Web.Controllers
 
         private DataTable GetAllValues_Balance(DataTable data, ProviderBalanceSheetViewModel oProviderBalanceSheetViewModel)
         {
+            int oCurrencyValidate = 0;
+
+            int oCurrentCurrency = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
+                                    Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
+                                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
+
             if (oProviderBalanceSheetViewModel.ChildBalanceSheet != null && oProviderBalanceSheetViewModel.ChildBalanceSheet.Count > 0)
             {
                 foreach (var oBalanceInfo in oProviderBalanceSheetViewModel.ChildBalanceSheet)
@@ -4348,66 +4354,9 @@ namespace MarketPlace.Web.Controllers
                     this.GetAllValues_Balance(data, oBalanceInfo);
                 }
             }
-            else
+            if (oProviderBalanceSheetViewModel.AccountType != 2)
             {
-                if (oProviderBalanceSheetViewModel.AccountType != 2)
-                {
-                    if (!string.IsNullOrEmpty(oProviderBalanceSheetViewModel.AccountFormula))
-                    {
-                        DataRow row;
-                        row = data.NewRow();
-                        row["Cuenta"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
-
-                        int i = 0;
-                        foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
-                        {
-                            if (i == 0)
-                            {
-                                row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
-                                row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
-
-                                i++;
-                            }
-                            else
-                            {
-                                row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
-                                row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
-                            }
-                        }
-
-                        row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") : string.Empty;
-                        data.Rows.Add(row);
-                    }
-                    else
-                    {
-                        DataRow row;
-                        row = data.NewRow();
-                        row["Cuenta"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
-
-                        int i = 0;
-                        foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
-                        {
-                            if (i == 0)
-                            {
-                                row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
-                                row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
-
-                                i++;
-                            }
-                            else
-                            {
-                                row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
-                                row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
-                            }
-                        }
-
-                        row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") : string.Empty;
-                        data.Rows.Add(row);
-                    }
-
-                    return data;
-                }
-                if (oProviderBalanceSheetViewModel.AccountType == 2)
+                if (!string.IsNullOrEmpty(oProviderBalanceSheetViewModel.AccountFormula))
                 {
                     DataRow row;
                     row = data.NewRow();
@@ -4418,28 +4367,52 @@ namespace MarketPlace.Web.Controllers
                     {
                         if (i == 0)
                         {
-                            row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                            row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") + " " + MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault();
                             row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
 
                             i++;
                         }
                         else
                         {
-                            row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##");
+                            row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") + " " + MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault();
                             row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
                         }
                     }
 
-                    row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") : string.Empty;
+                    row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") + " " + MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault() : string.Empty;
                     data.Rows.Add(row);
+                }
+                else
+                {
+                    DataRow row;
+                    row = data.NewRow();
+                    row["Cuenta"] = oProviderBalanceSheetViewModel.RelatedAccount.ItemName;
 
-                    return data;
+                    int i = 0;
+                    foreach (var oBalanceValues in oProviderBalanceSheetViewModel.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                    {
+                        if (i == 0)
+                        {
+                            row["Valor1"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") + " " + MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault();
+                            row["AV1"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+
+                            i++;
+                        }
+                        else
+                        {
+                            row["Valor2"] = oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") + " " + MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault();
+                            row["AV2"] = oBalanceValues.VerticalValue != null ? oBalanceValues.VerticalValue.Value.ToString("#,0.##") : string.Empty;
+                        }
+                    }
+
+                    row["AH"] = !String.IsNullOrEmpty(oProviderBalanceSheetViewModel.HorizontalValue.ToString()) ? oProviderBalanceSheetViewModel.HorizontalValue.Value.ToString("#,0.##") + " " + MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault() : string.Empty;
+                    data.Rows.Add(row);
                 }
             }
 
             return data;
         }
-        
+
         private DataTable GetAllValues_Indicators(DataTable data, ProviderBalanceSheetViewModel oProviderBalanceSheetViewModel)
         {
             if (oProviderBalanceSheetViewModel.ChildBalanceSheet != null && oProviderBalanceSheetViewModel.ChildBalanceSheet.Count > 0)
@@ -4476,7 +4449,7 @@ namespace MarketPlace.Web.Controllers
                     row["Unidad"] = oProviderBalanceSheetViewModel.AccountUnit;
                     row["Formula"] = oProviderBalanceSheetViewModel.AccountFormulaText;
                     row["Interpretación"] = oProviderBalanceSheetViewModel.AccountFormulaDescription.Replace("<br/>", "");
- 
+
                     data.Rows.Add(row);
 
                     return data;
@@ -4636,7 +4609,7 @@ namespace MarketPlace.Web.Controllers
                                     oCurrentController == MVC.Provider.Name),
                             });
                         }
-                    }                        
+                    }
 
                     if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Tracing))
                     {
