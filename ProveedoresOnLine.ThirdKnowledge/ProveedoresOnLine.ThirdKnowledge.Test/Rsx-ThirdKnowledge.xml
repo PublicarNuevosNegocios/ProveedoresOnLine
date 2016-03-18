@@ -9,7 +9,7 @@
     <key name="ThirdKnowedge_AuthServicePass"><![CDATA[{D6-E9$C3S6Q#5WW&5@}]]></key>
 
     <!--FTP_ServerIp-->
-    <key name="ThirdKnowedge_FTPServerIP">67.210.244.157:27</key>
+    <key name="ThirdKnowedge_FTPServerIP">190.242.114.111:27</key>
 
     <!--FTP_FTPFIleName-->
     <key name="ThirdKnowedge_UploadFTPFileName">FTP_ThirdKnowledge</key>
