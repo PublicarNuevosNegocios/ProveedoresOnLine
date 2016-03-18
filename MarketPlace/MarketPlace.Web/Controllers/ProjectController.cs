@@ -139,7 +139,7 @@ namespace MarketPlace.Web.Controllers
             if (Request["DownloadReport"] == "true")
             {
                 string oAreaEvalResult = string.Empty, oAreaEvalUnit = string.Empty;
-                decimal oAreaRatting = oModel.CurrentProjectProvider.GetRatting(oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+                decimal oAreaRatting = 0;
                 string oEvalResult = string.Empty, oEvalUnit = string.Empty;
                 decimal oRatting = 0;
                 List<ReportParameter> parameters = new List<ReportParameter>();
@@ -203,6 +203,8 @@ namespace MarketPlace.Web.Controllers
                 oEvalItems.All(Areas => {
                     /*get detail by area*/
                     oModel.RelatedProjectConfig.SetCurrentEvaluationArea(Areas.EvaluationItemId);
+                    oAreaRatting = oModel.CurrentProjectProvider.GetRatting(oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+
                     DataRow rowProvider = dtProvidersProject.NewRow();
                     rowProvider["Criterio"] = oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName;
                     rowProvider["Peso"] = oModel.CurrentProjectProvider.GetApprovalTextByArea(Areas.EvaluationItemId);
@@ -266,9 +268,9 @@ namespace MarketPlace.Web.Controllers
                                     oEvalResult = "No Pasa";
                                 }
                                 DataRow rowCriteria_LooseWin = dtProvidersProject.NewRow();
-                                rowCriteria_LooseWin["Criterio"] = @oCriteria.EvaluationItemName;
-                                rowCriteria_LooseWin["Peso"] = @oEvalUnit;
-                                rowCriteria_LooseWin["resultado"] = @oEvalResult;
+                                rowCriteria_LooseWin["Criterio"] = oCriteria.EvaluationItemName;
+                                rowCriteria_LooseWin["Peso"] = oEvalUnit;
+                                rowCriteria_LooseWin["resultado"] = oEvalResult;
                                 dtProvidersProject.Rows.Add(rowCriteria_LooseWin);
                                 rowCriteria_LooseWin=null;
                             break;
@@ -277,9 +279,9 @@ namespace MarketPlace.Web.Controllers
                                 oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
                                 oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
                                 DataRow rowCriteria_Percent = dtProvidersProject.NewRow();
-                                rowCriteria_Percent["Criterio"] = @oCriteria.EvaluationItemName;
-                                rowCriteria_Percent["Peso"] = @oEvalUnit;
-                                rowCriteria_Percent["resultado"] = @oEvalResult;
+                                rowCriteria_Percent["Criterio"] = oCriteria.EvaluationItemName;
+                                rowCriteria_Percent["Peso"] = oEvalUnit;
+                                rowCriteria_Percent["resultado"] = oEvalResult;
                                 dtProvidersProject.Rows.Add(rowCriteria_Percent);
                                 rowCriteria_Percent=null;
                                 break;
@@ -295,9 +297,9 @@ namespace MarketPlace.Web.Controllers
                                     oEvalResult = "No Pasa";
                                 }
                                 DataRow rowCriteria_Informative = dtProvidersProject.NewRow();
-                                rowCriteria_Informative["Criterio"] = @oCriteria.EvaluationItemName;
-                                rowCriteria_Informative["Peso"] = @oEvalUnit;
-                                rowCriteria_Informative["resultado"] = @oEvalResult;
+                                rowCriteria_Informative["Criterio"] = oCriteria.EvaluationItemName;
+                                rowCriteria_Informative["Peso"] = oEvalUnit;
+                                rowCriteria_Informative["resultado"] = oEvalResult;
                                 dtProvidersProject.Rows.Add(rowCriteria_Informative);
                                 rowCriteria_Informative = null;
                                 break;
