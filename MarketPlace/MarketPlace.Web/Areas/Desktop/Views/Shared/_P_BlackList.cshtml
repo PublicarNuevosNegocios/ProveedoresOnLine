@@ -82,15 +82,15 @@
                                     </div>
                                     <div class="col-md-3">
                                         @{
-                                string enable = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower() == "true" ? "Activo" : "Inactivo";
+                                            string enable = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Estado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault().ToLower() == "true" ? "Activo" : "Inactivo";
                                         }
                                         <span>@enable</span>
                                     </div>
                                     <div class="col-md-3">
-                                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Razón Social" || x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
                                     </div>
                                     <div class="col-md-3">
-                                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificacion Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
                                     </div>
                                 </div>
                                 <br />
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        <span>@MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).FirstOrDefault())</span>
                                     </div>
                                     <div class="col-md-3">
                                         <p>
