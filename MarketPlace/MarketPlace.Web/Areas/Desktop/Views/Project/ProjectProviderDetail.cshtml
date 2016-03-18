@@ -24,6 +24,27 @@
             <!--Approval actions-->
             @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Actions, Model)
 
+            <div class="container-fluid">
+                <div class="row text-right" id="POMPEvalTitleMargin">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12">
+                            <form action="@(Url.Action
+                                        (MVC.Project.ActionNames.ProjectProviderDetail,
+                                        MVC.Project.Name,
+                                        new
+                                        {
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                            ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+
+                                        }))" method="post">
+                                <input type="hidden" name="DownloadReport" value="true" />
+                                <button id="POMPButtonDownloadReportsTop" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
             <!--Provider Results-->
             @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Results, Model)            
 
