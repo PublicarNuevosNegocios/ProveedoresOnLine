@@ -159,6 +159,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_SelectionProcessReportDetail.cs">
+      <DependentUpon>DS_SelectionProcessReportDetail.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DataSet\DS_SelectionProcessReportDetail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_SelectionProcessReportDetail.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.cs">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -277,6 +286,17 @@
     <None Include="Reports\DataSet\DS_SelectionProcessReport.xss">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
     </None>
+    <None Include="Reports\DataSet\DS_SelectionProcessReportDetail.xsc">
+      <DependentUpon>DS_SelectionProcessReportDetail.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_SelectionProcessReportDetail.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_SelectionProcessReportDetail.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_SelectionProcessReportDetail.xss">
+      <DependentUpon>DS_SelectionProcessReportDetail.xsd</DependentUpon>
+    </None>
     <None Include="Reports\DataSet\DS_SurveyGeneralInfo.xsc">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
     </None>
@@ -314,6 +334,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Reports\C_Report_GerencialInfo.rdlc" />
     <EmbeddedResource Include="Reports\F_FinancialReport.rdlc" />
+    <EmbeddedResource Include="Reports\PJ_Report_SelectionProcessDetail.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_GeneralInfo.rdlc" />
     <EmbeddedResource Include="Reports\PJ_Report_SelectionProcess.rdlc" />
     <EmbeddedResource Include="Reports\SV_Report_EvaluatorDetail.rdlc" />
