@@ -201,7 +201,11 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    oReturn.AddRange(x.RelatedCompanyRole.RoleModule.Select(y => Convert.ToInt32(y.RoleModule)).ToList());
+                    if (x.RelatedCompanyRole.RoleModule != null &&
+                        x.RelatedCompanyRole.RoleModule.Count > 0)
+                    {
+                        oReturn.AddRange(x.RelatedCompanyRole.RoleModule.Where(y => y != null).Select(y => Convert.ToInt32(y.RoleModule)).ToList());
+                    }
                     return true;
                 });
             }
@@ -216,16 +220,21 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    SessionManager.Models.POLMarketPlace.Session_RoleModuleModel oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y).FirstOrDefault();
-
-                    if (oModel != null)
+                    if (x.RelatedCompanyRole.RoleModule != null &&
+                        x.RelatedCompanyRole.RoleModule.Count > 0)
                     {
-                        oReturn.AddRange(oModel.ModuleOption.Select(y => Convert.ToInt32(y.ItemName)).ToList());
+                        SessionManager.Models.POLMarketPlace.Session_RoleModuleModel oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y).FirstOrDefault();
+
+                        if (oModel != null &&
+                            oModel.ModuleOption != null &&
+                            oModel.ModuleOption.Count > 0)
+                        {
+                            oReturn.AddRange(oModel.ModuleOption.Select(y => Convert.ToInt32(y.ItemName)).ToList());
+                        }
                     }
                     return true;
                 });
             }
-
             return oReturn;
         }
 
@@ -237,22 +246,28 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y.ModuleOption).FirstOrDefault();
-
-                    if (oModel != null &&
-                        oModel.Count > 0)
+                    if (x.RelatedCompanyRole.RoleModule != null &&
+                        x.RelatedCompanyRole.RoleModule.Count > 0)
                     {
-                        oModel.All(z =>
-                        {
-                            oReturn.AddRange(z.ItemInfo.Select(i => Convert.ToInt32(i.Value)).ToList());
+                        List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.ProviderInfo).Select(y => y.ModuleOption).FirstOrDefault();
 
-                            return true;
-                        });
-                    }
+                        if (oModel != null &&
+                            oModel.Count > 0)
+                        {
+                            oModel.All(z =>
+                            {
+                                if (z.ItemInfo != null &&
+                                    z.ItemInfo.Count > 0)
+                                {
+                                    oReturn.AddRange(z.ItemInfo.Select(i => Convert.ToInt32(i.Value)).ToList());
+                                }
+                                return true;
+                            });
+                        }
+                    }                    
                     return true;
                 });
             }
-
             return oReturn;
         }
 
@@ -264,16 +279,20 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.SelectionInfo).Select(y => y.ModuleOption).FirstOrDefault();
-                    if (oModel != null &&
-                        oModel.Count > 0)
+                    if (x.RelatedCompanyRole.RoleModule != null &&
+                        x.RelatedCompanyRole.RoleModule.Count > 0)
                     {
-                        oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
-                    }
+                        List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.SelectionInfo).Select(y => y.ModuleOption).FirstOrDefault();
+
+                        if (oModel != null &&
+                            oModel.Count > 0)
+                        {
+                            oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
+                        }
+                    }                    
                     return true;
                 });
             }
-
             return oReturn;
         }
 
@@ -285,12 +304,14 @@ namespace MarketPlace.Models.General
             {
                 CurrentCompany.RelatedUser.All(x =>
                 {
-                    oReturn.AddRange(x.RelatedCompanyRole.RelatedReport.Select(y => Convert.ToInt32(y.ItemName)));
-
+                    if (x.RelatedCompanyRole.RelatedReport != null &&
+                        x.RelatedCompanyRole.RelatedReport.Count > 0)
+                    {
+                        oReturn.AddRange(x.RelatedCompanyRole.RelatedReport.Select(y => Convert.ToInt32(y.ItemName)));
+                    }
                     return true;
                 });
             }
-
             return oReturn;
         }
 
