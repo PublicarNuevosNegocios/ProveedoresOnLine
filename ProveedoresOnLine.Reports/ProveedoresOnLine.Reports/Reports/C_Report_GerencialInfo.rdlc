@@ -721,7 +721,7 @@
         </Paragraphs>
         <rd:DefaultName>RateARL</rd:DefaultName>
         <Top>16.58441cm</Top>
-        <Left>1.76754cm</Left>
+        <Left>3.89258cm</Left>
         <Height>0.6cm</Height>
         <Width>2.1923cm</Width>
         <ZIndex>19</ZIndex>
@@ -1695,7 +1695,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>ARL:</Value>
+                <Value>Nivel de riesgo ARL:</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
@@ -1707,8 +1707,8 @@
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>16.58441cm</Top>
         <Left>0.50073cm</Left>
-        <Height>0.6cm</Height>
-        <Width>1.09043cm</Width>
+        <Height>0.72968cm</Height>
+        <Width>3.21546cm</Width>
         <ZIndex>39</ZIndex>
         <Style>
           <Border>
@@ -3482,7 +3482,7 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
           <Top>0.17639cm</Top>
           <Left>0.43045cm</Left>
           <Height>0.97042cm</Height>
-          <Width>15.37584cm</Width>
+          <Width>15.70428cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
