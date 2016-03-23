@@ -50,13 +50,6 @@
             }
         </div>        
     }
-
-    @if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.CC_CompanyPublicId_ClientePolipropileno].Value)
-    {
-        <div class="POMPComparisonListWrapper">
-            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Reports, Model)
-        </div>
-    }
 </div>
 @{
     Model.RenderScripts = true;

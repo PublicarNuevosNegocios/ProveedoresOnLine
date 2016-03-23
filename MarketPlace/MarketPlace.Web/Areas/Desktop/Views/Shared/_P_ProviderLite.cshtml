@@ -15,8 +15,8 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">
-         
-                <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
+
+            <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
         </a>
 
         <div class="POMPComparisonResultNameIDWrapper">
@@ -98,15 +98,15 @@
                 }
             }
             @*<li>
-                <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
-                    ))">Ver detalle</a>
-            </li>*@
+                    <a href="@(Url.RouteUrl
+                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Provider.Name,
+                            action = MVC.Provider.ActionNames.GIProviderInfo,
+                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
+                        ))">Ver detalle</a>
+                </li>*@
         </ul>
     </div>
 }
@@ -125,7 +125,7 @@ else
                     {
                         controller = MVC.Provider.Name,
                         action = MVC.Provider.ActionNames.GIProviderInfo,
-                    }) + "?ProviderPublicId={ProviderPublicId}")">            
+                    }) + "?ProviderPublicId={ProviderPublicId}")">
             <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
         </a>
         <div class="POMPComparisonResultNameIDWrapper">
@@ -134,7 +134,10 @@ else
         </div>
         <div class="POMPComparisonResultAlertComparWrapper">
             <div>
-                <div style="display:{ProviderAlertRisk};" class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
+                @if (Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
+                {
+                    <div style="display:{ProviderAlertRisk};" class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
+                }
             </div>
             @if (Model.ProviderAddRemoveEnable)
             {
