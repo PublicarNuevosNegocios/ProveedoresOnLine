@@ -940,7 +940,6 @@ var TK_GetPeriodsByPlan_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-                
                 var data = new google.visualization.DataTable();
                 var total_query = 0;
                 data.addColumn('string', 'Periodo');
@@ -949,34 +948,45 @@ var TK_GetPeriodsByPlan_ChartsObject = {
                 data.addColumn('number', 'Consultas Restantes');
                 data.addColumn({ type: 'string', role: 'annotation' });
                 $.each(result, function (item, value) {
+                    debugger;
                     if (value.m_Item2 > 0) {
                         total_query = value.m_Item3;
                         var temp = value.m_Item3 - value.m_Item2;
                         if (Number(temp) < 0) { temp = 0; }
-                        if (Number(temp)==0) {
+                        if (Number(temp) == 0) {
                             data.addRows([[value.m_Item1, value.m_Item2, String(value.m_Item2), Number(temp), '']]);
                         }
                         if (Number(temp) > 0) {
                             data.addRows([[value.m_Item1, value.m_Item2, String(value.m_Item2), Number(temp), String(temp)]]);
                         }
-                        
                     }
                 });
-
-                var options = {
-                    title: 'Limite de consultas por periodo: '+ total_query,
-                    subtitle: 'Based on a scale of 1 to 10',
-                    legend: { position: 'top', alignment: 'start' },
-                    isStacked: true,
-                    chartArea: { left: 125, top: 30, width: "100%", height: "90%" },
-                    width: "100%",
-                    colors: ['#FF6961', '#77DD77']
-                };
-
-                var chart = new google.visualization.BarChart(document.getElementById(TK_GetPeriodsByPlan_ChartsObject.ObjectId));
-
-                chart.draw(data, options);
-
+                var dashboard = new google.visualization.Dashboard(document.getElementById(TK_GetPeriodsByPlan_ChartsObject.DashboardId));
+                var barChart = new google.visualization.ChartWrapper({
+                    'chartType': 'BarChart',
+                    'containerId': document.getElementById(TK_GetPeriodsByPlan_ChartsObject.ObjectId),
+                    'options': {
+                        title: 'Limite de consultas por periodo: ' + total_query,
+                        subtitle: 'Consultas realizadas por periodos.',
+                        legend: { position: 'top', alignment: 'start' },
+                        isStacked: true,
+                        chartArea: { left: 125, top: 30, width: "100%", height: "90%" },
+                        width: "100%",
+                        colors: ['#FF6961', '#77DD77']
+                    },
+                });
+                var filterYear = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_year_tk',
+                    'options': {
+                        'filterColumnLabel': 'Periodo',
+                        'ui': {
+                            'label': 'Periodo'
+                        }
+                    }
+                });
+                dashboard.bind(filterYear, barChart);
+                dashboard.draw(data);
                 function resize() {
                     chart.draw(data, options);
                 }
@@ -986,8 +996,7 @@ var TK_GetPeriodsByPlan_ChartsObject = {
                 else {
                     window.attachEvent('onresize', resize);
                 }
-
-                }
-            });
+            }
+        });
     }
 };
