@@ -445,7 +445,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
 
                             //Get coincidences for current provider
                             oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.RelatedCompany.CompanyName && x.IdentificationResult == prv.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
-
+                            oCurrentCoincidences = oCurrentCoincidences.Distinct().ToList();
                             oCurrentCoincidences.All(c =>
                             {
                                 #region Operation

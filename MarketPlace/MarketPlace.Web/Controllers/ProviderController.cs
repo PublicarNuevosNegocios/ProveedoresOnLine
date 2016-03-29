@@ -526,6 +526,171 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedTrackingInfo = new List<GenericItemModel>();
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListGetBasicInfo(ProviderPublicId);
+
+                List<GenericItemModel> oDesignations = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Designations);
+                if (oDesignations != null && oDesignations.Count > 0)
+                {
+                    oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
+                    oDesignations.All(x =>
+                    {
+                        oModel.RelatedDesignationsInfo.Add(new ProviderDesignationsViewModel(x));
+                        return true;
+                    });
+                }
+                List<BlackListModel> oListNoCoincidencesList = new List<BlackListModel>();
+                if (oModel.RelatedBlackListInfo == null)
+                {
+                    oModel.RelatedBlackListInfo = new List<BlackListModel>();
+
+                    BlackListModel oListNoCoincidences = new BlackListModel()
+                    {
+                        CompanyPublicId = ProviderPublicId,
+                        BlackListInfo = new List<GenericItemInfoModel>(),
+                        BlackListStatus = new CatalogModel() { ItemId = (int)enumBlackListStatus.DontShowAlert }
+                    };
+                    oListNoCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemName = "Nombre del Grupo",
+                        },
+                        Value = "SIN COINCIDENCIAS",
+                    });
+                    oListNoCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemName = "Nombre Consultado",
+                        },
+                        Value = oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName,
+                    });
+                    oListNoCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemName = "Identificación Consultada",
+                        },
+                        Value = oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber,
+                    });
+
+                    if (oModel.RelatedDesignationsInfo != null && oModel.RelatedDesignationsInfo.Count > 0)
+                    {
+                        oModel.RelatedDesignationsInfo.All(x =>
+                            {
+                                BlackListModel oListCoincidences = new BlackListModel()
+                                {
+                                    CompanyPublicId = ProviderPublicId,
+                                    BlackListInfo = new List<GenericItemInfoModel>(),
+                                    BlackListStatus = new CatalogModel() { ItemId = (int)enumBlackListStatus.DontShowAlert }
+                                };
+                                oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemName = "Nombre del Grupo",
+                                    },
+                                    Value = "SIN COINCIDENCIAS",
+                                });
+                                oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemName = "Nombre Consultado",
+                                    },
+                                    Value = x.CD_PartnerName,
+                                });
+                                oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemName = "Identificación Consultada",
+                                    },
+                                    Value = x.CD_PartnerIdentificationNumber,
+                                });
+                                oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemName = "Cargo",
+                                    },
+                                    Value = x.CD_PartnerRank,
+                                });
+                                oModel.RelatedBlackListInfo.Add(oListCoincidences);
+                                return true;
+                            });
+                    }
+                    oModel.RelatedBlackListInfo.Add(oListNoCoincidences);
+                }
+                else
+                {
+                    if (oModel.RelatedDesignationsInfo != null && oModel.RelatedDesignationsInfo.Count > 0)
+                    {
+
+                        List<ProviderDesignationsViewModel> oCoincidences = new List<ProviderDesignationsViewModel>();
+                        oModel.RelatedBlackListInfo.All(y =>
+                            {
+                                oCoincidences.Add(new ProviderDesignationsViewModel()
+                                {
+                                    oCD_PartnerIdentificationNumber = y.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).FirstOrDefault(),
+                                    oCD_PartnerName = y.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).FirstOrDefault(),
+                                    oCD_PartnerRank = y.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).FirstOrDefault(),
+                                });
+                                return true;
+                            });
+                        //oCoincidences                                               
+
+                        oModel.RelatedDesignationsInfo.All(x =>
+                            {
+                                if (!oCoincidences.Any(p => p.oCD_PartnerIdentificationNumber == x.CD_PartnerIdentificationNumber))
+                                {
+                                    BlackListModel oListCoincidences = new BlackListModel()
+                                    {
+                                        CompanyPublicId = ProviderPublicId,
+                                        BlackListInfo = new List<GenericItemInfoModel>(),
+                                        BlackListStatus = new CatalogModel() { ItemId = (int)enumBlackListStatus.DontShowAlert }
+                                    };
+                                    oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoType = new CatalogModel()
+                                        {
+                                            ItemName = "Nombre del Grupo",
+                                        },
+                                        Value = "SIN COINCIDENCIAS",
+                                    });
+                                    oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoType = new CatalogModel()
+                                        {
+                                            ItemName = "Nombre Consultado",
+                                        },
+                                        Value = x.CD_PartnerName,
+                                    });
+                                    oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoType = new CatalogModel()
+                                        {
+                                            ItemName = "Identificación Consultada",
+                                        },
+                                        Value = x.CD_PartnerIdentificationNumber,
+                                    });
+                                    oListCoincidences.BlackListInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoType = new CatalogModel()
+                                        {
+                                            ItemName = "Cargo",
+                                        },
+                                        Value = x.CD_PartnerRank,
+                                    });
+                                    oModel.RelatedBlackListInfo.Add(oListCoincidences);
+                                }                                
+                                return true;
+                            });
+                    }
+                }
+
+
+                //oProvidersToCompare = Process.RelatedProvider.Where(y => oCoincidences.Any(c => c.IdentificationResult == y.RelatedCompany.IdentificationNumber && y.RelatedCompany.CompanyName == c.NameResult)).ToList();
+
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
@@ -533,7 +698,7 @@ namespace MarketPlace.Web.Controllers
             if (Request["DownloadReport"] == "true")
             {
                 /*generate data for report*/
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = oModel.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == 1101001).Select(x => x).ToList();
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = oModel.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == (int)enumBlackListStatus.ShowAlert).Select(x => x).ToList();
                 List<string> oGroupListName = new List<string>();
                 foreach (var alert in ShowAlertModel)
                 {
@@ -758,12 +923,12 @@ namespace MarketPlace.Web.Controllers
                     {
                         if (y.ItemInfoType.ItemName == "Alias") { oModel.RelatedThidKnowledgeSearch.Alias = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre Consultado") { oModel.RelatedThidKnowledgeSearch.NameResult = y.Value == null ? string.Empty : y.Value; }
-                        if (y.ItemInfoType.ItemName == "Identificacion Consultada") { oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult = y.Value == null ? string.Empty : y.Value; }
+                        if (y.ItemInfoType.ItemName == "Identificación Consultada") { oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Cargo o Delito") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Peps") { oModel.RelatedThidKnowledgeSearch.Peps = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Prioridad") { oModel.RelatedThidKnowledgeSearch.Priority = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Estado") { oModel.RelatedThidKnowledgeSearch.Status = y.Value == null ? string.Empty : y.Value; }
-                        if (y.ItemInfoType.ItemName == "Fecha Registro") { oModel.RelatedThidKnowledgeSearch.RegisterDate = y.Value == null ? string.Empty : Convert.ToDateTime(y.Value).AddHours(-5).ToString(); }
+                        if (y.ItemInfoType.ItemName == "Fecha Registro") { oModel.RelatedThidKnowledgeSearch.RegisterDate = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Documento de Identidad") { oModel.RelatedThidKnowledgeSearch.IdNumberRequest = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Fecha de Actualizacion") { oModel.RelatedThidKnowledgeSearch.LastModifyDate = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre del Grupo") { oModel.RelatedThidKnowledgeSearch.GroupName = y.Value == null ? string.Empty : y.Value; }
@@ -4588,27 +4753,23 @@ namespace MarketPlace.Web.Controllers
 
                     if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.RestrictiveList))
                     {
-                        //add item and validate
-                        if (vProviderInfo.RelatedLiteProvider.ProviderAlertRisk != MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
+                        //Listas Restrictivas
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
                         {
-                            //Listas Restrictivas
-                            oMenuAux.ChildMenu.Add(new GenericMenu()
-                            {
-                                Name = "Listas Restrictivas",
-                                Url = Url.RouteUrl
-                                        (Models.General.Constants.C_Routes_Default,
-                                        new
-                                        {
-                                            controller = MVC.Provider.Name,
-                                            action = MVC.Provider.ActionNames.GIBlackList,
-                                            ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                                        }),
-                                Position = 4,
-                                IsSelected =
-                                    (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
-                                    oCurrentController == MVC.Provider.Name),
-                            });
-                        }
+                            Name = "Listas Restrictivas",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.GIBlackList,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 4,
+                            IsSelected =
+                                (oCurrentAction == MVC.Provider.ActionNames.GIBlackList &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
                     }
 
                     if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Tracing))

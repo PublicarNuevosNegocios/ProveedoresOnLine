@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     }
-                }                
+                }
             </div>
             @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
             {
@@ -168,13 +168,7 @@
                                 <label>Consulta Listas Restrictivas - Última Validación @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203012).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault() </label>
                             </div>
                             <div class="col-sm-6 text-right">
-                                @if (Model.RelatedLiteProvider.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.DontShowAlert)
-                                {
-                                    /*Si no hay*/
-                                }
-                                else
-                                {
-                                    <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                                <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                 new
                                                                 {
@@ -182,9 +176,8 @@
                                                                     action = MVC.Provider.ActionNames.GIBlackList,
                                                                     ProviderPublicId = Request["ProviderPublicId"]
                                                                 }))">
-                                        Ver Detalle
-                                    </a>
-                                }
+                                    Ver Detalle
+                                </a>
                             </div>
                         </div>
                         <br />
