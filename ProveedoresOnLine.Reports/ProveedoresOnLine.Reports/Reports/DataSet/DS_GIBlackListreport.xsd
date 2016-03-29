@@ -12,7 +12,7 @@
   <xs:element name="DS_GIBlackListreport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_GIBlackListreport" msprop:Generator_UserDSName="DS_GIBlackListreport">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="BlackList_fnc" msprop:Generator_TableClassName="BlackList_fncDataTable" msprop:Generator_TableVarName="tableBlackList_fnc" msprop:Generator_TablePropName="BlackList_fnc" msprop:Generator_RowDeletingName="BlackList_fncRowDeleting" msprop:Generator_RowChangingName="BlackList_fncRowChanging" msprop:Generator_RowEvHandlerName="BlackList_fncRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_fncRowDeleted" msprop:Generator_UserTableName="BlackList_fnc" msprop:Generator_RowChangedName="BlackList_fncRowChanged" msprop:Generator_RowEvArgName="BlackList_fncRowChangeEvent" msprop:Generator_RowClassName="BlackList_fncRow">
+        <xs:element name="BlackList_fnc" msprop:Generator_TableClassName="BlackList_fncDataTable" msprop:Generator_TableVarName="tableBlackList_fnc" msprop:Generator_RowChangedName="BlackList_fncRowChanged" msprop:Generator_TablePropName="BlackList_fnc" msprop:Generator_RowDeletingName="BlackList_fncRowDeleting" msprop:Generator_RowChangingName="BlackList_fncRowChanging" msprop:Generator_RowEvHandlerName="BlackList_fncRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_fncRowDeleted" msprop:Generator_RowClassName="BlackList_fncRow" msprop:Generator_UserTableName="BlackList_fnc" msprop:Generator_RowEvArgName="BlackList_fncRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="IdentificationResult" msprop:Generator_ColumnVarNameInTable="columnIdentificationResult" msprop:Generator_ColumnPropNameInRow="IdentificationResult" msprop:Generator_ColumnPropNameInTable="IdentificationResultColumn" msprop:Generator_UserColumnName="IdentificationResult" type="xs:string" minOccurs="0" />
@@ -28,7 +28,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BlackList_psp" msprop:Generator_TableClassName="BlackList_pspDataTable" msprop:Generator_TableVarName="tableBlackList_psp" msprop:Generator_TablePropName="BlackList_psp" msprop:Generator_RowDeletingName="BlackList_pspRowDeleting" msprop:Generator_RowChangingName="BlackList_pspRowChanging" msprop:Generator_RowEvHandlerName="BlackList_pspRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_pspRowDeleted" msprop:Generator_UserTableName="BlackList_psp" msprop:Generator_RowChangedName="BlackList_pspRowChanged" msprop:Generator_RowEvArgName="BlackList_pspRowChangeEvent" msprop:Generator_RowClassName="BlackList_pspRow">
+        <xs:element name="BlackList_psp" msprop:Generator_TableClassName="BlackList_pspDataTable" msprop:Generator_TableVarName="tableBlackList_psp" msprop:Generator_RowChangedName="BlackList_pspRowChanged" msprop:Generator_TablePropName="BlackList_psp" msprop:Generator_RowDeletingName="BlackList_pspRowDeleting" msprop:Generator_RowChangingName="BlackList_pspRowChanging" msprop:Generator_RowEvHandlerName="BlackList_pspRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_pspRowDeleted" msprop:Generator_RowClassName="BlackList_pspRow" msprop:Generator_UserTableName="BlackList_psp" msprop:Generator_RowEvArgName="BlackList_pspRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="IdentificationResult" msprop:Generator_ColumnVarNameInTable="columnIdentificationResult" msprop:Generator_ColumnPropNameInRow="IdentificationResult" msprop:Generator_ColumnPropNameInTable="IdentificationResultColumn" msprop:Generator_UserColumnName="IdentificationResult" type="xs:string" minOccurs="0" />
@@ -44,7 +44,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BlackList_rst" msprop:Generator_TableClassName="BlackList_rstDataTable" msprop:Generator_TableVarName="tableBlackList_rst" msprop:Generator_TablePropName="BlackList_rst" msprop:Generator_RowDeletingName="BlackList_rstRowDeleting" msprop:Generator_RowChangingName="BlackList_rstRowChanging" msprop:Generator_RowEvHandlerName="BlackList_rstRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_rstRowDeleted" msprop:Generator_UserTableName="BlackList_rst" msprop:Generator_RowChangedName="BlackList_rstRowChanged" msprop:Generator_RowEvArgName="BlackList_rstRowChangeEvent" msprop:Generator_RowClassName="BlackList_rstRow">
+        <xs:element name="BlackList_rst" msprop:Generator_TableClassName="BlackList_rstDataTable" msprop:Generator_TableVarName="tableBlackList_rst" msprop:Generator_RowChangedName="BlackList_rstRowChanged" msprop:Generator_TablePropName="BlackList_rst" msprop:Generator_RowDeletingName="BlackList_rstRowDeleting" msprop:Generator_RowChangingName="BlackList_rstRowChanging" msprop:Generator_RowEvHandlerName="BlackList_rstRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_rstRowDeleted" msprop:Generator_RowClassName="BlackList_rstRow" msprop:Generator_UserTableName="BlackList_rst" msprop:Generator_RowEvArgName="BlackList_rstRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="IdentificationResult" msprop:Generator_ColumnVarNameInTable="columnIdentificationResult" msprop:Generator_ColumnPropNameInRow="IdentificationResult" msprop:Generator_ColumnPropNameInTable="IdentificationResultColumn" msprop:Generator_UserColumnName="IdentificationResult" type="xs:string" minOccurs="0" />
@@ -60,7 +60,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BlasckList_dce" msprop:Generator_TableClassName="BlasckList_dceDataTable" msprop:Generator_TableVarName="tableBlasckList_dce" msprop:Generator_TablePropName="BlasckList_dce" msprop:Generator_RowDeletingName="BlasckList_dceRowDeleting" msprop:Generator_RowChangingName="BlasckList_dceRowChanging" msprop:Generator_RowEvHandlerName="BlasckList_dceRowChangeEventHandler" msprop:Generator_RowDeletedName="BlasckList_dceRowDeleted" msprop:Generator_UserTableName="BlasckList_dce" msprop:Generator_RowChangedName="BlasckList_dceRowChanged" msprop:Generator_RowEvArgName="BlasckList_dceRowChangeEvent" msprop:Generator_RowClassName="BlasckList_dceRow">
+        <xs:element name="BlasckList_dce" msprop:Generator_TableClassName="BlasckList_dceDataTable" msprop:Generator_TableVarName="tableBlasckList_dce" msprop:Generator_RowChangedName="BlasckList_dceRowChanged" msprop:Generator_TablePropName="BlasckList_dce" msprop:Generator_RowDeletingName="BlasckList_dceRowDeleting" msprop:Generator_RowChangingName="BlasckList_dceRowChanging" msprop:Generator_RowEvHandlerName="BlasckList_dceRowChangeEventHandler" msprop:Generator_RowDeletedName="BlasckList_dceRowDeleted" msprop:Generator_RowClassName="BlasckList_dceRow" msprop:Generator_UserTableName="BlasckList_dce" msprop:Generator_RowEvArgName="BlasckList_dceRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="IdentificationResult" msprop:Generator_ColumnVarNameInTable="columnIdentificationResult" msprop:Generator_ColumnPropNameInRow="IdentificationResult" msprop:Generator_ColumnPropNameInTable="IdentificationResultColumn" msprop:Generator_UserColumnName="IdentificationResult" type="xs:string" minOccurs="0" />
@@ -73,6 +73,15 @@
               <xs:element name="IdentificationSearch" msprop:Generator_ColumnVarNameInTable="columnIdentificationSearch" msprop:Generator_ColumnPropNameInRow="IdentificationSearch" msprop:Generator_ColumnPropNameInTable="IdentificationSearchColumn" msprop:Generator_UserColumnName="IdentificationSearch" type="xs:string" minOccurs="0" />
               <xs:element name="NameSearch" msprop:Generator_ColumnVarNameInTable="columnNameSearch" msprop:Generator_ColumnPropNameInRow="NameSearch" msprop:Generator_ColumnPropNameInTable="NameSearchColumn" msprop:Generator_UserColumnName="NameSearch" type="xs:string" minOccurs="0" />
               <xs:element name="Cargo" msprop:Generator_ColumnVarNameInTable="columnCargo" msprop:Generator_ColumnPropNameInRow="Cargo" msprop:Generator_ColumnPropNameInTable="CargoColumn" msprop:Generator_UserColumnName="Cargo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BlackList_na" msprop:Generator_TableClassName="BlackList_naDataTable" msprop:Generator_TableVarName="tableBlackList_na" msprop:Generator_TablePropName="BlackList_na" msprop:Generator_RowDeletingName="BlackList_naRowDeleting" msprop:Generator_RowChangingName="BlackList_naRowChanging" msprop:Generator_RowEvHandlerName="BlackList_naRowChangeEventHandler" msprop:Generator_RowDeletedName="BlackList_naRowDeleted" msprop:Generator_UserTableName="BlackList_na" msprop:Generator_RowChangedName="BlackList_naRowChanged" msprop:Generator_RowEvArgName="BlackList_naRowChangeEvent" msprop:Generator_RowClassName="BlackList_naRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NameSearch" msprop:Generator_ColumnVarNameInTable="columnNameSearch" msprop:Generator_ColumnPropNameInRow="NameSearch" msprop:Generator_ColumnPropNameInTable="NameSearchColumn" msprop:Generator_UserColumnName="NameSearch" type="xs:string" minOccurs="0" />
+              <xs:element name="IdentificationSearch" msprop:Generator_ColumnVarNameInTable="columnIdentificationSearch" msprop:Generator_ColumnPropNameInRow="IdentificationSearch" msprop:Generator_ColumnPropNameInTable="IdentificationSearchColumn" msprop:Generator_UserColumnName="IdentificationSearch" type="xs:string" minOccurs="0" />
+              <xs:element name="Appointment" msprop:Generator_ColumnVarNameInTable="columnAppointment" msprop:Generator_ColumnPropNameInRow="Appointment" msprop:Generator_ColumnPropNameInTable="AppointmentColumn" msprop:Generator_UserColumnName="Appointment" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

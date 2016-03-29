@@ -698,9 +698,8 @@ namespace MarketPlace.Web.Controllers
             if (Request["DownloadReport"] == "true")
             {
                 /*generate data for report*/
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> ShowAlertModel = oModel.RelatedBlackListInfo.Where(x => x.BlackListStatus.ItemId == (int)enumBlackListStatus.ShowAlert).Select(x => x).ToList();
                 List<string> oGroupListName = new List<string>();
-                foreach (var alert in ShowAlertModel)
+                foreach (var alert in oModel.RelatedBlackListInfo)
                 {
                     oGroupListName.Add(alert.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Nombre del Grupo").Select(x => x.Value).FirstOrDefault());
                 }
@@ -713,6 +712,7 @@ namespace MarketPlace.Web.Controllers
                 oOrderGroup.Add(oGroupListName.Where(x => x == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media").Select(x => x).FirstOrDefault());
                 oOrderGroup.Add(oGroupListName.Where(x => x == "LISTAS FINANCIERAS - Criticidad Media").Select(x => x).FirstOrDefault());
                 oOrderGroup.Add(oGroupListName.Where(x => x == "LISTAS PEPS - Criticidad Baja").Select(x => x).FirstOrDefault());
+                oOrderGroup.Add(oGroupListName.Where(x => x == "SIN COINCIDENCIAS").Select(x => x).FirstOrDefault());
 
                 string searchName = "";
                 string searchIdentification = "--";
@@ -738,12 +738,16 @@ namespace MarketPlace.Web.Controllers
                 DataTable data_dce = new DataTable();
                 DataTable data_fnc = new DataTable();
                 DataTable data_psp = new DataTable();
+                DataTable data_na = new DataTable();
 
                 foreach (var grp in oOrderGroup)
                 {
                     /*Set data by group*/
                     List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel> oInfoToPrint = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel>();
-                    oInfoToPrint = ShowAlertModel.Where(x => x.BlackListInfo.Any(a => a.Value == grp)).Select(x => x).ToList();
+                    oInfoToPrint = oModel.RelatedBlackListInfo.Where(x => x.BlackListInfo.Any(a => a.Value == grp)).Select(x => x).ToList();
+
+                    #region LISTAS RESTRICTIVAS - Criticidad Alta
+
                     //rst "LISTAS RESTRICTIVAS - Criticidad Alta"
                     if (grp != null && grp.CompareTo("LISTAS RESTRICTIVAS - Criticidad Alta") == 0)
                     {
@@ -758,6 +762,7 @@ namespace MarketPlace.Web.Controllers
                         data_rst.Columns.Add("NameSearch");
                         data_rst.Columns.Add("Cargo");
                         DataRow row_rst;
+
                         foreach (var item in oInfoToPrint)
                         {
                             row_rst = data_rst.NewRow();
@@ -773,8 +778,12 @@ namespace MarketPlace.Web.Controllers
                             row_rst["Cargo"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
                             data_rst.Rows.Add(row_rst);
                         }
-
                     }
+
+                    #endregion
+
+                    #region  DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media
+
                     //dce "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media"
                     if (grp != null && grp.CompareTo("DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media") == 0)
                     {
@@ -805,6 +814,11 @@ namespace MarketPlace.Web.Controllers
                             data_dce.Rows.Add(row_dce);
                         }
                     }
+
+                    #endregion
+
+                    #region LISTAS FINANCIERAS - Criticidad Media
+                    
                     //fnc "LISTAS FINANCIERAS - Criticidad Media"
                     if (grp != null && grp.CompareTo("LISTAS FINANCIERAS - Criticidad Media") == 0)
                     {
@@ -835,6 +849,11 @@ namespace MarketPlace.Web.Controllers
                             data_fnc.Rows.Add(row_fnc);
                         }
                     }
+
+                    #endregion
+
+                    #region LISTAS PEPS - Criticidad Baja
+
                     //psp "LISTAS PEPS - Criticidad Baja"
                     if (grp != null && grp.CompareTo("LISTAS PEPS - Criticidad Baja") == 0)
                     {
@@ -866,7 +885,28 @@ namespace MarketPlace.Web.Controllers
                         }
                     }
 
+                    #endregion
 
+                    #region Sin Coincidencias
+
+                    //na "No hay coincidencias"
+                    if (grp != null && grp.CompareTo("SIN COINCIDENCIAS") == 0)
+                    {
+                        data_na.Columns.Add("NameSearch");
+                        data_na.Columns.Add("IdentificationSearch");
+                        data_na.Columns.Add("Appointment");
+                        DataRow row_na;
+                        foreach (var item in oInfoToPrint)
+                        {
+                            row_na = data_na.NewRow();
+                            row_na["NameSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Razón Social" || x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_na["IdentificationSearch"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            row_na["Appointment"] = item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Cargo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault();
+                            data_na.Rows.Add(row_na);
+                        }
+                    }
+
+                    #endregion
                 }
 
                 string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
@@ -876,6 +916,7 @@ namespace MarketPlace.Web.Controllers
                                                                 data_dce,
                                                                 data_fnc,
                                                                 data_psp,
+                                                                data_na,
                                                                 parameters,
                                                                 Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "TK_Report_GIBlackListReport.rdlc");
                 parameters = null;
