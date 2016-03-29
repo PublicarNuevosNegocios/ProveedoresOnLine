@@ -1,15 +1,17 @@
-﻿ 
+﻿<div id="dashboard_div_tk">
+    <div id="filter_year_tk" class="POMPChart-PanelAlign"></div>
     <div id="TKGetPeriodsByPlanChartId" class="ResponsiveChartsClass POMPChart-PanelAlign"></div>
+</div> 
+    
 
 
 <script type="text/javascript">
-    google.load('visualization', '1', { packages: ['corechart', 'bar'] });
+    google.load('visualization', '1.0', { 'packages': ['controls'] });
     $(document).ready(function () {
-
         google.setOnLoadCallback(TK_GetPeriodsByPlan_ChartsObject.RenderChart);
-
         TK_GetPeriodsByPlan_ChartsObject.Init({
             ObjectId: 'TKGetPeriodsByPlanChartId',
+            DashboardId: 'dashboard_div_tk',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
