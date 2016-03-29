@@ -729,7 +729,7 @@ namespace MarketPlace.Web.Controllers
                 //Query Info
                 parameters.Add(new ReportParameter("ThirdKnowledgeText", MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_TK_TextImage].Value));
                 parameters.Add(new ReportParameter("User", User));
-                parameters.Add(new ReportParameter("CreateDate", CreateDate));
+                parameters.Add(new ReportParameter("CreateDate", !string.IsNullOrEmpty(CreateDate) ? CreateDate : "--"));
                 parameters.Add(new ReportParameter("searchName", searchName));
                 parameters.Add(new ReportParameter("searchIdentification", searchIdentification));
                 parameters.Add(new ReportParameter("IsSuccess", IsSuccess));

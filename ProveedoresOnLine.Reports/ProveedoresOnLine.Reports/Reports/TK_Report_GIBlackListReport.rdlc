@@ -3078,7 +3078,7 @@
         <Width>24.59356cm</Width>
         <ZIndex>15</ZIndex>
         <Visibility>
-          <Hidden>=Microsoft.VisualBasic.Interaction.Iif(CountRows() &gt; 0, False, True)</Hidden>
+          <Hidden>= Iif (CountRows("DataSet_psp") &gt; 0, false, true)</Hidden>
         </Visibility>
         <Style>
           <Border>
@@ -3361,6 +3361,9 @@
         <Height>1.2cm</Height>
         <Width>19.74021cm</Width>
         <ZIndex>17</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DataSet_na") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3374,7 +3377,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>   SIN COINCIDENCIAS</Value>
+                <Value>    SIN COINCIDENCIAS</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                   <Color>DimGray</Color>
