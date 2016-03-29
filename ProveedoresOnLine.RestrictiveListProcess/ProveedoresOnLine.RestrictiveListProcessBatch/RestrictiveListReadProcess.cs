@@ -685,7 +685,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                     oPersonsTuple.All(prv =>
                     {
                         //Valid differents providers
-                        if (oProvidersToUpdate != null && oProvidersToUpdate.Count > 0 && !oProvidersToUpdate.Any(x => x.RelatedCompany.IdentificationNumber != oPersonsTuple.Select(y => y.Item1.RelatedCompany.IdentificationNumber).FirstOrDefault()))
+                        //if (oProvidersToUpdate != null && oProvidersToUpdate.Count > 0 && !oProvidersToUpdate.Any(x => x.RelatedCompany.IdentificationNumber != oPersonsTuple.Select(y => y.Item1.RelatedCompany.IdentificationNumber).FirstOrDefault()))
                             ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.Item1.RelatedCompany.CompanyPublicId);
 
                         if (prv.Item1.RelatedCompany != null)
