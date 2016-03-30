@@ -963,7 +963,7 @@ namespace MarketPlace.Web.Controllers
                     x.BlackListInfo.All(y =>
                     {
                         if (y.ItemInfoType.ItemName == "Alias") { oModel.RelatedThidKnowledgeSearch.Alias = y.Value == null ? string.Empty : y.Value; }
-                        if (y.ItemInfoType.ItemName == "Nombre Consultado") { oModel.RelatedThidKnowledgeSearch.NameResult = y.Value == null ? string.Empty : y.Value; }
+                        if (y.ItemInfoType.ItemName == "Nombre Consultado" || y.ItemInfoType.ItemName == "Razón Social") { oModel.RelatedThidKnowledgeSearch.RequestName = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Identificación Consultada") { oModel.RelatedThidKnowledgeSearch.IdentificationNumberResult = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Cargo o Delito") { oModel.RelatedThidKnowledgeSearch.Offense = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Peps") { oModel.RelatedThidKnowledgeSearch.Peps = y.Value == null ? string.Empty : y.Value; }
@@ -973,11 +973,11 @@ namespace MarketPlace.Web.Controllers
                         if (y.ItemInfoType.ItemName == "Documento de Identidad") { oModel.RelatedThidKnowledgeSearch.IdNumberRequest = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Fecha de Actualizacion") { oModel.RelatedThidKnowledgeSearch.LastModifyDate = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre del Grupo") { oModel.RelatedThidKnowledgeSearch.GroupName = y.Value == null ? string.Empty : y.Value; }
-                        if (y.ItemInfoType.ItemName == "Nombre Completo") { oModel.RelatedThidKnowledgeSearch.RequestName = y.Value == null ? string.Empty : y.Value; }
+                        if (y.ItemInfoType.ItemName == "Nombre Completo") { oModel.RelatedThidKnowledgeSearch.NameResult = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Nombre de la Lista") { oModel.RelatedThidKnowledgeSearch.ListName = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Otra Información") { oModel.RelatedThidKnowledgeSearch.MoreInfo = y.Value == null ? string.Empty : y.Value; }
                         if (y.ItemInfoType.ItemName == "Zona") { oModel.RelatedThidKnowledgeSearch.Zone = y.Value == null ? string.Empty : y.Value; }
-                        if (y.ItemInfoType.ItemName == "Link") { oModel.RelatedThidKnowledgeSearch.Link = y.LargeValue == null ? string.Empty : y.LargeValue; }
+                        if (y.ItemInfoType.ItemName == "Link") { oModel.RelatedThidKnowledgeSearch.Link = y.Value == null ? string.Empty : y.Value; }
                         return true;
                     });
                     return true;

@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Razón Social" || x.ItemInfoType.ItemName == "Nombre Consultado").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                            <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Razón Social" || x.ItemInfoType.ItemName == "Nombre Completo").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
                                         </div>
                                         <div class="col-md-4">
                                             <span>@item.BlackListInfo.Where(x => x.ItemInfoType.ItemName == "Identificación Consultada").Select(x => x.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
