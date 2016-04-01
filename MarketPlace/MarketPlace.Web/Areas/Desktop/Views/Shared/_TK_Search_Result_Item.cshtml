@@ -56,7 +56,9 @@
                             {
                                 if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count == 0)
                                 {
-                                    if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value != null) { 
+                                    if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count() > 0 &&
+                                        item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value != null)
+                                    { 
                                         strInfo = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value;
                                     }
                                     else { 

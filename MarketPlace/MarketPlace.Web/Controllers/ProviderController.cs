@@ -181,11 +181,12 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId 
+                            //|| x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)
+                            ) : 
+                            //(SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            //x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).
                 FirstOrDefault();
 
             //validate provider permisions

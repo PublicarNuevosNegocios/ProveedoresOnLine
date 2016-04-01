@@ -119,10 +119,9 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                             Process.RelatedProvider.All(prv =>
                             {
                                 if (prv.RelatedLegal != null && prv.RelatedLegal.Count > 0)
-                                {
-                                    oRelatedLegaToComapare.AddRange(prv.RelatedLegal.Where(y => oCoincidences.Any(c => c.NameResult == y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(inf => inf.Value).FirstOrDefault() &&
-                                                                                                                   c.IdentificationResult == y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault())).ToList());
-                                }
+                                {                                   
+                                    oRelatedLegaToComapare.AddRange(prv.RelatedLegal.Where(y => oCoincidences.Any(c => c.NameResult == y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerName).Select(inf => inf.Value).FirstOrDefault() ||
+                                                                                                                   c.IdentificationResult == y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumLegalDesignationsInfoType.CD_PartnerIdentificationNumber).Select(inf => inf.Value).FirstOrDefault())).ToList());                                }
 
                                 return true;
                             });
@@ -686,7 +685,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                     {
                         //Valid differents providers
                         //if (oProvidersToUpdate != null && oProvidersToUpdate.Count > 0 && !oProvidersToUpdate.Any(x => x.RelatedCompany.IdentificationNumber != oPersonsTuple.Select(y => y.Item1.RelatedCompany.IdentificationNumber).FirstOrDefault()))
-                            ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.Item1.RelatedCompany.CompanyPublicId);
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListClearProvider(prv.Item1.RelatedCompany.CompanyPublicId);
 
                         if (prv.Item1.RelatedCompany != null)
                         {
@@ -721,7 +720,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                             ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProvider.RelatedCompany);
 
                             //Get coincidences for current provider
-                            oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.Item1.RelatedCompany.CompanyName && x.IdentificationResult == prv.Item1.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
+                            oCurrentCoincidences = oCoincidences.Where(x => x.NameResult == prv.Item1.RelatedCompany.CompanyName || x.IdentificationResult == prv.Item1.RelatedCompany.IdentificationNumber).Select(x => x).ToList();
 
                             oCurrentCoincidences.All(c =>
                             {
