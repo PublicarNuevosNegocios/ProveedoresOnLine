@@ -123,7 +123,6 @@ var Provider_SearchObject = {
                 }
             },
             error: function (result) {
-                debugger;
             }
         });
     },

@@ -948,7 +948,6 @@ var TK_GetPeriodsByPlan_ChartsObject = {
                 data.addColumn('number', 'Consultas Restantes');
                 data.addColumn({ type: 'string', role: 'annotation' });
                 $.each(result, function (item, value) {
-                    debugger;
                     if (value.m_Item2 > 0) {
                         total_query = value.m_Item3;
                         var temp = value.m_Item3 - value.m_Item2;
