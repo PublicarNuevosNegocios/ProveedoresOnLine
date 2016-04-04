@@ -2742,6 +2742,11 @@ namespace MarketPlace.Web.Controllers
             else
                 parameters.Add(new ReportParameter("ExcerciseUtility", "NA"));
 
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_EBITDA != null).Select(x => x.BI_EBITDA).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("EBITDA", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_EBITDA != null).Select(x => x.BI_EBITDA).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("EBITDA", "NA"));
+
             #endregion Finacial Info
 
             #region HSEQ Info
@@ -3709,6 +3714,10 @@ namespace MarketPlace.Web.Controllers
             #endregion Basic Info
 
             #region Finacial Info
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("BalanceYear", "AÑO " + oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("BalanceYear", "NA"));
 
             if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()))
                 parameters.Add(new ReportParameter("TotalActive", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).FirstOrDefault()));
@@ -3744,6 +3753,11 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("ExcerciseUtility", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).FirstOrDefault()));
             else
                 parameters.Add(new ReportParameter("ExcerciseUtility", "NA"));
+
+            if (oModel.RelatedFinancialBasicInfo != null && !string.IsNullOrEmpty(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_EBITDA != null).Select(x => x.BI_EBITDA).DefaultIfEmpty("").FirstOrDefault()))
+                parameters.Add(new ReportParameter("EBITDA", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_EBITDA != null).Select(x => x.BI_EBITDA).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("EBITDA", "NA"));
 
             parameters.Add(new ReportParameter("Altman", oModel.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("NA").FirstOrDefault()));
 
