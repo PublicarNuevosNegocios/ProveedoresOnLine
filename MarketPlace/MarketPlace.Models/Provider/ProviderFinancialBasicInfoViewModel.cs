@@ -204,7 +204,7 @@ namespace MarketPlace.Models.Provider
 
                     if (!string.IsNullOrWhiteSpace(oBI_ExerciseUtility))
                     {
-                        oBI_ExerciseUtility = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString("#,0.##");
+                        oBI_ExerciseUtility = (Convert.ToDecimal(oBI_ExerciseUtility) * Exchange).ToString("#,0.##");
                     }
                 }
 

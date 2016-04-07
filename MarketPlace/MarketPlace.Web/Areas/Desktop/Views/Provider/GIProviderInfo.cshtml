@@ -329,6 +329,15 @@
                                         <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
                                     </div>
                                 }
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_EBITDA != null).Select(x => x.BI_EBITDA).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">EBITDA</label>
+                                        <br />
+                                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_EBITDA != null).Select(x => x.BI_EBITDA).DefaultIfEmpty("").FirstOrDefault()</span>
+                                    </div>
+                                }
                                 <div class="col-xs-12">
                                     <br />
                                     <label class="POMPProviderBoxInfo">Indice Altman</label>
