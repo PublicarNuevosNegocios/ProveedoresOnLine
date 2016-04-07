@@ -181,13 +181,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId 
-                            //|| x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)
-                            ) : 
-                            //(SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            //x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ) :                             
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -324,15 +319,11 @@ namespace MarketPlace.Web.Controllers
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-
+            
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -372,15 +363,11 @@ namespace MarketPlace.Web.Controllers
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-
+            
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -427,13 +414,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                   Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                               (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                               x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -474,13 +457,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                  Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                              (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                              x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -508,13 +487,9 @@ namespace MarketPlace.Web.Controllers
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -938,13 +913,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
             //validate provider permisions
             if (oProvider == null)
             {
@@ -1051,13 +1022,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                  Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                              (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                              x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1115,13 +1082,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                  Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                              (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                              x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1161,13 +1124,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1209,13 +1168,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                  Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                              (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                              x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1260,12 +1215,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1311,12 +1262,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1522,13 +1469,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1572,13 +1515,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1620,13 +1559,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1668,12 +1603,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1866,12 +1797,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1924,13 +1851,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                  Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                              (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                              x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -1977,12 +1900,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -2027,12 +1946,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -2109,12 +2024,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -2163,12 +2074,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -2227,12 +2134,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -2445,12 +2348,8 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider != null)
@@ -2490,13 +2389,9 @@ namespace MarketPlace.Web.Controllers
                     (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
                 var oProvider = olstProvider.
-                    Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                                (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                                x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                                (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                                x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                                x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                    FirstOrDefault();
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
                 //validate provider permisions
                 if (oProvider != null)
@@ -2528,13 +2423,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -2577,13 +2468,9 @@ namespace MarketPlace.Web.Controllers
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
             var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
+                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
             if (oProvider == null)
@@ -4168,8 +4055,6 @@ namespace MarketPlace.Web.Controllers
                         RatingforArea = RatingforArea + (int)EvaluationAreaInf.Ratting;
                     }
                 }
-
-                RatingforArea = RatingforArea / EvaluatorDetailList.Count();
 
                 DataRow row;
                 row = data2.NewRow();
