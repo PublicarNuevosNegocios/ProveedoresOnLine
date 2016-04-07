@@ -160,12 +160,12 @@
                         (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
                         <!--título aréa-->
                         <br />
-                        <div class="row POMPSectionTitlesBox">
+                        <div class="row SurveyAreaTitlesBox">
                             <div class="col-sm-8">
-                                <span>@EvaluationArea.Order. @EvaluationArea.Name  / Calificación: (@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))) - Peso: @EvaluationArea.Weight %</span>
+                                <span><strong>@EvaluationArea.Order. @EvaluationArea.Name  / Calificación: (@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))) - Peso: @EvaluationArea.Weight %</strong></span>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <p class="POMPMandatoryMargin">Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</p>
+                                <p> <strong>campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</strong></p>
                             </div>
                         </div>
                         <br />
@@ -186,12 +186,10 @@
                                         }
                                     </div>
                                 </div>
-
-
                             }
 
                             <!--contenedor detalle preguntas-->
-                            <div class="POMPAreaEvaluatorDetail">
+                            <div class="SurveyAreaEvaluatorDetail">
 
                                 @foreach (var Question in lstQuestion)
                                 {
@@ -202,25 +200,28 @@
 
                                     if (Question.QuestionType == "118002")
                                     {
-                                        <ul>
+                                        <ul class="SurveyFileList">
                                             @if (Model.RelatedSurvey.SurveyFile != null && Model.RelatedSurvey.SurveyFile.Count > 0)
                                             {
-                                                foreach (var oFile in Model.RelatedSurvey.SurveyFile)
+                                                var oFileSurvey =  Model.RelatedSurvey.SurveyFile.GroupBy(x => x.FileObjectId).Select(x => x.First()).ToList();
+                                                
+                                                foreach (var oFile in oFileSurvey)
                                                 {
-                                                    <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
+                                                    <li>
+                                                        <div class="POMPFileUploadIcon" title="@oFile.FileName"></div>
 
-                                                    <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
-
+                                                        <a class="SurveyFileUploadName" href="@oFile.ServerUrl" target="_blank" title="@oFile.FileName">@oFile.FileName</a>
+                                                    </li>
                                                 }
                                             }
                                         </ul>
                                     }
                                     else
                                     {
-                                        <p> @Question.Order. @Question.Name</p>
+                                        <p><strong> @Question.Order.</strong> @Question.Name</p>
                                     }
 
-                                    <div class="POMPAreaAnswer">
+                                    <div class="SurveyAreaAnswer">
                                         @foreach (var Answer in lstAnswer)
                                         {
                                             <p>
@@ -237,20 +238,22 @@
                                         }
                                     </div>
 
-                                    <div class="POMPAreaObservation">
+                                    <div class="SurveyAreaObservation">
                                         @if (Question.HasDescription)
                                         {
-                                            <p>Observaciones:</p>
-                                            <p>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)</p>
+                                            <p><strong>Observaciones:</strong></p>
+                                            <p class="SurveyObservationInfo">@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)</p>
                                         }
                                     </div>
 
-                                    <div class="POMPAreaCalification">
+                                    <div class="SurveryAreaCalification">
                                         <p>Calificación: (@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))) /  Peso: dentro de <strong>@EvaluationArea.Name</strong>  @Question.Weight %</p>
                                     </div>
                                 }
                             </div>
                         </div>
+                        <br />
+                        <hr class="SurveySeparator" />
                 }
                 <br />
             </div>

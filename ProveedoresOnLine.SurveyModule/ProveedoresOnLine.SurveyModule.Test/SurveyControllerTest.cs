@@ -38,7 +38,7 @@ namespace ProveedoresOnLine.SurveyModule.Test
         public void GetSurveyByUser()
         {
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oReturn =
-                ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(null, "sebastian.admin@alpina.com");
+                ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser("9D766F92", "david.moncayo@publicar.com");
 
             Assert.IsTrue(oReturn != null);
         }
