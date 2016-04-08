@@ -6,56 +6,116 @@
     if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
     {
         <div class="container-fluid POMPContainerDetail">
-            <div class="col-xs-12">
+            @{
+                var YearList = Model.RelatedHSEQlInfo.OrderByDescending(x => x.CA_Year).Where(x => x.CA_Year != null).Select(x => x.CA_Year).ToList();
 
-                <div class="container-fluid POMPProviderDetailContainer">
-                    <br />
-                    <div class="row active">
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Sistema de Riesgos</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Calificación de Riesgo ARL</label></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo"><label>Resultado LTIF</label></div>
-                    </div>
-                    <div class="row POMPBorderbottom">
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
+                if (YearList.Count >= 2)
+                {
+                    List<int> oYearList = new List<int>();
+                    oYearList.Add(!string.IsNullOrEmpty(YearList[0]) ? Convert.ToInt32(YearList[0]) : 0);
+                    oYearList.Add(!string.IsNullOrEmpty(YearList[1]) ? Convert.ToInt32(YearList[1]) : 0);
+
+                    if (!oYearList.Contains(0))
+                    {
+                        <div class="row POMPSectionTitlesBox">
+                            <div class="col-md-12">
+                                <label>Certificados accidentalidad dos últimos años registrados</label>
+                            </div>
                         </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_RateARL).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
-                        </div>
-                        <div class="col-sm-4  POMPProviderBoxInfo">
-                            <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
-                            <br />
-                            <label class="POMPProviderBoxInfo">Archivo de Afiliación</label>
-                            <br />
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).LastOrDefault()">Ver Archivo Afiliación ARL</a>
-                        </div>
-                        @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
+                        foreach (var year in oYearList)
                         {
-                        <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
-                            <br />
-                            <label class="POMPProviderBoxInfo">Certificación de Accidentes</label>
+                            ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedHSEQ = Model.RelatedHSEQlInfo.Where(x => x.CA_Year == year.ToString()).Select(x => x.RelatedHSEQInfo).FirstOrDefault();
+
+                            <div class="container-fluid">
+                                <div class="row ProviderSubTitle">
+                                    <div class="col-md-12">
+                                        <label>Información de certificaciones del año @year</label>
+                                    </div>
+                                </div>
+                                <div class="container-fluid">
+                                    <div class="row ProviderData">
+                                        <div class="col-md-4">
+                                            <label>Horas hombre trabajadas</label>
+                                            <br />
+                                            <span>@RelatedHSEQ.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_ManHoursWorked).Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Fatalidades</label>
+                                            <br />
+                                            <span>@RelatedHSEQ.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_Fatalities).Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Total incidentes (excluye accidentes incapacitantes)</label>
+                                            <br />
+                                            <span>@RelatedHSEQ.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_NumberAccident).Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        </div>
+                                    </div>
+                                    <div class="row ProviderData">
+                                        <div class="col-md-4">
+                                            <label>Número accidentes incapacitantes</label>
+                                            <br />
+                                            <span>@RelatedHSEQ.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling).Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Días de incapacidad</label>
+                                            <br />
+                                            <span>@RelatedHSEQ.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_DaysIncapacity).Select(y => y.Value).DefaultIfEmpty("N/D").FirstOrDefault()</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+            <div class="row POMPSectionTitlesBox">
+                <div class="col-md-12">
+                    <label>Reporte LTIF</label>
+                </div>
+            </div>
+            <div class="container-fluid ">
+                <div class="row ProviderData">
+                    <div class="col-sm-4">
+                        <label>Sistema de Riesgos</label>
+                        <br />
+                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Calificación de Riesgo ARL</label>
+                        <br />
+                        <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_RateARL).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Resultado LTIF</label>
+                        <br />
+                        <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).LastOrDefault()</span>
+                    </div>
+                </div>
+                <div class="row ProviderData">
+                    <div class="col-sm-4">
+                        <label>Archivo de Afiliación</label>
+                        <br />
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).LastOrDefault()">Ver Archivo Afiliación ARL</a>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
+                    {
+                        <div class="col-sm-4">
+                            <label>Certificación de Accidentes</label>
                             <br />
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).Count() - 2)">Ver Archivo Certificado de accidentalidad @Model.RelatedHSEQlInfo.Select(x => x.CA_Year).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_Year).Count() - 2)</a>
                         </div>
-                        }
-                        @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
-                        {
-                        <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
-                            <br />
-                            <label class="POMPProviderBoxInfo">Certificación de Accidentes</label>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CA_CertificateAccidentARL) && Model.RelatedHSEQlInfo.Count() > 2)
+                    {
+                        <div class="col-sm-4">
+                            <label>Certificación de Accidentes</label>
                             <br />
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).Count() - 3)">Ver Archivo Certificado de accidentalidad @Model.RelatedHSEQlInfo.Select(x => x.CA_Year).ElementAtOrDefault(Model.RelatedHSEQlInfo.Select(x => x.CA_Year).Count() - 3)</a>
                         </div>
-                        }
-                    </div>
+                    }
                 </div>
-                <br />
             </div>
+            <br />
         </div>
         <br />
         <div class="container-fluid POMPProviderDetailContainer">
@@ -77,6 +137,5 @@
                 </div>
             </div>
         </div>
-
     }
 }
