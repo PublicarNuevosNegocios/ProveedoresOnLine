@@ -75,12 +75,12 @@ namespace MarketPlace.Models.Provider
 
         public ThirdKnowledgeViewModel RelatedThirdKnowledge { get; set; }        
 
-        public ThirdKnowledgeViewModel RelatedThidKnowledgeSearch { get; set; }        
+        public ThirdKnowledgeViewModel RelatedThidKnowledgeSearch { get; set; }
 
-        public List<Tuple<string, List<TDQueryInfoModel>>> RelatedSingleSearch { get; set; }
+        public List<Tuple<string, List<ThirdKnowledgeViewModel>>> RelatedSingleSearch { get; set; }
 
         public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
 
-        public List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> Group { get; set; }
+        public List<Tuple<string, List<ThirdKnowledgeViewModel>>> Group { get; set; }
     }
 }

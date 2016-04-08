@@ -271,7 +271,7 @@ namespace MarketPlace.Web.Controllers
 
             if (oModel != null)
             {
-                List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> oGroup = new List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>>();
+                List<Tuple<string, List<ThirdKnowledgeViewModel>>> oGroup = new List<Tuple<string, List<ThirdKnowledgeViewModel>>>();
                 List<string> Item1 = new List<string>();
 
                 oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.All(
@@ -284,15 +284,22 @@ namespace MarketPlace.Web.Controllers
                     });
                     Item1 = Item1.GroupBy(x => x).Select(grp => grp.First()).ToList();
 
-                    List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel> oItem2 = new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>();
-                    Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>> oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>("", new List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>());
+                    List<ThirdKnowledgeViewModel> oItem2 = new List<ThirdKnowledgeViewModel>();
+                    Tuple<string, List<ThirdKnowledgeViewModel>> oTupleItem = new Tuple<string, List<ThirdKnowledgeViewModel>>("", new List<ThirdKnowledgeViewModel>());
 
                     Item1.All(x =>
                     {
+                        oItem2 = new List<ThirdKnowledgeViewModel>();
                         if (item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
                         {
-                            oItem2 = item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
-                            oTupleItem = new Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>(x, oItem2);
+                            item.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).
+                            Select(td => td.DetailInfo).ToList().All(d =>
+                            {
+                                d.FirstOrDefault().QueryBasicPublicId = item.RelatedQueryBasicInfoModel.Where(y => y.DetailInfo == d).Select(y => y.QueryBasicPublicId).FirstOrDefault();
+                                oItem2.Add(new ThirdKnowledgeViewModel(d));
+                                return true;
+                            });
+                            oTupleItem = new Tuple<string, List<ThirdKnowledgeViewModel>>(x, oItem2);
                             oGroup.Add(oTupleItem);
                         }
                         return true;
@@ -300,7 +307,7 @@ namespace MarketPlace.Web.Controllers
                     return true;
                 });
 
-                List<Tuple<string, List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryInfoModel>>> oGroupOrder = new List<Tuple<string, List<TDQueryInfoModel>>>();
+                List<Tuple<string, List<ThirdKnowledgeViewModel>>> oGroupOrder = new List<Tuple<string, List<ThirdKnowledgeViewModel>>>();
 
                 oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "LISTAS RESTRICTIVAS - Criticidad Alta"));
                 oGroupOrder.AddRange(oGroup.Where(x => x.Item1 == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media"));
@@ -359,20 +366,20 @@ namespace MarketPlace.Web.Controllers
                 data_rst.Columns.Add("IdentificationSearch");
                 data_rst.Columns.Add("NameSearch");
                 DataRow row_rst;
-                List<TDQueryInfoModel> lrs = oModel.Group.Where(x => x.Item1 == "LISTAS RESTRICTIVAS - Criticidad Alta").Select(x => x.Item2).FirstOrDefault();
+                List<ThirdKnowledgeViewModel> lrs = oModel.Group.Where(x => x.Item1 == "LISTAS RESTRICTIVAS - Criticidad Alta").Select(x => x.Item2).FirstOrDefault();
                 if (lrs != null)
                     lrs.All(y =>
                     {
                         row_rst = data_rst.NewRow();
-                        row_rst["IdentificationResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdentificationNumberResult).Select(x => x.Value).FirstOrDefault();
-                        row_rst["NameResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult).Select(x => x.Value).FirstOrDefault();
+                        row_rst["IdentificationResult"] = y.IdentificationNumberResult;
+                        row_rst["NameResult"] = y.NameResult;
                         row_rst["Offense"] = y.Offense;
                         row_rst["Peps"] = y.Peps;
                         row_rst["Priority"] = y.Priority;
                         row_rst["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
-                        row_rst["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
-                        row_rst["IdentificationSearch"] = y.IdentificationResult; // SearchId Param
-                        row_rst["NameSearch"] = y.NameResult; // SearchName Param
+                        row_rst["ListName"] = y.ListName;
+                        row_rst["IdentificationSearch"] = y.IdNumberRequest; // SearchId Param
+                        row_rst["NameSearch"] = y.RequestName; // SearchName Param
                         data_rst.Rows.Add(row_rst);
                         return true;
                     });
@@ -389,20 +396,20 @@ namespace MarketPlace.Web.Controllers
                 data_dce.Columns.Add("IdentificationSearch");
                 data_dce.Columns.Add("NameSearch");
                 DataRow row_dce;
-                List<TDQueryInfoModel> dce = oModel.Group.Where(x => x.Item1 == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media").Select(x => x.Item2).FirstOrDefault();
+                List<ThirdKnowledgeViewModel> dce = oModel.Group.Where(x => x.Item1 == "DELITOS E INHABILIDADES CONTRA EL ESTADO - Criticidad Media").Select(x => x.Item2).FirstOrDefault();
                 if (dce != null)
                     dce.All(y =>
                     {
                         row_dce = data_dce.NewRow();
-                        row_dce["IdentificationResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdentificationNumberResult).Select(x => x.Value).FirstOrDefault();
-                        row_dce["NameResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult).Select(x => x.Value).FirstOrDefault();
+                        row_dce["IdentificationResult"] = y.IdentificationNumberResult;
+                        row_dce["NameResult"] = y.NameResult;
                         row_dce["Offense"] = y.Offense;
                         row_dce["Peps"] = y.Peps;
                         row_dce["Priority"] = y.Priority;
                         row_dce["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
-                        row_dce["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
-                        row_dce["IdentificationSearch"] = y.IdentificationResult; // SearchId Param
-                        row_dce["NameSearch"] = y.NameResult; // SearchName Param
+                        row_dce["ListName"] = y.ListName;
+                        row_dce["IdentificationSearch"] = y.IdNumberRequest; // SearchId Param
+                        row_dce["NameSearch"] = y.RequestName; // SearchName Param
                         data_dce.Rows.Add(row_dce);
                         return true;
                     });
@@ -419,20 +426,20 @@ namespace MarketPlace.Web.Controllers
                 data_fnc.Columns.Add("IdentificationSearch");
                 data_fnc.Columns.Add("NameSearch");
                 DataRow row_fnc;
-                List<TDQueryInfoModel> fnc = oModel.Group.Where(x => x.Item1 == "LISTAS FINANCIERAS - Criticidad Media").Select(x => x.Item2).FirstOrDefault();
+                List<ThirdKnowledgeViewModel> fnc = oModel.Group.Where(x => x.Item1 == "LISTAS FINANCIERAS - Criticidad Media").Select(x => x.Item2).FirstOrDefault();
                 if (fnc != null)
                     fnc.All(y =>
                     {
                         row_fnc = data_fnc.NewRow();
-                        row_fnc["IdentificationResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdentificationNumberResult).Select(x => x.Value).FirstOrDefault();
-                        row_fnc["NameResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult).Select(x => x.Value).FirstOrDefault();
+                        row_fnc["IdentificationResult"] = y.IdentificationNumberResult;
+                        row_fnc["NameResult"] = y.NameResult;
                         row_fnc["Offense"] = y.Offense;
                         row_fnc["Peps"] = y.Peps;
                         row_fnc["Priority"] = y.Priority;
                         row_fnc["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
-                        row_fnc["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
-                        row_fnc["IdentificationSearch"] = y.IdentificationResult; // SearchId Param
-                        row_fnc["NameSearch"] = y.NameResult; // SearchName Param
+                        row_fnc["ListName"] = y.ListName;
+                        row_fnc["IdentificationSearch"] = y.IdNumberRequest; // SearchId Param
+                        row_fnc["NameSearch"] = y.RequestName; // SearchName Param
                         data_fnc.Rows.Add(row_fnc);
                         return true;
                     });
@@ -449,20 +456,20 @@ namespace MarketPlace.Web.Controllers
                 data_psp.Columns.Add("IdentificationSearch");
                 data_psp.Columns.Add("NameSearch");
                 DataRow row_psp;
-                List<TDQueryInfoModel> psp = oModel.Group.Where(x => x.Item1 == "LISTAS PEPS - Criticidad Baja").Select(x => x.Item2).FirstOrDefault();
+                List<ThirdKnowledgeViewModel> psp = oModel.Group.Where(x => x.Item1 == "LISTAS PEPS - Criticidad Baja").Select(x => x.Item2).FirstOrDefault();
                 if (psp != null)
                     psp.All(y =>
                     {
                         row_psp = data_psp.NewRow();
-                        row_psp["IdentificationResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdentificationNumberResult).Select(x => x.Value).FirstOrDefault();
-                        row_psp["NameResult"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.NameResult).Select(x => x.Value).FirstOrDefault();
+                        row_psp["IdentificationResult"] = y.IdentificationNumberResult;
+                        row_psp["NameResult"] = y.NameResult;
                         row_psp["Offense"] = y.Offense;
                         row_psp["Peps"] = y.Peps;
                         row_psp["Priority"] = y.Priority;
                         row_psp["Status"] = y.Status.ToLower() == "true" ? "Activo" : "Inactivo";
-                        row_psp["ListName"] = y.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.ListName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault().ToString();
-                        row_psp["IdentificationSearch"] = y.IdentificationResult; // SearchId Param
-                        row_psp["NameSearch"] = y.NameResult; // SearchName Param
+                        row_psp["ListName"] = y.ListName;
+                        row_psp["IdentificationSearch"] = y.IdNumberRequest; // SearchId Param
+                        row_psp["NameSearch"] = y.RequestName; // SearchName Param
                         data_psp.Rows.Add(row_psp);
                         return true;
                     });
@@ -475,15 +482,15 @@ namespace MarketPlace.Web.Controllers
                 data_snc.Columns.Add("IdentificationSearch");
                 data_snc.Columns.Add("NameSearch");
                 DataRow row_snc;
-                List<TDQueryInfoModel> snc = oModel.Group.Where(x => x.Item1 == "SIN COINCIDENCIAS").Select(x => x.Item2).FirstOrDefault();
+                List<ThirdKnowledgeViewModel> snc = oModel.Group.Where(x => x.Item1 == "SIN COINCIDENCIAS").Select(x => x.Item2).FirstOrDefault();
                 if (snc != null)
                     snc.All(y =>
                     {
                         row_snc = data_snc.NewRow();
-                        row_snc["IdentificationSearch"] = y.IdentificationResult; // SearchId Param
+                        row_snc["IdentificationSearch"] = y.IdNumberRequest; // SearchId Param
                         row_snc["NameSearch"] = y.NameResult; // SearchName Param
-                        row_snc["IdentificationResult"] = y.DetailInfo.Where(x => x.ItemInfoType != null && x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).FirstOrDefault().ToString();
-                        row_snc["NameResult"] = y.DetailInfo.Where(x => x.ItemInfoType != null && x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.RequestName).Select(x => x.Value).FirstOrDefault().ToString();
+                        row_snc["IdentificationResult"] = y.IdentificationNumberResult;
+                        row_snc["NameResult"] = y.NameResult;
 
                         data_snc.Rows.Add(row_snc);
                         return true;

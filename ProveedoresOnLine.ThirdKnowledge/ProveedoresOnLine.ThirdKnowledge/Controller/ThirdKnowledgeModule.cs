@@ -41,7 +41,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     #region Answer Procces
                     Result.All(x =>
                                    {
-                                       if (x != null)
+                                       if (x != null && x.Estado.ToLower() != "false")
                                        {
                                            TDQueryInfoModel oInfoCreate = new TDQueryInfoModel();
                                            oInfoCreate.Alias = x.Alias;
@@ -58,6 +58,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            #region Create Detail
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
@@ -67,6 +68,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
@@ -76,6 +78,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });        
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Alias,
@@ -85,6 +88,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdList,
@@ -94,6 +98,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Priotity,
@@ -103,6 +108,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RegisterDate,
@@ -112,6 +118,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.LastModifyDate,
@@ -121,6 +128,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Offense,
@@ -130,6 +138,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdentificationNumberResult,
@@ -139,6 +148,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Status,
@@ -148,6 +158,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.QueryId,
@@ -157,6 +168,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
@@ -171,6 +183,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupId,
@@ -180,6 +193,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdList,
@@ -189,6 +203,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Link,
@@ -198,6 +213,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.NameResult,
@@ -207,6 +223,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.ListName,
@@ -216,6 +233,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.MoreInfo,
@@ -225,6 +243,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                                            });
                                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                                            {
+                                               QueryBasicPublicId = oInfoCreate.QueryPublicId,
                                                ItemInfoType = new TDCatalogModel()
                                                {
                                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.Zone,
@@ -251,6 +270,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     #region Create Detail
                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                     {
+                        QueryBasicPublicId = oInfoCreate.QueryPublicId,
                         ItemInfoType = new TDCatalogModel()
                         {
                             ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.RequestName,
@@ -260,6 +280,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     });
                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                     {
+                        QueryBasicPublicId = oInfoCreate.QueryPublicId,
                         ItemInfoType = new TDCatalogModel()
                         {
                             ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.IdNumberRequest,
@@ -269,6 +290,7 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
                     });
                     oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                     {
+                        QueryBasicPublicId = oInfoCreate.QueryPublicId,
                         ItemInfoType = new TDCatalogModel()
                         {
                             ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,

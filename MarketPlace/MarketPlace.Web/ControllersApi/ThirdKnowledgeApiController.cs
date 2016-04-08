@@ -69,7 +69,7 @@ namespace MarketPlace.Web.ControllersApi
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId,
                                            System.Web.HttpContext.Current.Request["IdentificationNumber"], System.Web.HttpContext.Current.Request["Name"], oQueryToCreate);
                             //Init Finally Tuple, Group by ItemGroup Name
-                            List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
+                            List<Tuple<string, List<ThirdKnowledgeViewModel>>> Group = new List<Tuple<string, List<ThirdKnowledgeViewModel>>>();
                             List<string> Item1 = new List<string>();
                             if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null)
                             {
@@ -80,15 +80,25 @@ namespace MarketPlace.Web.ControllersApi
                                 });
                                 Item1 = Item1.GroupBy(x => x).Select(grp => grp.Last()).ToList();
 
-                                List<TDQueryInfoModel> oItem2 = new List<TDQueryInfoModel>();
-                                Tuple<string, List<TDQueryInfoModel>> oTupleItem = new Tuple<string, List<TDQueryInfoModel>>("", new List<TDQueryInfoModel>());
+                                List<ThirdKnowledgeViewModel> oItem2 = new List<ThirdKnowledgeViewModel>();
+                                Tuple<string, List<ThirdKnowledgeViewModel>> oTupleItem = new Tuple<string, List<ThirdKnowledgeViewModel>>("", new List<ThirdKnowledgeViewModel>());
 
                                 Item1.All(x =>
                                 {
+                                    oItem2 = new List<ThirdKnowledgeViewModel>();
                                     if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
                                     {
-                                        oItem2 = oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
-                                        oTupleItem = new Tuple<string, List<TDQueryInfoModel>>(x, oItem2);
+                                        oModel.RelatedThidKnowledgeSearch.CollumnsResult.
+                                        RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).
+                                        Select(td => td.DetailInfo).ToList().All(d =>
+                                        {
+                                            d.FirstOrDefault().QueryBasicPublicId = oModel.RelatedThidKnowledgeSearch.CollumnsResult.
+                                            RelatedQueryBasicInfoModel.Where(y => y.DetailInfo == d).Select(y => y.QueryBasicPublicId).FirstOrDefault();
+                                            oItem2.Add(new ThirdKnowledgeViewModel(d));
+                                            return true;
+                                        });
+                                        // new ThirdKnowledgeViewModel(oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td.DetailInfo).ToList();
+                                        oTupleItem = new Tuple<string, List<ThirdKnowledgeViewModel>>(x, oItem2);
                                         Group.Add(oTupleItem);
                                     }
                                     return true;
@@ -261,7 +271,7 @@ namespace MarketPlace.Web.ControllersApi
                         //load file to s3
                         strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                             (strFilePath,
-                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value );
+                            Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_File_ThirdKnowledgeRemoteDirectory].Value);
 
                         TDQueryModel oQueryToCreate = new TDQueryModel()
                         {
@@ -556,7 +566,7 @@ namespace MarketPlace.Web.ControllersApi
                                             RelatedPeriodModel.FirstOrDefault().PeriodPublicId, IdentificationNumber, Name, oQueryToCreate);
 
                             //Init Finally Tuple, Group by ItemGroup Name
-                            List<Tuple<string, List<TDQueryInfoModel>>> Group = new List<Tuple<string, List<TDQueryInfoModel>>>();
+                            List<Tuple<string, List<ThirdKnowledgeViewModel>>> Group = new List<Tuple<string, List<ThirdKnowledgeViewModel>>>();
                             List<string> Item1 = new List<string>();
                             if (oModel.RelatedThidKnowledgeSearch.CollumnsResult != null && oModel.RelatedThidKnowledgeSearch.CollumnsResult.IsSuccess)
                             {
@@ -567,15 +577,18 @@ namespace MarketPlace.Web.ControllersApi
                                 });
                                 Item1 = Item1.GroupBy(x => x).Select(grp => grp.Last()).ToList();
 
-                                List<TDQueryInfoModel> oItem2 = new List<TDQueryInfoModel>();
-                                Tuple<string, List<TDQueryInfoModel>> oTupleItem = new Tuple<string, List<TDQueryInfoModel>>("", new List<TDQueryInfoModel>());
+                                List<ThirdKnowledgeViewModel> oItem2 = new List<ThirdKnowledgeViewModel>();
+                                Tuple<string, List<ThirdKnowledgeViewModel>> oTupleItem = new Tuple<string, List<ThirdKnowledgeViewModel>>("", new List<ThirdKnowledgeViewModel>());
 
                                 Item1.All(x =>
                                 {
                                     if (oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)) != null)
                                     {
-                                        oItem2 = oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td).ToList();
-                                        oTupleItem = new Tuple<string, List<TDQueryInfoModel>>(x, oItem2);
+                                        oItem2 = new List<ThirdKnowledgeViewModel>();
+                                        oItem2.Add(new ThirdKnowledgeViewModel(oModel.RelatedThidKnowledgeSearch.CollumnsResult.
+                                                                                         RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).
+                                                                                         Select(td => td.DetailInfo).FirstOrDefault())); // new ThirdKnowledgeViewModel(oModel.RelatedThidKnowledgeSearch.CollumnsResult.RelatedQueryBasicInfoModel.Where(td => td.DetailInfo.Any(inf => inf.Value == x)).Select(td => td.DetailInfo).ToList();
+                                        oTupleItem = new Tuple<string, List<ThirdKnowledgeViewModel>>(x, oItem2);
                                         Group.Add(oTupleItem);
                                     }
                                     return true;
