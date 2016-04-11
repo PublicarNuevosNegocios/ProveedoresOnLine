@@ -305,10 +305,10 @@
 .SurveyFilterDate {
 }
 
-#SurveySearch_Order {
+/*#SurveySearch_Order {
     width: 100% !important;
     max-width: 325px !important;
-}
+}*/
 
 .POMPFilterBox {
     width: 163px;
@@ -321,11 +321,11 @@
     margin-top: 20px;
 }
 
-#POMPButtonSurveryNewEvaluation {
+/*#POMPButtonSurveryNewEvaluation {
     position: absolute;
     bottom: 0;
     right: 0;
-}
+}*/
 
 
 

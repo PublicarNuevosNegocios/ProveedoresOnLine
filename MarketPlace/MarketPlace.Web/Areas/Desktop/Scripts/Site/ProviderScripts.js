@@ -651,10 +651,12 @@ var Provider_TrackingObject = {
 var Provider_SurveySearchObject = {
     ObjectId: '',
     SearchUrl: '',
+    DateFormat: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
+        this.DateFormat = vInitObject.DateFormat;
     },
 
     RenderAsync: function () {
@@ -666,6 +668,16 @@ var Provider_SurveySearchObject = {
         });
         $('#' + Provider_SurveySearchObject.ObjectId + '_FilterId').click(function () {
             Provider_SurveySearchObject.Filter(null);
+        });
+
+        //init startdate datepicker
+        $('#' + Provider_SurveySearchObject.ObjectId + '_InitDateId').kendoDatePicker({
+            format: Provider_SurveySearchObject.DateFormat,
+        });
+
+        //init enddate datepicker
+        $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').kendoDatePicker({
+            format: Provider_SurveySearchObject.DateFormat,
         });
     },
 
