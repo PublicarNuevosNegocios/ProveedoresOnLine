@@ -31,8 +31,8 @@
                 foreach (var subItem in col.Item2)
                 {
                     <div class="row POMPBorderbottom">
-                        <div class="col-sm-4 POMPProviderBoxInfo text-left"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.RequestName).Select(x => x.Value).FirstOrDefault()</p></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo text-left"><p>@subItem.DetailInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).FirstOrDefault()</p></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo text-left"><p>@subItem.RequestName</p></div>
+                        <div class="col-sm-4 POMPProviderBoxInfo text-left"><p>@subItem.IdNumberRequest</p></div>
                         <div class="col-sm-4 POMPProviderBoxInfo text-right">
                             <p>
                                 <a href="@(Url.RouteUrl
@@ -69,21 +69,26 @@
                 <br />
                 <div class="row">
                     <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Prioridad</strong></div>
-                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Estado</strong></div>
-                    <div class="col-sm-4 POMPProviderBoxInfo text-center"><strong>Nombre</strong></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Identificación</strong></div>
-                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Alias</strong></div>
+                    <div class="col-sm-3 POMPProviderBoxInfo text-center"><strong>Nom. Consultado</strong></div>
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Id.Consulta</strong></div>
+                    <div class="col-sm-3 POMPProviderBoxInfo text-center"><strong>Nom. Encontrado</strong></div>
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"><strong>Id.Encontrada</strong></div>
+                    <div class="col-sm-2 POMPProviderBoxInfo text-center"><strong>Nombre Lista</strong></div>
+                    <div class="col-sm-1 POMPProviderBoxInfo text-center"></div>
                 </div>
                 <br />
                 foreach (var subItem in col.Item2)
                 {
                     <div class="row POMPBorderbottom">
                         <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.Priority</p></div>
-                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@(subItem.Status != null && subItem.Status.ToLower() == "true" ? "Activo" : "Inactivo")</p></div>
-                        <div class="col-sm-4 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
-                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationResult</p></div>
-                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.Alias</p></div>
-                        <div class="col-sm-2 POMPProviderBoxInfo text-center">
+                        <div class="col-sm-3 POMPProviderBoxInfo text-center"><p>@subItem.RequestName</p></div>
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.IdNumberRequest</p></div>
+                        <div class="col-sm-3 POMPProviderBoxInfo text-center"><p>@subItem.NameResult</p></div>
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center"><p>@subItem.IdentificationNumberResult</p></div>
+                        <div class="col-sm-2 POMPProviderBoxInfo text-center"><p>@subItem.ListName</p></div>
+
+
+                        <div class="col-sm-1 POMPProviderBoxInfo text-center">
                             <p>
                                 <a href="@(Url.RouteUrl
                                             (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -101,7 +106,7 @@
                                                             InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd"),
                                                             EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd"),
                                                         })
-                                                }))">Ver Detalle</a>
+                                                }))">Ver_Detalle</a>
                             </p>
                         </div>
                     </div>

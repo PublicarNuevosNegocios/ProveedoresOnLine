@@ -83,6 +83,7 @@ namespace MarketPlace.Models.ThirdKnowledge
 
         public ThirdKnowledgeViewModel(List<TDQueryDetailInfoModel> oDetail)
         {
+            QueryBasicPublicId = oDetail.FirstOrDefault().QueryBasicPublicId;
             RequestName = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.RequestName).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
             IdNumberRequest = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.IdNumberRequest).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();
             QueryId = oDetail.Where(x => x.ItemInfoType.ItemId == (int)enumThirdKnowledgeColls.QueryId).Select(x => x.Value).DefaultIfEmpty("").FirstOrDefault();            
