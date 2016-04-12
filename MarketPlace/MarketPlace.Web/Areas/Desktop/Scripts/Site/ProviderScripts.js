@@ -711,21 +711,7 @@ var Provider_SurveyReports = {
                 },
                 'Generar Reporte': function () {
                     DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').submit();
-                    DialogDiv.dialog("close");
-                    /* $.ajax({
-                         type: "POST",
-                         url: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').attr('action'),
-                         data: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').serialize(),
-                         success: function (result) {
-                             alert(window.location.toString());
-                             DialogDiv.dialog("close");
-                             Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Se ha generado el reporte.', null);//window.location.toString()
-                         },
-                         error: function (result) {
-                             DialogDiv.dialog("close");
-                             Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Ha ocurrido un error generando el reporte', null);
-                         }
-                     });*/
+                    DialogDiv.dialog("close");               
                 }
             }
         });

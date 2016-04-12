@@ -186,7 +186,7 @@ $(document).ready(function () {
 
 var ReportViewerObj = {    
     RenderReportViewer: function (vInitObject) {
-        var Form = '';
+        debugger;
         var cmbToAppend = '<center><span>Formatos disponibles<span>:&nbsp;&nbsp;<select name= "' + vInitObject.ObjectId + '_cmbFormat">';
         $.each(vInitObject.Options, function (item, value)
         {
@@ -199,8 +199,8 @@ var ReportViewerObj = {
         });        
         cmbToAppend += '</select></center>';
         cmbToAppend += '<input type="hidden" name="DownloadReport" id="DownloadReport" value="true" />';
-        Form = $('#' + vInitObject.ObjectId + '_DialogForm').empty();
-        Form = $('#' + vInitObject.ObjectId + '_DialogForm').append(cmbToAppend);
+        $('#' + vInitObject.ObjectId + '_DialogForm').empty();
+        $('#' + vInitObject.ObjectId + '_DialogForm').append(cmbToAppend);
         $('#' + vInitObject.ObjectId + '_Dialog').dialog({
             title:vInitObject.Tittle,
             modal: true,

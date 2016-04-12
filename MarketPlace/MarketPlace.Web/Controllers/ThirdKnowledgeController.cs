@@ -237,6 +237,9 @@ namespace MarketPlace.Web.Controllers
             if (Request["DownloadReport"] == "true")
                 oTotalRowsAux = 10000;
 
+            if (!string.IsNullOrEmpty(Request["ThirdKnowledge_FormQueryPublicId"]))
+                QueryPublicId = Request["ThirdKnowledge_FormQueryPublicId"];
+            
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             oModel.RelatedThidKnowledgeSearch.ThirdKnowledgeResult = new List<TDQueryModel>();

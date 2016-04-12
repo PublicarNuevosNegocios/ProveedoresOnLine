@@ -25,13 +25,17 @@ var Third_KnowledgeSimpleSearchObject = {
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
                 success: function (result) {
+                    debugger;                   
+                    //Set param to send report
+                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_FormQueryPublicId').val(result.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId);
+                    $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_showreport').show();                    
+
                     Third_KnowledgeSimpleSearchObject.Loading_Generic_Hidden();
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_DivResult').html('')
                     var tittlestDiv = '';
                     var resultDiv = '';
                     if (result.RelatedSingleSearch != null && result.RelatedSingleSearch.length > 0) {
-                        $.each(result.RelatedSingleSearch, function (item, value) {
-                            debugger;
+                        $.each(result.RelatedSingleSearch, function (item, value) {                            
                             if (value.m_Item1 == "SIN COINCIDENCIAS") {
                                 resultDiv = '';
                                 resultDiv += '<div class="row">' +
@@ -44,7 +48,6 @@ var Third_KnowledgeSimpleSearchObject = {
                                 '</div><br />';
                                 resultDiv += '<div class="row POMPBorderbottom">';
                                 $.each(value.m_Item2, function (item, value) {
-
                                     resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
                                     resultDiv += value.RequestName + '</p></div>';
                                     resultDiv += '<div class="col-sm-4 POMPProviderBoxInfo text-left"><p>';
@@ -299,5 +302,38 @@ var Third_KnowledgeSearch = {
                 Dialog_ShowMessage("Error", "Ocurrió un problema al realizar la consulta, por favor verifique su conexión a internet.", window.location.href);
             },
         })
+    }
+}
+
+var ThirdKnowledge_ReportViewerObj = {    
+    RenderReportViewer: function (vInitObject) {
+        debugger;
+        var cmbToAppend = '<center><span>Formatos disponibles<span>:&nbsp;&nbsp;<select name= "' + vInitObject.ObjectId + '_cmbFormat">';
+        $.each(vInitObject.Options, function (item, value) {
+            if (value == "EXCEL" || value == "Excel") {
+                cmbToAppend += '<option value="Excel">' + value + '</option>';
+            }
+            else if (value == "Pdf" || value == "PDF") {
+                cmbToAppend += ' <option value="pdf">' + value + '</option>';
+            }
+        });
+        cmbToAppend += '</select></center>';
+        cmbToAppend += '<input type="hidden" name="DownloadReport" id="DownloadReport" value="true" />';
+
+        var QueryPublicId = $('#ThirdKnowledge_FormQueryPublicId').val();
+        cmbToAppend += '<input type="hidden" name="ThirdKnowledge_FormQueryPublicId" id="ThirdKnowledge_QueryPublicId" value="' + QueryPublicId + '" />';        
+        
+        $('#' + vInitObject.ObjectId + '_DialogForm').empty();
+        $('#' + vInitObject.ObjectId + '_DialogForm').append(cmbToAppend);
+        $('#' + vInitObject.ObjectId + '_Dialog').dialog({
+            title: vInitObject.Tittle,
+            modal: true,
+            buttons: {
+                'Descargar': function () {
+                    $('#' + vInitObject.ObjectId + '_DialogForm').submit();
+                    $(this).dialog("close");
+                }
+            }
+        });
     }
 }
