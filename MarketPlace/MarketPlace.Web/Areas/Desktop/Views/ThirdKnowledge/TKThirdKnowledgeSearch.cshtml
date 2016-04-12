@@ -39,129 +39,101 @@
                 </div>
                 <br />
             }
-            <div class="row text-center POMPTKSearchContainer">
-                @if (
-                            Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult != null &&
-                            Model.RelatedThidKnowledgeSearch.ThirdKnowledgeResult.Count > 0 &&
-                            Model.RelatedThidKnowledgeSearch.InitDate.ToString("dd/MM/yyyy") != "01/01/0001" &&
-                            Model.RelatedThidKnowledgeSearch.EndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+            @{ 
+                string initDate = "";
+                string endDate = "";
+                if (Request.Params["InitDate"] != null)
                 {
-                    var InitDate = Model.RelatedThidKnowledgeSearch.InitDate.ToString("yyyy-MM-dd");
-                    var EndDate = Model.RelatedThidKnowledgeSearch.EndDate.ToString("yyyy-MM-dd");
-                    <div class="col-sm-3 text-right POMPTKDateInit">
-                        <span>Desde:</span>
-                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="form-control POMPTKDateInputText" value="@InitDate" />
-                    </div>
-                    <div class="col-sm-1 POMPTKtoText">
-
-                    </div>
-                    <div class="col-sm-3 text-left POMPTKDateEnd">
-                        <span>Hasta:</span>
-                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="form-control POMPTKDateInputText" value="@EndDate" />
-                    </div>
+                    initDate = Request.Params["InitDate"];
                 }
-                else
+                if (Request.Params["EndDate"] != null)
                 {
-                    string initDate = "";
-                    string endDate = "";
-                    if (Request.Params["InitDate"] != null)
-                    {
-                        initDate = Request.Params["InitDate"];
-                    }
-                    if (Request.Params["EndDate"] != null)
-                    {
-                        endDate = Request.Params["EndDate"];
-                    }
-
-                    <div class="col-sm-1 POMPTKfromText">
-                        <span>Desde:</span>
-                    </div>
-                    <div class="col-sm-3 POMPTKDateInit">
-                        <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="form-control POMPTKDateInputText" value="@initDate" />
-                    </div>
-                    <div class="col-sm-1 POMPTKtoText">
-                        <span>Hasta:</span>
-                    </div>
-                    <div class="col-sm-3 POMPTKDateEnd">
-                        <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="form-control POMPTKDateInputText" value="@endDate" />
-                    </div>
+                    endDate = Request.Params["EndDate"];
                 }
-                @*genero por request*@
-                @{
-                    <div class="col-sm-1 POMPTKCmbTypeText">
-                        <span>Tipo:</span>
-                    </div>
-                    string selected_masive = "";
-                    string selected_single = "";
-                    string selected_single_tpy = "";
-                    string selected_option_sts = "";
-                    if (Request.Params["SearchType"] != null)
-                    {
-                        switch (Request.Params["SearchType"])
+            }
+
+            <div class="row POMPTKSearchContainer">
+                <div class="col-sm-3 TKSearchRow">
+                    <span>Desde:</span>
+                    <br />
+                    <input type="date" name="ThirdKnoledge_InitDate" id="ThirdKnowledge_InitDateId" class="form-control" value="@initDate" />
+                </div>
+                <div class="col-sm-3 TKSearchRow">
+                    <span>Hasta:</span>
+                    <br />
+                    <input type="date" name="ThirdKnowledge_EndDate" id="ThirdKnowledge_EndDateId" class="form-control" value="@endDate" />
+                </div>
+                <div class="col-sm-2 TKSearchRow">
+                    <span>Tipo:</span>
+                    <br />
+                    @{ 
+                        string selected_masive = "";
+                        string selected_single = "";
+                        string selected_single_tpy = "";
+                        string selected_option_sts = "";
+                        if (Request.Params["SearchType"] != null)
                         {
-                            case "":
-                                selected_single_tpy = "selected";
-                                break;
-                            case "201001":
-                                selected_single = "selected";
-                                break;
-                            case "201002":
-                                selected_masive = "selected";
-                                break;
+                            switch (Request.Params["SearchType"])
+                            {
+                                case "":
+                                    selected_single_tpy = "selected";
+                                    break;
+                                case "201001":
+                                    selected_single = "selected";
+                                    break;
+                                case "201002":
+                                    selected_masive = "selected";
+                                    break;
+                            }
                         }
                     }
-                    <div class="col-sm-2 POMPTKCmbType">
-                        <select id="ThirdKnowledge_QueryType" class="form-control">
-                            <option value="" @selected_single_tpy>Seleccionar</option>
-                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple)" @selected_single>Individual</option>
-                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive)" @selected_masive>Masiva</option>
+                    <select id="ThirdKnowledge_QueryType" class="form-control">
+                        <option value="" @selected_single_tpy>Seleccionar</option>
+                        <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Simple)" @selected_single>Individual</option>
+                        <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryType.Masive)" @selected_masive>Masiva</option>
 
-                        </select>
-                    </div>
-
-                    <div class="col-sm-1 POMPTKCmbStatusText">
-                        <span>Estado:</span>
-                    </div>
-                    selected_masive = "";
-                    selected_single = "";
-                    selected_single_tpy = "";
-                    selected_option_sts = "";
-                    if (Request.Params["Status"] != null)
-                    {
-                        switch (Request.Params["Status"])
+                    </select>
+                </div>
+                <div class="col-sm-2 TKSearchRow">
+                    <span>Estado:</span>
+                    @{ 
+                        selected_masive = "";
+                        selected_single = "";
+                        selected_single_tpy = "";
+                        selected_option_sts = "";
+                        if (Request.Params["Status"] != null)
                         {
-                            case "":
-                                selected_option_sts = "selected";
-                                break;
-                            case "501001":
-                                selected_single = "selected";
-                                break;
-                            case "501002":
-                                selected_masive = "selected";
-                                break;
+                            switch (Request.Params["Status"])
+                            {
+                                case "":
+                                    selected_option_sts = "selected";
+                                    break;
+                                case "501001":
+                                    selected_single = "selected";
+                                    break;
+                                case "501002":
+                                    selected_masive = "selected";
+                                    break;
+                            }
                         }
                     }
-                    <div class="col-sm-3 POMPTKCmbStatus">
-
-                        <select id="ThirdKnowledge_QueryStatus" class="form-control">
-                            <option value="" @selected_option_sts>Seleccionar</option>
-                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)" @selected_single>Finalizada</option>
-                            <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.InProcess)" @selected_masive>En Progreso</option>
-                        </select>
-                    </div>
-                }
-                <div class="col-sm-1 POMPTKSButtonPosition">
-                    <input class="POMPButtons POMPTKSearchButton" type="button" name="ThirdKnowledge_FilterId" id="ThirdKnowledge_FilterId" value="Filtrar" />
+                    <select id="ThirdKnowledge_QueryStatus" class="form-control">
+                        <option value="" @selected_option_sts>Seleccionar</option>
+                        <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.Finalized)" @selected_single>Finalizada</option>
+                        <option value="@((int)MarketPlace.Models.General.enumThirdKnowledgeQueryStatus.InProcess)" @selected_masive>En Progreso</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 TKSearchRow">
+                    <input class="TKSearchButton" type="button" name="ThirdKnowledge_FilterId" id="ThirdKnowledge_FilterId" value="Filtrar" />
                 </div>
             </div>
-
             <div class="row POMPSearchResultsPager POMPTKSearchPager">
                 <div class="col-sm-12 text-right">
                     <!--Pager-->
                     @Html.Partial(MVC.Desktop.Shared.Views._TK_ThirdKnowledgeSearch_Pager, Model.RelatedThidKnowledgeSearch)&nbsp;|&nbsp;
                     <span class="POMPTKTotalPagesText">Total Páginas: @(Model.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.TotalPages)</span>
                 </div>
-           </div>
+            </div>
             @Html.Partial(MVC.Desktop.Shared.Views._TK_Search_Result_Item, Model)
             <br />
             <div class="row text-left POMPSearchResultsPager">
@@ -197,5 +169,5 @@
             });
             Third_KnowledgeSearch.RenderAsync();
         });
-</script>
+    </script>
 }

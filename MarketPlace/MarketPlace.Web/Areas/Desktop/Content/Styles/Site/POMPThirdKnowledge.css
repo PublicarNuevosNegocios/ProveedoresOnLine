@@ -172,7 +172,7 @@
         color: #fff;
     }
 
-#ThirdKnowledge_InitDateId {
+/*#ThirdKnowledge_InitDateId {
     width: 100%;
     border-radius: 0;
     padding-left: 20px;
@@ -184,7 +184,7 @@
     border-radius: 0;
     padding-left: 20px;
     margin: 10px 0 0 2%;
-}
+}*/
 
 .ThirdKnowledge_Detail {
     font-weight: lighter;
@@ -377,7 +377,7 @@
 
 .POMPTKSearchContainer {
     background-color: #ececec;
-    height: 55px;
+    /*height: 55px;*/
 }
 
 .POMPTKfromText {
@@ -450,7 +450,7 @@
 }
 
 .ThirdKnowledgeButtom {
-        background-color: #ff8300;
+    background-color: #ff8300;
     font-size: 1.1em;
     letter-spacing: -0.5px;
     color: #fff;
@@ -471,4 +471,18 @@
     height: 34px;
     width: 100%;
     padding: 5% 0px 0px 7%;
+}
+
+.TKSearchButton {
+    background: #ff8300;
+    height: 32px;
+    text-transform: uppercase;
+    margin: 15% 0px 0px 0px;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+}
+
+.TKSearchRow {
+    margin: 10px 0px 15px 0px;
 }
