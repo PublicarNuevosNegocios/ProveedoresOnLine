@@ -28,48 +28,53 @@
     }
 
     <form id="ThirdKnowledge_Form" action="@Url.Content("~/api/ThirdKnowledgeApi?TKSingleSearch=true")" method="post">
-        <div class="container-fluid POMPTKDetailContainer">
-            @if (!string.IsNullOrEmpty(Model.RelatedThirdKnowledge.SearchNameParam))
-            {
-                <input type="text" class="POMPNameSearch" name="Name" value="@Model.RelatedThirdKnowledge.SearchNameParam" placeholder="Buscar por Nombre y Apellidos" />
-            }
-            else
-            {
-                <input type="text" class="POMPNameSearch" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
-            }
-            @if (!string.IsNullOrEmpty(Model.RelatedThirdKnowledge.SearchIdNumberParam))
-            {
-                <input type="text" class="POMPIDSearch" name="IdentificationNumber" value="@Model.RelatedThirdKnowledge.SearchIdNumberParam" placeholder="Buscar por Número de identificación" />
-            }
-            else
-            {
-                <input type="text" class="POMPIDSearch" name="IdentificationNumber" value="" placeholder="Buscar por Número de identificación" />
-            }
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    @if (!string.IsNullOrEmpty(Model.RelatedThirdKnowledge.SearchNameParam))
+                    {
+                        <input class="ThirdKnowledgeSeachBox" type="text" name="Name" value="@Model.RelatedThirdKnowledge.SearchNameParam" placeholder="Buscar por Nombre y Apellidos" />
+                    }
+                    else
+                    {
+                        <input class="ThirdKnowledgeSeachBox" type="text" name="Name" value="" placeholder="Buscar por Nombre y Apellidos" />
+                    }
+                </div>
+                <div class="col-sm-4">
+                    @if (!string.IsNullOrEmpty(Model.RelatedThirdKnowledge.SearchIdNumberParam))
+                    {
+                        <input class="ThirdKnowledgeSeachBox" type="text" name="IdentificationNumber" value="@Model.RelatedThirdKnowledge.SearchIdNumberParam" placeholder="Buscar por Número de identificación" />
+                    }
+                    else
+                    {
+                        <input class="ThirdKnowledgeSeachBox" type="text" name="IdentificationNumber" value="" placeholder="Buscar por Número de identificación" />
+                    }
+                </div>
+                @{
+                    if (Model.RelatedThirdKnowledge.HasPlan)
+                    {
+                        <div class="col-sm-2">
+                            <a class="ThirdKnowledgeButtom" href="javascript:Third_KnowledgeSimpleSearchObject.SimpleSearch();">Consultar</a>
+                        </div>
+
+
+                        List<int> oCurrentReport = MarketPlace.Models.General.SessionModel.CurrentReport();
+
+                        <div class="col-sm-2" style="display:none" id="ThirdKnowledge_showreport" name="ThirdKnowledge_showreport">
+                            @if (oCurrentReport.Any(x => x == (int)MarketPlace.Models.General.enumReports.TKReport))
+                            {
+                                <a class="ThirdKnowledgeButtomReport" id="ThirdKnowledge_GenerateReport" name="ThirdKnowledge_GenerateReport" title="Generar Reporte"
+                                   href="javascript:ThirdKnowledge_ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <label>Usted no tiene ningún plan habilitado, Por favor comuniquese con nosotros al Tel: 6465555 Ext: 16602</label>
+                    }
+                }
+            </div>
             <input type="hidden" name="UpsertRequest" value="true" />
-            @{
-                if (Model.RelatedThirdKnowledge.HasPlan)
-                {
-                    <a class="POMPButtons" href="javascript:Third_KnowledgeSimpleSearchObject.SimpleSearch();">Consultar</a>
-
-                    List<int> oCurrentReport = MarketPlace.Models.General.SessionModel.CurrentReport();
-
-                    <div class="" style="display:none" id="ThirdKnowledge_showreport" name="ThirdKnowledge_showreport">
-                        @if (oCurrentReport.Any(x => x == (int)MarketPlace.Models.General.enumReports.TKReport))
-                        {
-                            <div class="row text-center">
-                                @{
-                                    <a id="ThirdKnowledge_GenerateReport" name="ThirdKnowledge_GenerateReport" class="POMPButtons" title="Generar Reporte"
-                                       href="javascript:ThirdKnowledge_ReportViewerObj.RenderReportViewer({Options:['@MarketPlace.Models.General.enumCategoryInfoType.PDF.ToString()','@MarketPlace.Models.General.enumCategoryInfoType.Excel.ToString()'],ObjectId:'ThirdKnowledge',Tittle:'Reporte General'})">Generar Reporte</a>
-                                }
-                            </div>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <label>Usted no tiene ningún plan habilitado, Por favor comuniquese con nosotros al Tel: 6465555 Ext: 16602</label>
-                }
-            }
         </div>
         <div class="">
             <div id="ThirdKnowledge_DivResult" class="POMPProviderInfoMultipleValues"></div>
@@ -87,16 +92,14 @@
 
 <input type="hidden" name="ThirdKnowledge_FormQueryPublicId" id="ThirdKnowledge_FormQueryPublicId" value="" />
 @* Report Viewer*@
-@{    
+@{
     <div id="ThirdKnowledge_Dialog">
         <form id="ThirdKnowledge_DialogForm" action="@Url.Action(MVC.ThirdKnowledge.ActionNames.TKThirdKnowledgeDetail,MVC.ThirdKnowledge.Name,new
         {
             QueryPublicId = "",
             InitDate = DateTime.Now,
             EndDate = DateTime.Now,
-        })" method="post">
-            
-        </form>
+        })" method="post"></form>
     </div>
 }
 <script type="text/javascript">
