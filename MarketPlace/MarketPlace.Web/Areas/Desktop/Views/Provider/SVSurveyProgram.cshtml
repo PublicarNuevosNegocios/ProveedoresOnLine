@@ -82,38 +82,38 @@
                                         <div id="Survey_ProgramSurvey_EvaluatorDiv">
                                             <ul>
                                                 @{
-                                        List<Tuple<string, string, int>> AreaEvaluatorsObjs = new List<Tuple<string, string, int>>();
-                                        foreach (ProveedoresOnLine.Company.Models.Util.GenericItemModel areas in Model.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem)
-                                        {
-                                            if (areas.ItemType.ItemId == 1202001)
-                                            {
-                                                var val = areas.ItemName;
-                                            }
-                                            /* areas.ItemId
+                                                    List<Tuple<string, string, int>> AreaEvaluatorsObjs = new List<Tuple<string, string, int>>();
+                                                    foreach (ProveedoresOnLine.Company.Models.Util.GenericItemModel areas in Model.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem)
+                                                    {
+                                                        if (areas.ItemType.ItemId == 1202001)
+                                                        {
+                                                            var val = areas.ItemName;
+                                                        }
+                                                        /* areas.ItemId
 
-                                            // codigo de areas.
+                                                        // codigo de areas.
 
-                                             if (areas.ItemType.ItemId == 1202001) {
-                                                 foreach (ProveedoresOnLine.SurveyModule.Models.SurveyModel item in Model.RelatedSurvey.RelatedSurvey.ChildSurvey)
-                                                 {
-                                                     string area = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == areas.ItemType.ItemId).Select(y => y.ItemName).FirstOrDefault();
-                                                     AreaEvaluatorsObjs.Add(new Tuple<string, string, int>(area, item.User, 1));
-                                                 }
-                                             }*/
-                                        }
+                                                         if (areas.ItemType.ItemId == 1202001) {
+                                                             foreach (ProveedoresOnLine.SurveyModule.Models.SurveyModel item in Model.RelatedSurvey.RelatedSurvey.ChildSurvey)
+                                                             {
+                                                                 string area = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == areas.ItemType.ItemId).Select(y => y.ItemName).FirstOrDefault();
+                                                                 AreaEvaluatorsObjs.Add(new Tuple<string, string, int>(area, item.User, 1));
+                                                             }
+                                                         }*/
+                                                    }
 
-                                        /*
-                                        foreach (ProveedoresOnLine.SurveyModule.Models.SurveyModel item in Model.RelatedSurvey.RelatedSurvey.ChildSurvey)
-                                         {
-                                            string area = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202001).Select(y => y.ItemName).FirstOrDefault();
-                                            var infoRol = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == 90).FirstOrDefault();
-                                            int rol = int.Parse(infoRol.ItemInfo.Where(x => x.ItemInfoId == 239).Select(y => y.Value).FirstOrDefault());
-                                            AreaEvaluatorsObjs.Add(new Tuple<string, string, int>(area, item.User, rol));
-                                            ////var areas = new ProveedoresOnLine.Company.Models.Util.CatalogModel();
+                                                    /*
+                                                    foreach (ProveedoresOnLine.SurveyModule.Models.SurveyModel item in Model.RelatedSurvey.RelatedSurvey.ChildSurvey)
+                                                     {
+                                                        string area = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202001).Select(y => y.ItemName).FirstOrDefault();
+                                                        var infoRol = item.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == 90).FirstOrDefault();
+                                                        int rol = int.Parse(infoRol.ItemInfo.Where(x => x.ItemInfoId == 239).Select(y => y.Value).FirstOrDefault());
+                                                        AreaEvaluatorsObjs.Add(new Tuple<string, string, int>(area, item.User, rol));
+                                                        ////var areas = new ProveedoresOnLine.Company.Models.Util.CatalogModel();
 
-                                         }
-                                         * */
-                                        var o = AreaEvaluatorsObjs;
+                                                     }
+                                                     * */
+                                                    var o = AreaEvaluatorsObjs;
                                                 }
 
                                             </ul>
