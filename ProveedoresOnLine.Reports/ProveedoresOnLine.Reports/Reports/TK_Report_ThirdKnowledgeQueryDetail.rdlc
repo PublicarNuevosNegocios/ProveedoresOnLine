@@ -277,7 +277,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=IIF(Parameters!Offence.Value = "--", "SIN COINCIDECIAS" , Parameters!Offence.Value)</Value>
+                    <Value>=IIF(Parameters!Offence.Value = "--", "SIN COINCIDENCIAS" , Parameters!Offence.Value)</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                       <FontSize>9pt</FontSize>
