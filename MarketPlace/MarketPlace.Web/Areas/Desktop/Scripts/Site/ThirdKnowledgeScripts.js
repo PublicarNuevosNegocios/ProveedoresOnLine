@@ -24,7 +24,7 @@ var Third_KnowledgeSimpleSearchObject = {
                 type: "POST",
                 url: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').attr('action'),
                 data: $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_Form').serialize(),
-                success: function (result) {                                
+                success: function (result) {                    
                     //Set param to send report
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_FormQueryPublicId').val(result.RelatedThidKnowledgeSearch.CollumnsResult.QueryPublicId);
                     $('#' + Third_KnowledgeSimpleSearchObject.ObjectId + '_showreport').show();                    

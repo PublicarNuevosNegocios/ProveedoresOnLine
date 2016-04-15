@@ -492,8 +492,8 @@ namespace MarketPlace.Web.Controllers
                         row_snc = data_snc.NewRow();
                         row_snc["IdentificationSearch"] = y.IdNumberRequest; // SearchId Param
                         row_snc["NameSearch"] = y.NameResult; // SearchName Param
-                        row_snc["IdentificationResult"] = y.IdentificationNumberResult;
-                        row_snc["NameResult"] = y.NameResult;
+                        row_snc["IdentificationResult"] = y.IdNumberRequest;
+                        row_snc["NameResult"] = y.RequestName;
 
                         data_snc.Rows.Add(row_snc);
                         return true;

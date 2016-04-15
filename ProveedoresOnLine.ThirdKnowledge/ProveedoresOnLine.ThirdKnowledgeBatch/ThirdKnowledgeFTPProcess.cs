@@ -416,7 +416,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
 
                     //Exclude Coincidences
                     List<ExcelModel> oExclude = null;
-                    if (oCoincidences != null)
+                    if (oCoincidences != null && oCoincidences.Count > 0)
                     {
                         oExclude = new List<ExcelModel>();
                         oCoincidences.All(x =>

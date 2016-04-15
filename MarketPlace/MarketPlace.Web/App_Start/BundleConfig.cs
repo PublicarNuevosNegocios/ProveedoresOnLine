@@ -57,10 +57,7 @@ namespace MarketPlace.Web
 
                     #region site scripts
 
-                    bundles.Add(new ScriptBundle("~/site/scripts").IncludeDirectory(
-                              "~/Areas/" + MarketPlace.Models.General.AreaModel.CurrentAreaName + "/Scripts/Site",
-                              "*.js",
-                              true));
+                    bundles.Add(new ScriptBundle("~/site/scripts").IncludeDirectory("~/Areas/" + MarketPlace.Models.General.AreaModel.CurrentAreaName + "/Scripts/Site", "*.js", true));                    
 
                     #endregion
 
