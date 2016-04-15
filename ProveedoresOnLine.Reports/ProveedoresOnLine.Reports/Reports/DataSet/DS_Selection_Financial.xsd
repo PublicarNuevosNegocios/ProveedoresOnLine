@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_Selection_Financial" targetNamespace="http://tempuri.org/DS_Selection_Financial.xsd" xmlns:mstns="http://tempuri.org/DS_Selection_Financial.xsd" xmlns="http://tempuri.org/DS_Selection_Financial.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_Selection_Financial" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_Selection_Financial" msprop:Generator_UserDSName="DS_Selection_Financial">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DS_Selection_Financial" msprop:Generator_TableClassName="DS_Selection_FinancialDataTable" msprop:Generator_TableVarName="tableDS_Selection_Financial" msprop:Generator_RowChangedName="DS_Selection_FinancialRowChanged" msprop:Generator_TablePropName="_DS_Selection_Financial" msprop:Generator_RowDeletingName="DS_Selection_FinancialRowDeleting" msprop:Generator_RowChangingName="DS_Selection_FinancialRowChanging" msprop:Generator_RowEvHandlerName="DS_Selection_FinancialRowChangeEventHandler" msprop:Generator_RowDeletedName="DS_Selection_FinancialRowDeleted" msprop:Generator_RowClassName="DS_Selection_FinancialRow" msprop:Generator_UserTableName="DS_Selection_Financial" msprop:Generator_RowEvArgName="DS_Selection_FinancialRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Criterio" msprop:Generator_ColumnVarNameInTable="columnCriterio" msprop:Generator_ColumnPropNameInRow="Criterio" msprop:Generator_ColumnPropNameInTable="CriterioColumn" msprop:Generator_UserColumnName="Criterio" type="xs:string" minOccurs="0" />
+              <xs:element name="Peso" msprop:Generator_ColumnVarNameInTable="columnPeso" msprop:Generator_ColumnPropNameInRow="Peso" msprop:Generator_ColumnPropNameInTable="PesoColumn" msprop:Generator_UserColumnName="Peso" type="xs:string" minOccurs="0" />
+              <xs:element name="Resultado" msprop:Generator_ColumnVarNameInTable="columnResultado" msprop:Generator_ColumnPropNameInRow="Resultado" msprop:Generator_ColumnPropNameInTable="ResultadoColumn" msprop:Generator_UserColumnName="Resultado" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

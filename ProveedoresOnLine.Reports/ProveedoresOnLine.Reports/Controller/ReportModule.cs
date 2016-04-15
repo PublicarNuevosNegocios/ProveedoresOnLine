@@ -129,7 +129,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #endregion ReportSurveyEvaluatorDetail
 
-        #region Gerencial Report        
+        #region Gerencial Report
         public static Tuple<byte[], string, string> CP_GerencialReport(string FormatType, DataTable data, DataTable data2, DataTable data3, List<ReportParameter> ReportData, string FilePath)
         {
             LocalReport localReport = new LocalReport();
@@ -277,17 +277,37 @@ namespace ProveedoresOnLine.Reports.Controller
         }
 
 
-        public static Tuple<byte[], string, string> PJ_SelectionProcessReportDetail(DataTable data, List<ReportParameter> ReportData, string FormatType, string FilePath)
+        public static Tuple<byte[], string, string> PJ_SelectionProcessReportDetail(DataTable DtHSEQ, DataTable DtExperiences, DataTable DtFinancial, DataTable DtLegal, DataTable DtTotal, List<ReportParameter> ReportData, string FormatType, string FilePath)
         {
             LocalReport localReport = new LocalReport();
             localReport.EnableExternalImages = true;
             localReport.ReportPath = @"" + FilePath + "PJ_Report_SelectionProcessDetail.rdlc";
             localReport.SetParameters(ReportData);
 
-            ReportDataSource source = new ReportDataSource();
-            source.Name = "DS_SelectionProcessReportDetail";
-            source.Value = data != null ? data : new DataTable();
-            localReport.DataSources.Add(source);
+            ReportDataSource sourceDtHSEQ = new ReportDataSource();
+            sourceDtHSEQ.Name = "DS_Selection_HSEQ";
+            sourceDtHSEQ.Value = DtHSEQ != null ? DtHSEQ : new DataTable();
+            localReport.DataSources.Add(sourceDtHSEQ);
+
+            ReportDataSource sourceDtExperiences = new ReportDataSource();
+            sourceDtExperiences.Name = "DS_Selection_Experience";
+            sourceDtExperiences.Value = DtExperiences != null ? DtExperiences : new DataTable();
+            localReport.DataSources.Add(sourceDtExperiences);
+
+            ReportDataSource sourceDtFinancial = new ReportDataSource();
+            sourceDtFinancial.Name = "DS_Selection_Financial";
+            sourceDtFinancial.Value = DtFinancial != null ? DtFinancial : new DataTable();
+            localReport.DataSources.Add(sourceDtFinancial);
+
+            ReportDataSource sourceDtLegal = new ReportDataSource();
+            sourceDtLegal.Name = "DS_Selection_Legal";
+            sourceDtLegal.Value = DtLegal != null ? DtLegal : new DataTable();
+            localReport.DataSources.Add(sourceDtLegal);
+
+            ReportDataSource sourceDtTotal = new ReportDataSource();
+            sourceDtTotal.Name = "DS_Selection_TotalArea";
+            sourceDtTotal.Value = DtTotal != null ? DtTotal : new DataTable();
+            localReport.DataSources.Add(sourceDtTotal);
 
             string mimeType;
             string encoding;

@@ -150,6 +150,9 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("currentCompanyTypeId", SessionModel.CurrentCompany.IdentificationType.ItemName.ToString()));
                 parameters.Add(new ReportParameter("currentCompanyId", SessionModel.CurrentCompany.IdentificationNumber.ToString()));
                 parameters.Add(new ReportParameter("currentCompanyLogo", SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203005).Select(y => y.Value).FirstOrDefault().ToString()));
+                //ProviderInfo
+                parameters.Add(new ReportParameter("ProviderName", oModel.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+                parameters.Add(new ReportParameter("ProviderIdentification", oModel.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName + " " + oModel.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
                 //Header
                 parameters.Add(new ReportParameter("PJ_Name", oModel.ProjectName.ToString()));
                 parameters.Add(new ReportParameter("PJ_Type", oModel.RelatedProjectConfig.ProjectConfigName.ToString()));
@@ -158,6 +161,7 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("PJ_MinExperience", oModel.ProjectExperienceQuantity.ToString()));
                 parameters.Add(new ReportParameter("PJ_InternalCodeProcess", oModel.ProjectInternalProcessNumber.ToString()));
                 parameters.Add(new ReportParameter("PJ_YearsExperince", oModel.ProjectExperienceYearsValueName));
+
                 string actividadEconomica = "";
                 if (oModel.ProjectDefaultEconomicActivity != null && oModel.ProjectDefaultEconomicActivity.Count > 0)
                 {
@@ -168,15 +172,16 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                     if (oModel.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
+                {
+                    if (oModel.ProjectCustomEconomicActivity != null && oModel.ProjectCustomEconomicActivity.Count > 0)
                     {
-                        if (oModel.ProjectCustomEconomicActivity != null && oModel.ProjectCustomEconomicActivity.Count > 0)
+                        foreach (var dea in oModel.ProjectCustomEconomicActivity)
                         {
-                            foreach (var dea in oModel.ProjectCustomEconomicActivity)
-                            {
-                                actividadEconomica = dea.ActivityName.ToString();
-                            }
+                            actividadEconomica = dea.ActivityName.ToString();
                         }
                     }
+                }
+
                 parameters.Add(new ReportParameter("PJ_ActivityName", actividadEconomica));
                 string notaAdjudicacion = "";
                 if (oModel.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
@@ -187,139 +192,588 @@ namespace MarketPlace.Web.Controllers
                 {
                     notaAdjudicacion = oModel.ProjectCloseText.ToString();
                 }
+
                 parameters.Add(new ReportParameter("PJ_AdjudicateNote", notaAdjudicacion));
                 parameters.Add(new ReportParameter("PJ_ResponsibleName", oModel.ProjectResponsible.ToString()));
 
                 /*get all areas and get info Area*/
                 List<Models.Project.EvaluationItemViewModel> oEvalItems = oModel.RelatedProjectConfig.GetEvaluationAreas();
 
-                DataTable dtProvidersProject = new DataTable();
-                dtProvidersProject.TableName = "DS_SelectionProcessReportDetail";
-                dtProvidersProject.Columns.Add("Criterio", typeof(string));
-                dtProvidersProject.Columns.Add("Peso", typeof(string));
-                dtProvidersProject.Columns.Add("Resultado", typeof(string));
-                dtProvidersProject.Columns.Add("Total", typeof(string));
+                #region Totales
 
-                oEvalItems.All(Areas => {
-                    /*get detail by area*/
-                    oModel.RelatedProjectConfig.SetCurrentEvaluationArea(Areas.EvaluationItemId);
-                    oAreaRatting = oModel.CurrentProjectProvider.GetRatting(oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+                DataTable DtTotal = new DataTable();
+                DtTotal.TableName = "DS_Selection_TotalArea";
+                DtTotal.Columns.Add("AreaHSEQ", typeof(string));
+                DtTotal.Columns.Add("AreaTecnica", typeof(string));
+                DtTotal.Columns.Add("AreaFinanciera", typeof(string));
+                DtTotal.Columns.Add("AreaLegal", typeof(string));
+                DtTotal.Columns.Add("Total", typeof(string));
 
-                    DataRow rowProvider = dtProvidersProject.NewRow();
-                    rowProvider["Criterio"] = oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName;
-                    rowProvider["Peso"] = oModel.CurrentProjectProvider.GetApprovalTextByArea(Areas.EvaluationItemId);
-                    switch (oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemUnit)
+                Decimal oTotal = 0, oTotalAreas = 0;
+                DataRow oRowTotal = DtTotal.NewRow();
+
+                foreach (var oAreaItem in oEvalItems)
+                {
+                    oRatting = oModel.CurrentProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
+
+                    switch (oAreaItem.EvaluationItemUnit)
                     {
                         case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                            oAreaEvalUnit = "Pasa / No Pasa";
-
-                            if (oAreaRatting >= 100)
+                            oTotalAreas++;
+                            if (oRatting >= 100)
                             {
-                                oAreaEvalResult = "Pasa";
+                                oTotal += oRatting;
+                                oEvalResult = oRatting + "% Pasa";
                             }
                             else
                             {
-                                oAreaEvalResult = "No Pasa";
+                                oTotal += 0;
+                                oEvalResult = oRatting + "% No Pasa";
                             }
                             break;
+
                         case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
-
-                            oAreaEvalUnit = "Mínimo " + oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent.ToString("#,0.##") + "%";
-
-                            if (oAreaRatting >= oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent)
+                            oTotalAreas++;
+                            if (oRatting >= oAreaItem.AprobalPercent)
                             {
-                                oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % Pasa";
+                                if (oRatting >= 100)
+                                {
+                                    oEvalResult = "100% Pasa";
+                                    oTotal += oRatting;
+                                }
+                                else
+                                {
+                                    oEvalResult = oRatting + "% Pasa";
+                                    oTotal += oRatting;
+                                }
+
+                                
                             }
                             else
                             {
-                                oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % No Pasa";
+                                oEvalResult = oRatting + "% No Pasa";
+                                oTotal += oRatting;
                             }
                             break;
+
                         case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
-                            oAreaEvalUnit = "Informativo";
-                            if (oAreaRatting >= 100)
+                            oEvalResult = "Informativo";
+                            if (oRatting >= 100)
                             {
-                                oAreaEvalResult = "Pasa";
+                                oEvalResult += "Pasa";
                             }
                             else
                             {
-                                oAreaEvalResult = "No Pasa";
+                                oEvalResult += "No Pasa";
                             }
                             break;
                         default:
                             break;
                     }
-                    rowProvider["resultado"] = oAreaEvalResult;
-                    dtProvidersProject.Rows.Add(rowProvider);
-                    rowProvider = null;
-                    List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = oModel.RelatedProjectConfig.GetEvaluationCriteria();
-                    oEvaluationCriteria.All(oCriteria=>{
-                        oRatting = oModel.CurrentProjectProvider.GetRatting(oCriteria.EvaluationItemId);
-                        switch (oCriteria.EvaluationItemUnit)
+
+                    if (oAreaItem.EvaluationItemName == "HSEQ") //HSEQ
+                    {
+                        oRowTotal["AreaHSEQ"] = oEvalResult;
+
+                        parameters.Add(new ReportParameter("Area_HSEQ_Score", "25%"));
+                        parameters.Add(new ReportParameter("Area_HSEQ_Qualification", oEvalResult));
+                    }
+                    else if (oAreaItem.EvaluationItemName == "TÉCNICA EXPERIENCIA") //TÉCNICA EXPERIENCIA
+                    {
+                        oRowTotal["AreaTecnica"] = oEvalResult;
+
+                        parameters.Add(new ReportParameter("Area_Experience_Score", "25%"));
+                        parameters.Add(new ReportParameter("Area_Experience_Qualification", oEvalResult));
+                    }
+                    else if (oAreaItem.EvaluationItemName == "FINANCIERO") //FINANCIERO
+                    {
+                        oRowTotal["AreaFinanciera"] = oEvalResult;
+
+                        parameters.Add(new ReportParameter("Area_Financial_Score", "25%"));
+                        parameters.Add(new ReportParameter("Area_Financial_Qualification", oEvalResult));
+                    }
+                    else if (oAreaItem.EvaluationItemName == "ASPECTOS LEGALES") //Legal
+                    {
+                        oRowTotal["AreaLegal"] = oEvalResult;
+
+                        parameters.Add(new ReportParameter("Area_Legal_Score", "25%"));
+                        parameters.Add(new ReportParameter("Area_Legal_Qualification", oEvalResult));
+                    }
+                }
+
+                oRowTotal["Total"] = oTotal/oTotalAreas + " %";
+                DtTotal.Rows.Add(oRowTotal);
+
+                #endregion
+
+                DataTable DtHSEQ = new DataTable();
+                DataTable DtExperiences = new DataTable();
+                DataTable DtFinancial = new DataTable();
+                DataTable DtLegal = new DataTable();
+
+                oEvalItems.All(Areas =>
+                {
+                    oModel.RelatedProjectConfig.SetCurrentEvaluationArea(Areas.EvaluationItemId);
+                    oAreaRatting = oModel.CurrentProjectProvider.GetRatting(oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+
+                    #region HSEQ
+
+                    if (Areas.EvaluationItemName == "HSEQ")
+                    {
+                        switch (oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemUnit)
                         {
                             case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                                oEvalUnit = "Pasa / No Pasa";
-                                if (oRatting > oCriteria.EvaluationWeight)
+                                oAreaEvalUnit = "Pasa / No Pasa";
+
+                                if (oAreaRatting >= 100)
                                 {
-                                    oEvalResult = "Pasa";
+                                    oAreaEvalResult = "Pasa";
                                 }
                                 else
                                 {
-                                    oEvalResult = "No Pasa";
+                                    oAreaEvalResult = "No Pasa";
                                 }
-                                DataRow rowCriteria_LooseWin = dtProvidersProject.NewRow();
-                                rowCriteria_LooseWin["Criterio"] = oCriteria.EvaluationItemName;
-                                rowCriteria_LooseWin["Peso"] = oEvalUnit;
-                                rowCriteria_LooseWin["resultado"] = oEvalResult;
-                                dtProvidersProject.Rows.Add(rowCriteria_LooseWin);
-                                rowCriteria_LooseWin=null;
-                            break;
-
-                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
-                                oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
-                                oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
-                                DataRow rowCriteria_Percent = dtProvidersProject.NewRow();
-                                rowCriteria_Percent["Criterio"] = oCriteria.EvaluationItemName;
-                                rowCriteria_Percent["Peso"] = oEvalUnit;
-                                rowCriteria_Percent["resultado"] = oEvalResult;
-                                dtProvidersProject.Rows.Add(rowCriteria_Percent);
-                                rowCriteria_Percent=null;
                                 break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
 
-                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
-                                oEvalUnit = "Informativo";
-                                if (oRatting > oCriteria.EvaluationWeight)
+                                oAreaEvalUnit = "Mínimo " + oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent.ToString("#,0.##") + "%";
+
+                                if (oAreaRatting >= oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent)
                                 {
-                                    oEvalResult = "Pasa";
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % Pasa";
                                 }
                                 else
                                 {
-                                    oEvalResult = "No Pasa";
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % No Pasa";
                                 }
-                                DataRow rowCriteria_Informative = dtProvidersProject.NewRow();
-                                rowCriteria_Informative["Criterio"] = oCriteria.EvaluationItemName;
-                                rowCriteria_Informative["Peso"] = oEvalUnit;
-                                rowCriteria_Informative["resultado"] = oEvalResult;
-                                dtProvidersProject.Rows.Add(rowCriteria_Informative);
-                                rowCriteria_Informative = null;
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                                                
+                        DtHSEQ.TableName = "DS_Selection_HSEQ";
+                        DtHSEQ.Columns.Add("Criterio", typeof(string));
+                        DtHSEQ.Columns.Add("Peso", typeof(string));
+                        DtHSEQ.Columns.Add("Resultado", typeof(string));
+
+                        List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = oModel.RelatedProjectConfig.GetEvaluationCriteria();
+                        oEvaluationCriteria.All(oCriteria =>
+                        {
+                            oRatting = oModel.CurrentProjectProvider.GetRatting(oCriteria.EvaluationItemId);
+                            switch (oCriteria.EvaluationItemUnit)
+                            {
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                    oEvalUnit = "Pasa / No Pasa";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_LooseWin = DtHSEQ.NewRow();
+                                    rowCriteria_LooseWin["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_LooseWin["Peso"] = oEvalUnit;
+                                    rowCriteria_LooseWin["resultado"] = oEvalResult;
+                                    DtHSEQ.Rows.Add(rowCriteria_LooseWin);
+                                    rowCriteria_LooseWin = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                                    oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
+                                    oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
+                                    DataRow rowCriteria_Percent = DtHSEQ.NewRow();
+                                    rowCriteria_Percent["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Percent["Peso"] = oEvalUnit;
+                                    rowCriteria_Percent["resultado"] = oEvalResult;
+                                    DtHSEQ.Rows.Add(rowCriteria_Percent);
+                                    rowCriteria_Percent = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                    oEvalUnit = "Informativo";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_Informative = DtHSEQ.NewRow();
+                                    rowCriteria_Informative["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Informative["Peso"] = oEvalUnit;
+                                    rowCriteria_Informative["resultado"] = oEvalResult;
+                                    DtHSEQ.Rows.Add(rowCriteria_Informative);
+                                    rowCriteria_Informative = null;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            return true;
+                        });
+                    }
+
+                    #endregion
+
+                    #region Técnica
+
+                    if (Areas.EvaluationItemName == "TÉCNICA EXPERIENCIA")
+                    {
+                        switch (oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemUnit)
+                        {
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                oAreaEvalUnit = "Pasa / No Pasa";
+
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+
+                                oAreaEvalUnit = "Mínimo " + oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent.ToString("#,0.##") + "%";
+
+                                if (oAreaRatting >= oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent)
+                                {
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % No Pasa";
+                                }
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        DtExperiences.TableName = "DS_Selection_Experience";
+                        DtExperiences.Columns.Add("Criterio", typeof(string));
+                        DtExperiences.Columns.Add("Peso", typeof(string));
+                        DtExperiences.Columns.Add("Resultado", typeof(string));
+
+                        List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = oModel.RelatedProjectConfig.GetEvaluationCriteria();
+                        oEvaluationCriteria.All(oCriteria =>
+                        {
+                            oRatting = oModel.CurrentProjectProvider.GetRatting(oCriteria.EvaluationItemId);
+                            switch (oCriteria.EvaluationItemUnit)
+                            {
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                    oEvalUnit = "Pasa / No Pasa";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_LooseWin = DtExperiences.NewRow();
+                                    rowCriteria_LooseWin["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_LooseWin["Peso"] = oEvalUnit;
+                                    rowCriteria_LooseWin["resultado"] = oEvalResult;
+                                    DtExperiences.Rows.Add(rowCriteria_LooseWin);
+                                    rowCriteria_LooseWin = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                                    oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
+                                    oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
+                                    DataRow rowCriteria_Percent = DtExperiences.NewRow();
+                                    rowCriteria_Percent["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Percent["Peso"] = oEvalUnit;
+                                    rowCriteria_Percent["resultado"] = oEvalResult;
+                                    DtExperiences.Rows.Add(rowCriteria_Percent);
+                                    rowCriteria_Percent = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                    oEvalUnit = "Informativo";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_Informative = DtExperiences.NewRow();
+                                    rowCriteria_Informative["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Informative["Peso"] = oEvalUnit;
+                                    rowCriteria_Informative["resultado"] = oEvalResult;
+                                    DtExperiences.Rows.Add(rowCriteria_Informative);
+                                    rowCriteria_Informative = null;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            return true;
+                        });
+                    }
+
+                    #endregion
+
+                    #region Financiera
+
+                    if (Areas.EvaluationItemName == "FINANCIERO")
+                    {
+                        switch (oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemUnit)
+                        {
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                oAreaEvalUnit = "Pasa / No Pasa";
+
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+
+                                oAreaEvalUnit = "Mínimo " + oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent.ToString("#,0.##") + "%";
+
+                                if (oAreaRatting >= oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent)
+                                {
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % No Pasa";
+                                }
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                                                
+                        DtFinancial.TableName = "DS_Selection_Financial";
+                        DtFinancial.Columns.Add("Criterio", typeof(string));
+                        DtFinancial.Columns.Add("Peso", typeof(string));
+                        DtFinancial.Columns.Add("Resultado", typeof(string));
+
+                        List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = oModel.RelatedProjectConfig.GetEvaluationCriteria();
+                        oEvaluationCriteria.All(oCriteria =>
+                        {
+                            oRatting = oModel.CurrentProjectProvider.GetRatting(oCriteria.EvaluationItemId);
+                            switch (oCriteria.EvaluationItemUnit)
+                            {
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                    oEvalUnit = "Pasa / No Pasa";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_LooseWin = DtFinancial.NewRow();
+                                    rowCriteria_LooseWin["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_LooseWin["Peso"] = oEvalUnit;
+                                    rowCriteria_LooseWin["resultado"] = oEvalResult;
+                                    DtFinancial.Rows.Add(rowCriteria_LooseWin);
+                                    rowCriteria_LooseWin = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                                    oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
+                                    oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
+                                    DataRow rowCriteria_Percent = DtFinancial.NewRow();
+                                    rowCriteria_Percent["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Percent["Peso"] = oEvalUnit;
+                                    rowCriteria_Percent["resultado"] = oEvalResult;
+                                    DtFinancial.Rows.Add(rowCriteria_Percent);
+                                    rowCriteria_Percent = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                    oEvalUnit = "Informativo";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_Informative = DtFinancial.NewRow();
+                                    rowCriteria_Informative["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Informative["Peso"] = oEvalUnit;
+                                    rowCriteria_Informative["resultado"] = oEvalResult;
+                                    DtFinancial.Rows.Add(rowCriteria_Informative);
+                                    rowCriteria_Informative = null;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            return true;
+                        });
+                    }
+
+                    #endregion
+
+                    #region Legal
+
+                    if (Areas.EvaluationItemName == "ASPECTOS LEGALES")
+                    {
+                        switch (oModel.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemUnit)
+                        {
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                oAreaEvalUnit = "Pasa / No Pasa";
+
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+
+                                oAreaEvalUnit = "Mínimo " + oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent.ToString("#,0.##") + "%";
+
+                                if (oAreaRatting >= oModel.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent)
+                                {
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % No Pasa";
+                                }
+                                break;
+                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                if (oAreaRatting >= 100)
+                                {
+                                    oAreaEvalResult = "Pasa";
+                                }
+                                else
+                                {
+                                    oAreaEvalResult = "No Pasa";
+                                }
                                 break;
                             default:
                                 break;
                         }
 
-                        return true;
-                    });
-                    DataRow rowCriteria_ttl = dtProvidersProject.NewRow();
-                    rowCriteria_ttl["Criterio"] = "";
-                    rowCriteria_ttl["Peso"] = "";
-                    rowCriteria_ttl["resultado"] = "";
-                    dtProvidersProject.Rows.Add(rowCriteria_ttl);
-                    rowCriteria_ttl = null;
+                        DtLegal.TableName = "DS_Selection_Legal";
+                        DtLegal.Columns.Add("Criterio", typeof(string));
+                        DtLegal.Columns.Add("Peso", typeof(string));
+                        DtLegal.Columns.Add("Resultado", typeof(string));
+
+                        List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = oModel.RelatedProjectConfig.GetEvaluationCriteria();
+                        oEvaluationCriteria.All(oCriteria =>
+                        {
+                            oRatting = oModel.CurrentProjectProvider.GetRatting(oCriteria.EvaluationItemId);
+                            switch (oCriteria.EvaluationItemUnit)
+                            {
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                    oEvalUnit = "Pasa / No Pasa";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_LooseWin = DtLegal.NewRow();
+                                    rowCriteria_LooseWin["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_LooseWin["Peso"] = oEvalUnit;
+                                    rowCriteria_LooseWin["resultado"] = oEvalResult;
+                                    DtLegal.Rows.Add(rowCriteria_LooseWin);
+                                    rowCriteria_LooseWin = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                                    oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
+                                    oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
+                                    DataRow rowCriteria_Percent = DtLegal.NewRow();
+                                    rowCriteria_Percent["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Percent["Peso"] = oEvalUnit;
+                                    rowCriteria_Percent["resultado"] = oEvalResult;
+                                    DtLegal.Rows.Add(rowCriteria_Percent);
+                                    rowCriteria_Percent = null;
+                                    break;
+
+                                case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                    oEvalUnit = "Informativo";
+                                    if (oRatting > oCriteria.EvaluationWeight)
+                                    {
+                                        oEvalResult = "Pasa";
+                                    }
+                                    else
+                                    {
+                                        oEvalResult = "No Pasa";
+                                    }
+                                    DataRow rowCriteria_Informative = DtLegal.NewRow();
+                                    rowCriteria_Informative["Criterio"] = oCriteria.EvaluationItemName;
+                                    rowCriteria_Informative["Peso"] = oEvalUnit;
+                                    rowCriteria_Informative["resultado"] = oEvalResult;
+                                    DtLegal.Rows.Add(rowCriteria_Informative);
+                                    rowCriteria_Informative = null;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            return true;
+                        });
+                    }
+
+                    #endregion
+
                     return true;
-                });
+                });                
+
                 /*print report*/
                 Tuple<byte[], string, string> SelectionProcessReport = ProveedoresOnLine.Reports.Controller.ReportModule.PJ_SelectionProcessReportDetail(
-                                                                            dtProvidersProject,
+                                                                            DtHSEQ,
+                                                                            DtExperiences,
+                                                                            DtFinancial,
+                                                                            DtLegal,
+                                                                            DtTotal,
                                                                             parameters,
                                                                             enumCategoryInfoType.PDF.ToString(),
                                                                             InternalSettings.Instance[Constants.MP_CP_ReportPath].Value.Trim()
