@@ -46,6 +46,9 @@ namespace BackOffice.Models.Provider
         public string CP_Phone { get; set; }
         public string CP_PhoneId { get; set; }
 
+        public string CP_Extent { get; set; }
+        public string CP_ExtentId { get; set; }
+
         public string CP_Email { get; set; }
         public string CP_EmailId { get; set; }
 
@@ -68,6 +71,9 @@ namespace BackOffice.Models.Provider
 
         public string BR_Phone { get; set; }
         public string BR_PhoneId { get; set; }
+
+        public string BR_Extent { get; set; }
+        public string BR_ExtentId { get; set; }
 
         public string BR_Cellphone { get; set; }
         public string BR_CellphoneId { get; set; }
@@ -228,6 +234,17 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            CP_Extent = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.CP_Extent).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+            CP_ExtentId = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.CP_Extent).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
             CP_Email = RelatedContact.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.CP_Email).
                 Select(y => y.Value).
@@ -306,6 +323,17 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            BR_Extent = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Extent).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+            BR_ExtentId = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Extent).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault(); 
 
             BR_Cellphone = RelatedContact.ItemInfo.
                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Cellphone).

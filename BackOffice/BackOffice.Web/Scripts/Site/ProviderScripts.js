@@ -461,6 +461,9 @@ var Provider_CompanyContactObject = {
                             CP_Phone: { editable: true },
                             CP_PhoneId: { editable: false },
 
+                            CP_Extent: { editable: true },
+                            CP_ExtentId: { editable: false },
+
                             CP_Email: { editable: true, validation: { email: true } },
                             CP_EmailId: { editable: false },
 
@@ -652,6 +655,20 @@ var Provider_CompanyContactObject = {
                     return oReturn;
                 },
             }, {
+                field: 'CP_Extent',
+                title: 'Extensión',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.CP_Extent == null) {
+                        oReturn = '<label class="PlaceHolder">Ej: ext 22</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_Extent;
+                    }
+                    return oReturn;
+                }
+            }, {
                 field: 'CP_Email',
                 title: 'Correo electronico',
                 width: '200px',
@@ -778,6 +795,9 @@ var Provider_CompanyContactObject = {
                             BR_Phone: { editable: true, validation: { required: false } },
                             BR_PhoneId: { editable: false },
 
+                            BR_Extent: { editable: true, type: 'number', validation: { required: false } },
+                            BR_ExtentId: { editable: false },
+                            
                             BR_Cellphone: { editable: true, validation: { required: false } },
                             BR_CellphoneId: { editable: false },
 
@@ -986,13 +1006,29 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.BR_Phone == '') {
-                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
+                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 </label>';
                     }
                     else {
                         oReturn = dataItem.BR_Phone;
                     }
                     return oReturn;
                 },
+            },
+            {
+                field: 'BR_Extent',
+                title: 'Extensión',
+                width: '140px',
+                type: 'number',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Extent == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: ext 22 </label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Extent;
+                    }
+                    return oReturn;
+                }
             },
             {
                 field: 'BR_Cellphone',

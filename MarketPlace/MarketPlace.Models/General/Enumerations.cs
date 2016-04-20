@@ -438,6 +438,7 @@
         Phone = 206006,
         Email = 206007,
         Negotiation = 206008,
+        Extent = 206009,
 
         //Branch
         B_Representative = 207001,
@@ -451,6 +452,7 @@
         B_Longitude = 207009,
         BR_IsPrincipal = 207010,
         B_Cellphone = 207011,
+        B_Extent = 207012,
 
         //Distributor
         D_DistributorType = 208001,

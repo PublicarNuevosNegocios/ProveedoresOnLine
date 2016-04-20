@@ -187,6 +187,7 @@
         CP_Phone = 206006,
         CP_Email = 206007,
         CP_Negotiation = 206008,
+        CP_Extent = 206009,
 
         //Branch
         BR_Representative = 207001,
@@ -200,6 +201,7 @@
         BR_Longitude = 207009,
         BR_IsPrincipal = 207010,
         BR_Cellphone = 207011,
+        BR_Extent = 207012,
 
         //Distributor
         DT_DistributorType = 208001,

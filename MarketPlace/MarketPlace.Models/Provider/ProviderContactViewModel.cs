@@ -142,6 +142,24 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        private string oPC_Extent;
+
+        public string PC_Extent
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oPC_Extent))
+                {
+                    oPC_Extent = RelatedContactInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.Extent).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oPC_Extent;
+            }
+        }
+
         private string oPC_Email;
         public string PC_Email
         {
@@ -284,6 +302,23 @@ namespace MarketPlace.Models.Provider
                        FirstOrDefault();
                 }
                 return oBR_Phone;
+            }
+        }
+
+        private string oBR_Extent;
+        public string BR_Extent
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oBR_Extent))
+                {
+                    oBR_Extent = RelatedContactInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Extent).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oBR_Extent;
             }
         }
 

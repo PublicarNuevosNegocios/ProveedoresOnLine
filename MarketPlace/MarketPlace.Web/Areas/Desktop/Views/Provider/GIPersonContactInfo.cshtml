@@ -75,7 +75,7 @@
                                         <br />
                                         <label class="POMPProviderBoxInfo">Teléfono</label>
                                         <br />
-                                        <span>@item.PC_TelephoneNumber</span>
+                                        <span>@item.PC_TelephoneNumber @(!string.IsNullOrEmpty(item.PC_Extent) ? "ext " + item.PC_Extent : string.Empty)</span>
                                 </div>
                             }
                             @if (!string.IsNullOrEmpty(item.PC_Email))
