@@ -220,6 +220,7 @@
         R_RUTFile = 603012,
         R_LargeContributorFile = 603013,
         R_SelfRetainerFile = 603014,
+        R_ClassTax = 603015,
 
         //CIFIN
         CF_QueryDate = 604001,

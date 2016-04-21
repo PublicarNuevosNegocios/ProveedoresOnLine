@@ -1923,6 +1923,16 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.R_SelfRetainerFile,
                         Enable = oDataToUpsert.Enable,
                     });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.R_ClassTaxId) ? 0 : Convert.ToInt32(oDataToUpsert.R_ClassTaxId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_ClassTax,
+                        },
+                        Value = oDataToUpsert.R_ClassTax,
+                        Enable = oDataToUpsert.Enable,
+                    });
                 };
 
                 #endregion

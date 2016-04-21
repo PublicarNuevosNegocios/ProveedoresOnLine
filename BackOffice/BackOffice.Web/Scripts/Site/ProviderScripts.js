@@ -5511,6 +5511,9 @@ var Provider_LegalInfoObject = {
                             R_LargeContributorDate: { editable: true },
                             R_LargeContributorDateId: { editable: false },
 
+                            R_ClassTax: { editable: true },
+                            R_ClassTaxId: { editable: false },
+
                             R_SelfRetainer: { editable: true, type: "boolean", defaultValue: true },
                             R_SelfRetainerId: { editable: false },
 
@@ -5683,6 +5686,31 @@ var Provider_LegalInfoObject = {
                         + options.model.get(options.field)
                         + '" />');
                     input.appendTo(container);
+                },
+            }, {
+                field: 'R_ClassTax',
+                title: 'Clase de impuesto',
+                width: '180px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.R_ClassTax != null) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[221], function (item, value) {
+                            if (dataItem.R_ClassTax == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[221],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
                 },
             }, {
                 field: 'R_EntityType',
