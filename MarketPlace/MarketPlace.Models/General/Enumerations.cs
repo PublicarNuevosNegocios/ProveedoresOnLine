@@ -220,6 +220,7 @@
         R_RUTFile = 603012,
         R_LargeContributorFile = 603013,
         R_SelfRetainerFile = 603014,
+        R_ClassTax = 603015,
 
         //CIFIN
         CF_QueryDate = 604001,
@@ -438,6 +439,7 @@
         Phone = 206006,
         Email = 206007,
         Negotiation = 206008,
+        Extent = 206009,
 
         //Branch
         B_Representative = 207001,
@@ -451,6 +453,7 @@
         B_Longitude = 207009,
         BR_IsPrincipal = 207010,
         B_Cellphone = 207011,
+        B_Extent = 207012,
 
         //Distributor
         D_DistributorType = 208001,

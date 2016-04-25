@@ -437,6 +437,22 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        public string oR_ClassTax { get; set; }
+        public string R_ClassTax
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oR_ClassTax))
+                {
+                   oR_ClassTax = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(RelatedLegalInfo.ItemInfo.
+                       Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_ClassTax).
+                       Select(y => y.Value).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault());
+                }
+                return oR_ClassTax;
+            }
+        }
 
         #endregion
 

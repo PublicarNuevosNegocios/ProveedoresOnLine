@@ -93,6 +93,15 @@
                                     <span>@item.R_SelfRetainerDate</span>
                             </div>
                         }
+                        @if (!string.IsNullOrEmpty(item.R_ClassTax))
+                        {
+                            <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Clase de impuesto</label>
+                                <br />
+                                <span>@item.R_ClassTax</span>
+                            </div>
+                        }
                         @if (!string.IsNullOrEmpty(item.R_EntityType))
                         {
                             <div class="col-sm-4 POMPBorderbottom  POMPProviderBoxInfo">

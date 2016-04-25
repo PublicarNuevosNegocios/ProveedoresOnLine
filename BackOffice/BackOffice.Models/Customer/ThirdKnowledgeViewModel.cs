@@ -18,7 +18,7 @@ namespace BackOffice.Models.Customer
         public string InitDate { get; set; }
         public string LastModify { get; set; }
         public string PlanPublicId { get; set; }
-        public int QueriesByPeriod { get; set; }
+        public string QueriesByPeriod { get; set; }
         public List<PeriodModel> RelatedPeriodoModel { get; set; }
         public int Status { get; set; }
         public string StatusName { get; set; }
@@ -62,8 +62,7 @@ namespace BackOffice.Models.Customer
             EndDate = RelatedPlan.EndDate.ToString();
             InitDate = RelatedPlan.InitDate.ToString();
             LastModify = RelatedPlan.LastModify.ToString();
-            QueriesByPeriod = RelatedPlan.QueriesByPeriod;
-
+            QueriesByPeriod = !string.IsNullOrEmpty(RelatedPlan.QueriesByPeriod.ToString()) ? RelatedPlan.QueriesByPeriod.ToString() : "0";
             RelatedPeriodoModel = RelatedPlan.RelatedPeriodModel;
             Status = RelatedPlan.Status.ItemId;
             StatusName = RelatedPlan.Status.ItemName;
@@ -95,6 +94,7 @@ namespace BackOffice.Models.Customer
 
         public ThirdKnowledgeViewModel()
         {
+
         }
     }
 }

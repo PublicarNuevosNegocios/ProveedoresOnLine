@@ -565,7 +565,7 @@ namespace BackOffice.Web.ControllersApi
                 oToUpsert.EndDate = Convert.ToDateTime(oDataToUpsert.EndDate);
                 oToUpsert.LastModify = DateTime.Now;
                 oToUpsert.PlanPublicId = oDataToUpsert.PlanPublicId;
-                oToUpsert.QueriesByPeriod = oDataToUpsert.QueriesByPeriod;
+                oToUpsert.QueriesByPeriod = !string.IsNullOrEmpty(oDataToUpsert.QueriesByPeriod) ? Convert.ToInt32(oDataToUpsert.QueriesByPeriod) : 0;
                 oToUpsert.Status = new TDCatalogModel()
                 {
                     ItemId = oDataToUpsert.Status,

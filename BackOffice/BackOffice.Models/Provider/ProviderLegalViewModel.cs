@@ -97,6 +97,9 @@ namespace BackOffice.Models.Provider
         public string R_SelfRetainerFile { get; set; }
         public string R_SelfRetainerFileId { get; set; }
 
+        public string R_ClassTax { get; set; }
+        public string R_ClassTaxId { get; set; }
+
         #endregion
 
         #region CIFIN
@@ -460,6 +463,18 @@ namespace BackOffice.Models.Provider
 
             R_SelfRetainerFileId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerFile).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            R_ClassTax = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_ClassTax).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            R_ClassTaxId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_ClassTax).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();

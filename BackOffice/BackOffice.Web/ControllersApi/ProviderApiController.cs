@@ -237,6 +237,17 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
 
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CP_ExtentId) ? 0 : Convert.ToInt32(oDataToUpsert.CP_ExtentId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.CP_Extent,
+                        },
+                        Value = oDataToUpsert.CP_Extent,
+                        Enable = true,
+                    });
+
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CP_EmailId) ? 0 : Convert.ToInt32(oDataToUpsert.CP_EmailId.Trim()),
@@ -302,6 +313,17 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumContactInfoType.BR_Phone
                         },
                         Value = oDataToUpsert.BR_Phone,
+                        Enable = true,
+                    });
+
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.BR_ExtentId) ? 0 : Convert.ToInt32(oDataToUpsert.BR_ExtentId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.BR_Extent,
+                        },
+                        Value = oDataToUpsert.BR_Extent,
                         Enable = true,
                     });
 
@@ -1899,6 +1921,16 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerFile
                         },
                         Value = oDataToUpsert.R_SelfRetainerFile,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.R_ClassTaxId) ? 0 : Convert.ToInt32(oDataToUpsert.R_ClassTaxId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_ClassTax,
+                        },
+                        Value = oDataToUpsert.R_ClassTax,
                         Enable = oDataToUpsert.Enable,
                     });
                 };

@@ -67,7 +67,7 @@
                                     <br />
                                     <label class="POMPProviderBoxInfo">Teléfono</label>
                                     <br />
-                                    <span> @item.BR_Phone</span>
+                                    <span> @item.BR_Phone @(!string.IsNullOrEmpty(item.BR_Extent) ? " ext " + item.BR_Extent : string.Empty)</span>
                                 </div>
                             }
                             @if (!string.IsNullOrEmpty(item.BR_Cellphone))
