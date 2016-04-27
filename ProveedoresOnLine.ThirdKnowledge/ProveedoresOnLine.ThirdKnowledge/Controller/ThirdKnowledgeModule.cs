@@ -35,7 +35,8 @@ namespace ProveedoresOnLine.ThirdKnowledge.Controller
 
                 oQueryToCreate.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
 
-                if (Result != null && Result.FirstOrDefault().IdConsulta != "No existen registros asociados a los parámetros de consulta.")
+                if (Result != null && Result.FirstOrDefault().IdConsulta != "No existen registros asociados a los parámetros de consulta."
+                    && Result.FirstOrDefault().Estado.ToLower() != "false")
                 {
                     Result = Result.OrderBy(x => x.IdGrupo).ToArray();
                     #region Answer Procces

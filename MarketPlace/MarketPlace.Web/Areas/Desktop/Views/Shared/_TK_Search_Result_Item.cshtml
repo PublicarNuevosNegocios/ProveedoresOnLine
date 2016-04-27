@@ -54,20 +54,21 @@
                             string strInfo = "";
                             if (item.RelatedQueryBasicInfoModel.Count > 0 && item.RelatedQueryBasicInfoModel != null)
                             {
-                                if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count == 0)
-                                {
-                                    if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count() > 0 &&
-                                        item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value != null)
-                                    { 
-                                        strInfo = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value;
-                                    }
-                                    else { 
-                                       strInfo = "N/A";
-                                    }
-                                }
+                                //if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count == 0)
+                                //{
+                                //    if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count() > 0 &&
+                                //        item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value != null)
+                                //    { 
+                                //        strInfo = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo[0].Value;
+                                //    }
+                                //    else { 
+                                //       strInfo = "N/A";
+                                //    }
+                                //}
                                 if (item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Count > 0)
                                 {
-                                    strInfo = strInfo + " - " + item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Where(x => x != null && x.ItemInfoType.ItemId == 301013).Select(x => x.Value).DefaultIfEmpty("N/A").FirstOrDefault();
+                                    strInfo = item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Where(x => x != null && x.ItemInfoType.ItemId == 301013).Select(x => x.Value).DefaultIfEmpty("N/A").FirstOrDefault();
+                                    strInfo += item.RelatedQueryBasicInfoModel.FirstOrDefault().DetailInfo.Where(x => x != null && x.ItemInfoType.ItemId == 301012).Select(x =>  " - " + x.Value).DefaultIfEmpty("N/A").FirstOrDefault();
                                 }
                                 else
                                 {
