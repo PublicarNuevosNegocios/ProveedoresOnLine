@@ -1529,5 +1529,39 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.BlackListClearProvider(CompanyPublicId);
         }
         #endregion
+
+        #region Integration
+
+        public static ProviderModel CustomerProvider_GetField(List<string> RelatedCustomer)
+        {
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProviderModel();
+            oReturn.AditionalData = new List<Models.Integration.AditionalFieldModel>();
+
+            if (RelatedCustomer != null &&
+                RelatedCustomer.Count > 0)
+            {
+                RelatedCustomer.All(x =>
+                {
+                    List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> oField = DAL.Controller.CompanyProviderDataController.Instance.CustomerProvider_GetField(x);
+
+                    if (oField != null &&
+                        oField.Count > 0)
+                    {
+                        oField.All(y =>
+                        {
+                            oReturn.AditionalData.Add(y);
+
+                            return true;
+                        });
+                    }
+
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

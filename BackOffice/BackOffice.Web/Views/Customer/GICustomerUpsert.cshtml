@@ -429,6 +429,45 @@
                         <input type="checkbox" name="OtherProviders" />
                     }
                 </li>
+                <li>
+                    <label>Datos personalizados</label><br />
+                    @{ 
+                        //custom data
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValue = true;
+
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CustomData).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValue = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CustomData).
+                                Select(x => x.Value).
+                                FirstOrDefault() == "1" ? true : false;
+                        }
+                    }
+
+                    <input type="hidden" name="CustomDataId" value="@CompanyInfoIdAux.ToString()" />
+                    @if (CompanyInfoValue == true)
+                    {
+                        <input type="checkbox" name="CustomData" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="CustomData" />
+                    }
+                </li>
                 @if (Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null)
                 {
                     <li>

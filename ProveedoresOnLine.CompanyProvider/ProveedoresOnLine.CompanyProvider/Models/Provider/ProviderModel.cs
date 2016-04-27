@@ -66,5 +66,11 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
         public Dictionary<string, ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedCustomerInfo { get; set; }
 
         #endregion Related Customer Info
+
+        #region Integration
+
+        public List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> AditionalData { get; set; }
+
+        #endregion
     }
 }

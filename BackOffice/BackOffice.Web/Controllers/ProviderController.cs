@@ -1292,7 +1292,47 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        #endregion 
+        #endregion
+
+        #region CustomData
+
+        public virtual ActionResult CDCustomData(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
+            
+            #region Aditional Field
+
+            List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(ProviderPublicId);
+
+            List<string> oCustomerList = new List<string>();
+
+            oRelatedCustomer.All(x =>
+            {
+                oCustomerList.Add(x.RelatedCompany.CompanyPublicId);
+
+                return true;
+            });
+            
+            oModel.RelatedProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oCustomerList);
+
+            #endregion
+
+            oModel.ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions();
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //getProvider Info
+                oModel.RelatedProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
+
+                //Get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+
+            return View(oModel);
+        }
+
+        #endregion
 
         #region Menu
 
@@ -1666,6 +1706,38 @@ namespace BackOffice.Web.Controllers
 
                 #endregion
 
+                #region Customer Provider
+
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Compradores relacionados",
+                    Position = 5,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //Customer provider
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Seguimiento",
+                    Url = Url.Action
+                        (MVC.Provider.ActionNames.CPCustomerProviderStatus,
+                        MVC.Provider.Name,
+                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.CPCustomerProviderStatus &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                //add menu
+                oReturn.Add(oMenuAux);
+
+                #endregion
+
                 #region Aditional Document
 
                 //header
@@ -1712,35 +1784,40 @@ namespace BackOffice.Web.Controllers
 
                 #endregion
 
-                #region Customer Provider
+                #region CustomData
 
-                //header
-                oMenuAux = new Models.General.GenericMenu()
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId);
+
+                if (oRelatedCustomer.Count > 0)
                 {
-                    Name = "Compradores relacionados",
-                    Position = 5,
-                    ChildMenu = new List<Models.General.GenericMenu>(),
-                };
+                    //header
+                    oMenuAux = new Models.General.GenericMenu()
+                    {
+                        Name = "Datos Personalizados",
+                        Position = 7,
+                        ChildMenu = new List<Models.General.GenericMenu>(),
+                    };
 
-                //Customer provider
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Seguimiento",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.CPCustomerProviderStatus,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 0,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.CPCustomerProviderStatus &&
-                        oCurrentController == MVC.Provider.Name),
-                });
+                    //Aditional Documents
+                    oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                    {
+                        Name = "Agregar Datos por Cliente",
+                        Url = Url.Action
+                            (MVC.Provider.ActionNames.CDCustomData,
+                            MVC.Provider.Name,
+                            new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                        Position = 0,
+                        IsSelected =
+                            (oCurrentAction == MVC.Provider.ActionNames.CDCustomData &&
+                            oCurrentController == MVC.Provider.Name),
+                    });
 
-                //get is selected menu
-                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                //add menu
-                oReturn.Add(oMenuAux);
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }                
 
                 #endregion
 

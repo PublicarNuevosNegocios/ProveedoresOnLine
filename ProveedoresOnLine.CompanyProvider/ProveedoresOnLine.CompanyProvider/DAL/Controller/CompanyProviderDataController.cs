@@ -305,5 +305,14 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         }
 
         #endregion Charts
+
+        #region Integration
+
+        public List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> CustomerProvider_GetField(string CustomerPublicId)
+        {
+            return DataFactory.CustomerProvider_GetField(CustomerPublicId);
+        }
+
+        #endregion
     }
 }

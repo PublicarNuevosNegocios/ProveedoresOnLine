@@ -309,6 +309,51 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
         #endregion
 
+        #region Integration
+
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_CustomerProvider_GetRelatedCustomDataByProvider",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cp in response.DataTableResult.AsEnumerable()
+                     where !cp.IsNull("CustomerPublicId")
+                     group cp by new
+                     {
+                         CustomerPublicId = cp.Field<string>("CustomerPublicId"),
+                         CustomerName = cp.Field<string>("CustomerName"),
+                     }
+                     into cpi
+                     select new CompanyCustomer.Models.Customer.CustomerModel()
+                     {
+                         RelatedCompany = new Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = cpi.Key.CustomerPublicId,
+                             CompanyName = cpi.Key.CustomerName,
+                         },
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
         #region Util
 
         public List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()

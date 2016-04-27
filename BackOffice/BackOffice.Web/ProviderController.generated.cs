@@ -199,6 +199,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CDCustomData()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CDCustomData);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
@@ -243,6 +249,7 @@ namespace BackOffice.Web.Controllers
             public readonly string DownloadFile = "DownloadFile";
             public readonly string ADAditionalDocuments = "ADAditionalDocuments";
             public readonly string ADAditionalData = "ADAditionalData";
+            public readonly string CDCustomData = "CDCustomData";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -273,6 +280,7 @@ namespace BackOffice.Web.Controllers
             public const string DownloadFile = "DownloadFile";
             public const string ADAditionalDocuments = "ADAditionalDocuments";
             public const string ADAditionalData = "ADAditionalData";
+            public const string CDCustomData = "CDCustomData";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
@@ -462,6 +470,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_CDCustomData s_params_CDCustomData = new ActionParamsClass_CDCustomData();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CDCustomData CDCustomDataParams { get { return s_params_CDCustomData; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CDCustomData
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
@@ -482,6 +498,7 @@ namespace BackOffice.Web.Controllers
             {
                 public readonly string ADAditionalData = "ADAditionalData";
                 public readonly string ADAditionalDocuments = "ADAditionalDocuments";
+                public readonly string CDCustomData = "CDCustomData";
                 public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
                 public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
                 public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
@@ -506,6 +523,7 @@ namespace BackOffice.Web.Controllers
             }
             public readonly string ADAditionalData = "~/Views/Provider/ADAditionalData.cshtml";
             public readonly string ADAditionalDocuments = "~/Views/Provider/ADAditionalDocuments.cshtml";
+            public readonly string CDCustomData = "~/Views/Provider/CDCustomData.cshtml";
             public readonly string CIExperiencesUpsert = "~/Views/Provider/CIExperiencesUpsert.cshtml";
             public readonly string CPCustomerProviderStatus = "~/Views/Provider/CPCustomerProviderStatus.cshtml";
             public readonly string FIBalanceSheetUpsert = "~/Views/Provider/FIBalanceSheetUpsert.cshtml";
@@ -820,6 +838,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ADAditionalData);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ADAditionalDataOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CDCustomDataOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CDCustomData(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CDCustomData);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            CDCustomDataOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

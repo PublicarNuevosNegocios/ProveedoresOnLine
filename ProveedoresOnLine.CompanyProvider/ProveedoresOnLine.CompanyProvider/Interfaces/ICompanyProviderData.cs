@@ -50,7 +50,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable);
 
-        #endregion Legal
+        #endregion Legal 
 
         #region BlackList
 
@@ -141,5 +141,11 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId);
 
         #endregion Charts
+
+        #region Integration
+
+        List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> CustomerProvider_GetField(string CustomerPublicId);
+
+        #endregion
     }
 }

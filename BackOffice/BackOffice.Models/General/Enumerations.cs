@@ -150,6 +150,7 @@
         TCVerificationInfo = 203016,
         TCIntDataBase = 203017,
         TCIntVerificationInfo = 203018,
+        CustomData = 203019,
 
         CustomEconomicActivity = 220001,
         SurveyGroup = 220002,
