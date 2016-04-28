@@ -2038,7 +2038,24 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> nazi = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState("26D388E3");
         }
-            
+
+        #endregion
+
+        #region Integration
+
+        [TestMethod]
+        public void CustomerProvider_GetField()
+        {
+            List<string> oCustomer = new List<string>();
+
+            oCustomer.Add("DA5C572E");
+            oCustomer.Add("7BC27832");
+
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oCustomer);
+
+            Assert.AreEqual(true, oReturn.AditionalData.Count > 0);
+        }
+
         #endregion
     }
 }

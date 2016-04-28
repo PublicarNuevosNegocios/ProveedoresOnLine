@@ -264,6 +264,15 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
 
         #endregion
 
+        #region Integration
+
+        public static List<CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId)
+        {
+            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerProviderByCustomData(ProviderPublicId);
+        }
+
+        #endregion
+
         #region Util
 
         public static List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()

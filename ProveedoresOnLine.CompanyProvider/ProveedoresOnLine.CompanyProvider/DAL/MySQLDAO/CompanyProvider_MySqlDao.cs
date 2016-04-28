@@ -2653,5 +2653,58 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         }
 
         #endregion Charts
+
+        #region Integration
+
+        public List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> CustomerProvider_GetField(string CustomerPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId",CustomerPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CustomerRedirect_GetAllField",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> oReturn = new List<Models.Integration.AditionalFieldModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cpf in response.DataTableResult.AsEnumerable()
+                     where !cpf.IsNull("AditionalFieldId")
+                     select new ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel()
+                     {
+                         AditionalFieldId = cpf.Field<int>("AditionalFieldId"),
+                         AditionalFieldType = new CatalogModel()
+                         {
+                             ItemId = cpf.Field<int?>("AditionalFieldTypeId") != null ? cpf.Field<int>("AditionalFieldTypeId") : 0,
+                             ItemName = cpf.Field<string>("AditionalFieldTypeName"),
+                         },
+                         AditionalFieldTypeInfo = new CatalogModel()
+                         {
+                             ItemId = cpf.Field<int?>("AditionalFieldTypeInfoId") != null ? cpf.Field<int>("AditionalFieldTypeInfoId") : 0,
+                             ItemName = cpf.Field<string>("AditionalFieldTypeInfoName"),
+                         },
+                         RelatedCustomer = new Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = CustomerPublicId,
+                         },
+                         Label = cpf.Field<string>("Label"),
+                         Enable = cpf.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = cpf.Field<DateTime>("LastModify"),
+                         CreateDate = cpf.Field<DateTime>("CreateDate"),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

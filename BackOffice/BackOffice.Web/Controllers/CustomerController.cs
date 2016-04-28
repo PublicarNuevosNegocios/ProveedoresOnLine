@@ -154,6 +154,20 @@ namespace BackOffice.Web.Controllers
                 });
             }
 
+            if (Request["CustomDataId"] != null)
+            {
+                oReturn.CompanyInfo.Add(new GenericItemInfoModel()
+                {
+                    ItemInfoId = !string.IsNullOrEmpty(Request["CustomDataId"]) ? Convert.ToInt32(Request["CustomDataId"]) : 0,
+                    ItemInfoType = new CatalogModel()
+                    {
+                        ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.CustomData,
+                    },
+                    Value = Request["CustomData"] == "on" ? "1" : "0",
+                    Enable = true,
+                });
+            }
+
             return oReturn;
         }
 

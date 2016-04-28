@@ -18,6 +18,12 @@ namespace ProveedoresOnLine.CompanyCustomer.Interfaces
 
         List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions();
 
+        #region Integration
+
+        List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId);
+
+        #endregion
+
         #region Aditional Documents
 
         int AditionalDocumentsUpsert(string CompanyPublicId, int? AditionalDocumentsId, string Title, bool Enable);

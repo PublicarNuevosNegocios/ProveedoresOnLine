@@ -1135,6 +1135,7 @@
     <Content Include="Views\Administrator\AdminModule.cshtml" />
     <Content Include="Views\Administrator\AdminProviderMenu.cshtml" />
     <Content Include="Views\Administrator\AdminSelectionOption.cshtml" />
+    <Content Include="Views\Provider\CDCustomData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

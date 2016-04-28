@@ -90,5 +90,14 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
 
             Assert.AreEqual(true, oReturn != null && oReturn.AditionalDocuments != null);
         }
+
+        [TestMethod]
+        public void GetCustomerProviderByCustomData()
+        {
+            List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oReturn =
+                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData("1BD9AD1B");
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
     }
 }

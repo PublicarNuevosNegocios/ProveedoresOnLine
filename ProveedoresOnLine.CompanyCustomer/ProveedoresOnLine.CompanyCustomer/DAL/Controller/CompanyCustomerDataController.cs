@@ -78,6 +78,15 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #endregion
 
+        #region Integration
+
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId)
+        {
+            return DataFactory.GetCustomerProviderByCustomData(ProviderPublicId);
+        }
+
+        #endregion
+
         #region Util
 
         public List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()
