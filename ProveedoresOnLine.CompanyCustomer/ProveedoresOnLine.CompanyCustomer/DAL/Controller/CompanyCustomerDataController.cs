@@ -80,7 +80,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #region Integration
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId)
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> GetCustomerProviderByCustomData(string ProviderPublicId)
         {
             return DataFactory.GetCustomerProviderByCustomData(ProviderPublicId);
         }

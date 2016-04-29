@@ -94,7 +94,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         [TestMethod]
         public void GetCustomerProviderByCustomData()
         {
-            List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oReturn =
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
                 ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData("1BD9AD1B");
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);

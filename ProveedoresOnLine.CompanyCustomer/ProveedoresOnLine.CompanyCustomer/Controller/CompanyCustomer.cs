@@ -266,7 +266,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
 
         #region Integration
 
-        public static List<CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId)
+        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> GetCustomerProviderByCustomData(string ProviderPublicId)
         {
             return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerProviderByCustomData(ProviderPublicId);
         }

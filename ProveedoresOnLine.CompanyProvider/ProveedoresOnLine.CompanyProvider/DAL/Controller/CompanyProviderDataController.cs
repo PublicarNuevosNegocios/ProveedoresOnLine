@@ -308,9 +308,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #region Integration
 
-        public List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> CustomerProvider_GetField(string CustomerPublicId)
+        public ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel CustomerProvider_GetField(ProveedoresOnLine.Company.Models.Company.CompanyModel Customer, string ProviderPublicId)
         {
-            return DataFactory.CustomerProvider_GetField(CustomerPublicId);
+            return DataFactory.CustomerProvider_GetField(Customer, ProviderPublicId);
         }
 
         #endregion

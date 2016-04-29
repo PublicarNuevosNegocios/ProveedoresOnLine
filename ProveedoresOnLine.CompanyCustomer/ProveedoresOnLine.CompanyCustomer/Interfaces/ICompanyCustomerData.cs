@@ -20,7 +20,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Interfaces
 
         #region Integration
 
-        List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId);
+        List<ProveedoresOnLine.Company.Models.Company.CompanyModel> GetCustomerProviderByCustomData(string ProviderPublicId);
 
         #endregion
 

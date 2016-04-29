@@ -1136,6 +1136,11 @@
     <Content Include="Views\Administrator\AdminProviderMenu.cshtml" />
     <Content Include="Views\Administrator\AdminSelectionOption.cshtml" />
     <Content Include="Views\Provider\CDCustomData.cshtml" />
+    <Content Include="Views\Shared\_CD_CustomerForm.cshtml" />
+    <Content Include="Views\Shared\_CD_CustomField_101001.cshtml" />
+    <Content Include="Views\Shared\_CD_CustomField_101002.cshtml" />
+    <Content Include="Views\Shared\_CD_CustomField_101004.cshtml" />
+    <Content Include="Views\Shared\_CD_CustomField_101003.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
