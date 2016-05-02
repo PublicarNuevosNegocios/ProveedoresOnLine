@@ -1,0 +1,11 @@
+﻿@model Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+
+<label>@Model.Item2.AditionalFieldType.ItemName</label>
+<br />
+@Html.Partial(MVC.Shared.Views._F_FileUpload)
+
+@if (Model.Item3 != null &&
+     Model.Item3.ItemInfo != null)
+{
+    <a href="@Model.Item3.ItemInfo.FirstOrDefault().LargeValue">Ver archivo</a>
+}
