@@ -987,7 +987,9 @@ var TK_GetPeriodsByPlan_ChartsObject = {
                 dashboard.bind(filterYear, barChart);
                 dashboard.draw(data);
                 function resize() {
-                    chart.draw(data, options);
+                    if (data != null) {
+                        chart.draw(data, options);
+                    }                    
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);
