@@ -311,7 +311,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
         #region Integration
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerProviderByCustomData(string ProviderPublicId)
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> GetCustomerProviderByCustomData(string ProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -325,7 +325,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 Parameters = lstParams,
             });
 
-            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn = new List<Company.Models.Company.CompanyModel>();
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
@@ -339,13 +339,10 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                          CustomerName = cp.Field<string>("CustomerName"),
                      }
                      into cpi
-                     select new CompanyCustomer.Models.Customer.CustomerModel()
+                     select new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                      {
-                         RelatedCompany = new Company.Models.Company.CompanyModel()
-                         {
-                             CompanyPublicId = cpi.Key.CustomerPublicId,
-                             CompanyName = cpi.Key.CustomerName,
-                         },
+                         CompanyPublicId = cpi.Key.CustomerPublicId,
+                         CompanyName = cpi.Key.CustomerName,
                      }).ToList();
             }
 

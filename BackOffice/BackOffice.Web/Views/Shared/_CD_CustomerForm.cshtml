@@ -1,0 +1,26 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts)
+{
+    foreach (var CustomData in Model.RelatedProvider.CustomData)
+    {
+        <label>Campos personalizados del cliente @CustomData.RelatedCustomer.CompanyName</label>
+        <br />
+        <div class="container-fluid">
+            @foreach (var FieldData in CustomData.AditionalField)
+            {
+
+                <div class="col-sm-4">
+                    @Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
+                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel,
+                                                                            ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+                        (Model,
+                        CustomData.AditionalField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
+                        CustomData.AditionalData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()))
+
+                </div>
+            }
+        </div>
+        <hr />
+    }
+}

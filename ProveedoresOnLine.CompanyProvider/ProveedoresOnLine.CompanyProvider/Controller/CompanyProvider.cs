@@ -1532,31 +1532,20 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Integration
 
-        public static ProviderModel CustomerProvider_GetField(List<string> RelatedCustomer)
+        public static ProviderModel CustomerProvider_GetField(List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RelatedCustomer, string ProviderPublicId)
         {
-            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProviderModel();
-            oReturn.AditionalData = new List<Models.Integration.AditionalFieldModel>();
+            ProviderModel oReturn = new ProviderModel();
+            oReturn.CustomData = new List<Models.Integration.CustomDataModel>();
 
             if (RelatedCustomer != null &&
                 RelatedCustomer.Count > 0)
             {
-                RelatedCustomer.All(x =>
+                RelatedCustomer.All(Customer =>
                 {
-                    List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> oField = DAL.Controller.CompanyProviderDataController.Instance.CustomerProvider_GetField(x);
-
-                    if (oField != null &&
-                        oField.Count > 0)
-                    {
-                        oField.All(y =>
-                        {
-                            oReturn.AditionalData.Add(y);
-
-                            return true;
-                        });
-                    }
+                    oReturn.CustomData.Add(DAL.Controller.CompanyProviderDataController.Instance.CustomerProvider_GetField(Customer, ProviderPublicId));
 
                     return true;
-                });
+                });                
             }
 
             return oReturn;

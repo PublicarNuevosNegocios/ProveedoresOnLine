@@ -71,6 +71,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\Integration\AditionalFieldModel.cs" />
+    <Compile Include="Models\Integration\CustomDataModel.cs" />
     <Compile Include="Models\Provider\BalanceSheetDetailModel.cs" />
     <Compile Include="Models\Provider\BalanceSheetModel.cs" />
     <Compile Include="Models\Provider\BlackListModel.cs" />

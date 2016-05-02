@@ -2048,12 +2048,20 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<string> oCustomer = new List<string>();
 
-            oCustomer.Add("DA5C572E");
-            oCustomer.Add("7BC27832");
+            string ProviderPublicId = "90AF9E9D";
 
-            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oCustomer);
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = new List<Company.Models.Company.CompanyModel>()
+            {
+                new Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = "7BC27832",
+                    CompanyName = "SANOFI AVENTIS DE COLOMBIA S.A",
+                },
+            };
 
-            Assert.AreEqual(true, oReturn.AditionalData.Count > 0);
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oRelatedCustomer, ProviderPublicId);
+
+            Assert.AreEqual(true, oReturn.CustomData != null && oReturn.CustomData.Count > 0);
         }
 
         #endregion

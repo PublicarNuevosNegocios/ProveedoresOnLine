@@ -40,6 +40,11 @@ namespace T4MVC
             {
                 public readonly string _C_CustomerActions = "_C_CustomerActions";
                 public readonly string _C_CustomerMenu = "_C_CustomerMenu";
+                public readonly string _CD_CustomerForm = "_CD_CustomerForm";
+                public readonly string _CD_CustomField_101001 = "_CD_CustomField_101001";
+                public readonly string _CD_CustomField_101002 = "_CD_CustomField_101002";
+                public readonly string _CD_CustomField_101003 = "_CD_CustomField_101003";
+                public readonly string _CD_CustomField_101004 = "_CD_CustomField_101004";
                 public readonly string _F_FileUpload = "_F_FileUpload";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
@@ -58,6 +63,11 @@ namespace T4MVC
             }
             public readonly string _C_CustomerActions = "~/Views/Shared/_C_CustomerActions.cshtml";
             public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
+            public readonly string _CD_CustomerForm = "~/Views/Shared/_CD_CustomerForm.cshtml";
+            public readonly string _CD_CustomField_101001 = "~/Views/Shared/_CD_CustomField_101001.cshtml";
+            public readonly string _CD_CustomField_101002 = "~/Views/Shared/_CD_CustomField_101002.cshtml";
+            public readonly string _CD_CustomField_101003 = "~/Views/Shared/_CD_CustomField_101003.cshtml";
+            public readonly string _CD_CustomField_101004 = "~/Views/Shared/_CD_CustomField_101004.cshtml";
             public readonly string _F_FileUpload = "~/Views/Shared/_F_FileUpload.cshtml";
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";

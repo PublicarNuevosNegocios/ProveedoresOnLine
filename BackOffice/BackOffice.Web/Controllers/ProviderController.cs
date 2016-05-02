@@ -1302,18 +1302,9 @@ namespace BackOffice.Web.Controllers
             
             #region Aditional Field
 
-            List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(ProviderPublicId);
-
-            List<string> oCustomerList = new List<string>();
-
-            oRelatedCustomer.All(x =>
-            {
-                oCustomerList.Add(x.RelatedCompany.CompanyPublicId);
-
-                return true;
-            });
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(ProviderPublicId);
             
-            oModel.RelatedProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oCustomerList);
+            oModel.RelatedProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oRelatedCustomer, ProviderPublicId);
 
             #endregion
 
@@ -1786,7 +1777,7 @@ namespace BackOffice.Web.Controllers
 
                 #region CustomData
 
-                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId);
+                List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId);
 
                 if (oRelatedCustomer.Count > 0)
                 {

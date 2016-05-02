@@ -144,7 +144,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         #region Integration
 
-        List<ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel> CustomerProvider_GetField(string CustomerPublicId);
+        ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel CustomerProvider_GetField(ProveedoresOnLine.Company.Models.Company.CompanyModel Customer, string ProviderPublicId);
 
         #endregion
     }
