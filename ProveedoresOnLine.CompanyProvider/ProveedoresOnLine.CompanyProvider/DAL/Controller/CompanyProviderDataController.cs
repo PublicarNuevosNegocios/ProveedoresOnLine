@@ -313,6 +313,20 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CustomerProvider_GetField(Customer, ProviderPublicId);
         }
 
+        #region SANOFI
+
+        public int Sanofi_AditionalData_Upsert(int AditionalDataId, string ProviderPublicId, int AditionalFieldId, string AditionalDataName, bool Enable)
+        {
+            return DataFactory.Sanofi_AditionalData_Upsert(AditionalDataId, ProviderPublicId, AditionalFieldId, AditionalDataName, Enable);
+        }
+
+        public int Sanofi_AditionalDataInfo_Upsert(int AditionalDataInfoId, int AditionalDataId, int? AditionalDataInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.Sanofi_AditionalDataInfo_Upsert(AditionalDataInfoId, AditionalDataId, AditionalDataInfoType, Value, LargeValue, Enable);
+        }
+
+        #endregion
+
         #endregion
     }
 }

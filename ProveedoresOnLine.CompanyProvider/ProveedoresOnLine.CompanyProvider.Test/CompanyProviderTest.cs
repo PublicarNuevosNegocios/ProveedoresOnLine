@@ -2064,6 +2064,65 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             Assert.AreEqual(true, oReturn.CustomData != null && oReturn.CustomData.Count > 0);
         }
 
+        [TestMethod]
+        public void CustomerProvider_CustomData_Upsert()
+        {
+            ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel oCustomDataModel = new Models.Integration.CustomDataModel()
+            {
+                AditionalData = new List<GenericItemModel>()
+                {
+                    new GenericItemModel()
+                    {
+                        ItemId = 0,
+                        ItemType = new CatalogModel()
+                        {
+                            ItemId = 1,
+                        },
+                        ItemInfo = new List<GenericItemInfoModel>()
+                        {
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                Value = "Texto de prueba dll 1.0",
+                                Enable = true,
+                            },
+                        },
+                        Enable = true,
+                    }
+                },
+                RelatedCustomer = new Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = "7BC27832",
+                },
+            };
+
+            oCustomDataModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_CustomData_Upsert(oCustomDataModel, "F5112365");
+
+            Assert.AreEqual(true, oCustomDataModel.AditionalData != null && oCustomDataModel.AditionalData.Count > 0);
+        }
+
+        [TestMethod]
+        public void CustomerProvider_CustomDataInfo_Upsert()
+        {
+            GenericItemModel oReturn = new GenericItemModel()
+            {
+                ItemId = 8,
+                ItemInfo = new List<GenericItemInfoModel>()
+                {
+                    new GenericItemInfoModel()
+                    {
+                        ItemInfoId = 8,
+                        Value = "201005",
+                        Enable  = true,
+                    },
+                },
+            };
+
+            oReturn = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_CustomDataInfo_Upsert(oReturn);
+
+            Assert.AreEqual(true, oReturn != null);
+        }
+
         #endregion
     }
 }
