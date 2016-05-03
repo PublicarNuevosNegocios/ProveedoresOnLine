@@ -17,8 +17,23 @@
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Datos personalizados por cliente</label>
             <br />
-            <form>
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <form id="frmProviderUpsert" method="post" action="@(Url.Action(
+                                                              MVC.Provider.ActionNames.CDCustomData,
+                                                              MVC.Provider.Name,
+                                                              new
+                                                              {
+                                                                  ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
+                                                              }))">
                 @Html.Partial(MVC.Shared.Views._CD_CustomerForm, Model)
+
+                <div style="display:none">
+                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                    <input type="hidden" name="StepAction" id="StepAction" value="" />
+                </div>
             </form>            
         </div>
     </div>

@@ -60,7 +60,7 @@ namespace BackOffice.Web.Controllers
             }
 
             //eval upsert action
-            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true" )
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
                 //get provider request info
                 ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
@@ -451,9 +451,9 @@ namespace BackOffice.Web.Controllers
                     Enable = true,
 
                     ItemInfo = new List<GenericItemInfoModel>
-                        {                               
+                        {
                             new GenericItemInfoModel()
-                            {                                
+                            {
                                 ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
@@ -684,7 +684,7 @@ namespace BackOffice.Web.Controllers
 
             return View(oModel);
         }
-        
+
         public virtual ActionResult FIOrganizationStructureUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
@@ -766,7 +766,7 @@ namespace BackOffice.Web.Controllers
                 },
 
                 RelatedBalanceSheet = new List<BalanceSheetModel>()
-                { 
+                {
                     new BalanceSheetModel()
                     {
                         ItemId = string.IsNullOrEmpty(Request["FinancialId"]) ? 0 : Convert.ToInt32(Request["FinancialId"]),
@@ -834,7 +834,7 @@ namespace BackOffice.Web.Controllers
 
             return oReturn;
         }
-        
+
         private GenericItemModel GetOrganizationStructureRequest()
         {
 
@@ -1052,7 +1052,7 @@ namespace BackOffice.Web.Controllers
                     ItemInfo = new List<GenericItemInfoModel>
                     {
                         new GenericItemInfoModel()
-                        {                                
+                        {
                             ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
@@ -1189,7 +1189,7 @@ namespace BackOffice.Web.Controllers
                     data.AppendLine
                         ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                         "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +                        
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                         "\"" + "Company" + "\"" + strSep +
                         "\"" + "N/A" + "\"" + strSep +
                         "\"" + x.RelatedCompany.CompanyPublicId + "\"");
@@ -1203,7 +1203,7 @@ namespace BackOffice.Web.Controllers
                                     "\"" + "CC" + "\"" + strSep +
                                     "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
                                     "\"" + "Person" + "\"" + strSep +
-                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +                       
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerRank).Select(n => n.ValueName).FirstOrDefault() + "\"" + "" + strSep +
                                     "\"" + x.RelatedCompany.CompanyPublicId + "\""
                                 );
                             return true;
@@ -1215,7 +1215,7 @@ namespace BackOffice.Web.Controllers
                     data.AppendLine
                         ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
                         "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
-                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +                        
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                         "\"" + "Company" + "\"" + strSep +
                         "\"" + "N/A" + "\"" + strSep +
                         "\"" + x.RelatedCompany.CompanyPublicId + "\"");
@@ -1264,7 +1264,7 @@ namespace BackOffice.Web.Controllers
                 };
 
                 //Get provider Menu
-                oModel.ProviderMenu = GetProviderMenu(oModel);   
+                oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
             return View(oModel);
@@ -1299,11 +1299,75 @@ namespace BackOffice.Web.Controllers
         public virtual ActionResult CDCustomData(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
-            
+
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel oCustomDataToUpsert;
+
+                //get field data
+
+                //Request.Form.AllKeys.Where(x => x.Contains("CompanyInfoType_")).All(req =>
+                Request.Form.AllKeys.Where(x => x.Contains("CustomData_")).All(req =>
+                {
+                    string[] strSplit = req.Split('_');
+
+                    if (strSplit.Length >= 3)
+                    {
+                        switch (Convert.ToInt32(strSplit[1].Trim()))
+                        {
+                            case (int)enumCustomField.CustomFieldText:
+
+                                oCustomDataToUpsert = new ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel()
+                                {
+                                    AditionalData = new List<GenericItemModel>() {
+                                        new GenericItemModel()
+                                        {
+                                            ItemId = Convert.ToInt32(strSplit[2].Trim()),
+                                            ItemType = new CatalogModel()
+                                            {
+                                                ItemId = Convert.ToInt32(strSplit[1].Trim()),
+                                            },
+                                            ItemInfo = new List<GenericItemInfoModel>()
+                                            {
+                                                new GenericItemInfoModel()
+                                                {
+                                                    ItemInfoId = Convert.ToInt32(Request["CustomTextInfoId"].Trim()),
+                                                    Value = Request[req].Trim(),
+                                                    Enable = true,
+                                                }
+                                            },
+                                            Enable = true,
+                                        },
+                                    },
+                                    RelatedCustomer = new CompanyModel()
+                                    {
+                                        CompanyPublicId = strSplit[3].Trim(),
+                                    },
+                                };
+
+                                oCustomDataToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
+
+                                break;
+
+                            case (int)enumCustomField.CustomFieldNumber:
+                                break;
+                            case (int)enumCustomField.CustomFieldFile:
+                                break;
+                            case (int)enumCustomField.CustomFieldList:
+                                break;
+                        }
+                    }
+
+                    //upsert by related customer                    
+
+                    return true;
+                });
+            }
+
             #region Aditional Field
 
             List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(ProviderPublicId);
-            
+
             oModel.RelatedProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oRelatedCustomer, ProviderPublicId);
 
             #endregion
@@ -1318,7 +1382,6 @@ namespace BackOffice.Web.Controllers
                 //Get provider menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
-
 
             return View(oModel);
         }
@@ -1808,7 +1871,7 @@ namespace BackOffice.Web.Controllers
 
                     //add menu
                     oReturn.Add(oMenuAux);
-                }                
+                }
 
                 #endregion
 

@@ -12,15 +12,33 @@
 
                 <div class="col-sm-4">
                     @Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
-                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel,
-                                                                            ProveedoresOnLine.Company.Models.Util.GenericItemModel>
-                        (Model,
-                        CustomData.AditionalField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
-                        CustomData.AditionalData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()))
+                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
+                            ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel,
+                            ProveedoresOnLine.Company.Models.Util.GenericItemModel,
+                            string>
+                            (Model,
+                            CustomData.AditionalField != null && CustomData.AditionalField.Count > 0 ? CustomData.AditionalField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault() : null,
+                            CustomData.AditionalData != null && CustomData.AditionalData.Count > 0 ? CustomData.AditionalData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null,
+                            CustomData.RelatedCustomer.CompanyPublicId))
 
                 </div>
             }
         </div>
         <hr />
+    }
+}
+else
+{
+    foreach (var CustomData in Model.RelatedProvider.CustomData)
+    {
+        foreach (var FieldData in CustomData.AditionalField)
+        {
+            Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
+                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel,
+                                                                            ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+                                                                            (Model,
+                                                                            CustomData.AditionalField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
+                                                                            CustomData.AditionalData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()));
+        }
     }
 }

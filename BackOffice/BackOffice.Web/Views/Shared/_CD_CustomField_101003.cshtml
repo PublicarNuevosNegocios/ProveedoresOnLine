@@ -1,11 +1,34 @@
-﻿@model Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+﻿@model Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel, string>
 
-<label>@Model.Item2.AditionalFieldType.ItemName</label>
-<br />
-@Html.Partial(MVC.Shared.Views._F_FileUpload)
-
-@if (Model.Item3 != null &&
-     Model.Item3.ItemInfo != null)
+@if (!Model.Item1.RenderScripts)
 {
-    <a href="@Model.Item3.ItemInfo.FirstOrDefault().LargeValue">Ver archivo</a>
+    var oCustomFileURLId = Model.Item3 != null ? Model.Item3.ItemId : 0;
+    var oCustomFileInfoURLId = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().ItemInfoId : 0;
+    var oCustomFileURL = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().LargeValue : string.Empty;
+
+
+    <label>@Model.Item2.AditionalFieldType.ItemName</label>
+    <br />
+    @Html.Partial(MVC.Shared.Views._F_FileUpload)
+    <input type="hidden" name="CustomFileURL" id="CustomFileURL" />
+    <input type="hidden" name="CustomFileURLId" id="@(oCustomFileInfoURLId)"/>
+    if (Model.Item3 != null &&
+        Model.Item3.ItemInfo != null)
+    {
+        <a href="@(oCustomFileURL)">Ver archivo</a>
+    }
 }
+else
+{
+    @section inlinescripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                UploadFile({
+                    ProviderPublicId: '@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId',
+                    ControlellerResponseId: "CustomFileURL",
+                });
+            });
+        </script>
+    }
+}
+

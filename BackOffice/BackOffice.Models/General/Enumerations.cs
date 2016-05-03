@@ -597,4 +597,16 @@
     }
 
     #endregion
+
+    #region CustomData
+
+    public enum enumCustomField
+    {
+        CustomFieldText = 1,
+        CustomFieldNumber = 2,
+        CustomFieldFile = 3,
+        CustomFieldList = 4,
+    }
+
+    #endregion
 }
