@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Web.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.Company">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
+    </Reference>
     <Reference Include="SettingsManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
     </Reference>
@@ -65,6 +68,8 @@
     <Compile Include="Interfaces\IIntegrationPlatformData.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\Integration\CustomDataModel.cs" />
+    <Compile Include="Models\Integration\CustomFieldModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
