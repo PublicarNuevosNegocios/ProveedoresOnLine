@@ -2,7 +2,7 @@
 {
     public class Constants
     {
-        public const string C_POL_IntegrationPlatformConnectionName = "";
+        public const string C_POL_IntegrationPlatformConnectionName = "POL_IntegrationPlatform";
 
         #region CustomerPublicId
 
