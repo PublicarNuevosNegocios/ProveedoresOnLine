@@ -1,18 +1,17 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
-@if (!Model.RenderScripts)
-{
-    foreach (var CustomData in Model.RelatedProvider.CustomData)
-    {
-        <label>Campos personalizados del cliente @CustomData.RelatedCompany.CompanyName</label>
-        <br />
-        <div class="container-fluid">
-            @foreach (var FieldData in CustomData.CustomField)
-            {
 
-                <div class="col-sm-4">
-                    @Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
-                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
+@foreach (var CustomData in Model.RelatedProvider.CustomData)
+{
+    <label>Campos personalizados del cliente @CustomData.RelatedCompany.CompanyName</label>
+    <br />
+    <div class="container-fluid">
+        @foreach (var FieldData in CustomData.CustomField)
+        {
+
+            <div class="col-sm-6 CustomField">
+                @Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
+                    new Tuple<BackOffice.Models.Provider.ProviderViewModel,
                             IntegrationPlatform.Models.Integration.CustomFieldModel,
                             ProveedoresOnLine.Company.Models.Util.GenericItemModel,
                             string>
@@ -21,25 +20,8 @@
                               CustomData.CustomData != null && CustomData.CustomData.Count > 0 ? CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null,
                             CustomData.RelatedCompany.CompanyPublicId))
 
-                </div>
-            }
-        </div>
-        <hr />
-    }
-}
-else
-{
-    foreach (var CustomData in Model.RelatedProvider.CustomData)
-    {
-        foreach (var FieldData in CustomData.CustomField)
-        {
-            Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
-                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
-                        IntegrationPlatform.Models.Integration.CustomFieldModel,
-                        ProveedoresOnLine.Company.Models.Util.GenericItemModel>
-                        (Model,
-                        CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
-                        CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()));
+            </div>
         }
-    }
+    </div>
+    <hr />
 }

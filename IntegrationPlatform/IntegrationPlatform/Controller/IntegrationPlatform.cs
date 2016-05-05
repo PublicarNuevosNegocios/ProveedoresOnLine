@@ -139,6 +139,11 @@ namespace IntegrationPlatform.Controller
             return oCustomDataToUpsert;
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetSanofiOptions()
+        {
+            return DAL.Controller.IntegrationPlatformDataController.Instance.CatalogGetSanofiOptions();
+        }
+
         #endregion
 
         #endregion

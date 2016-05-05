@@ -162,6 +162,35 @@ namespace IntegrationPlatform.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetSanofiOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_Catalog_GetProviderOptions",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<ProveedoresOnLine.Company.Models.Util.CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("CatalogId")
+                     select new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                     {
+                         CatalogId = c.Field<int>("CatalogId"),
+                         CatalogName = c.Field<string>("CatalogName"),
+                         ItemId = c.Field<int>("ItemId"),
+                         ItemName = c.Field<string>("ItemName"),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #endregion

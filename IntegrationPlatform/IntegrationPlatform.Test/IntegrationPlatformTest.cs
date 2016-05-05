@@ -97,6 +97,16 @@ namespace IntegrationPlatform.Test
             Assert.AreEqual(true, oReturn != null);
         }
 
+        [TestMethod]
+        public void CatalogGetSanofiOptions()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<ProveedoresOnLine.Company.Models.Util.CatalogModel>();
+
+            oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CatalogGetSanofiOptions();
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
         #endregion
 
         #endregion

@@ -85,3 +85,14 @@
     min-height: 400px;
     width: 95.2%;
 }
+
+/************** Integration ***********************/
+.CustomField > input {
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #999;
+    height: 36px;
+    margin: 2px 0 0;
+    padding: 0 0 0 5px;
+    width: 100%;
+}

@@ -1,17 +1,13 @@
 ﻿@model Tuple<BackOffice.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel, string>
 
-@if (!Model.Item1.RenderScripts)
-{
-    <label>@Model.Item2.AditionalFieldType.ItemName</label>
-    <br />
-    if (Model.Item3 != null &&
-        Model.Item3.ItemInfo != null)
-    {
-        <input type="number" value="@Model.Item3.ItemInfo.FirstOrDefault().Value" />
-    }
-    else
-    {
-        <input type="number" value="" />
-    }
+@{
+    var oCustomNumberId = Model.Item3 != null ? Model.Item3.ItemId : 0;
+    var oCustomNumberInfoId = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().ItemInfoId : 0;
+    var oCustomNumber = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty;
 }
 
+<input type="hidden" id="CustomNumberInfoId" name="CustomNumberInfoId" value="@oCustomNumberInfoId" />
+
+<span>@Model.Item2.Label</span>
+<br />
+<input id="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomNumberId + "_" + Model.Item4)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomNumberId + "_" + Model.Item4)" type="number" value="@oCustomNumber" />

@@ -1,16 +1,13 @@
 ﻿@model Tuple<BackOffice.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel, string>
 
-@if (!Model.Item1.RenderScripts)
-{
+@{
     var oCustomTextId = Model.Item3 != null ? Model.Item3.ItemId : 0;
     var oCustomTextInfoId = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().ItemInfoId : 0;
     var oCustomText = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty;
-
-    <input type="hidden" id="CustomTextInfoId" name="CustomTextInfoId" value="@oCustomTextInfoId"/>
-
-    <label>@Model.Item2.Label</label>
-    <br />
-    <input id="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" type="text" value="@oCustomText" />
 }
-else
-{ }
+
+<input type="hidden" id="CustomTextInfoId" name="CustomTextInfoId" value="@oCustomTextInfoId" />
+
+<span>@Model.Item2.Label</span>
+<br />
+<input id="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" type="text" value="@oCustomText" />
