@@ -10,7 +10,7 @@ namespace IntegrationPlatform.Controller
     {
         #region Integration
 
-        public static List<Models.Integration.CustomDataModel> CustomerProvider_GetField(List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RelatedCustomer, string ProviderPublicId)
+        public static List<Models.Integration.CustomDataModel> CustomerProvider_GetCustomData(List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RelatedCustomer, string ProviderPublicId)
         {
             List<Models.Integration.CustomDataModel> oReturn = new List<Models.Integration.CustomDataModel>();
 

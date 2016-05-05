@@ -1300,9 +1300,11 @@ namespace BackOffice.Web.Controllers
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
 
+            oModel.RelatedProvider = new ProviderModel();
+
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
-                ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel oCustomDataToUpsert;
+                IntegrationPlatform.Models.Integration.CustomDataModel oCustomDataToUpsert;
 
                 //get field data
 
@@ -1317,9 +1319,9 @@ namespace BackOffice.Web.Controllers
                         {
                             case (int)enumCustomField.CustomFieldText:
 
-                                oCustomDataToUpsert = new ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel()
+                                oCustomDataToUpsert = new IntegrationPlatform.Models.Integration.CustomDataModel()
                                 {
-                                    AditionalData = new List<GenericItemModel>() {
+                                    CustomData = new List<GenericItemModel>() {
                                         new GenericItemModel()
                                         {
                                             ItemId = Convert.ToInt32(strSplit[2].Trim()),
@@ -1339,13 +1341,13 @@ namespace BackOffice.Web.Controllers
                                             Enable = true,
                                         },
                                     },
-                                    RelatedCustomer = new CompanyModel()
+                                    RelatedCompany = new CompanyModel()
                                     {
                                         CompanyPublicId = strSplit[3].Trim(),
                                     },
                                 };
 
-                                oCustomDataToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
+                                oCustomDataToUpsert = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
 
                                 break;
 
@@ -1364,11 +1366,11 @@ namespace BackOffice.Web.Controllers
                 });
             }
 
-            #region Aditional Field
+            #region Custom Field
 
             List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(ProviderPublicId);
-
-            oModel.RelatedProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CustomerProvider_GetField(oRelatedCustomer, ProviderPublicId);
+            
+            oModel.RelatedProvider.CustomData = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_GetCustomData(oRelatedCustomer, ProviderPublicId);
 
             #endregion
 

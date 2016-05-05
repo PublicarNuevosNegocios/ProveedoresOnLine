@@ -31,7 +31,7 @@ namespace IntegrationPlatform.Test
                 },
             };
 
-            List<IntegrationPlatform.Models.Integration.CustomDataModel> oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_GetField(oRelatedCustomer, ProviderPublicId);
+            List<IntegrationPlatform.Models.Integration.CustomDataModel> oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_GetCustomData(oRelatedCustomer, ProviderPublicId);
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }

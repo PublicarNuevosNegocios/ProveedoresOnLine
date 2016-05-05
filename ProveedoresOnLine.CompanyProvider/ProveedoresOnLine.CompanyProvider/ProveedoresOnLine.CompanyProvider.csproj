@@ -33,6 +33,9 @@
     <Reference Include="ADO">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\ADO.dll</HintPath>
     </Reference>
+    <Reference Include="IntegrationPlatform">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform\developer\IntegrationPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
@@ -70,8 +73,6 @@
     <Compile Include="Interfaces\ICompanyProviderData.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
-    <Compile Include="Models\Integration\AditionalFieldModel.cs" />
-    <Compile Include="Models\Integration\CustomDataModel.cs" />
     <Compile Include="Models\Provider\BalanceSheetDetailModel.cs" />
     <Compile Include="Models\Provider\BalanceSheetModel.cs" />
     <Compile Include="Models\Provider\BlackListModel.cs" />

@@ -4,22 +4,22 @@
 {
     foreach (var CustomData in Model.RelatedProvider.CustomData)
     {
-        <label>Campos personalizados del cliente @CustomData.RelatedCustomer.CompanyName</label>
+        <label>Campos personalizados del cliente @CustomData.RelatedCompany.CompanyName</label>
         <br />
         <div class="container-fluid">
-            @foreach (var FieldData in CustomData.AditionalField)
+            @foreach (var FieldData in CustomData.CustomField)
             {
 
                 <div class="col-sm-4">
                     @Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
                     new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
-                            ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel,
+                            IntegrationPlatform.Models.Integration.CustomFieldModel,
                             ProveedoresOnLine.Company.Models.Util.GenericItemModel,
                             string>
                             (Model,
-                            CustomData.AditionalField != null && CustomData.AditionalField.Count > 0 ? CustomData.AditionalField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault() : null,
-                            CustomData.AditionalData != null && CustomData.AditionalData.Count > 0 ? CustomData.AditionalData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null,
-                            CustomData.RelatedCustomer.CompanyPublicId))
+                              CustomData.CustomField != null && CustomData.CustomField.Count > 0 ? CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault() : null,
+                              CustomData.CustomData != null && CustomData.CustomData.Count > 0 ? CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null,
+                            CustomData.RelatedCompany.CompanyPublicId))
 
                 </div>
             }
@@ -31,14 +31,15 @@ else
 {
     foreach (var CustomData in Model.RelatedProvider.CustomData)
     {
-        foreach (var FieldData in CustomData.AditionalField)
+        foreach (var FieldData in CustomData.CustomField)
         {
             Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
-                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, ProveedoresOnLine.CompanyProvider.Models.Integration.AditionalFieldModel,
-                                                                            ProveedoresOnLine.Company.Models.Util.GenericItemModel>
-                                                                            (Model,
-                                                                            CustomData.AditionalField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
-                                                                            CustomData.AditionalData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()));
+                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
+                        IntegrationPlatform.Models.Integration.CustomFieldModel,
+                        ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+                        (Model,
+                        CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
+                        CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()));
         }
     }
 }

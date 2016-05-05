@@ -141,19 +141,5 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId);
 
         #endregion Charts
-
-        #region Integration
-
-        ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel CustomerProvider_GetField(ProveedoresOnLine.Company.Models.Company.CompanyModel Customer, string ProviderPublicId);
-
-        #region SANOFI
-
-        int Sanofi_AditionalData_Upsert(int AditionalDataId, string ProviderPublicId, int AditionalFieldId, string AditionalDataName, bool Enable);
-
-        int Sanofi_AditionalDataInfo_Upsert(int AditionalDataInfoId, int AditionalDataId, int? AditionalDataInfoType, string Value, string LargeValue, bool Enable);
-
-        #endregion
-
-        #endregion
     }
 }

@@ -69,7 +69,7 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
 
         #region Integration
 
-        public List<ProveedoresOnLine.CompanyProvider.Models.Integration.CustomDataModel> CustomData { get; set; }
+        public List<IntegrationPlatform.Models.Integration.CustomDataModel> CustomData { get; set; }
 
         #endregion
     }
