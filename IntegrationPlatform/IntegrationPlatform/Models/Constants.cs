@@ -8,6 +8,8 @@
 
         public const string C_POL_CustomerPublicId_Sanofi = "7BC27832";
 
+        public const string C_POL_CustomerPublicId_Publicar = "DA5C572E";
+
         #endregion
     }
 }

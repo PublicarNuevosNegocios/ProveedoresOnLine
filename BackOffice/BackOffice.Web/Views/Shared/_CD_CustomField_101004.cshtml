@@ -1,27 +1,26 @@
 ﻿@model Tuple<BackOffice.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel, string>
 
-@{
+@if (!Model.Item1.RenderScripts)
+{
     var oCustomListId = Model.Item3 != null ? Model.Item3.ItemId : 0;
     var oCustomListInfoId = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().ItemInfoId : 0;
     var oCustomList = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty;
+
+    <span>@Model.Item2.Label</span>
+    <br />
+    <select id="CustomDta_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4 + "_" + oCustomListInfoId)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4)">
+        <option value="0">Seleccione una opción</option>
+        @foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
+        {
+            if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+            {
+                <option value="@item.ItemId" selected="selected">@item.ItemName</option>
+            }
+            else
+            {
+                <option value="@item.ItemId">@item.ItemName</option>
+            }
+        }
+    </select>
 }
-
-<input type="hidden" id="CustomListInfoId" name="CustomListInfoId" value="@oCustomListInfoId" />
-
-<span>@Model.Item2.Label</span>
-<br />
-<select id="CustomDta_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4)">
-    <option id="0">Seleccione una opción</option>
-    @foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
-    {
-        if (Convert.ToInt32(oCustomList) == item.ItemId)
-        {
-            <option value="@item.ItemId" selected="selected">@item.ItemName</option>
-        }
-        else
-        {
-            <option value="@item.ItemId">@item.ItemName</option>
-        }
-    }
-</select>
 

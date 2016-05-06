@@ -46,13 +46,8 @@
 @section inlinescripts{
 
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(MVC.Shared.Views._CD_CustomerForm, Model)
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            UploadFile({
-                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ControlellerResponseId: "CustomFileURL",
-            });
-        });
     </script>
 }

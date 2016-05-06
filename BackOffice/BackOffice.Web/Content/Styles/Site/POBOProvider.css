@@ -1,50 +1,54 @@
 /********** LISTADO DE PROVEEDORES O NUEVO PROVEEDOR **********/
 .POBOPClientListWrapper {
-        border: none;
+    border: none;
     display: inline-block;
-    height:auto;
-    min-height:400px;
+    height: auto;
+    min-height: 400px;
     margin: 0 0 0 6px;
     width: calc(100% - 317px);
 }
-            .POBOPClientListWrapper tr{
-                cursor:pointer;
-            }
-                .POBOPClientListWrapper tr:hover {
-                    background-color:#e4e4e4;
-                }
+
+    .POBOPClientListWrapper tr {
+        cursor: pointer;
+    }
+
+        .POBOPClientListWrapper tr:hover {
+            background-color: #e4e4e4;
+        }
+
 .POBOProviderWrapper {
-        border:none;
-    height:auto;
+    border: none;
+    height: auto;
     margin: 2px 0 0 2px;
     padding: 6px 0;
     position: relative;
-    width: 99.8%;    
+    width: 99.8%;
 }
-    .POBOProviderSideMenuWrapper {
-            border-right:2px solid #ff8300;
-        display:inline-block;
-        width:auto;
-        height:100%;
-        padding:0 21px 0 11px;
-        vertical-align:top;
-        min-height:490px;
-    }
+
+.POBOProviderSideMenuWrapper {
+    border-right: 2px solid #ff8300;
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    padding: 0 21px 0 11px;
+    vertical-align: top;
+    min-height: 490px;
+}
 /************ CALCULA EL ANCHO DE CONTENIDO HASTA 1024PX ************/
-    .POBOProviderContentWrapper{
-        border: medium none;
-        display: inline-block;
-        height: auto;
-        margin:0px 0px 0px 9px;
-        width:calc(100% - 305px);
+.POBOProviderContentWrapper {
+    border: medium none;
+    display: inline-block;
+    height: auto;
+    margin: 0px 0px 0px 9px;
+    width: calc(100% - 305px);
 }
 
 /*Message*/
 
-.message{
+.message {
     position: absolute;
     left: 50%;
-    display:none;
+    display: none;
     width: 200px;
     margin-left: -160px;
     padding: 10px;
@@ -57,7 +61,6 @@
     border: 5px solid;
     border-top: 0px none;
     z-index: 9999;
-    
     -moz-box-shadow: 0px 2px 5px rgba(0,0,0,.2);
     -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,.2);
     box-shadow: 00px 2px 5px rgba(0,0,0,.2);
@@ -78,21 +81,35 @@
 }
 
 .POBOPBuyersListWrapper {
-        border: none;
-    display:block;
+    border: none;
+    display: block;
     height: auto;
-    margin: 10px auto 0px auto ;
+    margin: 10px auto 0px auto;
     min-height: 400px;
     width: 95.2%;
 }
 
 /************** Integration ***********************/
-.CustomField > input {
-    background-color: #f9f9f9;
-    border: 1px solid #727276;
-    color: #999;
-    height: 36px;
-    margin: 2px 0 0;
-    padding: 0 0 0 5px;
-    width: 100%;
+.CustomField {
+    margin: 1% 0px 1% 0px;
 }
+
+    .CustomField > input {
+        background-color: #f9f9f9;
+        border: 1px solid #727276;
+        color: #999;
+        height: 36px;
+        margin: 2px 0 0;
+        padding: 0 0 0 5px;
+        width: 100%;
+    }
+
+    .CustomField > select {
+        background-color: #f9f9f9;
+        border: 1px solid #727276;
+        color: #999;
+        height: 36px;
+        margin: 2px 0 0;
+        padding: 0 0 0 5px;
+        width: 100%;
+    }

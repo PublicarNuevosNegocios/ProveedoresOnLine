@@ -1313,7 +1313,7 @@ namespace BackOffice.Web.Controllers
                 {
                     string[] strSplit = req.Split('_');
 
-                    if (strSplit.Length >= 3)
+                    if (strSplit.Length >= 5)
                     {
                         switch (Convert.ToInt32(strSplit[1].Trim()))
                         {
@@ -1335,7 +1335,7 @@ namespace BackOffice.Web.Controllers
                                             {
                                                 new GenericItemInfoModel()
                                                 {
-                                                    ItemInfoId = Convert.ToInt32(Request["CustomTextInfoId"].Trim()),
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
                                                     Value = Request[req].Trim(),
                                                     Enable = true,
                                                 }
@@ -1373,7 +1373,7 @@ namespace BackOffice.Web.Controllers
                                             {
                                                 new GenericItemInfoModel()
                                                 {
-                                                    ItemInfoId = Convert.ToInt32(Request["CustomNumberInfoId"].Trim()),
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
                                                     Value = Request[req].Trim(),
                                                     Enable = true,
                                                 }
@@ -1411,7 +1411,7 @@ namespace BackOffice.Web.Controllers
                                             {
                                                 new GenericItemInfoModel()
                                                 {
-                                                    ItemInfoId = Convert.ToInt32(Request["CustomFileURLId"].Trim()),
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
                                                     LargeValue = Request[req].Trim(),
                                                     Enable = true,
                                                 }
@@ -1449,7 +1449,7 @@ namespace BackOffice.Web.Controllers
                                             {
                                                 new GenericItemInfoModel()
                                                 {
-                                                    ItemInfoId = Convert.ToInt32(Request["CustomListInfoId"].Trim()),
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
                                                     Value = Request[req].Trim(),
                                                     Enable = true,
                                                 }
