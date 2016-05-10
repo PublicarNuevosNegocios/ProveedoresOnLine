@@ -57,6 +57,25 @@ namespace IntegrationPlatform.DAL.Controller
             return DataFactory.Sanofi_AditionalDataInfo_Upsert(AditionalDataInfoId, AditionalDataId, AditionalDataInfoType, Value, LargeValue, Enable);
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetSanofiOptions()
+        {
+            return DataFactory.CatalogGetSanofiOptions();
+        }
+
+        #endregion
+
+        #region Integration Publicar
+
+        public int Publicar_AditionalData_Upsert(int AditionalDataId, string ProviderPublicId, int AditionalFieldId, string AditionalDataName, bool Enable)
+        {
+            return DataFactory.Publicar_AditionalData_Upsert(AditionalDataId, ProviderPublicId, AditionalFieldId, AditionalDataName, Enable);
+        }
+
+        public int Publicar_AditionalDataInfo_Upsert(int AditionalDataInfoId, int AditionalDataId, int? AditionalDataInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.Publicar_AditionalDataInfo_Upsert(AditionalDataInfoId, AditionalDataId, AditionalDataInfoType, Value, LargeValue, Enable);
+        }
+
         #endregion
 
         #endregion

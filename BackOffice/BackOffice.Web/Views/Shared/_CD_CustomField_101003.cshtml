@@ -6,29 +6,30 @@
     var oCustomFileInfoURLId = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().ItemInfoId : 0;
     var oCustomFileURL = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().LargeValue : string.Empty;
 
-
-    <label>@Model.Item2.AditionalFieldType.ItemName</label>
+    <span>@Model.Item2.Label</span>
     <br />
+
     @Html.Partial(MVC.Shared.Views._F_FileUpload)
-    <input type="hidden" name="CustomFileURL" id="CustomFileURL" />
-    <input type="hidden" name="CustomFileURLId" id="@(oCustomFileInfoURLId)"/>
-    if (Model.Item3 != null &&
-        Model.Item3.ItemInfo != null)
+
+    <input type="hidden" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomFileURLId + "_" + Model.Item4 + "_" + oCustomFileInfoURLId)" id="CustomFileURL_@(Model.Item4)" value="@oCustomFileURL" />
+
+    if (oCustomFileURL != null && oCustomFileURL.Length > 0)
     {
-        <a href="@(oCustomFileURL)">Ver archivo</a>
+        <a href="@(oCustomFileURL)" target="_blank">Ver archivo</a>
     }
 }
 else
 {
-    @section inlinescripts{
-        <script type="text/javascript">
-            $(document).ready(function () {
-                UploadFile({
-                    ProviderPublicId: '@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId',
-                    ControlellerResponseId: "CustomFileURL",
-                });
+    <script type="text/javascript">
+
+        var oFieldId = "CustomFileURL" + @Model.Item4;
+
+        $(document).ready(function () {
+            UploadFile({
+                ProviderPublicId: '@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ControlellerResponseId: oFieldId,
             });
-        </script>
-    }
+        });
+    </script>
 }
 

@@ -6,11 +6,7 @@
     var oCustomTextInfoId = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().ItemInfoId : 0;
     var oCustomText = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty;
 
-    <input type="hidden" id="CustomTextInfoId" name="CustomTextInfoId" value="@oCustomTextInfoId"/>
-
-    <label>@Model.Item2.Label</label>
+    <span>@Model.Item2.Label</span>
     <br />
-    <input id="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" type="text" value="@oCustomText" />
+    <input id="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4 + "_" + oCustomTextInfoId)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomTextId + "_" + Model.Item4)" type="text" value="@oCustomText" />
 }
-else
-{ }

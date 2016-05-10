@@ -10,9 +10,9 @@
             @foreach (var FieldData in CustomData.CustomField)
             {
 
-                <div class="col-sm-4">
+                <div class="col-sm-6 CustomField">
                     @Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
-                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
+                    new Tuple<BackOffice.Models.Provider.ProviderViewModel,
                             IntegrationPlatform.Models.Integration.CustomFieldModel,
                             ProveedoresOnLine.Company.Models.Util.GenericItemModel,
                             string>
@@ -34,12 +34,16 @@ else
         foreach (var FieldData in CustomData.CustomField)
         {
             Html.Partial(MVC.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
-                    new Tuple<BackOffice.Models.Provider.ProviderViewModel, 
-                        IntegrationPlatform.Models.Integration.CustomFieldModel,
-                        ProveedoresOnLine.Company.Models.Util.GenericItemModel>
-                        (Model,
-                        CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault(),
-                        CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault()));
+            new Tuple<BackOffice.Models.Provider.ProviderViewModel,
+                    IntegrationPlatform.Models.Integration.CustomFieldModel,
+                    ProveedoresOnLine.Company.Models.Util.GenericItemModel,
+                    string>
+                    (Model,
+                      CustomData.CustomField != null && CustomData.CustomField.Count > 0 ? CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault() : null,
+                      CustomData.CustomData != null && CustomData.CustomData.Count > 0 ? CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null,
+                    CustomData.RelatedCompany.CompanyPublicId));
+
         }
     }
 }
+

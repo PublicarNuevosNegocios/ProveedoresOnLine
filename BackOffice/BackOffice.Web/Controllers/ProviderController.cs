@@ -1313,11 +1313,13 @@ namespace BackOffice.Web.Controllers
                 {
                     string[] strSplit = req.Split('_');
 
-                    if (strSplit.Length >= 3)
+                    if (strSplit.Length >= 5)
                     {
                         switch (Convert.ToInt32(strSplit[1].Trim()))
                         {
                             case (int)enumCustomField.CustomFieldText:
+
+                                #region Custom field text
 
                                 oCustomDataToUpsert = new IntegrationPlatform.Models.Integration.CustomDataModel()
                                 {
@@ -1333,7 +1335,7 @@ namespace BackOffice.Web.Controllers
                                             {
                                                 new GenericItemInfoModel()
                                                 {
-                                                    ItemInfoId = Convert.ToInt32(Request["CustomTextInfoId"].Trim()),
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
                                                     Value = Request[req].Trim(),
                                                     Enable = true,
                                                 }
@@ -1347,20 +1349,127 @@ namespace BackOffice.Web.Controllers
                                     },
                                 };
 
+                                #endregion                                
+
                                 oCustomDataToUpsert = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
 
                                 break;
 
                             case (int)enumCustomField.CustomFieldNumber:
+
+                                #region Custom field number
+
+                                oCustomDataToUpsert = new IntegrationPlatform.Models.Integration.CustomDataModel()
+                                {
+                                    CustomData = new List<GenericItemModel>() {
+                                        new GenericItemModel()
+                                        {
+                                            ItemId = Convert.ToInt32(strSplit[2].Trim()),
+                                            ItemType = new CatalogModel()
+                                            {
+                                                ItemId = Convert.ToInt32(strSplit[1].Trim()),
+                                            },
+                                            ItemInfo = new List<GenericItemInfoModel>()
+                                            {
+                                                new GenericItemInfoModel()
+                                                {
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
+                                                    Value = Request[req].Trim(),
+                                                    Enable = true,
+                                                }
+                                            },
+                                            Enable = true,
+                                        },
+                                    },
+                                    RelatedCompany = new CompanyModel()
+                                    {
+                                        CompanyPublicId = strSplit[3].Trim(),
+                                    },
+                                };
+
+                                #endregion
+
+                                oCustomDataToUpsert = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
+
                                 break;
+
                             case (int)enumCustomField.CustomFieldFile:
+
+                                #region Custom field file
+
+                                oCustomDataToUpsert = new IntegrationPlatform.Models.Integration.CustomDataModel()
+                                {
+                                    CustomData = new List<GenericItemModel>() {
+                                        new GenericItemModel()
+                                        {
+                                            ItemId = Convert.ToInt32(strSplit[2].Trim()),
+                                            ItemType = new CatalogModel()
+                                            {
+                                                ItemId = Convert.ToInt32(strSplit[1].Trim()),
+                                            },
+                                            ItemInfo = new List<GenericItemInfoModel>()
+                                            {
+                                                new GenericItemInfoModel()
+                                                {
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
+                                                    LargeValue = Request[req].Trim(),
+                                                    Enable = true,
+                                                }
+                                            },
+                                            Enable = true,
+                                        },
+                                    },
+                                    RelatedCompany = new CompanyModel()
+                                    {
+                                        CompanyPublicId = strSplit[3].Trim(),
+                                    },
+                                };
+
+                                #endregion
+
+                                oCustomDataToUpsert = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
+
                                 break;
+
                             case (int)enumCustomField.CustomFieldList:
+
+                                #region Custom field list
+
+                                oCustomDataToUpsert = new IntegrationPlatform.Models.Integration.CustomDataModel()
+                                {
+                                    CustomData = new List<GenericItemModel>() {
+                                        new GenericItemModel()
+                                        {
+                                            ItemId = Convert.ToInt32(strSplit[2].Trim()),
+                                            ItemType = new CatalogModel()
+                                            {
+                                                ItemId = Convert.ToInt32(strSplit[1].Trim()),
+                                            },
+                                            ItemInfo = new List<GenericItemInfoModel>()
+                                            {
+                                                new GenericItemInfoModel()
+                                                {
+                                                    ItemInfoId = Convert.ToInt32(strSplit[4].Trim()),
+                                                    Value = Request[req].Trim(),
+                                                    Enable = true,
+                                                }
+                                            },
+                                            Enable = true,
+                                        },
+                                    },
+                                    RelatedCompany = new CompanyModel()
+                                    {
+                                        CompanyPublicId = strSplit[3].Trim(),
+                                    },
+                                };
+
+                                #endregion
+
+                                oCustomDataToUpsert = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
+
                                 break;
                         }
-                    }
-
-                    //upsert by related customer                    
+                    }                  
 
                     return true;
                 });
@@ -1383,6 +1492,8 @@ namespace BackOffice.Web.Controllers
 
                 //Get provider menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);
+
+                oModel.ProviderOptions = IntegrationPlatform.Controller.IntegrationPlatform.CatalogGetSanofiOptions();
             }
 
             return View(oModel);

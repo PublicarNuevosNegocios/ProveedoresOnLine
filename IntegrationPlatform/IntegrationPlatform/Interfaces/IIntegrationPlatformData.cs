@@ -18,6 +18,16 @@ namespace IntegrationPlatform.Interfaces
 
         int Sanofi_AditionalDataInfo_Upsert(int AditionalDataInfoId, int AditionalDataId, int? AditionalDataInfoType, string Value, string LargeValue, bool Enable);
 
+        List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetSanofiOptions();
+
+        #endregion
+
+        #region Publicar
+
+        int Publicar_AditionalData_Upsert(int AditionalDataId, string ProviderPublicId, int AditionalFieldId, string AditionalDataName, bool Enable);
+
+        int Publicar_AditionalDataInfo_Upsert(int AditionalDataInfoId, int AditionalDataId, int? AditionalDataInfoType, string Value, string LargeValue, bool Enable);
+
         #endregion
 
         #endregion
