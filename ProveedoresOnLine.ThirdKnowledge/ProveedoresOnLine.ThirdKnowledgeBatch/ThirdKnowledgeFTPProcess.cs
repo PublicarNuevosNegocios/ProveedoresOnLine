@@ -287,7 +287,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                         }
                         catch (Exception err)
                         {
-                            LogFile("Error:: QueryPublicId '" + oQuery.QueryPublicId + "' :: " + err.Message);
+                            LogFile("Error:: QueryPublicId '" + oQuery.QueryPublicId + "' :: " + err.Message + "Inner Exception::" + err.InnerException);
                         }
                         return true;
                     });
@@ -301,7 +301,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             catch (Exception err)
             {
                 //log file for fatal error
-                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace + "Inner Exception::" + err.InnerException);
             }
         }
 
@@ -404,7 +404,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                            Missing.Value, Missing.Value, Missing.Value);
 
                     //Save As .xls
-                    book.SaveAs(strFolder + oQuery.FileName.Replace("xlsx", "xls"), fileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8);
+                    book.SaveAs(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
                     book.Close();
 
                     ExcelQueryFactory XlsInfo = new ExcelQueryFactory(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
