@@ -28,6 +28,11 @@ namespace IntegrationPlatform.Controller
             return oReturn;
         }
 
+        public static Models.Integration.CustomDataModel MP_CustomerProvider_GetCustomData(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.IntegrationPlatformDataController.Instance.MP_CustomerProvider_GetCustomData(CustomerPublicId, ProviderPublicId);
+        }
+
         #region Integration
         public static Models.Integration.CustomDataModel CustomerProvider_CustomData_Upsert(Models.Integration.CustomDataModel CustomData, string ProviderPublicId)
         {

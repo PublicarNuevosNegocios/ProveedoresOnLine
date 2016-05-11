@@ -82,5 +82,9 @@ namespace MarketPlace.Models.Provider
         public List<ProviderAditionalDocumentViewModel> RelatedAditionalDocumentBasicInfo { get; set; }
 
         public List<Tuple<string, List<ThirdKnowledgeViewModel>>> Group { get; set; }
+
+        public IntegrationPlatform.Models.Integration.CustomDataModel CustomData { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
     }
 }

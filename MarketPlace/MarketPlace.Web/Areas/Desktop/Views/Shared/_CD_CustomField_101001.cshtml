@@ -1,0 +1,5 @@
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+<br />
+<label class="POMPProviderBoxInfo">@Model.Item2.Label</label>
+<br />
+<span>@(Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty)</span>

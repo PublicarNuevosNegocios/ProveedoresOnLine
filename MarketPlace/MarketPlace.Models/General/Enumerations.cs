@@ -125,6 +125,7 @@
         AlertRisk = 203008,
         OtherProviders = 203010,
         CheckDigit = 203013,
+        CustomData = 203019,
 
         CustomEconomicActivity = 220001,
     }

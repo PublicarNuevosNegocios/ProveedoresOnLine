@@ -34,7 +34,7 @@
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
-            </form>            
+            </form>
         </div>
     </div>
 </div>
@@ -46,8 +46,40 @@
 @section inlinescripts{
 
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
-    @Html.Partial(MVC.Shared.Views._CD_CustomerForm, Model)
+
+    @{
+        string oCustomerList = "[]";
+
+        Dictionary<string, string> oOptionCustomer = Model.RelatedProvider.CustomData.Select(x =>
+        new
+        {
+            okey = x.RelatedCompany.CompanyPublicId,
+            ovalue = x.RelatedCompany.CompanyName,
+        }).ToDictionary(k => k.okey, v => v.ovalue);
+
+        oCustomerList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oOptionCustomer.Select(x => new { Key = x.Key, Value = x.Value }));
+    }
 
     <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var vCustomerList = @Html.Raw(oCustomerList);
+
+            debugger;
+            $.each(vCustomerList, function(item, value){
+                debugger;
+
+                var oFieldId = "CustomFileURL_" + value.Key;
+                $(document).ready(function () {
+                    Provider_CustomData.UploadFile({
+                        CustomerPublicId: value.Key,
+                        ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                        ControlellerResponseId: oFieldId,
+                    });
+                });
+            });
+        });
     </script>
 }

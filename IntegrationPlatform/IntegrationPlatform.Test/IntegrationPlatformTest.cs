@@ -76,7 +76,7 @@ namespace IntegrationPlatform.Test
         }
 
         [TestMethod]
-        public void CustomerProvider_CustomDataInfo_Upsert()
+        public void CustomerProvider_Sanofi_CustomDataInfo_Upsert()
         {
             ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
             {
@@ -92,7 +92,29 @@ namespace IntegrationPlatform.Test
                 },
             };
 
-            oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomDataInfo_Upsert(oReturn);
+            oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_Sanofi_CustomDataInfo_Upsert(oReturn);
+
+            Assert.AreEqual(true, oReturn != null);
+        }
+
+        [TestMethod]
+        public void CustomerProvider_Publicar_CustomDataInfo_Upsert()
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+            {
+                ItemId = 8,
+                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                {
+                    new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 8,
+                        Value = "201005",
+                        Enable  = true,
+                    },
+                },
+            };
+
+            oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_Publicar_CustomDataInfo_Upsert(oReturn);
 
             Assert.AreEqual(true, oReturn != null);
         }

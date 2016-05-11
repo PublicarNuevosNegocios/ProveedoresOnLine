@@ -1,0 +1,15 @@
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+<br />
+@{ 
+    var oCustomList = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty;
+}
+
+<label class="POMPProviderBoxInfo">@Model.Item2.Label</label>
+<br />
+@foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
+{
+    if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+    {
+        <span>@item.ItemName</span>
+    }
+}

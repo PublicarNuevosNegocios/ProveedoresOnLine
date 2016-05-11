@@ -245,6 +245,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RPDIAN);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CDCustomData()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CDCustomData);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Desktop.Provider; } }
@@ -293,6 +305,8 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string SVSurveyProgram = "SVSurveyProgram";
             public readonly string RPGeneral = "RPGeneral";
             public readonly string RPDIAN = "RPDIAN";
+            public readonly string CDCustomData = "CDCustomData";
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -330,6 +344,8 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string SVSurveyProgram = "SVSurveyProgram";
             public const string RPGeneral = "RPGeneral";
             public const string RPDIAN = "RPDIAN";
+            public const string CDCustomData = "CDCustomData";
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -603,6 +619,22 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string SearchParam = "SearchParam";
             public readonly string SearchFilter = "SearchFilter";
         }
+        static readonly ActionParamsClass_CDCustomData s_params_CDCustomData = new ActionParamsClass_CDCustomData();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CDCustomData CDCustomDataParams { get { return s_params_CDCustomData; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CDCustomData
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetPdfFileBytes
+        {
+            public readonly string FilePath = "FilePath";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -615,6 +647,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             {
                 public readonly string ADAditionalData = "ADAditionalData";
                 public readonly string ADAditionalDocument = "ADAditionalDocument";
+                public readonly string CDCustomData = "CDCustomData";
                 public readonly string CIExperiencesInfo = "CIExperiencesInfo";
                 public readonly string FIBalanceSheetInfo = "FIBalanceSheetInfo";
                 public readonly string FIBankInfo = "FIBankInfo";
@@ -647,6 +680,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             }
             public readonly string ADAditionalData = "~/Areas/Desktop/Views/Provider/ADAditionalData.cshtml";
             public readonly string ADAditionalDocument = "~/Areas/Desktop/Views/Provider/ADAditionalDocument.cshtml";
+            public readonly string CDCustomData = "~/Areas/Desktop/Views/Provider/CDCustomData.cshtml";
             public readonly string CIExperiencesInfo = "~/Areas/Desktop/Views/Provider/CIExperiencesInfo.cshtml";
             public readonly string FIBalanceSheetInfo = "~/Areas/Desktop/Views/Provider/FIBalanceSheetInfo.cshtml";
             public readonly string FIBankInfo = "~/Areas/Desktop/Views/Provider/FIBankInfo.cshtml";
@@ -1086,6 +1120,30 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
             RPDIANOverride(callInfo, SearchParam, SearchFilter);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CDCustomDataOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CDCustomData(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CDCustomData);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            CDCustomDataOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

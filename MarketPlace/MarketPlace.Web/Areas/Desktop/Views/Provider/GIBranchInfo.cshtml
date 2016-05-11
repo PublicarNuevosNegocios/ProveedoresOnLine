@@ -41,7 +41,7 @@
                                     <br />
                                     <span>  @item.BR_Name</span>
                                 </div>
-                            }  
+                            }
 
                             @if (!string.IsNullOrEmpty(item.BR_Representative))
                             {
@@ -100,10 +100,10 @@
                             @if (!string.IsNullOrEmpty(item.BR_Website))
                             {
                                 <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
-                                        <br />
-                                        <label class="POMPProviderBoxInfo">Página Web</label>
-                                        <br />
-                                        <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">Página Web</label>
+                                    <br />
+                                    <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
                                 </div>
                             }
                             <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
@@ -117,7 +117,7 @@
                                 if (tmp_pais != null)
                                 {
                                     <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
-                                        @{ 
+                                        @{
                                             <br />
                                             <label class="POMPProviderBoxInfo">País</label>
                                             <br />
@@ -125,14 +125,14 @@
                                             <span>@pais[1]</span>
                                         }
                                     </div>
-                                }
+                                            }
                             }
                             @{
                                 tmp_pais = item.DT_Country;
                                 if (tmp_pais != null)
                                 {
                                     <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
-                                        @{ 
+                                        @{
                                             <br />
                                             <label class="POMPProviderBoxInfo">Estado</label>
                                             <br />
@@ -140,22 +140,22 @@
                                             <span>@estado[0]</span>
                                         }
                                     </div>
-                                }
-                            }  
+                                            }
+                            }
                         </div>
                         <br />
                     </div>
-                }
+                                            }
             }
         </div>
     </div>
-    
-</div>    
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 

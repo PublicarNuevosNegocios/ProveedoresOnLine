@@ -9,9 +9,12 @@
     <span>@Model.Item2.Label</span>
     <br />
 
-    @Html.Partial(MVC.Shared.Views._F_FileUpload)
+    <div id="FileUploadForm">
+        <input type="file" name="LoadFile_@(Model.Item4)" id="LoadFile_@(Model.Item4)" value="" />
+    </div>
 
     <input type="hidden" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomFileURLId + "_" + Model.Item4 + "_" + oCustomFileInfoURLId)" id="CustomFileURL_@(Model.Item4)" value="@oCustomFileURL" />
+    
 
     if (oCustomFileURL != null && oCustomFileURL.Length > 0)
     {
@@ -20,16 +23,20 @@
 }
 else
 {
-    <script type="text/javascript">
+    @section body_scripts{
 
-        var oFieldId = "CustomFileURL" + @Model.Item4;
+        <script type="text/javascript">
 
-        $(document).ready(function () {
-            UploadFile({
-                ProviderPublicId: '@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ControlellerResponseId: oFieldId,
+            var oFieldId = "CustomFileURL_" + @Model.Item4;
+
+            $(document).ready(function () {
+                debugger;
+                UploadFile({
+                    ProviderPublicId: '@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId',
+                    ControlellerResponseId: oFieldId,
+                });
             });
-        });
-    </script>
+        </script>
+    }
 }
 

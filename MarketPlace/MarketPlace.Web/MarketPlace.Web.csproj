@@ -79,6 +79,10 @@
     <Reference Include="FileRepository.S3">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
     </Reference>
+    <Reference Include="IntegrationPlatform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform\developer\IntegrationPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToExcel">
       <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
     </Reference>
@@ -1250,6 +1254,11 @@
     <Content Include="Areas\Desktop\Views\Shared\_TK_ThirdKnowledgeSearch_Pager.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_ReportViewer.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GIBlackListDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CD_CustomerForm.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CD_CustomField_101001.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CD_CustomField_101004.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CD_CustomField_101002.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CD_CustomField_101003.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
@@ -1347,6 +1356,7 @@
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyEvaluatorDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\RPGerencial.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\ADAditionalData.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\CDCustomData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />

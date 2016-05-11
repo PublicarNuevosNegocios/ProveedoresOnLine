@@ -8,7 +8,7 @@
 
     <span>@Model.Item2.Label</span>
     <br />
-    <select id="CustomDta_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4 + "_" + oCustomListInfoId)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4)">
+    <select id="CustomDta_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4 + "_" + oCustomListInfoId)" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4 + "_" + oCustomListInfoId)">
         <option value="0">Seleccione una opción</option>
         @foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
         {

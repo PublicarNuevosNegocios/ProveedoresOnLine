@@ -181,7 +181,7 @@ namespace MarketPlace.Web.Controllers
 
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ) :                             
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
                             x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
 
             //validate provider permisions
@@ -319,7 +319,7 @@ namespace MarketPlace.Web.Controllers
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-            
+
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
@@ -363,7 +363,7 @@ namespace MarketPlace.Web.Controllers
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-            
+
             var oProvider = olstProvider.
                 Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
                             (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
@@ -658,7 +658,7 @@ namespace MarketPlace.Web.Controllers
                                         Value = x.CD_PartnerRank,
                                     });
                                     oModel.RelatedBlackListInfo.Add(oListCoincidences);
-                                }                                
+                                }
                                 return true;
                             });
                     }
@@ -794,7 +794,7 @@ namespace MarketPlace.Web.Controllers
                     #endregion
 
                     #region LISTAS FINANCIERAS - Criticidad Media
-                    
+
                     //fnc "LISTAS FINANCIERAS - Criticidad Media"
                     if (grp != null && grp.CompareTo("LISTAS FINANCIERAS - Criticidad Media") == 0)
                     {
@@ -3984,6 +3984,41 @@ namespace MarketPlace.Web.Controllers
 
         #endregion Reports
 
+        #region CustomData
+
+        public virtual ActionResult CDCustomData(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
+
+            oModel.CustomData = IntegrationPlatform.Controller.IntegrationPlatform.MP_CustomerProvider_GetCustomData(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            //validate provider permisions
+            if (oProvider != null)
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+                oModel.ProviderOptions = oModel.ProviderOptions = IntegrationPlatform.Controller.IntegrationPlatform.CatalogGetSanofiOptions();
+            }
+
+            return View(oModel);
+        }
+
+        #endregion
+
         #region Pivate Functions
 
         private GenericReportModel Report_SurveyGeneral(ProviderViewModel oModel)
@@ -5241,6 +5276,50 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
                     }
+
+                    //get is selected menu
+                    oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                    //add menu
+                    oReturn.Add(oMenuAux);
+                }
+
+                #endregion
+
+                #region Custom Data
+
+                List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId);
+
+                string oCustomData = oRelatedCustomer.Where(x => x.CompanyPublicId == SessionModel.CurrentCompany.CompanyPublicId).Select(x => x.CompanyPublicId).DefaultIfEmpty(string.Empty).FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(oCustomData))
+                {
+                    //header
+                    oMenuAux = new GenericMenu()
+                    {
+                        Name = "Datos por cliente",
+                        Position = 6,
+                        ChildMenu = new List<GenericMenu>(),
+                    };
+
+                    //survey list
+                    oMenuAux.ChildMenu.Add(new GenericMenu()
+                    {
+                        Name = "Campos personalizados",
+                        Url = Url.RouteUrl
+                                (Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.CDCustomData,
+                                    ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                }),
+                        Position = 0,
+                        IsSelected =
+                            ((oCurrentAction == MVC.Provider.ActionNames.CDCustomData ||
+                            oCurrentAction == MVC.Provider.ActionNames.CDCustomData) &&
+                            oCurrentController == MVC.Provider.Name),
+                    });
 
                     //get is selected menu
                     oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);

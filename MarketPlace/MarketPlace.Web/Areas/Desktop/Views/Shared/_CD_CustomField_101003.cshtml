@@ -1,0 +1,12 @@
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+<br />
+@{
+    var oCustomFileURL = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().LargeValue : string.Empty;
+}
+
+<label class="POMPProviderBoxInfo">@Model.Item2.Label</label>
+<br />
+@if (oCustomFileURL != null && oCustomFileURL.Length > 0)
+{
+    <a href="@(oCustomFileURL)" target="_blank">Ver archivo</a>
+}

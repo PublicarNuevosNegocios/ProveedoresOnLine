@@ -45,6 +45,11 @@ namespace IntegrationPlatform.DAL.Controller
             return DataFactory.CustomerProvider_GetCustomData(Customer, ProviderPublicId);
         }
 
+        public Models.Integration.CustomDataModel MP_CustomerProvider_GetCustomData(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.MP_CustomerProvider_GetCustomData(CustomerPublicId, ProviderPublicId);
+        }
+
         #region Integration Sanofi
 
         public int Sanofi_AditionalData_Upsert(int AditionalDataId, string ProviderPublicId, int AditionalFieldId, string AditionalDataName, bool Enable)

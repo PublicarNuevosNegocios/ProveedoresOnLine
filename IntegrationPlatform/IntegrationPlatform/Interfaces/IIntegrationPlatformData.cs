@@ -12,6 +12,8 @@ namespace IntegrationPlatform.Interfaces
 
         Models.Integration.CustomDataModel CustomerProvider_GetCustomData(ProveedoresOnLine.Company.Models.Company.CompanyModel Customer, string ProviderPublicId);
 
+        Models.Integration.CustomDataModel MP_CustomerProvider_GetCustomData(string CustomerPublicId, string ProviderPublicId);
+
         #region Integration Sanofi
 
         int Sanofi_AditionalData_Upsert(int AditionalDataId, string ProviderPublicId, int AditionalFieldId, string AditionalDataName, bool Enable);

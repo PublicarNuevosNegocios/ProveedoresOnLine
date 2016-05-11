@@ -17,7 +17,6 @@ function Header_ShowHideUserMenu(divId) {
 
 /*UploadFile Generic Function*/
 function UploadFile(initObject) {
-
     debugger;
     var oFileExit = true;
     $('#GenericLoadFile')

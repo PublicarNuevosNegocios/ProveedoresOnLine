@@ -1,0 +1,23 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+<div class="row POMPSectionTitlesBox">
+    <div class="col-sm-12">
+        <label>Campos personalizados del cliente @MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName</label>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var FieldData in Model.CustomData.CustomField)
+        {
+            <div class="col-md-4 POMPBorderbottom POMPProviderBoxInfo">
+                @Html.Partial(MVC.Desktop.Shared.Views._CD_CustomField_101001.Replace("101001", FieldData.AditionalFieldType.ItemId.ToString()),
+                    new Tuple<MarketPlace.Models.Provider.ProviderViewModel,
+                            IntegrationPlatform.Models.Integration.CustomFieldModel,
+                            ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+                            (Model,
+                              Model.CustomData.CustomField != null && Model.CustomData.CustomField.Count > 0 ? Model.CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault() : null,
+                              Model.CustomData.CustomData != null && Model.CustomData.CustomData.Count > 0 ? Model.CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null))
+            </div>
+        }
+    </div>
+</div>

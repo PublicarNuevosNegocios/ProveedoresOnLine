@@ -1764,6 +1764,19 @@ var Provider_CompanyCommercialObject = {
                 field: 'EX_ContractValue',
                 title: 'Valor de contrato',
                 width: '180px',
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = '';
+
+                    if (dataItem.EX_ContractValue == '') {
+                        oReturn = '0';
+                    }
+                    else {
+                        oReturn = dataItem.EX_ContractValue;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'EX_Phone',
                 title: 'Telefono',
@@ -7064,4 +7077,33 @@ var Provider_CustomerInfoObject = {
     },
 }
 
+var Provider_CustomData = {
 
+    /*UploadFile Generic Function*/
+    UploadFile: function(initObject) {
+        debugger;
+        var oFileExit = true;
+        $('#LoadFile_' + initObject.CustomerPublicId)
+        .kendoUpload({
+            multiple: false,
+            async: {            
+                saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + initObject.ProviderPublicId,
+                autoUpload: true
+            },
+            success: function (e) {            
+                if (e.response != null && e.response.length > 0) {
+                    //set server fiel name
+                    $('#' + initObject.ControlellerResponseId).val(e.response[0].ServerName);
+                }
+            },
+            complete: function (e) {            
+                //enable lost focus
+                oFileExit = true;
+            },
+            select: function (e) {
+                //disable lost focus while upload file
+                oFileExit = false;
+            },
+        });    
+    },
+}

@@ -38,6 +38,11 @@ namespace T4MVC.Desktop
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _CD_CustomerForm = "_CD_CustomerForm";
+                public readonly string _CD_CustomField_101001 = "_CD_CustomField_101001";
+                public readonly string _CD_CustomField_101002 = "_CD_CustomField_101002";
+                public readonly string _CD_CustomField_101003 = "_CD_CustomField_101003";
+                public readonly string _CD_CustomField_101004 = "_CD_CustomField_101004";
                 public readonly string _CH_ProjectByResponsible = "_CH_ProjectByResponsible";
                 public readonly string _CH_ProjectByState = "_CH_ProjectByState";
                 public readonly string _CH_StateForeingProviders = "_CH_StateForeingProviders";
@@ -117,6 +122,11 @@ namespace T4MVC.Desktop
                 public readonly string _TK_ThirdKnowledgeSearch_Pager = "_TK_ThirdKnowledgeSearch_Pager";
                 public readonly string _TK_ThirdKnowledgeSearch_Result_Pager = "_TK_ThirdKnowledgeSearch_Result_Pager";
             }
+            public readonly string _CD_CustomerForm = "~/Areas/Desktop/Views/Shared/_CD_CustomerForm.cshtml";
+            public readonly string _CD_CustomField_101001 = "~/Areas/Desktop/Views/Shared/_CD_CustomField_101001.cshtml";
+            public readonly string _CD_CustomField_101002 = "~/Areas/Desktop/Views/Shared/_CD_CustomField_101002.cshtml";
+            public readonly string _CD_CustomField_101003 = "~/Areas/Desktop/Views/Shared/_CD_CustomField_101003.cshtml";
+            public readonly string _CD_CustomField_101004 = "~/Areas/Desktop/Views/Shared/_CD_CustomField_101004.cshtml";
             public readonly string _CH_ProjectByResponsible = "~/Areas/Desktop/Views/Shared/_CH_ProjectByResponsible.cshtml";
             public readonly string _CH_ProjectByState = "~/Areas/Desktop/Views/Shared/_CH_ProjectByState.cshtml";
             public readonly string _CH_StateForeingProviders = "~/Areas/Desktop/Views/Shared/_CH_StateForeingProviders.cshtml";
