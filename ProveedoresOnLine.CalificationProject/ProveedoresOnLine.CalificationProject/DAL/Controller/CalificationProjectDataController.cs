@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProveedoresOnLine.CalificationProject.DAL.Controller
+{
+    internal class CalificationProjectDataController : ProveedoresOnLine.CalificationProject.Interfaces.ICalificationProjectData
+    {
+        #region singleton instance
+
+        private static ProveedoresOnLine.CalificationProject.Interfaces.ICalificationProjectData oInstance;
+
+        internal static ProveedoresOnLine.CalificationProject.Interfaces.ICalificationProjectData Instance
+        {
+            get
+            {
+                if (oInstance == null)
+                    oInstance = new CalificationProjectDataController();
+                return oInstance;
+            }
+        }
+
+        private ProveedoresOnLine.CalificationProject.Interfaces.ICalificationProjectData DataFactory;
+
+        #endregion
+
+        #region constructor
+
+        public CalificationProjectDataController()
+        {
+            CalificationProject.DAL.Controller.CalificationProjectDataFactory factory = new CalificationProject.DAL.Controller.CalificationProjectDataFactory();
+            DataFactory = factory.GetCalificationProjectInstance();
+        }
+
+        #endregion
+    }
+}
