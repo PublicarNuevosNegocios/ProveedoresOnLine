@@ -15,6 +15,26 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
         {
             DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.CalificationProject.Models.Constants.C_POL_CalificatioProjectConnectionName);
         }
+        #region ProjectConfig
+        public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string Company, string CalificationProjectConfigName, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", Company));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigName", CalificationProjectConfigName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CC_CalificationProjectConfig_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+            return Convert.ToInt32(response.ScalarResult);
+        }
+        #endregion
 
         #region ConfigItem
 
@@ -40,5 +60,9 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
         }
 
         #endregion        
+
+
+    
+        
     }
 }
