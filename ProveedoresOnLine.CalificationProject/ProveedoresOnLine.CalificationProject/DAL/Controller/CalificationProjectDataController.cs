@@ -43,7 +43,25 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
             return DataFactory.CalificationProjectConfigItemUpsert(CalificationProjectConfigId, CalificationProjectConfigItemId, CalificationProjectConfigItemName, CalificationProjectConfigItemType, Enable);
         }
 
+        public List<Models.CalificationProject.ConfigItemModel> CalificationProjectConfigItem_GetByCalificationProjectConfigId(int CalificationProjectConfigId, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigItem_GetByCalificationProjectConfigId(CalificationProjectConfigId, Enable);
+        }
+
         #endregion
-        
+
+        #region ConfigItemInfo
+
+        public int CalificationProjectConfigItemInfoUpsert(int CalificationProjectConfigItemId, int CalificationProjectConfigItemInfoId, int Question, int Rule, int ValueType, string Value, string Score, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigItemInfoUpsert(CalificationProjectConfigItemId, CalificationProjectConfigItemInfoId, Question, Rule, ValueType, Value, Score, Enable);
+        }
+
+        public List<Models.CalificationProject.ConfigItemInfoModel> CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId(int CalificationProjectConfigItemId, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId(CalificationProjectConfigItemId, Enable);
+        }
+
+        #endregion
     }
 }
