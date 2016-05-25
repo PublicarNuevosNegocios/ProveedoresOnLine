@@ -35,5 +35,15 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
         }
 
         #endregion
+
+        #region ConfigItem
+
+        public int CalificationProjectConfigItemUpsert(int CalificationProjectConfigId, int CalificationProjectConfigItemId, string CalificationProjectConfigItemName, int CalificationProjectConfigItemType, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigItemUpsert(CalificationProjectConfigId, CalificationProjectConfigItemId, CalificationProjectConfigItemName, CalificationProjectConfigItemType, Enable);
+        }
+
+        #endregion
+        
     }
 }
