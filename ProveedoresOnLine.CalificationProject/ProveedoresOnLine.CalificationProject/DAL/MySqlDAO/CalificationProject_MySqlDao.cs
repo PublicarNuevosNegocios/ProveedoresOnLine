@@ -16,6 +16,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.CalificationProject.Models.Constants.C_POL_CalificatioProjectConnectionName);
         }
         #region ProjectConfig
+
         public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string Company, string CalificationProjectConfigName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -34,6 +35,49 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             });
             return Convert.ToInt32(response.ScalarResult);
         }
+
+        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string Company, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", Company));
+            lstparams.Add(DataInstance.CreateTypedParameter("vEnable",(Enable == true)? 0: 1));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest() 
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_CalificationProjectConfig_GetByCompanyId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+            
+            List<CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oReturn = new List<Models.CalificationProject.CalificationProjectConfigModel>();
+
+            if (response.DataTableResult != null & response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = (from cpc in response.DataTableResult.AsEnumerable()
+                           where !cpc.IsNull("CalificationProjectConfigId")
+                           group cpc by new
+                           {
+                               CalificationProjectConfigId = cpc.Field<int>("CalificationProjectConfigId"),                              
+                               CalificationProjectConfigName = cpc.Field<string>("CalificationProjectConfigName"),
+                               Enable = cpc.Field<UInt64>("Enable") == 1 ? true : false,
+                               LastModify = cpc.Field<DateTime>("LastModify"),
+                               CreateDate = cpc.Field<DateTime>("CreateDate"),
+                           }
+                           into cpcg
+                               select new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel() 
+                               {
+                                   CalificationProjectConfigId = cpcg.Key.CalificationProjectConfigId,                                  
+                                   CalificationProjectConfigName = cpcg.Key.CalificationProjectConfigName,
+                                   Enable = cpcg.Key.Enable,
+                                   LastModify = cpcg.Key.LastModify,
+                                   CreateDate = cpcg.Key.CreateDate,
+                               }).ToList();                   
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region ConfigItem
@@ -213,8 +257,66 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 
         #endregion        
 
+        #region ConfigValidate
 
-    
+        public int CalificationProjectConfigValidateUpsert(int CalificationProjectConfigValidateId, int CalificationProjectConfigId, int Operator, int Value, int Result, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigValidateId", CalificationProjectConfigValidateId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vOperator", Operator));
+            lstparams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstparams.Add(DataInstance.CreateTypedParameter("vResult",Result));
+            lstparams.Add(DataInstance.CreateTypedParameter("vEnable",(Enable == true)? 1:0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest() 
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CC_CalificationProjectConfigValidate_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstparams,
+
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+        //public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
+        //{
+        //    List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+        //    lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
+        //    lstParams.Add(DataInstance.CreateTypedParameter("vEnable",Enable));
+
+        //    ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest() 
+        //    {
+        //        CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+        //        CommandText = "CC_CalificationProjectConfigValidate_GetByProjectConfigId",
+        //        CommandType = CommandType.StoredProcedure,
+        //        Parameters = lstParams
+        //    });
+
+        //    //List<Models.CalificationProject.ConfigValidateModel> oReturn = new List<Models.CalificationProject.ConfigValidateModel>();
+
+        //    //if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+        //    //{
+        //    //    oReturn = (from cvm in response.DataTableResult.AsEnumerable()
+        //    //               where !cvm.IsNull("")    )
+        //    //}
+        //}
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
         
     }
 }

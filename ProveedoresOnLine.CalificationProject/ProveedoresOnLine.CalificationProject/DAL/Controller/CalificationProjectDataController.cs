@@ -37,10 +37,16 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
         #endregion
 
         #region ProjectConfig
+
         public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string Company, string CalificationProjectConfigName, bool Enable) 
         {
             return DataFactory.CalificationProjectConfigUpsert(CalificationProjectConfigId, Company, CalificationProjectConfigName, Enable);
         }
+        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string Company, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfig_GetByCompanyId(Company,Enable);
+        }
+
         #endregion
 
         #region ConfigItem
@@ -70,5 +76,27 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
         }
 
         #endregion
+
+        #region ConfigValidate
+
+        public int CalificationProjectConfigValidateUpsert(int CalificationProjectConfigValidateId, int CalificationProjectConfigId, int Operator, int Value, int Result, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigValidateUpsert(CalificationProjectConfigValidateId, CalificationProjectConfigId, Operator, Value, Result, Enable);
+        }
+        //public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
+        //{
+        //    return DataFactory.CalificationProjectConfigValidate_GetByProjectConfigId(CalificationProjectConfigId, Enable);
+        //}
+    
+        #endregion
+
+
+
+
+
+
+
+
+        
     }
 }
