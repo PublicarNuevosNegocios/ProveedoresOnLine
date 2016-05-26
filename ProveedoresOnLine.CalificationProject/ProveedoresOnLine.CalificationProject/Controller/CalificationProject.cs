@@ -50,9 +50,9 @@ namespace ProveedoresOnLine.CalificationProject.Controller
             return oConfigProject;
         }
 
-        public static List<CalificationProjectConfigModel> CalificationProjectConfigGetByCompanyId(string Company, bool Enable)
+        public static List<CalificationProjectConfigModel> CalificationProjectConfigGetByCompanyId(string CompanyPublicId, bool Enable)
         {
-            return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetByCompanyId(Company, Enable);
+            return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetByCompanyId(CompanyPublicId, Enable);
         }
 
         #endregion

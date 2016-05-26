@@ -17,12 +17,12 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
         }
         #region ProjectConfig
 
-        public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string Company, string CalificationProjectConfigName, bool Enable)
+        public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string CompanyPublicId, string CalificationProjectConfigName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", Company));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigName", CalificationProjectConfigName));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
 
@@ -36,11 +36,11 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string Company, bool Enable)
+        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string CompanyPublicId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
 
-            lstparams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", Company));
+            lstparams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -71,6 +71,10 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                    CalificationProjectConfigId = cpcg.Key.CalificationProjectConfigId,
                                    CalificationProjectConfigName = cpcg.Key.CalificationProjectConfigName,
                                    Enable = cpcg.Key.Enable,
+                                   Company = new Company.Models.Company.CompanyModel()
+                                   {
+                                       CompanyPublicId = CompanyPublicId
+                                   },
                                    LastModify = cpcg.Key.LastModify,
                                    CreateDate = cpcg.Key.CreateDate,
                                }).ToList();
