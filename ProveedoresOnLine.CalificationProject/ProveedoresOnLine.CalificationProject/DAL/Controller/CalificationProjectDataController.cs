@@ -39,13 +39,13 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
         #region ProjectConfig
             #region ProjectConfig
 
-            public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string Company, string CalificationProjectConfigName, bool Enable)
+        public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string CompanyPublicId, string CalificationProjectConfigName, bool Enable)
             {
-                return DataFactory.CalificationProjectConfigUpsert(CalificationProjectConfigId, Company, CalificationProjectConfigName, Enable);
+                return DataFactory.CalificationProjectConfigUpsert(CalificationProjectConfigId, CompanyPublicId, CalificationProjectConfigName, Enable);
             }
-            public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string Company, bool Enable)
+        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string CompanyPublicId, bool Enable)
             {
-                return DataFactory.CalificationProjectConfig_GetByCompanyId(Company, Enable);
+                return DataFactory.CalificationProjectConfig_GetByCompanyId(CompanyPublicId, Enable);
             }
 
             #endregion
