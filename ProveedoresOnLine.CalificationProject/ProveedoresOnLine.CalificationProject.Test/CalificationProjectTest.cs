@@ -18,5 +18,25 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+
+        [TestMethod]
+        public void CalificationProjectConfigItemUpsert()
+        {
+            ConfigItemModel oReturn = new ConfigItemModel() { 
+                CalificationProjectConfigItemId = 0,
+                CalificationProjectConfigId = 1,
+                CalificationProjectConfigItemName = null,
+                CalificationProjectConfigItemType = new Company.Models.Util.CatalogModel()
+                {
+                    ItemId = 2003001, //Módulo Legal
+                },
+                Enable = true,
+            };
+
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemUpsert
+                (oReturn);
+
+            Assert.AreEqual(true, oReturn.CalificationProjectConfigItemId > 0);
+        }
     }
 }
