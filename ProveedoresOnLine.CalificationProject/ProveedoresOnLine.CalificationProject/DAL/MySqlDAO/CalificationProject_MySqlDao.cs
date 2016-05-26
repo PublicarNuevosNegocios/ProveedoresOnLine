@@ -259,7 +259,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 
         #region ConfigValidate
 
-        public int CalificationProjectConfigValidateUpsert(int CalificationProjectConfigValidateId, int CalificationProjectConfigId, int Operator, int Value, int Result, bool Enable)
+        public int CalificationProjectConfigValidateUpsert(int CalificationProjectConfigValidateId, int CalificationProjectConfigId, int Operator, string Value, string Result, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
 
@@ -281,29 +281,59 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 
             return Convert.ToInt32(response.ScalarResult);
         }
-        //public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
-        //{
-        //    List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+        public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
-        //    lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
-        //    lstParams.Add(DataInstance.CreateTypedParameter("vEnable",Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
-        //    ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest() 
-        //    {
-        //        CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-        //        CommandText = "CC_CalificationProjectConfigValidate_GetByProjectConfigId",
-        //        CommandType = CommandType.StoredProcedure,
-        //        Parameters = lstParams
-        //    });
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_CalificationProjectConfigValidate_GetByProjectConfigId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
 
-        //    //List<Models.CalificationProject.ConfigValidateModel> oReturn = new List<Models.CalificationProject.ConfigValidateModel>();
+            List<Models.CalificationProject.ConfigValidateModel> oReturn = new List<Models.CalificationProject.ConfigValidateModel>();
 
-        //    //if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
-        //    //{
-        //    //    oReturn = (from cvm in response.DataTableResult.AsEnumerable()
-        //    //               where !cvm.IsNull("")    )
-        //    //}
-        //}
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = (from cvm in response.DataTableResult.AsEnumerable()
+                           where !cvm.IsNull("CalificationProjectConfigValidateId")
+                           group cvm by new
+                           {
+                               CalificationProjectConfigValidateId = cvm.Field<int>("CalificationProjectConfigValidateId"),
+                               CalificationProjectConfigId = cvm.Field<int>("CalificationProjectConfigId"),
+                               OperatorId = cvm.Field<int>("OperatorId"),
+                               OperatorName = cvm.Field<string>("OperatorName"),
+                               Value = cvm.Field<string>("Value"),
+                               Result = cvm.Field<string>("Result"),
+                               Enable = cvm.Field<bool>("Enable"),
+                               CreateDate = cvm.Field<DateTime>("CreateDate"),
+                               LastModify = cvm.Field<DateTime>("LastModify")
+                           }
+                           into cvmf
+                           select new Models.CalificationProject.ConfigValidateModel()
+                           {
+                               CalificationProjectConfigValidateId = cvmf.Key.CalificationProjectConfigId,
+                               CalificationProjectConfigId = cvmf.Key.CalificationProjectConfigId,
+                               Operator = new Company.Models.Util.CatalogModel 
+                               {
+                                   ItemId = cvmf.Key.OperatorId,
+                                   ItemName = cvmf.Key.OperatorName
+                               },
+                               Value = cvmf.Key.Value,
+                               Result = cvmf.Key.Result,
+                               Enable = cvmf.Key.Enable,
+                               CreateDate = cvmf.Key.CreateDate,
+                               LastModify = cvmf.Key.LastModify
+
+                           }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
 
 
