@@ -39,6 +39,7 @@ namespace ProveedoresOnLine.CalificationProject.Interfaces
         List<ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable);
 
         #endregion
+
         #endregion
 
         
