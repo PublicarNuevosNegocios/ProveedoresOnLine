@@ -9,8 +9,10 @@ namespace ProveedoresOnLine.CalificationProject.Controller
 {
     public class CalificationProject
     {
+        #region CalificationProjectConfigModule
+
         #region ProjectConfig
-            #region ProjectConfig
+
         public static CalificationProjectConfigModel CalificationProjectConfigUpsert(CalificationProjectConfigModel oConfigProject)
         {
             LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
@@ -47,13 +49,15 @@ namespace ProveedoresOnLine.CalificationProject.Controller
             }
             return oConfigProject;
         }
+
         public static List<CalificationProjectConfigModel> CalificationProjectConfigGetByCompanyId(string Company, bool Enable)
         {
             return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetByCompanyId(Company, Enable);
         }
+
         #endregion
 
-            #region ConfigItem
+        #region ConfigItem
 
         public static ConfigItemModel CalificationProjectConfigItemUpsert(ConfigItemModel oConfigItemModel)
         {
@@ -103,7 +107,7 @@ namespace ProveedoresOnLine.CalificationProject.Controller
 
         #endregion
 
-            #region ConfigItemInfo
+        #region ConfigItemInfo
 
         public static ConfigItemModel CalificationProjectConfigItemInfoUpsert(ConfigItemModel oConfigItemModel)
         {
@@ -162,54 +166,55 @@ namespace ProveedoresOnLine.CalificationProject.Controller
 
         #endregion
 
-            #region ConfigValidate
+        #region ConfigValidate
 
-            public static ConfigValidateModel CalificationProjectConfigValidate_Upsert(ConfigValidateModel oConfigValidateModel)
+        public static ConfigValidateModel CalificationProjectConfigValidate_Upsert(ConfigValidateModel oConfigValidateModel)
+        {
+            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+            try
             {
-                LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-                try
+                if (oConfigValidateModel != null)
                 {
-                    if (oConfigValidateModel != null)
-                    {
-                        oConfigValidateModel.CalificationProjectConfigValidateId = DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigValidateUpsert
-                            (
-                            oConfigValidateModel.CalificationProjectConfigValidateId,
-                                oConfigValidateModel.CalificationProjectConfigId,
-                                oConfigValidateModel.Operator.ItemId,
-                                oConfigValidateModel.Value,
-                                oConfigValidateModel.Result,
-                                oConfigValidateModel.Enable
-                            );
-                        oLog.IsSuccess = true;
-                    }
+                    oConfigValidateModel.CalificationProjectConfigValidateId = DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigValidateUpsert
+                        (
+                        oConfigValidateModel.CalificationProjectConfigValidateId,
+                            oConfigValidateModel.CalificationProjectConfigId,
+                            oConfigValidateModel.Operator.ItemId,
+                            oConfigValidateModel.Value,
+                            oConfigValidateModel.Result,
+                            oConfigValidateModel.Enable
+                        );
+                    oLog.IsSuccess = true;
                 }
-                catch (Exception err)
-                {
-                    oLog.IsSuccess = false;
-                    oLog.Message = err.Message + " - " + err.StackTrace;
-                    throw err;
-                }
-                finally
-                {
-                    oLog.LogObject = oConfigValidateModel;
-
-                    oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                    {
-                        LogInfoType = "CalificationProjectValidateId",
-                        Value = oConfigValidateModel.CalificationProjectConfigValidateId.ToString(),
-                    });
-
-                    LogManager.ClientLog.AddLog(oLog);
-                }
-                return oConfigValidateModel;
             }
-
-            public static List<ConfigValidateModel> CalificationProjectValidate_GetByProjectConfigId(int ConfigProjectId, bool Enable)
+            catch (Exception err)
             {
-                return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigValidate_GetByProjectConfigId(ConfigProjectId, Enable);
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+                throw err;
             }
-            #endregion
+            finally
+            {
+                oLog.LogObject = oConfigValidateModel;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "CalificationProjectValidateId",
+                    Value = oConfigValidateModel.CalificationProjectConfigValidateId.ToString(),
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
+            return oConfigValidateModel;
+        }
+
+        public static List<ConfigValidateModel> CalificationProjectValidate_GetByProjectConfigId(int ConfigProjectId, bool Enable)
+        {
+            return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigValidate_GetByProjectConfigId(ConfigProjectId, Enable);
+        }
+
         #endregion
-        
+
+        #endregion
     }
 }
