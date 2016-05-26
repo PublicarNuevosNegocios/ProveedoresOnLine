@@ -41,16 +41,16 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
 
             lstparams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", Company));
-            lstparams.Add(DataInstance.CreateTypedParameter("vEnable",(Enable == true)? 0: 1));
+            lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
 
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest() 
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
                 CommandText = "CC_CalificationProjectConfig_GetByCompanyId",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstparams,
             });
-            
+
             List<CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oReturn = new List<Models.CalificationProject.CalificationProjectConfigModel>();
 
             if (response.DataTableResult != null & response.DataTableResult.Rows.Count > 0)
@@ -59,21 +59,21 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                            where !cpc.IsNull("CalificationProjectConfigId")
                            group cpc by new
                            {
-                               CalificationProjectConfigId = cpc.Field<int>("CalificationProjectConfigId"),                              
+                               CalificationProjectConfigId = cpc.Field<int>("CalificationProjectConfigId"),
                                CalificationProjectConfigName = cpc.Field<string>("CalificationProjectConfigName"),
                                Enable = cpc.Field<UInt64>("Enable") == 1 ? true : false,
                                LastModify = cpc.Field<DateTime>("LastModify"),
                                CreateDate = cpc.Field<DateTime>("CreateDate"),
                            }
-                           into cpcg
-                               select new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel() 
+                               into cpcg
+                               select new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
                                {
-                                   CalificationProjectConfigId = cpcg.Key.CalificationProjectConfigId,                                  
+                                   CalificationProjectConfigId = cpcg.Key.CalificationProjectConfigId,
                                    CalificationProjectConfigName = cpcg.Key.CalificationProjectConfigName,
                                    Enable = cpcg.Key.Enable,
                                    LastModify = cpcg.Key.LastModify,
                                    CreateDate = cpcg.Key.CreateDate,
-                               }).ToList();                   
+                               }).ToList();
             }
             return oReturn;
         }
@@ -255,7 +255,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return oReturn;
         }
 
-        #endregion        
+        #endregion
 
         #region ConfigValidate
 
@@ -267,10 +267,10 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             lstparams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
             lstparams.Add(DataInstance.CreateTypedParameter("vOperator", Operator));
             lstparams.Add(DataInstance.CreateTypedParameter("vValue", Value));
-            lstparams.Add(DataInstance.CreateTypedParameter("vResult",Result));
-            lstparams.Add(DataInstance.CreateTypedParameter("vEnable",(Enable == true)? 1:0));
+            lstparams.Add(DataInstance.CreateTypedParameter("vResult", Result));
+            lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
 
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest() 
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
                 CommandText = "CC_CalificationProjectConfigValidate_Upsert",
@@ -286,7 +286,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -310,27 +310,27 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                OperatorName = cvm.Field<string>("OperatorName"),
                                Value = cvm.Field<string>("Value"),
                                Result = cvm.Field<string>("Result"),
-                               Enable = cvm.Field<bool>("Enable"),
+                               Enable = cvm.Field<UInt64>("Enable") == 1 ? true : false,
                                CreateDate = cvm.Field<DateTime>("CreateDate"),
                                LastModify = cvm.Field<DateTime>("LastModify")
                            }
-                           into cvmf
-                           select new Models.CalificationProject.ConfigValidateModel()
-                           {
-                               CalificationProjectConfigValidateId = cvmf.Key.CalificationProjectConfigId,
-                               CalificationProjectConfigId = cvmf.Key.CalificationProjectConfigId,
-                               Operator = new Company.Models.Util.CatalogModel 
+                               into cvmf
+                               select new Models.CalificationProject.ConfigValidateModel()
                                {
-                                   ItemId = cvmf.Key.OperatorId,
-                                   ItemName = cvmf.Key.OperatorName
-                               },
-                               Value = cvmf.Key.Value,
-                               Result = cvmf.Key.Result,
-                               Enable = cvmf.Key.Enable,
-                               CreateDate = cvmf.Key.CreateDate,
-                               LastModify = cvmf.Key.LastModify
+                                   CalificationProjectConfigValidateId = cvmf.Key.CalificationProjectConfigId,
+                                   CalificationProjectConfigId = cvmf.Key.CalificationProjectConfigId,
+                                   Operator = new Company.Models.Util.CatalogModel
+                                   {
+                                       ItemId = cvmf.Key.OperatorId,
+                                       ItemName = cvmf.Key.OperatorName
+                                   },
+                                   Value = cvmf.Key.Value,
+                                   Result = cvmf.Key.Result,
+                                   Enable = cvmf.Key.Enable,
+                                   CreateDate = cvmf.Key.CreateDate,
+                                   LastModify = cvmf.Key.LastModify
 
-                           }).ToList();
+                               }).ToList();
             }
             return oReturn;
         }
@@ -347,6 +347,6 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 
 
 
-        
+
     }
 }

@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.CalificationProject", "ProveedoresOnLine.CalificationProject\ProveedoresOnLine.CalificationProject.csproj", "{934E6C94-0807-4BB2-A096-FFCACAF17F01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.CalificationProject.Test", "ProveedoresOnLine.CalificationProject.Test\ProveedoresOnLine.CalificationProject.Test.csproj", "{CC2C487A-9AA9-43D7-B216-702DDE61B465}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{934E6C94-0807-4BB2-A096-FFCACAF17F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934E6C94-0807-4BB2-A096-FFCACAF17F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{934E6C94-0807-4BB2-A096-FFCACAF17F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2C487A-9AA9-43D7-B216-702DDE61B465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2C487A-9AA9-43D7-B216-702DDE61B465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2C487A-9AA9-43D7-B216-702DDE61B465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2C487A-9AA9-43D7-B216-702DDE61B465}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
     {
         public CalificationProject.Interfaces.ICalificationProjectData GetCalificationProjectInstance()
         {
-            Type typetoreturn = Type.GetType("ProveedoresOnLine.CalificationProject.DAL.MySQLDAO.CalificationProject_MySqlDao,ProveedoresOnLine.CalificationProject");
+            Type typetoreturn = Type.GetType("ProveedoresOnLine.CalificationProject.DAL.MySqlDAO.CalificationProject_MySqlDao,ProveedoresOnLine.CalificationProject");
             ProveedoresOnLine.CalificationProject.Interfaces.ICalificationProjectData oRetorno = (ProveedoresOnLine.CalificationProject.Interfaces.ICalificationProjectData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }
