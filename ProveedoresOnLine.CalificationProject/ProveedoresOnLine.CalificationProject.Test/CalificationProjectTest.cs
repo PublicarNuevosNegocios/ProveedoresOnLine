@@ -21,7 +21,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
-        
+
         #endregion
 
         #region ConfigValidate
@@ -34,24 +34,92 @@ namespace ProveedoresOnLine.CalificationProject.Test
         }
 
         #endregion
+
+        #region ConfigItem
+
         [TestMethod]
         public void CalificationProjectConfigItemUpsert()
         {
-            ConfigItemModel oReturn = new ConfigItemModel() { 
-                CalificationProjectConfigItemId = 0,
+            CalificationProjectConfigModel oReturn = new CalificationProjectConfigModel()
+            {
                 CalificationProjectConfigId = 1,
-                CalificationProjectConfigItemName = null,
-                CalificationProjectConfigItemType = new Company.Models.Util.CatalogModel()
-                {
-                    ItemId = 2003001, //Módulo Legal
+                ConfigItemModel = new List<ConfigItemModel>(){
+                    new ConfigItemModel(){
+                        CalificationProjectConfigItemId = 5,
+                        CalificationProjectConfigItemName = null,
+                        CalificationProjectConfigItemType = new Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = 2003002, //Módulo Financiera
+                        },
+                        Enable = true,
+                    },
                 },
-                Enable = true,
             };
 
             oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemUpsert
                 (oReturn);
 
-            Assert.AreEqual(true, oReturn.CalificationProjectConfigItemId > 0);
+            Assert.AreEqual(true, oReturn.CalificationProjectConfigId > 0 && oReturn.ConfigItemModel != null && oReturn.ConfigItemModel.Count > 0);
         }
+
+        [TestMethod]
+        public void CalificationProjectConfigItem_GetByCalificationProjectConfigId()
+        {
+            List<ConfigItemModel> oReturn = new List<ConfigItemModel>();
+
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItem_GetByCalificationProjectConfigId
+                (1,
+                true);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+        #endregion
+
+        #region ConfigItemInfo
+
+        [TestMethod]
+        public void CalificationProjectConfigItemInfoUpsert()
+        {
+            ConfigItemModel oReturn = new ConfigItemModel()
+            {
+                CalificationProjectConfigItemId = 1,
+                CalificationProjectConfigItemInfoModel = new List<ConfigItemInfoModel>(){
+                    new ConfigItemInfoModel(){
+                        CalificationProjectConfigItemInfoId = 1,
+                        Question = new Company.Models.Util.CatalogModel(){
+                            ItemId = 609001, //Cantidad de empleados profesionales
+                        },
+                        Rule = new Company.Models.Util.CatalogModel(){
+                            ItemId = 2001003, //Menor que (<)
+                        },
+                        ValueType = new Company.Models.Util.CatalogModel(){
+                            ItemId = 2002002, //Numérico
+                        },
+                        Value = "5",
+                        Score = "5",
+                        Enable = true,
+                    },
+                },
+            };
+
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemInfoUpsert(oReturn);
+
+            Assert.AreEqual(true, oReturn.CalificationProjectConfigItemInfoModel.Count > 0);
+        }
+
+        [TestMethod]
+        public void CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId()
+        {
+            List<ConfigItemInfoModel> oReturn = new List<ConfigItemInfoModel>();
+
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId
+                (1,
+                true);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+        #endregion
     }
 }

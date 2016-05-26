@@ -37,6 +37,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
         #endregion
 
         #region ProjectConfig
+
             #region ProjectConfig
 
         public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string CompanyPublicId, string CalificationProjectConfigName, bool Enable)
@@ -90,17 +91,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
             }
 
             #endregion
+
         #endregion
-
-        
-
-
-
-
-
-
-
-
-        
     }
 }
