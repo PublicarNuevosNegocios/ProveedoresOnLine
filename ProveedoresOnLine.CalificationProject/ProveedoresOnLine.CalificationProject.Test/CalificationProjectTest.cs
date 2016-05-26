@@ -8,6 +8,8 @@ namespace ProveedoresOnLine.CalificationProject.Test
     [TestClass]
     public class CalificationProjectTest
     {
+        #region ProjectConfig
+
         [TestMethod]
         public void CalificationProjectConfigGetByCompanyId()
         {
@@ -19,6 +21,19 @@ namespace ProveedoresOnLine.CalificationProject.Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
+        
+        #endregion
+
+        #region ConfigValidate
+
+        public void CalificationProjectConfigValidateCalificationProjectConfigValidateGetByProjectConfigId()
+        {
+            List<ConfigValidateModel> oReturn = new List<ConfigValidateModel>();
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(1, true);
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+        #endregion
         [TestMethod]
         public void CalificationProjectConfigItemUpsert()
         {
