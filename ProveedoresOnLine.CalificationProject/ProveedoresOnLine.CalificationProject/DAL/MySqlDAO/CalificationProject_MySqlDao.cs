@@ -104,7 +104,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                         group cpm by new
                         {
                             CalificationProjectConfigId = cpm.Field<int>("CalificationProjectConfigId"),
-                            CompanyId = cpm.Field<string>("CompanyId"),
+                            CompanyPublicId = cpm.Field<string>("CompanyPublicId"),
                             CalificationProjectConfigName = cpm.Field<string>("CalificationProjectConfigName"),
                             Enable = cpm.Field<UInt64>("Enable") == 1 ? true : false,
                             LastModify = cpm.Field<DateTime>("LastModify"),
@@ -133,7 +133,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                 CalificationProjectConfigId = cpmg.Key.CalificationProjectConfigId,
                                 Company = new Company.Models.Company.CompanyModel()
                                 {
-                                    CompanyPublicId = cpmg.Key.CompanyId
+                                     CompanyPublicId= cpmg.Key.CompanyPublicId
                                 },
                                 CalificationProjectConfigName = cpmg.Key.CalificationProjectConfigName,
                                 Enable = cpmg.Key.Enable,
