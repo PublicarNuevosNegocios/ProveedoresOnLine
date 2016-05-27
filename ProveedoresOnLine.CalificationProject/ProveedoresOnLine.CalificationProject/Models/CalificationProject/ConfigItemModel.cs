@@ -11,8 +11,6 @@ namespace ProveedoresOnLine.CalificationProject.Models.CalificationProject
     {
         public int CalificationProjectConfigItemId { get; set; }
 
-        public int CalificationProjectConfigId { get; set; }
-
         public string CalificationProjectConfigItemName { get; set; }
 
         public CatalogModel CalificationProjectConfigItemType { get; set; }

@@ -59,45 +59,54 @@ namespace ProveedoresOnLine.CalificationProject.Controller
 
         #region ConfigItem
 
-        public static ConfigItemModel CalificationProjectConfigItemUpsert(ConfigItemModel oConfigItemModel)
+        public static CalificationProjectConfigModel CalificationProjectConfigItemUpsert(CalificationProjectConfigModel oCalificationProjectConfigModel)
         {
-            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-
-            try
+            if (oCalificationProjectConfigModel != null &&
+                oCalificationProjectConfigModel.ConfigItemModel != null &&
+                oCalificationProjectConfigModel.ConfigItemModel.Count > 0)
             {
-                if (oConfigItemModel != null)
+                oCalificationProjectConfigModel.ConfigItemModel.All(cit =>
                 {
-                    oConfigItemModel.CalificationProjectConfigItemId = DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigItemUpsert
-                        (oConfigItemModel.CalificationProjectConfigId,
-                        oConfigItemModel.CalificationProjectConfigItemId,
-                        oConfigItemModel.CalificationProjectConfigItemName,
-                        oConfigItemModel.CalificationProjectConfigItemType.ItemId,
-                        oConfigItemModel.Enable);
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
 
-                    oLog.IsSuccess = true;
-                }
-            }
-            catch (Exception err)
-            {
-                oLog.IsSuccess = false;
-                oLog.Message = err.Message + " - " + err.StackTrace;
+                    try
+                    {
+                        cit.CalificationProjectConfigItemId = DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigItemUpsert
+                            (oCalificationProjectConfigModel.CalificationProjectConfigId,
+                            cit.CalificationProjectConfigItemId,
+                            cit.CalificationProjectConfigItemName,
+                            cit.CalificationProjectConfigItemType.ItemId,
+                            cit.Enable);
 
-                throw err;
-            }
-            finally
-            {
-                oLog.LogObject = oConfigItemModel;
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
 
-                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                {
-                    LogInfoType = "CalificationProjectConfigItemId",
-                    Value = oConfigItemModel.CalificationProjectConfigItemId.ToString(),
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = cit;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CalificationProjectConfigItemId",
+                            Value = cit.CalificationProjectConfigItemId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
                 });
-
-                LogManager.ClientLog.AddLog(oLog);
             }
 
-            return oConfigItemModel;
+
+
+            return oCalificationProjectConfigModel;
         }
 
         public static List<ConfigItemModel> CalificationProjectConfigItem_GetByCalificationProjectConfigId(int CalificationProjectConfigId, bool Enable)
@@ -121,7 +130,7 @@ namespace ProveedoresOnLine.CalificationProject.Controller
                     try
                     {
                         cinf.CalificationProjectConfigItemInfoId = DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigItemInfoUpsert
-                        (cinf.CalificationProjectConfigItemId,
+                        (oConfigItemModel.CalificationProjectConfigItemId,
                         cinf.CalificationProjectConfigItemInfoId,
                         cinf.Question.ItemId,
                         cinf.Rule.ItemId,
