@@ -13,8 +13,8 @@ namespace ProveedoresOnLine.CalificationProject.Interfaces
             #region ProjectConfig
 
         int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string CompanyPublicId, string CalificationProjectConfigName, bool Enable);
-        List<CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string Company, bool Enable);
-        //List<CalificationProjectConfigModel> CalificationProjectConfig_GetAll();
+        List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string Company, bool Enable);
+        List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetAll();
 
         #endregion
 

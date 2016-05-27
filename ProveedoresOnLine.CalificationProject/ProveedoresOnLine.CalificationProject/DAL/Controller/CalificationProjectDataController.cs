@@ -48,7 +48,10 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
             {
                 return DataFactory.CalificationProjectConfig_GetByCompanyId(CompanyPublicId, Enable);
             }
-
+        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetAll()
+        {
+            return DataFactory.CalificationProjectConfig_GetAll();
+        }
             #endregion
 
             #region ConfigItem
@@ -93,5 +96,8 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
             #endregion
 
         #endregion
+
+
+            
     }
 }
