@@ -104,8 +104,6 @@ namespace ProveedoresOnLine.CalificationProject.Controller
                 });
             }
 
-
-
             return oCalificationProjectConfigModel;
         }
 
