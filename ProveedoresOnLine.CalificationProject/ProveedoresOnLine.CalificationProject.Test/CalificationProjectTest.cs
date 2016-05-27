@@ -25,7 +25,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
         #endregion
 
         #region ConfigValidate
-
+        [TestMethod]
         public void CalificationProjectConfigValidateCalificationProjectConfigValidateGetByProjectConfigId()
         {
             List<ConfigValidateModel> oReturn = new List<ConfigValidateModel>();
@@ -34,6 +34,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
         }
 
         #endregion
+
         [TestMethod]
         public void CalificationProjectConfigItemUpsert()
         {
