@@ -113,6 +113,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.AsociateProvider.Client\developer\ProveedoresOnLine.AsociateProvider.Client.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CalificationProject">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationProject\developer\ProveedoresOnLine.CalificationProject.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.Company">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
@@ -1144,6 +1147,7 @@
     <Content Include="Views\Shared\_CD_CustomField_101002.cshtml" />
     <Content Include="Views\Shared\_CD_CustomField_101004.cshtml" />
     <Content Include="Views\Shared\_CD_CustomField_101003.cshtml" />
+    <Content Include="Views\Customer\CPCCalificationProjectConfigUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
