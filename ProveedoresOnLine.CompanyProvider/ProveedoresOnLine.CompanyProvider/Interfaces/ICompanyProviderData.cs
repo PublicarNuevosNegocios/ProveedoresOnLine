@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.Company.Models.Util;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System.Collections.Generic;
 
@@ -92,6 +93,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter);
 
+        List<CompanyModel> GetAllProvidersByCustomerPublicId(string CustomerPublicId);
         #endregion SearchProviders
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId);

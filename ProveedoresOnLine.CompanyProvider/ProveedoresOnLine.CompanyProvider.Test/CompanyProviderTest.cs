@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System.Linq;
+using ProveedoresOnLine.Company.Models.Company;
 
 namespace ProveedoresOnLine.CompanyProvider.Test
 {
@@ -1902,8 +1903,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             Assert.AreEqual(true, oResult.Count > 0);
 
         }
-
-
+        
         [TestMethod]
         public void MPProviderSearchNew()
         {
@@ -1951,6 +1951,12 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
         }
 
+        [TestMethod]
+        public void GetAllProvidersByCustomerPublicId()
+        {
+            List<CompanyModel> oCompanyList = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId("7BC27832");
+            Assert.IsNotNull(oCompanyList);
+        }
         #endregion        
 
         [TestMethod]

@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System.Collections.Generic;
 
 namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
@@ -199,6 +200,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPProviderSearchFilterNew(CustomerPublicId, SearchParam, SearchFilter, OtherProviders);
         }
 
+        public List<CompanyModel> GetAllProvidersByCustomerPublicId(string CustomerPublicId)
+        {
+            return DataFactory.GetAllProvidersByCustomerPublicId(CustomerPublicId);
+        }
+
         #endregion SearchProviders
 
         public List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
@@ -304,6 +310,6 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.GetProvidersByState(CompanyPublicId);
         }
 
-        #endregion Charts
+        #endregion Charts       
     }
 }

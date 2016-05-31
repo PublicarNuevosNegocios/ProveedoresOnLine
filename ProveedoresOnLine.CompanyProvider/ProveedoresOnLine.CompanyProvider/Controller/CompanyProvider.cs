@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.Company.Models.Util;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
@@ -1231,6 +1232,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchFilterNew(CustomerPublicId, SearchParam, SearchFilter, OtherProviders);
         }
 
+        public static List<CompanyModel> GetAllProvidersByCustomerPublicId(string CustomerPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.GetAllProvidersByCustomerPublicId(CustomerPublicId);
+        }
         #endregion
 
         public static List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
