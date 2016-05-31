@@ -53,6 +53,19 @@
     <Compile Include="IntegrationPlatformSANOFIProcessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rsx-IntegrationPlatformSANOFIIProcess.xml" />
+    <Content Include="Rsx-SettingsConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.csproj">
+      <Project>{055fd021-2e72-4b65-88c8-abe35a7fe9ec}</Project>
+      <Name>IntegrationPlatform.SANOFIProcess</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

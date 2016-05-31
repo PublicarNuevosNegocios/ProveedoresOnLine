@@ -64,11 +64,11 @@
     <Compile Include="DAL\Controller\IntegrationPlatformSANOFIDataFactory.cs" />
     <Compile Include="DAL\MySQLDAO\SANOFIProcess_MySqlDao.cs" />
     <Compile Include="Interfaces\IIntegrationPlatformSANOFIProcessData.cs" />
+    <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\InternalSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform.SANOFIProcess\developer\" /y</PostBuildEvent>

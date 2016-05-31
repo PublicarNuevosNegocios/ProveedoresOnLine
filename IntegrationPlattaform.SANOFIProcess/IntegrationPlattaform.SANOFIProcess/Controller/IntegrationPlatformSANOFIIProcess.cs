@@ -9,12 +9,13 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 {
     public class IntegrationPlatformSANOFIIProcess
     {
-        public void StartProcess()
+        public static void StartProcess()
         {
             try
             {
                 // Get Providers SANOFI
-               List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId("");
+               List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId(
+                    IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value);
 
                 
                 // Get Process Last Time 

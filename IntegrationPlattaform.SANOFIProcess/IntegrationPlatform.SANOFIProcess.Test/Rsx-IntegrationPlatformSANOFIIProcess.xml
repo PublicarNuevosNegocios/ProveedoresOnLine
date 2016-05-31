@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <IntegrationPlatformSANOFIIProcess>
+    <!--Default Currency-->
+    <key name="SANOFI_ProviderPublicId">7BC27832</key>
+  </IntegrationPlatformSANOFIIProcess>
+</Settings>
