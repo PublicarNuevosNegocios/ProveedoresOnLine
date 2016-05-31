@@ -150,6 +150,73 @@ namespace BackOffice.Web.ControllersApi
 
         #endregion Customer Roles
 
+        #region Calification Project Config
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.CalificationProjectConfigViewModel> CPCalificationProjectConfigSearch
+            (string CPCalificationProjectConfigSearch,
+            string CustomerPublicId,
+            string vEnable)
+        {
+            List<BackOffice.Models.Customer.CalificationProjectConfigViewModel> oReturn = new List<CalificationProjectConfigViewModel>();
+
+            if (CPCalificationProjectConfigSearch == "true")
+            {
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel>();
+                oModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigGetByCompanyId(CustomerPublicId, vEnable == "true" ? true : false);
+
+                if (oModel.Count > 0)
+                {
+                    oModel.All(x =>
+                    {
+                        oReturn.Add(new CalificationProjectConfigViewModel(x));
+
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.CalificationProjectConfigViewModel CPCalificationProjectConfigUpsert
+            (string CPCalificationProjectConfigUpsert,
+            string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.CalificationProjectConfigViewModel oReturn = null;
+
+            if (CPCalificationProjectConfigUpsert == "true")
+            {
+                BackOffice.Models.Customer.CalificationProjectConfigViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.CalificationProjectConfigViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.CalificationProjectConfigViewModel));
+
+                ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel oModelToUpsert = new ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
+                {
+                    CalificationProjectConfigId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigId) : 0,
+                    CalificationProjectConfigName = oDataToUpsert.CalificationProjectConfigName,
+                    Enable = oDataToUpsert.Enable,
+                    Company = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = CustomerPublicId,
+                    },
+                };
+
+                oModelToUpsert = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigUpsert(oModelToUpsert);
+
+                oReturn = new CalificationProjectConfigViewModel(oModelToUpsert);
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
         #region Survey Config
 
         [HttpPost]
