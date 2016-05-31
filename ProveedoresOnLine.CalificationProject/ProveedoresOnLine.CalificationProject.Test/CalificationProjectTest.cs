@@ -20,19 +20,32 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
-
-        
-        #endregion
-
-        #region ConfigValidate
         [TestMethod]
-        public void CalificationProjectConfigValidateCalificationProjectConfigValidateGetByProjectConfigId()
+        public void CalificaciontProjectConfigUpsert() 
         {
-            List<ConfigValidateModel> oReturn = new List<ConfigValidateModel>();
-            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(1, true);
+            CalificationProjectConfigModel oReturn = new CalificationProjectConfigModel()
+            {
+                CalificationProjectConfigId =0,
+                CalificationProjectConfigName= "Proceso de Calificación Prueba 1",
+                Company = new Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = "1EA5A78A"
+                },
+                Enable = true
+             
+            };
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigUpsert(oReturn);
+            Assert.AreEqual(true, oReturn.CalificationProjectConfigId > 0);
+        }
+        [TestMethod]
+        public void CalificationProjectConfigGetAll()
+        {
+            List<Models.CalificationProject.CalificationProjectConfigModel> oReturn = new List<CalificationProjectConfigModel>();
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetAll();
+
             Assert.AreEqual(true, oReturn.Count > 0);
         }
-
+        
         #endregion
 
         #region ConfigItem
@@ -120,6 +133,36 @@ namespace ProveedoresOnLine.CalificationProject.Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
+        #endregion
+
+        #region ConfigValidate
+        [TestMethod]
+        public void CalificationProjectConfigValidate_GetByprojectConfigId()
+        {
+            List<ConfigValidateModel> oReturn = new List<ConfigValidateModel>();
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(1, true);
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+        [TestMethod]
+        public void CalificationProjectConfigValidate_Upsert()
+        {
+            ConfigValidateModel oReturn = new ConfigValidateModel()
+            {
+                CalificationProjectConfigValidateId = 0,
+                CalificationProjectConfigId = 3,
+                Operator = new Company.Models.Util.CatalogModel()
+                {
+                    ItemId = 2001001
+                },
+                Value = "10",
+                Result = "5",
+                Enable = true
+
+            };
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigValidate_Upsert(oReturn);
+            Assert.AreEqual(true, oReturn.CalificationProjectConfigId > 0 && oReturn.CalificationProjectConfigValidateId > 0 );
+        }
         #endregion
     }
 }

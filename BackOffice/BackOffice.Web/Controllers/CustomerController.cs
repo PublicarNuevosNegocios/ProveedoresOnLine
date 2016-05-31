@@ -774,6 +774,27 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #region CalificationProjectConfig
+
+        public virtual ActionResult CPCCalificationProjectConfigUpsert(string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            {
+                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.CustomerMenu = GetCustomerMenu(oModel);
+
+            return View(oModel);
+        }
+
+        #endregion
+
         #region Reports
 
         public virtual ActionResult DownloadReport(string CustomerPublicId)
@@ -971,7 +992,39 @@ namespace BackOffice.Web.Controllers
                 oReturn.Add(oMenuAux);
 
                 #endregion
-                
+
+                #region calification project config
+
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Proceso de Calificación",
+                    Position = 4,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //Calification Project config
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Configuración del proceso",
+                    Url = Url.Action
+                        (MVC.Customer.ActionNames.CPCCalificationProjectConfigUpsert,
+                        MVC.Customer.Name,
+                        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Customer.ActionNames.CPCCalificationProjectConfigUpsert &&
+                        oCurrentController == MVC.Customer.Name),
+                });
+
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                //add menu
+                oReturn.Add(oMenuAux);
+
+                #endregion
+
                 #region Project config
 
                 ////header

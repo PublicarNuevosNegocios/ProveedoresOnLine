@@ -121,15 +121,15 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DownloadReport()
+        public virtual System.Web.Mvc.ActionResult CPCCalificationProjectConfigUpsert()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadReport);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCCalificationProjectConfigUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        public virtual System.Web.Mvc.ActionResult DownloadReport()
         {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadReport);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -158,8 +158,8 @@ namespace BackOffice.Web.Controllers
             public readonly string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
             public readonly string TDAssignedPlan = "TDAssignedPlan";
             public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
+            public readonly string CPCCalificationProjectConfigUpsert = "CPCCalificationProjectConfigUpsert";
             public readonly string DownloadReport = "DownloadReport";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -176,8 +176,8 @@ namespace BackOffice.Web.Controllers
             public const string PCEvaluationItemShowCriteria = "PCEvaluationItemShowCriteria";
             public const string TDAssignedPlan = "TDAssignedPlan";
             public const string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
+            public const string CPCCalificationProjectConfigUpsert = "CPCCalificationProjectConfigUpsert";
             public const string DownloadReport = "DownloadReport";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -268,6 +268,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
         }
+        static readonly ActionParamsClass_CPCCalificationProjectConfigUpsert s_params_CPCCalificationProjectConfigUpsert = new ActionParamsClass_CPCCalificationProjectConfigUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CPCCalificationProjectConfigUpsert CPCCalificationProjectConfigUpsertParams { get { return s_params_CPCCalificationProjectConfigUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CPCCalificationProjectConfigUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
         static readonly ActionParamsClass_DownloadReport s_params_DownloadReport = new ActionParamsClass_DownloadReport();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DownloadReport DownloadReportParams { get { return s_params_DownloadReport; } }
@@ -275,14 +283,6 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_DownloadReport
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
-        }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
-        {
-            public readonly string FilePath = "FilePath";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -295,6 +295,7 @@ namespace BackOffice.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
+                public readonly string CPCCalificationProjectConfigUpsert = "CPCCalificationProjectConfigUpsert";
                 public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
                 public readonly string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
@@ -307,6 +308,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string TDAssignedPlan = "TDAssignedPlan";
             }
             public readonly string ADAditionalDocumentsUpsert = "~/Views/Customer/ADAditionalDocumentsUpsert.cshtml";
+            public readonly string CPCCalificationProjectConfigUpsert = "~/Views/Customer/CPCCalificationProjectConfigUpsert.cshtml";
             public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
             public readonly string PCEvaluationCriteriaUpsert = "~/Views/Customer/PCEvaluationCriteriaUpsert.cshtml";
@@ -464,6 +466,18 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
+        partial void CPCCalificationProjectConfigUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CPCCalificationProjectConfigUpsert(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCCalificationProjectConfigUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            CPCCalificationProjectConfigUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void DownloadReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
 
         [NonAction]
@@ -472,18 +486,6 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadReport);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             DownloadReportOverride(callInfo, CustomerPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

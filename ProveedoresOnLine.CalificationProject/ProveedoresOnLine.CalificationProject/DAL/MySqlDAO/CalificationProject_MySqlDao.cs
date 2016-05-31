@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
 namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 {
     internal class CalificationProject_MySqlDao : ICalificationProjectData
@@ -83,71 +84,122 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return oReturn;
         }
 
-        //List<CalificationProjectConfigModel> CalificationProjectConfig_GetAll() 
-        //{
-        //    ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-        //    {
-        //        CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-        //        CommandText = "CC_CalificationProjectConfig_GetAll",
-        //        CommandType = CommandType.StoredProcedure                
-        //    });
+        public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetAll()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_CalificationProjectConfig_GetAll",
+                CommandType = CommandType.StoredProcedure
+            });
 
-        //    List<Models.CalificationProject.CalificationProjectConfigModel> oReturn = new List<Models.CalificationProject.CalificationProjectConfigModel>();
+            List<Models.CalificationProject.CalificationProjectConfigModel> oReturn = new List<Models.CalificationProject.CalificationProjectConfigModel>();
 
-        //    if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
-        //    {
-        //        oReturn =
-        //            (
-        //                from cpm in response.DataTableResult.AsEnumerable()
-        //                where !cpm.IsNull("CalificationProjectConfigId")
-        //                group cpm by new
-        //                {
-        //                    CalificationProjectConfigId = cpm.Field<int>("CalificationProjectConfigId"),
-        //                    CompanyId = cpm.Field<string>("CompanyId"),
-        //                    CalificationProjectConfigName = cpm.Field<string>("CalificationProjectConfigName"),
-        //                    Enable = cpm.Field<UInt64>("Enable") == 1 ? true : false,
-        //                    LastModify = cpm.Field<DateTime>("LastModify"),
-        //                    CreateDate = cpm.Field<DateTime>("CreateDate"),
-        //                    CalificatonProjectConfigItemId = cpm.Field<int>("CalificationProjectConfigItemId"),
-        //                    ConfigItemTypeName = cpm.Field<string>("ConfigItemTypeName"),
-        //                    ConfigItemTypeId = cpm.Field<int>("ConfigItemTypeId"),
-        //                    CalificationProjectConfigItemInfoId = cpm.Field<int>("CalificationProjectConfigItemInfoId"),
-        //                    QuestionName = cpm.Field<string>("QuestionName"),
-        //                    QuestionId = cpm.Field<int>("QuestionId"),
-        //                    RuleName = cpm.Field<string>("RuleName"),
-        //                    RuleId = cpm.Field<int>("RuleId"),
-        //                    ValueName = cpm.Field<string>("ValueName"),
-        //                    ValueId = cpm.Field<int>("ValueId"),
-        //                    Value = cpm.Field<string>("Value"),
-        //                    Score = cpm.Field<string>("Score"),
-        //                    CalificationProjectConfigValidateId = cpm.Field<int>("CalificationProjectConfigValidateId"),
-        //                    OperatorName = cpm.Field<string>("OperatorName"),
-        //                    OperatorId = cpm.Field<int>("OperatorId"),
-        //                    ValidateValue = cpm.Field<string>("ValidateValue"),
-        //                    ValidateRule = cpm.Field<string>("ValidateRule")
-        //                }
-        //                    into cpmg
-        //                    select new Models.CalificationProject.CalificationProjectConfigModel()
-        //                    {
-        //                        CalificationProjectConfigId = cpmg.Key.CalificationProjectConfigId,
-        //                        Company = new Company.Models.Company.CompanyModel()
-        //                        {
-        //                            CompanyPublicId = cpmg.Key.CompanyId
-        //                        },
-        //                        CalificationProjectConfigName = cpmg.Key.CalificationProjectConfigName,
-        //                        Enable = cpmg.Key.Enable,
-        //                        LastModify = cpmg.Key.LastModify,
-        //                        CreateDate = cpmg.Key.CreateDate,
-        //                        ConfigItemModel = new Models.CalificationProject.ConfigItemModel() 
-        //                        {
-        //                            CalificationProjectConfigItemId
-        //                        }
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (
+                        from cpm in response.DataTableResult.AsEnumerable()
+                        where !cpm.IsNull("CalificationProjectConfigId")
+                        group cpm by new
+                        {
+                            CalificationProjectConfigId = cpm.Field<int>("CalificationProjectConfigId"),
+                            CompanyPublicId = cpm.Field<string>("CompanyPublicId"),
+                            CalificationProjectConfigName = cpm.Field<string>("CalificationProjectConfigName"),
+                            Enable = cpm.Field<UInt64>("Enable") == 1 ? true : false,
+                            LastModify = cpm.Field<DateTime>("LastModify"),
+                            CreateDate = cpm.Field<DateTime>("CreateDate"),
+                            CalificatonProjectConfigItemId = cpm.Field<int>("CalificationProjectConfigItemId"),
+                            ConfigItemTypeName = cpm.Field<string>("ConfigItemTypeName"),
+                            ConfigItemTypeId = cpm.Field<int>("ConfigItemTypeId"),
+                            CalificationProjectConfigItemInfoId = cpm.Field<int>("CalificationProjectConfigItemInfoId"),
+                            QuestionName = cpm.Field<string>("QuestionName"),
+                            QuestionId = cpm.Field<int>("QuestionId"),
+                            RuleName = cpm.Field<string>("RuleName"),
+                            RuleId = cpm.Field<int>("RuleId"),
+                            ValueName = cpm.Field<string>("ValueName"),
+                            ValueId = cpm.Field<int>("ValueId"),
+                            Value = cpm.Field<string>("Value"),
+                            Score = cpm.Field<string>("Score"),
+                            CalificationProjectConfigValidateId = cpm.Field<int>("CalificationProjectConfigValidateId"),
+                            OperatorName = cpm.Field<string>("OperatorName"),
+                            OperatorId = cpm.Field<int>("OperatorId"),
+                            ValidateValue = cpm.Field<string>("ValidateValue"),
+                            ValidateResult = cpm.Field<string>("ValidateResult")
+                        }
+                            into cpmg
+                            select new Models.CalificationProject.CalificationProjectConfigModel()
+                            {
+                                CalificationProjectConfigId = cpmg.Key.CalificationProjectConfigId,
+                                Company = new Company.Models.Company.CompanyModel()
+                                {
+                                     CompanyPublicId= cpmg.Key.CompanyPublicId
+                                },
+                                CalificationProjectConfigName = cpmg.Key.CalificationProjectConfigName,
+                                Enable = cpmg.Key.Enable,
+                                LastModify = cpmg.Key.LastModify,
+                                CreateDate = cpmg.Key.CreateDate,
+                                ConfigItemModel = new List<Models.CalificationProject.ConfigItemModel>()
+                                {
+                                     new Models.CalificationProject.ConfigItemModel() 
+                                    {
+                                        CalificationProjectConfigItemId = cpmg.Key.CalificatonProjectConfigItemId,
+                                        CalificationProjectConfigItemName = cpmg.Key.ConfigItemTypeName,
+                                        CalificationProjectConfigItemType = new Company.Models.Util.CatalogModel
+                                        {
+                                            ItemId = cpmg.Key.ConfigItemTypeId
+                                        },
+                                        CalificationProjectConfigItemInfoModel = new List<Models.CalificationProject.ConfigItemInfoModel>()
+                                        {
+                                            new Models.CalificationProject.ConfigItemInfoModel()
+                                            {
+                                                CalificationProjectConfigItemInfoId = cpmg.Key.CalificationProjectConfigItemInfoId,
+                                                Question = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemName = cpmg.Key.QuestionName,
+                                                    ItemId = cpmg.Key.QuestionId
+                                                },
+                                                Rule = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemName = cpmg.Key.RuleName,
+                                                    ItemId = cpmg.Key.RuleId
+                                                },
+                                                ValueType = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemName = cpmg.Key.ValueName,
+                                                    ItemId = cpmg.Key.ValueId
+                                                },
+                                                Value = cpmg.Key.Value,
+                                                Score = cpmg.Key.Score,
 
-        //                    }
 
-        //            );
-        //    }
-        //}
+                                            }
+                                        }
+                                    }
+
+                                },
+                                ConfigValidateModel = new List<Models.CalificationProject.ConfigValidateModel>()
+                                {
+                                    new Models.CalificationProject.ConfigValidateModel()
+                                    {
+                                        CalificationProjectConfigValidateId = cpmg.Key.CalificationProjectConfigValidateId,
+                                        Operator = new Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemName = cpmg.Key.OperatorName,
+                                            ItemId = cpmg.Key.OperatorId
+                                        },
+                                        Value = cpmg.Key.ValidateValue,
+                                        Result = cpmg.Key.ValidateResult
+                                    }
+                                }
+
+                            }
+
+                    ).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region ConfigItem
@@ -402,5 +454,6 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return oReturn;
         }
         #endregion
+        
     }
 }
