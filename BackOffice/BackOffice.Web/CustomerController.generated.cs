@@ -127,6 +127,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CPCCalificationProjectConfigValidateUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCCalificationProjectConfigValidateUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult DownloadReport()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadReport);
@@ -159,6 +165,7 @@ namespace BackOffice.Web.Controllers
             public readonly string TDAssignedPlan = "TDAssignedPlan";
             public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
             public readonly string CPCCalificationProjectConfigUpsert = "CPCCalificationProjectConfigUpsert";
+            public readonly string CPCCalificationProjectConfigValidateUpsert = "CPCCalificationProjectConfigValidateUpsert";
             public readonly string DownloadReport = "DownloadReport";
         }
 
@@ -177,6 +184,7 @@ namespace BackOffice.Web.Controllers
             public const string TDAssignedPlan = "TDAssignedPlan";
             public const string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
             public const string CPCCalificationProjectConfigUpsert = "CPCCalificationProjectConfigUpsert";
+            public const string CPCCalificationProjectConfigValidateUpsert = "CPCCalificationProjectConfigValidateUpsert";
             public const string DownloadReport = "DownloadReport";
         }
 
@@ -276,6 +284,15 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
         }
+        static readonly ActionParamsClass_CPCCalificationProjectConfigValidateUpsert s_params_CPCCalificationProjectConfigValidateUpsert = new ActionParamsClass_CPCCalificationProjectConfigValidateUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CPCCalificationProjectConfigValidateUpsert CPCCalificationProjectConfigValidateUpsertParams { get { return s_params_CPCCalificationProjectConfigValidateUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CPCCalificationProjectConfigValidateUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string CalificationProjectConfigId = "CalificationProjectConfigId";
+        }
         static readonly ActionParamsClass_DownloadReport s_params_DownloadReport = new ActionParamsClass_DownloadReport();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DownloadReport DownloadReportParams { get { return s_params_DownloadReport; } }
@@ -296,6 +313,7 @@ namespace BackOffice.Web.Controllers
             {
                 public readonly string ADAditionalDocumentsUpsert = "ADAditionalDocumentsUpsert";
                 public readonly string CPCCalificationProjectConfigUpsert = "CPCCalificationProjectConfigUpsert";
+                public readonly string CPCCalificationProjectConfigValidateUpsert = "CPCCalificationProjectConfigValidateUpsert";
                 public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
                 public readonly string PCEvaluationCriteriaUpsert = "PCEvaluationCriteriaUpsert";
@@ -309,6 +327,7 @@ namespace BackOffice.Web.Controllers
             }
             public readonly string ADAditionalDocumentsUpsert = "~/Views/Customer/ADAditionalDocumentsUpsert.cshtml";
             public readonly string CPCCalificationProjectConfigUpsert = "~/Views/Customer/CPCCalificationProjectConfigUpsert.cshtml";
+            public readonly string CPCCalificationProjectConfigValidateUpsert = "~/Views/Customer/CPCCalificationProjectConfigValidateUpsert.cshtml";
             public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
             public readonly string PCEvaluationCriteriaUpsert = "~/Views/Customer/PCEvaluationCriteriaUpsert.cshtml";
@@ -474,6 +493,19 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCCalificationProjectConfigUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             CPCCalificationProjectConfigUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CPCCalificationProjectConfigValidateUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string CalificationProjectConfigId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CPCCalificationProjectConfigValidateUpsert(string CustomerPublicId, string CalificationProjectConfigId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCCalificationProjectConfigValidateUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CalificationProjectConfigId", CalificationProjectConfigId);
+            CPCCalificationProjectConfigValidateUpsertOverride(callInfo, CustomerPublicId, CalificationProjectConfigId);
             return callInfo;
         }
 

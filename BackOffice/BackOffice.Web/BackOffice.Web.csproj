@@ -1148,6 +1148,8 @@
     <Content Include="Views\Shared\_CD_CustomField_101004.cshtml" />
     <Content Include="Views\Shared\_CD_CustomField_101003.cshtml" />
     <Content Include="Views\Customer\CPCCalificationProjectConfigUpsert.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Customer\CPCCalificationProjectConfigValidateUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
