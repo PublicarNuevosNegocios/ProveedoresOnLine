@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ProveedoresOnLine.CalificationProject">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationProject\developer\ProveedoresOnLine.CalificationProject.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.Company, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
@@ -72,6 +75,7 @@
     <Compile Include="Admin\AdminViewModel.cs" />
     <Compile Include="Admin\AdminCategoryViewModel.cs" />
     <Compile Include="Customer\AditionalDocumentsViewModel.cs" />
+    <Compile Include="Customer\CalificationProjectConfigViewModel.cs" />
     <Compile Include="Customer\CustomerRoleViewModel.cs" />
     <Compile Include="Customer\ThirdKnowledgeViewModel.cs" />
     <Compile Include="Customer\CustomerViewModel.cs" />

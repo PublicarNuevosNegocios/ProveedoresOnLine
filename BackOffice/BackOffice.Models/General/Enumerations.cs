@@ -609,4 +609,15 @@
     }
 
     #endregion
+
+    #region CalifcationProjectConfig
+
+    public enum enumCalificationProjectConfigType
+    {
+        CalificationProjectConfig = 2004001,
+        CalificationProjectConfigItem = 2004002,
+        CalificationProjectConfigValidate = 2004003,
+    }
+
+    #endregion
 }

@@ -54,10 +54,12 @@ namespace ProveedoresOnLine.CalificationProject.Controller
         {
             return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetByCompanyId(CompanyPublicId, Enable);
         }
+
         public static List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetAll() 
         {
             return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetAll();
         }
+
         #endregion
 
         #region ConfigItem

@@ -17,7 +17,31 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Proceso de Calificación</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div id="loading"></div>
+            <div id="divGridCalificationProjectConfig"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
         </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    <div id="divGridCalificationProjectConfig_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridCalificationProjectConfig_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridCalificationProjectConfig_ViewEnable" type="checkbox" checked="checked" />
     </div>
 </div>
 
@@ -28,4 +52,17 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Customer_CalificationProjectObject.Init({
+                ObjectId: 'divGridCalificationProjectConfig',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                CalificationProjectConfigType: 2004001,
+            });
+
+            Customer_CalificationProjectObject.RenderAsync();
+        });
+    </script>
+
 }
