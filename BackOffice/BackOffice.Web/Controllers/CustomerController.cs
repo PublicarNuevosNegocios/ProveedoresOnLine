@@ -795,17 +795,17 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult CPCCalificationProjectConfigValidateUpsert(string CustomerPublicId,string CalificationProjectConfigId) 
         {
-            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
-            {
-                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
-                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo(CustomerPublicId)
-                },
+            //BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            //{
+            //    CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+            //    RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+            //    {
+            //        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo(CustomerPublicId),
+            //    },
 
-            };
-            oModel.CustomerMenu = GetCustomerMenu(oModel);
-            return View(oModel);
+            //};
+            //oModel.CustomerMenu = GetCustomerMenu(oModel);
+            return View();
         }
 
         #endregion

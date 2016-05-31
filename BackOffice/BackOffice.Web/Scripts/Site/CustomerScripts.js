@@ -832,7 +832,143 @@ var Customer_CalificationProjectObject = {
     },
 
     CalificationProjectConfigValidate: function () {
+        $('#' + Customer_CalificationProjectObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Customer_CalificationProjectObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_CalificationProjectObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: Customer_CalificationProjectObject.PageSize,
+                serverPaging: false,
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: "CalificationProjectConfigValidateId",
+                        fields: {
+                            CalificationProjectConfigValidateId: { editable: false, nullable: true },
+                            CalificationProjectConfigName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigSearch=true&CustomerPublicId=' + Customer_CalificationProjectObject.CustomerPublicId + '&vEnable=' + Customer_CalificationProjectObject.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigUpsert=true&CustomerPublicId=' + Customer_CalificationProjectObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                $('#' + Customer_CalificationProjectObject.ObjectId).data('kendoGrid').dataSource.read();
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigUpsert=true&CustomerPublicId=' + Customer_CalificationProjectObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                $('#' + Customer_CalificationProjectObject.ObjectId).data('kendoGrid').dataSource.read();
+                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigId + '.');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+            //editable: "popup",
+            columns: [{
+                field: 'Enable',
+                title: 'Visible marketplace',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
 
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'CalificationProjectConfigName',
+                title: 'Proceso de Calificación',
+                width: '250px',
+            }, {
+                field: 'CalificationProjectConfigId',
+                title: 'Id',
+                width: '100px',
+            }, {
+                title: "&nbsp;",
+                width: "200px",
+                command: [{
+                    name: 'Detail',
+                    text: 'Agregar Modulos',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigId attribute
+                        //if (data.SurveyConfigId != null && data.SurveyConfigId.length > 0) {
+                        //    window.location = Customer_SurveyObject.SurveyConfigItemUpsertUrl.replace(/\${SurveyConfigId}/gi, data.SurveyConfigId);
+                        //}
+                    }
+                }, {
+                    name: '',
+                    text: 'Agregar Validación',
+                }],
+            }],
+        });
     },
 };
 
