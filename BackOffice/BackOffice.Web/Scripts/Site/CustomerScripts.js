@@ -858,7 +858,7 @@ var Customer_CalificationProjectObject = {
                         id: "CalificationProjectConfigValidateId",
                         fields: {
                             CalificationProjectConfigValidateId: { editable: false, nullable: true },
-                            CalificationProjectConfigName: { editable: true, validation: { required: true } },
+                            Operator: { editable: true,type: '', validation: { required: true } },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
                         },
                     }
