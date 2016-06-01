@@ -805,7 +805,7 @@ namespace BackOffice.Web.Controllers
 
             };
             oModel.CustomerMenu = GetCustomerMenu(oModel);
-            return View(oModel);
+            return View();
         }
 
         public virtual ActionResult CPCCalificationProjectConfigItemUpsert(string CustomerPublicId, string CalificationProjectConfigId)

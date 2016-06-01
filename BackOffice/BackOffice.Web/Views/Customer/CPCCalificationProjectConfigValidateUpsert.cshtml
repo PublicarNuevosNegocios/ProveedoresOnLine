@@ -1,7 +1,70 @@
-﻿
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
 @{
-    ViewBag.Title = "CPCCalificationProjectConfigValidateUpsert";
+    ViewBag.Title = "Comprador - Proceso de Calificación- Reglas de Validación.";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Reglas de Validación</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div id="loading"></div>
+            <div id="divGridCalificationProjectConfigValidate"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    <div id="divGridCalificationProjectConfigValidate_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridCalificationProjectConfigValidate_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridCalificationProjectConfigValidate_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
 }
 
-<h2>CPCCalificationProjectConfigValidateUpsert</h2>
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Customer_CalificationProjectObject.Init({
+                ObjectId: 'divGridCalificationProjectConfigValidate',
+                ProjectConfigId: '',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                CalificationProjectConfigType: 2004003,
+            });
+
+            Customer_CalificationProjectObject.RenderAsync();
+        });
+    </script>
+
+}
+
 

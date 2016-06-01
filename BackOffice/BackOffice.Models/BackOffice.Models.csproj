@@ -75,6 +75,7 @@
     <Compile Include="Admin\AdminViewModel.cs" />
     <Compile Include="Admin\AdminCategoryViewModel.cs" />
     <Compile Include="Customer\AditionalDocumentsViewModel.cs" />
+    <Compile Include="Customer\CalificationProjectConfigValidateViewModel.cs" />
     <Compile Include="Customer\CalificationProjectConfigViewModel.cs" />
     <Compile Include="Customer\CalificationProjectItemConfigViewModel.cs" />
     <Compile Include="Customer\CustomerRoleViewModel.cs" />

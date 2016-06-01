@@ -7,8 +7,9 @@ namespace IntegrationPlatform.SANOFIProcess.Test
     public class IntegrationPlatformSANOFIProcessTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void StartProcess()
         {
+            IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.StartProcess();
         }
     }
 }

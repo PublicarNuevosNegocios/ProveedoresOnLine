@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="IntegrationPlatformSANOFIIProcess">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\IntegrationPlatform.SANOFIProcess\Rsx-IntegrationPlatformSANOFIIProcess.xml</key>
+  </Module>
+</SettingsConfig>
