@@ -988,11 +988,12 @@ var Customer_CalificationProjectItemObject = {
     },
 
     RenderAsync: function (vRenderObject) {
-        if (Customer_CalificationProjectItemObject.CalificationProjectItemType == 2004002) {
+        debugger;
+        if (vRenderObject.CalificationProjectItemType == 2004002) {
             Customer_CalificationProjectItemObject.CalificationProjectConfigItem(vRenderObject);
         }
-        else if (Customer_CalificationProjectItemObject.CalificationProjectItemType == 2004004) {
-
+        else if (vRenderObject.CalificationProjectItemType == 2004004) {
+            Customer_CalificationProjectItemObject.CalificationProjectConfigItemInfo(vRenderObject);
         }
 
         Customer_CalificationProjectItemObject.ConfigKeyBoard(vRenderObject);
@@ -1009,42 +1010,43 @@ var Customer_CalificationProjectItemObject = {
                 //alt+shift+g
 
                 //save
-                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid").saveChanges();
+                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.vCalificationProjectItemType).data("kendoGrid").saveChanges();
             }
             else if (e.altKey && e.shiftKey && e.keyCode == 78) {
                 //alt+shift+n
 
                 //new field
-                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid").addRow();
+                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.vCalificationProjectItemType).data("kendoGrid").addRow();
             }
             else if (e.altKey && e.shiftKey && e.keyCode == 68) {
                 //alt+shift+d
 
                 //new field
-                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid").cancelChanges();
+                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.vCalificationProjectItemType).data("kendoGrid").cancelChanges();
             }
         });
     },
 
     ConfigEvents: function (vRenderObject) {
         //config grid visible enables event
-        $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId + '_ViewEnable').change(function () {
-            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data('kendoGrid').dataSource.read();
+        $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.vCalificationProjectItemType + '_ViewEnable').change(function () {
+            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.vCalificationProjectItemType).data('kendoGrid').dataSource.read();
         });
     },
 
     GetViewEnable: function (vCalificationProjectItemType) {
+        debugger;
         return $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType).find('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType + '_ViewEnable').length > 0 ? $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType).find('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType + '_ViewEnable').is(':checked') : true;
     },
 
     CalificationProjectConfigItem: function (vRenderObject) {
-        if ($('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid")) {
+        if ($('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
             // destroy the Grid
-            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid").destroy();
+            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data("kendoGrid").destroy();
             // empty the Grid content (inner HTML)
-            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).empty();
+            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).empty();
 
             //empty answer grid
             // destroy the Grid
@@ -1053,7 +1055,7 @@ var Customer_CalificationProjectItemObject = {
             $('#' + Customer_CalificationProjectItemObject.ObjectId + '_2004004').empty();
         }
 
-        $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).kendoGrid({
+        $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: false,
@@ -1068,7 +1070,7 @@ var Customer_CalificationProjectItemObject = {
                         return $('#' + Customer_CalificationProjectItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
                     }
                 },
-                { name: 'ViewEnable', template: $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 pageSize: 100,
@@ -1079,16 +1081,14 @@ var Customer_CalificationProjectItemObject = {
                             CalificationProjectConfigItemId: { editable: false, nullable: true },
                             CalificationProjectConfigItemName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
-
-                            CalificationProjectModule: { editable: true, validation: { required: true } },
-                            CalificationProjectModuleId: { editable: false },
+                            CalificationProjectModule: { editable: true },
                         },
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCCalificationProjectConfigItemSearch=true&CalificationProjectConfigId=' + Customer_CalificationProjectItemObject.CalificationProjectConfigId + '&Enable=' + Customer_CalificationProjectItemObject.GetViewEnable(vRenderObject.CalificationProjectItemId),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCCalificationProjectConfigItemSearch=true&CalificationProjectConfigId=' + Customer_CalificationProjectItemObject.CalificationProjectConfigId + '&Enable=' + Customer_CalificationProjectItemObject.GetViewEnable(vRenderObject.CalificationProjectItemType),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1210,17 +1210,19 @@ var Customer_CalificationProjectItemObject = {
                         if (data.CalificationProjectConfigItemId != null && data.CalificationProjectConfigItemId > 0) {
                             //get title module
                             var oTitle = '';
-                            if (dataItem != null && dataItem.CalificationProjectModule != null) {
+                            debugger;
+                            if (data != null && data.CalificationProjectModule != null) {
                                 $.each(Customer_CalificationProjectItemObject.CustomerOptions[2003], function (item, value) {
-                                    if (dataItem.CalificationProjectModule == value.ItemId) {
-                                        oTitle = "Reglas del módulo: " + value.ItemName;
+                                    if (data.CalificationProjectModule == value.ItemId) {
+                                        oTitle = "Reglas del módulo " + value.ItemName;
                                     }
                                 });
                             }
                             //create rule grid
                             Customer_CalificationProjectItemObject.RenderAsync({
-                                CalificationProjectItemId: '2004004',
+                                CalificationProjectItemType: '2004004',
                                 Title: oTitle,
+                                CalificationProjectConfigItemId: data.CalificationProjectConfigItemId,
                             });
                         }
                     }
@@ -1230,16 +1232,17 @@ var Customer_CalificationProjectItemObject = {
     },
 
     CalificationProjectConfigItemInfo: function (vRenderObject) {
-        if ($('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid")) {
+        debugger;
+        if ($('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
             // destroy the Grid
-            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).data("kendoGrid").destroy();
+            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data("kendoGrid").destroy();
             // empty the Grid content (inner HTML)
-            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).empty();
+            $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).empty();
         }
 
-        $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId).kendoGrid({
+        $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: false,
@@ -1251,34 +1254,30 @@ var Customer_CalificationProjectItemObject = {
                 {
                     name: 'title',
                     template: function () {
-                        return $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                        return $('#' + Customer_CalificationProjectItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
                     }
                 },
-                { name: 'ViewEnable', template: $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemId + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
                     model: {
-                        id: "SurveyConfigItemId",
+                        id: "CalificationProjectConfigItemInfoId",
                         fields: {
-                            SurveyConfigItemId: { editable: false, nullable: true },
-                            SurveyConfigItemName: { editable: true, validation: { required: true } },
-                            SurveyConfigItemTypeId: { editable: false, nullable: true },
-                            ParentSurveyConfigItem: { editable: true, nullable: true },
-                            SurveyConfigItemEnable: { editable: true, type: 'boolean', defaultValue: true },
-
-                            SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
-                            SurveyConfigItemInfoOrderId: { editable: false },
-
-                            SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
-                            SurveyConfigItemInfoWeightId: { editable: false },
+                            CalificationProjectConfigItemInfoId: { editable: false, nullable: true },
+                            Question: { editable: true },
+                            Rule: { editable: true },
+                            ValueType: { editable: true },
+                            Value: { editable: true, nullable: true },
+                            ScoreScore: { editable: true, nullable: true },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
                         },
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&SurveyConfigItemType=' + vRenderObject.SurveyItemType + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCCalificationProjectConfigItemInfoSearch=true&CalificationProjectConfigItemId=' + vRenderObject.CalificationProjectConfigItemId + '&Enable=' + Customer_CalificationProjectItemObject.GetViewEnable(vRenderObject.CalificationProjectItemType),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1291,7 +1290,7 @@ var Customer_CalificationProjectItemObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCCalificationProjectConfigItemInfoUpsert=true&CalificationProjectConfigItemId=' + vRenderObject.CalificationProjectConfigItemId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1300,6 +1299,7 @@ var Customer_CalificationProjectItemObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
+                                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -1309,7 +1309,7 @@ var Customer_CalificationProjectItemObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCCalificationProjectConfigItemInfoUpsert=true&CalificationProjectConfigItemId=' + vRenderObject.CalificationProjectConfigItemId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1318,6 +1318,7 @@ var Customer_CalificationProjectItemObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                                $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -1333,27 +1334,21 @@ var Customer_CalificationProjectItemObject = {
                     kendo.ui.progress($("#loading"), false);
                 }
             },
-            editable: {
-                mode: "popup",
-                window: {
-                    title: "Respuestas",
-                }
-            },
-            edit: function (e) {
-                if (e.model.isNew()) {
-                    // set survey item type
-                    e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
-                    e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
-                }
-            },
+            //edit: function (e) {
+            //    if (e.model.isNew()) {
+            //        // set survey item type
+            //        e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
+            //        e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
+            //    }
+            //},
             columns: [{
-                field: 'SurveyConfigItemEnable',
+                field: 'Enable',
                 title: 'Visible marketplace',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
 
-                    if (dataItem.SurveyConfigItemEnable == true) {
+                    if (dataItem.Enable == true) {
                         oReturn = 'Si'
                     }
                     else {
@@ -1362,33 +1357,67 @@ var Customer_CalificationProjectItemObject = {
                     return oReturn;
                 }
             }, {
-                field: 'CalificationProjectConfigName',
-                title: 'Proceso de Calificación',
+                field: 'Question',
+                title: 'Item a Validar',
                 width: '250px',
             }, {
-                field: 'CalificationProjectConfigId',
-                title: 'Id',
+                field: 'Rule',
+                title: 'Regla de validación',
                 width: '100px',
-            }, {
-                title: "&nbsp;",
-                width: "200px",
-                command: [{
-                    name: 'Detail',
-                    text: 'Agregar Modulos',
-                    click: function (e) {
-                        // e.target is the DOM element representing the button
-                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
-                        // get the data bound to the current table row
-                        var data = this.dataItem(tr);
-                        //validate SurveyConfigId attribute
-                        //if (data.SurveyConfigId != null && data.SurveyConfigId.length > 0) {
-                        //    window.location = Customer_SurveyObject.SurveyConfigItemUpsertUrl.replace(/\${SurveyConfigId}/gi, data.SurveyConfigId);
-                        //}
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Rule != null) {
+                        $.each(Customer_CalificationProjectItemObject.CustomerOptions[2001], function (item, value) {
+                            if (dataItem.Rule == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
                     }
-                }, {
-                    name: '',
-                    text: 'Agregar Validación',
-                }],
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_CalificationProjectItemObject.CustomerOptions[2001],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción',
+                        });
+                },
+            }, {
+                field: 'ValueType',
+                title: 'Tipo de valor',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ValueType != null) {
+                        $.each(Customer_CalificationProjectItemObject.CustomerOptions[2002], function (item, value) {
+                            if (dataItem.ValueType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_CalificationProjectItemObject.CustomerOptions[2002],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción',
+                        });
+                },
+            }, {
+                field: 'Value',
+                title: 'Valor',
+                width: '150px',
+            }, {
+                field: 'Score',
+                title: 'Puntaje',
+                width: '150px',
             }],
         });
     },

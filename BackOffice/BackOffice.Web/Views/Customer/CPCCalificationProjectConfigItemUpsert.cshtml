@@ -96,13 +96,13 @@
                 ObjectId: 'divGridCalificationProjectItem',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 CalificationProjectConfigId: @Model.RelatedCalificationProjectConfig.CalificationProjectConfigId,
-                CalificationProjectItemType: 2004002,
                 CustomerOptions: vCustomerInfoOptionList,
             });
 
             Customer_CalificationProjectItemObject.RenderAsync({
                 CalificationProjectItemId: '@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())',
                 Title: '',
+                CalificationProjectItemType: 2004002,
             });
         });
     </script>

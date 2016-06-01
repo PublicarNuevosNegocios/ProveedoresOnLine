@@ -215,6 +215,8 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        #region Calification Project Item
+
         [HttpPost]
         [HttpGet]
         public List<BackOffice.Models.Customer.CalificationProjectItemConfigViewModel> CPCCalificationProjectConfigItemSearch
@@ -288,6 +290,88 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
+        #endregion
+
+        #region Calification Project Item Info
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel> CPCCalificationProjectConfigItemInfoSearch
+            (string CPCCalificationProjectConfigItemInfoSearch,
+            string CalificationProjectConfigItemId,
+            string Enable)
+        {
+            List<BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel> oReturn = new List<CalificationProjectItemInfoConfigViewModel>();
+
+            if (CPCCalificationProjectConfigItemInfoSearch == "true")
+            {
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel> oModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId
+                    (Convert.ToInt32(CalificationProjectConfigItemId),
+                    Enable == "true" ? true : false);
+
+                if (oModel != null &&
+                    oModel.Count > 0)
+                {
+                    oModel.All(x =>
+                    {
+                        oReturn.Add(new CalificationProjectItemInfoConfigViewModel(x));
+
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel CPCCalificationProjectConfigItemInfoUpsert
+            (string CPCCalificationProjectConfigItemInfoUpsert,
+            string CalificationProjectConfigItemId)
+        {
+            BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel oReturn = null;
+
+            if (CPCCalificationProjectConfigItemInfoUpsert == "true")
+            {
+                BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.CalificationProjectItemInfoConfigViewModel));
+
+                ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemModel oModelToUpsert = new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemModel()
+                {
+                    CalificationProjectConfigItemId = Convert.ToInt32(CalificationProjectConfigItemId),
+                    CalificationProjectConfigItemInfoModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel>(){
+                        new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel(){
+                            CalificationProjectConfigItemInfoId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigItemInfoId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigItemInfoId) : 0,
+                            Question = new CatalogModel(){
+                                ItemId = Convert.ToInt32(oDataToUpsert.Question),
+                            },
+                            Rule = new CatalogModel(){
+                                ItemId = Convert.ToInt32(oDataToUpsert.Rule),
+                            },
+                            ValueType = new CatalogModel(){
+                                ItemId = Convert.ToInt32(oDataToUpsert.ValueType),
+                            },
+                            Value = oDataToUpsert.Value,
+                            Score = oDataToUpsert.Score,
+                            Enable = oDataToUpsert.Enable,
+                        },
+                    },
+                };
+
+                oModelToUpsert = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemInfoUpsert(oModelToUpsert);
+
+                oReturn = new CalificationProjectItemInfoConfigViewModel(oModelToUpsert.CalificationProjectConfigItemInfoModel.FirstOrDefault());
+            }
+
+            return oReturn;
+        }
+
+        #endregion
 
         #endregion
 
