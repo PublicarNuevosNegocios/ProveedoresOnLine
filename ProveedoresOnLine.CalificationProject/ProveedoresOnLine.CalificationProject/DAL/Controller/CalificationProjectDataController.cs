@@ -38,37 +38,45 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
 
         #region ProjectConfig
 
-            #region ProjectConfig
+        #region ProjectConfig
 
         public int CalificationProjectConfigUpsert(int CalificationProjectConfigId, string CompanyPublicId, string CalificationProjectConfigName, bool Enable)
-            {
-                return DataFactory.CalificationProjectConfigUpsert(CalificationProjectConfigId, CompanyPublicId, CalificationProjectConfigName, Enable);
-            }
+        {
+            return DataFactory.CalificationProjectConfigUpsert(CalificationProjectConfigId, CompanyPublicId, CalificationProjectConfigName, Enable);
+        }
+
         public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string CompanyPublicId, bool Enable)
-            {
-                return DataFactory.CalificationProjectConfig_GetByCompanyId(CompanyPublicId, Enable);
-            }
+        {
+            return DataFactory.CalificationProjectConfig_GetByCompanyId(CompanyPublicId, Enable);
+        }
+
         public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetAll()
         {
             return DataFactory.CalificationProjectConfig_GetAll();
         }
-            #endregion
 
-            #region ConfigItem
+        public Models.CalificationProject.CalificationProjectConfigModel CalificationProjectConfig_GetByCalificationProjectConfigId(int CalificationProjectConfigId)
+        {
+            return DataFactory.CalificationProjectConfig_GetByCalificationProjectConfigId(CalificationProjectConfigId);
+        }
 
-            public int CalificationProjectConfigItemUpsert(int CalificationProjectConfigId, int CalificationProjectConfigItemId, string CalificationProjectConfigItemName, int CalificationProjectConfigItemType, bool Enable)
-            {
-                return DataFactory.CalificationProjectConfigItemUpsert(CalificationProjectConfigId, CalificationProjectConfigItemId, CalificationProjectConfigItemName, CalificationProjectConfigItemType, Enable);
-            }
+        #endregion
 
-            public List<Models.CalificationProject.ConfigItemModel> CalificationProjectConfigItem_GetByCalificationProjectConfigId(int CalificationProjectConfigId, bool Enable)
-            {
-                return DataFactory.CalificationProjectConfigItem_GetByCalificationProjectConfigId(CalificationProjectConfigId, Enable);
-            }
+        #region ConfigItem
 
-            #endregion
+        public int CalificationProjectConfigItemUpsert(int CalificationProjectConfigId, int CalificationProjectConfigItemId, string CalificationProjectConfigItemName, int CalificationProjectConfigItemType, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigItemUpsert(CalificationProjectConfigId, CalificationProjectConfigItemId, CalificationProjectConfigItemName, CalificationProjectConfigItemType, Enable);
+        }
 
-            #region ConfigItemInfo
+        public List<Models.CalificationProject.ConfigItemModel> CalificationProjectConfigItem_GetByCalificationProjectConfigId(int CalificationProjectConfigId, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigItem_GetByCalificationProjectConfigId(CalificationProjectConfigId, Enable);
+        }
+
+        #endregion
+
+        #region ConfigItemInfo
 
         public int CalificationProjectConfigItemInfoUpsert(int CalificationProjectConfigItemId, int CalificationProjectConfigItemInfoId, int Question, int Rule, int ValueType, string Value, string Score, bool Enable)
         {
@@ -82,22 +90,20 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
 
         #endregion
 
-            #region ConfigValidate
+        #region ConfigValidate
 
-            public int CalificationProjectConfigValidateUpsert(int CalificationProjectConfigValidateId, int CalificationProjectConfigId, int Operator, string Value, string Result, bool Enable)
-            {
-                return DataFactory.CalificationProjectConfigValidateUpsert(CalificationProjectConfigValidateId, CalificationProjectConfigId, Operator, Value, Result, Enable);
-            }
-            public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
-            {
-                return DataFactory.CalificationProjectConfigValidate_GetByProjectConfigId(CalificationProjectConfigId, Enable);
-            }
-
-            #endregion
+        public int CalificationProjectConfigValidateUpsert(int CalificationProjectConfigValidateId, int CalificationProjectConfigId, int Operator, string Value, string Result, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigValidateUpsert(CalificationProjectConfigValidateId, CalificationProjectConfigId, Operator, Value, Result, Enable);
+        }
+        
+        public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfigValidate_GetByProjectConfigId(CalificationProjectConfigId, Enable);
+        }
 
         #endregion
 
-
-            
+        #endregion
     }
 }

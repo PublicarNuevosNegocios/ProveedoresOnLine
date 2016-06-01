@@ -200,6 +200,54 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return oReturn;
         }
 
+        public Models.CalificationProject.CalificationProjectConfigModel CalificationProjectConfig_GetByCalificationProjectConfigId(int CalificationProjectConfigId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", CalificationProjectConfigId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_CalificationProjectConfig_GetByCalificationProjectConfigId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            Models.CalificationProject.CalificationProjectConfigModel oReturn = new CalificationProjectConfigModel();
+
+            if (response.DataTableResult != null &&                
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = (from cpc in response.DataTableResult.AsEnumerable()
+                           where !cpc.IsNull("CalificationProjectConfigId")
+                           group cpc by new
+                           {
+                               CalificationProjectConfigId = cpc.Field<int>("CalificationProjectConfigId"),
+                               CalificationProjectConfigName = cpc.Field<string>("CalificationProjectConfigName"),
+                               CompanyPublicId = cpc.Field<string>("CompanyPublicId"),
+                               Enable = cpc.Field<UInt64>("Enable") == 1 ? true : false,
+                               LastModify = cpc.Field<DateTime>("LastModify"),
+                               CreateDate = cpc.Field<DateTime>("CreateDate"),
+                           }
+                               into cpcg
+                               select new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
+                               {
+                                   CalificationProjectConfigId = cpcg.Key.CalificationProjectConfigId,
+                                   CalificationProjectConfigName = cpcg.Key.CalificationProjectConfigName,
+                                   Enable = cpcg.Key.Enable,
+                                   Company = new Company.Models.Company.CompanyModel()
+                                   {
+                                       CompanyPublicId = cpcg.Key.CompanyPublicId,
+                                   },
+                                   LastModify = cpcg.Key.LastModify,
+                                   CreateDate = cpcg.Key.CreateDate,
+                               }).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region ConfigItem

@@ -800,11 +800,29 @@ namespace BackOffice.Web.Controllers
                 CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
                 RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
                 {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo(CustomerPublicId)
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
 
             };
             oModel.CustomerMenu = GetCustomerMenu(oModel);
+            return View(oModel);
+        }
+
+        public virtual ActionResult CPCCalificationProjectConfigItemUpsert(string CustomerPublicId, string CalificationProjectConfigId)
+        {
+            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            {
+                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                },
+                RelatedCalificationProjectConfig = new Models.Customer.CalificationProjectConfigViewModel(ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetByCalificationProjectConfigId(Convert.ToInt32(CalificationProjectConfigId))),
+            };
+
+            //Get provider menu
+            oModel.CustomerMenu = GetCustomerMenu(oModel);
+
             return View(oModel);
         }
 

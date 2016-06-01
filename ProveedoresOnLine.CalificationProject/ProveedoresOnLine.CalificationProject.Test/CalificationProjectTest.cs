@@ -46,6 +46,16 @@ namespace ProveedoresOnLine.CalificationProject.Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
         
+        [TestMethod]
+        public void CalificationProjectConfig_GetByCalificationProjectConfigId()
+        {
+            Models.CalificationProject.CalificationProjectConfigModel oReturn = new Models.CalificationProject.CalificationProjectConfigModel();
+
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetByCalificationProjectConfigId(1);
+
+            Assert.AreEqual(true, oReturn != null);
+        }
+
         #endregion
 
         #region ConfigItem

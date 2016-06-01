@@ -617,6 +617,7 @@
         CalificationProjectConfig = 2004001,
         CalificationProjectConfigItem = 2004002,
         CalificationProjectConfigValidate = 2004003,
+        CalificationProjectConfigItemInfo = 2004004,
     }
 
     #endregion

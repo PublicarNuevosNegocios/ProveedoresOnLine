@@ -47,6 +47,8 @@ namespace BackOffice.Models.Customer
 
         public ProjectConfigViewModel RelatedProjectConfig { get; set; }
 
+        public CalificationProjectConfigViewModel RelatedCalificationProjectConfig { get; set; }
+
         public string GridToSave { get; set; }
 
         public List<ProveedoresOnLine.ThirdKnowledge.Models.TDCatalogModel> ThirdKnowledgeOptions { get; set; }

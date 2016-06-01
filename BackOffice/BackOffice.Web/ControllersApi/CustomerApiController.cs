@@ -215,6 +215,80 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.CalificationProjectItemConfigViewModel> CPCCalificationProjectConfigItemSearch
+            (string CPCCalificationProjectConfigItemSearch,
+            string CalificationProjectConfigId,
+            string Enable)
+        {
+            List<BackOffice.Models.Customer.CalificationProjectItemConfigViewModel> oReturn = new List<CalificationProjectItemConfigViewModel>();
+
+            if (CPCCalificationProjectConfigItemSearch == "true")
+            {
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemModel> oModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItem_GetByCalificationProjectConfigId
+                    (Convert.ToInt32(CalificationProjectConfigId),
+                    Enable == "true" ? true : false);
+
+                if (oModel.Count > 0)
+                {
+                    oModel.All(x =>
+                    {
+                        oReturn.Add(new CalificationProjectItemConfigViewModel(x));
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.CalificationProjectItemConfigViewModel CPCCalificationProjectConfigItemUpsert
+            (string CPCCalificationProjectConfigItemUpsert,
+            string CustomerPublicId,
+            string CalificationProjectConfigId)
+        {
+            BackOffice.Models.Customer.CalificationProjectItemConfigViewModel oReturn = null;
+
+            if (CPCCalificationProjectConfigItemUpsert == "true")
+            {
+                BackOffice.Models.Customer.CalificationProjectItemConfigViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.CalificationProjectItemConfigViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.CalificationProjectItemConfigViewModel));
+
+                ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel oModelToUpsert = new ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
+                {
+                    CalificationProjectConfigId = Convert.ToInt32(CalificationProjectConfigId),
+                    Company = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = CustomerPublicId,
+                    },
+                    ConfigItemModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemModel>()
+                    {
+                        new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemModel(){
+                            CalificationProjectConfigItemId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigItemId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigItemId.Trim()) : 0,
+                            CalificationProjectConfigItemName = oDataToUpsert.CalificationProjectConfigItemName,
+                            CalificationProjectConfigItemType = new CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(oDataToUpsert.CalificationProjectModule.Trim()),
+                            },
+                            Enable = oDataToUpsert.Enable,
+                        },
+                    },
+                };
+
+                oModelToUpsert = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigItemUpsert(oModelToUpsert);
+
+                oReturn = new CalificationProjectItemConfigViewModel(oModelToUpsert.ConfigItemModel.FirstOrDefault());
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Survey Config

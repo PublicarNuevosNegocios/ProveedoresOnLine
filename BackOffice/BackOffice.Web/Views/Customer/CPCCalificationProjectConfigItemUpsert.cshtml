@@ -1,0 +1,109 @@
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Comprador - modulos proceso de calificación";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Proceso de Calificación - @Model.RelatedCalificationProjectConfig.CalificationProjectConfigName</label>
+            <a href="@(Url.Action(
+                MVC.Customer.ActionNames.CPCCalificationProjectConfigUpsert,
+                MVC.Customer.Name,
+                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">Regresar al proceso de Calificación</a>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+
+            <div id="loading"></div>
+
+            <label>Módulos de calificación</label>
+            <div id="divGridCalificationProjectItem_@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())"></div>
+
+            <label>Preguntas por módulo</label>
+            <div id="divGridCalificationProjectItem_@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItemInfo).ToString())"></div>
+
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridCalificationProjectItem_TitleTemplate">
+        <label>${Title}</label>
+    </div>
+
+    <div id="divGridCalificationProjectItem_@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridCalificationProjectItem_@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
+    <div id="divGridCalificationProjectItem_@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItemInfo).ToString())_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridCalificationProjectItem_@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItemInfo).ToString())_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    @{
+
+        //ger CertificationTypeValues
+        string oCalificationProjectOptionList = "[]";
+        if (Model.CustomerOptions != null &&
+            Model.CustomerOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionList =
+                Model.CustomerOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.CustomerOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oCalificationProjectOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionList.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vCustomerInfoOptionList = @(Html.Raw(oCalificationProjectOptionList));
+
+        $(document).ready(function () {
+            Customer_CalificationProjectItemObject.Init({
+                ObjectId: 'divGridCalificationProjectItem',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                CalificationProjectConfigId: @Model.RelatedCalificationProjectConfig.CalificationProjectConfigId,
+                CalificationProjectItemType: 2004002,
+                CustomerOptions: vCustomerInfoOptionList,
+            });
+
+            Customer_CalificationProjectItemObject.RenderAsync({
+                CalificationProjectItemId: '@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())',
+                Title: '',
+            });
+        });
+    </script>
+}

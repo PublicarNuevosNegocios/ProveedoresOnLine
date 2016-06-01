@@ -60,6 +60,11 @@ namespace ProveedoresOnLine.CalificationProject.Controller
             return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetAll();
         }
 
+        public static Models.CalificationProject.CalificationProjectConfigModel CalificationProjectConfig_GetByCalificationProjectConfigId(int CalificationProjectConfigId)
+        {
+            return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfig_GetByCalificationProjectConfigId(CalificationProjectConfigId);
+        }
+
         #endregion
 
         #region ConfigItem
