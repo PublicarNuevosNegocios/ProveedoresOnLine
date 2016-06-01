@@ -988,7 +988,6 @@ var Customer_CalificationProjectItemObject = {
     },
 
     RenderAsync: function (vRenderObject) {
-        debugger;
         if (vRenderObject.CalificationProjectItemType == 2004002) {
             Customer_CalificationProjectItemObject.CalificationProjectConfigItem(vRenderObject);
         }
@@ -1035,7 +1034,6 @@ var Customer_CalificationProjectItemObject = {
     },
 
     GetViewEnable: function (vCalificationProjectItemType) {
-        debugger;
         return $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType).find('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType + '_ViewEnable').length > 0 ? $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType).find('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vCalificationProjectItemType + '_ViewEnable').is(':checked') : true;
     },
 
@@ -1210,7 +1208,6 @@ var Customer_CalificationProjectItemObject = {
                         if (data.CalificationProjectConfigItemId != null && data.CalificationProjectConfigItemId > 0) {
                             //get title module
                             var oTitle = '';
-                            debugger;
                             if (data != null && data.CalificationProjectModule != null) {
                                 $.each(Customer_CalificationProjectItemObject.CustomerOptions[2003], function (item, value) {
                                     if (data.CalificationProjectModule == value.ItemId) {
@@ -1232,7 +1229,6 @@ var Customer_CalificationProjectItemObject = {
     },
 
     CalificationProjectConfigItemInfo: function (vRenderObject) {
-        debugger;
         if ($('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
