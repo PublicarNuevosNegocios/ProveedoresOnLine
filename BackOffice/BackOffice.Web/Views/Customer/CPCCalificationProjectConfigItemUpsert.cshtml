@@ -68,7 +68,7 @@
 
     @{
 
-        //ger CertificationTypeValues
+        //get CalificationProjectConfigValueList
         string oCalificationProjectOptionList = "[]";
         if (Model.CustomerOptions != null &&
             Model.CustomerOptions.Count > 0)
@@ -86,10 +86,30 @@
             oCalificationProjectOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionList.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+        
+        //get CalificationProjectConfigOptions
+        string oCalificationProjectConfigOptionList = "[]";
+        if (Model.CalificationProjectOptions != null &&
+            Model.CalificationProjectOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionList =
+                Model.CalificationProjectOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.CalificationProjectOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oCalificationProjectConfigOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionList.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
     }
 
     <script type="text/javascript">
         var vCustomerInfoOptionList = @(Html.Raw(oCalificationProjectOptionList));
+        var vCalificationProjectConfigOptionList = @(Html.Raw(oCalificationProjectConfigOptionList));
 
         $(document).ready(function () {
             Customer_CalificationProjectItemObject.Init({
@@ -97,6 +117,7 @@
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 CalificationProjectConfigId: @Model.RelatedCalificationProjectConfig.CalificationProjectConfigId,
                 CustomerOptions: vCustomerInfoOptionList,
+                CalificationProjectConfigOptions: vCalificationProjectConfigOptionList,
             });
 
             Customer_CalificationProjectItemObject.RenderAsync({

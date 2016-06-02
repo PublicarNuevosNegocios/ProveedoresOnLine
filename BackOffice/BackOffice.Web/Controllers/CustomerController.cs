@@ -818,6 +818,7 @@ namespace BackOffice.Web.Controllers
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
                 RelatedCalificationProjectConfig = new Models.Customer.CalificationProjectConfigViewModel(ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetByCalificationProjectConfigId(Convert.ToInt32(CalificationProjectConfigId))),
+                CalificationProjectOptions = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigOptions(),
             };
 
             //Get provider menu

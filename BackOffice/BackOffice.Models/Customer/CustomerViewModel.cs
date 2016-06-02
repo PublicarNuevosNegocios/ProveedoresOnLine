@@ -54,5 +54,7 @@ namespace BackOffice.Models.Customer
         public List<ProveedoresOnLine.ThirdKnowledge.Models.TDCatalogModel> ThirdKnowledgeOptions { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CatalogGetAllModuleOptions { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CalificationProjectOptions { get; set; }
     }
 }
