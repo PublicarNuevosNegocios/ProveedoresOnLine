@@ -502,6 +502,51 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return oReturn;
         }
         #endregion
-        
+
+        #region CalificationProjectconfigOptions
+
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CalificationProjectConfigOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetCalificationProjectConfigOptions",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<Company.Models.Util.CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ci in response.DataTableResult.AsEnumerable()
+                     where !ci.IsNull("CatalogId")
+                     group ci by new
+                     {
+                         CatalogId = ci.Field<Int64>("CatalogId"),
+                         CatalogName = ci.Field<string>("CatalogName"),
+                         CatalogEnable = ci.Field<UInt64>("CatalogEnable") == 1 ? true : false,
+                         ItemId = ci.Field<int>("ItemId"),
+                         ItemName = ci.Field<string>("ItemName"),
+                         ItemEnable = ci.Field<UInt64>("ItemEnable") == 1 ? true : false,
+                     }
+                         into cig
+                         select new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                         {
+                             CatalogId = Convert.ToInt32(cig.Key.CatalogId),
+                             CatalogName = cig.Key.CatalogName,
+                             CatalogEnable = cig.Key.CatalogEnable,
+                             ItemId = cig.Key.ItemId,
+                             ItemName = cig.Key.ItemName,
+                             ItemEnable = cig.Key.ItemEnable,
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
     }
 }

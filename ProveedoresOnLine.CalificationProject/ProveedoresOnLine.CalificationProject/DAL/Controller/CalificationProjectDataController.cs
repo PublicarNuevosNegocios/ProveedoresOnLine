@@ -105,5 +105,14 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
         #endregion
 
         #endregion
+
+        #region CalificationProjectConfigOptions
+
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CalificationProjectConfigOptions()
+        {
+            return DataFactory.CalificationProjectConfigOptions();
+        }
+
+        #endregion
     }
 }

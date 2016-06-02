@@ -174,5 +174,19 @@ namespace ProveedoresOnLine.CalificationProject.Test
             Assert.AreEqual(true, oReturn.CalificationProjectConfigId > 0 && oReturn.CalificationProjectConfigValidateId > 0 );
         }
         #endregion
+
+        #region CalificationProjectConfigOptions
+
+        [TestMethod]
+        public void CalificationProjectConfigOptions()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<Company.Models.Util.CatalogModel>();
+
+            oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigOptions();
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+        #endregion
     }
 }
