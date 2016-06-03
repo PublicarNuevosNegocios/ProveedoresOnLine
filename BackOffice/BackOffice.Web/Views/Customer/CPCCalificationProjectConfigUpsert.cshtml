@@ -62,10 +62,10 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
-    $(document).ready(function () {
-        Customer_CalificationProjectObject.Init({
-            ObjectId: 'divGridCalificationProjectConfig',
-            CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+        $(document).ready(function () {
+            Customer_CalificationProjectObject.Init({
+                ObjectId: 'divGridCalificationProjectConfig',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 CalificationProjectConfigType: 2004001,
                 CalificationProjectItemUrl: '@Html.Raw(oCPCCalificationProjectConfigItemUrl)',
             });

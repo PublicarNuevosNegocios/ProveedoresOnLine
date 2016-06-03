@@ -618,7 +618,7 @@ var Customer_CalificationProjectObject = {
     CalificationProjectItemUrl: '',
     CalificationProjectValidateUrl: '',
     CalificationProjectConfigType: '',
-    CustomerOptions: new array(),
+    CustomerOptions: new Array(),
     PageSize: '',
 
     Init: function (vInitObject) {
@@ -982,14 +982,7 @@ var Customer_CalificationProjectObject = {
                     text: 'Editar'
                 }],
             }],
-        });
-        if (dataItem.Enable == true) {
-            oReturn = 'Si'
-        }
-        else {
-            oReturn = 'No'
-        }
-        return oReturn;
+        });        
     },
 };
 
