@@ -616,6 +616,7 @@ var Customer_CalificationProjectObject = {
     ObjectId: '',
     CustomerPublicId: '',
     CalificationProjectItemUrl: '',
+    CalificationProjectConfigId: '',
     CalificationProjectValidateUrl: '',
     CalificationProjectConfigType: '',
     CustomerOptions: new Array(),
@@ -625,6 +626,7 @@ var Customer_CalificationProjectObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.CalificationProjectItemUrl = vInitObject.CalificationProjectItemUrl;
+        this.CalificationProjectConfigId = vInitObject.CalificationProjectConfigId;
         this.CalificationProjectValidateUrl = vInitObject.CalificationProjectValidateUrl;
         this.CalificationProjectConfigType = vInitObject.CalificationProjectConfigType;
         this.PageSize = vInitObject.PageSize;
@@ -864,7 +866,7 @@ var Customer_CalificationProjectObject = {
                         id: "CalificationProjectConfigValidateId",
                         fields: {
                             CalificationProjectConfigValidateId: { editable: false, nullable: true },
-                            Operator: { editable: true, type: '', validation: { required: true } },
+                            Operator: { editable: true, validation: { required: true } },
                             Value: { editable: true, type: '' },
                             Result: {editable: true, type: ''},
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
@@ -874,7 +876,7 @@ var Customer_CalificationProjectObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateSearch=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfig + '&vEnable=' + Customer_CalificationProjectObject.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateSearch=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId + '&vEnable=' + Customer_CalificationProjectObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -887,7 +889,7 @@ var Customer_CalificationProjectObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfig,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -906,7 +908,7 @@ var Customer_CalificationProjectObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigValidateId=' + Customer_CalificationProjectObject.CalificationProjectConfigValidate,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -950,15 +952,13 @@ var Customer_CalificationProjectObject = {
             }, {
                 field: 'Operator',
                 title: 'Operador',
-                width: '200px',
-                editor: function (container, options) {
-                    $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
-                },
+                width: '200px',              
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.Rule != null) {
+                    if (dataItem != null && dataItem.Operator != null) {
+                        debugger;
                         $.each(Customer_CalificationProjectObject.CustomerOptions[2001], function (item, value) {
-                            if (dataItem.Rule == value.ItemId) {
+                            if (dataItem.Operator == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -966,10 +966,11 @@ var Customer_CalificationProjectObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
+                    debugger;
+                    $('<input required data-bind="value:' + options.field + '"/>')                        
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Customer_CalificationProjectObject.CustomerOptions,
+                            dataSource: Customer_CalificationProjectObject.CustomerOptions[2001],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción',

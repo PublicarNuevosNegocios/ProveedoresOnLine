@@ -238,11 +238,11 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidate, string CalificationProjectConfigValidateId) 
+        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidateUpsert, string CalificationProjectConfigId) 
         {
             BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel oReturn = null;
 
-            if (CPCalificationProjectConfigValidate == "true")
+            if (CPCalificationProjectConfigValidateUpsert == "true")
             {
                 BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel oDataToUpsert =
                     (BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel)

@@ -46,6 +46,25 @@
 
 @{
     Model.RenderScripts = true;
+
+    //get CalificationProjectConfigValueList
+    string oCalificationProjectOptionList = "[]";
+    if (Model.CustomerOptions != null &&
+        Model.CustomerOptions.Count > 0)
+    {
+        Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionList =
+            Model.CustomerOptions.
+            GroupBy(x => x.CatalogId).
+            Select(x =>
+                new
+                {
+                    okey = x.Key,
+                    ovalue = Model.CustomerOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                }).ToDictionary(k => k.okey, v => v.ovalue);
+
+        oCalificationProjectOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oOptionList.Select(x => new { Key = x.Key, Value = x.Value }));
+    }
 }
 
 @section inlinescripts
@@ -53,12 +72,15 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
+        var vCustomerInfoOptionList =@(Html.Raw(oCalificationProjectOptionList));
+
         $(document).ready(function () {
             Customer_CalificationProjectObject.Init({
                 ObjectId: 'divGridCalificationProjectConfigValidate',
-                ProjectConfigId: '@Model.RelatedCalificationProjectConfig.CalificationProjectConfigId',
+                CalificationProjectConfigId: '@Model.RelatedCalificationProjectConfig.CalificationProjectConfigId',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 CalificationProjectConfigType: 2004003,
+                CustomerOptions: vCustomerInfoOptionList,
             });
 
             Customer_CalificationProjectObject.RenderAsync();
