@@ -974,6 +974,7 @@ var Customer_CalificationProjectItemObject = {
     CalificationProjectConfigId: '',
     CalificationProjectItemType: '',
     CustomerOptions: new Array(),
+    CalificationProjectConfigOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -983,6 +984,11 @@ var Customer_CalificationProjectItemObject = {
         if (vInitObject.CustomerOptions != null) {
             $.each(vInitObject.CustomerOptions, function (item, value) {
                 Customer_CalificationProjectItemObject.CustomerOptions[value.Key] = value.Value;
+            });
+        }
+        if (vInitObject.CalificationProjectConfigOptions != null) {
+            $.each(vInitObject.CalificationProjectConfigOptions, function (item, value) {
+                Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[value.Key] = value.Value;
             });
         }
     },
@@ -1220,6 +1226,7 @@ var Customer_CalificationProjectItemObject = {
                                 CalificationProjectItemType: '2004004',
                                 Title: oTitle,
                                 CalificationProjectConfigItemId: data.CalificationProjectConfigItemId,
+                                Module: data.CalificationProjectModule,
                             });
                         }
                     }
@@ -1356,6 +1363,57 @@ var Customer_CalificationProjectItemObject = {
                 field: 'Question',
                 title: 'Item a Validar',
                 width: '250px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.Question != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.Question;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    debugger;
+                    var oModule = 0;
+
+                    if (vRenderObject.Module == 2003001) /*Legal info*/ {
+                        oModule = 301;
+                    }
+                    else if (vRenderObject.Module == 2003002) /*Financial info*/ {
+                        oModule = 501;
+                    }
+                    else if (vRenderObject.Module == 2003003) /*Comercial info*/ {
+                        oModule = 601;
+                    }
+                    else if (vRenderObject.Module == 2003004) /*HSEQ info*/ {
+                        oModule = 701;
+                    }
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'ItemName',
+                        select: function (e) {
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ItemName;
+                            options.model['Question'] = selectedItem.ItemId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[oModule],
+                    });
+                },
             }, {
                 field: 'Rule',
                 title: 'Regla de validación',
