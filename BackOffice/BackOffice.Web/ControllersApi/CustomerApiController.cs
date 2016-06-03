@@ -347,9 +347,7 @@ namespace BackOffice.Web.ControllersApi
                     CalificationProjectConfigItemInfoModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel>(){
                         new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel(){
                             CalificationProjectConfigItemInfoId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigItemInfoId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigItemInfoId) : 0,
-                            Question = new CatalogModel(){
-                                ItemId = Convert.ToInt32(oDataToUpsert.Question),
-                            },
+                            Question = Convert.ToInt32(oDataToUpsert.Question),
                             Rule = new CatalogModel(){
                                 ItemId = Convert.ToInt32(oDataToUpsert.Rule),
                             },

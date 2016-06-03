@@ -975,6 +975,7 @@ var Customer_CalificationProjectItemObject = {
     CalificationProjectItemType: '',
     CustomerOptions: new Array(),
     CalificationProjectConfigOptions: new Array(),
+    CalificationProjectConfigCategoryOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -989,6 +990,11 @@ var Customer_CalificationProjectItemObject = {
         if (vInitObject.CalificationProjectConfigOptions != null) {
             $.each(vInitObject.CalificationProjectConfigOptions, function (item, value) {
                 Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[value.Key] = value.Value;
+            });
+        }
+        if (vInitObject.CalificationProjectConfigCategoryOptions != null) {
+            $.each(vInitObject.CalificationProjectConfigCategoryOptions, function (item, value) {
+                Customer_CalificationProjectItemObject.CalificationProjectConfigCategoryOptions[value.Key] = value.Value;
             });
         }
     },
@@ -1268,7 +1274,8 @@ var Customer_CalificationProjectItemObject = {
                         id: "CalificationProjectConfigItemInfoId",
                         fields: {
                             CalificationProjectConfigItemInfoId: { editable: false, nullable: true },
-                            Question: { editable: true },
+                            Question: { editable: false },
+                            QuestionName: { editable: true },
                             Rule: { editable: true },
                             ValueType: { editable: true },
                             Value: { editable: true, nullable: true },
@@ -1360,14 +1367,71 @@ var Customer_CalificationProjectItemObject = {
                     return oReturn;
                 }
             }, {
-                field: 'Question',
+                field: 'QuestionName',
                 title: 'Item a Validar',
                 width: '250px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.Question != null) {
                         var oModule = 0;
+                        if (vRenderObject.Module == 2003005) /*Balance*/ {
+                            debugger;
+                            $.each(Customer_CalificationProjectItemObject.CalificationProjectConfigCategoryOptions[10], function (item, value) {
+                                if (dataItem.Question == value.CategoryId) {
+                                    oReturn = value.CategoryName;
+                                }
+                            });
+                        }
+                        else {
+                            if (vRenderObject.Module == 2003001) /*Legal info*/ {
+                                oModule = 301;
+                            }
+                            else if (vRenderObject.Module == 2003002) /*Financial info*/ {
+                                oModule = 501;
+                            }
+                            else if (vRenderObject.Module == 2003003) /*Comercial info*/ {
+                                oModule = 601;
+                            }
+                            else if (vRenderObject.Module == 2003004) /*HSEQ info*/ {
+                                oModule = 701;
+                            }
 
+                            $.each(Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[oModule], function (item, value) {
+                                if (dataItem.Question == value.ItemId) {
+                                    oReturn = value.ItemName;
+                                }
+                            });
+                        }                        
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    debugger;
+                    var oModule = 0;
+
+                    if (vRenderObject.Module == 2003005) /*Balance*/ {
+                        // create an input element
+                        var input = $('<input/>');
+                        // set its name to the field to which the column is bound ('name' in this case)
+                        input.attr('value', options.model[options.field]);
+                        // append it to the container
+                        input.appendTo(container);
+                        // initialize a Kendo UI AutoComplete
+                        input.kendoAutoComplete({
+                            dataTextField: 'CategoryName',
+                            select: function (e) {
+                                var selectedItem = this.dataItem(e.item.index());
+                                //set server fiel name
+                                options.model[options.field] = selectedItem.CategoryName;
+                                options.model['QuestionName'] = selectedItem.CategoryName;
+                                options.model['Question'] = selectedItem.CategoryId;
+                                //enable made changes
+                                options.model.dirty = true;
+                            },
+                            dataSource: Customer_CalificationProjectItemObject.CalificationProjectConfigCategoryOptions[10],
+                        });
+                    }
+                    else {
                         if (vRenderObject.Module == 2003001) /*Legal info*/ {
                             oModule = 301;
                         }
@@ -1381,51 +1445,28 @@ var Customer_CalificationProjectItemObject = {
                             oModule = 701;
                         }
 
-                        $.each(Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[oModule], function (item, value) {
-                            if (dataItem.Question == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
+                        // create an input element
+                        var input = $('<input/>');
+                        // set its name to the field to which the column is bound ('name' in this case)
+                        input.attr('value', options.model[options.field]);
+                        // append it to the container
+                        input.appendTo(container);
+                        // initialize a Kendo UI AutoComplete
+                        input.kendoAutoComplete({
+                            dataTextField: 'ItemName',
+                            select: function (e) {
+                                debugger;
+                                var selectedItem = this.dataItem(e.item.index());
+                                //set server fiel name
+                                options.model[options.field] = selectedItem.ItemName;
+                                options.model['QuestionName'] = selectedItem.ItemName;
+                                options.model['Question'] = selectedItem.ItemId;
+                                //enable made changes
+                                options.model.dirty = true;
+                            },
+                            dataSource: Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[oModule],
                         });
                     }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    debugger;
-                    var oModule = 0;
-
-                    if (vRenderObject.Module == 2003001) /*Legal info*/ {
-                        oModule = 301;
-                    }
-                    else if (vRenderObject.Module == 2003002) /*Financial info*/ {
-                        oModule = 501;
-                    }
-                    else if (vRenderObject.Module == 2003003) /*Comercial info*/ {
-                        oModule = 601;
-                    }
-                    else if (vRenderObject.Module == 2003004) /*HSEQ info*/ {
-                        oModule = 701;
-                    }
-
-                    // create an input element
-                    var input = $('<input/>');
-                    // set its name to the field to which the column is bound ('name' in this case)
-                    input.attr('value', options.model[options.field]);
-                    // append it to the container
-                    input.appendTo(container);
-                    // initialize a Kendo UI AutoComplete
-                    input.kendoAutoComplete({
-                        dataTextField: 'ItemName',
-                        select: function (e) {
-                            debugger;
-                            var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name
-                            options.model[options.field] = selectedItem.ItemName;
-                            options.model['Question'] = selectedItem.ItemId;
-                            //enable made changes
-                            options.model.dirty = true;
-                        },
-                        dataSource: Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[oModule],
-                    });
                 },
             }, {
                 field: 'Rule',

@@ -105,26 +105,48 @@
             oCalificationProjectConfigOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionList.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+        
+        //Get calificationprojectconfigcategoryoptions
+        string oCalificationProjectConfigCagtegoryOptionList = "[]";
+
+        if (Model.CalificationProjectCategoryOptions != null &&
+            Model.CalificationProjectCategoryOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectCategoryModel>> oOptionList =
+                Model.CalificationProjectCategoryOptions.
+                GroupBy(x => x.TreeId).
+                Select(x =>
+                new
+                {
+                    okey = x.Key,
+                    ovalue = Model.CalificationProjectCategoryOptions.Where(y => y.TreeId == x.Key).OrderBy(y => y.CategoryName).ToList(),
+                }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oCalificationProjectConfigCagtegoryOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionList.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
     }
 
     <script type="text/javascript">
-        var vCustomerInfoOptionList = @(Html.Raw(oCalificationProjectOptionList));
-        var vCalificationProjectConfigOptionList = @(Html.Raw(oCalificationProjectConfigOptionList));
+    var vCustomerInfoOptionList = @(Html.Raw(oCalificationProjectOptionList));
+    var vCalificationProjectConfigOptionList = @(Html.Raw(oCalificationProjectConfigOptionList));
+    var vCalificationProjectConfigCagtegoryOptionList = @(Html.Raw(oCalificationProjectConfigCagtegoryOptionList));
 
         $(document).ready(function () {
             Customer_CalificationProjectItemObject.Init({
                 ObjectId: 'divGridCalificationProjectItem',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
-                CalificationProjectConfigId: @Model.RelatedCalificationProjectConfig.CalificationProjectConfigId,
-                CustomerOptions: vCustomerInfoOptionList,
-                CalificationProjectConfigOptions: vCalificationProjectConfigOptionList,
+            CalificationProjectConfigId: @Model.RelatedCalificationProjectConfig.CalificationProjectConfigId,
+            CustomerOptions: vCustomerInfoOptionList,
+            CalificationProjectConfigOptions: vCalificationProjectConfigOptionList,
+            CalificationProjectConfigCategoryOptions: vCalificationProjectConfigCagtegoryOptionList
             });
 
-            Customer_CalificationProjectItemObject.RenderAsync({
-                CalificationProjectItemId: '@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())',
-                Title: '',
-                CalificationProjectItemType: 2004002,
-            });
+        Customer_CalificationProjectItemObject.RenderAsync({
+            CalificationProjectItemId: '@(((int)BackOffice.Models.General.enumCalificationProjectConfigType.CalificationProjectConfigItem).ToString())',
+            Title: '',
+            CalificationProjectItemType: 2004002,
         });
+    });
     </script>
 }

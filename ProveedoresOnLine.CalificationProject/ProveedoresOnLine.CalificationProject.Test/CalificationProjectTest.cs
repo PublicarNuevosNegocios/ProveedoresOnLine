@@ -110,9 +110,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
                 CalificationProjectConfigItemInfoModel = new List<ConfigItemInfoModel>(){
                     new ConfigItemInfoModel(){
                         CalificationProjectConfigItemInfoId = 1,
-                        Question = new Company.Models.Util.CatalogModel(){
-                            ItemId = 609001, //Cantidad de empleados profesionales
-                        },
+                        Question = 609001,
                         Rule = new Company.Models.Util.CatalogModel(){
                             ItemId = 2001003, //Menor que (<)
                         },

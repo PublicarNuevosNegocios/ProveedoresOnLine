@@ -14,6 +14,8 @@ namespace BackOffice.Models.Customer
 
         public string Question { get; set; }
 
+        public string QuestionName { get; set; }
+
         public string Rule { get; set; }
 
         public string ValueType { get; set; }
@@ -32,7 +34,7 @@ namespace BackOffice.Models.Customer
 
             CalificationProjectConfigItemInfoId = RelatedCalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId.ToString();
 
-            Question = RelatedCalificationProjectConfigItemInfoModel.Question.ItemId.ToString();
+            Question = RelatedCalificationProjectConfigItemInfoModel.Question.ToString();
 
             Rule = RelatedCalificationProjectConfigItemInfoModel.Rule.ItemId.ToString();
 

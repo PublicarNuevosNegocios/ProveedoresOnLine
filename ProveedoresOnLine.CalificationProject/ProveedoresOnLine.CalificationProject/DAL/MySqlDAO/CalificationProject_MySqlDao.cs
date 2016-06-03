@@ -113,8 +113,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                             ConfigItemTypeName = cpm.Field<string>("ConfigItemTypeName"),
                             ConfigItemTypeId = cpm.Field<int>("ConfigItemTypeId"),
                             CalificationProjectConfigItemInfoId = cpm.Field<int>("CalificationProjectConfigItemInfoId"),
-                            QuestionName = cpm.Field<string>("QuestionName"),
-                            QuestionId = cpm.Field<int>("QuestionId"),
+                            Question = cpm.Field<int>("Question"),
                             RuleName = cpm.Field<string>("RuleName"),
                             RuleId = cpm.Field<int>("RuleId"),
                             ValueName = cpm.Field<string>("ValueName"),
@@ -154,11 +153,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                             new Models.CalificationProject.ConfigItemInfoModel()
                                             {
                                                 CalificationProjectConfigItemInfoId = cpmg.Key.CalificationProjectConfigItemInfoId,
-                                                Question = new Company.Models.Util.CatalogModel()
-                                                {
-                                                    ItemName = cpmg.Key.QuestionName,
-                                                    ItemId = cpmg.Key.QuestionId
-                                                },
+                                                Question = cpmg.Key.Question,
                                                 Rule = new Company.Models.Util.CatalogModel()
                                                 {
                                                     ItemName = cpmg.Key.RuleName,
@@ -380,8 +375,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                      group cinf by new
                      {
                          CalificationProjectConfigItemInfoId = cinf.Field<int>("CalificationProjectConfigItemInfoId"),
-                         QuestionId = cinf.Field<int>("QuestionId"),
-                         QuestionName = cinf.Field<string>("QuestionName"),
+                         Question = cinf.Field<int>("Question"),
                          RuleId = cinf.Field<int>("RuleId"),
                          RuleName = cinf.Field<string>("RuleName"),
                          ValueTypeId = cinf.Field<int>("ValueTypeId"),
@@ -396,11 +390,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                          select new Models.CalificationProject.ConfigItemInfoModel()
                          {
                              CalificationProjectConfigItemInfoId = cinfg.Key.CalificationProjectConfigItemInfoId,
-                             Question = new Company.Models.Util.CatalogModel()
-                             {
-                                 ItemId = cinfg.Key.QuestionId,
-                                 ItemName = cinfg.Key.QuestionName,
-                             },
+                             Question = cinfg.Key.Question,
                              Rule = new Company.Models.Util.CatalogModel()
                              {
                                  ItemId = cinfg.Key.RuleId,
