@@ -546,7 +546,47 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
             return oReturn;
         }
 
-        #endregion
+        public List<Models.CalificationProject.CalificationProjectCategoryModel> CalificationProjectConfigCategoryOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetCalificationProjectConfigCategoryOptions",
+                CommandType = CommandType.StoredProcedure,
+            });
 
+            List<Models.CalificationProject.CalificationProjectCategoryModel> oReturn = new List<Models.CalificationProject.CalificationProjectCategoryModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cm in response.DataTableResult.AsEnumerable()
+                     where !cm.IsNull("TreeId")
+                     group cm by new
+                     {
+                         TreeId = cm.Field<int>("TreeId"),
+                         TreeName = cm.Field<string>("TreeName"),
+                         TreeEnable = cm.Field<UInt64>("TreeEnable") == 1 ? true : false,
+                         CategoryId = cm.Field<int>("CategoryId"),
+                         CategoryName = cm.Field<string>("CategoryName"),
+                         CategoryEnable = cm.Field<UInt64>("CategoryEnable") == 1 ? true : false,
+                     }
+                         into cmg
+                         select new Models.CalificationProject.CalificationProjectCategoryModel()
+                         {
+                             TreeId = cmg.Key.TreeId,
+                             TreeName = cmg.Key.TreeName,
+                             TreeEnable = cmg.Key.TreeEnable,
+                             CategoryId = cmg.Key.CategoryId,
+                             CategoryName = cmg.Key.CategoryName,
+                             CategoryEnable = cmg.Key.CategoryEnable,
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

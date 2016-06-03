@@ -187,6 +187,13 @@ namespace ProveedoresOnLine.CalificationProject.Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
+        [TestMethod]
+        public void CalificationProjectConfigCategoryOptions()
+        {
+            List<Models.CalificationProject.CalificationProjectCategoryModel> oReturn = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigCategoryOptions();
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
         #endregion
     }
 }

@@ -241,6 +241,11 @@ namespace ProveedoresOnLine.CalificationProject.Controller
             return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigOptions();
         }
 
+        public static List<Models.CalificationProject.CalificationProjectCategoryModel> CalificationProjectConfigCategoryOptions()
+        {
+            return DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigCategoryOptions();
+        }
+
         #endregion
     }
 }

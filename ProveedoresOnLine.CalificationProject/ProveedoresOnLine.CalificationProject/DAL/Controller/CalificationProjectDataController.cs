@@ -113,6 +113,11 @@ namespace ProveedoresOnLine.CalificationProject.DAL.Controller
             return DataFactory.CalificationProjectConfigOptions();
         }
 
+        public List<Models.CalificationProject.CalificationProjectCategoryModel> CalificationProjectConfigCategoryOptions()
+        {
+            return DataFactory.CalificationProjectConfigCategoryOptions();
+        }
+
         #endregion
     }
 }
