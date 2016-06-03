@@ -820,6 +820,17 @@ var Customer_CalificationProjectObject = {
                 }, {
                     name: '',
                     text: 'Agregar Validación',
+                    click: function (e) {
+                        debugger;
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigId attribute
+                        if (data.CalificationProjectConfigId != null && data.CalificationProjectConfigId.length > 0) {
+                            window.location = Customer_CalificationProjectObject.CalificationProjectValidateUrl.replace(/\${CalificationProjectConfigId}/gi, data.CalificationProjectConfigId);
+                        }
+                    }
                 }],
             }],
         });

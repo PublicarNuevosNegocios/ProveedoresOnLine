@@ -54,6 +54,15 @@
         new
         {
             CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId,
+        }) + "&CalificationProjectConfigId=${CalificationProjectConfigId}";          
+        
+    string oCPCalificationProjectConfigValidateUrl = Url.Action
+        (
+        MVC.Customer.ActionNames.CPCCalificationProjectConfigValidateUpsert,
+        MVC.Customer.Name,
+        new
+        {
+            CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
         }) + "&CalificationProjectConfigId=${CalificationProjectConfigId}";
 }
 
@@ -68,6 +77,7 @@
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 CalificationProjectConfigType: 2004001,
                 CalificationProjectItemUrl: '@Html.Raw(oCPCCalificationProjectConfigItemUrl)',
+                CalificationProjectValidateUrl: '@Html.Raw(oCPCalificationProjectConfigValidateUrl)',
             });
 
             Customer_CalificationProjectObject.RenderAsync();
