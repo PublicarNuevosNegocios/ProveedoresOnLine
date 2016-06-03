@@ -67,6 +67,7 @@
     <Compile Include="DAL\Controller\CalificationProjectDataFactory.cs" />
     <Compile Include="DAL\MySqlDAO\CalificationProject_MySqlDao.cs" />
     <Compile Include="Interfaces\ICalificationProjectData.cs" />
+    <Compile Include="Models\CalificationProject\CalificationProjectCategoryModel.cs" />
     <Compile Include="Models\CalificationProject\CalificationProjectConfigModel.cs" />
     <Compile Include="Models\CalificationProject\CalificationProjectModel.cs" />
     <Compile Include="Models\CalificationProject\ConfigItemInfoModel.cs" />

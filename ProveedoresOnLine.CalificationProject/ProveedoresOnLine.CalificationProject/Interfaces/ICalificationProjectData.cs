@@ -53,6 +53,8 @@ namespace ProveedoresOnLine.CalificationProject.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CalificationProjectConfigOptions();
 
+        List<Models.CalificationProject.CalificationProjectCategoryModel> CalificationProjectConfigCategoryOptions();
+
         #endregion
     }
 }

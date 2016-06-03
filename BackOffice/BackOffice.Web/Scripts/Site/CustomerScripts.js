@@ -1364,15 +1364,28 @@ var Customer_CalificationProjectItemObject = {
                 title: 'Item a Validar',
                 width: '250px',
                 template: function (dataItem) {
-                    var oReturn = '';
+                    var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.Question != null) {
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
+                        var oModule = 0;
+
+                        if (vRenderObject.Module == 2003001) /*Legal info*/ {
+                            oModule = 301;
                         }
-                        else {
-                            oReturn = '';
+                        else if (vRenderObject.Module == 2003002) /*Financial info*/ {
+                            oModule = 501;
                         }
-                        oReturn = oReturn + dataItem.Question;
+                        else if (vRenderObject.Module == 2003003) /*Comercial info*/ {
+                            oModule = 601;
+                        }
+                        else if (vRenderObject.Module == 2003004) /*HSEQ info*/ {
+                            oModule = 701;
+                        }
+
+                        $.each(Customer_CalificationProjectItemObject.CalificationProjectConfigOptions[oModule], function (item, value) {
+                            if (dataItem.Question == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
                     }
                     return oReturn;
                 },
