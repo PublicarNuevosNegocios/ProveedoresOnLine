@@ -618,6 +618,7 @@ var Customer_CalificationProjectObject = {
     CalificationProjectItemUrl: '',
     CalificationProjectValidateUrl: '',
     CalificationProjectConfigType: '',
+    CustomerOptions: new Array(),
     PageSize: '',
 
     Init: function (vInitObject) {
@@ -627,6 +628,11 @@ var Customer_CalificationProjectObject = {
         this.CalificationProjectValidateUrl = vInitObject.CalificationProjectValidateUrl;
         this.CalificationProjectConfigType = vInitObject.CalificationProjectConfigType;
         this.PageSize = vInitObject.PageSize;
+        if (vInitObject.CustomerOptions != null) {
+            $.each(vInitObject.CustomerOptions, function (item, value) {
+                Customer_CalificationProjectObject.CustomerOptions[value.Key] = value.Value;
+            });
+        }
     },
 
     RenderAsync: function () {
@@ -675,7 +681,7 @@ var Customer_CalificationProjectObject = {
         });
     },
 
-    GetViewEnable: function (vSurveyItemType) {
+    GetViewEnable: function (CalificationProjectConfigType) {
         return $('#' + Customer_CalificationProjectObject.ObjectId).find('#' + Customer_CalificationProjectObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_CalificationProjectObject.ObjectId).find('#' + Customer_CalificationProjectObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -814,12 +820,24 @@ var Customer_CalificationProjectObject = {
                 }, {
                     name: '',
                     text: 'Agregar Validación',
+                    click: function (e) {
+                        debugger;
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigId attribute
+                        if (data.CalificationProjectConfigId != null && data.CalificationProjectConfigId.length > 0) {
+                            window.location = Customer_CalificationProjectObject.CalificationProjectValidateUrl.replace(/\${CalificationProjectConfigId}/gi, data.CalificationProjectConfigId);
+                        }
+                    }
                 }],
             }],
         });
     },
 
     CalificationProjectConfigValidate: function () {
+
         $('#' + Customer_CalificationProjectObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -847,6 +865,8 @@ var Customer_CalificationProjectObject = {
                         fields: {
                             CalificationProjectConfigValidateId: { editable: false, nullable: true },
                             Operator: { editable: true, type: '', validation: { required: true } },
+                            Value: { editable: true, type: '' },
+                            Result: {editable: true, type: ''},
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
                         },
                     }
@@ -854,7 +874,7 @@ var Customer_CalificationProjectObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigSearch=true&CustomerPublicId=' + Customer_CalificationProjectObject.CustomerPublicId + '&vEnable=' + Customer_CalificationProjectObject.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateSearch=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfig + '&vEnable=' + Customer_CalificationProjectObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -867,7 +887,7 @@ var Customer_CalificationProjectObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigUpsert=true&CustomerPublicId=' + Customer_CalificationProjectObject.CustomerPublicId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfig,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -886,7 +906,7 @@ var Customer_CalificationProjectObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigUpsert=true&CustomerPublicId=' + Customer_CalificationProjectObject.CustomerPublicId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigValidateId=' + Customer_CalificationProjectObject.CalificationProjectConfigValidate,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -928,27 +948,44 @@ var Customer_CalificationProjectObject = {
                     return oReturn;
                 },
             }, {
-                field: 'SurveyConfigItemName',
-                title: 'Nombre',
+                field: 'Operator',
+                title: 'Operador',
                 width: '200px',
                 editor: function (container, options) {
                     $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
                 },
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Rule != null) {
+                        $.each(Customer_CalificationProjectObject.CustomerOptions[2001], function (item, value) {
+                            if (dataItem.Rule == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_CalificationProjectObject.CustomerOptions,
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción',
+                        });
+                }
             }, {
-                field: 'SurveyConfigItemInfoOrder',
-                title: 'Orden',
+                field: 'Value',
+                title: 'Valor',
                 width: '50px',
                 format: '{0:n0}'
             }, {
-                field: 'SurveyConfigItemInfoWeight',
-                title: 'Peso',
+                field: 'Result',
+                title: 'Resultado',
                 width: '50px',
                 format: '{0:n0}'
-            }, {
-                field: 'SurveyConfigItemId',
-                title: 'Id',
-                width: '100px',
-            }, {
+            },{
                 title: "&nbsp;",
                 width: "200px",
                 command: [{
@@ -956,14 +993,7 @@ var Customer_CalificationProjectObject = {
                     text: 'Editar'
                 }],
             }],
-        });
-        if (dataItem.Enable == true) {
-            oReturn = 'Si'
-        }
-        else {
-            oReturn = 'No'
-        }
-        return oReturn;
+        });        
     },
 };
 

@@ -151,7 +151,7 @@ namespace BackOffice.Web.ControllersApi
         #endregion Customer Roles
 
         #region Calification Project Config
-
+        
         [HttpPost]
         [HttpGet]
         public List<BackOffice.Models.Customer.CalificationProjectConfigViewModel> CPCalificationProjectConfigSearch
@@ -214,6 +214,60 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
+        #region CalificationConfigValidate
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel> CPCalificationProjectConfigValidateSearch(string CPCalificationProjectConfigValidateSearch,string CalificationProjectConfigId, string vEnable) 
+        {
+            List<BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel> oReturn = new List<BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel>();
+
+            if (CPCalificationProjectConfigValidateSearch == "true")
+            {
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
+                oModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(Convert.ToInt32(CalificationProjectConfigId), vEnable == "true" ? true : false);
+                if (oModel.Count > 0)
+	            {
+                    oModel.All(x => { oReturn.Add(new CalificationProjectConfigValidateViewModel(x));
+                    return true;
+                    });		 
+	            }
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidate, string CalificationProjectConfigValidateId) 
+        {
+            BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel oReturn = null;
+
+            if (CPCalificationProjectConfigValidate == "true")
+            {
+                BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()
+                    ).Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                    typeof(BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel));
+
+                ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel oModelToUpsert = new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel()
+            {
+                CalificationProjectConfigValidateId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigValidateId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigValidateId) : 0,                
+                Operator = new CatalogModel()
+                {
+                    ItemId = oDataToUpsert.Operator,
+                },
+                Value = oDataToUpsert.Value,
+                Result = oDataToUpsert.Result,
+                Enable = oDataToUpsert.Enable
+            };
+                oModelToUpsert = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfigValidate_Upsert(oModelToUpsert);
+
+                 oReturn = new CalificationProjectConfigValidateViewModel(oModelToUpsert);
+            }
+            return oReturn;
+        }
+        #endregion
 
         #region Calification Project Item
 

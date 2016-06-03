@@ -54,6 +54,15 @@
         new
         {
             CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId,
+        }) + "&CalificationProjectConfigId=${CalificationProjectConfigId}";          
+        
+    string oCPCalificationProjectConfigValidateUrl = Url.Action
+        (
+        MVC.Customer.ActionNames.CPCCalificationProjectConfigValidateUpsert,
+        MVC.Customer.Name,
+        new
+        {
+            CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
         }) + "&CalificationProjectConfigId=${CalificationProjectConfigId}";
 }
 
@@ -62,12 +71,13 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
-    $(document).ready(function () {
-        Customer_CalificationProjectObject.Init({
-            ObjectId: 'divGridCalificationProjectConfig',
-            CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+        $(document).ready(function () {
+            Customer_CalificationProjectObject.Init({
+                ObjectId: 'divGridCalificationProjectConfig',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 CalificationProjectConfigType: 2004001,
                 CalificationProjectItemUrl: '@Html.Raw(oCPCCalificationProjectConfigItemUrl)',
+                CalificationProjectValidateUrl: '@Html.Raw(oCPCalificationProjectConfigValidateUrl)',
             });
 
             Customer_CalificationProjectObject.RenderAsync();
