@@ -252,6 +252,7 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel oModelToUpsert = new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel()
             {
+                CalificationProjectConfigId = Convert.ToInt32(oDataToUpsert.CalificationProjectConfigId),
                 CalificationProjectConfigValidateId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigValidateId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigValidateId) : 0,                
                 Operator = new CatalogModel()
                 {
