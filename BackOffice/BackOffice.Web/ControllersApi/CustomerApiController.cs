@@ -238,7 +238,7 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidateUpsert, string CalificationProjectConfigId) 
+        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidateUpsert, string CalificationProjectConfigValidateId) 
         {
             BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel oReturn = null;
 

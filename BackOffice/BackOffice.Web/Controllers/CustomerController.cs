@@ -803,7 +803,6 @@ namespace BackOffice.Web.Controllers
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
                 RelatedCalificationProjectConfig = new Models.Customer.CalificationProjectConfigViewModel(ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetByCalificationProjectConfigId(Convert.ToInt32(CalificationProjectConfigId))),
-
             };
             //Get provider menu
             oModel.CustomerMenu = GetCustomerMenu(oModel);

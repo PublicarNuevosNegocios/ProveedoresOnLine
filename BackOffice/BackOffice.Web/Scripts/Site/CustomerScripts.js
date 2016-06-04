@@ -617,6 +617,7 @@ var Customer_CalificationProjectObject = {
     CustomerPublicId: '',
     CalificationProjectItemUrl: '',
     CalificationProjectConfigId: '',
+    CalificationProjectConfigValidateId:'',
     CalificationProjectValidateUrl: '',
     CalificationProjectConfigType: '',
     CustomerOptions: new Array(),
@@ -627,6 +628,7 @@ var Customer_CalificationProjectObject = {
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.CalificationProjectItemUrl = vInitObject.CalificationProjectItemUrl;
         this.CalificationProjectConfigId = vInitObject.CalificationProjectConfigId;
+        this.CalificationProjectConfigValidateId = vInitObject.CalificationProjectConfigValidateId;
         this.CalificationProjectValidateUrl = vInitObject.CalificationProjectValidateUrl;
         this.CalificationProjectConfigType = vInitObject.CalificationProjectConfigType;
         this.PageSize = vInitObject.PageSize;
@@ -889,7 +891,7 @@ var Customer_CalificationProjectObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigValidateId=' + Customer_CalificationProjectObject.CalificationProjectConfigValidateId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -908,7 +910,7 @@ var Customer_CalificationProjectObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigValidateId=' + Customer_CalificationProjectObject.CalificationProjectConfigValidateId,
                             dataType: 'json',
                             type: 'post',
                             data: {
