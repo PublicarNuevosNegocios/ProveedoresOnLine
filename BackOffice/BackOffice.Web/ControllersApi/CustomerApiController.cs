@@ -238,7 +238,7 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidateUpsert, string CalificationProjectConfigValidateId) 
+        public BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel CPCalificationProjectConfigValidateUpsert(string CPCalificationProjectConfigValidateUpsert, string CalificationProjectConfigId) 
         {
             BackOffice.Models.Customer.CalificationProjectConfigValidateViewModel oReturn = null;
 
@@ -252,7 +252,7 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel oModelToUpsert = new ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel()
             {
-                CalificationProjectConfigId = Convert.ToInt32(oDataToUpsert.CalificationProjectConfigId),
+                CalificationProjectConfigId = Convert.ToInt32(CalificationProjectConfigId),
                 CalificationProjectConfigValidateId = !string.IsNullOrEmpty(oDataToUpsert.CalificationProjectConfigValidateId) ? Convert.ToInt32(oDataToUpsert.CalificationProjectConfigValidateId) : 0,                
                 Operator = new CatalogModel()
                 {

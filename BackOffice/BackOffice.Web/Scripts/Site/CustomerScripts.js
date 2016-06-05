@@ -869,8 +869,8 @@ var Customer_CalificationProjectObject = {
                         fields: {
                             CalificationProjectConfigValidateId: { editable: false, nullable: true },
                             Operator: { editable: true, validation: { required: true } },
-                            Value: { editable: true, type: '' },
-                            Result: {editable: true, type: ''},
+                            Value: { editable: true},
+                            Result: {editable: true},
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
                         },
                     }
@@ -891,7 +891,7 @@ var Customer_CalificationProjectObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigValidateId=' + Customer_CalificationProjectObject.CalificationProjectConfigValidateId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -910,7 +910,7 @@ var Customer_CalificationProjectObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigValidateId=' + Customer_CalificationProjectObject.CalificationProjectConfigValidateId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?CPCalificationProjectConfigValidateUpsert=true&CalificationProjectConfigId=' + Customer_CalificationProjectObject.CalificationProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -919,11 +919,11 @@ var Customer_CalificationProjectObject = {
                             success: function (result) {
                                 options.success(result);
                                 $('#' + Customer_CalificationProjectObject.ObjectId).data('kendoGrid').dataSource.read();
-                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigId + '.');
+                                Message('success', 'Se editó la fila con el id ' + options.data.CalificationProjectConfigValidateId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigId + '.');
+                                Message('error', 'Error en la fila con el id ' + options.data.CalificationProjectConfigValidateId + '.');
                             },
                         });
                     },

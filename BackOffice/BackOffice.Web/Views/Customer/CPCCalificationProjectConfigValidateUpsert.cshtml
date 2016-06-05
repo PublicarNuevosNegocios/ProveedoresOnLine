@@ -15,7 +15,11 @@
 
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Reglas de Validación</label>
+            <label class="POBOSectionTitles">Proceso de Calificación - Reglas de Validación</label>
+            <a href="@(Url.Action(
+                MVC.Customer.ActionNames.CPCCalificationProjectConfigUpsert,
+                MVC.Customer.Name,
+                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">Regresar al proceso de Calificación</a>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);

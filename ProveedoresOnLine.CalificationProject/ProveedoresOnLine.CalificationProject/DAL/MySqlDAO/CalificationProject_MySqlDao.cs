@@ -474,7 +474,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                into cvmf
                                select new Models.CalificationProject.ConfigValidateModel()
                                {
-                                   CalificationProjectConfigValidateId = cvmf.Key.CalificationProjectConfigId,
+                                   CalificationProjectConfigValidateId = cvmf.Key.CalificationProjectConfigValidateId,
                                    CalificationProjectConfigId = cvmf.Key.CalificationProjectConfigId,
                                    Operator = new Company.Models.Util.CatalogModel
                                    {
