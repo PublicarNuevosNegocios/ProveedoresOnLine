@@ -103,15 +103,23 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                         where !cpm.IsNull("CalificationProjectConfigId")
                         group cpm by new
                         {
+                            //CalificationProjectConfig
                             CalificationProjectConfigId = cpm.Field<int>("CalificationProjectConfigId"),
                             CompanyPublicId = cpm.Field<string>("CompanyPublicId"),
                             CalificationProjectConfigName = cpm.Field<string>("CalificationProjectConfigName"),
                             Enable = cpm.Field<UInt64>("Enable") == 1 ? true : false,
                             LastModify = cpm.Field<DateTime>("LastModify"),
                             CreateDate = cpm.Field<DateTime>("CreateDate"),
+
+                            //CalificationProjectConfigItem
                             CalificatonProjectConfigItemId = cpm.Field<int>("CalificationProjectConfigItemId"),
                             ConfigItemTypeName = cpm.Field<string>("ConfigItemTypeName"),
                             ConfigItemTypeId = cpm.Field<int>("ConfigItemTypeId"),
+                            ItemEnable = cpm.Field<UInt64>("ItemEnable") == 1 ? true : false,
+                            ItemCreateDate = cpm.Field<DateTime>("ItemCreateDate"),
+                            ItemLastModify = cpm.Field<DateTime>("ItemLastModify"),
+
+                            //CalificationProjectConfigItemInfo
                             CalificationProjectConfigItemInfoId = cpm.Field<int>("CalificationProjectConfigItemInfoId"),
                             Question = cpm.Field<int>("Question"),
                             RuleName = cpm.Field<string>("RuleName"),
@@ -120,11 +128,19 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                             ValueId = cpm.Field<int>("ValueId"),
                             Value = cpm.Field<string>("Value"),
                             Score = cpm.Field<string>("Score"),
+                            ItemInfoEnable = cpm.Field<UInt64>("ItemInfoEnable") == 1 ? true : false,
+                            ItemInfoCreateDate = cpm.Field<DateTime>("ItemInfoCreateDate"),
+                            ItemInfoLastModify = cpm.Field<DateTime>("ItemInfoLastModify"),
+                            
+                            //CalificationProjectConfigValidate
                             CalificationProjectConfigValidateId = cpm.Field<int>("CalificationProjectConfigValidateId"),
                             OperatorName = cpm.Field<string>("OperatorName"),
                             OperatorId = cpm.Field<int>("OperatorId"),
                             ValidateValue = cpm.Field<string>("ValidateValue"),
-                            ValidateResult = cpm.Field<string>("ValidateResult")
+                            ValidateResult = cpm.Field<string>("ValidateResult"),
+                            ValidateEnable = cpm.Field<UInt64>("ValidateEnable") == 1 ? true : false,
+                            ValidateCreateDate = cpm.Field<DateTime>("ValidateCreateDate"),
+                            ValidateLastModify = cpm.Field<DateTime>("ValidateLastModify")
                         }
                             into cpmg
                             select new Models.CalificationProject.CalificationProjectConfigModel()
@@ -138,6 +154,8 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                 Enable = cpmg.Key.Enable,
                                 LastModify = cpmg.Key.LastModify,
                                 CreateDate = cpmg.Key.CreateDate,
+
+                                //CalificationProjectConfigItem
                                 ConfigItemModel = new List<Models.CalificationProject.ConfigItemModel>()
                                 {
                                      new Models.CalificationProject.ConfigItemModel() 
@@ -148,6 +166,11 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                         {
                                             ItemId = cpmg.Key.ConfigItemTypeId
                                         },
+                                        Enable = cpmg.Key.ItemEnable,                                        
+                                        LastModify = cpmg.Key.ItemLastModify,
+                                        CreateDate = cpmg.Key.ItemCreateDate,
+
+                                        //CalificationProjectConfigItemInfo
                                         CalificationProjectConfigItemInfoModel = new List<Models.CalificationProject.ConfigItemInfoModel>()
                                         {
                                             new Models.CalificationProject.ConfigItemInfoModel()
@@ -166,13 +189,16 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                                 },
                                                 Value = cpmg.Key.Value,
                                                 Score = cpmg.Key.Score,
-
-
+                                                Enable = cpmg.Key.ItemInfoEnable,
+                                                LastModify = cpmg.Key.ItemInfoLastModify,
+                                                CreateDate = cpmg.Key.ItemInfoCreateDate,
                                             }
                                         }
                                     }
 
                                 },
+
+                                //CalificationProjectConfigValidate
                                 ConfigValidateModel = new List<Models.CalificationProject.ConfigValidateModel>()
                                 {
                                     new Models.CalificationProject.ConfigValidateModel()
@@ -184,7 +210,10 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                             ItemId = cpmg.Key.OperatorId
                                         },
                                         Value = cpmg.Key.ValidateValue,
-                                        Result = cpmg.Key.ValidateResult
+                                        Result = cpmg.Key.ValidateResult,
+                                        Enable = cpmg.Key.ValidateEnable,
+                                        LastModify = cpmg.Key.ValidateLastModify,
+                                        CreateDate = cpmg.Key.ValidateCreateDate,
                                     }
                                 }
 
