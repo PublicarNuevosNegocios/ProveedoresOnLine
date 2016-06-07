@@ -28,6 +28,7 @@
                                                               {
                                                                   ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
                                                               }))">
+
                 @Html.Partial(MVC.Shared.Views._CD_CustomerForm, Model)
 
                 <div style="display:none">
@@ -35,6 +36,11 @@
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
             </form>
+            <br />
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </div>
     </div>
 </div>
@@ -67,7 +73,6 @@
 
             var vCustomerList = @Html.Raw(oCustomerList);
 
-            debugger;
             $.each(vCustomerList, function(item, value){
                 debugger;
 

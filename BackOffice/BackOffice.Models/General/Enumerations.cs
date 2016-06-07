@@ -608,6 +608,14 @@
         CustomFieldList = 4,
     }
 
+    public enum enumCustomGenericField
+    {
+        CustomFieldText = 101001,
+        CustomFieldNumber = 101002,
+        CustomFieldFile = 101003,
+        CustomFieldList = 101004,
+    }
+
     #endregion
 
     #region CalifcationProjectConfig

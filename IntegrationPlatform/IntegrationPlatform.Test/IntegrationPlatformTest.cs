@@ -129,6 +129,20 @@ namespace IntegrationPlatform.Test
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
 
+        [TestMethod]
+        public void CustomerProvider_GetCustomData()
+        {
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RelatedCustomer = new List<ProveedoresOnLine.Company.Models.Company.CompanyModel>(){
+                new ProveedoresOnLine.Company.Models.Company.CompanyModel(){
+                    CompanyPublicId = "7BC27832",
+                },
+            };
+
+            List<Models.Integration.CustomDataModel> oReturn = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_GetCustomData(RelatedCustomer, "A24EB150");
+
+            Assert.AreEqual(true, oReturn.Count > 0 && oReturn != null);
+        }
+
         #endregion
 
         #endregion

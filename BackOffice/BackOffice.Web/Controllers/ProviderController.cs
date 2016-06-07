@@ -1313,11 +1313,11 @@ namespace BackOffice.Web.Controllers
                 {
                     string[] strSplit = req.Split('_');
 
-                    if (strSplit.Length >= 5)
+                    if (strSplit.Length >= 6)
                     {
-                        switch (Convert.ToInt32(strSplit[1].Trim()))
+                        switch (Convert.ToInt32(strSplit[5].Trim()))
                         {
-                            case (int)enumCustomField.CustomFieldText:
+                            case (int)enumCustomGenericField.CustomFieldText:
 
                                 #region Custom field text
 
@@ -1355,7 +1355,7 @@ namespace BackOffice.Web.Controllers
 
                                 break;
 
-                            case (int)enumCustomField.CustomFieldNumber:
+                            case (int)enumCustomGenericField.CustomFieldNumber:
 
                                 #region Custom field number
 
@@ -1393,7 +1393,7 @@ namespace BackOffice.Web.Controllers
 
                                 break;
 
-                            case (int)enumCustomField.CustomFieldFile:
+                            case (int)enumCustomGenericField.CustomFieldFile:
 
                                 #region Custom field file
 
@@ -1431,7 +1431,7 @@ namespace BackOffice.Web.Controllers
 
                                 break;
 
-                            case (int)enumCustomField.CustomFieldList:
+                            case (int)enumCustomGenericField.CustomFieldList:
 
                                 #region Custom field list
 
