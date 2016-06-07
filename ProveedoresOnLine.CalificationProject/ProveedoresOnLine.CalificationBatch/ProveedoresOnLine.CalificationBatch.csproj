@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ADO">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\ADO.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalificationProcess.cs" />
+    <Compile Include="Controller\CalificationProjectBatch.cs" />
+    <Compile Include="DAL\Controller\CalificationProjectBatchDataController.cs" />
+    <Compile Include="DAL\Controller\CalificationProjectBatchDataFactory.cs" />
+    <Compile Include="DAL\MySqlDAO\CalificationProjectBatch_MySqlDao.cs" />
+    <Compile Include="Interfaces\ICalificationProjectBatchData.cs" />
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\CalificationProjectBatch\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
