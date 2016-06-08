@@ -1,4 +1,5 @@
 ﻿using IntegrationPlattaform.SANOFIProcess.Models;
+using ProveedoresOnLine.Company.Models.Company;
 using System;
 using System.Collections.Generic;
 using System.Linq;
