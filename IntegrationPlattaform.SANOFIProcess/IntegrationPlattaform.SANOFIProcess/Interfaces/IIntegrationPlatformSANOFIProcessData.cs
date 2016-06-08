@@ -7,7 +7,7 @@ using IntegrationPlattaform.SANOFIProcess.Models;
 
 namespace IntegrationPlattaform.SANOFIProcess.Interfaces
 {
-    interface IIntegrationPlatformSANOFIProcessData
+    internal interface IIntegrationPlatformSANOFIProcessData
     {
         
     }
