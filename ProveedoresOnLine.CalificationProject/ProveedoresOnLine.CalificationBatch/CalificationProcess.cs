@@ -22,6 +22,9 @@ namespace ProveedoresOnLine.CalificationBatch
 
                     oRelatedProvider.All(prv =>
                     {
+                        List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
+                            ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
+
                         return true;
                     });
 
