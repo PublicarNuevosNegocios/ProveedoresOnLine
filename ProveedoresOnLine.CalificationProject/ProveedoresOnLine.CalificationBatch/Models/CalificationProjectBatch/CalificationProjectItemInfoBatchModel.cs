@@ -14,7 +14,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel CalificationProjectConfigItemInfo { get; set; }
 
-        public int ItemScore { get; set; }
+        public int ItemInfoScore { get; set; }
 
         public bool Enable { get; set; }
 

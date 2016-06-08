@@ -11,7 +11,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
     {
         public int CalificationProjectId { get; set; }
 
-        public int CalificationProjectPublicId { get; set; }
+        public string CalificationProjectPublicId { get; set; }
 
         public CompanyModel Company { get; set; }
 
