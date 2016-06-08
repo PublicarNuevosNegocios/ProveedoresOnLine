@@ -9,6 +9,6 @@ namespace IntegrationPlattaform.SANOFIProcess.Interfaces
 {
     internal interface IIntegrationPlatformSANOFIProcessData
     {
-        
+        List<SanofiGeneralInfoModel> GetInfo_ByProviderAndLastModify(string vProviderPublicId);
     }
 }
