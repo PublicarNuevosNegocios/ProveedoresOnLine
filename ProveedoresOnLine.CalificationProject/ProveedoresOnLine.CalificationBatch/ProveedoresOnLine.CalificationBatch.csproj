@@ -64,7 +64,6 @@
     <Compile Include="Models\CalificationProjectBatch\CalificationProjectBatchModel.cs" />
     <Compile Include="Models\CalificationProjectBatch\CalificationProjectItemBatchModel.cs" />
     <Compile Include="Models\CalificationProjectBatch\CalificationProjectItemInfoBatchModel.cs" />
-    <Compile Include="Models\CalificationProjectBatch\CalificationProjectValidateBatchModel.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
