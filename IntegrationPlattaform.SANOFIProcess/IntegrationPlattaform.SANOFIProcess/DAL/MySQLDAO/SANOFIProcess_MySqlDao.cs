@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using IntegrationPlattaform.SANOFIProcess.Interfaces;
 using IntegrationPlattaform.SANOFIProcess.Models;
+
 
 namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 {
@@ -14,12 +16,15 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 
         public SANOFIProcess_MySqlDao() 
         {
-            DataInstance = new ADO.MYSQL.MySqlImplement("");
+            DataInstance = new ADO.MYSQL.MySqlImplement(IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SettingsModuleName);
         }
-
-        public List<Models.SanofiGeneralInfoModel> GetInfo_ByProviderAndLastModify(string vProviderPublicId)
+        
+        public List<SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+                        
         }
     }
 }
