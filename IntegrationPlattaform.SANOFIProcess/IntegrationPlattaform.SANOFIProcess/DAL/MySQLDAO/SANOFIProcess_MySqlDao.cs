@@ -25,6 +25,10 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
 
+            ADO.Models.ADOModelResponse response = new ADO.Models.ADOModelResponse(new ADO.Models.ADOModelRequest() 
+            {
+                
+            });
             return null;
                         
         }
