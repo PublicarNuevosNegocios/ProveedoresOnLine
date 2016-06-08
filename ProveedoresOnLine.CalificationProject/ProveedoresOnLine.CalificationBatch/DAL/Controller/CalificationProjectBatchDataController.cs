@@ -35,5 +35,12 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         }
 
         #endregion
+
+        #region CalificationProjectBatch
+        public List<Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable)
+        {
+            return DataFactory.CalificationProject_GetByCustomer(vCustomerPublicid, vProviderPublicId, Enable);
+        }
+        #endregion
     }
 }

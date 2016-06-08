@@ -8,7 +8,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 {
     public class CalificationProjectItemInfoBatchModel
     {
-        public int CalificationProjectInfoId { get; set; }
+        public int CalificationProjectItemInfoId { get; set; }
 
         public int CalificationProjectItemId { get; set; }
 

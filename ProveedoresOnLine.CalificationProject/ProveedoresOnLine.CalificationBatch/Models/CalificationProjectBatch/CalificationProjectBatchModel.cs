@@ -14,9 +14,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
         public string CalificationProjectPublicId { get; set; }
 
         public CompanyModel Company { get; set; }
-
-        public ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel CalificationProjectConfigModel { get; set; }
-
+        
         public int TotalScore { get; set; }
 
         public bool Enable { get; set; }
@@ -24,5 +22,10 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel CalificationProjectItemBatchModel { get; set; }
+
+        public ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel CalificationProjectItemInfoBatchModel { get; set; }
+
     }
 }
