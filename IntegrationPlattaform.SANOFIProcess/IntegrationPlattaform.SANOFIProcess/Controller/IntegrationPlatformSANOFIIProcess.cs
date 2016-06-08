@@ -15,8 +15,20 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             {
                 // Get Providers SANOFI
                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId(
-                    IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value);
+                    IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                    IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value);
 
+               if (oProviders != null)
+               {
+                   oProviders.All(p =>
+                       {
+                           //Get Last Process
+                           //Modify Date against Last Created process
+
+
+                           return true;
+                       });
+               }
                 
                 // Get Process Last Time 
                 // Get Info by Provider by lastModify 
