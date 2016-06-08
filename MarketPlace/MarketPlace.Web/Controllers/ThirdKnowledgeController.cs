@@ -162,7 +162,7 @@ namespace MarketPlace.Web.Controllers
                     parameters.Add(new ReportParameter("QueryCreateDate", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.RegisterDate) ? oModel.RelatedThidKnowledgeSearch.RegisterDate : "--"));
                     parameters.Add(new ReportParameter("Link", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.Link) ? oModel.RelatedThidKnowledgeSearch.Link : "--"));
                     parameters.Add(new ReportParameter("MoreInformation", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.MoreInfo) ? oModel.RelatedThidKnowledgeSearch.MoreInfo : "--"));
-                    parameters.Add(new ReportParameter("User", SessionModel.CurrentLoginUser.Name.ToString() + " " + SessionModel.CurrentLoginUser.LastName.ToString()));
+                    parameters.Add(new ReportParameter("User", SessionModel.CurrentLoginUser.Name != null ? SessionModel.CurrentLoginUser.Name.ToString() : "" + " " + SessionModel.CurrentLoginUser.LastName != null ? SessionModel.CurrentLoginUser.LastName.ToString() : ""));
                     parameters.Add(new ReportParameter("ReportCreateDate", DateTime.Now.ToString()));
                     parameters.Add(new ReportParameter("Group", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.GroupName) ? oModel.RelatedThidKnowledgeSearch.GroupName : "--"));
                     parameters.Add(new ReportParameter("Status", !string.IsNullOrEmpty(oModel.RelatedThidKnowledgeSearch.Status) ? oModel.RelatedThidKnowledgeSearch.Status : "--"));

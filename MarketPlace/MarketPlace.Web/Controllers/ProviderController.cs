@@ -171,10 +171,9 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (SessionModel.CurrentURL != null)
-            {
+            if (SessionModel.CurrentURL != null)            
                 SessionModel.CurrentURL = null;
-            }
+            
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);

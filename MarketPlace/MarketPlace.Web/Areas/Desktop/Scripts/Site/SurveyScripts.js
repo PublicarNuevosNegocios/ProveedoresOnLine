@@ -317,7 +317,7 @@ var Survey_Evaluation_ProgramObject = {
                     },
                 }
             }
-        }).focusout(function () {
+        }).focusout(function () {            
             var IdSurvey = $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyConfigId').val();
             if (IdSurvey == '') {
                 $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyName').val('');
@@ -327,6 +327,7 @@ var Survey_Evaluation_ProgramObject = {
                 dataType: 'json',
                 success: function (e) {
                     if (e != null && e.length > 0) {
+                        debugger;
                         //Render Roles
                         var divEvaluator = $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
                         var area = null;
@@ -380,6 +381,7 @@ var Survey_Evaluation_ProgramObject = {
                                     serverFiltering: true,
                                     transport: {
                                         read: function (options) {
+                                            debugger;
                                             $.ajax({
                                                 url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchByRoleAC=true&RolId=' + value.SurveyConfigItemInfoRol + '&SearchParam=' + options.data.filter.filters[0].value,
                                                 dataType: 'json',
