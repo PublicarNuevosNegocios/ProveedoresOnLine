@@ -16,5 +16,13 @@ namespace ProveedoresOnLine.CalificationProject.Test
         {        
 
         }
+        [TestMethod]
+        public void CalificationProject_GetByCustomer() 
+       {
+           List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
+           oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer("1EA5A78A","1351D3F3",true);
+
+           Assert.AreEqual(true, oReturn.Count > 0);
+       }
     }
 }
