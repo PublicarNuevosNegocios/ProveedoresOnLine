@@ -35,13 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ProveedoresOnLine.CalificationBatch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationBatch\developer\ProveedoresOnLine.CalificationBatch.dll</HintPath>
-    </Reference>
-    <Reference Include="ProveedoresOnLine.CalificationProject">
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationProject\developer\ProveedoresOnLine.CalificationProject.dll</HintPath>
-    </Reference>
     <Reference Include="ProveedoresOnLine.Company">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
@@ -66,6 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.CalificationBatch\ProveedoresOnLine.CalificationBatch.csproj">
+      <Project>{94d5b69e-04e4-4a0c-888a-be57d3350a44}</Project>
+      <Name>ProveedoresOnLine.CalificationBatch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProveedoresOnLine.CalificationProject\ProveedoresOnLine.CalificationProject.csproj">
+      <Project>{934e6c94-0807-4bb2-a096-ffcacaf17f01}</Project>
+      <Name>ProveedoresOnLine.CalificationProject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
