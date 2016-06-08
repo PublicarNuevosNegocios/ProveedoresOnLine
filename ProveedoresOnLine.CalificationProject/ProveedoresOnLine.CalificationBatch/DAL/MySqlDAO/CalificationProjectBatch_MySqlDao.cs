@@ -17,13 +17,19 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.CalificationBatch.Models.Constants.C_POL_CalificatioProjectConnectionName);
         }
 
-        public List<Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable)
+        public List<Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool vEnable)
         {
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+            lstparams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", vCustomerPublicid));
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId",vProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
+
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
                 CommandText = "MP_CP_CalificationProject_GetByCustomer",
-                CommandType = System.Data.CommandType.StoredProcedure
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstparams,
             });
 
             List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = new List<Models.CalificationProjectBatch.CalificationProjectBatchModel>();

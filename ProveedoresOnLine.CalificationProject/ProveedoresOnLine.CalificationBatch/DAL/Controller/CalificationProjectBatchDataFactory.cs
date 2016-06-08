@@ -10,7 +10,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
     {
         public CalificationBatch.Interfaces.ICalificationProjectBatchData GetCalificationProjectBatchInstance()
         {
-            Type typetoreturn = Type.GetType("ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO.CalificationProjectBatch_MySqlDao,ProveedoresOnLine.CalificationProjectBatch");
+            Type typetoreturn = Type.GetType("ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO.CalificationProjectBatch_MySqlDao,ProveedoresOnLine.CalificationBatch");
             ProveedoresOnLine.CalificationBatch.Interfaces.ICalificationProjectBatchData oRetorno = (ProveedoresOnLine.CalificationBatch.Interfaces.ICalificationProjectBatchData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }
