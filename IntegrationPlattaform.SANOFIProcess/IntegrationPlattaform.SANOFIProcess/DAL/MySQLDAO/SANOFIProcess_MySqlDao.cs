@@ -14,7 +14,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 
         public SANOFIProcess_MySqlDao() 
         {
-            //DataInstance = new 
+            DataInstance = new ADO.MYSQL.MySqlImplement("");
         }
 
         public List<Models.SanofiGeneralInfoModel> GetInfo_ByProviderAndLastModify(string vProviderPublicId)
