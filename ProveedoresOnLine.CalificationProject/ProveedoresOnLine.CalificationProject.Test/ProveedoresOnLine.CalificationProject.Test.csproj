@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ProveedoresOnLine.CalificationBatch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationProject\developer\ProveedoresOnLine.CalificationBatch.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.CalificationProject">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationProject\developer\ProveedoresOnLine.CalificationProject.dll</HintPath>
     </Reference>
@@ -56,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CalificationProjectBatchTest.cs" />
     <Compile Include="CalificationProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

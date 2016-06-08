@@ -12,6 +12,27 @@ namespace ProveedoresOnLine.CalificationBatch
         {
             try
             {
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oCalificationProjectConfigModel =
+                    ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetAll();
+
+                oCalificationProjectConfigModel.All(cnf =>
+                {
+                    List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedProvider =
+                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId(cnf.Company.CompanyPublicId);
+
+                    oRelatedProvider.All(prv =>
+                    {
+                        List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
+                            ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
+
+
+
+                        return true;
+                    });
+
+                    return true;
+                });
+
                 //Get Configuration Process
 
 

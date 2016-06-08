@@ -8,5 +8,11 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
 {
     internal interface ICalificationProjectBatchData
     {
+        #region CalificationProjectBatch
+
+        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable);
+
+        #endregion
+
     }
 }
