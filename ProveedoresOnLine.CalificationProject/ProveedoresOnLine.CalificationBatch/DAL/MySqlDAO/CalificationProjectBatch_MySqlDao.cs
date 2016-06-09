@@ -69,6 +69,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                             ItemInfoEnable = cpb.Field<UInt64>("ItemInfoEnable") == 1 ? true : false,
                             ItemInfoLastModify = cpb.Field<DateTime>("ItemInfoLastModify"),
                             ItemInfoCreateDate = cpb.Field<DateTime>("ItemInfoCreateDate")
+                            
                         }
                             into cpbg
                             select new Models.CalificationProjectBatch.CalificationProjectBatchModel()
@@ -93,18 +94,18 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                         ItemScore = cpbg.Key.ItemScore,
                                         Enable = cpbg.Key.ItemEnable,
                                         LastModify = cpbg.Key.ItemLastModify,
-                                        CreateDate = cpbg.Key.ItemCreateDate
+                                        CreateDate = cpbg.Key.ItemCreateDate,
+                                        //CalificationProjectItemInfoBatchModel
+                                        CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
+                                        {
+                                            CalificationProjectItemInfoId = cpbg.Key.CalificationProjectItemInfoId,
+                                            ItemInfoScore = cpbg.Key.ItemInfoScore,
+                                            Enable = cpbg.Key.ItemInfoEnable,
+                                            LastModify = cpbg.Key.ItemInfoLastModify,
+                                            CreateDate = cpbg.Key.ItemInfoCreateDate,
+                                        }
                                     },
-                                    //CalificationProjectItemInfoBatchModel
-
-                                    CalificationProjectItemInfoBatchModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                                    {
-                                        CalificationProjectItemInfoId = cpbg.Key.CalificationProjectItemInfoId,
-                                        ItemInfoScore = cpbg.Key.ItemInfoScore,
-                                        Enable = cpbg.Key.ItemInfoEnable,
-                                        LastModify = cpbg.Key.ItemInfoLastModify,
-                                        CreateDate = cpbg.Key.ItemInfoCreateDate
-                                    }
+                                                                        
                                 }
                     ).ToList();
             }
