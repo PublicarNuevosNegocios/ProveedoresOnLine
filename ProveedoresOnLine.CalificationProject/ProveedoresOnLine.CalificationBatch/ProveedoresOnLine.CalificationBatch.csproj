@@ -56,6 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalificationProcess.cs" />
+    <Compile Include="CalificationProjectModule\BalanceModule.cs" />
+    <Compile Include="CalificationProjectModule\CommercialModule.cs" />
+    <Compile Include="CalificationProjectModule\FinancialModule.cs" />
+    <Compile Include="CalificationProjectModule\HSEQModule.cs" />
+    <Compile Include="CalificationProjectModule\LegalModule.cs" />
     <Compile Include="Controller\CalificationProjectBatch.cs" />
     <Compile Include="DAL\Controller\CalificationProjectBatchDataController.cs" />
     <Compile Include="DAL\Controller\CalificationProjectBatchDataFactory.cs" />
@@ -65,7 +70,9 @@
     <Compile Include="Models\CalificationProjectBatch\CalificationProjectItemBatchModel.cs" />
     <Compile Include="Models\CalificationProjectBatch\CalificationProjectItemInfoBatchModel.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\UtilModule.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

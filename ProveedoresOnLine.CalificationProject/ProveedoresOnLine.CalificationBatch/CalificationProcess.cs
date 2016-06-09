@@ -25,7 +25,39 @@ namespace ProveedoresOnLine.CalificationBatch
                         List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                             ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
 
+                        if (oRelatedCalificationProject != null &&
+                            oRelatedCalificationProject.Count > 0)
+                        {
+                            //validate date calification process config
 
+                        }
+                        else
+                        {
+                            //execute all calification process
+                            cnf.ConfigItemModel.All(md =>
+                            {
+                                switch (md.CalificationProjectConfigItemType.ItemId)
+                                {
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
+
+                                        break;
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
+
+                                        break;
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
+
+                                        break;
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
+
+                                        break;
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
+
+                                        break;
+                                }
+
+                                return true;
+                            });
+                        }
 
                         return true;
                     });
