@@ -25,7 +25,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel CalificationProjectItemBatchModel { get; set; }
 
-        public ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel CalificationProjectItemInfoBatchModel { get; set; }
+        
 
     }
 }

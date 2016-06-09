@@ -22,6 +22,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public DateTime CreateDate { get; set; }
 
-        public CalificationProjectItemInfoBatchModel CalificatioProjectInfo { get; set; }
+        public CalificationProjectItemInfoBatchModel CalificatioProjectItemInfoModel { get; set; }
+
     }
 }
