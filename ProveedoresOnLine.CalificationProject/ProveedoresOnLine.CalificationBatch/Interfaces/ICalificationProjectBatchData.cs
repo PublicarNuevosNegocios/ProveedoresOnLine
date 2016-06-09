@@ -14,5 +14,11 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
 
         #endregion
 
+        #region CalificationProjectBatchUtil
+
+        ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType);
+
+        #endregion
+
     }
 }

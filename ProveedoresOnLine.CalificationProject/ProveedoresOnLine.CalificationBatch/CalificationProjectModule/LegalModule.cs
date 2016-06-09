@@ -12,6 +12,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
         {
             List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oReturn = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
 
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oLegalModule = 
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, oCalificationProjectItemModel.CalificationProjectConfigItemType.ItemId);
+
+
+
             return oReturn;
         }
     }

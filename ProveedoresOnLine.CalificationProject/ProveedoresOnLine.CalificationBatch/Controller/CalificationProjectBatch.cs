@@ -13,5 +13,18 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
         {
             return DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProject_GetByCustomer(vCustomerPublicid,vProviderPublicId,Enable);
         }
+
+        #region CalificationProjectBarchUtil
+
+        #region LegalModule
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.LegalModuleInfo(CompanyPublicId, LegalInfoType);
+        }
+
+        #endregion
+
+        #endregion
     }
 }

@@ -42,5 +42,18 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
             return DataFactory.CalificationProject_GetByCustomer(vCustomerPublicid, vProviderPublicId, Enable);
         }
         #endregion
+
+        #region CalificationProjectBatchUtil
+
+        #region LegalModule
+
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
+        {
+            return DataFactory.CalificationProject_GetByCustomer(CompanyPublicId, LegalInfoType);
+        }
+
+        #endregion
+
+        #endregion
     }
 }
