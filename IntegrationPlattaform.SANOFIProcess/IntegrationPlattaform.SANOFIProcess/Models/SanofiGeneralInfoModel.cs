@@ -22,7 +22,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public string Address { get; set; }
 
-        public string city { get; set; }
+        public string City { get; set; }
 
         public int Region { get; set; }
 

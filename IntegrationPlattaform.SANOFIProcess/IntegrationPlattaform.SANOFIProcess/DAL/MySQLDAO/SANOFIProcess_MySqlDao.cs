@@ -25,11 +25,63 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
 
-            ADO.Models.ADOModelResponse response = new ADO.Models.ADOModelResponse(new ADO.Models.ADOModelRequest() 
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
-                
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_GetGeneralInfo",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,                
             });
-            return null;
+
+            List<SanofiGeneralInfoModel> oReturn = new List<SanofiGeneralInfoModel>();
+
+            if (response.DataTableResult != null & response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (
+                        from sgi in response.DataTableResult.AsEnumerable()
+                        where !sgi.IsNull("CompanyId")
+                        group sgi by new
+                        {
+                            CompanyId = sgi.Field<int>("CompanyId"),
+                            CompanyName = sgi.Field<string>("CompanyName"),
+                            ComercialName = sgi.Field<string>("ComercialName"),
+                            NaturalPersonName = sgi.Field<string>("NaturalPersonName"),
+                            IdentificationNumber = sgi.Field<int>("IdentificationNumber"),
+                            FiscalNumber = sgi.Field<int>("FiscalNumber"),
+                            Address = sgi.Field<string>("Address"),
+                            City = sgi.Field<string>("City"),
+                            Region = sgi.Field<int>("Region"),
+                            Country = sgi.Field<string>("Country"),
+                            PhoneNumber = sgi.Field<string>("PhoneNumber"),
+                            Fax = sgi.Field<string>("Fax"),
+                            Email_OC = sgi.Field<string>("Email_OC"),
+                            Email_P = sgi.Field<string>("Email_P"),
+                            Email_Cert = sgi.Field<string>("Email_Cert"),
+                            Comentaries = sgi.Field<string>("Comentaries"),
+                        }
+                            into sgig
+                            select new SanofiGeneralInfoModel()
+                            {
+                                CompanyId = sgig.Key.CompanyId,
+                                CompanyName = sgig.Key.CompanyName,
+                                ComercialName = sgig.Key.ComercialName,
+                                NaturalPersonName = sgig.Key.NaturalPersonName,
+                                IdentificationNumber = sgig.Key.IdentificationNumber,
+                                FiscalNumber = sgig.Key.FiscalNumber,
+                                Address = sgig.Key.Address,
+                                City = sgig.Key.City,
+                                Region = sgig.Key.Region,
+                                Country = sgig.Key.Country,
+                                PhoneNumber = sgig.Key.PhoneNumber,
+                                Fax = sgig.Key.Fax,
+                                Email_OC = sgig.Key.Email_OC,
+                                Email_P = sgig.Key.Email_P,
+                                Email_Cert = sgig.Key.Email_Cert,
+                                Comentaries = sgig.Key.Comentaries,
+                            }).ToList();                    
+            }
+            return oReturn;
                         
         }
     }
