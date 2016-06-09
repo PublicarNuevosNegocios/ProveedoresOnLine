@@ -9,15 +9,32 @@
     <br />
     <select id="CustomDta_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4 + "_" + oCustomListInfoId)_101004" name="CustomData_@(Model.Item2.AditionalFieldId + "_" + oCustomListId + "_" + Model.Item4 + "_" + oCustomListInfoId)_101004">
         <option value="0">Seleccione una opción</option>
-        @foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
+        @if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101001)
         {
-            if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+            foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
             {
-                <option value="@item.ItemId" selected="selected">@item.ItemName</option>
+                if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+                {
+                    <option value="@item.ItemId" selected="selected">@item.ItemName</option>
+                }
+                else
+                {
+                    <option value="@item.ItemId">@item.ItemName</option>
+                }
             }
-            else
+        }
+        else if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101002)
+        {
+            foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 202))
             {
-                <option value="@item.ItemId">@item.ItemName</option>
+                if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+                {
+                    <option value="@item.ItemId" selected="selected">@item.ItemName</option>
+                }
+                else
+                {
+                    <option value="@item.ItemId">@item.ItemName</option>
+                }
             }
         }
     </select>

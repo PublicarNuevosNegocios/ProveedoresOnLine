@@ -25,6 +25,8 @@ namespace ProveedoresOnLine.CalificationBatch
                         List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                             ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
 
+                        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oRelatedModules = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
+
                         if (oRelatedCalificationProject != null &&
                             oRelatedCalificationProject.Count > 0)
                         {
@@ -39,6 +41,14 @@ namespace ProveedoresOnLine.CalificationBatch
                                 switch (md.CalificationProjectConfigItemType.ItemId)
                                 {
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
+
+                                        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oLegalModule = ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md);
+
+                                        oLegalModule.All(lg =>
+                                        {
+                                            oRelatedModules.Add(lg);
+                                            return true;
+                                        });                                        
 
                                         break;
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:

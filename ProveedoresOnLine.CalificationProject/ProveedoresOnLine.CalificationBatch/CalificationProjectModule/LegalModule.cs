@@ -8,9 +8,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 {
     public class LegalModule
     {
-        public void LegalRule(string CompanyPublicId, ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectModel oCalificationProjectModel)
+        public static List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> LegalRule(string CompanyPublicId, ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemModel oCalificationProjectItemModel)
         {
-            
+            List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oReturn = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
+
+            return oReturn;
         }
     }
 }
