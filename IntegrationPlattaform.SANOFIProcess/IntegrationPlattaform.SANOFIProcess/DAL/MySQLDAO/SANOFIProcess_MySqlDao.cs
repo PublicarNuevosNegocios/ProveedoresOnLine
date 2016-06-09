@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using IntegrationPlattaform.SANOFIProcess.Interfaces;
 using IntegrationPlattaform.SANOFIProcess.Models;
+using ADO.MYSQL;
 
 
 namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
@@ -47,18 +48,18 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                             CompanyName = sgi.Field<string>("CompanyName"),
                             ComercialName = sgi.Field<string>("ComercialName"),
                             NaturalPersonName = sgi.Field<string>("NaturalPersonName"),
-                            IdentificationNumber = sgi.Field<int>("IdentificationNumber"),
-                            FiscalNumber = sgi.Field<int>("FiscalNumber"),
+                            IdentificationNumber = sgi.Field<string>("IdentificationNumber"),
+                            FiscalNumber = sgi.Field<string>("FiscalNumber"),
                             Address = sgi.Field<string>("Address"),
                             City = sgi.Field<string>("City"),
-                            Region = sgi.Field<int>("Region"),
+                            Region = sgi.Field<string>("Region"),
                             Country = sgi.Field<string>("Country"),
                             PhoneNumber = sgi.Field<string>("PhoneNumber"),
                             Fax = sgi.Field<string>("Fax"),
                             Email_OC = sgi.Field<string>("Email_OC"),
                             Email_P = sgi.Field<string>("Email_P"),
                             Email_Cert = sgi.Field<string>("Email_Cert"),
-                            Comentaries = sgi.Field<string>("Comentaries"),
+                            Comentaries = sgi.Field<DateTime>("Comentaries"),
                         }
                             into sgig
                             select new SanofiGeneralInfoModel()

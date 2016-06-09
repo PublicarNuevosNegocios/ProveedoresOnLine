@@ -27,6 +27,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                            //Modify Date against Last Created process
 
                            //TODO: Get GeneralInfo By Provider
+                           
 
                            return true;
                        });
@@ -41,6 +42,11 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 
                 throw;
             }
+        }
+
+        public static List<SanofiGeneralInfoModel> GetInfo_ByProvider() 
+        {
+           return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfo_ByProvider("A24EB150");
         }
     }
 }

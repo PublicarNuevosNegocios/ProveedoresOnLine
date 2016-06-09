@@ -41,7 +41,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
 
         public List<Models.SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId)
         {
-            throw new NotImplementedException();
+            return DataFactory.GetInfo_ByProvider(vProviderPublicId);
         }
     }
 }

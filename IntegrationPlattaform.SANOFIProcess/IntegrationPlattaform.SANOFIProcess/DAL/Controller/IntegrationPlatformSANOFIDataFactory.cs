@@ -10,7 +10,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
     {
         public IntegrationPlattaform.SANOFIProcess.Interfaces.IIntegrationPlatformSANOFIProcessData GetCalificationProjectInstance() 
         {
-            Type typetoreturn = Type.GetType("IntegrationPlattaform.SANOFIProcess.DAL.MySqlDAO.SANOFIProcess_MySqlDao,IntegrationPlattaform.SANOFIProcess.");
+            Type typetoreturn = Type.GetType("IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO.SANOFIProcess_MySqlDao,IntegrationPlattaform.SANOFIProcess");
             IntegrationPlattaform.SANOFIProcess.Interfaces.IIntegrationPlatformSANOFIProcessData oRetorno = (IntegrationPlattaform.SANOFIProcess.Interfaces.IIntegrationPlatformSANOFIProcessData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }

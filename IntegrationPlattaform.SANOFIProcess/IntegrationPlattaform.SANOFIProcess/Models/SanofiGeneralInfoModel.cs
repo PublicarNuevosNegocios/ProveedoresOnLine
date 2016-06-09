@@ -16,15 +16,15 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public string NaturalPersonName { get; set; }
 
-        public int IdentificationNumber { get; set; }
+        public string IdentificationNumber { get; set; }
 
-        public int FiscalNumber { get; set; }
+        public string FiscalNumber { get; set; }
 
         public string Address { get; set; }
 
         public string City { get; set; }
 
-        public int Region { get; set; }
+        public string Region { get; set; }
 
         public string Country { get; set; }
 
@@ -38,6 +38,6 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public string Email_Cert { get; set; }
 
-        public string Comentaries { get; set; }
+        public DateTime Comentaries { get; set; }
     }
 }
