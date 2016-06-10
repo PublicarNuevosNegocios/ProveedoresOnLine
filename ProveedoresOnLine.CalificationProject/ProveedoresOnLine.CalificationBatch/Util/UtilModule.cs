@@ -8,24 +8,34 @@ namespace ProveedoresOnLine.CalificationBatch.Util
 {
     public class UtilModule
     {
-        public int ValueTypeNumeric(string Value)
+        #region ValueType
+
+        public static int ValueTypeNumeric(string Value)
         {
-            return 0;
+            return Convert.ToInt32(Value);
         }
 
-        public string ValueTypeText(string Value)
+        public static string ValueTypeText(string Value)
         {
-            return null;
+            return Value;
         }
 
-        public bool ValueTypeBoolean(string Value)
+        public static bool ValueTypeBoolean(string Value)
         {
-            return true;
+            return Value == "true" || Value == "1" ? true : false;
         }
 
-        public double ValueTypePercent(string Value)
+        public static double ValueTypePercent(string Value)
         {
-            return 0;
+            return Convert.ToDouble(Value);
         }
+
+        #endregion
+
+        #region Rule
+
+
+        
+        #endregion
     }
 }
