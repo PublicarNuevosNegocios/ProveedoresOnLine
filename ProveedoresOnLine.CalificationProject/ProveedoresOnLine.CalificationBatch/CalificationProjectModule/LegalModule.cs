@@ -13,7 +13,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oReturn = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
 
             ProveedoresOnLine.Company.Models.Util.GenericItemModel oLegalProviderInfo = 
-                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, oCalificationProjectItemModel.CalificationProjectConfigItemType.ItemId);
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.FirstOrDefault().Question);
 
             oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(rule =>
             {
@@ -257,6 +257,39 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                 ItemInfoScore = LegalScore
                             },
                         });
+
+                        break;
+
+                    #endregion
+
+                    #region Pasa / No pasa
+
+                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
+
+                        //Validación por archivo
+                        if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                        {
+                            bool oRelatedFile = !string.IsNullOrEmpty(oLegalProviderInfo.ItemInfo.FirstOrDefault().LargeValue) || !string.IsNullOrEmpty(oLegalProviderInfo.ItemInfo.FirstOrDefault().Value) ? true : false;
+
+                            if (oRelatedFile)
+                            {
+                                LegalScore = Convert.ToInt32(rule.Score);
+                            }
+                            else
+                            {
+                                LegalScore = 0;
+                            }
+
+                            oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
+                            {
+                                CalificationProjectItemId = 0,
+                                CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
+                                {
+                                    CalificationProjectItemInfoId = 0,
+                                    ItemInfoScore = LegalScore
+                                },
+                            });
+                        }
 
                         break;
 

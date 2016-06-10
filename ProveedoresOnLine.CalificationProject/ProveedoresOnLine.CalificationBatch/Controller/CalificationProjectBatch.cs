@@ -32,6 +32,7 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                             oCalProject.TotalScore,
                             oCalProject.Enable
                         );
+
                     oLog.IsSuccess = true;
                 }
             }
@@ -129,6 +130,7 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
             }
             return oCalInfoItemProject;
         }
+
         #endregion
 
         #region CalificationProjectBarchUtil

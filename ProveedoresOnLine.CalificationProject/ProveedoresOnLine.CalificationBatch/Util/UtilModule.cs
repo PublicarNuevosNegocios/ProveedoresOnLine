@@ -30,11 +30,10 @@ namespace ProveedoresOnLine.CalificationBatch.Util
             return Convert.ToDouble(Value);
         }
 
-        #endregion
-
-        #region Rule
-
-
+        public static DateTime ValueTypeDate(string Value)
+        {
+            return Convert.ToDateTime(Value);
+        }
 
         #endregion
     }
