@@ -37,10 +37,27 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         #endregion
 
         #region CalificationProjectBatch
+
         public List<Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable)
         {
             return DataFactory.CalificationProject_GetByCustomer(vCustomerPublicid, vProviderPublicId, Enable);
         }
+
+        public int CalificationProjectUpsert(string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
+        {
+            return DataFactory.CalificationProjectUpsert(vCalificatonProjectPublicId, vCalificationProjectConfigId, vCompanyPublicId, vTotalScore, vEnable);
+        }
+
+        public int CalificationProjectItemUpsert(int vCalificationProjectItemId, int vCalificationProjectId, int vCalificationProjectConfigItemId, int vItemScore, bool vEnable)
+        {
+            return DataFactory.CalificationProjectItemUpsert(vCalificationProjectItemId, vCalificationProjectId, vCalificationProjectConfigItemId, vItemScore, vEnable);
+        }
+
+        public int CalificationProjectItemInfoUpsert(int vCalificationProjectItemInfoId, int vCalificationProjectItemId, int vCalificationProjectConfigItemInfoId, int vItemInfoScore, bool vEnable)
+        {
+            return DataFactory.CalificationProjectItemInfoUpsert(vCalificationProjectItemInfoId, vCalificationProjectItemId, vCalificationProjectConfigItemInfoId, vItemInfoScore, vEnable);
+        }
+
         #endregion
 
         #region CalificationProjectBatchUtil
@@ -55,5 +72,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         #endregion
 
         #endregion
+
+
+        
     }
 }

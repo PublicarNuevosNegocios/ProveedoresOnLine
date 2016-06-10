@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch;
 
 namespace ProveedoresOnLine.CalificationProject.Test
 {
@@ -17,6 +18,8 @@ namespace ProveedoresOnLine.CalificationProject.Test
             ProveedoresOnLine.CalificationBatch.CalificationProcess.StartProcess();
         }
 
+        #region CalificationBatch
+
         [TestMethod]
         public void CalificationProject_GetByCustomer()
         {
@@ -25,6 +28,29 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+
+        [TestMethod]
+        public void CalificationProject_Upsert() 
+        {
+            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel();
+            CalificationProjectBatchModel oModel = new CalificationProjectBatchModel()
+            {
+                CalificationProjectPublicId = "",
+                ProjectConfigModel = new Models.CalificationProject.CalificationProjectConfigModel()
+                {
+                    CalificationProjectConfigId = 1
+                },
+                Company = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = "DA5C572E"
+                },
+                TotalScore = 100,
+                Enable = true
+            };
+           oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oModel);
+            Assert.AreEqual(true, oReturn.CalificationProjectId > 0 );
+        }
+        #endregion
 
         #region CalificationProjectBatchUtil
 
