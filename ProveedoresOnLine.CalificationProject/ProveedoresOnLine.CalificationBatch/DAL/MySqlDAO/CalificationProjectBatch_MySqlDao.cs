@@ -126,7 +126,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "CalificationProjectBatch_GetLegalByCompany",
+                CommandText = "MP_CPB_GetLegalByCompany",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -142,7 +142,6 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                      group l by new
                      {
                          LegalId = l.Field<int>("LegalId"),
-                         LegalName = l.Field<string>("LegalName"),
                          LegalTypeId = l.Field<int>("LegalTypeId"),
                          LegalTypeName = l.Field<string>("LegalTypeName"),
                          LegalEnable = l.Field<UInt64>("LegalEnable") == 1 ? true : false,
@@ -168,8 +167,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                  group linf by new
                                  {
                                      LegalInfoId = linf.Field<int>("LegalInfoId"),
-                                     LegalInfoTypeId = linf.Field<int>("LegalInfoTypeId"),
-                                     LegalInfoTypeName = linf.Field<string>("LegalInfoTypeName"),
+                                     LegalInfoTypeId = linf.Field<int>("LegalItemInfoTypeId"),
+                                     LegalInfoTypeName = linf.Field<string>("LegalItemInfoTypeName"),
                                      LegalInfoValue = linf.Field<string>("LegalInfoValue"),
                                      LegalInfoLargeValue = linf.Field<string>("LegalInfoLargeValue"),
                                      LegalInfoEnable = linf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,

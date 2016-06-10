@@ -49,7 +49,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
-            return DataFactory.CalificationProject_GetByCustomer(CompanyPublicId, LegalInfoType);
+            return DataFactory.LegalModuleInfo(CompanyPublicId, LegalInfoType);
         }
 
         #endregion

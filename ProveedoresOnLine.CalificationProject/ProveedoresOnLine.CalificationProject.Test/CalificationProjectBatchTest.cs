@@ -25,5 +25,22 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+
+        #region CalificationProjectBatchUtil
+
+        #region LegalModule
+
+        [TestMethod]
+        public void LegalModuleInfo()
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn =
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo("1351D3F3", 603001);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.ItemInfo != null && oReturn.ItemInfo.Count > 0);
+        }
+
+        #endregion
+
+        #endregion
     }
 }
