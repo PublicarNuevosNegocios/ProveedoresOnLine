@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
 
 namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 {
@@ -12,6 +13,8 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
         public int CalificationProjectId { get; set; }
 
         public string CalificationProjectPublicId { get; set; }
+
+        public CalificationProjectConfigModel ProjectConfigModel { get; set; }
 
         public CompanyModel Company { get; set; }
         

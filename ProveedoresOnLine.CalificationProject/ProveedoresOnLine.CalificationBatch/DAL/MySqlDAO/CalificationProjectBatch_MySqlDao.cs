@@ -114,15 +114,14 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             return oReturn;
         }
 
-        public int CalificationProjectUpsert(int vCalificationProjectId, string vCalificatonProjectPublicId, int vCalificationProjectConfigId, int vCompanyId, int vTotalScore, bool vEnable)
+        public int CalificationProjectUpsert(string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-
-            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectId", vCalificationProjectId));
+          
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificatonProjectPublicId", vCalificatonProjectPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", vCalificationProjectConfigId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyId", vCompanyId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyId", vTotalScore));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", vCompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vTotalScore", vTotalScore));            
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -157,7 +156,22 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         public int CalificationProjectItemInfoUpsert(int vCalificationProjectItemInfoId, int vCalificationProjectItemId, int vCalificationProjectConfigItemInfoId, int vItemInfoScore, bool vEnable)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectItemInfoId", vCalificationProjectItemInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectItemId", vCalificationProjectItemId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigItemInfoId", vCalificationProjectConfigItemInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vItemInfoScore", vItemInfoScore));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "MP_CP_CalificationProjectItemInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+            return Convert.ToInt32(response.ScalarResult);
         }
         
        
