@@ -13,7 +13,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public int CalificationProjectItemId { get; set; }
 
-        public ConfigItemInfoModel CalificationProjectConfigItemInfo { get; set; }
+        public ConfigItemInfoModel CalificationProjectConfigItemInfoModel { get; set; }
 
         public int ItemInfoScore { get; set; }
 

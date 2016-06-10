@@ -50,6 +50,47 @@ namespace ProveedoresOnLine.CalificationProject.Test
            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oModel);
             Assert.AreEqual(true, oReturn.CalificationProjectId > 0 );
         }
+
+        [TestMethod]
+        public void CalificationProjectItem_Upsert() 
+        {
+            CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
+            {
+                CalificationProjectItemId = 0,
+                CalificationProjectId = 1,
+                CalificationProjectConfigItem = new Models.CalificationProject.ConfigItemModel()
+                {
+                    CalificationProjectConfigItemId = 1                 
+                },
+                ItemScore = 100,
+                Enable = true
+            };
+
+        oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificatioProjectItemUpsert(oReturn);
+
+            Assert.AreEqual(true, oReturn.CalificationProjectItemId > 0 );
+        }
+
+        [TestMethod]
+        public void CalificationProjectItemInfo_Upsert()
+        {
+            CalificationProjectItemInfoBatchModel oReturn = new CalificationProjectItemInfoBatchModel()
+            {
+                CalificationProjectItemInfoId = 0,
+                CalificationProjectItemId = 2,
+                CalificationProjectConfigItemInfoModel = new Models.CalificationProject.ConfigItemInfoModel()
+                {
+                   CalificationProjectConfigItemInfoId = 1
+                },
+                ItemInfoScore = 100,
+                Enable = true
+            };
+
+            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectItemInfoUpsert(oReturn);
+
+            Assert.AreEqual(true, oReturn.CalificationProjectItemInfoId > 0);
+        }
+
         #endregion
 
         #region CalificationProjectBatchUtil

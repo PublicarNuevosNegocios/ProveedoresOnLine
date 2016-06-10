@@ -100,11 +100,11 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
             {
                 if (oCalInfoItemProject != null)
                 {
-                    oCalInfoItemProject.CalificationProjectItemId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectItemInfoUpsert
+                    oCalInfoItemProject.CalificationProjectItemInfoId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectItemInfoUpsert
                     (
                         oCalInfoItemProject.CalificationProjectItemInfoId,
                         oCalInfoItemProject.CalificationProjectItemId,
-                        oCalInfoItemProject.CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId,
+                        oCalInfoItemProject.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId,
                         oCalInfoItemProject.ItemInfoScore,
                         oCalInfoItemProject.Enable
                     );
