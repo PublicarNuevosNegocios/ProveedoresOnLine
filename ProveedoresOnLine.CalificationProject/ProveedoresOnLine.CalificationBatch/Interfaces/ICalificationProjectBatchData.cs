@@ -12,6 +12,7 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
 
         List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable);
 
+        int 
         #endregion
 
         #region CalificationProjectBatchUtil
