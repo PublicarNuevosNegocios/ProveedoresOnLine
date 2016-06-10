@@ -70,6 +70,9 @@ namespace ProveedoresOnLine.CalificationBatch
                             });
                         }
 
+                        //Upsert
+
+
                         return true;
                     });
 

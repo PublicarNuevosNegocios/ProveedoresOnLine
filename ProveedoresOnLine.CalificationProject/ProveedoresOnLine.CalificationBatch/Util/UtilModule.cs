@@ -35,7 +35,7 @@ namespace ProveedoresOnLine.CalificationBatch.Util
         #region Rule
 
 
-        
+
         #endregion
     }
 }
