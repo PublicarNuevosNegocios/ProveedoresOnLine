@@ -37,6 +37,20 @@
                 }
             }
         }
+        else if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101003)
+        {
+            foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 203))
+            {
+                if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+                {
+                    <option value="@item.ItemId" selected="selected">@item.ItemName</option>
+                }
+                else
+                {
+                    <option value="@item.ItemId">@item.ItemName</option>
+                }
+            }
+        }
     </select>
 }
 
