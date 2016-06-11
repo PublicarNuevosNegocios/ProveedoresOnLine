@@ -1417,13 +1417,13 @@ var Customer_CalificationProjectItemObject = {
                         }
                         else {
                             if (vRenderObject.Module == 2003001) /*Legal info*/ {
-                                oModule = 301;
+                                oModule = 601;
                             }
                             else if (vRenderObject.Module == 2003002) /*Financial info*/ {
                                 oModule = 501;
                             }
                             else if (vRenderObject.Module == 2003003) /*Comercial info*/ {
-                                oModule = 601;
+                                oModule = 301;
                             }
                             else if (vRenderObject.Module == 2003004) /*HSEQ info*/ {
                                 oModule = 701;
@@ -1466,13 +1466,13 @@ var Customer_CalificationProjectItemObject = {
                     }
                     else {
                         if (vRenderObject.Module == 2003001) /*Legal info*/ {
-                            oModule = 301;
+                            oModule = 601;
                         }
                         else if (vRenderObject.Module == 2003002) /*Financial info*/ {
                             oModule = 501;
                         }
                         else if (vRenderObject.Module == 2003003) /*Comercial info*/ {
-                            oModule = 601;
+                            oModule = 301;
                         }
                         else if (vRenderObject.Module == 2003004) /*HSEQ info*/ {
                             oModule = 701;

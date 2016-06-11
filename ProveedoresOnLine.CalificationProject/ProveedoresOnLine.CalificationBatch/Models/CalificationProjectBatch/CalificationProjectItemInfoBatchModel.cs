@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
 
 namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 {
@@ -12,7 +13,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public int CalificationProjectItemId { get; set; }
 
-        public ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigItemInfoModel CalificationProjectConfigItemInfo { get; set; }
+        public ConfigItemInfoModel CalificationProjectConfigItemInfoModel { get; set; }
 
         public int ItemInfoScore { get; set; }
 

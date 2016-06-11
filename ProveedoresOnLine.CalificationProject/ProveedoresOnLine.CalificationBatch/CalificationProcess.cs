@@ -42,7 +42,8 @@ namespace ProveedoresOnLine.CalificationBatch
                                 {
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
 
-                                        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oLegalModule = ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md);
+                                        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oLegalModule = 
+                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md);
 
                                         oLegalModule.All(lg =>
                                         {
@@ -68,6 +69,9 @@ namespace ProveedoresOnLine.CalificationBatch
                                 return true;
                             });
                         }
+
+                        //Upsert
+
 
                         return true;
                     });
