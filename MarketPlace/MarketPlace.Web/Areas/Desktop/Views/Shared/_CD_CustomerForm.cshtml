@@ -15,8 +15,8 @@
                             IntegrationPlatform.Models.Integration.CustomFieldModel,
                             ProveedoresOnLine.Company.Models.Util.GenericItemModel>
                             (Model,
-                              Model.CustomData.CustomField != null && Model.CustomData.CustomField.Count > 0 ? Model.CustomData.CustomField.Where(x => x.AditionalFieldType.ItemId == FieldData.AditionalFieldType.ItemId).Select(x => x).FirstOrDefault() : null,
-                              Model.CustomData.CustomData != null && Model.CustomData.CustomData.Count > 0 ? Model.CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(y => y).FirstOrDefault() : null))
+                            FieldData != null ? FieldData : null,
+                             Model.CustomData.CustomData != null ? Model.CustomData.CustomData.Where(x => x.ItemType.ItemId == FieldData.AditionalFieldId).Select(x => x).DefaultIfEmpty(null).First() : null))
             </div>
         }
     </div>
