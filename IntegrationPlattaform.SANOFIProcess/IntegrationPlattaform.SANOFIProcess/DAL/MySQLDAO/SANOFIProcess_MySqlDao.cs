@@ -82,8 +82,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                                 Comentaries = sgig.Key.Comentaries,
                             }).ToList();                    
             }
-            return oReturn;
-                        
+            return oReturn;                        
         }
 
 
@@ -100,7 +99,52 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstparams,
             });
-            return null;
+
+            List<SanofiComercialInfoModel> oReturn = new List<SanofiComercialInfoModel>();
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+	        {
+                oReturn =
+                (
+                    from sci in response.DataTableResult.AsEnumerable()
+                    where !sci.IsNull("CompanyId")
+                    group sci by new
+                    {
+                        CompanyId = sci.Field<int>("CompanyId"),
+                        CompanyName = sci.Field<string>("CompanyName"),
+                        IdentificationNumber = sci.Field<string>("IdentificationNumber"),
+                        FiscalNumber = sci.Field<string>("FiscalNumber"),
+                        NIF_Type = sci.Field<int>("NIF_Type"),
+                        CountsGroupItemId = sci.Field<string>("CountsGroupItemId"),
+                        CountsGroupItemName = sci.Field<string>("CountsGroupItemName"),
+                        TaxClassId = sci.Field<int>("TaxClassId"),
+                        TaxClassName = sci.Field<string>("TaxClassName"),
+                        CurrencyId = sci.Field<string>("CurrencyId"),
+                        CurrencyName = sci.Field<string>("CurrencyName"),
+                        GroupSchemaProvider = sci.Field<string>("GroupSchemaProvider"),
+                        ContactName = sci.Field<string>("ContactName"),
+                        ComprasCod = sci.Field<string>("ComprasCod"),
+                    }
+                        into scig
+                        select new SanofiComercialInfoModel()
+                        {
+                            CompanyId = scig.Key.CompanyId,
+                            CompanyName = scig.Key.CompanyName,
+                            IdentificationNumber = scig.Key.IdentificationNumber,
+                            FiscalNumber = scig.Key.FiscalNumber,
+                            NIF_Type = scig.Key.NIF_Type,
+                            CountsGroupItemId = scig.Key.CountsGroupItemId,
+                            CountsGroupItemName = scig.Key.CountsGroupItemName,
+                            TaxClassId = scig.Key.TaxClassId,
+                            TaxClassName = scig.Key.TaxClassName,
+                            CurrencyId = scig.Key.CurrencyId,
+                            CurrencyName = scig.Key.CurrencyName,
+                            GroupSchemaProvider = scig.Key.GroupSchemaProvider,
+                            ContactName = scig.Key.ContactName,
+                            ComprasCod = scig.Key.ComprasCod
+
+                        }).ToList();
+	        }
+            return oReturn;
         }
     }
 }

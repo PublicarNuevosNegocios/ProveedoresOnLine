@@ -1,6 +1,6 @@
 ﻿//postback form
 function PF_PostBackForm(vidForm, NewStepId, IsSync) {
-    debugger;
+    
     var strUrl = $("#" + vidForm).attr('action').replace(/{{NewStepId}}/, NewStepId).replace(/{{IsSync}}/, IsSync);
     $("#" + vidForm).attr('action', strUrl);
     $("#" + vidForm).submit();
@@ -8,7 +8,7 @@ function PF_PostBackForm(vidForm, NewStepId, IsSync) {
 
 //init spiner
 function PF_InitSpinner(vidDiv) {
-    debugger;
+    
     $("#" + vidDiv).spinner();
 }
 
@@ -68,7 +68,7 @@ var PF_PartnerFormObject = {
     ProviderPublicId: '',
 
     Init: function (vInitObject) {
-        debugger;
+        
         this.DivId = vInitObject.DivId;
         this.PartnerData = vInitObject.PartnerData;
         this.IsModified = vInitObject.IsModified;
@@ -77,7 +77,7 @@ var PF_PartnerFormObject = {
 
     //init Partners grid
     RenderAsync: function () {
-        debugger;
+        
         var grid =
             $('#' + PF_PartnerFormObject.DivId).kendoGrid({
                 toolbar: [{ template: '<a class="AddMultipleFile" href="javascript:PF_PartnerFormObject.ShowCreate();">Agregar</a>' }],
@@ -200,7 +200,7 @@ var PF_PartnerFormObject = {
     },
 
     Sync: function (ProviderInfoId, IdentificationNumber, FullName, ParticipationPercent, ProviderPublicId) {
-        debugger;
+        
         var oReq = '';
         oReq = oReq + '{ProviderInfoId:"' + ProviderInfoId + '",';
         oReq = oReq + 'IdentificationNumber:"' + IdentificationNumber + '",';
@@ -280,7 +280,7 @@ var PF_MultipleFileObject = {
     ProviderPublicId: '',
 
     Init: function (vInitObject) {
-        debugger;
+        
         this.DivId = vInitObject.DivId;
         this.MultipleData = vInitObject.MultipleData;
         this.ACData = vInitObject.ACData;
@@ -304,7 +304,7 @@ var PF_MultipleFileObject = {
                 field: 'Name',
                 title: 'Nombre',
                 template: function (dataItem) {
-                    debugger;
+                    
                     var oReturn = '';
                     if (dataItem.IsRowModifed == true) {
                         oReturn = "<div >&nbsp; <label style='color:red'> " + dataItem.Name+ "</label> </div>"
@@ -325,7 +325,7 @@ var PF_MultipleFileObject = {
             }, {
                 title: 'Sincronizar',
                 template: function (dataItem) {
-                    debugger;
+                    
                     var oReturn = '';
                     if (dataItem.IsRowModifed == true) {
                         oReturn = '<a href="javascript:PF_MultipleFileObject.MultilpeFileSync(' + "'" + dataItem.ProviderInfoId + "'" + ',' + "'" + dataItem.ProviderInfoUrl + "'" + ',' + "'" + dataItem.Name + "'" + ',' + "'" + PF_MultipleFileObject.ProviderPublicId + "'" + ',' + "'" + dataItem.ItemInfoType + "'" + ');">Sincronizar</a>'

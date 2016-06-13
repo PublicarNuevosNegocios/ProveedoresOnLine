@@ -44,9 +44,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
         }
 
-        public static List<SanofiGeneralInfoModel> GetInfo_ByProvider() 
+        public static List<SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId) 
         {
-           return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfo_ByProvider("A24EB150");
+           return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfo_ByProvider(vProviderPublicId);
+        }
+
+        public static List<SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId) 
+        {
+            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfo_ByProvider(vProviderPublicId);
         }
     }
 }
