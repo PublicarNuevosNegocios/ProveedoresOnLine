@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
             lstparams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", vCustomerPublicid));
-            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId",vProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
             lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -36,7 +36,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
             List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = new List<Models.CalificationProjectBatch.CalificationProjectBatchModel>();
 
-            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0) 
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
                     (
@@ -55,23 +55,6 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                             Enable = cpb.Field<UInt64>("Enable") == 1 ? true : false,
                             LastModify = cpb.Field<DateTime>("LastModify"),
                             CreateDate = cpb.Field<DateTime>("CreateDate"),
-
-                            //CalificationProjectItemBatch
-
-                            CalificationProjectItemId = cpb.Field<int>("CalificationProjectItemId"),
-                            ItemScore = cpb.Field<int>("ItemScore"),
-                            ItemEnable = cpb.Field<UInt64>("ItemEnable") == 1 ? true : false,
-                            ItemLastModify = cpb.Field<DateTime>("ItemLastModify"),
-                            ItemCreateDate = cpb.Field<DateTime>("ItemCreateDate"),
-
-                            //CalificationProjectItemInfoBatch
-
-                            CalificationProjectItemInfoId = cpb.Field<int>("CalificationProjectItemInfoId"),
-                            ItemInfoScore = cpb.Field<int>("ItemInfoScore"),
-                            ItemInfoEnable = cpb.Field<UInt64>("ItemInfoEnable") == 1 ? true : false,
-                            ItemInfoLastModify = cpb.Field<DateTime>("ItemInfoLastModify"),
-                            ItemInfoCreateDate = cpb.Field<DateTime>("ItemInfoCreateDate")
-                            
                         }
                             into cpbg
                             select new Models.CalificationProjectBatch.CalificationProjectBatchModel()
@@ -79,7 +62,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                     //CalificationProjectItemBatch
                                     CalificationProjectId = cpbg.Key.CalificationProjectId,
                                     CalificationProjectPublicId = cpbg.Key.CalificationProjectPublicId,
-                                    Company = new Company.Models.Company.CompanyModel
+                                    RelatedProvider = new Company.Models.Company.CompanyModel
                                     {
                                         CompanyPublicId = cpbg.Key.CompanyPublicId
                                     },
@@ -90,24 +73,52 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
                                     //CalificationProjectItemBatchModel
 
-                                    CalificationProjectItemBatchModel = new Models.CalificationProjectBatch.CalificationProjectItemBatchModel ()
-                                    {
-                                        CalificationProjectItemId = cpbg.Key.CalificationProjectItemId,
-                                        ItemScore = cpbg.Key.ItemScore,
-                                        Enable = cpbg.Key.ItemEnable,
-                                        LastModify = cpbg.Key.ItemLastModify,
-                                        CreateDate = cpbg.Key.ItemCreateDate,
-                                        //CalificationProjectItemInfoBatchModel
-                                        CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                                        {
-                                            CalificationProjectItemInfoId = cpbg.Key.CalificationProjectItemInfoId,
-                                            ItemInfoScore = cpbg.Key.ItemInfoScore,
-                                            Enable = cpbg.Key.ItemInfoEnable,
-                                            LastModify = cpbg.Key.ItemInfoLastModify,
-                                            CreateDate = cpbg.Key.ItemInfoCreateDate,
-                                        }
-                                    },
-                                                                        
+                                    CalificationProjectItemBatchModel =
+                                        (from cpit in response.DataTableResult.AsEnumerable()
+                                         where !cpit.IsNull("CalificationProjectItemId") &&
+                                                cpit.Field<int>("CalificationProjectId") == cpbg.Key.CalificationProjectId
+                                         group cpit by new
+                                         {
+                                             //CalificationProjectItemBatch
+
+                                             CalificationProjectItemId = cpit.Field<int>("CalificationProjectItemId"),
+                                             ItemScore = cpit.Field<int>("ItemScore"),
+                                             ItemEnable = cpit.Field<UInt64>("ItemEnable") == 1 ? true : false,
+                                             ItemLastModify = cpit.Field<DateTime>("ItemLastModify"),
+                                             ItemCreateDate = cpit.Field<DateTime>("ItemCreateDate"),
+                                         }
+                                             into cpitg
+                                             select new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
+                                             {
+                                                 CalificationProjectItemId = cpitg.Key.CalificationProjectItemId,
+                                                 ItemScore = cpitg.Key.ItemScore,
+                                                 Enable = cpitg.Key.ItemEnable,
+                                                 LastModify = cpitg.Key.ItemLastModify,
+                                                 CreateDate = cpitg.Key.ItemCreateDate,
+                                                 CalificatioProjectItemInfoModel =
+                                                 (from cpitinf in response.DataTableResult.AsEnumerable()
+                                                  where !cpitinf.IsNull("CalificationProjectItemInfoId") &&
+                                                        cpitinf.Field<int>("CalificationProjectItemId") == cpitg.Key.CalificationProjectItemId
+                                                  group cpitinf by new
+                                                  {
+                                                      //CalificationProjectItemInfoBatch
+
+                                                      CalificationProjectItemInfoId = cpitinf.Field<int>("CalificationProjectItemInfoId"),
+                                                      ItemInfoScore = cpitinf.Field<int>("ItemInfoScore"),
+                                                      ItemInfoEnable = cpitinf.Field<UInt64>("ItemInfoEnable") == 1 ? true : false,
+                                                      ItemInfoLastModify = cpitinf.Field<DateTime>("ItemInfoLastModify"),
+                                                      ItemInfoCreateDate = cpitinf.Field<DateTime>("ItemInfoCreateDate")
+                                                  }
+                                                      into cpitinfg
+                                                      select new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
+                                                      {
+                                                          CalificationProjectItemInfoId = cpitinfg.Key.CalificationProjectItemInfoId,
+                                                          ItemInfoScore = cpitinfg.Key.ItemInfoScore,
+                                                          Enable = cpitinfg.Key.ItemInfoEnable,
+                                                          LastModify = cpitinfg.Key.ItemInfoLastModify,
+                                                          CreateDate = cpitinfg.Key.ItemInfoCreateDate,
+                                                      }).ToList(),
+                                             }).ToList(),
                                 }
                     ).ToList();
             }
@@ -117,11 +128,11 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
         public int CalificationProjectUpsert(string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-          
+
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificatonProjectPublicId", vCalificatonProjectPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", vCalificationProjectConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", vCompanyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vTotalScore", vTotalScore));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vTotalScore", vTotalScore));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -141,7 +152,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectItemId", vCalificationProjectItemId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectId", vCalificationProjectId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigItemId", vCalificationProjectConfigItemId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vItemScore", vItemScore));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vItemScore", vItemScore));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -173,8 +184,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             });
             return Convert.ToInt32(response.ScalarResult);
         }
-        
-       
+
+
         #endregion
 
         #region CalificationProjectBatchUtil
@@ -265,7 +276,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #endregion
 
-       
-       
+
+
     }
 }

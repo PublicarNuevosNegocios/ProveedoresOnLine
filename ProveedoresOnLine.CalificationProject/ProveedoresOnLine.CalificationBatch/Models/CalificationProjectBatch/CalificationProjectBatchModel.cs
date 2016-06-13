@@ -16,7 +16,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public CalificationProjectConfigModel ProjectConfigModel { get; set; }
 
-        public CompanyModel Company { get; set; }
+        public CompanyModel RelatedProvider { get; set; }
         
         public int TotalScore { get; set; }
 
@@ -26,7 +26,7 @@ namespace ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch
 
         public DateTime CreateDate { get; set; }
 
-        public ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel CalificationProjectItemBatchModel { get; set; }
+        public List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> CalificationProjectItemBatchModel { get; set; }
 
         
 

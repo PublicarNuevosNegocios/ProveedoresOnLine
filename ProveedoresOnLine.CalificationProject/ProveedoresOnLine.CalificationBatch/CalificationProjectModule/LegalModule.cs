@@ -37,16 +37,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
-
                         break;
 
                     #endregion
@@ -66,15 +56,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
+                       
 
                         break;
 
@@ -95,15 +77,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
 
                         break;
 
@@ -124,15 +97,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
+                        
 
                         break;
 
@@ -153,15 +118,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
+                        
 
                         break;
 
@@ -182,15 +139,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
+                        
 
                         break;
 
@@ -211,15 +160,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
+                        
 
                         break;
 
@@ -248,15 +189,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             LegalScore = 0;
                         }
 
-                        oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                        {
-                            CalificationProjectItemId = 0,
-                            CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                            {
-                                CalificationProjectItemInfoId = 0,
-                                ItemInfoScore = LegalScore
-                            },
-                        });
+                        
 
                         break;
 
@@ -280,15 +213,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                 LegalScore = 0;
                             }
 
-                            oReturn.Add(new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
-                            {
-                                CalificationProjectItemId = 0,
-                                CalificatioProjectItemInfoModel = new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
-                                {
-                                    CalificationProjectItemInfoId = 0,
-                                    ItemInfoScore = LegalScore
-                                },
-                            });
+                            
                         }
 
                         break;

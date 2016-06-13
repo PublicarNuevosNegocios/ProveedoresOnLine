@@ -28,10 +28,12 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                         (
                             oCalProject.CalificationProjectPublicId,
                             oCalProject.ProjectConfigModel.CalificationProjectConfigId,
-                            oCalProject.Company.CompanyPublicId,
+                            oCalProject.RelatedProvider.CompanyPublicId,
                             oCalProject.TotalScore,
                             oCalProject.Enable
                         );
+
+                    CalificatioProjectItemUpsert(oCalProject);
 
                     oLog.IsSuccess = true;
                 }
@@ -55,80 +57,105 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
             return oCalProject;
         }
 
-        public static CalificationProjectItemBatchModel CalificatioProjectItemUpsert(CalificationProjectItemBatchModel oCalItemProject) 
+        public static CalificationProjectBatchModel CalificatioProjectItemUpsert(CalificationProjectBatchModel oCalProject) 
         {
-            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+            if (oCalProject != null &&
+                oCalProject.CalificationProjectItemBatchModel != null &&
+                oCalProject.CalificationProjectItemBatchModel.Count > 0)
+            {
+                oCalProject.CalificationProjectItemBatchModel.All(oCalItemProject =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
 
-            try
-            {
-                if (oCalItemProject != null)
-                {
-                    oCalItemProject.CalificationProjectItemId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectItemUpsert
-                    (
-                        oCalItemProject.CalificationProjectItemId,
-                        oCalItemProject.CalificationProjectId,
-                        oCalItemProject.CalificationProjectConfigItem.CalificationProjectConfigItemId,
-                        oCalItemProject.ItemScore,
-                        oCalItemProject.Enable
-                    );
-                    oLog.IsSuccess = true;
-                }
-            }
-            catch (Exception err)
-            {
-                oLog.IsSuccess = false;
-                oLog.Message = err.Message + " - " + err.StackTrace;
-                throw err;
-            }
-            finally
-            {
-                oLog.LogObject = oCalItemProject;
-                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                {
-                    LogInfoType = "CalificationProjectItemId",
-                    Value = oCalItemProject.CalificationProjectItemId.ToString()
+                    try
+                    {
+                        if (oCalItemProject != null)
+                        {
+                            oCalItemProject.CalificationProjectItemId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectItemUpsert
+                            (
+                                oCalItemProject.CalificationProjectItemId,
+                                oCalProject.CalificationProjectId,
+                                oCalItemProject.CalificationProjectConfigItem.CalificationProjectConfigItemId,
+                                oCalItemProject.ItemScore,
+                                oCalItemProject.Enable
+                            );
+
+                            CalificationProjectItemInfoUpsert(oCalItemProject);
+
+                            oLog.IsSuccess = true;
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = oCalItemProject;
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CalificationProjectItemId",
+                            Value = oCalItemProject.CalificationProjectItemId.ToString()
+                        });
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
                 });
-                LogManager.ClientLog.AddLog(oLog);
             }
-            return oCalItemProject;
+            
+            return oCalProject;
         }
 
-        public static CalificationProjectItemInfoBatchModel CalificationProjectItemInfoUpsert(CalificationProjectItemInfoBatchModel oCalInfoItemProject) 
+        public static CalificationProjectItemBatchModel CalificationProjectItemInfoUpsert(CalificationProjectItemBatchModel oCalItemProject) 
         {
-            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+            if (oCalItemProject != null &&
+                oCalItemProject.CalificatioProjectItemInfoModel != null &&
+                oCalItemProject.CalificatioProjectItemInfoModel.Count > 0)
+            {
+                oCalItemProject.CalificatioProjectItemInfoModel.All(oCalInfoItemProject =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
 
-            try
-            {
-                if (oCalInfoItemProject != null)
-                {
-                    oCalInfoItemProject.CalificationProjectItemInfoId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectItemInfoUpsert
-                    (
-                        oCalInfoItemProject.CalificationProjectItemInfoId,
-                        oCalInfoItemProject.CalificationProjectItemId,
-                        oCalInfoItemProject.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId,
-                        oCalInfoItemProject.ItemInfoScore,
-                        oCalInfoItemProject.Enable
-                    );
-                    oLog.IsSuccess = true;
-                }
-            }
-            catch (Exception err)
-            {
-                oLog.IsSuccess = false;
-                oLog.Message = err.Message + " - " + err.StackTrace;
-                throw err;
-            }
-            finally
-            {
-                oLog.LogObject = oCalInfoItemProject;
-                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                {
-                    LogInfoType = "CalificationProjectItemInfoId",
-                    Value = oCalInfoItemProject.CalificationProjectItemInfoId.ToString()
+                    try
+                    {
+                        if (oCalInfoItemProject != null)
+                        {
+                            oCalInfoItemProject.CalificationProjectItemInfoId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectItemInfoUpsert
+                            (
+                                oCalInfoItemProject.CalificationProjectItemInfoId,
+                                oCalItemProject.CalificationProjectItemId,
+                                oCalInfoItemProject.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId,
+                                oCalInfoItemProject.ItemInfoScore,
+                                oCalInfoItemProject.Enable
+                            );
+                            oLog.IsSuccess = true;
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = oCalInfoItemProject;
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CalificationProjectItemInfoId",
+                            Value = oCalInfoItemProject.CalificationProjectItemInfoId.ToString()
+                        });
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
                 });
-                LogManager.ClientLog.AddLog(oLog);
             }
-            return oCalInfoItemProject;
+            
+            return oCalItemProject;
         }
 
         #endregion
