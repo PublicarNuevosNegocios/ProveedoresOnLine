@@ -10,5 +10,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Interfaces
     internal interface IIntegrationPlatformSANOFIProcessData
     {
         List<SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId);
+
+        List<SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId);
     }
 }

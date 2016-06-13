@@ -85,5 +85,22 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
                         
         }
+
+
+        public List<SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_GetComercialInfo",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+            return null;
+        }
     }
 }
