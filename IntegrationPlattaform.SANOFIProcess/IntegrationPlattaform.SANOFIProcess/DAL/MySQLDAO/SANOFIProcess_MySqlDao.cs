@@ -146,5 +146,59 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 	        }
             return oReturn;
         }
+
+
+        public List<SanofiContableInfoModel> GetContableInfo_ByProvider(string vProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_GetContableInfo",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<SanofiContableInfoModel> oReturn = new List<SanofiContableInfoModel>();
+
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0 )
+            {
+                oReturn =
+                    (
+                      from sconi in response.DataTableResult.AsEnumerable()
+                      where !sconi.IsNull("CompanyId")
+                      group sconi by new
+                      {
+                          CompanyId = sconi.Field<int>("CompanyId"),
+                          CompanyName = sconi.Field<string>("CompanyName"),
+                          FiscalNumber = sconi.Field<string>("FiscalNumber"),
+                          IdentificationNumber = sconi.Field<string>("IdentificationNumber"),
+                          Country = sconi.Field<string>("Country"),
+                          BankPassword = sconi.Field<int>("BankPassword"),
+                          BankCountNumber = sconi.Field<string>("BankCountNumber"),
+                          CountType = sconi.Field<int>("CountType"),
+                          IBAN = sconi.Field<string>("IBAN"),
+                          AssociatedCount = sconi.Field<string>("AssociatedCount")
+                      }
+                          into sconig
+                          select new SanofiContableInfoModel() 
+                          {
+                              CompanyId = sconig.Key.CompanyId,
+                              CompanyName = sconig.Key.CompanyName,
+                              FiscalNumber = sconig.Key.FiscalNumber,
+                              IdentificationNumber = sconig.Key.IdentificationNumber,
+                              Country = sconig.Key.Country,
+                              BankPassword = sconig.Key.BankPassword,
+                              BankCountNumber = sconig.Key.BankCountNumber,
+                              CountType = sconig.Key.CountType,
+                              IBAN = sconig.Key.IBAN,
+                              AssociatedCount = sconig.Key.AssociatedCount
+                          }).ToList();
+            }
+            return oReturn;
+        }
     }
 }
