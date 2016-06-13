@@ -825,7 +825,7 @@ var Customer_CalificationProjectObject = {
                     name: '',
                     text: 'Agregar Validación',
                     click: function (e) {
-                        debugger;
+                        
                         // e.target is the DOM element representing the button
                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                         // get the data bound to the current table row
@@ -958,7 +958,7 @@ var Customer_CalificationProjectObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.Operator != null) {
-                        debugger;
+                        
                         $.each(Customer_CalificationProjectObject.CustomerOptions[2001], function (item, value) {
                             if (dataItem.Operator == value.ItemId) {
                                 oReturn = value.ItemName;
@@ -968,7 +968,7 @@ var Customer_CalificationProjectObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    debugger;
+                    
                     $('<input required data-bind="value:' + options.field + '"/>')                        
                         .appendTo(container)
                         .kendoDropDownList({
@@ -1408,7 +1408,7 @@ var Customer_CalificationProjectItemObject = {
                     if (dataItem != null && dataItem.Question != null) {
                         var oModule = 0;
                         if (vRenderObject.Module == 2003005) /*Balance*/ {
-                            debugger;
+                            
                             $.each(Customer_CalificationProjectItemObject.CalificationProjectConfigCategoryOptions[10], function (item, value) {
                                 if (dataItem.Question == value.CategoryId) {
                                     oReturn = value.CategoryName;
@@ -1439,7 +1439,7 @@ var Customer_CalificationProjectItemObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    debugger;
+                    
                     var oModule = 0;
 
                     if (vRenderObject.Module == 2003005) /*Balance*/ {
@@ -1488,7 +1488,7 @@ var Customer_CalificationProjectItemObject = {
                         input.kendoAutoComplete({
                             dataTextField: 'ItemName',
                             select: function (e) {
-                                debugger;
+                                
                                 var selectedItem = this.dataItem(e.item.index());
                                 //set server fiel name
                                 options.model[options.field] = selectedItem.ItemName;

@@ -1765,7 +1765,7 @@ var Provider_CompanyCommercialObject = {
                 title: 'Valor de contrato',
                 width: '180px',
                 template: function (dataItem) {
-                    debugger;
+                    
                     var oReturn = '';
 
                     if (dataItem.EX_ContractValue == '') {
@@ -5491,6 +5491,7 @@ var Provider_LegalInfoObject = {
     },
 
     RenderUniqueRegister: function () {
+        
         $('#' + Provider_LegalInfoObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -5562,6 +5563,7 @@ var Provider_LegalInfoObject = {
                 },
                 transport: {
                     read: function (options) {
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
@@ -5575,6 +5577,7 @@ var Provider_LegalInfoObject = {
                         });
                     },
                     create: function (options) {
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
@@ -5593,6 +5596,7 @@ var Provider_LegalInfoObject = {
                         });
                     },
                     update: function (options) {
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
@@ -5705,8 +5709,10 @@ var Provider_LegalInfoObject = {
                 title: 'Clase de impuesto',
                 width: '180px',
                 template: function (dataItem) {
+                    
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_ClassTax != null) {
+                        
                         $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[221], function (item, value) {
                             if (dataItem.R_ClassTax == value.ItemId) {
                                 oReturn = value.ItemName;
@@ -7081,7 +7087,7 @@ var Provider_CustomData = {
 
     /*UploadFile Generic Function*/
     UploadFile: function(initObject) {
-        debugger;
+        
         var oFileExit = true;
         $('#LoadFile_' + initObject.CustomerPublicId)
         .kendoUpload({
