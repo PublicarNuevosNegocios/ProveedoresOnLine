@@ -1,5 +1,5 @@
 ﻿function ProviderSearchGrid(vidDiv, cmbForm, cmbCustomer, chkName) {
-
+    debugger;
     //configure grid
     $('#' + vidDiv).kendoGrid({
         toolbar: [{ template: $('#' + vidDiv + '_Header').html() }],
@@ -11,6 +11,7 @@
             schema: {
                 total: function (data) {
                     if (data != null && data.length > 0) {
+                        debugger;
                         return data[0].oTotalRows;
                     }
                     return 0;
@@ -31,6 +32,7 @@
                         dataType: "json",
                         type: "POST",
                         success: function (result) {
+                            debugger;
                             options.success(result.RelatedProvider)
                         },
                         error: function (result) {
@@ -72,7 +74,20 @@
             field: "FormUrl",
             title: "URL",
             width: 200,
-            template: $('#' + vidDiv + '_FormUrl').html(),
+            template: function (dataItem) {                
+                var oReturn = '';
+                if (dataItem != null && dataItem.RelatedProvider.FormPublicId != null) {
+                    var linkForm =  $('#' + vidDiv + '_FormUrl').html();
+                    debugger;
+                    oReturn = linkForm.replace('FormPublicIdParam', dataItem.RelatedProvider.FormPublicId);
+                    oReturn = oReturn.replace('ProviderPublicIdParam', dataItem.RelatedProvider.ProviderPublicId)
+                }
+                else {
+                    oReturn = 'SIN FORMULARIO' 
+                }
+                return oReturn;
+            },
+            
         }, {
             field: "RelatedProvider.CustomerCount",
             title: "# Comp. Relacionados",
