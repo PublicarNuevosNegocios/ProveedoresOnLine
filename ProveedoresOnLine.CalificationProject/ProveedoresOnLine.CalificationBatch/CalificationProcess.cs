@@ -25,7 +25,9 @@ namespace ProveedoresOnLine.CalificationBatch
                         List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                             ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
 
-                        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oRelatedModules = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
+                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel oCalificaitonProjectUpsert = new Models.CalificationProjectBatch.CalificationProjectBatchModel();
+
+                        int oTotalScore = 0;
 
                         if (oRelatedCalificationProject != null &&
                             oRelatedCalificationProject.Count > 0)
@@ -35,6 +37,22 @@ namespace ProveedoresOnLine.CalificationBatch
                         }
                         else
                         {
+                            oCalificaitonProjectUpsert = new Models.CalificationProjectBatch.CalificationProjectBatchModel()
+                            {
+                                CalificationProjectId = 0,
+                                CalificationProjectPublicId = "",
+                                ProjectConfigModel = new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
+                                {
+                                    CalificationProjectConfigId = cnf.CalificationProjectConfigId,
+                                },
+                                RelatedProvider = new Company.Models.Company.CompanyModel()
+                                {
+                                    CompanyPublicId = prv.CompanyPublicId,
+                                },
+                                CalificationProjectItemBatchModel = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>(),
+                                Enable = true,
+                            };
+
                             //execute all calification process
                             cnf.ConfigItemModel.All(md =>
                             {
@@ -42,16 +60,13 @@ namespace ProveedoresOnLine.CalificationBatch
                                 {
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
 
-                                        List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel> oLegalModule = 
-                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md);
+                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule = 
+                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md, null);
 
-                                        oLegalModule.All(lg =>
-                                        {
-                                            oRelatedModules.Add(lg);
-                                            return true;
-                                        });                                        
+                                        oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oLegalModule);
 
                                         break;
+
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
                                         break;
@@ -70,8 +85,10 @@ namespace ProveedoresOnLine.CalificationBatch
                             });
                         }
 
-                        //Upsert
+                        oCalificaitonProjectUpsert.TotalScore = oTotalScore;
 
+                        //Upsert
+                        oCalificaitonProjectUpsert = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oCalificaitonProjectUpsert);
 
                         return true;
                     });
