@@ -24,71 +24,146 @@ namespace ProveedoresOnLine.CalificationProject.Test
         public void CalificationProject_GetByCustomer()
         {
             List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
-            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer("1B40C887","4CD75091", true);
+            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer("1B40C887", "4CD75091", true);
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
         [TestMethod]
-        public void CalificationProject_Upsert() 
+        public void CalificationProject_Upsert()
         {
-            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel();
-            CalificationProjectBatchModel oModel = new CalificationProjectBatchModel()
+            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
             {
+                CalificationProjectId = 0,
                 CalificationProjectPublicId = "",
                 ProjectConfigModel = new Models.CalificationProject.CalificationProjectConfigModel()
                 {
-                    CalificationProjectConfigId = 1
+                    CalificationProjectConfigId = 7,
                 },
-                Company = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                RelatedProvider = new Company.Models.Company.CompanyModel()
                 {
-                    CompanyPublicId = "DA5C572E"
+                    CompanyPublicId = "18C25804",
                 },
-                TotalScore = 100,
-                Enable = true
+                CalificationProjectItemBatchModel = new List<CalificationProjectItemBatchModel>()
+                {
+                    new CalificationProjectItemBatchModel()
+                    {
+                        CalificationProjectItemId = 0,
+                        CalificationProjectConfigItem = new Models.CalificationProject.ConfigItemModel()
+                        {
+                            CalificationProjectConfigItemId = 21,
+                        },
+                        CalificatioProjectItemInfoModel = new List<CalificationProjectItemInfoBatchModel>()
+                        {
+                            new CalificationProjectItemInfoBatchModel()
+                            {
+                                CalificationProjectItemInfoId = 0,
+                                CalificationProjectConfigItemInfoModel = new Models.CalificationProject.ConfigItemInfoModel()
+                                {
+                                    CalificationProjectConfigItemInfoId = 11,
+                                },
+                                ItemInfoScore = 2,
+                                Enable = true,
+                            },
+                            new CalificationProjectItemInfoBatchModel()
+                            {
+                                CalificationProjectItemInfoId = 0,
+                                CalificationProjectConfigItemInfoModel = new Models.CalificationProject.ConfigItemInfoModel()
+                                {
+                                    CalificationProjectConfigItemInfoId = 12,
+                                },
+                                ItemInfoScore = 5,
+                                Enable = true,
+                            },
+                        },
+                        ItemScore = 10,
+                        Enable = true,
+                    },
+                },
+                TotalScore = 10,
+                Enable = true,
             };
-           oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oModel);
-            Assert.AreEqual(true, oReturn.CalificationProjectId > 0 );
+
+            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oReturn);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.CalificationProjectItemBatchModel.Count > 0);
         }
 
         [TestMethod]
-        public void CalificationProjectItem_Upsert() 
+        public void CalificationProjectItem_Upsert()
         {
-            CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
+            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
             {
-                CalificationProjectItemId = 0,
-                CalificationProjectId = 1,
-                CalificationProjectConfigItem = new Models.CalificationProject.ConfigItemModel()
+                CalificationProjectId = 0,
+                CalificationProjectPublicId = "",
+                ProjectConfigModel = new Models.CalificationProject.CalificationProjectConfigModel()
                 {
-                    CalificationProjectConfigItemId = 1                 
+                    CalificationProjectConfigId = 7,
                 },
-                ItemScore = 100,
-                Enable = true
+                RelatedProvider = new Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = "18C25804",
+                },
+                CalificationProjectItemBatchModel = new List<CalificationProjectItemBatchModel>()
+                {
+                    new CalificationProjectItemBatchModel()
+                    {
+                        CalificationProjectItemId = 0,
+                        CalificationProjectConfigItem = new Models.CalificationProject.ConfigItemModel()
+                        {
+                            CalificationProjectConfigItemId = 21,
+                        },
+                        Enable = true,
+                    },
+                },
+                Enable = true,
             };
 
-        oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificatioProjectItemUpsert(oReturn);
+            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificatioProjectItemUpsert(oReturn);
 
-            Assert.AreEqual(true, oReturn.CalificationProjectItemId > 0 );
+            Assert.AreEqual(true, oReturn != null);
         }
 
         [TestMethod]
         public void CalificationProjectItemInfo_Upsert()
         {
-            CalificationProjectItemInfoBatchModel oReturn = new CalificationProjectItemInfoBatchModel()
+            CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
-                CalificationProjectItemInfoId = 0,
-                CalificationProjectItemId = 2,
-                CalificationProjectConfigItemInfoModel = new Models.CalificationProject.ConfigItemInfoModel()
+                CalificationProjectItemId = 0,
+                CalificationProjectConfigItem = new Models.CalificationProject.ConfigItemModel()
                 {
-                   CalificationProjectConfigItemInfoId = 1
+                    CalificationProjectConfigItemId = 21,
                 },
-                ItemInfoScore = 100,
-                Enable = true
+                CalificatioProjectItemInfoModel = new List<CalificationProjectItemInfoBatchModel>()
+                {
+                    new CalificationProjectItemInfoBatchModel()
+                    {
+                        CalificationProjectItemInfoId = 0,
+                        CalificationProjectConfigItemInfoModel = new Models.CalificationProject.ConfigItemInfoModel()
+                        {
+                            CalificationProjectConfigItemInfoId = 11,
+                        },
+                        ItemInfoScore = 2,
+                        Enable = true,
+                    },
+                    new CalificationProjectItemInfoBatchModel()
+                    {
+                        CalificationProjectItemInfoId = 0,
+                        CalificationProjectConfigItemInfoModel = new Models.CalificationProject.ConfigItemInfoModel()
+                        {
+                            CalificationProjectConfigItemInfoId = 12,
+                        },
+                        ItemInfoScore = 5,
+                        Enable = true,
+                    },
+                },
+                ItemScore = 10,
+                Enable = true,
             };
 
             oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectItemInfoUpsert(oReturn);
 
-            Assert.AreEqual(true, oReturn.CalificationProjectItemInfoId > 0);
+            Assert.AreEqual(true, oReturn != null && oReturn.CalificatioProjectItemInfoModel.Count > 0);
         }
 
         #endregion
