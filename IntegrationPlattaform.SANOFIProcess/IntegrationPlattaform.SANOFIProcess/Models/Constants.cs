@@ -12,6 +12,6 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public const string C_SANOFI_ProviderPublicId = "SANOFI_ProviderPublicId";
 
-        //public const string C_POL_SANOFIIProcessConnectionName = "POL_CompanyProviderConnection";
+        public const string C_Settings_File_TempDirectory = "SANOFI_File_TempDirectory";        
     }
 }
