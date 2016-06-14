@@ -62,6 +62,10 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                     //CalificationProjectItemBatch
                                     CalificationProjectId = cpbg.Key.CalificationProjectId,
                                     CalificationProjectPublicId = cpbg.Key.CalificationProjectPublicId,
+                                    ProjectConfigModel = new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
+                                    {
+                                        CalificationProjectConfigId = cpbg.Key.CalificationProjectConfigId,
+                                    },
                                     RelatedProvider = new Company.Models.Company.CompanyModel
                                     {
                                         CompanyPublicId = cpbg.Key.CompanyPublicId
@@ -82,6 +86,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                              //CalificationProjectItemBatch
 
                                              CalificationProjectItemId = cpit.Field<int>("CalificationProjectItemId"),
+                                             CalificationProjectConfigItemId = cpit.Field<int>("CalificationProjectConfigItemId"),
                                              ItemScore = cpit.Field<int>("ItemScore"),
                                              ItemEnable = cpit.Field<UInt64>("ItemEnable") == 1 ? true : false,
                                              ItemLastModify = cpit.Field<DateTime>("ItemLastModify"),
@@ -91,6 +96,10 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                              select new Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
                                              {
                                                  CalificationProjectItemId = cpitg.Key.CalificationProjectItemId,
+                                                 CalificationProjectConfigItem = new CalificationProject.Models.CalificationProject.ConfigItemModel()
+                                                 {
+                                                     CalificationProjectConfigItemId = cpitg.Key.CalificationProjectConfigItemId,
+                                                 },
                                                  ItemScore = cpitg.Key.ItemScore,
                                                  Enable = cpitg.Key.ItemEnable,
                                                  LastModify = cpitg.Key.ItemLastModify,
@@ -104,6 +113,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                                       //CalificationProjectItemInfoBatch
 
                                                       CalificationProjectItemInfoId = cpitinf.Field<int>("CalificationProjectItemInfoId"),
+                                                      CalificationProjectConfigItemInfoId = cpitinf.Field<int>("CalificationProjectConfigItemInfoId"),
                                                       ItemInfoScore = cpitinf.Field<int>("ItemInfoScore"),
                                                       ItemInfoEnable = cpitinf.Field<UInt64>("ItemInfoEnable") == 1 ? true : false,
                                                       ItemInfoLastModify = cpitinf.Field<DateTime>("ItemInfoLastModify"),
@@ -113,6 +123,10 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                                       select new Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
                                                       {
                                                           CalificationProjectItemInfoId = cpitinfg.Key.CalificationProjectItemInfoId,
+                                                          CalificationProjectConfigItemInfoModel = new CalificationProject.Models.CalificationProject.ConfigItemInfoModel()
+                                                          {
+                                                              CalificationProjectConfigItemInfoId = cpitinfg.Key.CalificationProjectConfigItemInfoId,
+                                                          },
                                                           ItemInfoScore = cpitinfg.Key.ItemInfoScore,
                                                           Enable = cpitinfg.Key.ItemInfoEnable,
                                                           LastModify = cpitinfg.Key.ItemInfoLastModify,
@@ -125,10 +139,11 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             return oReturn;
         }
 
-        public int CalificationProjectUpsert(string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
+        public int CalificationProjectUpsert(int vCalificationProjectId, string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
+            lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectId", vCalificationProjectId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificatonProjectPublicId", vCalificatonProjectPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", vCalificationProjectConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", vCompanyPublicId));
@@ -275,8 +290,5 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
         #endregion
 
         #endregion
-
-
-
     }
 }

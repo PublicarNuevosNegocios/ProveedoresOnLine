@@ -43,9 +43,9 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
             return DataFactory.CalificationProject_GetByCustomer(vCustomerPublicid, vProviderPublicId, Enable);
         }
 
-        public int CalificationProjectUpsert(string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
+        public int CalificationProjectUpsert(int vCalificationProjectId, string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
         {
-            return DataFactory.CalificationProjectUpsert(vCalificatonProjectPublicId, vCalificationProjectConfigId, vCompanyPublicId, vTotalScore, vEnable);
+            return DataFactory.CalificationProjectUpsert(vCalificationProjectId, vCalificatonProjectPublicId, vCalificationProjectConfigId, vCompanyPublicId, vTotalScore, vEnable);
         }
 
         public int CalificationProjectItemUpsert(int vCalificationProjectItemId, int vCalificationProjectId, int vCalificationProjectConfigItemId, int vItemScore, bool vEnable)
