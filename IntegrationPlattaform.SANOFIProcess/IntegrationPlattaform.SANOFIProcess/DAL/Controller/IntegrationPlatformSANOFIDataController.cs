@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +41,18 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
         public List<Models.SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId)
         {
             return DataFactory.GetInfo_ByProvider(vProviderPublicId);
+        }
+
+
+        public List<Models.SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId)
+        {
+            return DataFactory.GetComercialInfo_ByProvider(vProviderPublicId);
+        }
+
+
+        public List<Models.SanofiContableInfoModel> GetContableInfo_ByProvider(string vProviderPublicId)
+        {
+            return DataFactory.GetContableInfo_ByProvider(vProviderPublicId);
         }
     }
 }

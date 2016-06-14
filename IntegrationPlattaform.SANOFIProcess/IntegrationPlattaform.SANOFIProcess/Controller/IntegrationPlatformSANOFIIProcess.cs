@@ -17,32 +17,32 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             try
             {
                 // Get Providers SANOFI
-                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId(
-                     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value);
+               List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId(
+                    IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                    IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value);
 
-                if (oProviders != null)
-                {
+               if (oProviders != null)
+               {
                     List<SanofiGeneralInfoModel> oGeneralInfo = new List<SanofiGeneralInfoModel>();
 
-                    oProviders.All(p =>
-                        {
-                            //Get Last Process
-                            //Modify Date against Last Created process
+                   oProviders.All(p =>
+                       {
+                           //Get Last Process
+                           //Modify Date against Last Created process
 
                             SanofiGeneralInfoModel oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfo_ByProvider(p.CompanyPublicId).FirstOrDefault();
                             if (oGeneralRow != null)                           
                                 oGeneralInfo.Add(oGeneralRow);                           
-                            
-                            return true;
-                        });
+                           
+                           return true;
+                       });
 
                     if (oGeneralInfo.Count > 0)
                     {
                         //Call Function to create the txt;
                         GeneralInfoProcess(oGeneralInfo);
-                    }
-
+               }
+                
                 }
 
                 // Get Process Last Time 
@@ -51,7 +51,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
             catch (Exception)
             {
-
+                
                 throw;
             }
         }
@@ -161,10 +161,19 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             return true;
         }
 
-        //TODO: BORRAR ESTA FUNCION 
-        public static List<SanofiGeneralInfoModel> GetInfo_ByProvider()
+        public static List<SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId) 
         {
-            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfo_ByProvider("A24EB150");
+           return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfo_ByProvider(vProviderPublicId);
+        }
+
+        public static List<SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId) 
+        {
+            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfo_ByProvider(vProviderPublicId);
+        }
+
+        public static List<Models.SanofiContableInfoModel> GetContableInfo_ByProvider(string vProviderPublicId) 
+        {
+            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfo_ByProvider(vProviderPublicId);
         }
     }
 }
