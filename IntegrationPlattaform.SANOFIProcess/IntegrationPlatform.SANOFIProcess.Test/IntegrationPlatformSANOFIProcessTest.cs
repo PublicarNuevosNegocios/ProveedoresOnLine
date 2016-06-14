@@ -39,5 +39,27 @@ namespace IntegrationPlatform.SANOFIProcess.Test
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+        [TestMethod]
+        public void SanofiProcessLog_Insert() 
+        {
+            SanofiProcessLogModel oReturn = new SanofiProcessLogModel()
+            {
+                ProviderPublicId = "A24EB150",
+                ProcessName = "PruebaLog 4",
+                IsSucces = true,
+                Enable = true
+            };
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLog_Insert(oReturn);
+
+            Assert.AreEqual(true, oReturn.SanofiProcessLogId > 0);
+        }
+        [TestMethod]
+        public void GetSanofiProcessLog() 
+        {
+            List<SanofiProcessLogModel> oReturn = new List<SanofiProcessLogModel>();
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiProcessLog(false);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
     }
 }
