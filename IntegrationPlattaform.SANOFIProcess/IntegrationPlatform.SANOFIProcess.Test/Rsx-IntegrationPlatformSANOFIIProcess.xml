@@ -3,5 +3,8 @@
   <IntegrationPlatformSANOFIIProcess>
     <!--Default Currency-->
     <key name="SANOFI_ProviderPublicId">7BC27832</key>
+
+    <!--Temp Folder-->
+    <key name="SANOFI_File_TempDirectory">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\TempDirectory\</key>
   </IntegrationPlatformSANOFIIProcess>
 </Settings>
