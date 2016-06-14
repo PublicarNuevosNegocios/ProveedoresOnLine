@@ -12,6 +12,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public const string C_SANOFI_ProviderPublicId = "SANOFI_ProviderPublicId";
 
-        public const string C_Settings_File_TempDirectory = "SANOFI_File_TempDirectory";        
+        public const string C_Settings_File_TempDirectory = "SANOFI_File_TempDirectory";
+
+        public const string C_Settings_File_ExcelDirectory = "SANOFI_File_ExcelDirectory";
     }
 }

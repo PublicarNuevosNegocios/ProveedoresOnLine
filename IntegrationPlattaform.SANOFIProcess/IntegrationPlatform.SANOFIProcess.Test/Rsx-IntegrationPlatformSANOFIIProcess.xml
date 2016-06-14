@@ -6,5 +6,9 @@
 
     <!--Temp Folder-->
     <key name="SANOFI_File_TempDirectory">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\TempDirectory\</key>
+
+    <!--S3 Path File-->
+    <key name="SANOFI_File_ExcelDirectory">/SANOFI_Process</key>
+    
   </IntegrationPlatformSANOFIIProcess>
 </Settings>
