@@ -15,15 +15,16 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         }
 
         [TestMethod]
-        public void GetInfo_ByProvider() 
+        public void GetInfo_ByProvider()
         {
             List<SanofiGeneralInfoModel> oReturn = new List<SanofiGeneralInfoModel>();
             oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetInfo_ByProvider("A24EB150");
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+
         [TestMethod]
-        public void GetComercialInfo_ByProvider() 
+        public void GetComercialInfo_ByProvider()
         {
             List<SanofiComercialInfoModel> oReturn = new List<SanofiComercialInfoModel>();
             oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetComercialInfo_ByProvider("A24EB150");
@@ -32,15 +33,16 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         }
 
         [TestMethod]
-        public void GetContableInfo_ByProvider() 
+        public void GetContableInfo_ByProvider()
         {
             List<SanofiContableInfoModel> oReturn = new List<SanofiContableInfoModel>();
             oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetContableInfo_ByProvider("A24EB150");
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+
         [TestMethod]
-        public void SanofiProcessLog_Insert() 
+        public void SanofiProcessLog_Insert()
         {
             SanofiProcessLogModel oReturn = new SanofiProcessLogModel()
             {
@@ -53,8 +55,9 @@ namespace IntegrationPlatform.SANOFIProcess.Test
 
             Assert.AreEqual(true, oReturn.SanofiProcessLogId > 0);
         }
+
         [TestMethod]
-        public void GetSanofiProcessLog() 
+        public void GetSanofiProcessLog()
         {
             List<SanofiProcessLogModel> oReturn = new List<SanofiProcessLogModel>();
             oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiProcessLog(false);

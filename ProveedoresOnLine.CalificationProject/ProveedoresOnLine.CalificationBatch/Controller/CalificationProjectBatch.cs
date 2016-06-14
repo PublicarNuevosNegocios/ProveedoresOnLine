@@ -26,6 +26,7 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                 {
                     oCalProject.CalificationProjectId = DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectUpsert
                         (
+                            oCalProject.CalificationProjectId,
                             oCalProject.CalificationProjectPublicId,
                             oCalProject.ProjectConfigModel.CalificationProjectConfigId,
                             oCalProject.RelatedProvider.CompanyPublicId,

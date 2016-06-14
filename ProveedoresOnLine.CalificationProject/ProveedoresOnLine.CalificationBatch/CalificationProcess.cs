@@ -22,7 +22,7 @@ namespace ProveedoresOnLine.CalificationBatch
 
                     oRelatedProvider.All(prv =>
                     {
-                        List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
+                         List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                             ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
 
                         ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel oCalificaitonProjectUpsert = new Models.CalificationProjectBatch.CalificationProjectBatchModel();
@@ -33,7 +33,58 @@ namespace ProveedoresOnLine.CalificationBatch
                             oRelatedCalificationProject.Count > 0)
                         {
                             //validate date calification process config
+                            oRelatedCalificationProject.All(cp =>
+                            {
+                                oCalificaitonProjectUpsert = cp;
 
+                                cp.ProjectConfigModel = oCalificationProjectConfigModel.Where(x => x.CalificationProjectConfigId == cp.ProjectConfigModel.CalificationProjectConfigId).Select(x => x).FirstOrDefault();
+
+                                //Modules
+                                cp.CalificationProjectItemBatchModel.All(cpib =>
+                                {
+                                    cpib.CalificationProjectConfigItem = cp.ProjectConfigModel.ConfigItemModel.Where(y => y.CalificationProjectConfigItemId == cpib.CalificationProjectConfigItem.CalificationProjectConfigItemId).Select(y => y).FirstOrDefault();
+
+                                    //add config item info
+                                    cpib.CalificatioProjectItemInfoModel.All(inf =>
+                                    {
+                                        inf.CalificationProjectConfigItemInfoModel = cpib.CalificationProjectConfigItem.CalificationProjectConfigItemInfoModel.Where(z => z.CalificationProjectConfigItemInfoId == inf.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId).Select(z => z).FirstOrDefault();
+                                        return true;
+                                    });
+
+                                    switch (cpib.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId)
+                                    {
+                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
+
+                                            ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
+                                                ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
+
+                                            oTotalScore += oLegalModule.ItemScore;
+
+                                            oCalificaitonProjectUpsert.CalificationProjectItemBatchModel = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
+                                            oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oLegalModule);
+                                            //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oLegalModule);
+
+                                            break;
+
+                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
+
+                                            break;
+                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
+
+                                            break;
+                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
+
+                                            break;
+                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
+
+                                            break;
+                                    }
+
+                                    return true;
+                                });
+
+                                return true;
+                            });
                         }
                         else
                         {
@@ -62,6 +113,8 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                         ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule = 
                                             ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md, null);
+
+                                        oTotalScore += oLegalModule.ItemScore;
 
                                         oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oLegalModule);
 
@@ -96,8 +149,6 @@ namespace ProveedoresOnLine.CalificationBatch
                     return true;
                 });
 
-                //Get Configuration Process
-
 
             }
             catch (Exception)
@@ -105,9 +156,6 @@ namespace ProveedoresOnLine.CalificationBatch
                 
                 throw;
             }
-            //Call Customers
-            //Get CongigCalificationProject
-            //Get Info Provider from
         }
 
         private void GetCustomer()
