@@ -58,5 +58,27 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
         {
             return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfo_ByProvider(vProviderPublicId);
         }
+
+        public static SanofiProcessLogModel SanofiProcessLog_Insert(SanofiProcessLogModel oLogModel) 
+        {
+            try
+            {
+                if (oLogModel != null)
+                {
+                    oLogModel.SanofiProcessLogId = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.SanofiProcessLog_Insert
+                        (
+                            oLogModel.ProviderPublicId,
+                            oLogModel.ProcessName,
+                            oLogModel.IsSucces,
+                            oLogModel.Enable
+                        );
+                }
+            }
+            catch (Exception err)
+            {                
+                throw err;
+            }
+            return oLogModel;
+        }
     }
 }

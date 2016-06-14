@@ -69,6 +69,7 @@
     <Compile Include="Models\SanofiComercialInfoModel.cs" />
     <Compile Include="Models\SanofiContableInfoModel.cs" />
     <Compile Include="Models\SanofiGeneralInfoModel.cs" />
+    <Compile Include="Models\SanofiProcessLogModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

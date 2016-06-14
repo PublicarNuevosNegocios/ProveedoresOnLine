@@ -200,5 +200,25 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+
+        public int SanofiProcessLog_Insert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vProcessName", ProcessName));
+            lstparams.Add(DataInstance.CreateTypedParameter("vIsSuccess", (IsSuccess == true) ? 1 : 0));
+            lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
+            
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "Sanofi_ProcessLog_Insert",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+            return Convert.ToInt32(response.ScalarResult);
+        }
     }
 }
