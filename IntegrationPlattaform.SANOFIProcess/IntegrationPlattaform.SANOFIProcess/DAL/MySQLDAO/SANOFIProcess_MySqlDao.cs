@@ -15,11 +15,11 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
     {
         private ADO.Interfaces.IADO DataInstance;
 
-        public SANOFIProcess_MySqlDao() 
+        public SANOFIProcess_MySqlDao()
         {
             DataInstance = new ADO.MYSQL.MySqlImplement(IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SettingsModuleName);
         }
-        
+
         public List<SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
@@ -31,7 +31,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
                 CommandText = "Sanofi_GetGeneralInfo",
                 CommandType = CommandType.StoredProcedure,
-                Parameters = lstparams,                
+                Parameters = lstparams,
             });
 
             List<SanofiGeneralInfoModel> oReturn = new List<SanofiGeneralInfoModel>();
@@ -80,9 +80,9 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                                 Email_P = sgig.Key.Email_P,
                                 Email_Cert = sgig.Key.Email_Cert,
                                 Comentaries = sgig.Key.Comentaries,
-                            }).ToList();                    
+                            }).ToList();
             }
-            return oReturn;                        
+            return oReturn;
         }
 
 
@@ -102,7 +102,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 
             List<SanofiComercialInfoModel> oReturn = new List<SanofiComercialInfoModel>();
             if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
-	        {
+            {
                 oReturn =
                 (
                     from sci in response.DataTableResult.AsEnumerable()
@@ -143,7 +143,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                             ComprasCod = scig.Key.ComprasCod
 
                         }).ToList();
-	        }
+            }
             return oReturn;
         }
 
@@ -164,7 +164,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
 
             List<SanofiContableInfoModel> oReturn = new List<SanofiContableInfoModel>();
 
-            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0 )
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
                     (
@@ -184,7 +184,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                           AssociatedCount = sconi.Field<string>("AssociatedCount")
                       }
                           into sconig
-                          select new SanofiContableInfoModel() 
+                          select new SanofiContableInfoModel()
                           {
                               CompanyId = sconig.Key.CompanyId,
                               CompanyName = sconig.Key.CompanyName,
@@ -210,7 +210,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             lstparams.Add(DataInstance.CreateTypedParameter("vProcessName", ProcessName));
             lstparams.Add(DataInstance.CreateTypedParameter("vIsSuccess", (IsSuccess == true) ? 1 : 0));
             lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
-            
+
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
@@ -219,6 +219,53 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                 Parameters = lstparams,
             });
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+
+        public List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vIsSuccess", (IsSuccess == true) ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_ProcessLog_Get",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<SanofiProcessLogModel> oReturn = new List<SanofiProcessLogModel>();
+
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (
+                        from spl in response.DataTableResult.AsEnumerable()
+                        where !spl.IsNull("SanofiProcessLogId")
+                        group spl by new
+                        {
+                            SanofiProcessLogId = spl.Field<int>("SanofiProcessLogId"),
+                            ProviderPublicId = spl.Field<string>("ProviderPublicId"),
+                            ProcessName = spl.Field<string>("ProcessName"),
+                            IsSuccess = spl.Field<UInt64>("IsSuccess") == 1 ? true : false,
+                            CreateDate = spl.Field<DateTime>("CreateDate"),
+                            LastModify = spl.Field<DateTime>("LastModify"),
+                            Enable = spl.Field<UInt64>("Enable") == 1 ? true : false
+                        }
+                            into splg
+                            select new SanofiProcessLogModel
+                            {
+                                SanofiProcessLogId = splg.Key.SanofiProcessLogId,
+                                ProviderPublicId = splg.Key.ProviderPublicId,
+                                ProcessName = splg.Key.ProcessName,
+                                IsSucces = splg.Key.IsSuccess,
+                                CreateDate = splg.Key.CreateDate,
+                                LastModify = splg.Key.LastModify
+                            }).ToList();
+            }
+            return oReturn;
         }
     }
 }

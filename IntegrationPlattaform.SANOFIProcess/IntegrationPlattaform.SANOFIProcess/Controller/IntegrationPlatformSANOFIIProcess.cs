@@ -80,5 +80,10 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
             return oLogModel;
         }
+
+        public static List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess) 
+        {
+            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetSanofiProcessLog(IsSuccess);
+        }
     }
 }

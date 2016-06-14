@@ -53,5 +53,13 @@ namespace IntegrationPlatform.SANOFIProcess.Test
 
             Assert.AreEqual(true, oReturn.SanofiProcessLogId > 0);
         }
+        [TestMethod]
+        public void GetSanofiProcessLog() 
+        {
+            List<SanofiProcessLogModel> oReturn = new List<SanofiProcessLogModel>();
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiProcessLog(false);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
     }
 }
