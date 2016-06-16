@@ -20,7 +20,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SettingsModuleName);
         }
 
-        public List<SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId)
+        public List<SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
@@ -86,7 +86,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
         }
 
 
-        public List<SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId)
+        public List<SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
@@ -116,6 +116,8 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                         NIF_Type = sci.Field<string>("NIF_Type"),
                         CountsGroupItemId = sci.Field<string>("CountsGroupItemId"),
                         CountsGroupItemName = sci.Field<string>("CountsGroupItemName"),
+                        Ramo = sci.Field<string>("Ramo"),
+                        PayCondition = sci.Field<string>("PayCondition"),
                         TaxClassId = sci.Field<string>("TaxClassId"),
                         TaxClassName = sci.Field<string>("TaxClassName"),
                         CurrencyId = sci.Field<string>("CurrencyId"),
@@ -131,16 +133,18 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                             CompanyName = scig.Key.CompanyName,
                             IdentificationNumber = scig.Key.IdentificationNumber,
                             FiscalNumber = scig.Key.FiscalNumber,
-                            NIF_Type = scig.Key.NIF_Type,
+                            NIFType = scig.Key.NIF_Type,
                             CountsGroupItemId = scig.Key.CountsGroupItemId,
                             CountsGroupItemName = scig.Key.CountsGroupItemName,
+                            Ramo = scig.Key.Ramo,
+                            PayCondition = scig.Key.PayCondition,
                             TaxClassId = scig.Key.TaxClassId,
                             TaxClassName = scig.Key.TaxClassName,
                             CurrencyId = scig.Key.CurrencyId,
                             CurrencyName = scig.Key.CurrencyName,
                             GroupSchemaProvider = scig.Key.GroupSchemaProvider,
                             ContactName = scig.Key.ContactName,
-                            ComprasCod = scig.Key.ComprasCod
+                            BuyCod = scig.Key.ComprasCod
 
                         }).ToList();
             }
@@ -148,7 +152,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
         }
 
 
-        public List<SanofiContableInfoModel> GetContableInfo_ByProvider(string vProviderPublicId)
+        public List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
@@ -202,7 +206,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
         }
 
 
-        public int SanofiProcessLog_Insert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
+        public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 

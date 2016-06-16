@@ -9,7 +9,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
     public class SanofiComercialInfoModel : SanofiGeneralInfoModel
     {                        
 
-        public string NIF_Type { get; set; }
+        public string NIFType { get; set; }
 
         public string CountsGroupItemId { get; set; }
 
@@ -23,10 +23,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public string CurrencyName { get; set; }
 
+        public string Ramo { get; set; }
+
+        public string PayCondition { get; set; }
+
         public int GroupSchemaProvider { get; set; }
 
         public string ContactName { get; set; }
 
-        public string ComprasCod { get; set; }
+        public string BuyCod { get; set; }
     }
 }

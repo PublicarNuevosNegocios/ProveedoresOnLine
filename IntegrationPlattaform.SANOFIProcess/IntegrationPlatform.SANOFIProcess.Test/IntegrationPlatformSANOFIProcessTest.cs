@@ -18,7 +18,7 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         public void GetInfo_ByProvider()
         {
             List<SanofiGeneralInfoModel> oReturn = new List<SanofiGeneralInfoModel>();
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetInfo_ByProvider("A24EB150");
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetInfoByProvider("A24EB150");
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
@@ -27,7 +27,7 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         public void GetComercialInfo_ByProvider()
         {
             List<SanofiComercialInfoModel> oReturn = new List<SanofiComercialInfoModel>();
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetComercialInfo_ByProvider("A24EB150");
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetComercialInfoByProvider("A24EB150");
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
