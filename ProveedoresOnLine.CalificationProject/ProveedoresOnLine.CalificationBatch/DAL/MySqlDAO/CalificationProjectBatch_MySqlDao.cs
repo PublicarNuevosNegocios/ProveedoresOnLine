@@ -203,9 +203,9 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #endregion
 
-        #region CalificationProjectBatchUtil
+        #region Calification Project Batch Util
 
-        #region LegalModule
+        #region Legal Module
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
@@ -285,6 +285,36 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             }
 
             return oReturn;
+        }
+         
+        #endregion
+
+        #region Financial Module
+
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFinancialInfoType", FinancialInfoType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new Company.Models.Util.GenericItemModel();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                
+            }
+
+            return oReturn;            
         }
 
         #endregion

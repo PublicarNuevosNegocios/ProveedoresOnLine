@@ -60,9 +60,9 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         #endregion
 
-        #region CalificationProjectBatchUtil
+        #region Calification Project Batch Util
 
-        #region LegalModule
+        #region Legal Module
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
@@ -71,9 +71,15 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         #endregion
 
+        #region Financial Module
+
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
+        {
+            return DataFactory.FinancialModuleInfo(CompanyPublicId, FinancialInfoType);
+        }
+        
         #endregion
 
-
-        
+        #endregion
     }
 }

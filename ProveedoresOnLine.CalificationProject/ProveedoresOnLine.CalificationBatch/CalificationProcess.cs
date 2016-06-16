@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ProveedoresOnLine.CalificationBatch
 {
@@ -22,8 +23,8 @@ namespace ProveedoresOnLine.CalificationBatch
 
                     oRelatedProvider.All(prv =>
                     {
-                         List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
-                            ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
+                        List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
+                           ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId, true);
 
                         ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel oCalificaitonProjectUpsert = new Models.CalificationProjectBatch.CalificationProjectBatchModel();
 
@@ -53,6 +54,8 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                     switch (cpib.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId)
                                     {
+                                        #region LegalModule
+
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
 
                                             ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
@@ -62,22 +65,42 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                             oCalificaitonProjectUpsert.CalificationProjectItemBatchModel = new List<Models.CalificationProjectBatch.CalificationProjectItemBatchModel>();
                                             oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oLegalModule);
-                                            //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oLegalModule);
 
                                             break;
+
+                                        #endregion
+
+                                        #region FinancialModule
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
                                             break;
+
+                                        #endregion
+
+                                        #region CommercialModule
+
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
 
                                             break;
+
+                                        #endregion
+
+                                        #region HSEQModule
+
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
 
                                             break;
+                                        
+                                        #endregion
+
+                                        #region BalanceModule
+
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
 
                                             break;
+
+                                        #endregion
                                     }
 
                                     return true;
@@ -109,9 +132,11 @@ namespace ProveedoresOnLine.CalificationBatch
                             {
                                 switch (md.CalificationProjectConfigItemType.ItemId)
                                 {
+                                    #region LegalModule
+
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
 
-                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule = 
+                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
                                             ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md, null);
 
                                         oTotalScore += oLegalModule.ItemScore;
@@ -120,18 +145,39 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                         break;
 
+                                    #endregion
+
+                                    #region FinancialModule
+
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
                                         break;
+
+                                    #endregion
+
+                                    #region CommercialModule
+
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
 
                                         break;
+
+                                    #endregion
+
+                                    #region HSEQModule
+
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
 
                                         break;
+
+                                    #endregion
+                                        
+                                    #region BalanceModule
+
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
 
                                         break;
+
+                                    #endregion
                                 }
 
                                 return true;
@@ -142,24 +188,51 @@ namespace ProveedoresOnLine.CalificationBatch
 
                         //Upsert
                         oCalificaitonProjectUpsert = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oCalificaitonProjectUpsert);
+                        
+                        LogFile("ProcesId:: " + oCalificaitonProjectUpsert.CalificationProjectId + " RelatedProviderPublicId:: " + prv.CompanyPublicId + " RelatedCustomerPublicId:: " + cnf.Company.CompanyPublicId);
 
                         return true;
                     });
 
                     return true;
                 });
-
-
             }
             catch (Exception)
             {
-                
-                throw;
+                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
         }
 
         private void GetCustomer()
         {
         }
+
+        #region Log File
+
+        public static void LogFile(string LogMessage)
+        {
+            try
+            {
+                //get file Log
+                //string LogFile = AppDomain.CurrentDomain.BaseDirectory.Trim().TrimEnd(new char[] { '\\' }) + "\\" +
+                //System.Configuration.ConfigurationManager.AppSettings[ProveedoresOnLine.CalificationBatch.Models.Constants.C_AppSettings_LogFile].Trim().TrimEnd(new char[] { '\\' });
+
+                string LogFile = "D:\\UploadLog\\";
+
+                if (!System.IO.Directory.Exists(LogFile))
+                    System.IO.Directory.CreateDirectory(LogFile);
+
+                LogFile += "\\" + "Log_CalificationProcess_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+
+                using (System.IO.StreamWriter sw = System.IO.File.AppendText(LogFile))
+                {
+                    sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "::" + LogMessage);
+                    sw.Close();
+                }
+            }
+            catch { }
+        }
+
+        #endregion
     }
 }

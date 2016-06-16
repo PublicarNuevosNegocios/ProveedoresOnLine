@@ -58,6 +58,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify > cpitinf.LastModify).All(cpitinf =>
                     {
+                        //Change function
                         oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, cpitinf.CalificationProjectConfigItemInfoModel.Question);
 
                         switch (cpitinf.CalificationProjectConfigItemInfoModel.Rule.ItemId)
@@ -68,7 +69,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(oLegalProviderInfo.ItemInfo.FirstOrDefault().Value);
 
-                                if (oIntValue >= 0)
+                                if (oIntValue > 0)
                                 {
                                     LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
@@ -1390,11 +1391,12 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         return true;
                     });
                 }
+
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas legales del proveedor " + CompanyPublicId);
             }
             catch (Exception)
             {
-
-                throw;
+                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score
