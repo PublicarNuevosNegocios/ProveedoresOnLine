@@ -15,10 +15,10 @@
                 <div class="col-sm-4 text-center"><a href="@Url.Action(MVC.Provider.ActionNames.RPGeneral, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Descargar</a></div>
             }
 
-            @if (MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
+            @*@if (MarketPlace.Models.General.SessionModel.CurrentUserModules().Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
             {
                 <div id="RP_ComparativeReport POMPExcelIcon2LeftAlign" class="col-sm-4 text-center POMPExcelIcon1LeftAlign"><a href="javascript:Provider_SearchObject.ReportCompare()"><img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.MP_Report_ExcelReportIcon].Value" /><br />Comparativo</a></div>
-            }       
+            }*@       
         </div>
         <br />
     }

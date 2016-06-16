@@ -9,9 +9,9 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
 {
     public class CalificationProjectBatch
     {
-        #region CalificationBatch
+        #region Calification Batch
 
-        public static List<Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable)
+        public static List<CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable)
         {
             return DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProject_GetByCustomer(vCustomerPublicid,vProviderPublicId,Enable);
         }
@@ -161,13 +161,22 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
 
         #endregion
 
-        #region CalificationProjectBarchUtil
+        #region Calification Project Barch Util
 
-        #region LegalModule
+        #region Legal Module
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
             return DAL.Controller.CalificationProjectBatchDataController.Instance.LegalModuleInfo(CompanyPublicId, LegalInfoType);
+        }
+
+        #endregion
+
+        #region Financial Module
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.FinancialModuleInfo(CompanyPublicId, FinancialInfoType);
         }
 
         #endregion

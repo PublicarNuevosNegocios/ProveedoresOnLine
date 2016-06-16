@@ -203,11 +203,11 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #endregion
 
-        #region CalificationProjectBatchUtil
+        #region Calification Project Batch Util
 
-        #region LegalModule
+        #region Legal Module
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -222,7 +222,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 Parameters = lstParams,
             });
 
-            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new Company.Models.Util.GenericItemModel();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
@@ -281,10 +281,96 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                          LastModify = linfg.Key.LegalInfoLastModify,
                                          CreateDate = linfg.Key.LegalInfoCreateDate,
                                      }).ToList(),
-                         }).FirstOrDefault();
+                         }).ToList();
             }
 
             return oReturn;
+        }
+         
+        #endregion
+
+        #region Financial Module
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFinancialInfoType", FinancialInfoType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CPB_GetFinancialByCompany",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from f in response.DataTableResult.AsEnumerable()
+                     where !f.IsNull("FinancialId")
+                     group f by new
+                     {
+                         FinancialId = f.Field<int>("FinancialId"),
+                         FinancialTypeId = f.Field<int>("FinancialTypeId"),
+                         FinancialTypeName = f.Field<string>("FinancialTypeName"),
+                         FinancialName = f.Field<string>("FinancialName"),
+                         FinancialEnable = f.Field<UInt64>("FinancialEnable") == 1 ? true : false,
+                         FinancialLastModify = f.Field<DateTime>("FinancialLastModify"),
+                         FinancialCreateDate = f.Field<DateTime>("FinancialCreateDate"),
+                     }
+                         into fg
+                         select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                         {
+                             ItemId = fg.Key.FinancialId,
+                             ItemName = fg.Key.FinancialName,
+                             ItemType = new Company.Models.Util.CatalogModel()
+                             {
+                                 ItemId = fg.Key.FinancialTypeId,
+                                 ItemName = fg.Key.FinancialTypeName,
+                             },
+                             Enable = fg.Key.FinancialEnable,
+                             LastModify = fg.Key.FinancialLastModify,
+                             CreateDate = fg.Key.FinancialCreateDate,
+                             ItemInfo =
+                                (from finf in response.DataTableResult.AsEnumerable()
+                                 where !finf.IsNull("FinancialInfoId") &&
+                                        finf.Field<int>("FinancialId") == fg.Key.FinancialId
+                                 group finf by new
+                                 {
+                                     FinancialInfoId = finf.Field<int>("FinancialInfoId"),
+                                     FinancialInfoTypeId = finf.Field<int>("FinancialInfoTypeId"),
+                                     FinancialInfoTypeName = finf.Field<string>("FinancialInfoTypeName"),
+                                     FinancialInfoValue = finf.Field<string>("FinancialInfoValue"),
+                                     FinancialInfoLargeValue = finf.Field<string>("FinancialInfoLargeValue"),
+                                     FinancialInfoEnable = finf.Field<UInt64>("FinancialInfoEnable") == 1 ? true : false,
+                                     FinancialInfoLastModify = finf.Field<DateTime>("FinancialInfoLastModify"),
+                                     FinancialInfoCreateDate = finf.Field<DateTime>("FinancialInfoCreateDate"),
+                                 }
+                                     into finfg
+                                     select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                     {
+                                         ItemInfoId = finfg.Key.FinancialInfoId,
+                                         ItemInfoType = new Company.Models.Util.CatalogModel()
+                                         {
+                                             ItemId = finfg.Key.FinancialInfoTypeId,
+                                             ItemName = finfg.Key.FinancialInfoTypeName,
+                                         },
+                                         Value = finfg.Key.FinancialInfoValue,
+                                         LargeValue = finfg.Key.FinancialInfoLargeValue,
+                                         Enable = finfg.Key.FinancialInfoEnable,
+                                         LastModify = finfg.Key.FinancialInfoLastModify,
+                                         CreateDate = finfg.Key.FinancialInfoCreateDate,
+                                     }).ToList(),
+                         }).ToList();
+            }
+
+            return oReturn;            
         }
 
         #endregion

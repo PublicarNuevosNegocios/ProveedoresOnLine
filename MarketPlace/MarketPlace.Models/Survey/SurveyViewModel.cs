@@ -194,16 +194,15 @@ namespace MarketPlace.Models.Survey
         public string SurveyStartDate
         {
             get
-            {
-                List<GenericItemInfoModel> oAssignedAreas = RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.CurrentArea).Select(inf => inf).ToList();
-                
+            {   
                 string StartDate = string.Empty;
-                if (oAssignedAreas.Count > 0)
-                {
-                    StartDate = oAssignedAreas.OrderByDescending(x => x.LastModify).FirstOrDefault().LastModify.ToShortDateString();
-                }
 
-                return StartDate != null ? StartDate : string.Empty;
+
+                StartDate = !string.IsNullOrWhiteSpace(RelatedSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.StartDate)
+                                                .Select(x => x.Value).FirstOrDefault())
+                                                ? RelatedSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.StartDate).
+                                                Select(x => x.Value).FirstOrDefault() : string.Empty;
+                return StartDate;
             }
         }
 
@@ -223,15 +222,14 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                List<GenericItemInfoModel> oAssignedAreas = RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.CurrentArea).Select(inf => inf).ToList();
+                string EndDateDate = string.Empty;
 
-                string EndDate = string.Empty;
-                if (oAssignedAreas.Count > 0)
-                {
-                    EndDate = oAssignedAreas.OrderByDescending(x => x.LastModify).LastOrDefault().LastModify.ToShortDateString();
-                }
 
-                return EndDate != null ? EndDate : string.Empty;
+                EndDateDate = !string.IsNullOrWhiteSpace(RelatedSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.EndDate)
+                                                .Select(x => x.Value).FirstOrDefault())
+                                                ? RelatedSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.EndDate).
+                                                Select(x => x.Value).FirstOrDefault() : string.Empty;
+                return EndDateDate;
             }
         }
 

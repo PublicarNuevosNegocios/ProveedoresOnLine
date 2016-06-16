@@ -17,11 +17,22 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
         int CalificationProjectItemUpsert(int vCalificationProjectItemId, int vCalificationProjectId, int vCalificationProjectConfigItemId, int vItemScore, bool vEnable);
 
         int CalificationProjectItemInfoUpsert(int vCalificationProjectItemInfoId, int vCalificationProjectItemId, int vCalificationProjectConfigItemInfoId, int vItemInfoScore, bool vEnable);
+        
         #endregion
 
-        #region CalificationProjectBatchUtil
+        #region Calification Project Batch Util
 
-        ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType);
+        #region Legal Module Info
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalModuleInfo(string CompanyPublicId, int LegalInfoType);
+
+        #endregion
+
+        #region Financial Module Info
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType);
+
+        #endregion
 
         #endregion
 
