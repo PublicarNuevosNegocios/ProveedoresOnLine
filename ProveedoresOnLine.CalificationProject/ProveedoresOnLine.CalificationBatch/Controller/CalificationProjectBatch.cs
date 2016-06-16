@@ -174,7 +174,7 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
 
         #region Financial Module
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
         {
             return DAL.Controller.CalificationProjectBatchDataController.Instance.FinancialModuleInfo(CompanyPublicId, FinancialInfoType);
         }

@@ -183,6 +183,17 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
         #endregion
 
+        #region Financial Module
+
+        [TestMethod]
+        public void FinancialModuleInfo()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.FinancialModuleInfo("1BD9AD1B", 502002);
+        }
+
+        #endregion
+
         #endregion
     }
 }

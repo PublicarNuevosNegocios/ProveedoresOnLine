@@ -73,7 +73,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         #region Financial Module
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType)
         {
             return DataFactory.FinancialModuleInfo(CompanyPublicId, FinancialInfoType);
         }

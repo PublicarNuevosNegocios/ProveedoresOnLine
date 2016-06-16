@@ -30,7 +30,7 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
 
         #region Financial Module Info
 
-        ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType);
 
         #endregion
 
