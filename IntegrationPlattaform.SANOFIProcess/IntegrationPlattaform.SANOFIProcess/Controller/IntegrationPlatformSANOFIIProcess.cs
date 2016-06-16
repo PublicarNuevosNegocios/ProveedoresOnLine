@@ -58,95 +58,120 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
         public static bool GeneralInfoProcess(List<SanofiGeneralInfoModel> oGeneralInfoModel)
         {
-            string strFolder = IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[IntegrationPlattaform.SANOFIProcess.Models.Constants.C_Settings_File_TempDirectory].Value;
-
-            if (!System.IO.Directory.Exists(strFolder))
-                System.IO.Directory.CreateDirectory(strFolder);
-
-            //Write the document
-            // Set the file name and get the output directory
-            string fileName = "SANOFI_GeneralInfo_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmss") + ".csv";
-
-            //Write Document
-            StringBuilder Header = new StringBuilder();
-            StringBuilder data = new StringBuilder();
-            string strSep = "|";
-
-            oGeneralInfoModel.All(x =>
+            try
             {
-                #region Name3 and Name4 Field
-                string NaturalName = "";
-                string NaturalLastName = "";
+                string strFolder = IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance
+                                    [IntegrationPlattaform.SANOFIProcess.Models.Constants.C_Settings_File_TempDirectory].Value;
 
-                if (!string.IsNullOrWhiteSpace(x.NaturalPersonName))
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                //Write the document
+                // Set the file name and get the output directory
+                string fileName = "SANOFI_GeneralInfo_" + DateTime.Now.ToString("yyyy_MM_dd_hhmmss") + ".csv";
+
+                //Write Document
+                StringBuilder Header = new StringBuilder();
+                StringBuilder data = new StringBuilder();
+                string strSep = "|";
+
+                #region Write the file
+                oGeneralInfoModel.All(x =>
                 {
-                    string[] words = x.NaturalPersonName.Split(' ');
-                    List<string> NameWords = new List<string>();
-                    List<string> LastNameWords = new List<string>();
-                    int iN = 1;
-                    int iLN = 1;
-                    words.All(na =>
-                    {
-                        if (iN <= 2)
-                            NameWords.Add(na);
-                        iN++;
-                        return true;
-                    });
-                    words.All(na =>
-                    {
-                        if (iLN >= 2)
-                            LastNameWords.Add(na);
-                        iLN++;
-                        return true;
-                    });
-                    NaturalName = string.Join(", ", NameWords);
-                    NaturalLastName = string.Join(", ", LastNameWords);
+                    #region Name3 and Name4 Field
+                    string NaturalName = "";
+                    string NaturalLastName = "";
 
-                }
+                    if (!string.IsNullOrWhiteSpace(x.NaturalPersonName))
+                    {
+                        string[] words = x.NaturalPersonName.Split(' ');
+                        List<string> NameWords = new List<string>();
+                        List<string> LastNameWords = new List<string>();
+                        int iN = 1;
+                        int iLN = 1;
+                        words.All(na =>
+                        {
+                            if (iN <= 2)
+                                NameWords.Add(na);
+                            iN++;
+                            return true;
+                        });
+                        words.All(na =>
+                        {
+                            if (iLN >= 2)
+                                LastNameWords.Add(na);
+                            iLN++;
+                            return true;
+                        });
+                        NaturalName = string.Join(", ", NameWords);
+                        NaturalLastName = string.Join(", ", LastNameWords);
+
+                    }
+                    #endregion
+
+                    data.Append(
+                      x.CompanyName + strSep +
+                      x.ComercialName + strSep +
+                     NaturalName + strSep +
+                     NaturalLastName + strSep +
+                     x.IdentificationNumber + strSep +
+                     x.FiscalNumber + strSep +
+                     x.Address + strSep +
+                     x.City + strSep +
+                     x.Region + strSep +
+                     x.Country + strSep +
+                     string.Empty + strSep +
+                     x.Fax + strSep +
+                     x.Email_OC + strSep +
+                     x.Email_P + strSep +
+                     x.Email_Cert + strSep +
+                     x.Comentaries.ToShortDateString() + strSep);
+
+                    return true;
+                });
+
+                Header.AppendLine
+                       ("\"" + "NOMBRE1" + "\"" + strSep +
+                       "NOMBRE2" + strSep +
+                       "NOMBRE3" + strSep +
+                       "NOMBRE4" + strSep +
+                       "CONCEPTO DE BUSQUEDA" + strSep +
+                       "NUMERO DE IDENTIFICACION FISCAL" + strSep +
+                       "CALLE NUMERO" + strSep +
+                       "POBLACION" + strSep +
+                       "REGION" + strSep +
+                       "PAIS" + strSep +
+                       "TELEFONO" + strSep +
+                       "FAX" + strSep +
+                       "EMAIL OC" + strSep +
+                       "EMAIL PAGOS" + strSep +
+                       "EMAIL CERTIFICADOS RETENCION" + strSep +
+                       "COMENTARIOS" + strSep + data);
+
+                byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
+                File.WriteAllBytes(strFolder + fileName, buffer);
                 #endregion
 
-                data.Append(
-                  x.CompanyName + strSep +
-                  x.ComercialName + strSep +
-                 NaturalName + strSep +
-                 NaturalLastName + strSep +
-                 x.IdentificationNumber + strSep +
-                 x.FiscalNumber + strSep +
-                 x.Address + strSep +
-                 x.City + strSep +
-                 x.Region + strSep +
-                 x.Country + strSep +
-                 string.Empty + strSep +
-                 x.Fax + strSep +
-                 x.Email_OC + strSep +
-                 x.Email_P + strSep +
-                 x.Email_Cert + strSep +
-                 x.Comentaries.ToShortDateString() + strSep);
+                //Send to S3
+                string oFileCompleteName = strFolder + fileName;
+                //UpLoad file to s3
+                string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile(oFileCompleteName,
+                    IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[IntegrationPlattaform.SANOFIProcess.Models.Constants.C_Settings_File_ExcelDirectory].Value);
 
-                return true;
-            });
+                SanofiProcessLogModel oGeneralProcess = new SanofiProcessLogModel()
+                {
+                    ProcessName = "GeneralInfoFile",
+                    
+                };
 
-            Header.AppendLine
-                   ("\"" + "NOMBRE1" + "\"" + strSep +
-                   "NOMBRE2" + strSep +
-                   "NOMBRE3" + strSep +
-                   "NOMBRE4" + strSep +
-                   "CONCEPTO DE BUSQUEDA" + strSep +
-                   "NUMERO DE IDENTIFICACION FISCAL" + strSep +
-                   "CALLE NUMERO" + strSep +
-                   "POBLACION" + strSep +
-                   "REGION" + strSep +
-                   "PAIS" + strSep +
-                   "TELEFONO" + strSep +
-                   "FAX" + strSep +
-                   "EMAIL OC" + strSep +
-                   "EMAIL PAGOS" + strSep +
-                   "EMAIL CERTIFICADOS RETENCION" + strSep +
-                   "COMENTARIOS" + strSep + data);
+            }
+            catch (Exception ex)
+            {
+                //todo: Save log process false 
+                return false;
+            }          
 
-            byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
-            File.WriteAllBytes(strFolder + fileName, buffer);
-
+            //Save Log process true
             return true;
         }
 

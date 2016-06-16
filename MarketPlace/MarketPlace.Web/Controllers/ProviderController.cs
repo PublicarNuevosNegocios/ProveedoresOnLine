@@ -4346,6 +4346,28 @@ namespace MarketPlace.Web.Controllers
                             ItemInfoId = 0,
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
+                                ItemId = (int)enumSurveyInfoType.StartDate
+                            },
+                            Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.StartDate).Select(x => x.Value).FirstOrDefault(),
+                            Enable = true,
+                        });
+
+                        it.SurveyInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumSurveyInfoType.EndDate
+                            },
+                            Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.EndDate).Select(x => x.Value).FirstOrDefault(),
+                            Enable = true,
+                        });
+
+                        it.SurveyInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
                                 ItemId = (int)enumSurveyInfoType.IssueDate
                             },
                             Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(x => x.Value).FirstOrDefault(),
