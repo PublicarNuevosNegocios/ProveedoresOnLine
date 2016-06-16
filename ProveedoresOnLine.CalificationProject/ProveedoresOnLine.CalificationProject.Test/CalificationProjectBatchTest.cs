@@ -175,10 +175,10 @@ namespace ProveedoresOnLine.CalificationProject.Test
         [TestMethod]
         public void LegalModuleInfo()
         {
-            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn =
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo("1351D3F3", 603001);
 
-            Assert.AreEqual(true, oReturn != null && oReturn.ItemInfo != null && oReturn.ItemInfo.Count > 0);
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
 
         #endregion

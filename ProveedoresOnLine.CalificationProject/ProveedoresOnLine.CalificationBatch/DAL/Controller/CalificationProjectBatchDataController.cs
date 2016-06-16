@@ -64,7 +64,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         #region Legal Module
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
             return DataFactory.LegalModuleInfo(CompanyPublicId, LegalInfoType);
         }

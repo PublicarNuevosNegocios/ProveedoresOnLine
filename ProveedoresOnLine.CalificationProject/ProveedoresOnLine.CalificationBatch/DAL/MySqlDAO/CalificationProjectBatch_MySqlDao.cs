@@ -207,7 +207,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #region Legal Module
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalModuleInfo(string CompanyPublicId, int LegalInfoType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -222,7 +222,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 Parameters = lstParams,
             });
 
-            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new Company.Models.Util.GenericItemModel();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
@@ -281,7 +281,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                          LastModify = linfg.Key.LegalInfoLastModify,
                                          CreateDate = linfg.Key.LegalInfoCreateDate,
                                      }).ToList(),
-                         }).FirstOrDefault();
+                         }).ToList();
             }
 
             return oReturn;
