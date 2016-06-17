@@ -207,6 +207,29 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
         #endregion
 
+        #region Commercial Module
+
+        [TestMethod]
+        public void CommercialModule() 
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo("1351D3F3", 302001);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        #endregion
+
+        #region HSEQ Module
+
+        public void CertificationModule() 
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo("1351D3F3",704001);
+                
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        #endregion
+
         #endregion
     }
 }
