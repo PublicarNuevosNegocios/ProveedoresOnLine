@@ -80,6 +80,29 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         
         #endregion
 
+        #region Commercial Module
+
+        public List<Company.Models.Util.GenericItemModel> CommercialModuleInfo(string CompanyPublicId, int CommercialInfoType)
+        {
+            return DataFactory.CommercialModuleInfo(CompanyPublicId, CommercialInfoType);
+        }
+
         #endregion
+
+        #region HSEQ Module
+
+        public List<Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType)
+        {
+            return DataFactory.CertificationModuleInfo(CompanyPublicId, CertificationInfoType);
+        }
+
+        #endregion
+
+        #endregion
+
+
+        
+
+        
     }
 }

@@ -181,6 +181,21 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
 
         #endregion
 
+        #region Commercial Module
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CommercialModuleInfo(string CompanyPublicId, int CommercialInfoType) 
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.CommercialModuleInfo(CompanyPublicId,CommercialInfoType);
+        }
+
+        #endregion
+
+        #region HSEQ Module
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType) 
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.CertificationModuleInfo(CompanyPublicId, CertificationInfoType);
+        }
+        #endregion
+
         #endregion
     }
 }
