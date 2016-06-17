@@ -44,6 +44,7 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
         #region HSEQ Module Info
 
         List<GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType);
+
         #endregion
 
         #region Balance Module Info

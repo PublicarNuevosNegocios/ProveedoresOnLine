@@ -220,7 +220,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
         #endregion
 
         #region HSEQ Module
-
+        [TestMethod]
         public void CertificationModule() 
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo("1351D3F3",704001);
