@@ -136,7 +136,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue > Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue > Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                         {
                                                             BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
@@ -197,7 +197,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue < Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue < Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                         {
                                                             BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
@@ -258,7 +258,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue >= Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue >= Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                         {
                                                             BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
@@ -319,7 +319,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue <= Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue <= Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                         {
                                                             BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
@@ -380,7 +380,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue == Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue == Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                         {
                                                             BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
@@ -444,8 +444,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         string[] oValue = cpitinf.CalificationProjectConfigItemInfoModel.Value.Split(',');
 
-                                                        minValue = Convert.ToInt32(oValue[0]);
-                                                        maxValue = Convert.ToInt32(oValue[1]);
+                                                        minValue = Convert.ToDecimal(oValue[0]);
+                                                        maxValue = Convert.ToDecimal(oValue[1]);
 
                                                         oDecimalValue = bs.Value;
 
@@ -622,7 +622,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             oDecimalValue = bs.Value;
 
-                                                            if (oDecimalValue > Convert.ToInt32(cpitinf.Value))
+                                                            if (oDecimalValue > Convert.ToDecimal(cpitinf.Value))
                                                             {
                                                                 BalanceScore = Convert.ToInt32(cpitinf.Score);
 
@@ -702,7 +702,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             oDecimalValue = bs.Value;
 
-                                                            if (oDecimalValue < Convert.ToInt32(cpitinf.Value))
+                                                            if (oDecimalValue < Convert.ToDecimal(cpitinf.Value))
                                                             {
                                                                 BalanceScore = Convert.ToInt32(cpitinf.Score);
 
@@ -781,7 +781,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             oDecimalValue = bs.Value;
 
-                                                            if (oDecimalValue >= Convert.ToInt32(cpitinf.Value))
+                                                            if (oDecimalValue >= Convert.ToDecimal(cpitinf.Value))
                                                             {
                                                                 BalanceScore = Convert.ToInt32(cpitinf.Score);
 
@@ -860,7 +860,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             oDecimalValue = bs.Value;
 
-                                                            if (oDecimalValue <= Convert.ToInt32(cpitinf.Value))
+                                                            if (oDecimalValue <= Convert.ToDecimal(cpitinf.Value))
                                                             {
                                                                 BalanceScore = Convert.ToInt32(cpitinf.Score);
 
@@ -939,7 +939,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             oDecimalValue = bs.Value;
 
-                                                            if (oDecimalValue == Convert.ToInt32(cpitinf.Value))
+                                                            if (oDecimalValue == Convert.ToDecimal(cpitinf.Value))
                                                             {
                                                                 BalanceScore = Convert.ToInt32(cpitinf.Score);
 
