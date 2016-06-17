@@ -37,13 +37,13 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
 
         #region Commercial Module Info
 
-        list<GenericItemModel> CommercialModuleInfo(string CompanyPublicId, string CommercialInfoType);
+        List<GenericItemModel> CommercialModuleInfo(string CompanyPublicId, int CommercialInfoType);
 
         #endregion
 
         #region HSEQ Module Info
 
-        List<GenericItemModel> CertificationModuleInfo(string CompanyPublicId, string CertificationInfoType);
+        List<GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType);
         #endregion
 
         #endregion

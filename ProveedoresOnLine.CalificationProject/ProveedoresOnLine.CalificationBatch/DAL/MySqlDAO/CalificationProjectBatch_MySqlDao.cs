@@ -377,7 +377,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #region Commercial Module
 
-        public list<Company.Models.Util.GenericItemModel> CommercialModuleInfo(string CompanyPublicId, string CommercialInfoType)
+        public List<Company.Models.Util.GenericItemModel> CommercialModuleInfo(string CompanyPublicId, int CommercialInfoType)
         {
             List<IDbDataParameter> lstparams = new List<IDbDataParameter>();
 
@@ -389,7 +389,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
                 CommandText = "MP_CPB_GetCommercialByCompany",
                 CommandType = CommandType.StoredProcedure,
-                Parameters = lstParams,
+                Parameters = lstparams,
             });
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
@@ -430,9 +430,9 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                     {
                                         CommercialInfoId = cialinf.Field<int>("CommercialInfoId"),
                                         CommercialInfoTypeId = cialinf.Field<int>("CommercialItemInfoTypeId"),
-                                        CommerciallInfoTypeName = cialinf.Field<string>("CommercialItemInfoTypeName"),                                        
-                                        CommercialInfoLargeValue = cial.Field<string>("CommercialInfoLargeValue"),
-                                        CommercialInfoValue = cial.Field<string>("CommercialInfoValue"),
+                                        CommerciallInfoTypeName = cialinf.Field<string>("CommercialItemInfoTypeName"),
+                                        CommercialInfoLargeValue = cialinf.Field<string>("CommercialInfoLargeValue"),
+                                        CommercialInfoValue = cialinf.Field<string>("CommercialInfoValue"),
                                         CommercialInfoEnable = cialinf.Field<UInt64>("CommercialInfoEnable") == 1 ? true : false,
                                         CommercialInfoLastModify = cialinf.Field<DateTime>("CommercialInfoLastModify"),
                                         CommercialInfoCreateDate = cialinf.Field<DateTime>("CommercialInfoCreateDate"),
@@ -444,7 +444,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                             ItemInfoType = new Company.Models.Util.CatalogModel()
                                             {
                                                 ItemId = cialinfg.Key.CommercialInfoTypeId,
-                                                ItemName = cialinfg.Key.CommercialInfoTypeName,
+                                                ItemName = cialinfg.Key.CommerciallInfoTypeName,
                                             },
                                             Value = cialinfg.Key.CommercialInfoValue,
                                             LargeValue = cialinfg.Key.CommercialInfoLargeValue,
@@ -461,7 +461,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
        
         #region HSEQ Module
 
-        public List<Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, string CertificationInfoType)
+        public List<Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType)
         {
             List<IDbDataParameter> lstparams = new List<IDbDataParameter>();
 
@@ -473,7 +473,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
                 CommandText = "MP_CPB_GetCertificationByCompany",
                 CommandType = CommandType.StoredProcedure,
-                Parameters = lstParams,
+                Parameters = lstparams,
             });
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
@@ -515,26 +515,26 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                         CertificationInfoId = certinf.Field<int>("CertificationInfoId"),
                                         CertificationItemInfoTypeId = certinf.Field<int>("CertificationItemInfoTypeId"),
                                         CertificationItemInfoTypeName = certinf.Field<string>("CertificationItemInfoTypeName"),
-                                        CertificationInfoLargeValue = cial.Field<string>("CertificationInfoLargeValue"),
-                                        CertificationInfoValue = cial.Field<string>("CertificationInfoValue"),
+                                        CertificationInfoLargeValue = certinf.Field<string>("CertificationInfoLargeValue"),
+                                        CertificationInfoValue = certinf.Field<string>("CertificationInfoValue"),
                                         CertificationInfoEnable = certinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
                                         CertificationInfoLastModify = certinf.Field<DateTime>("CertificationInfoLastModify"),
                                         CertificationInfoCreateDate = certinf.Field<DateTime>("CertificationInfoCreateDate"),
                                     }
-                                        into cialinfg
+                                        into certingg
                                         select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
-                                            ItemInfoId = cialinfg.Key.CertificationInfoId,
+                                            ItemInfoId = certingg.Key.CertificationInfoId,
                                             ItemInfoType = new Company.Models.Util.CatalogModel()
                                             {
-                                                ItemId = cialinfg.Key.CertificationItemInfoTypeId,
-                                                ItemName = cialinfg.Key.CertificationItemInfoTypeName,
+                                                ItemId = certingg.Key.CertificationItemInfoTypeId,
+                                                ItemName = certingg.Key.CertificationItemInfoTypeName,
                                             },
-                                            Value = cialinfg.Key.CertificationInfoValue,
-                                            LargeValue = cialinfg.Key.CertificationInfoLargeValue,
-                                            Enable = cialinfg.Key.CertificationInfoEnable,
-                                            LastModify = cialinfg.Key.CertificationInfoLastModify,
-                                            CreateDate = cialinfg.Key.CertificationInfoCreateDate,
+                                            Value = certingg.Key.CertificationInfoValue,
+                                            LargeValue = certingg.Key.CertificationInfoLargeValue,
+                                            Enable = certingg.Key.CertificationInfoEnable,
+                                            LastModify = certingg.Key.CertificationInfoLastModify,
+                                            CreateDate = certingg.Key.CertificationInfoCreateDate,
                                         }).ToList(),
                             }).ToList();
             }
