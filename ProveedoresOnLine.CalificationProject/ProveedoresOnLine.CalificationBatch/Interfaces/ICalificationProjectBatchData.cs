@@ -46,6 +46,12 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
         List<GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType);
         #endregion
 
+        #region Balance Module Info
+
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> BalanceModuleInfo(string CompanyPublicId, int BalanceAccount);
+
+        #endregion
+
         #endregion
 
     }

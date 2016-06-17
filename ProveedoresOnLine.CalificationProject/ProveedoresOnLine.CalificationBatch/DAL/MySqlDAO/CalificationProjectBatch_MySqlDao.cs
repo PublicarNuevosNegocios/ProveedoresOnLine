@@ -286,7 +286,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
             return oReturn;
         }
-         
+
         #endregion
 
         #region Financial Module
@@ -370,7 +370,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                          }).ToList();
             }
 
-            return oReturn;            
+            return oReturn;
         }
 
         #endregion
@@ -395,18 +395,18 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
 
             if (response.DataTableResult != null &&
-                response.DataTableResult.Rows.Count > 0) 
+                response.DataTableResult.Rows.Count > 0)
             {
-                oReturn = 
+                oReturn =
                     (
                         from cial in response.DataTableResult.AsEnumerable()
                         where !cial.IsNull("CommercialId")
-                        group cial by new 
+                        group cial by new
                         {
                             CommercialId = cial.Field<int>("ComercialId"),
                             CommercialTypeId = cial.Field<int>("CommercialTypeId"),
                             CommercialTypeName = cial.Field<string>("CommercialTypeName"),
-                            CommercialEnable = cial.Field<UInt64>("CommercialEnable") == 1? true : false,
+                            CommercialEnable = cial.Field<UInt64>("CommercialEnable") == 1 ? true : false,
                             CommercialLastModify = cial.Field<DateTime>("CommercialLastModify"),
                             CommercialCreateDate = cial.Field<DateTime>("CommercialCreateDate"),
                         }
@@ -452,13 +452,13 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                             LastModify = cialinfg.Key.CommercialInfoLastModify,
                                             CreateDate = cialinfg.Key.CommercialInfoCreateDate,
                                         }).ToList(),
-                            }).ToList();                    
+                            }).ToList();
             }
             return oReturn;
         }
 
         #endregion
-       
+
         #region HSEQ Module
 
         public List<Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, int CertificationInfoType)
@@ -543,11 +543,88 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #endregion
 
+        #region Balance Module
+
+        public List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> BalanceModuleInfo(string CompanyPublicId, int BalanceAccount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vBalanceAccount", BalanceAccount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CPB_GetBalanceByCompany",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from f in response.DataTableResult.AsEnumerable()
+                     where !f.IsNull("FinancialId")
+                     group f by new
+                     {
+                         FinancialId = f.Field<int>("FinancialId"),
+                         FinancialTypeId = f.Field<int>("FinancialTypeId"),
+                         FinancialTypeName = f.Field<string>("FinancialTypeName"),
+                         FinancialEnable = f.Field<UInt64>("FinancialEnable") == 1 ? true : false,
+                         FinancialLastModify = f.Field<DateTime>("FinancialLastModify"),
+                         FinancialCreateDate = f.Field<DateTime>("FinancialCreateDate"),
+                     }
+                         into fg
+                         select new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel()
+                         {
+                             ItemId = fg.Key.FinancialId,
+                             ItemType = new Company.Models.Util.CatalogModel()
+                             {
+                                 ItemId = fg.Key.FinancialTypeId,
+                                 ItemName = fg.Key.FinancialTypeName,
+                             },
+                             Enable = fg.Key.FinancialEnable,
+                             LastModify = fg.Key.FinancialLastModify,
+                             CreateDate = fg.Key.FinancialCreateDate,
+                             BalanceSheetInfo =
+                                (from bs in response.DataTableResult.AsEnumerable()
+                                 where !bs.IsNull("BalanceSheetId") &&
+                                        bs.Field<int>("FinancialId") == fg.Key.FinancialId
+                                 group bs by new
+                                 {
+                                     BalanceSheetId = bs.Field<int>("BalanceSheetId"),
+                                     AccountId = bs.Field<int>("AccountId"),
+                                     AccountName = bs.Field<string>("AccountName"),
+                                     BalanceValue = bs.Field<decimal>("BalanceValue"),
+                                     BalanceEnable = bs.Field<UInt64>("BalanceEnable") == 1 ? true : false,
+                                     BalanceLastModify = bs.Field<DateTime>("BalanceLastModify"),
+                                     BalanceCreateDate = bs.Field<DateTime>("BalanceCreateDate"),
+                                 }
+                                     into bsg
+                                     select new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                     {
+                                         BalanceSheetId = bsg.Key.BalanceSheetId,
+                                         RelatedAccount = new Company.Models.Util.GenericItemModel()
+                                         {
+                                             ItemId = bsg.Key.AccountId,
+                                             ItemName = bsg.Key.AccountName,
+                                         },
+                                         Value = bsg.Key.BalanceValue,
+                                         Enable = bsg.Key.BalanceEnable,
+                                         LastModify = bsg.Key.BalanceLastModify,
+                                         CreateDate = bsg.Key.BalanceCreateDate,
+                                     }).ToList(),
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
-
-        
-
-        
+        #endregion
     }
 }

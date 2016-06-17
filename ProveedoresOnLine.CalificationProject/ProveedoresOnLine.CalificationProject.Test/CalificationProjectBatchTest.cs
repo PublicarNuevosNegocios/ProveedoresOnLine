@@ -194,6 +194,19 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
         #endregion
 
+        #region Balance Module
+
+        [TestMethod]
+        public void BalanceModule()
+        {
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oReturn =
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo("158C1786", 3115);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -196,6 +196,15 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
         }
         #endregion
 
+        #region Balance Module
+
+        public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> BalanceModuleInfo(string CompanyPublicId, int BalanceAccount)
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.BalanceModuleInfo(CompanyPublicId, BalanceAccount);
+        }
+
+        #endregion
+
         #endregion
     }
 }
