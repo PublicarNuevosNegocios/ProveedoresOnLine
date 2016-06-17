@@ -403,7 +403,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                         where !cial.IsNull("CommercialId")
                         group cial by new
                         {
-                            CommercialId = cial.Field<int>("ComercialId"),
+                            CommercialId = cial.Field<int>("CommercialId"),
                             CommercialTypeId = cial.Field<int>("CommercialTypeId"),
                             CommercialTypeName = cial.Field<string>("CommercialTypeName"),
                             CommercialEnable = cial.Field<UInt64>("CommercialEnable") == 1 ? true : false,
