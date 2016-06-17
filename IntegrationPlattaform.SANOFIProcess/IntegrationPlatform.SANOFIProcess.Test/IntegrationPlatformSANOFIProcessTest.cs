@@ -36,7 +36,7 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         public void GetContableInfo_ByProvider()
         {
             List<SanofiContableInfoModel> oReturn = new List<SanofiContableInfoModel>();
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetContableInfo_ByProvider("A24EB150");
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetContableInfoByProvider("A24EB150");
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
@@ -51,7 +51,7 @@ namespace IntegrationPlatform.SANOFIProcess.Test
                 IsSucces = true,
                 Enable = true
             };
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLog_Insert(oReturn);
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLogInsert(oReturn);
 
             Assert.AreEqual(true, oReturn.SanofiProcessLogId > 0);
         }
