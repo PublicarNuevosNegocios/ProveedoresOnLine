@@ -567,7 +567,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                RuleScore++;
+                                                if (oIntValue < maxValue && oIntValue > minValue)
+                                                {
+                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
 
                                                 cpitinf.ItemInfoScore = LegalScore;
 
