@@ -568,7 +568,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                RuleScore++;
+                                                if (oIntValue < maxValue && oIntValue > minValue)
+                                                {
+                                                    FinancialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += FinancialScore;
+                                                }
+                                                else
+                                                {
+                                                    FinancialScore = 0;
+                                                }
 
                                                 cpitinf.ItemInfoScore = FinancialScore;
 
