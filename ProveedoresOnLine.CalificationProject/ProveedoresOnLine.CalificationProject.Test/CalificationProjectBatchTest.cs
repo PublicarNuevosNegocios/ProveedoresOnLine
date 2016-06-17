@@ -223,7 +223,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
         [TestMethod]
         public void CertificationModule() 
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo("1351D3F3",704001);
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo("1BD9AD1B", 702002);
                 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
