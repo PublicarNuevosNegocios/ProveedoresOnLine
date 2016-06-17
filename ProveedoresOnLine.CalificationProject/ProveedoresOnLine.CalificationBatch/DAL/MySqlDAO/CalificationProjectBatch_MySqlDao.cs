@@ -375,6 +375,179 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
 
         #endregion
 
+        #region Commercial Module
+
+        public list<Company.Models.Util.GenericItemModel> CommercialModuleInfo(string CompanyPublicId, string CommercialInfoType)
+        {
+            List<IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vCommercialInfoType", CommercialInfoType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CPB_GetCommercialByCompany",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0) 
+            {
+                oReturn = 
+                    (
+                        from cial in response.DataTableResult.AsEnumerable()
+                        where !cial.IsNull("CommercialId")
+                        group cial by new 
+                        {
+                            CommercialId = cial.Field<int>("ComercialId"),
+                            CommercialTypeId = cial.Field<int>("CommercialTypeId"),
+                            CommercialTypeName = cial.Field<string>("CommercialTypeName"),
+                            CommercialEnable = cial.Field<UInt64>("CommercialEnable") == 1? true : false,
+                            CommercialLastModify = cial.Field<DateTime>("CommercialLastModify"),
+                            CommercialCreateDate = cial.Field<DateTime>("CommercialCreateDate"),
+                        }
+                            into cialg
+                            select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                            {
+                                ItemId = cialg.Key.CommercialId,
+                                ItemType = new Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = cialg.Key.CommercialTypeId,
+                                    ItemName = cialg.Key.CommercialTypeName,
+                                },
+                                Enable = cialg.Key.CommercialEnable,
+                                LastModify = cialg.Key.CommercialLastModify,
+                                CreateDate = cialg.Key.CommercialCreateDate,
+                                ItemInfo =
+                                   (from cialinf in response.DataTableResult.AsEnumerable()
+                                    where !cialinf.IsNull("CommercialInfoId") &&
+                                        cialinf.Field<int>("CommercialId") == cialg.Key.CommercialId
+                                    group cialinf by new
+                                    {
+                                        CommercialInfoId = cialinf.Field<int>("CommercialInfoId"),
+                                        CommercialInfoTypeId = cialinf.Field<int>("CommercialItemInfoTypeId"),
+                                        CommerciallInfoTypeName = cialinf.Field<string>("CommercialItemInfoTypeName"),                                        
+                                        CommercialInfoLargeValue = cial.Field<string>("CommercialInfoLargeValue"),
+                                        CommercialInfoValue = cial.Field<string>("CommercialInfoValue"),
+                                        CommercialInfoEnable = cialinf.Field<UInt64>("CommercialInfoEnable") == 1 ? true : false,
+                                        CommercialInfoLastModify = cialinf.Field<DateTime>("CommercialInfoLastModify"),
+                                        CommercialInfoCreateDate = cialinf.Field<DateTime>("CommercialInfoCreateDate"),
+                                    }
+                                        into cialinfg
+                                        select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                        {
+                                            ItemInfoId = cialinfg.Key.CommercialInfoId,
+                                            ItemInfoType = new Company.Models.Util.CatalogModel()
+                                            {
+                                                ItemId = cialinfg.Key.CommercialInfoTypeId,
+                                                ItemName = cialinfg.Key.CommercialInfoTypeName,
+                                            },
+                                            Value = cialinfg.Key.CommercialInfoValue,
+                                            LargeValue = cialinfg.Key.CommercialInfoLargeValue,
+                                            Enable = cialinfg.Key.CommercialInfoEnable,
+                                            LastModify = cialinfg.Key.CommercialInfoLastModify,
+                                            CreateDate = cialinfg.Key.CommercialInfoCreateDate,
+                                        }).ToList(),
+                            }).ToList();                    
+            }
+            return oReturn;
+        }
+
         #endregion
+       
+        #region HSEQ Module
+
+        public List<Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, string CertificationInfoType)
+        {
+            List<IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vCertificationInfoType", CertificationInfoType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CPB_GetCertificationByCompany",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = new List<Company.Models.Util.GenericItemModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (
+                        from cert in response.DataTableResult.AsEnumerable()
+                        where !cert.IsNull("CertificationId")
+                        group cert by new
+                        {
+                            CertificationId = cert.Field<int>("CertificationId"),
+                            CertificationTypeId = cert.Field<int>("CertificationTypeId"),
+                            CertificationTypeName = cert.Field<string>("CertificationTypeName"),
+                            CertificationEnable = cert.Field<UInt64>("CertificationEnable") == 1 ? true : false,
+                            CertificationLastModify = cert.Field<DateTime>("CertificationLastModify"),
+                            CertificationCreateDate = cert.Field<DateTime>("CertificationCreateDate"),
+                        }
+                            into certg
+                            select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                            {
+                                ItemId = certg.Key.CertificationId,
+                                ItemType = new Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = certg.Key.CertificationTypeId,
+                                    ItemName = certg.Key.CertificationTypeName,
+                                },
+                                Enable = certg.Key.CertificationEnable,
+                                LastModify = certg.Key.CertificationLastModify,
+                                CreateDate = certg.Key.CertificationCreateDate,
+                                ItemInfo =
+                                   (from certinf in response.DataTableResult.AsEnumerable()
+                                    where !certinf.IsNull("CertificationInfoId") &&
+                                        certinf.Field<int>("CertificationId") == certg.Key.CertificationId
+                                    group certinf by new
+                                    {
+                                        CertificationInfoId = certinf.Field<int>("CertificationInfoId"),
+                                        CertificationItemInfoTypeId = certinf.Field<int>("CertificationItemInfoTypeId"),
+                                        CertificationItemInfoTypeName = certinf.Field<string>("CertificationItemInfoTypeName"),
+                                        CertificationInfoLargeValue = cial.Field<string>("CertificationInfoLargeValue"),
+                                        CertificationInfoValue = cial.Field<string>("CertificationInfoValue"),
+                                        CertificationInfoEnable = certinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
+                                        CertificationInfoLastModify = certinf.Field<DateTime>("CertificationInfoLastModify"),
+                                        CertificationInfoCreateDate = certinf.Field<DateTime>("CertificationInfoCreateDate"),
+                                    }
+                                        into cialinfg
+                                        select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                        {
+                                            ItemInfoId = cialinfg.Key.CertificationInfoId,
+                                            ItemInfoType = new Company.Models.Util.CatalogModel()
+                                            {
+                                                ItemId = cialinfg.Key.CertificationItemInfoTypeId,
+                                                ItemName = cialinfg.Key.CertificationItemInfoTypeName,
+                                            },
+                                            Value = cialinfg.Key.CertificationInfoValue,
+                                            LargeValue = cialinfg.Key.CertificationInfoLargeValue,
+                                            Enable = cialinfg.Key.CertificationInfoEnable,
+                                            LastModify = cialinfg.Key.CertificationInfoLastModify,
+                                            CreateDate = cialinfg.Key.CertificationInfoCreateDate,
+                                        }).ToList(),
+                            }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
+
+        #endregion
+
+
+        
+
+        
     }
 }
