@@ -80,6 +80,29 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         
         #endregion
 
+        #region Commercial Module
+
+        public list<Company.Models.Util.GenericItemModel> CommercialModuleInfo(string CompanyPublicId, string CommercialInfoType)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
+
+        #region HSEQ Module
+
+        public List<Company.Models.Util.GenericItemModel> CertificationModuleInfo(string CompanyPublicId, string CertificationInfoType)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #endregion
+
+
+        
+
+        
     }
 }

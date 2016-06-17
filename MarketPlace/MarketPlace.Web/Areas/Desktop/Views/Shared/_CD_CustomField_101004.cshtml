@@ -1,6 +1,6 @@
 ﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, IntegrationPlatform.Models.Integration.CustomFieldModel, ProveedoresOnLine.Company.Models.Util.GenericItemModel>
 <br />
-@{ 
+@{
     var oCustomList = Model.Item3 != null && Model.Item3.ItemInfo != null ? Model.Item3.ItemInfo.FirstOrDefault().Value : string.Empty;
 }
 
@@ -36,11 +36,33 @@ else if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101003)
         }
     }
 }
-
-@foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 201))
+else if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101004)
 {
-    if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+    foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 204))
     {
-        <span>@item.ItemName</span>
+        if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+        {
+            <span>@item.ItemName</span>
+        }
+    }
+}
+else if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101005)
+{
+    foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 205))
+    {
+        if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+        {
+            <span>@item.ItemName</span>
+        }
+    }
+}
+else if (Model.Item2.AditionalFieldTypeInfo.ItemId == 101007)
+{
+    foreach (var item in Model.Item1.ProviderOptions.Where(x => x.CatalogId == 206))
+    {
+        if (!string.IsNullOrEmpty(oCustomList) && Convert.ToInt32(oCustomList) == item.ItemId)
+        {
+            <span>@item.ItemName</span>
+        }
     }
 }

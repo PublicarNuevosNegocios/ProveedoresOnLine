@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.CalificationBatch.Interfaces
 {
@@ -32,6 +33,17 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialModuleInfo(string CompanyPublicId, int FinancialInfoType);
 
+        #endregion
+
+        #region Commercial Module Info
+
+        list<GenericItemModel> CommercialModuleInfo(string CompanyPublicId, string CommercialInfoType);
+
+        #endregion
+
+        #region HSEQ Module Info
+
+        List<GenericItemModel> CertificationModuleInfo(string CompanyPublicId, string CertificationInfoType);
         #endregion
 
         #endregion

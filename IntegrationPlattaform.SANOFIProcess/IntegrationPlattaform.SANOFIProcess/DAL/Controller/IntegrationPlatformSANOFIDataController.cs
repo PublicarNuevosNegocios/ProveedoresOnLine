@@ -38,27 +38,27 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
         #endregion
 
 
-        public List<Models.SanofiGeneralInfoModel> GetInfo_ByProvider(string vProviderPublicId)
+        public List<Models.SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId)
         {
-            return DataFactory.GetInfo_ByProvider(vProviderPublicId);
+            return DataFactory.GetInfoByProvider(vProviderPublicId);
         }
 
 
-        public List<Models.SanofiComercialInfoModel> GetComercialInfo_ByProvider(string vProviderPublicId)
+        public List<Models.SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId)
         {
-            return DataFactory.GetComercialInfo_ByProvider(vProviderPublicId);
+            return DataFactory.GetComercialInfoByProvider(vProviderPublicId);
         }
 
 
-        public List<Models.SanofiContableInfoModel> GetContableInfo_ByProvider(string vProviderPublicId)
+        public List<Models.SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
         {
-            return DataFactory.GetContableInfo_ByProvider(vProviderPublicId);
+            return DataFactory.GetContableInfoByProvider(vProviderPublicId);
         }
 
 
-        public int SanofiProcessLog_Insert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
+        public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
         {
-            return DataFactory.SanofiProcessLog_Insert(ProviderPublicId, ProcessName, IsSuccess, Enable);
+            return DataFactory.SanofiProcessLogInsert(ProviderPublicId, ProcessName, IsSuccess, Enable);
         }
 
 
