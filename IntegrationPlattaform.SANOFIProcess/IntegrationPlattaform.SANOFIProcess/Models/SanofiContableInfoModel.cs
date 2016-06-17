@@ -17,5 +17,9 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
         public string IBAN { get; set; }
 
         public string AssociatedCount { get; set; }
+        
+        public string PayCondition { get; set; }
+
+        public string PayWay { get; set; }
     }
 }

@@ -185,6 +185,8 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                           BankCountNumber = sconi.Field<string>("BankCountNumber"),
                           CountType = sconi.Field<int>("CountType"),
                           IBAN = sconi.Field<string>("IBAN"),
+                          PayWay = sconi.Field<string>("PayWay"),
+                          PayCondition = sconi.Field<string>("PayCondition"),
                           AssociatedCount = sconi.Field<string>("AssociatedCount")
                       }
                           into sconig
@@ -199,6 +201,8 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                               BankCountNumber = sconig.Key.BankCountNumber,
                               CountType = sconig.Key.CountType,
                               IBAN = sconig.Key.IBAN,
+                              PayWay = sconig.Key.PayWay,
+                              PayCondition = sconig.Key.PayCondition,
                               AssociatedCount = sconig.Key.AssociatedCount
                           }).ToList();
             }
