@@ -64,5 +64,11 @@ namespace IntegrationPlatform.SANOFIProcess.Test
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
+
+        [TestMethod]
+        public void GetSanofiLastProcessLog()
+        {
+            Assert.IsNotNull(IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiLastProcessLog());
+        }
     }
 }

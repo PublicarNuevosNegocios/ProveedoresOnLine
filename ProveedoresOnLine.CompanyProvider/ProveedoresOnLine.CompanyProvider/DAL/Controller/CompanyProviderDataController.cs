@@ -205,6 +205,10 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.GetAllProvidersByCustomerPublicId(CustomerPublicId);
         }
 
+        public List<CompanyModel> GetAllProvidersByCustomerPublicIdByFromStartDate(string vCustomerPublicId, System.DateTime vStartDate)
+        {
+            return DataFactory.GetAllProvidersByCustomerPublicIdByFromStartDate(vCustomerPublicId, vStartDate);
+        }
         #endregion SearchProviders
 
         public List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
@@ -310,6 +314,6 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.GetProvidersByState(CompanyPublicId);
         }
 
-        #endregion Charts       
+        #endregion Charts             
     }
 }

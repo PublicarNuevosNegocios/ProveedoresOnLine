@@ -16,10 +16,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
         {
             try
             {
+                //Gt Last ModifyDate Info Log Process
+                SanofiProcessLogModel LastProcess = new SanofiProcessLogModel();
+                LastProcess = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetSanofiLastProcessLog();
+
                 // Get Providers SANOFI
-                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId(
+                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
                      IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value);
+                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null? LastProcess.LastModify : DateTime.Now.AddYears(-50));
 
                 Tuple<bool, string, string> oGeneralResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oComercialResult = new Tuple<bool, string, string>(false, "", "");
@@ -392,6 +396,11 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
         public static List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess)
         {
             return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetSanofiProcessLog(IsSuccess);
+        }
+
+        public static SanofiProcessLogModel GetSanofiLastProcessLog()
+        {
+            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetSanofiLastProcessLog();
         }
 
         #region Log File

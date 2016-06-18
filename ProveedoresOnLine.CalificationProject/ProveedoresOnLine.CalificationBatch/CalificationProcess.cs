@@ -252,7 +252,7 @@ namespace ProveedoresOnLine.CalificationBatch
                     return true;
                 });
             }
-            catch (Exception )
+            catch (Exception)
             {
                 //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
