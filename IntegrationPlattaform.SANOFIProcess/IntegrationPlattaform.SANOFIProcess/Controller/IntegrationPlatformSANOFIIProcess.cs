@@ -65,16 +65,23 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         oContableResult = ContableInfoProcess(oContableInfo);
 
                 }
-
-                LogFile("Success:: SANOFI_Process:::Is:::OK '"  + DateTime.Now + oGeneralResult.Item2 + ":::" 
-                                                                + oComercialResult.Item2 + ":::" 
-                                                                + oContableResult.Item2 +":::");
+                else
+                {
+                    LogFile("Success:: SANOFI_Process:::Is:::OK '" + DateTime.Now + ":::No Provirders to validate:::");
+                }
+                if (!string.IsNullOrEmpty(oGeneralResult.Item2) || 
+                    !string.IsNullOrEmpty(oComercialResult.Item2) || 
+                    !string.IsNullOrEmpty(oContableResult.Item2))
+                {
+                    LogFile("Success:: SANOFI_Process:::Is:::OK '" + DateTime.Now + oGeneralResult.Item2 + ":::"
+                                                                + oComercialResult.Item2 + ":::"
+                                                                + oContableResult.Item2 + ":::");
+                }               
                 
             }
             catch (Exception err)
             {
-                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
-                throw;
+                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);                
             }
         }
 

@@ -21,4 +21,7 @@
   <Module name="FileRepository">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-FileRepository.xml</key>
   </Module>
+  <Module name="IntegrationPlatformSANOFIIProcess">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\IntegrationPlatform.SANOFIProcess\Rsx-IntegrationPlatformSANOFIIProcess.xml</key>
+  </Module>
 </SettingsConfig>
