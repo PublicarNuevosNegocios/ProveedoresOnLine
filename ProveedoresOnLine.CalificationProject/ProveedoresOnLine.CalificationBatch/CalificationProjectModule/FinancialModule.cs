@@ -43,6 +43,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             bool oBooleanValue = true;
             double oPercentValue = 0;
             DateTime oDateValue = new DateTime();
+            string oTextValue = "";
 
             #endregion
 
@@ -1333,6 +1334,37 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     Enable = true,
                                                 });
 
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: texto
+                                                
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.Value)
+                                                {
+                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    RuleScore++;
+                                                    oTotalModuleScore += FinancialScore;
+                                                }
+                                                else
+                                                {
+                                                    FinancialScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = FinancialScore,
+                                                    Enable = true,
+                                                });
                                                 break;
 
                                             #endregion
