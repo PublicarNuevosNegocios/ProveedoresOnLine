@@ -50,14 +50,849 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                 if (oReturn.CalificatioProjectItemInfoModel != null &&
                     oReturn.CalificatioProjectItemInfoModel.Count > 0)
                 {
+                    //Validate rule config with mp rule
+                    oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.All(mprule =>
+                    {
+                        bool mpEnable = false;
+
+                        oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cnfrule => cnfrule.Enable == true).All(cnfrule =>
+                        {
+                            if (!mpEnable && mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == cnfrule.CalificationProjectConfigItemInfoId)
+                            {
+                                mpEnable = true;
+                            }
+
+                            return true;
+                        });
+
+                        mprule.Enable = mpEnable;
+
+                        return true;
+                    });
+
                     //Get last calification
-                    oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify).All(cpitinf =>
+                    oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify && cpitinf.Enable == true).All(cpitinf =>
                     {
                         oTotalModuleScore += cpitinf.ItemInfoScore;
                         return true;
                     });
 
-                    oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify > cpitinf.LastModify).All(cpitinf =>
+                    oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(rule =>
+                    {
+                        if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
+                        {
+                            oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
+                            {
+                                //add mp rule
+
+                                return true;
+                            });
+                        }
+                        else
+                        {
+                            //run rule
+                            oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question);
+
+                            oLegalProviderInfo.Where(pinf => pinf != null).All(pinf =>
+                            {
+                                switch (rule.Rule.ItemId)
+                                {
+                                    #region Positivo
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Positivo:
+
+                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                        if (oIntValue >= 0)
+                                        {
+                                            LegalScore = Convert.ToInt32(rule.Score);
+
+                                            RuleScore++;
+
+                                            oTotalModuleScore += LegalScore;
+                                        }
+                                        else
+                                        {
+                                            LegalScore = 0;
+                                        }
+
+                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                        {
+                                            CalificationProjectItemInfoId = 0,
+                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                            {
+                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                            },
+                                            ItemInfoScore = LegalScore,
+                                            Enable = true,
+                                        });
+
+                                        break;
+
+                                    #endregion
+
+                                    #region Negativo
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Negativo:
+
+                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                        if (oIntValue < 0)
+                                        {
+                                            LegalScore = Convert.ToInt32(rule.Score);
+
+                                            RuleScore++;
+
+                                            oTotalModuleScore += LegalScore;
+                                        }
+                                        else
+                                        {
+                                            LegalScore = 0;
+                                        }
+
+                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                        {
+                                            CalificationProjectItemInfoId = 0,
+                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                            {
+                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                            },
+                                            ItemInfoScore = LegalScore,
+                                            Enable = true,
+                                        });
+
+                                        break;
+
+                                    #endregion
+
+                                    #region MayorQue
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorQue:
+
+                                        switch (rule.ValueType.ItemId)
+                                        {
+                                            #region Tipo valor: numérico
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                                if (oIntValue > Convert.ToInt32(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: fecha
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Date:
+
+                                                oDateValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDate(pinf.ItemInfo.FirstOrDefault().Value.ToString());
+
+                                                if (oDateValue > Convert.ToDateTime(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: porcentaje
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oPercentValue > Convert.ToDouble(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+                                        }
+
+                                        break;
+
+                                    #endregion
+
+                                    #region MenorQue
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorQue:
+
+                                        switch (rule.ValueType.ItemId)
+                                        {
+                                            #region Tipo valor: numérico
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                                if (oIntValue < Convert.ToInt32(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: fecha
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Date:
+
+                                                oDateValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDate(pinf.ItemInfo.FirstOrDefault().Value.ToString());
+
+                                                if (oDateValue < Convert.ToDateTime(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: porcentaje
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oPercentValue < Convert.ToDouble(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+                                        }
+
+                                        break;
+
+                                    #endregion
+
+                                    #region MayorOIgual
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorOIgual:
+
+                                        switch (rule.ValueType.ItemId)
+                                        {
+                                            #region Tipo valor: numérico
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                                if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: fecha
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Date:
+
+                                                oDateValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDate(pinf.ItemInfo.FirstOrDefault().Value.ToString());
+
+                                                if (oDateValue >= Convert.ToDateTime(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: porcentaje
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oPercentValue >= Convert.ToDouble(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+                                        }
+
+                                        break;
+
+                                    #endregion
+
+                                    #region MenorOIgual
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorOIgual:
+
+                                        switch (rule.ValueType.ItemId)
+                                        {
+                                            #region Tipo valor: numérico
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                                if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: fecha
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Date:
+
+                                                oDateValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDate(pinf.ItemInfo.FirstOrDefault().Value.ToString());
+
+                                                if (oDateValue <= Convert.ToDateTime(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: porcentaje
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oPercentValue <= Convert.ToDouble(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+                                        }
+
+                                        break;
+
+                                    #endregion
+
+                                    #region IgualQue
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.IgualQue:
+
+                                        switch (rule.ValueType.ItemId)
+                                        {
+                                            #region Tipo valor: numérico
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                                if (oIntValue == Convert.ToInt32(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: fecha
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Date:
+
+                                                oDateValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDate(pinf.ItemInfo.FirstOrDefault().Value.ToString());
+
+                                                if (oDateValue == Convert.ToDateTime(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: porcentaje
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oPercentValue == Convert.ToDouble(rule.Value))
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+                                        }
+
+                                        break;
+
+                                    #endregion
+
+                                    #region Entre
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Entre:
+
+                                        switch (rule.ValueType.ItemId)
+                                        {
+                                            #region Tipo valor: numérico
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                int minValue = 0;
+                                                int maxValue = 0;
+
+                                                string[] oValue = rule.Value.Split(',');
+
+                                                minValue = Convert.ToInt32(oValue[0]);
+                                                maxValue = Convert.ToInt32(oValue[1]);
+
+                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+
+                                                if (oIntValue < maxValue && oIntValue > minValue)
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: fecha
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Date:
+
+                                                oDateValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDate(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                DateTime oMinValue;
+                                                DateTime oMaxValue;
+
+                                                oValue = rule.Value.Split(',');
+
+                                                oMinValue = Convert.ToDateTime(oValue[0].Trim());
+                                                oMaxValue = Convert.ToDateTime(oValue[1].Trim());
+
+                                                if (oDateValue < oMaxValue && oDateValue > oMinValue)
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: porcentaje
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                double oMiniValue;
+                                                double oMaxiValue;
+
+                                                oValue = rule.Value.Split(',');
+
+                                                oMiniValue = Convert.ToDouble(oValue[0].Trim());
+                                                oMaxiValue = Convert.ToDouble(oValue[1].Trim());
+
+                                                if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
+                                                {
+                                                    LegalScore = Convert.ToInt32(rule.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+                                        }
+
+                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                        {
+                                            CalificationProjectItemInfoId = 0,
+                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                            {
+                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                            },
+                                            ItemInfoScore = LegalScore,
+                                            Enable = true,
+                                        });
+
+                                        break;
+
+                                    #endregion
+
+                                    #region Pasa / No pasa
+
+                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
+
+                                        //Validación por archivo
+                                        if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                        {
+                                            bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) ? true : false;
+
+                                            if (oRelatedFile)
+                                            {
+                                                LegalScore = Convert.ToInt32(rule.Score);
+
+                                                RuleScore++;
+
+                                                oTotalModuleScore += LegalScore;
+                                            }
+                                            else
+                                            {
+                                                LegalScore = 0;
+                                            }
+                                        }
+
+                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                        {
+                                            CalificationProjectItemInfoId = 0,
+                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                            {
+                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                            },
+                                            ItemInfoScore = LegalScore,
+                                            Enable = true,
+                                        });
+
+                                        break;
+
+                                    #endregion
+                                }
+
+                                return true;
+                            });
+                        }
+
+                        return true;
+                    });
+
+
+                    oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify > cpitinf.LastModify && cpitinf.Enable == true).All(cpitinf =>
                     {
                         oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, cpitinf.CalificationProjectConfigItemInfoModel.Question);
 
@@ -1518,6 +2353,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             oReturn.ItemScore = oTotalModuleScore;
 
             return oReturn;
+        }
+
+        public static void NewRule()
+        {
+            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
+            {
+
+            };
+        }
+
+        public static void LastRule()
+        {
+            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
+            {
+
+            };
         }
     }
 }
