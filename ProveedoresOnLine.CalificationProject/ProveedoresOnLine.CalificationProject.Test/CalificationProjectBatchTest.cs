@@ -15,7 +15,7 @@ namespace ProveedoresOnLine.CalificationProject.Test
         [TestMethod]
         public void StartProcess()
         {
-            ProveedoresOnLine.CalificationBatch.CalificationProcess.StartProcess();
+           ProveedoresOnLine.CalificationBatch.CalificationProcess.StartProcess();
         }
 
         #region CalificationBatch
