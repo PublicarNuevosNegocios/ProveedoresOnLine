@@ -228,9 +228,9 @@ namespace ProveedoresOnLine.CalificationBatch
                     return true;
                 });
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
         }
 
