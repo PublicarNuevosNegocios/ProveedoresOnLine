@@ -10,7 +10,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 {
     public class CommercialModule
     {
-        public static CalificationProjectItemBatchModel CommercialRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
+        public static ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel CommercialRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
         {
             CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
@@ -36,11 +36,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             #region Variables
 
             int oTotalModuleScore = 0;
-            int LegalScore = 0;
+            int CommercialScore = 0;
+            int RuleScore = 0;
             int oIntValue = 0;
             bool oBooleanValue = true;
             double oPercentValue = 0;
             DateTime oDateValue = new DateTime();
+            string oTextValue = "";
 
             #endregion
 
@@ -58,16 +60,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify > cpitinf.LastModify).All(cpitinf =>
                     {
-                        
                         oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, cpitinf.CalificationProjectConfigItemInfoModel.Question);
 
                         oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {
-                            if (LegalScore <= 0)
+                            if (RuleScore <= 0)
                             {
                                 switch (cpitinf.CalificationProjectConfigItemInfoModel.Rule.ItemId)
                                 {
-                                   #region Positivo
+                                    #region Positivo
 
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Positivo:
 
@@ -75,20 +76,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue > 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                            CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += CommercialScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            CommercialScore = 0;
                                         }
 
-                                        cpitinf.ItemInfoScore = LegalScore;
+                                        cpitinf.ItemInfoScore = CommercialScore;
 
                                         break;
 
-                                    #endregion 
+                                    #endregion
 
                                     #region Negativo
 
@@ -98,16 +101,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                            CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += CommercialScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            CommercialScore = 0;
                                         }
 
-                                        cpitinf.ItemInfoScore = LegalScore;
+                                        cpitinf.ItemInfoScore = CommercialScore;
 
                                         break;
 
@@ -127,16 +132,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -150,16 +157,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -173,16 +182,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -207,16 +218,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -230,16 +243,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -253,16 +268,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -287,16 +304,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue >= Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -310,16 +329,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -333,16 +354,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -367,16 +390,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue <= Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -390,16 +415,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -413,16 +440,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -447,16 +476,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue == Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -470,16 +501,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -493,20 +526,48 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
                                             #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.CalificationProjectConfigItemInfoModel.Value)
+                                                {
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
+                                                }
+                                                else
+                                                {
+                                                    CommercialScore = 0;
+                                                }
+
+                                                cpitinf.ItemInfoScore = CommercialScore;
+
+                                                break;
+
+                                            #endregion
+
                                         }
 
                                         break;
@@ -533,7 +594,20 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                if (oIntValue < maxValue && oIntValue > minValue)
+                                                {
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
+                                                }
+                                                else
+                                                {
+                                                    CommercialScore = 0;
+                                                }
+
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -555,16 +629,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -586,16 +662,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = CommercialScore;
 
                                                 break;
 
@@ -617,17 +695,19 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oRelatedFile)
                                             {
-                                                LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                oTotalModuleScore += LegalScore;
+                                                RuleScore++;
+
+                                                oTotalModuleScore += CommercialScore;
                                             }
                                             else
                                             {
-                                                LegalScore = 0;
+                                                CommercialScore = 0;
                                             }
                                         }
 
-                                        cpitinf.ItemInfoScore = LegalScore;
+                                        cpitinf.ItemInfoScore = CommercialScore;
 
                                         break;
 
@@ -636,7 +716,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             }
 
                             return true;
-                        });                        
+                        });
+
+                        RuleScore = 0;
 
                         return true;
                     });
@@ -651,7 +733,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                         oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {
-                            if (LegalScore <= 0)
+                            if (RuleScore <= 0)
                             {
                                 switch (cpitinf.Rule.ItemId)
                                 {
@@ -663,13 +745,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue >= 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.Score);
+                                            CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += CommercialScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            CommercialScore = 0;
                                         }
 
                                         oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -679,7 +763,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = CommercialScore,
                                             Enable = true,
                                         });
 
@@ -695,13 +779,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.Score);
+                                            CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += CommercialScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            CommercialScore = 0;
                                         }
 
                                         oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -711,7 +797,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = CommercialScore,
                                             Enable = true,
                                         });
 
@@ -733,13 +819,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -749,7 +837,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -765,13 +853,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -781,7 +871,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -797,13 +887,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -813,7 +905,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -840,13 +932,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -856,7 +950,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -872,13 +966,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -888,7 +984,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -904,13 +1000,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -920,7 +1018,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -947,13 +1045,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue >= Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -963,7 +1063,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -979,13 +1079,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -995,7 +1097,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1011,13 +1113,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1027,7 +1131,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1054,13 +1158,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue <= Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1070,7 +1176,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1086,13 +1192,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1102,7 +1210,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1118,13 +1226,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1134,7 +1244,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1161,13 +1271,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue == Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1177,7 +1289,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1193,13 +1305,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1209,7 +1323,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1225,13 +1339,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1241,7 +1357,41 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = CommercialScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo Velor: Texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.Value)
+                                                {
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
+                                                }
+                                                else
+                                                {
+                                                    CommercialScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = CommercialScore,
                                                     Enable = true,
                                                 });
 
@@ -1276,13 +1426,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < maxValue && oIntValue > minValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 break;
@@ -1305,13 +1457,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 break;
@@ -1334,13 +1488,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    CommercialScore = 0;
                                                 }
 
                                                 break;
@@ -1355,7 +1511,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = CommercialScore,
                                             Enable = true,
                                         });
 
@@ -1374,13 +1530,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oRelatedFile)
                                             {
-                                                LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                CommercialScore = Convert.ToInt32(cpitinf.Score);
 
-                                                oTotalModuleScore += LegalScore;
+                                                RuleScore++;
+
+                                                oTotalModuleScore += CommercialScore;
                                             }
                                             else
                                             {
-                                                LegalScore = 0;
+                                                CommercialScore = 0;
                                             }
                                         }
 
@@ -1391,7 +1549,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = CommercialScore,
                                             Enable = true,
                                         });
 
@@ -1402,7 +1560,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             }
 
                             return true;
-                        });                        
+                        });
+
+                        RuleScore = 0;
 
                         return true;
                     });
@@ -1410,9 +1570,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                 ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas Comerciales del proveedor " + CompanyPublicId);
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score
