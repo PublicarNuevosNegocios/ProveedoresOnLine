@@ -1509,9 +1509,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                 ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas legales del proveedor " + CompanyPublicId);
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score
