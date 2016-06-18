@@ -42,6 +42,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             bool oBooleanValue = true;
             double oPercentValue = 0;
             DateTime oDateValue = new DateTime();
+            string oTextValue = "";
 
             #endregion
 
@@ -541,6 +542,32 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 break;
 
                                             #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.CalificationProjectConfigItemInfoModel.Value)
+                                                {
+                                                    CommercialScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
+                                                }
+                                                else
+                                                {
+                                                    CommercialScore = 0;
+                                                }
+
+                                                cpitinf.ItemInfoScore = CommercialScore;
+
+                                                break;
+
+                                            #endregion
+
                                         }
 
                                         break;
@@ -1311,6 +1338,40 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value.Trim());
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
+                                                {
+                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += CommercialScore;
+                                                }
+                                                else
+                                                {
+                                                    CommercialScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = CommercialScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo Velor: Texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.Value)
                                                 {
                                                     CommercialScore = Convert.ToInt32(cpitinf.Score);
 

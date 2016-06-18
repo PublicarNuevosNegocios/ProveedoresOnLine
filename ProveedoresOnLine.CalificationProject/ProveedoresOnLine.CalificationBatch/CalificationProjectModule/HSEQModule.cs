@@ -543,6 +543,31 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 break;
 
                                             #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.CalificationProjectConfigItemInfoModel.Value)
+                                                {
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                cpitinf.ItemInfoScore = HSEQScore;
+
+                                                break;
+
+                                            #endregion
                                         }
 
                                         break;
