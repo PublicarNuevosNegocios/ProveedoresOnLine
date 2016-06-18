@@ -1236,6 +1236,12 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.GetAllProvidersByCustomerPublicId(CustomerPublicId);
         }
+
+        public static List<CompanyModel> GetAllProvidersByCustomerPublicIdByStartDate(string CustomerPublicId, DateTime StartDate)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.GetAllProvidersByCustomerPublicIdByFromStartDate(CustomerPublicId, StartDate);
+        }
+
         #endregion
 
         public static List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)

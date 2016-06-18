@@ -85,7 +85,6 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-
         public List<SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
@@ -151,7 +150,6 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-
         public List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
@@ -209,7 +207,6 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-
         public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
@@ -228,7 +225,6 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             });
             return Convert.ToInt32(response.ScalarResult);
         }
-
 
         public List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess)
         {
@@ -272,6 +268,33 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                                 CreateDate = splg.Key.CreateDate,
                                 LastModify = splg.Key.LastModify
                             }).ToList();
+            }
+            return oReturn;
+        }
+
+        public SanofiProcessLogModel GetSanofiLastProcessLog()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_LastProcessLog_Get",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            SanofiProcessLogModel oReturn = new SanofiProcessLogModel();
+
+            if (response.DataTableResult != null
+                && !string.IsNullOrEmpty(response.DataTableResult.Rows[0].Field<string>("ProviderPublicId")))
+            {
+                oReturn = new SanofiProcessLogModel
+                {
+                    SanofiProcessLogId = response.DataTableResult.Rows[0].Field<int>("SanofiProcessLogId"),
+                    ProviderPublicId = response.DataTableResult.Rows[0].Field<string>("ProviderPublicId"),
+                    ProcessName = response.DataTableResult.Rows[0].Field<string>("ProcessName"),
+                    IsSucces = response.DataTableResult.Rows[0].Field<UInt64>("IsSuccess") == 1 ? true : false,
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate"),
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("lastModify")
+                };
             }
             return oReturn;
         }

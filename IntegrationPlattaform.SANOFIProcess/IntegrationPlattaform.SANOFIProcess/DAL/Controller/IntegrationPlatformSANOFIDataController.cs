@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IntegrationPlattaform.SANOFIProcess.Interfaces;
+using IntegrationPlattaform.SANOFIProcess.Models;
 
 namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
 {
@@ -43,28 +44,29 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
             return DataFactory.GetInfoByProvider(vProviderPublicId);
         }
 
-
         public List<Models.SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId)
         {
             return DataFactory.GetComercialInfoByProvider(vProviderPublicId);
         }
-
 
         public List<Models.SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
         {
             return DataFactory.GetContableInfoByProvider(vProviderPublicId);
         }
 
-
         public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
         {
             return DataFactory.SanofiProcessLogInsert(ProviderPublicId, ProcessName, IsSuccess, Enable);
         }
 
-
         public List<Models.SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess)
         {
             return DataFactory.GetSanofiProcessLog(IsSuccess);
+        }
+
+        public SanofiProcessLogModel GetSanofiLastProcessLog()
+        {
+            return DataFactory.GetSanofiLastProcessLog();
         }
     }
 }

@@ -1957,6 +1957,13 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             List<CompanyModel> oCompanyList = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId("7BC27832");
             Assert.IsNotNull(oCompanyList);
         }
+
+        [TestMethod]
+        public void GetAllProvidersByCustomerPublicIdByStartProcess()
+        {
+            List<CompanyModel> oCompanyList = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate("7BC27832", DateTime.Now.AddMonths(-5));
+            Assert.IsNotNull(oCompanyList);
+        }
         #endregion        
 
         [TestMethod]

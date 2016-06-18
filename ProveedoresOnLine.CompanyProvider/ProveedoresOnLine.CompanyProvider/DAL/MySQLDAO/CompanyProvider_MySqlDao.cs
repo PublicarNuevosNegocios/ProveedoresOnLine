@@ -1272,6 +1272,50 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<CompanyModel> GetAllProvidersByCustomerPublicIdByFromStartDate(string vCustomerPublicId, DateTime vStartDate)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", vCustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStartDate", vStartDate));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "BP_CP_GetAllProvidersByCustomerFromStartDate",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+            List<CompanyModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sf in response.DataTableResult.AsEnumerable()
+                     where !sf.IsNull("CompanyId")
+                     select new CompanyModel()
+                     {
+                         CompanyName = sf.Field<string>("CompanyName"),
+                         CompanyPublicId = sf.Field<string>("CompanyPublicId"),
+                         CompanyType = new CatalogModel()
+                         {
+                             ItemId = sf.Field<int>("CompanyTypeId"),
+                             ItemName = sf.Field<string>("CompanyTypeName"),
+                         },
+                         IdentificationType = new CatalogModel()
+                         {
+                             ItemId = sf.Field<int>("IdentificationTypeId"),
+                             ItemName = sf.Field<string>("IdentificationTypeName"),
+                         },
+                         CreateDate = sf.Field<DateTime>("CreateDate"),
+                         LastModify = sf.Field<DateTime>("LastModify"),
+                         Enable = sf.Field<UInt64>("Enable") == 1 ? true : false,
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion SearchProviders
 
         public List<ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
@@ -2657,6 +2701,8 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+
 
         #endregion BatchProcess
 
