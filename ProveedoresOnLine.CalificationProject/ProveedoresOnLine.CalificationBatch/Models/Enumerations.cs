@@ -2,6 +2,7 @@
 {
     public class Enumerations
     {
+        //Modulos
         public enum enumModuleType
         {
             CP_LegalModule = 2003001,
@@ -11,6 +12,7 @@
             CP_BalanceModule = 2003005,
         }
 
+        //Tipo Operador
         public enum enumOperatorType
         {
             Positivo = 2001001,
@@ -24,6 +26,7 @@
             PasaNoPasa = 2001009,
         }
 
+        //Tipo Dato
         public enum enumValueType
         {
             Boolean = 2002001,

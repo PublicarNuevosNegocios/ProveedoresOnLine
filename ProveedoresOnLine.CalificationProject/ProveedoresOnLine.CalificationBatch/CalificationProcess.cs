@@ -60,12 +60,12 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
 
-                                            ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
-                                                ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
+                                        //    ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
+                                        //        ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
 
-                                            oTotalScore += oLegalModule.ItemScore;
+                                        //    oTotalScore += oLegalModule.ItemScore;
 
-                                            oCalCalificationProjectItemBatchToUpsert.Add(oLegalModule);
+                                        //    oCalCalificationProjectItemBatchToUpsert.Add(oLegalModule);
 
                                             break;
 
@@ -73,7 +73,7 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                         #region FinancialModule
 
-                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
+                                        //case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
                                             //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oFinancialModule =
                                             //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
@@ -112,7 +112,7 @@ namespace ProveedoresOnLine.CalificationBatch
                                             //oCalCalificationProjectItemBatchToUpsert.Add(oCertificationModule);
 
                                             break;
-
+                                        
                                         #endregion
 
                                         #region BalanceModule
@@ -246,7 +246,7 @@ namespace ProveedoresOnLine.CalificationBatch
 
                         //Upsert
                         oCalificaitonProjectUpsert = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectUpsert(oCalificaitonProjectUpsert);
-
+                        
                         LogFile("ProcesId:: " + oCalificaitonProjectUpsert.CalificationProjectId + " RelatedProviderPublicId:: " + prv.CompanyPublicId + " RelatedCustomerPublicId:: " + cnf.Company.CompanyPublicId);
 
                         return true;

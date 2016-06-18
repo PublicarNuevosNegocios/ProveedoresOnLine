@@ -1,10 +1,10 @@
-﻿using ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch;
-using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch;
+using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
 
 namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 {
@@ -31,15 +31,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                 oReturn.CalificatioProjectItemInfoModel = oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel;
             }
 
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertificationProviderInfo;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oHSEQProviderInfo;
 
             #region Variables
 
             int oTotalModuleScore = 0;
-            int LegalScore = 0;
+            int HSEQScore = 0;
+            int RuleScore = 0;
             int oIntValue = 0;
             bool oBooleanValue = true;
             double oPercentValue = 0;
+            string oTextValue = "";
             DateTime oDateValue = new DateTime();
 
             #endregion
@@ -58,12 +60,12 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify > cpitinf.LastModify).All(cpitinf =>
                     {
+                        
+                        oHSEQProviderInfo= ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, cpitinf.CalificationProjectConfigItemInfoModel.Question);
 
-                        oCertificationProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, cpitinf.CalificationProjectConfigItemInfoModel.Question);
-
-                        oCertificationProviderInfo.Where(pinf => pinf != null).All(pinf =>
+                        oHSEQProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {
-                            if (LegalScore <= 0)
+                            if (RuleScore <= 0)
                             {
                                 switch (cpitinf.CalificationProjectConfigItemInfoModel.Rule.ItemId)
                                 {
@@ -75,16 +77,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue > 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                            HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += HSEQScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            HSEQScore = 0;
                                         }
 
-                                        cpitinf.ItemInfoScore = LegalScore;
+                                        cpitinf.ItemInfoScore = HSEQScore;
 
                                         break;
 
@@ -98,16 +102,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                            HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += HSEQScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            HSEQScore = 0;
                                         }
 
-                                        cpitinf.ItemInfoScore = LegalScore;
+                                        cpitinf.ItemInfoScore = HSEQScore;
 
                                         break;
 
@@ -127,16 +133,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -150,16 +158,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -173,16 +183,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -207,16 +219,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -230,16 +244,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -253,16 +269,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -287,16 +305,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue >= Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -310,16 +330,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -333,16 +355,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -367,16 +391,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue <= Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -390,16 +416,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -413,16 +441,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -447,16 +477,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue == Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -470,16 +502,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -493,16 +527,43 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.CalificationProjectConfigItemInfoModel.Value)
+                                                {
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -533,7 +594,20 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                if (oIntValue < maxValue && oIntValue > minValue)
+                                                {
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -555,16 +629,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -586,16 +662,18 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = LegalScore;
+                                                cpitinf.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -617,17 +695,19 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oRelatedFile)
                                             {
-                                                LegalScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                HSEQScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
 
-                                                oTotalModuleScore += LegalScore;
+                                                RuleScore++;
+
+                                                oTotalModuleScore += HSEQScore;
                                             }
                                             else
                                             {
-                                                LegalScore = 0;
+                                                HSEQScore = 0;
                                             }
                                         }
 
-                                        cpitinf.ItemInfoScore = LegalScore;
+                                        cpitinf.ItemInfoScore = HSEQScore;
 
                                         break;
 
@@ -638,6 +718,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             return true;
                         });
 
+                        RuleScore = 0;
+
                         return true;
                     });
                 }
@@ -647,11 +729,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(cpitinf =>
                     {
-                        oCertificationProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, cpitinf.Question);
+                        oHSEQProviderInfo= ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, cpitinf.Question);
 
-                        oCertificationProviderInfo.Where(pinf => pinf != null).All(pinf =>
+                        oHSEQProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {
-                            if (LegalScore <= 0)
+                            if (RuleScore <= 0)
                             {
                                 switch (cpitinf.Rule.ItemId)
                                 {
@@ -663,13 +745,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue >= 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.Score);
+                                            HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += HSEQScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            HSEQScore = 0;
                                         }
 
                                         oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -679,7 +763,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = HSEQScore,
                                             Enable = true,
                                         });
 
@@ -695,13 +779,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.Score);
+                                            HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                            oTotalModuleScore += LegalScore;
+                                            RuleScore++;
+
+                                            oTotalModuleScore += HSEQScore;
                                         }
                                         else
                                         {
-                                            LegalScore = 0;
+                                            HSEQScore = 0;
                                         }
 
                                         oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -711,7 +797,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = HSEQScore,
                                             Enable = true,
                                         });
 
@@ -733,13 +819,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -749,7 +837,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -765,13 +853,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -781,7 +871,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -797,13 +887,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -813,7 +905,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -840,13 +932,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -856,7 +950,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -872,13 +966,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -888,7 +984,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -904,13 +1000,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -920,7 +1018,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -947,13 +1045,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue >= Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -963,7 +1063,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -979,13 +1079,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -995,7 +1097,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1011,13 +1113,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1027,7 +1131,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1054,13 +1158,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue <= Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1070,7 +1176,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1086,13 +1192,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1102,7 +1210,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1118,13 +1226,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1134,7 +1244,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1161,13 +1271,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue == Convert.ToInt32(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1177,7 +1289,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1193,13 +1305,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1209,7 +1323,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1225,13 +1339,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
@@ -1241,7 +1357,41 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     {
                                                         CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                                     },
-                                                    ItemInfoScore = LegalScore,
+                                                    ItemInfoScore = HSEQScore,
+                                                    Enable = true,
+                                                });
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo Velor: Texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.Value)
+                                                {
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = HSEQScore,
                                                     Enable = true,
                                                 });
 
@@ -1276,13 +1426,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < maxValue && oIntValue > minValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 break;
@@ -1305,13 +1457,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 break;
@@ -1334,13 +1488,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                    oTotalModuleScore += LegalScore;
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
                                                 }
                                                 else
                                                 {
-                                                    LegalScore = 0;
+                                                    HSEQScore = 0;
                                                 }
 
                                                 break;
@@ -1355,7 +1511,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = HSEQScore,
                                             Enable = true,
                                         });
 
@@ -1374,13 +1530,15 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oRelatedFile)
                                             {
-                                                LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                HSEQScore = Convert.ToInt32(cpitinf.Score);
 
-                                                oTotalModuleScore += LegalScore;
+                                                RuleScore++;
+
+                                                oTotalModuleScore += HSEQScore;
                                             }
                                             else
                                             {
-                                                LegalScore = 0;
+                                                HSEQScore = 0;
                                             }
                                         }
 
@@ -1391,7 +1549,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             {
                                                 CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
                                             },
-                                            ItemInfoScore = LegalScore,
+                                            ItemInfoScore = HSEQScore,
                                             Enable = true,
                                         });
 
@@ -1404,23 +1562,23 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             return true;
                         });
 
+                        RuleScore = 0;
+
                         return true;
                     });
                 }
 
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas de HSEQ del proveedor " + CompanyPublicId);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas legales del proveedor " + CompanyPublicId);
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score
             oReturn.ItemScore = oTotalModuleScore;
 
             return oReturn;
-
-
         }
     }
 }

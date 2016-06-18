@@ -57,6 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
     </Reference>
+    <Reference Include="IntegrationPlattaform.SANOFIProcess">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform.SANOFIProcess\developer\IntegrationPlattaform.SANOFIProcess.dll</HintPath>
+    </Reference>
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
@@ -91,6 +94,14 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>..\packages\NetOffice.Core.1.7.3.0\lib\net45\OfficeApi.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.Company, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
     </Reference>
     <Reference Include="ProveedoresOnLine.CompanyProviderBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProviderBatch\ProveedoresOnLine.CompanyProviderBatch.dll</HintPath>
@@ -132,6 +143,7 @@
     <Compile Include="Implement\CompanyProviderProcessJob.cs" />
     <Compile Include="Implement\RestrictiveListReadProcess.cs" />
     <Compile Include="Implement\RestrictiveListSendProcess.cs" />
+    <Compile Include="Implement\SANOFIProcess.cs" />
     <Compile Include="Implement\SurveyReminderProcessJob.cs" />
     <Compile Include="Implement\SurveySendProcessJob.cs" />
     <Compile Include="Implement\MessageModuleJob.cs" />
