@@ -16,6 +16,11 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
             return DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProject_GetByCustomer(vCustomerPublicid,vProviderPublicId,Enable);
         }
 
+        public static List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetProviderByCustomer(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProject_GetProviderByCustomer(CustomerPublicId, ProviderPublicId);
+        }
+
         public static CalificationProjectBatchModel CalificationProjectUpsert(CalificationProjectBatchModel oCalProject) 
         {
             LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
