@@ -1,4 +1,5 @@
-﻿using MarketPlace.Models.General;
+﻿using ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch;
+using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
 using Microsoft.Reporting.WebForms;
 using ProveedoresOnLine.Company.Models.Util;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
 
 namespace MarketPlace.Web.Controllers
 {
@@ -171,9 +173,9 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
             //Clean the season url saved
-            if (SessionModel.CurrentURL != null)            
+            if (SessionModel.CurrentURL != null)
                 SessionModel.CurrentURL = null;
-            
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -295,6 +297,14 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedCertificationBasicInfo = response.RelatedCertificationBasicInfo;
 
                 #endregion HSEQ
+
+                #region CalificationProject
+                List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oCalProject = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
+                oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.
+                                                        CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
+                
+                
+                #endregion
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -4630,6 +4640,33 @@ namespace MarketPlace.Web.Controllers
             }
 
             return data;
+        }
+
+        private string GetCalificationScore(List<CalificationProjectBatchModel> oProviderCalModel)
+        {
+            string oTotalScore = "";
+            if (oProviderCalModel != null)
+            {
+                
+            CalificationProjectConfigModel oConfigModel =  oProviderCalModel.FirstOrDefault().ProjectConfigModel;
+                    
+                oConfigModel.ConfigValidateModel.All(x => 
+                {
+                    switch (x.Operator.ItemId)
+                    {
+                        case(int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorQue:
+                            if ( oProviderCalModel.FirstOrDefault().TotalScore > int.Parse(x.Value))
+                            {
+                                x.Result = oTotalScore;
+                            }
+                        break;
+                        //case(int)ProveedoresOnLine.CalificationBatch.Models.
+                    }
+                    return true;
+                });           
+
+            }
+            return oTotalScore;
         }
 
         #endregion Pivate Functions

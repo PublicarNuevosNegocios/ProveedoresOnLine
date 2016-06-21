@@ -153,6 +153,26 @@
                     </div>
                 </div>
             }
+            
+            @*Calification Section*@
+            @if (Model.ProRelatedCalificationProject != null && Model.ProRelatedCalificationProject.Count > 0)
+            {
+                <div class="container-fluid POMPProviderDetailContainer">
+                    <div class="row">
+                        @foreach (var item in Model.ProRelatedCalificationProject)
+                        {
+                            <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Representante Legal</label>
+                                <br />
+                                <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+
             @*Validación de Modulos por Rol*@
             @{
                 List<int> oCurrentSubMenu = MarketPlace.Models.General.SessionModel.CurrentProviderSubMenu((int)MarketPlace.Models.General.enumProviderMenu.GeneralInfo);
