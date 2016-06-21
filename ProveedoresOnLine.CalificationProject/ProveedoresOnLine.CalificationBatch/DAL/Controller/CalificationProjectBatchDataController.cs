@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProveedoresOnLine.CalificationBatch.DAL.Controller 
+namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 {
     internal class CalificationProjectBatchDataController : ProveedoresOnLine.CalificationBatch.Interfaces.ICalificationProjectBatchData
     {
@@ -26,7 +26,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         #endregion
 
-         #region constructor
+        #region constructor
 
         public CalificationProjectBatchDataController()
         {
@@ -41,6 +41,11 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         public List<Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetByCustomer(string vCustomerPublicid, string vProviderPublicId, bool Enable)
         {
             return DataFactory.CalificationProject_GetByCustomer(vCustomerPublicid, vProviderPublicId, Enable);
+        }
+
+        public List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetProviderByCustomer(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.CalificationProject_GetProviderByCustomer(CustomerPublicId, ProviderPublicId);
         }
 
         public int CalificationProjectUpsert(int vCalificationProjectId, string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
@@ -77,7 +82,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
         {
             return DataFactory.FinancialModuleInfo(CompanyPublicId, FinancialInfoType);
         }
-        
+
         #endregion
 
         #region Commercial Module

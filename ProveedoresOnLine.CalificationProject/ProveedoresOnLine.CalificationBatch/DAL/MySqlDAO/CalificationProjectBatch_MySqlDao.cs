@@ -139,6 +139,115 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> CalificationProject_GetProviderByCustomer(string CustomerPublicId, string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_CalificationProject_GetProviderByCustomer",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cp in response.DataTableResult.AsEnumerable()
+                     where !cp.IsNull("CalificationProjectId")
+                     group cp by new
+                     {
+                         CalificationProjectId = cp.Field<int>("CalificationProjectId"),
+                         CalificationProjectPublicId = cp.Field<string>("CalificationProjectPublicId"),
+                         CompanyPublicId = cp.Field<string>("CompanyPublicId"),
+                         CalificationProjectConfigId = cp.Field<int>("CalificationProjectConfigId"),
+                         TotalScore = cp.Field<int>("TotalScore"),
+                         Enable = cp.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = cp.Field<DateTime>("LastModify"),
+                         CreateDate = cp.Field<DateTime>("CreateDate"),
+                     }
+                         into cpg
+                         select new ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel()
+                         {
+                             CalificationProjectId = cpg.Key.CalificationProjectConfigId,
+                             CalificationProjectPublicId = cpg.Key.CalificationProjectPublicId,
+                             ProjectConfigModel = new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
+                             {
+                                 CalificationProjectConfigId = cpg.Key.CalificationProjectConfigId,
+                             },
+                             RelatedProvider = new Company.Models.Company.CompanyModel()
+                             {
+                                 CompanyPublicId = cpg.Key.CalificationProjectPublicId,
+                             },
+                             TotalScore = cpg.Key.TotalScore,
+                             Enable = cpg.Key.Enable,
+                             LastModify = cpg.Key.LastModify,
+                             CreateDate = cpg.Key.CreateDate,
+                             CalificationProjectItemBatchModel =
+                                (from cpi in response.DataTableResult.AsEnumerable()
+                                 where !cpi.IsNull("CalificationProjectItemId") &&
+                                        cpi.Field<int>("CalificationProjectId") == cpg.Key.CalificationProjectId
+                                 group cpi by new
+                                 {
+                                     CalificationProjectItemId = cpi.Field<int>("CalificationProjectItemId"),
+                                     CalificationProjectId = cpi.Field<int>("CalificationProjectId"),
+                                     CalificationProjectConfigItemId = cpi.Field<int>("CalificationProjectConfigItemId"),
+                                     ItemScore = cpi.Field<int>("ItemScore"),
+                                     ItemEnable = cpi.Field<UInt64>("ItemEnable") == 1 ? true : false,
+                                     ItemLastModify = cpi.Field<DateTime>("ItemLastModify"),
+                                     ItemCreateDate = cpi.Field<DateTime>("ItemCreateDate"),
+                                 }
+                                     into cpig
+                                     select new ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel()
+                                     {
+                                         CalificationProjectItemId = cpig.Key.CalificationProjectItemId,
+                                         CalificationProjectConfigItem = new CalificationProject.Models.CalificationProject.ConfigItemModel()
+                                         {
+                                             CalificationProjectConfigItemId = cpig.Key.CalificationProjectConfigItemId,
+                                         },
+                                         ItemScore = cpig.Key.ItemScore,
+                                         LastModify = cpig.Key.ItemLastModify,
+                                         CreateDate = cpig.Key.ItemCreateDate,
+                                         CalificatioProjectItemInfoModel =
+                                            (from cpiinf in response.DataTableResult.AsEnumerable()
+                                             where !cpiinf.IsNull("CalificationProjectItemInfoId") &&
+                                                   cpiinf.Field<int>("CalificationProjectItemId") == cpig.Key.CalificationProjectItemId
+                                             group cpiinf by new
+                                             {
+                                                 CalificationProjectItemInfoId = cpiinf.Field<int>("CalificationProjectItemInfoId"),
+                                                 CalificationProjectConfigItemInfoId = cpiinf.Field<int>("CalificationProjectConfigItemInfoId"),
+                                                 ItemInfoScore = cpiinf.Field<int>("ItemInfoScore"),
+                                                 ItemInfoEnable = cpiinf.Field<UInt64>("ItemInfoEnable") == 1 ? true : false,
+                                                 ItemInfoLastModify = cpiinf.Field<DateTime>("ItemInfoLastModify"),
+                                                 ItemInfoCreateDate = cpiinf.Field<DateTime>("ItemInfoCreateDate"),
+                                             }
+                                                 into cpiinfg
+                                                 select new ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemInfoBatchModel()
+                                                 {
+                                                     CalificationProjectItemInfoId = cpiinfg.Key.CalificationProjectItemInfoId,
+                                                     CalificationProjectConfigItemInfoModel = new CalificationProject.Models.CalificationProject.ConfigItemInfoModel()
+                                                     {
+                                                         CalificationProjectConfigItemInfoId = cpiinfg.Key.CalificationProjectConfigItemInfoId,
+                                                     },
+                                                     ItemInfoScore = cpiinfg.Key.ItemInfoScore,
+                                                     Enable = cpiinfg.Key.ItemInfoEnable,
+                                                     LastModify = cpiinfg.Key.ItemInfoLastModify,
+                                                     CreateDate = cpiinfg.Key.ItemInfoCreateDate,
+                                                 }).ToList(),
+                                     }).ToList(),
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public int CalificationProjectUpsert(int vCalificationProjectId, string vCalificatonProjectPublicId, int vCalificationProjectConfigId, string vCompanyPublicId, int vTotalScore, bool vEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();

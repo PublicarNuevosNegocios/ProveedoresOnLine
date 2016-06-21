@@ -30,6 +30,15 @@ namespace ProveedoresOnLine.CalificationProject.Test
         }
 
         [TestMethod]
+        public void CalificationProject_GetProviderByCustomer()
+        {
+            List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn =
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetProviderByCustomer("18C25804", "1BD9AD1B");
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        [TestMethod]
         public void CalificationProject_Upsert()
         {
             CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
