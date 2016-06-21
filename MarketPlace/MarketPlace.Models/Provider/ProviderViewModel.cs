@@ -89,9 +89,10 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> ProRelatedCalificationProject { get; set; }
 
-        public int TotalCalification { get; set; }
+        public string TotalCalification { get; set; }
 
-        public string CalificationLetters { get; set; }
+        public int TotalScore { get; set; }
+       
             
     }
 }
