@@ -156,10 +156,9 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
-                                                            //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oFinancialModule =
-                                                            //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
+                                                            cpib = ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
 
-                                                            //oCalCalificationProjectItemBatchToUpsert.Add(oFinancialModule);
+                                                            oModelToUpsert.CalificationProjectItemBatchModel.Add(cpib);
 
                                                             break;
 
@@ -242,10 +241,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
-                                                        //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oFinancialModule =
-                                                        //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, md, null);
+                                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oFinancialModule =
+                                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, ci, null);
 
-                                                        //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oFinancialModule);
+                                                        oModelToUpsert.CalificationProjectItemBatchModel.Add(oFinancialModule);
 
                                                         break;
 
@@ -355,10 +354,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_FinancialModule:
 
-                                                //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oFinancialModule =
-                                                //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, md, null);
+                                                ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oFinancialModule =
+                                                    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.FinancialModule.FinancialRule(prv.CompanyPublicId, md, null);
 
-                                                //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oFinancialModule);
+                                                oCalificationProjectUpsert.CalificationProjectItemBatchModel.Add(oFinancialModule);
 
                                                 break;
 
