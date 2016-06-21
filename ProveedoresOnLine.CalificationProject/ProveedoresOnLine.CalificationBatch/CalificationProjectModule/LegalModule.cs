@@ -32,9 +32,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             int LegalScore = 0;
             int RuleScore = 0;
             int oIntValue = 0;
-            bool oBooleanValue = true;
             double oPercentValue = 0;
             DateTime oDateValue = new DateTime();
+            string oTextValue = "";
 
             #endregion
 
@@ -563,6 +563,31 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                         if (oPercentValue == Convert.ToDouble(rule.Value))
+                                                        {
+                                                            LegalScore = Convert.ToInt32(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += LegalScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            LegalScore = 0;
+                                                        }
+
+                                                        mprule.ItemInfoScore = LegalScore;
+
+                                                        break;
+
+                                                    #endregion
+                                                        
+                                                    #region Tipo valor: texto
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        if (oTextValue == rule.Value)
                                                         {
                                                             LegalScore = Convert.ToInt32(rule.Score);
 
@@ -1372,6 +1397,37 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         Enable = true,
                                                     });
 
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: texto
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    if (oTextValue == rule.Value)
+                                                    {
+                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        RuleScore++;
+                                                        oTotalModuleScore += LegalScore;
+                                                    }
+                                                    else
+                                                    {
+                                                        LegalScore = 0;
+                                                    }
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = LegalScore,
+                                                        Enable = true,
+                                                    });
                                                     break;
 
                                                 #endregion
@@ -2189,6 +2245,37 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 break;
 
                                             #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (oTextValue == cpitinf.Value)
+                                                {
+                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    RuleScore++;
+                                                    oTotalModuleScore += LegalScore;
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = LegalScore,
+                                                    Enable = true,
+                                                });
+                                                break;
+
+                                            #endregion
                                         }
 
                                         break;
@@ -2359,35 +2446,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                
-
                 ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas legales del proveedor " + CompanyPublicId);
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score
             oReturn.ItemScore = oTotalModuleScore;
 
             return oReturn;
-        }
-
-        public static void NewRule()
-        {
-            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
-            {
-
-            };
-        }
-
-        public static void LastRule()
-        {
-            CalificationProjectBatchModel oReturn = new CalificationProjectBatchModel()
-            {
-
-            };
         }
     }
 }

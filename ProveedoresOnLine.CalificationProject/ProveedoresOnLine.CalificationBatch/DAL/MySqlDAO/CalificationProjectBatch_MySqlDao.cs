@@ -255,7 +255,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                          into cpg
                          select new ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel()
                          {
-                             CalificationProjectId = cpg.Key.CalificationProjectConfigId,
+                             CalificationProjectId = cpg.Key.CalificationProjectId,
                              CalificationProjectPublicId = cpg.Key.CalificationProjectPublicId,
                              ProjectConfigModel = new CalificationProject.Models.CalificationProject.CalificationProjectConfigModel()
                              {
@@ -336,7 +336,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vCalificationProjectConfigId", vCalificationProjectConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", vCompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vTotalScore", vTotalScore));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (vEnable == true) ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", vEnable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
