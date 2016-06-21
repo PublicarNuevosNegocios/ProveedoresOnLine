@@ -86,5 +86,12 @@ namespace MarketPlace.Models.Provider
         public IntegrationPlatform.Models.Integration.CustomDataModel CustomData { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
+
+        public List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> ProRelatedCalificationProject { get; set; }
+
+        public int TotalCalification { get; set; }
+
+        public string CalificationLetters { get; set; }
+            
     }
 }
