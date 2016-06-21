@@ -40,6 +40,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
             try
             {
+                if (oRelatedCalificationProjectItemModel != null &&
+                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel != null &&
+                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Count > 0)
+                {
+                    oReturn.CalificatioProjectItemInfoModel = oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel;
+                }
+
                 if (oReturn.CalificatioProjectItemInfoModel != null &&
                     oReturn.CalificatioProjectItemInfoModel.Count > 0)
                 {
@@ -2352,12 +2359,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                if (oRelatedCalificationProjectItemModel != null &&
-                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel != null &&
-                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Count > 0)
-                {
-                    oReturn.CalificatioProjectItemInfoModel = oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel;
-                }
+                
 
                 ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas legales del proveedor " + CompanyPublicId);
             }
