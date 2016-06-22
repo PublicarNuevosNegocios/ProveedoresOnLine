@@ -120,7 +120,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                                  CalificationProjectItemId = cpitg.Key.CalificationProjectItemId,
                                                  CalificationProjectConfigItem =
                                                     (from cpci in response.DataTableResult.AsEnumerable()
-                                                     where !cpci.IsNull("CalificationProjectConfigItemId") && cpci.Field<int>("CalificationProjectConfigId") == cpbg.Key.CalificationProjectConfigId
+                                                     where !cpci.IsNull("CalificationProjectConfigItemId") &&
+                                                            cpci.Field<int>("CalificationProjectItemId") == cpitg.Key.CalificationProjectItemId
                                                      group cpci by new
                                                      {
                                                          CalificationProjectConfigItemId = cpci.Field<int>("CalificationProjectConfigItemId"),
@@ -170,7 +171,7 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                                                               CalificationProjectItemInfoId = cpitinfg.Key.CalificationProjectItemInfoId,
                                                               CalificationProjectConfigItemInfoModel =
                                                                   (from cpcii in response.DataTableResult.AsEnumerable()
-                                                                    where cpcii.IsNull("CalificationProjectConfigItemInfoId")
+                                                                   where cpcii.IsNull("CalificationProjectConfigItemInfoId")
                                                                         && cpcii.Field<int>("CalificationProjectItemInfoId") == cpitinfg.Key.CalificationProjectItemInfoId
                                                                     group cpcii by new
                                                                     {

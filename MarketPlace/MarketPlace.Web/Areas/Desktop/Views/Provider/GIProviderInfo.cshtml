@@ -157,30 +157,31 @@
             @*Calification Section*@
             @if (Model.ProRelatedCalificationProject != null && Model.ProRelatedCalificationProject.Count > 0)
             {
-                <div class="container-fluid POMPProviderDetailContainer">
-                    <div class="row POMPSectionTitlesBox">
-                        <div class="col-xs-12">
-                            <label>Calificación del Proveedor</label>
-                        </div>
-                        <div class="col-sm-12 POMPBorderbottom POMPProviderBoxInfo">
-                            <br />
-                            <label class="POMPProviderBoxInfo">@Model.TotalCalification</label>
-                            <br />
-                            <span>@Model.TotalScore</span>
-                        </div>
-                        @foreach (var Calification in Model.ProRelatedCalificationProject)
-                        {
-                            foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
-                            {
-                                <div class="col-sm-4 POMPBorderbottom POMPProviderBoxInfo">
-                                    <br />
-                                    <label class="POMPProviderBoxInfo">@CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
-                                    <br />
-                                    <span>@CalificationItem.ItemScore</span>
-                                </div>
-                            }
-                        }
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-xs-12">
+                        <label>Calificación del Proveedor</label>
                     </div>
+                </div>
+
+                <div class="container-fluid POMPProviderDetailContainer">
+                    <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo">
+                        <br />
+                        <label class="POMPProviderBoxInfo">@Model.TotalCalification</label>
+                        <br />
+                        <span>@Model.TotalScore</span>
+                    </div>
+                    @foreach (var Calification in Model.ProRelatedCalificationProject)
+                    {
+                        foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
+                        {
+                            <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo">
+                                <br />
+                                <label class="POMPProviderBoxInfo">@CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
+                                <br />
+                                <span>@CalificationItem.ItemScore</span>
+                            </div>
+                        }
+                    }
                 </div>
             }
 
