@@ -299,7 +299,7 @@ namespace MarketPlace.Web.Controllers
                 #endregion HSEQ
 
                 #region CalificationProject
-               List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oCalProject = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
+                List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oCalProject = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
                 oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.
                                                         CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
 
@@ -307,8 +307,8 @@ namespace MarketPlace.Web.Controllers
                 oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
                 oModel.ProRelatedCalificationProject = oCalProject;
                 oModel.TotalScore = oCalProject.FirstOrDefault().TotalScore;
-                oModel.TotalCalification = GetCalificationScore(oCalProject,oValidateModel);
-                
+                oModel.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);
+
                 #endregion
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -4682,56 +4682,58 @@ namespace MarketPlace.Web.Controllers
                 //CalificationProjectModel oConfigModel = new CalificationProjectModel();
                 //oConfigModel.ConfigValidateModel = oValidate;
                 //oConfigModel = oProviderCalModel.FirstOrDefault().ProjectConfigModel.ConfigValidateModel.All();
-                    
-                
-                oProviderCalModel.FirstOrDefault().ProjectConfigModel.ConfigValidateModel.All( x => 
+
+
+                oProviderCalModel.FirstOrDefault().ProjectConfigModel.ConfigValidateModel.All(x =>
                 {
                     switch (x.Operator.ItemId)
                     {
-                        case(int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorQue:
-                        if ( oProviderCalModel.FirstOrDefault().TotalScore > int.Parse(x.Value))
-                        {
-                            oTotalScore = x.Result;
-                        }
-                        break;
+                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorQue:
+                            if (oProviderCalModel.FirstOrDefault().TotalScore > int.Parse(x.Value))
+                            {
+                                oTotalScore = x.Result;
+                            }
+                            break;
 
                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorQue:
-                        if (oProviderCalModel.FirstOrDefault().TotalScore > int.Parse(x.Value))
-                        {
-                            oTotalScore = x.Result;
-                        }
-                        break;
+                            if (oProviderCalModel.FirstOrDefault().TotalScore < int.Parse(x.Value))
+                            {
+                                oTotalScore = x.Result;
+                            }
+                            break;
 
-                        case(int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorOIgual:
-                        if (oProviderCalModel.FirstOrDefault().TotalScore <= int.Parse(x.Value))
-                        {
-                            oTotalScore = x.Result;
-                        }
-                        break;
+                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorOIgual:
+                            if (oProviderCalModel.FirstOrDefault().TotalScore <= int.Parse(x.Value))
+                            {
+                                oTotalScore = x.Result;
+                            }
+                            break;
 
-                        case(int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorOIgual:
-                        if (oProviderCalModel.FirstOrDefault().TotalScore >= int.Parse(x.Value))
-                        {
-                            oTotalScore = x.Result;
-                        }
-                        break;
+                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorOIgual:
+                            if (oProviderCalModel.FirstOrDefault().TotalScore >= int.Parse(x.Value))
+                            {
+                                oTotalScore = x.Result;
+                            }
+                            break;
 
                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Entre:
+
                             int minValue = 0;
                             int maxValue = 0;
 
-                            string[] oValue= x.Value.Split(',');
+                            string[] oValue = x.Value.Split(',');
                             minValue = int.Parse(oValue[0]);
                             maxValue = int.Parse(oValue[1]);
 
                             if (oProviderCalModel.FirstOrDefault().TotalScore < maxValue && oProviderCalModel.FirstOrDefault().TotalScore > minValue)
-                        {
-                            oTotalScore = x.Result;
-                        }
-                        break;
+                            {
+                                oTotalScore = x.Result;
+                            }
+
+                            break;
                     }
                     return true;
-                });           
+                });
 
             }
             return oTotalScore;

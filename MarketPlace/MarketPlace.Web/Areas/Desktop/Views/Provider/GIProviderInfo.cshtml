@@ -159,29 +159,25 @@
             {
                 <div class="row POMPSectionTitlesBox">
                     <div class="col-xs-12">
-                        <label>Calificación del Proveedor: @Model.TotalCalification</label>
+                        <label>Calificación del Proveedor: @Model.TotalCalification </label>
                     </div>
                 </div>
 
                 <div class="container-fluid POMPProviderDetailContainer">
-                    @*<div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo POMPPCalificationBox">
-                        <br />
-                        <label class="POMPProviderBoxInfo">@Model.TotalCalification</label>
-                        <br />
-                        <span>@Model.TotalScore</span>
-                    </div>*@
-                    @foreach (var Calification in Model.ProRelatedCalificationProject)
-                    {
-                        foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
+                    <div class="col-lg-10">
+                        @foreach (var Calification in Model.ProRelatedCalificationProject)
                         {
-                            <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo">
-                                <br />
-                                <label class="POMPProviderBoxInfo">@CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
-                                <br />
-                                <span>@CalificationItem.ItemScore</span>
-                            </div>
+                            foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
+                            {
+                                <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
+                                    <br />
+                                    <label class="POMPProviderBoxInfo">@CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
+                                    <br />
+                                    <span>@CalificationItem.ItemScore</span>
+                                </div>
+                            }
                         }
-                    }
+                    </div>
                     <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo ">
                         <br />
                         <label class="POMPProviderBoxInfo">Total Score</label>
