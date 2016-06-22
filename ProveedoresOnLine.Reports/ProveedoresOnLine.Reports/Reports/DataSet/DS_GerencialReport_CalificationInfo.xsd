@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_GerencialReport_CalificationInfo" targetNamespace="http://tempuri.org/DS_GerencialReport_CalificationInfo.xsd" xmlns:mstns="http://tempuri.org/DS_GerencialReport_CalificationInfo.xsd" xmlns="http://tempuri.org/DS_GerencialReport_CalificationInfo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_GerencialReport_CalificationInfo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_GerencialReport_CalificationInfo" msprop:Generator_UserDSName="DS_GerencialReport_CalificationInfo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DT_CalificatonInfo" msprop:Generator_TableClassName="DT_CalificatonInfoDataTable" msprop:Generator_TableVarName="tableDT_CalificatonInfo" msprop:Generator_RowChangedName="DT_CalificatonInfoRowChanged" msprop:Generator_TablePropName="DT_CalificatonInfo" msprop:Generator_RowDeletingName="DT_CalificatonInfoRowDeleting" msprop:Generator_RowChangingName="DT_CalificatonInfoRowChanging" msprop:Generator_RowEvHandlerName="DT_CalificatonInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="DT_CalificatonInfoRowDeleted" msprop:Generator_RowClassName="DT_CalificatonInfoRow" msprop:Generator_UserTableName="DT_CalificatonInfo" msprop:Generator_RowEvArgName="DT_CalificatonInfoRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ItemModuleName" msprop:Generator_ColumnVarNameInTable="columnItemModuleName" msprop:Generator_ColumnPropNameInRow="ItemModuleName" msprop:Generator_ColumnPropNameInTable="ItemModuleNameColumn" msprop:Generator_UserColumnName="ItemModuleName" type="xs:string" minOccurs="0" />
+              <xs:element name="ItemScore" msprop:Generator_ColumnVarNameInTable="columnItemScore" msprop:Generator_ColumnPropNameInRow="ItemScore" msprop:Generator_ColumnPropNameInTable="ItemScoreColumn" msprop:Generator_UserColumnName="ItemScore" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
