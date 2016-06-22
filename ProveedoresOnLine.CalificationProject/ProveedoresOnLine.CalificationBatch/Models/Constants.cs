@@ -10,6 +10,12 @@ namespace ProveedoresOnLine.CalificationBatch.Models
     {
         public const string C_POL_CalificatioProjectConnectionName = "POL_CalificationProjectConnection";
 
+        #region InternalSettings
+
+        public const string C_SettingsModuleName = "CalificationProjectBatch";
+
+        #endregion
+
         public const string C_AppSettings_LogFile = "LogFile";
     }
 }

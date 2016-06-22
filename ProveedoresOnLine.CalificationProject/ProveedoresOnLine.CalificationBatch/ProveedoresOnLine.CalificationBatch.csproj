@@ -88,6 +88,7 @@
     <Compile Include="Models\CalificationProjectBatch\CalificationProjectItemInfoBatchModel.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\InternalSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\UtilModule.cs" />
   </ItemGroup>
