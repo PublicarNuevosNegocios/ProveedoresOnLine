@@ -106,6 +106,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_FinancialReport.cs">
       <DependentUpon>DS_FinancialReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_FinancialReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,8 +123,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_GerencialReport_CalificationInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DS_GerencialReport_CalificationInfo.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.cs">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Contact.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -132,6 +139,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Terceros.cs">
       <DependentUpon>DS_GerencialReport_Terceros.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GerencialReport_Terceros.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -140,6 +148,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_GIBlackListreport.cs">
       <DependentUpon>DS_GIBlackListreport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_GIBlackListreport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,6 +157,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.cs">
       <DependentUpon>DS_SelectionProcessReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SelectionProcessReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -164,6 +174,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_Selection_Experience.cs">
       <DependentUpon>DS_Selection_Experience.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_Selection_Experience.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -177,6 +188,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_Selection_HSEQ.cs">
       <DependentUpon>DS_Selection_HSEQ.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_Selection_HSEQ.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -190,6 +202,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_Selection_TotalArea.cs">
       <DependentUpon>DS_Selection_TotalArea.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_Selection_TotalArea.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -198,6 +211,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.cs">
       <DependentUpon>DS_SurveyGeneralInfo.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfo.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -206,6 +220,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.cs">
       <DependentUpon>DS_SurveyGeneralInfoAreas.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_SurveyGeneralInfoAreas.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -214,6 +229,7 @@
     </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.cs">
       <DependentUpon>DS_ThirdKnowledgeReport.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\DataSet\DS_ThirdKnowledgeReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -266,6 +282,17 @@
     </None>
     <None Include="Reports\DataSet\DS_GerencialReport.xss">
       <DependentUpon>DS_GerencialReport.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_CalificationInfo.xsc">
+      <DependentUpon>DS_GerencialReport_CalificationInfo.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_CalificationInfo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DS_GerencialReport_CalificationInfo.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\DataSet\DS_GerencialReport_CalificationInfo.xss">
+      <DependentUpon>DS_GerencialReport_CalificationInfo.xsd</DependentUpon>
     </None>
     <None Include="Reports\DataSet\DS_GerencialReport_Contact.xsc">
       <DependentUpon>DS_GerencialReport_Contact.xsd</DependentUpon>

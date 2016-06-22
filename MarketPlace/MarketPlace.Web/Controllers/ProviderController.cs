@@ -2813,6 +2813,31 @@ namespace MarketPlace.Web.Controllers
 
             #endregion Kcontratación
 
+            #region CalificationProject
+            DataTable data4 = new DataTable();
+            data4.Columns.Add("ItemModuleName");
+            data4.Columns.Add("ItemScore");
+
+            DataRow row4;
+            foreach (var CalProject in oModel.ProRelatedCalificationProject)
+            {
+                foreach (var CalProjectItem in oModel.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                {
+                    row4 = data4.NewRow();
+
+                    row4["ItemModuleName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                    row4["ItemScore"] = CalProjectItem.ItemScore;
+
+                    data4.Rows.Add(row4);
+                }
+            }
+
+            parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName));
+            parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString()));
+            parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString()));
+            parameters.Add(new ReportParameter("CalificationProjectCal", oModel.TotalCalification.ToString()));
+            #endregion
+
             #endregion Set Parameters
             string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
             Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
@@ -2820,6 +2845,7 @@ namespace MarketPlace.Web.Controllers
                                                             data,
                                                             data2,
                                                             data3,
+                                                            data4,
                                                             parameters,
                                                             Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "C_Report_GerencialInfo.rdlc");
 
