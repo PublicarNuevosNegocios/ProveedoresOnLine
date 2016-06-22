@@ -58,6 +58,9 @@
 .POMPProviderDetailContainer {
     width: 97%;
 }
+.TotalScoreBox{
+    font-weight: bold;
+}
 
 
 /************ AQUI VA LA TODA LA INFORMACION DEL DATA WRAPPER ***********/

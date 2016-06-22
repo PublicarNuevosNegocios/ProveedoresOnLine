@@ -159,17 +159,17 @@
             {
                 <div class="row POMPSectionTitlesBox">
                     <div class="col-xs-12">
-                        <label>Calificación del Proveedor</label>
+                        <label>Calificación del Proveedor: @Model.TotalCalification</label>
                     </div>
                 </div>
 
                 <div class="container-fluid POMPProviderDetailContainer">
-                    <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo">
+                    @*<div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo POMPPCalificationBox">
                         <br />
                         <label class="POMPProviderBoxInfo">@Model.TotalCalification</label>
                         <br />
                         <span>@Model.TotalScore</span>
-                    </div>
+                    </div>*@
                     @foreach (var Calification in Model.ProRelatedCalificationProject)
                     {
                         foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
@@ -182,6 +182,12 @@
                             </div>
                         }
                     }
+                    <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo ">
+                        <br />
+                        <label class="POMPProviderBoxInfo">Total Score</label>
+                        <br />
+                        <span class="TotalScoreBox">@Model.TotalScore</span>
+                    </div>
                 </div>
             }
 
