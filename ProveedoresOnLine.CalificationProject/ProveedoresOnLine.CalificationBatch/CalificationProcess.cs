@@ -168,10 +168,9 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
 
-                                                            //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCommercialModule =
-                                                            //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
+                                                            cpib = ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
 
-                                                            //oCalCalificationProjectItemBatchToUpsert.Add(oCommercialModule);
+                                                            oModelToUpsert.CalificationProjectItemBatchModel.Add(cpib);
 
                                                             break;
 
@@ -181,10 +180,9 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
 
-                                                            //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCertificationModule =
-                                                            //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.HSEQModule.HSEQRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
+                                                            cpib = ProveedoresOnLine.CalificationBatch.CalificationProjectModule.HSEQModule.HSEQRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
 
-                                                            //oCalCalificationProjectItemBatchToUpsert.Add(oCertificationModule);
+                                                            oModelToUpsert.CalificationProjectItemBatchModel.Add(cpib);
 
                                                             break;
 
@@ -194,10 +192,9 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
 
-                                                            //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oBalanceModule =
-                                                            //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.BalanceModule.BalanceRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
+                                                            cpib = ProveedoresOnLine.CalificationBatch.CalificationProjectModule.BalanceModule.BalanceRule(prv.CompanyPublicId, cpib.CalificationProjectConfigItem, cpib);
 
-                                                            //oCalCalificationProjectItemBatchToUpsert.Add(oBalanceModule);
+                                                            oModelToUpsert.CalificationProjectItemBatchModel.Add(cpib);
 
                                                             break;
 
@@ -254,10 +251,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
 
-                                                        //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCommercialModule =
-                                                        //        ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, md, null);
+                                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCommercialModule =
+                                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, ci, null);
 
-                                                        //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oCommercialModule);
+                                                        oModelToUpsert.CalificationProjectItemBatchModel.Add(oCommercialModule);
 
                                                         break;
 
@@ -267,10 +264,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
 
-                                                        //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCertificationModule =
-                                                        //        ProveedoresOnLine.CalificationBatch.CalificationProjectModule.HSEQModule.HSEQRule(prv.CompanyPublicId, md, null);
+                                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCertificationModule =
+                                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.HSEQModule.HSEQRule(prv.CompanyPublicId, ci, null);
 
-                                                        //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oCertificationModule);
+                                                        oModelToUpsert.CalificationProjectItemBatchModel.Add(oCertificationModule);
 
                                                         break;
 
@@ -280,10 +277,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
 
-                                                        //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oBalanceModule =
-                                                        //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.BalanceModule.BalanceRule(prv.CompanyPublicId, md, null);
+                                                        ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oBalanceModule =
+                                                            ProveedoresOnLine.CalificationBatch.CalificationProjectModule.BalanceModule.BalanceRule(prv.CompanyPublicId, ci, null);
 
-                                                        //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oBalanceModule);
+                                                        oModelToUpsert.CalificationProjectItemBatchModel.Add(oBalanceModule);
 
                                                         break;
 
@@ -367,11 +364,11 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_CommercialModule:
 
-                                                //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCommercialModule =
-                                                //        ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, md, null);
+                                                ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCommercialModule =
+                                                    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, md, null);
 
-                                                //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oCommercialModule);
-
+                                                oCalificationProjectUpsert.CalificationProjectItemBatchModel.Add(oCommercialModule);
+                                                
                                                 break;
 
                                             #endregion
@@ -380,10 +377,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_HSEQModule:
 
-                                                //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCertificationModule =
-                                                //        ProveedoresOnLine.CalificationBatch.CalificationProjectModule.HSEQModule.HSEQRule(prv.CompanyPublicId, md, null);
+                                                ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oCertificationModule =
+                                                    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.HSEQModule.HSEQRule(prv.CompanyPublicId, md, null);
 
-                                                //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oCertificationModule);
+                                                oCalificationProjectUpsert.CalificationProjectItemBatchModel.Add(oCertificationModule);
 
                                                 break;
 
@@ -393,10 +390,10 @@ namespace ProveedoresOnLine.CalificationBatch
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_BalanceModule:
 
-                                                //ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oBalanceModule =
-                                                //    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.BalanceModule.BalanceRule(prv.CompanyPublicId, md, null);
+                                                ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oBalanceModule =
+                                                    ProveedoresOnLine.CalificationBatch.CalificationProjectModule.BalanceModule.BalanceRule(prv.CompanyPublicId, md, null);
 
-                                                //oCalificaitonProjectUpsert.CalificationProjectItemBatchModel.Add(oBalanceModule);
+                                                oCalificationProjectUpsert.CalificationProjectItemBatchModel.Add(oBalanceModule);
 
                                                 break;
 
@@ -426,6 +423,7 @@ namespace ProveedoresOnLine.CalificationBatch
                         else
                         {
                             //Provider list is empty
+                            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Error:: el cliente " + cnf.Company.CompanyPublicId + " no tiene proveedores relacionados para ejecutar el proceso.");
                         }
 
                         return true;
@@ -434,11 +432,12 @@ namespace ProveedoresOnLine.CalificationBatch
                 else
                 {
                     //calification project config list is empty
+                    ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Error:: no hay procesos de calificación configurados.");
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                throw;
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
         }
 
@@ -453,10 +452,7 @@ namespace ProveedoresOnLine.CalificationBatch
             try
             {
                 //get file Log
-                //string LogFile = AppDomain.CurrentDomain.BaseDirectory.Trim().TrimEnd(new char[] { '\\' }) + "\\" +
-                //System.Configuration.ConfigurationManager.AppSettings[ProveedoresOnLine.CalificationBatch.Models.Constants.C_AppSettings_LogFile].Trim().TrimEnd(new char[] { '\\' });
-
-                string LogFile = "D:\\UploadLog\\";
+                string LogFile = ProveedoresOnLine.CalificationBatch.Models.InternalSettings.Instance[Models.Constants.C_AppSettings_LogFile].Value.Trim();
 
                 if (!System.IO.Directory.Exists(LogFile))
                     System.IO.Directory.CreateDirectory(LogFile);

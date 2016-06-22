@@ -24,15 +24,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                 Enable = true,
             };
 
-            if (oRelatedCalificationProjectItemModel != null &&
-                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel != null &&
-                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Count > 0)
-            {
-                oReturn.CalificatioProjectItemInfoModel = oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel;
-            }
-
             List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oBalanceProviderInfo;
-
+            
             #region Variables
 
             int oTotalModuleScore = 0;
@@ -48,31 +41,531 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
             try
             {
+                if (oRelatedCalificationProjectItemModel != null &&
+                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel != null &&
+                oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Count > 0)
+                {
+                    oReturn.CalificatioProjectItemInfoModel = oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel;
+                }
+
                 if (oReturn.CalificatioProjectItemInfoModel != null &&
                     oReturn.CalificatioProjectItemInfoModel.Count > 0)
                 {
-                    //Get last calification
-                    oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify).All(cpitinf =>
+                    //Validate if module is not enable
+                    if (oRelatedCalificationProjectItemModel.CalificationProjectConfigItem.Enable)
                     {
-                        oTotalModuleScore += cpitinf.ItemInfoScore;
-                        return true;
-                    });
-
-                    oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify > cpitinf.LastModify).All(cpitinf =>
-                    {
-                        oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, cpitinf.CalificationProjectConfigItemInfoModel.Question);
-
-                        if (oBalanceProviderInfo != null &&
-                            oBalanceProviderInfo.Count > 0)
+                        //Validate rule config with mp rule
+                        oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.All(mprule =>
                         {
-                            oBalanceProviderInfo.All(f =>
+                            bool mpEnable = false;
+
+                            oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cnfrule => cnfrule.Enable == true).All(cnfrule =>
                             {
-                                if (f.BalanceSheetInfo != null &&
-                                    f.BalanceSheetInfo.Count > 0)
+                                if (!mpEnable && mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == cnfrule.CalificationProjectConfigItemInfoId)
                                 {
-                                    f.BalanceSheetInfo.All(bs =>
+                                    mpEnable = true;
+                                }
+
+                                return true;
+                            });
+
+                            mprule.Enable = mpEnable;
+
+                            return true;
+                        });
+                    }
+                    else
+                    {
+                        //disable all params
+                        oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.All(mprule =>
+                        {
+                            mprule.Enable = false;
+                            mprule.CalificationProjectConfigItemInfoModel.Enable = false;
+                            return true;
+                        });
+                    }
+
+                    //Get last calification
+                    //oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify).All(cpitinf =>
+                    //{
+                    //    oTotalModuleScore += cpitinf.ItemInfoScore;
+                    //    return true;
+                    //});
+
+                    oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
+                    {
+                        if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
+                        {
+                            oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
+                            {
+                                //add mp rule
+                                oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, rule.Question);
+
+                                oBalanceProviderInfo.All(f =>
+                                {
+                                    if (f.BalanceSheetInfo != null &&
+                                        f.BalanceSheetInfo.Count > 0)
                                     {
-                                        switch (cpitinf.CalificationProjectConfigItemInfoModel.Rule.ItemId)
+                                        f.BalanceSheetInfo.All(bs =>
+                                        {
+                                            switch (rule.Rule.ItemId)
+                                            {
+                                                #region Positivo
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Positivo:
+
+                                                    oDecimalValue = bs.Value;
+
+                                                    if (oDecimalValue > 0)
+                                                    {
+                                                        BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += BalanceScore;
+                                                    }
+                                                    else
+                                                    {
+                                                        BalanceScore = 0;
+                                                    }
+
+                                                    mprule.ItemInfoScore = BalanceScore;
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Negativo
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Negativo:
+
+                                                    oDecimalValue = bs.Value;
+
+                                                    if (oDecimalValue < 0)
+                                                    {
+                                                        BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += BalanceScore;
+                                                    }
+                                                    else
+                                                    {
+                                                        BalanceScore = 0;
+                                                    }
+
+                                                    mprule.ItemInfoScore = BalanceScore;
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region MayorQue
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorQue:
+
+                                                    switch (rule.ValueType.ItemId)
+                                                    {
+                                                        #region Tipo valor: numérico
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                            oDecimalValue = bs.Value;
+
+                                                            if (oDecimalValue > Convert.ToDecimal(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+
+                                                        #region Tipo valor: porcentaje
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                            oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+
+                                                            if (oPercentValue > Convert.ToDouble(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region MenorQue
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorQue:
+
+                                                    switch (rule.ValueType.ItemId)
+                                                    {
+                                                        #region Tipo valor: numérico
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                            oDecimalValue = bs.Value;
+
+                                                            if (oDecimalValue < Convert.ToDecimal(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+
+                                                        #region Tipo valor: porcentaje
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                            oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+
+                                                            if (oPercentValue < Convert.ToDouble(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region MayorOIgual
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorOIgual:
+
+                                                    switch (rule.ValueType.ItemId)
+                                                    {
+                                                        #region Tipo valor: numérico
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                            oDecimalValue = bs.Value;
+
+                                                            if (oDecimalValue >= Convert.ToDecimal(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+
+                                                        #region Tipo valor: porcentaje
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                            oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+
+                                                            if (oPercentValue >= Convert.ToDouble(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region MenorOIgual
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorOIgual:
+
+                                                    switch (rule.ValueType.ItemId)
+                                                    {
+                                                        #region Tipo valor: numérico
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                            oDecimalValue = bs.Value;
+
+                                                            if (oDecimalValue <= Convert.ToDecimal(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+
+                                                        #region Tipo valor: porcentaje
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                            oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+
+                                                            if (oPercentValue <= Convert.ToDouble(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region IgualQue
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.IgualQue:
+
+                                                    switch (rule.ValueType.ItemId)
+                                                    {
+                                                        #region Tipo valor: numérico
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                            oDecimalValue = bs.Value;
+
+                                                            if (oDecimalValue == Convert.ToDecimal(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+
+                                                        #region Tipo valor: porcentaje
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                            oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+
+                                                            if (oPercentValue == Convert.ToDouble(rule.Value))
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Entre
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Entre:
+
+                                                    switch (rule.ValueType.ItemId)
+                                                    {
+                                                        #region Tipo valor: numérico
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
+
+                                                            decimal minValue = 0;
+                                                            decimal maxValue = 0;
+
+                                                            string[] oValue = rule.Value.Split(',');
+
+                                                            minValue = Convert.ToDecimal(oValue[0]);
+                                                            maxValue = Convert.ToDecimal(oValue[1]);
+
+                                                            oDecimalValue = bs.Value;
+
+                                                            if (oDecimalValue < maxValue && oDecimalValue > minValue)
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+
+                                                        #region Tipo valor: porcentaje
+
+                                                        case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
+
+                                                            oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+
+                                                            double oMiniValue;
+                                                            double oMaxiValue;
+
+                                                            oValue = rule.Value.Split(',');
+
+                                                            oMiniValue = Convert.ToDouble(oValue[0].Trim());
+                                                            oMaxiValue = Convert.ToDouble(oValue[1].Trim());
+
+                                                            if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
+                                                            {
+                                                                BalanceScore = Convert.ToInt32(rule.Score);
+
+                                                                RuleScore++;
+
+                                                                oTotalModuleScore += BalanceScore;
+                                                            }
+                                                            else
+                                                            {
+                                                                BalanceScore = 0;
+                                                            }
+
+                                                            mprule.ItemInfoScore = BalanceScore;
+
+                                                            break;
+
+                                                        #endregion
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+                                            }
+
+                                            return true;
+                                        });
+                                    }
+
+                                    return true;
+                                });
+
+                                RuleScore = 0;
+
+                                return true;
+                            });
+                        }
+                        else
+                        {
+                            oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, rule.Question);
+
+                            oBalanceProviderInfo.Where(f => f != null).All(f =>
+                            {
+                                f.BalanceSheetInfo.All(bs =>
+                                {
+                                    if (RuleScore <= 0)
+                                    {
+                                        switch (rule.Rule.ItemId)
                                         {
                                             #region Positivo
 
@@ -80,9 +573,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oDecimalValue = bs.Value;
 
-                                                if (oDecimalValue > 0)
+                                                if (oDecimalValue >= 0)
                                                 {
-                                                    BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    BalanceScore = Convert.ToInt32(rule.Score);
 
                                                     RuleScore++;
 
@@ -93,7 +586,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     BalanceScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = BalanceScore;
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = BalanceScore,
+                                                    Enable = true,
+                                                });
 
                                                 break;
 
@@ -107,7 +609,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDecimalValue < 0)
                                                 {
-                                                    BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                    BalanceScore = Convert.ToInt32(rule.Score);
 
                                                     RuleScore++;
 
@@ -118,7 +620,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     BalanceScore = 0;
                                                 }
 
-                                                cpitinf.ItemInfoScore = BalanceScore;
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = BalanceScore,
+                                                    Enable = true,
+                                                });
 
                                                 break;
 
@@ -128,7 +639,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorQue:
 
-                                                switch (cpitinf.CalificationProjectConfigItemInfoModel.ValueType.ItemId)
+                                                switch (rule.ValueType.ItemId)
                                                 {
                                                     #region Tipo valor: numérico
 
@@ -136,9 +647,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue > Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue > Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -149,7 +660,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -161,9 +681,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
 
-                                                        if (oPercentValue > Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oPercentValue > Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -174,11 +694,21 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
                                                     #endregion
+
                                                 }
 
                                                 break;
@@ -189,7 +719,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorQue:
 
-                                                switch (cpitinf.CalificationProjectConfigItemInfoModel.ValueType.ItemId)
+                                                switch (rule.ValueType.ItemId)
                                                 {
                                                     #region Tipo valor: numérico
 
@@ -197,9 +727,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue < Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue < Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -210,7 +740,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -222,9 +761,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
 
-                                                        if (oPercentValue < Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oPercentValue < Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -235,7 +774,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -250,7 +798,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MayorOIgual:
 
-                                                switch (cpitinf.CalificationProjectConfigItemInfoModel.ValueType.ItemId)
+                                                switch (rule.ValueType.ItemId)
                                                 {
                                                     #region Tipo valor: numérico
 
@@ -258,9 +806,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue >= Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue >= Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -271,7 +819,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -283,9 +840,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
 
-                                                        if (oPercentValue >= Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -296,7 +853,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -311,7 +877,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.MenorOIgual:
 
-                                                switch (cpitinf.CalificationProjectConfigItemInfoModel.ValueType.ItemId)
+                                                switch (rule.ValueType.ItemId)
                                                 {
                                                     #region Tipo valor: numérico
 
@@ -319,9 +885,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue <= Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue <= Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -332,7 +898,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -344,9 +919,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
 
-                                                        if (oPercentValue <= Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -357,7 +932,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -372,7 +956,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.IgualQue:
 
-                                                switch (cpitinf.CalificationProjectConfigItemInfoModel.ValueType.ItemId)
+                                                switch (rule.ValueType.ItemId)
                                                 {
                                                     #region Tipo valor: numérico
 
@@ -380,9 +964,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oDecimalValue = bs.Value;
 
-                                                        if (oDecimalValue == Convert.ToDecimal(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oDecimalValue == Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -393,7 +977,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -403,11 +996,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Percent:
 
-                                                        oPercentValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypePercent(bs.Value.ToString());
+                                                        oDecimalValue = bs.Value;
 
-                                                        if (oPercentValue == Convert.ToDouble(cpitinf.CalificationProjectConfigItemInfoModel.Value))
+                                                        if (oPercentValue == Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -418,7 +1011,16 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
 
                                                         break;
 
@@ -433,7 +1035,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Entre:
 
-                                                switch (cpitinf.CalificationProjectConfigItemInfoModel.ValueType.ItemId)
+                                                switch (rule.ValueType.ItemId)
                                                 {
                                                     #region Tipo valor: numérico
 
@@ -442,7 +1044,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         decimal minValue = 0;
                                                         decimal maxValue = 0;
 
-                                                        string[] oValue = cpitinf.CalificationProjectConfigItemInfoModel.Value.Split(',');
+                                                        string[] oValue = rule.Value.Split(',');
 
                                                         minValue = Convert.ToDecimal(oValue[0]);
                                                         maxValue = Convert.ToDecimal(oValue[1]);
@@ -451,7 +1053,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -461,8 +1063,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        cpitinf.ItemInfoScore = BalanceScore;
 
                                                         break;
 
@@ -477,14 +1077,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         double oMiniValue;
                                                         double oMaxiValue;
 
-                                                        oValue = cpitinf.CalificationProjectConfigItemInfoModel.Value.Split(',');
+                                                        oValue = rule.Value.Split(',');
 
                                                         oMiniValue = Convert.ToDouble(oValue[0].Trim());
                                                         oMaxiValue = Convert.ToDouble(oValue[1].Trim());
 
                                                         if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                         {
-                                                            BalanceScore = Convert.ToInt32(cpitinf.CalificationProjectConfigItemInfoModel.Score);
+                                                            BalanceScore = Convert.ToInt32(rule.Score);
 
                                                             RuleScore++;
 
@@ -495,21 +1095,30 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             BalanceScore = 0;
                                                         }
 
-                                                        cpitinf.ItemInfoScore = BalanceScore;
-
                                                         break;
 
                                                     #endregion
                                                 }
 
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = BalanceScore,
+                                                    Enable = true,
+                                                });
+
                                                 break;
 
                                             #endregion
                                         }
+                                    }
 
-                                        return true;
-                                    });
-                                }
+                                    return true;
+                                });
 
                                 return true;
                             });
@@ -1108,9 +1717,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                 ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas del balance financiero del proveedor " + CompanyPublicId);
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                //ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
             
             //Get new score
