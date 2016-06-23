@@ -109,6 +109,9 @@
       <HintPath>..\packages\NetOffice.Core.1.7.3.0\lib\net45\OfficeApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CalificationBatch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CalificationBatch\developer\ProveedoresOnLine.CalificationBatch.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.Company, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
@@ -161,6 +164,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CalificationProjectProcessJobTest.cs" />
     <Compile Include="RestrictiveListReadProcessJobTest.cs" />
     <Compile Include="RestrictiveListSendProcessJobTest.cs" />
     <Compile Include="SANOFIIntegrationProcessJobTest.cs" />
