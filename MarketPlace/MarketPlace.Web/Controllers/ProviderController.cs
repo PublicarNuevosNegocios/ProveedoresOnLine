@@ -303,11 +303,15 @@ namespace MarketPlace.Web.Controllers
                 oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.
                                                         CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
 
-                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
-                oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
-                oModel.ProRelatedCalificationProject = oCalProject;
-                oModel.TotalScore = oCalProject.FirstOrDefault().TotalScore;
-                oModel.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);
+                if (oCalProject != null &&
+                    oCalProject.Count > 0)
+                {
+                    List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
+                    oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
+                    oModel.ProRelatedCalificationProject = oCalProject;
+                    oModel.TotalScore = oCalProject.FirstOrDefault().TotalScore;
+                    oModel.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);    
+                }
 
                 #endregion
 
