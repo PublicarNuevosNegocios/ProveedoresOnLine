@@ -13,14 +13,15 @@ namespace ProveedoresOnLine.CalificationBatch
         {
             try
             {
+                LogFile("Start Process:::" + DateTime.Now);
                 //Get all calification project config
                 List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oCalificationProjectConfigModel =
-                    ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetAll();
+                    ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectConfig_GetAll();                
 
                 //validate calification project config list
                 if (oCalificationProjectConfigModel != null &&
                     oCalificationProjectConfigModel.Count > 0)
-                {
+                {                    
                     oCalificationProjectConfigModel.All(cnf =>
                     {
                         //Get all related provider by customer
@@ -33,8 +34,10 @@ namespace ProveedoresOnLine.CalificationBatch
                         if (oRelatedProvider != null &&
                             oRelatedProvider.Count > 0)
                         {
+                            LogFile("Provider Process:::" + "Providers Count::::" + oRelatedProvider.Count.ToString() + "::::" + DateTime.Now);
                             oRelatedProvider.All(prv =>
                             {
+                                LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now);
                                 //Get calification process by provider
                                 List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                                    ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetProviderByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId);
@@ -432,12 +435,12 @@ namespace ProveedoresOnLine.CalificationBatch
                 else
                 {
                     //calification project config list is empty
-                    ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Error:: no hay procesos de calificación configurados.");
+                    LogFile("Error:: no hay procesos de calificación configurados.");
                 }
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
         }
 

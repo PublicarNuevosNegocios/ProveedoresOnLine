@@ -303,15 +303,23 @@ namespace MarketPlace.Web.Controllers
                 oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.
                                                         CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
 
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
+
                 if (oCalProject != null &&
                     oCalProject.Count > 0)
                 {
-                    List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
                     oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
                     oModel.ProRelatedCalificationProject = oCalProject;
                     oModel.TotalScore = oCalProject.FirstOrDefault().TotalScore;
-                    oModel.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);    
+                    oModel.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);
                 }
+                else
+                {
+                    oModel.ProRelatedCalificationProject = new List<CalificationProjectBatchModel>();
+                    oModel.TotalScore = 0;
+                    oModel.TotalCalification = string.Empty;
+                }
+                
 
                 #endregion
 
@@ -2823,23 +2831,38 @@ namespace MarketPlace.Web.Controllers
             data4.Columns.Add("ItemScore");
 
             DataRow row4;
-            foreach (var CalProject in oModel.ProRelatedCalificationProject)
+
+            if (oModel.ProRelatedCalificationProject != null &&
+                oModel.ProRelatedCalificationProject.Count > 0)
             {
-                foreach (var CalProjectItem in oModel.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                foreach (var CalProject in oModel.ProRelatedCalificationProject)
                 {
-                    row4 = data4.NewRow();
+                    foreach (var CalProjectItem in oModel.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                    {
+                        row4 = data4.NewRow();
 
-                    row4["ItemModuleName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                    row4["ItemScore"] = CalProjectItem.ItemScore;
+                        row4["ItemModuleName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                        row4["ItemScore"] = CalProjectItem.ItemScore;
 
-                    data4.Rows.Add(row4);
+                        data4.Rows.Add(row4);
+                    }
                 }
             }
+            else
+            {
+                row4 = data4.NewRow();
 
-            parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName));
-            parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString()));
-            parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString()));
-            parameters.Add(new ReportParameter("CalificationProjectCal", oModel.TotalCalification.ToString()));
+                row4["ItemModuleName"] = " ";
+                row4["ItemScore"] = " ";
+
+                data4.Rows.Add(row4);
+            }
+
+            parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProRelatedCalificationProject != null && oModel.ProRelatedCalificationProject.Count > 0 ? oModel.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
+            parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProRelatedCalificationProject != null && oModel.ProRelatedCalificationProject.Count > 0 ? oModel.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProRelatedCalificationProject != null && oModel.ProRelatedCalificationProject.Count > 0 ? oModel.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.TotalCalification.ToString()) ? oModel.TotalCalification.ToString() : " "));
+            
             #endregion
 
             #endregion Set Parameters
