@@ -4105,6 +4105,139 @@ namespace MarketPlace.Web.Controllers
             return oReporModel;
         }
 
+        public GenericReportModel RPCalification(ProviderViewModel oModel) 
+        {
+            List<ReportParameter> parameters = new List<ReportParameter>();
+            GenericReportModel oReportModel = new GenericReportModel();
+
+            #region Set Parameters
+
+            #region CustomerInfo
+            
+            parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
+            parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
+            parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("CustomerImage", SessionModel.CurrentCompany_CompanyLogo));
+            #endregion
+
+            #region ProviderInfo
+            parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+            parameters.Add(new ReportParameter("ProviderIdentificationType", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+            parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+            #endregion
+            
+            #region Basic Info
+
+            if (!string.IsNullOrEmpty(oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Representant", oModel.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Representant", "NA"));
+
+            if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
+                && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                parameters.Add(new ReportParameter("InscriptionNumber", oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber));
+            else
+                parameters.Add(new ReportParameter("InscriptionNumber", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Address", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Address", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
+                parameters.Add(new ReportParameter("City", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("City", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Phone", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Phone", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Fax", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Fax", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
+                parameters.Add(new ReportParameter("WebSite", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("WebSite", "NA"));
+
+            if (!string.IsNullOrWhiteSpace(oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
+                parameters.Add(new ReportParameter("Email", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()));
+            else
+                parameters.Add(new ReportParameter("Email", "NA"));
+
+            if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                parameters.Add(new ReportParameter("SocialObject", oModel.RelatedLegalInfo.FirstOrDefault().CP_SocialObject));
+            else
+                parameters.Add(new ReportParameter("SocialObject", "NA"));
+
+            #endregion Basic Info
+
+            #region CalificationInfo
+            //CalificationProjectInfo
+            parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
+            parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
+
+            DataTable LegadData = new DataTable();
+            LegadData.Columns.Add("LegalRuleName");
+            LegadData.Columns.Add("LegalRuleOperator");
+            LegadData.Columns.Add("LegalRuleValue");
+            LegadData.Columns.Add("LegalRuleScore");
+            LegadData.Columns.Add("LegalRuleResult");
+
+            DataRow row1;
+
+            if (oModel.ProviderCalification.ProRelatedCalificationProject != null &&
+                oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0)
+            {
+                foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
+                {
+                    foreach (var CalProjectItem in oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                    {
+                        foreach (var CalProjectItemInfo in oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel.FirstOrDefault().CalificationProjectConfigItem.CalificationProjectConfigItemInfoModel)
+	                    {
+                            row1 = LegadData.NewRow();
+
+	                    	row1["LegalRuleName"] = CalProjectItemInfo.Question.ItemName;
+                            row1["LegalRuleOperator"] = CalProjectItemInfo.Rule;
+                            row1["LegalRuleValue"] = CalProjectItemInfo.Value;
+                            row1["LegalRuleScore"] = CalProjectItemInfo.Score;
+                            row1["LegalRuleResult"] = CalProjectItem.CalificatioProjectItemInfoModel.FirstOrDefault().ItemInfoScore;
+  
+                            LegadData.Rows.Add(row1);
+	                    }                        
+                    }
+                }
+            }
+            else
+            {
+                row1 = LegadData.NewRow();
+
+	                    	row1["LegalRuleName"] = "";
+                            row1["LegalRuleOperator"] = "";
+                            row1["LegalRuleValue"] = "";
+                            row1["LegalRuleScore"] = "";
+                            row1["LegalRuleResult"] = "";
+  
+                            LegadData.Rows.Add(row1);
+            }
+            #endregion
+
+            #endregion
+
+            //Tuple<byte[], string, string> CalificationReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_CalificationReport
+            //                                                    (
+            //                                                        enumCategoryInfoType.PDF.ToString(),
+            //                                                    )
+
+            return oReportModel;
+        }
+
         #endregion Reports
 
         #region CustomData

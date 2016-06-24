@@ -27,6 +27,7 @@
             RP_GIBlackListQueryReport = 1501008,
             RP_FinancialReport = 1501009,
             RP_GIBlackListDetailQueryReport = 1501010,
+            RP_CalificationReport=1501011,
         }
 
         #endregion

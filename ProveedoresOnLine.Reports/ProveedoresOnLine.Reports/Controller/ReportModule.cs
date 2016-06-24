@@ -709,5 +709,74 @@ namespace ProveedoresOnLine.Reports.Controller
             }
         #endregion
 
+        #region CalificationReport
+
+            public static Tuple<byte[], string, string> CP_CalificationReport(string FormatType, DataTable LegalData, DataTable CommercialData, DataTable FinancialData, DataTable BalanceData, DataTable CertificationData, DataTable ConfigValidateData, List<ReportParameter> parameters, string FilePath) 
+            {
+                LocalReport localReport = new LocalReport();
+                localReport.EnableExternalImages = true;
+                localReport.ReportPath = FilePath;
+                localReport.SetParameters(parameters);
+
+                ReportDataSource source = new ReportDataSource();
+                source.Name = "DS_CalificationReport_LegalInfo";
+                source.Value = LegalData != null ? LegalData : new DataTable();
+                localReport.DataSources.Add(source);
+
+                ReportDataSource source2 = new ReportDataSource();
+                source2.Name = "DS_CalificationReport_FinancialInfo";
+                source2.Value = FinancialData != null ? FinancialData : new DataTable();
+                localReport.DataSources.Add(source2);
+
+                ReportDataSource source3 = new ReportDataSource();
+                source3.Name = "DS_CalificationReport_CommercialInfo";
+                source3.Value = CommercialData != null ? CommercialData : new DataTable();
+                localReport.DataSources.Add(source3);
+
+                ReportDataSource source4 = new ReportDataSource();
+                source4.Name = "DS_CalificationReport_Certification";
+                source4.Value = CertificationData != null ? CertificationData : new DataTable();
+                localReport.DataSources.Add(source4);
+
+                ReportDataSource source5 = new ReportDataSource();
+                source5.Name = "DS_CalificationReport_BalanceInfo";
+                source5.Value = BalanceData != null ? BalanceData : new DataTable();
+                localReport.DataSources.Add(source5);
+
+                ReportDataSource source6 = new ReportDataSource();
+                source6.Name = "DS_CalificationReport_ValidateInfo";
+                source6.Value = ConfigValidateData != null ? ConfigValidateData : new DataTable();
+                localReport.DataSources.Add(source6);
+
+                string mimeType;
+                string encoding;
+                string fileNameExtension;
+                string deviceInfo =
+                           "<DeviceInfo>" +
+                           "  <OutputFormat>" + FormatType + "</OutputFormat>" +
+                           "  <PageWidth>8.5in</PageWidth>" +
+                           "  <PageHeight>11in</PageHeight>" +
+                           "  <MarginTop>0.5in</MarginTop>" +
+                           "  <MarginLeft>0.8in</MarginLeft>" +
+                           "  <MarginRight>0.8in</MarginRight>" +
+                           "  <MarginBottom>0.5in</MarginBottom>" +
+                           "</DeviceInfo>";
+                Warning[] warnings;
+                string[] streams;
+                byte[] renderedBytes;
+
+                renderedBytes = localReport.Render(
+                    FormatType,
+                    deviceInfo,
+                    out mimeType,
+                    out encoding,
+                    out fileNameExtension,
+                    out streams,
+                    out warnings);
+                if (FormatType == "Excel") { FormatType = "xls"; }
+                return Tuple.Create(renderedBytes, mimeType, "Proveedores_" + ProveedoresOnLine.Reports.Models.Enumerations.enumReportType.RP_CalificationReport + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + "." + FormatType);
+            }
+        #endregion
+
     }
 }

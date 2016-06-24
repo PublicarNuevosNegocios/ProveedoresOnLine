@@ -86,7 +86,6 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>1.38011cm</Top>
-        <Left>0cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>1</ZIndex>
@@ -675,7 +674,6 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>5.3224cm</Top>
-        <Left>0cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>18</ZIndex>
@@ -1327,7 +1325,7 @@
         <Top>9.48002cm</Top>
         <Left>2.07813cm</Left>
         <Height>1.37639cm</Height>
-        <Width>12.6615cm</Width>
+        <Width>12.66149cm</Width>
         <ZIndex>27</ZIndex>
         <Style>
           <Border>
