@@ -885,6 +885,7 @@
         SurveyReport = 814005,
         SelectionReport = 814006,
         TKReport = 814007,
+        CalificationProject = 814008,
     }
 
     #endregion
@@ -906,6 +907,19 @@
         ForeignNoContact = 902010,
         NationalInactive = 902011,
         ForeignInactive = 902012,
+    }
+
+    #endregion
+
+    #region Calification Project
+
+    public enum CalificationProjectModule
+    {
+        LegalModule = 2003001,
+        FinancialModule = 2003002,
+        CommercialModule = 2003003,
+        HSEQModule = 2003004,
+        BalanceModule = 2003005,
     }
 
     #endregion

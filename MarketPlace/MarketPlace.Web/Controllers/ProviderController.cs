@@ -1083,6 +1083,11 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
+            if (Request["DownloadReport"] == "true")
+            {
+                //Add Report download
+            }
+
             return View(oModel);
         }
 
