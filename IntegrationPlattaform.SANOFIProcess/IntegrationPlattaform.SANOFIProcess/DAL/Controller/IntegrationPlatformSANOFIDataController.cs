@@ -49,6 +49,11 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
             return DataFactory.GetComercialInfoByProvider(vProviderPublicId);
         }
 
+        public List<Models.SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId)
+        {
+            return DataFactory.GetComercialBasicInfoByProvider(vProviderPublicId);
+        }
+
         public List<Models.SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
         {
             return DataFactory.GetContableInfoByProvider(vProviderPublicId);

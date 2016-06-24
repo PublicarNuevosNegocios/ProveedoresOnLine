@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_CalificationReport_FinancialInfo" targetNamespace="http://tempuri.org/DS_CalificationReport_FinancialInfo.xsd" xmlns:mstns="http://tempuri.org/DS_CalificationReport_FinancialInfo.xsd" xmlns="http://tempuri.org/DS_CalificationReport_FinancialInfo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_CalificationReport_FinancialInfo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS_CalificationReport_FinancialInfo" msprop:Generator_UserDSName="DS_CalificationReport_FinancialInfo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DT_CalificationFinancial" msprop:Generator_TableClassName="DT_CalificationFinancialDataTable" msprop:Generator_TableVarName="tableDT_CalificationFinancial" msprop:Generator_TablePropName="DT_CalificationFinancial" msprop:Generator_RowDeletingName="DT_CalificationFinancialRowDeleting" msprop:Generator_RowChangingName="DT_CalificationFinancialRowChanging" msprop:Generator_RowEvHandlerName="DT_CalificationFinancialRowChangeEventHandler" msprop:Generator_RowDeletedName="DT_CalificationFinancialRowDeleted" msprop:Generator_UserTableName="DT_CalificationFinancial" msprop:Generator_RowChangedName="DT_CalificationFinancialRowChanged" msprop:Generator_RowEvArgName="DT_CalificationFinancialRowChangeEvent" msprop:Generator_RowClassName="DT_CalificationFinancialRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FinancialRuleName" msprop:Generator_ColumnVarNameInTable="columnFinancialRuleName" msprop:Generator_ColumnPropNameInRow="FinancialRuleName" msprop:Generator_ColumnPropNameInTable="FinancialRuleNameColumn" msprop:Generator_UserColumnName="FinancialRuleName" type="xs:string" minOccurs="0" />
+              <xs:element name="FinancialRuleOperator" msprop:Generator_ColumnVarNameInTable="columnFinancialRuleOperator" msprop:Generator_ColumnPropNameInRow="FinancialRuleOperator" msprop:Generator_ColumnPropNameInTable="FinancialRuleOperatorColumn" msprop:Generator_UserColumnName="FinancialRuleOperator" type="xs:string" minOccurs="0" />
+              <xs:element name="FinancialRuleValue" msprop:Generator_ColumnVarNameInTable="columnFinancialRuleValue" msprop:Generator_ColumnPropNameInRow="FinancialRuleValue" msprop:Generator_ColumnPropNameInTable="FinancialRuleValueColumn" msprop:Generator_UserColumnName="FinancialRuleValue" type="xs:string" minOccurs="0" />
+              <xs:element name="FinancialRuleScore" msprop:Generator_ColumnVarNameInTable="columnFinancialRuleScore" msprop:Generator_ColumnPropNameInRow="FinancialRuleScore" msprop:Generator_ColumnPropNameInTable="FinancialRuleScoreColumn" msprop:Generator_UserColumnName="FinancialRuleScore" type="xs:string" minOccurs="0" />
+              <xs:element name="FinancialRuleResult" msprop:Generator_ColumnVarNameInTable="columnFinancialRuleResult" msprop:Generator_ColumnPropNameInRow="FinancialRuleResult" msprop:Generator_ColumnPropNameInTable="FinancialRuleResultColumn" msprop:Generator_UserColumnName="FinancialRuleResult" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

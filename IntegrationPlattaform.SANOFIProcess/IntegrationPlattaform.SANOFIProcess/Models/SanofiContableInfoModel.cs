@@ -8,11 +8,11 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 {
     public class SanofiContableInfoModel : SanofiGeneralInfoModel
     {
-        public int BankPassword { get; set; }
+        public string BankPassword { get; set; }
 
         public string BankCountNumber { get; set; }
 
-        public int CountType { get; set; }
+        public Int64 CountType { get; set; }
 
         public string IBAN { get; set; }
 
