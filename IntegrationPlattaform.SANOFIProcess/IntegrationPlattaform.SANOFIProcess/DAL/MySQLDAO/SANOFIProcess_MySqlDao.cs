@@ -113,14 +113,7 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                         IdentificationNumber = sci.Field<string>("IdentificationNumber"),
                         FiscalNumber = sci.Field<string>("FiscalNumber"),
                         NIF_Type = sci.Field<string>("NIF_Type"),
-                        CountsGroupItemId = sci.Field<string>("CountsGroupItemId"),
-                        CountsGroupItemName = sci.Field<string>("CountsGroupItemName"),
-                        Ramo = sci.Field<string>("Ramo"),
                         PayCondition = sci.Field<string>("PayCondition"),
-                        TaxClassId = sci.Field<string>("TaxClassId"),
-                        TaxClassName = sci.Field<string>("TaxClassName"),
-                        CurrencyId = sci.Field<string>("CurrencyId"),
-                        CurrencyName = sci.Field<string>("CurrencyName"),
                         GroupSchemaProvider = sci.Field<int>("GroupSchemaProvider"),
                         ContactName = sci.Field<string>("ContactName"),
                         ComprasCod = sci.Field<string>("ComprasCod"),
@@ -133,18 +126,61 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                             IdentificationNumber = scig.Key.IdentificationNumber,
                             FiscalNumber = scig.Key.FiscalNumber,
                             NIFType = scig.Key.NIF_Type,
-                            CountsGroupItemId = scig.Key.CountsGroupItemId,
-                            CountsGroupItemName = scig.Key.CountsGroupItemName,
-                            Ramo = scig.Key.Ramo,
                             PayCondition = scig.Key.PayCondition,
-                            TaxClassId = scig.Key.TaxClassId,
-                            TaxClassName = scig.Key.TaxClassName,
-                            CurrencyId = scig.Key.CurrencyId,
-                            CurrencyName = scig.Key.CurrencyName,
                             GroupSchemaProvider = scig.Key.GroupSchemaProvider,
                             ContactName = scig.Key.ContactName,
                             BuyCod = scig.Key.ComprasCod
 
+                        }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_GetComercialBasicInfo",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<SanofiComercialInfoModel> oReturn = new List<SanofiComercialInfoModel>();
+            if (response.DataTableResult != null && response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                (
+                    from sci in response.DataTableResult.AsEnumerable()
+                    where !sci.IsNull("CompanyId")
+                    group sci by new
+                    {
+                        CompanyId = sci.Field<int>("CompanyId"),
+                        CompanyName = sci.Field<string>("CompanyName"),
+                        IdentificationNumber = sci.Field<string>("IdentificationNumber"),
+                        FiscalNumber = sci.Field<string>("FiscalNumber"),
+                        NIF_Type = sci.Field<string>("NIF_Type"),                        
+                        CountsGroupItemName = sci.Field<string>("AcountsGroupItemName"),
+                        TaxClassName = sci.Field<string>("TaxClass"),                        
+                        CurrencyName = sci.Field<string>("CurrencyName"),
+                        Ramo = sci.Field<string>("Ramo"),                       
+                    }
+                        into scig
+                        select new SanofiComercialInfoModel()
+                        {
+                            CompanyId = scig.Key.CompanyId,
+                            CompanyName = scig.Key.CompanyName,
+                            IdentificationNumber = scig.Key.IdentificationNumber,
+                            FiscalNumber = scig.Key.FiscalNumber,
+                            NIFType = scig.Key.NIF_Type,                            
+                            CountsGroupItemName = scig.Key.CountsGroupItemName,
+                            Ramo = scig.Key.Ramo,                            
+                            TaxClassName = scig.Key.TaxClassName,                            
+                            CurrencyName = scig.Key.CurrencyName,
                         }).ToList();
             }
             return oReturn;
@@ -179,9 +215,9 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                           FiscalNumber = sconi.Field<string>("FiscalNumber"),
                           IdentificationNumber = sconi.Field<string>("IdentificationNumber"),
                           Country = sconi.Field<string>("Country"),
-                          BankPassword = sconi.Field<int>("BankPassword"),
+                          BankPassword = sconi.Field<string>("BankPassword"),
                           BankCountNumber = sconi.Field<string>("BankCountNumber"),
-                          CountType = sconi.Field<int>("CountType"),
+                          CountType = sconi.Field<Int64>("CountType"),
                           IBAN = sconi.Field<string>("IBAN"),
                           PayWay = sconi.Field<string>("PayWay"),
                           PayCondition = sconi.Field<string>("PayCondition"),

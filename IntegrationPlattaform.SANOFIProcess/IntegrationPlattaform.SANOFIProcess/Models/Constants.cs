@@ -8,6 +8,10 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 {
     public class Constants
     {
+
+
+        public const string C_AppSettings_LogFile = "LogFile";
+
         public const string C_SettingsModuleName = "IntegrationPlatformSANOFIIProcess";
 
         public const string C_SANOFI_ProviderPublicId = "SANOFI_ProviderPublicId";

@@ -23,42 +23,54 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 // Get Providers SANOFI
                 List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
                      IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null? LastProcess.LastModify : DateTime.Now.AddYears(-50));
+                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
 
                 Tuple<bool, string, string> oGeneralResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oComercialResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oContableResult = new Tuple<bool, string, string>(false, "", "");
+
                 if (oProviders != null)
                 {
+                    //log file
+                    LogFile("Start send " + oProviders.Count.ToString());
+
                     List<SanofiGeneralInfoModel> oGeneralInfo = new List<SanofiGeneralInfoModel>();
                     List<SanofiComercialInfoModel> oComercialInfo = new List<SanofiComercialInfoModel>();
+                    List<SanofiComercialInfoModel> oComercialBasicInfo = new List<SanofiComercialInfoModel>();
                     List<SanofiContableInfoModel> oContableInfo = new List<SanofiContableInfoModel>();
                     oProviders.All(p =>
+                    {
+                        //Get Last Process
+                        //Modify Date against Last Created process
+                        LogFile("ProviderPublicId:::: " + p.CompanyPublicId.ToString());
+                        SanofiGeneralInfoModel oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(p.CompanyPublicId).FirstOrDefault();
+                        SanofiComercialInfoModel oComercialGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfoByProvider(p.CompanyPublicId).FirstOrDefault();
+                        SanofiComercialInfoModel oComercialBasicRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialBasicInfoByProvider(p.CompanyPublicId).FirstOrDefault();
+                        //TODO: get basic comercial info
+
+
+                        SanofiContableInfoModel oContableRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfoByProvider(p.CompanyPublicId).FirstOrDefault();
+
+                        if (oGeneralRow != null)
+                            oGeneralInfo.Add(oGeneralRow);
+                        if (oComercialGeneralRow != null && oComercialBasicRow != null)
                         {
-                            //Get Last Process
-                            //Modify Date against Last Created process
+                            oComercialInfo.Add(oComercialGeneralRow);
+                            oComercialBasicInfo.Add(oComercialBasicRow);
+                        }
+                        if (oContableRow != null)
+                            oContableInfo.Add(oContableRow);
 
-                            SanofiGeneralInfoModel oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(p.CompanyPublicId).FirstOrDefault();
-                            SanofiComercialInfoModel oComercialRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfoByProvider(p.CompanyPublicId).FirstOrDefault(); 
-                            SanofiContableInfoModel oContableRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfoByProvider(p.CompanyPublicId).FirstOrDefault(); 
-
-                            if (oGeneralRow != null)
-                                oGeneralInfo.Add(oGeneralRow);
-                            if (oComercialRow != null)
-                                oComercialInfo.Add(oComercialRow);
-                            if (oContableRow != null)
-                                oContableInfo.Add(oContableRow);
-
-                            return true;
-                        });
+                        return true;
+                    });
 
                     //Call Function to create the txt;
                     if (oGeneralInfo.Count > 0)
                         oGeneralResult = GeneralInfoProcess(oGeneralInfo);
 
                     //Call Function to create the txt;
-                    if (oComercialInfo.Count > 0)
-                        oComercialResult = ComercialInfoProcess(oComercialInfo);
+                    if (oComercialInfo.Count > 0 && oComercialBasicInfo.Count > 0)
+                        oComercialResult = ComercialInfoProcess(oComercialInfo, oComercialBasicInfo);
 
                     //Call Function to create the txt;
                     if (oContableInfo.Count > 0)
@@ -69,19 +81,19 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 {
                     LogFile("Success:: SANOFI_Process:::Is:::OK '" + DateTime.Now + ":::No Provirders to validate:::");
                 }
-                if (!string.IsNullOrEmpty(oGeneralResult.Item2) || 
-                    !string.IsNullOrEmpty(oComercialResult.Item2) || 
+                if (!string.IsNullOrEmpty(oGeneralResult.Item2) ||
+                    !string.IsNullOrEmpty(oComercialResult.Item2) ||
                     !string.IsNullOrEmpty(oContableResult.Item2))
                 {
-                    LogFile("Success:: SANOFI_Process:::Is:::OK '" + DateTime.Now + oGeneralResult.Item2 + ":::"
+                    LogFile("Success:: SANOFI_Process:::Is:::OK::: '" + DateTime.Now + oGeneralResult.Item2 + ":::"
                                                                 + oComercialResult.Item2 + ":::"
                                                                 + oContableResult.Item2 + ":::");
-                }               
-                
+                }
+
             }
             catch (Exception err)
             {
-                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);                
+                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
         }
 
@@ -139,31 +151,50 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     #endregion
 
                     #region Write Process
-                    data.Append(
-                          "\"" + "NOMBRE1" + "\"" + strSep + x.CompanyName + strSep +
-                         "NOMBRE2" + strSep + x.ComercialName + strSep +
-                         "NOMBRE3" + strSep + NaturalName + strSep +
-                         "NOMBRE4" + strSep + NaturalLastName + strSep +
-                         "CONCEPTO DE BUSQUEDA" + strSep + x.IdentificationNumber + strSep +
-                         "NUMERO DE IDENTIFICACION FISCAL" + strSep + x.FiscalNumber + strSep +
-                         "CALLE NUMERO" + strSep + x.Address + strSep +
-                         "POBLACION" + strSep + x.City + strSep +
-                         "REGION" + strSep + x.Region + strSep +
-                         "PAIS" + strSep + x.Country + strSep +
-                         "TELEFONO" + strSep + string.Empty + strSep +
-                         "FAX" + strSep + x.Fax + strSep +
-                         "EMAIL OC" + strSep + x.Email_OC + strSep +
-                         "EMAIL PAGOS" + strSep + x.Email_P + strSep +
-                         "EMAIL CERTIFICADOS RETENCION" + strSep + x.Email_Cert + strSep +
-                         "COMENTARIOS" + strSep + x.Comentaries.ToShortDateString() + strSep);
+                    data.AppendLine(
+                           x.CompanyName + strSep +
+                           x.ComercialName + strSep +
+                          NaturalName + strSep +
+                          NaturalLastName + strSep +
+                          x.IdentificationNumber + strSep +
+                          x.FiscalNumber + strSep +
+                          x.Address + strSep +
+                          x.City + strSep +
+                          x.Region + strSep +
+                          x.Country + strSep +
+                          string.Empty + strSep +
+                          x.Fax + strSep +
+                          x.Email_OC + strSep +
+                          x.Email_P + strSep +
+                          x.Email_Cert + strSep +
+                          x.Comentaries.ToShortDateString() + strSep);
 
                     #endregion
-
                     return true;
                 });
 
-                byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
-                File.WriteAllBytes(strFolder + fileName, buffer);               
+                #region Write Header File
+                Header.AppendLine
+                               ("NOMBRE1" + strSep +
+                               "NOMBRE2" + strSep +
+                               "NOMBRE3" + strSep +
+                               "NOMBRE4" + strSep +
+                               "CONCEPTO DE BUSQUEDA" + strSep +
+                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
+                               "CALLE NUMERO" + strSep +
+                               "POBLACION" + strSep +
+                               "REGION" + strSep +
+                               "PAIS" + strSep +
+                               "TELEFONO" + strSep +
+                               "FAX" + strSep +
+                               "EMAIL OC" + strSep +
+                               "EMAIL PAGOS" + strSep +
+                               "EMAIL CERTIFICADOS RETENCION" + strSep +
+                               "COMENTARIOS" + strSep + data);
+
+                byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
+                File.WriteAllBytes(strFolder + fileName, buffer);
+                #endregion
                 #endregion
 
                 //Send to S3
@@ -184,6 +215,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "GeneralInfo",
                         IsSucces = true,
+                        Enable = true,
                     };
                     SanofiProcessLogInsert(oLogModel);
                     return true;
@@ -192,6 +224,19 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
             catch (Exception ex)
             {
+                //Save Process Log
+                oGeneralInfoModel.All(x =>
+                {
+                    SanofiProcessLogModel oLogModel = new SanofiProcessLogModel()
+                    {
+                        ProviderPublicId = x.CompanyId.ToString(),
+                        ProcessName = "GeneralInfo",
+                        IsSucces = false,
+                        Enable = true,
+                    };
+                    SanofiProcessLogInsert(oLogModel);
+                    return true;
+                });
                 //todo: Write log
                 return new Tuple<bool, string, string>(false, ex.Message, "::::GeneralInfoProcess::::");
             }
@@ -200,7 +245,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             return new Tuple<bool, string, string>(false, "Validation Is Success", "::::GeneralInfoProcess::::");
         }
 
-        private static Tuple<bool, string, string> ComercialInfoProcess(List<SanofiComercialInfoModel> oComercialInfoModel)
+        private static Tuple<bool, string, string> ComercialInfoProcess(List<SanofiComercialInfoModel> oComercialGeneralInfoModel, List<SanofiComercialInfoModel> oComercialBasicInfoModel)
         {
             try
             {
@@ -220,32 +265,47 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 string strSep = "|";
 
                 #region Start Create Process
-                oComercialInfoModel.All(x =>
+                oComercialGeneralInfoModel.All(x =>
                 {
                     #region Write Process
-                    data.Append(
-                          "\"" + "NOMBRE1" + "\"" + strSep + x.CompanyName + strSep +
-                          "NUMERO DE IDENTIFICACION FISCAL" + strSep + x.FiscalNumber + strSep +
-                          "CONCEPTO DE BUSQUEDA" + strSep + x.IdentificationNumber + strSep +
-                          "TIPO NIF" + strSep + x.NIFType + strSep +
-                          "GRUPO DE CUENTAS" + strSep + x.CountsGroupItemName + strSep +
-                          "CLASE DE IMPUESTO" + strSep + x.TaxClassName + strSep +
-                          "MONEDA PEDIDO" + strSep + x.CurrencyName + strSep +
-                          "RAMO" + strSep + x.Ramo + strSep +
-                          "CONDICION DE PAGO" + strSep + x.PayCondition + strSep +
-                          "GRUPO ESQUEMA PROVEEDOR" + strSep + x.GroupSchemaProvider + strSep +
-                          "VENDEDOR" + strSep + x.ContactName + strSep +
+                    data.AppendLine(
+                          x.CompanyName + strSep +
+                          x.FiscalNumber + strSep +
+                          x.IdentificationNumber + strSep +
+                          x.NIFType + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CountsGroupItemName +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].TaxClassName + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CurrencyName + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].Ramo + strSep +
+                          x.PayCondition + strSep +                          
+                          x.GroupSchemaProvider + strSep +
+                          x.ContactName + strSep +
                           "1" + strSep +
-                          "GRUPO DE COMPRAS" + strSep + x.BuyCod + strSep);
+                          x.BuyCod + strSep);
 
                     #endregion
-
                     return true;
                 });
+                #region Write Header File
+                Header.AppendLine
+                               ("NOMBRE1" + strSep +
+                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
+                               "CONCEPTO DE BUSQUEDA" + strSep +
+                               "TIPO NIF" + strSep +
+                               "GRUPO DE CUENTAS" + strSep +
+                               "CLASE DE IMPUESTO" + strSep +
+                               "MONEDA PEDIDO" + strSep +
+                               "RAMO" + strSep +
+                               "CONDICION DE PAGO" + strSep +
+                               "GRUPO ESQUEMA PROVEEDOR" + strSep +
+                               "VENDEDOR" + strSep +
+                               "VERIFICACION FACT BASE EM" + strSep +
+                               "GRUPO DE COMPRAS" + strSep + data);
 
-                byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
+                byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
                 File.WriteAllBytes(strFolder + fileName, buffer);
-                #endregion                
+                #endregion
+                #endregion
 
                 //Send to S3
                 string oFileCompleteName = strFolder + fileName;
@@ -258,13 +318,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     System.IO.File.Delete(oFileCompleteName);
 
                 //Save Process Log
-                oComercialInfoModel.All(x =>
+                oComercialGeneralInfoModel.All(x =>
                 {
                     SanofiProcessLogModel oLogModel = new SanofiProcessLogModel()
                     {
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "ComercialInfo",
                         IsSucces = true,
+                        Enable = true,
                     };
                     SanofiProcessLogInsert(oLogModel);
                     return true;
@@ -273,7 +334,20 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
             catch (Exception ex)
             {
-                //todo: Write log
+                //Save Process Log
+                oComercialGeneralInfoModel.All(x =>
+                {
+                    SanofiProcessLogModel oLogModel = new SanofiProcessLogModel()
+                    {
+                        ProviderPublicId = x.CompanyId.ToString(),
+                        ProcessName = "ComercialInfo",
+                        IsSucces = false,
+                        Enable = true,
+                    };
+                    SanofiProcessLogInsert(oLogModel);
+                    return true;
+                });
+                //Write log
                 return new Tuple<bool, string, string>(false, ex.Message, "::::ComercialInfoProcess::::");
             }
 
@@ -304,31 +378,46 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 oContableInfoModel.All(x =>
                 {
                     #region Write Process
-                    data.Append(
-                          "\"" + "NOMBRE1" + "\"" + strSep + x.CompanyName + strSep +
-                          "NUMERO DE IDENTIFICACION FISCAL" + strSep + x.FiscalNumber + strSep +
-                          "CONCEPTO DE BUSQUEDA" + strSep + x.IdentificationNumber + strSep +
-                          "PAIS" + strSep + x.Country + strSep +                          
-                          "CLAVE DE BANCOS" + strSep + x.BankPassword + strSep +
-                          "CUENTA BANCARIA" + strSep + x.BankCountNumber + strSep +
-                          "CC" + strSep + "1" + strSep +
-                          "IBAN" + strSep + x.IBAN + strSep +
-                          "CUENTA ASOCIADA" + strSep + x.AssociatedCount + strSep +
-                          "COND. PAGO" + strSep + x.PayCondition + strSep +
-                          "GRUPO TOLERANCIA" + strSep + "0010" + strSep +
-                          "VERIF. FRA DOB." + strSep + "1" + strSep +
-                          "TP.RECT" + strSep + "1" + strSep +
-                          "VIAS DE PAGO" + strSep + x.PayCondition + strSep);
-
+                    data.AppendLine(
+                          x.CompanyName + strSep +
+                          x.FiscalNumber + strSep +
+                          x.IdentificationNumber + strSep +
+                          x.Country + strSep +
+                          x.BankPassword + strSep +
+                          x.BankCountNumber + strSep +
+                          "1" + strSep +
+                          x.IBAN + strSep +
+                          x.AssociatedCount + strSep +
+                          x.PayCondition + strSep +
+                          "0010" + strSep +
+                          "1" + strSep +
+                          "1" + strSep +
+                          x.PayCondition + strSep);
                     #endregion
 
                     return true;
                 });
+                #region Write Header File
+                Header.AppendLine
+                               ("NOMBRE1" + strSep +
+                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
+                               "CONCEPTO DE BUSQUEDA" + strSep +
+                               "PAIS" + strSep +
+                               "CLAVE DE BANCOS" + strSep +
+                               "CUENTA BANCARIA" + strSep +
+                               "CC" + strSep +
+                               "IBAN" + strSep +
+                               "CUENTA ASOCIADA" + strSep +
+                               "COND. PAGO" + strSep +
+                               "GRUPO TOLERANCIA" + strSep +
+                               "VERIF. FRA DOB." + strSep +
+                               "TP.RECT" + strSep +
+                               "VIAS DE PAGO" + strSep + data);
 
-                byte[] buffer = Encoding.Default.GetBytes(data.ToString().ToCharArray());
+                byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
                 File.WriteAllBytes(strFolder + fileName, buffer);
                 #endregion
-
+                #endregion
                 //Send to S3
                 string oFileCompleteName = strFolder + fileName;
                 //UpLoad file to s3                
@@ -347,6 +436,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "ContableInfo",
                         IsSucces = true,
+                        Enable = true,
                     };
                     SanofiProcessLogInsert(oLogModel);
                     return true;
@@ -355,7 +445,20 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
             catch (Exception ex)
             {
-                //todo: Write log
+                //Save Process Log
+                oContableInfoModel.All(x =>
+                {
+                    SanofiProcessLogModel oLogModel = new SanofiProcessLogModel()
+                    {
+                        ProviderPublicId = x.CompanyId.ToString(),
+                        ProcessName = "ContableInfo",
+                        IsSucces = false,
+                        Enable = true,
+                    };
+                    SanofiProcessLogInsert(oLogModel);
+                    return true;
+                });
+                //Write log
                 return new Tuple<bool, string, string>(false, ex.Message, "::::ContableInfoProcess::::");
             }
 
@@ -419,7 +522,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 //get file Log
                 string LogFile = AppDomain.CurrentDomain.BaseDirectory.Trim().TrimEnd(new char[] { '\\' }) + "\\" +
                     System.Configuration.ConfigurationManager.AppSettings
-                    [IntegrationPlattaform.SANOFIProcess.Models.Constants.C_Settings_File_TempDirectory].Trim().TrimEnd(new char[] { '\\' });
+                    [IntegrationPlattaform.SANOFIProcess.Models.Constants.C_AppSettings_LogFile].Trim().TrimEnd(new char[] { '\\' });
 
                 if (!System.IO.Directory.Exists(LogFile))
                     System.IO.Directory.CreateDirectory(LogFile);
@@ -434,7 +537,6 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             }
             catch { }
         }
-
         #endregion
     }
 }

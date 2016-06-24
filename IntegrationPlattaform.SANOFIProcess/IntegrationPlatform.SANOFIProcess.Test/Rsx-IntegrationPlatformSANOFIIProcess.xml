@@ -5,7 +5,7 @@
     <key name="SANOFI_ProviderPublicId">7BC27832</key>
 
     <!--Temp Folder-->
-    <key name="SANOFI_File_TempDirectory">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\TempDirectory\</key>
+    <key name="SANOFI_File_TempDirectory">D:\Proyects\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\TempDirectory\</key>
 
     <!--S3 Path File-->
     <key name="SANOFI_File_ExcelDirectory">/SANOFI_Process</key>        
