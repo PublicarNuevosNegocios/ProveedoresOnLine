@@ -155,17 +155,29 @@
             }
 
             @*Calification Section*@
-            @if (Model.ProRelatedCalificationProject != null && Model.ProRelatedCalificationProject.Count > 0)
+            @if (Model.ProviderCalification.ProRelatedCalificationProject != null && Model.ProviderCalification.ProRelatedCalificationProject.Count > 0)
             {
                 <div class="row POMPSectionTitlesBox">
-                    <div class="col-xs-12">
-                        <label>Calificación del Proveedor: @Model.TotalCalification </label>
+                    <div class="col-xs-6">
+                        <label>Calificación del Proveedor: @Model.ProviderCalification.TotalCalification </label>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                                                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                                        new
+                                                                        {
+                                                                            controller = MVC.Provider.Name,
+                                                                            action = MVC.Provider.ActionNames.GICalificationProjectDetail,
+                                                                            ProviderPublicId = Request["ProviderPublicId"]
+                                                                        }))">
+                            Ver Detalle
+                        </a>
                     </div>
                 </div>
 
                 <div class="container-fluid POMPProviderDetailContainer">
                     <div class="col-lg-10">
-                        @foreach (var Calification in Model.ProRelatedCalificationProject)
+                        @foreach (var Calification in Model.ProviderCalification.ProRelatedCalificationProject)
                         {
                             foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
                             {
@@ -182,11 +194,10 @@
                         <br />
                         <label class="POMPProviderBoxInfo">Total Score</label>
                         <br />
-                        <span class="POMPTotalScoreBox">@Model.TotalScore</span>
+                        <span class="POMPTotalScoreBox">@Model.ProviderCalification.TotalScore</span>
                     </div>
                 </div>
             }
-
 
             @*Validación de Modulos por Rol*@
             @{

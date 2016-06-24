@@ -34,7 +34,7 @@ namespace BackOffice.Models.Customer
 
             CalificationProjectConfigItemInfoId = RelatedCalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId.ToString();
 
-            Question = RelatedCalificationProjectConfigItemInfoModel.Question.ToString();
+            Question = RelatedCalificationProjectConfigItemInfoModel.Question.ItemId.ToString();
 
             Rule = RelatedCalificationProjectConfigItemInfoModel.Rule.ItemId.ToString();
 

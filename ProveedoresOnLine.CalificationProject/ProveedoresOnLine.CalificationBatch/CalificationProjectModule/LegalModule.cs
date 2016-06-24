@@ -98,7 +98,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
                             {
                                 //add mp rule
-                                oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question);
+                                oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                                 oLegalProviderInfo.Where(pinf => pinf != null).All(pinf =>
                                 {
@@ -765,7 +765,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         else
                         {
                             //run rule
-                            oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question);
+                            oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                             oLegalProviderInfo.Where(pinf => pinf != null).All(pinf =>
                             {
@@ -1610,7 +1610,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cpitinf => cpitinf.Enable == true).All(cpitinf =>
                     {
-                        oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, cpitinf.Question);
+                        oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oLegalProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {

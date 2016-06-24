@@ -162,6 +162,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                                   //CalificationProjectConfigItemInfo
                                                   CalificationProjectConfigItemInfoId = cpiinf.Field<int>("CalificationProjectConfigItemInfoId"),
                                                   Question = cpiinf.Field<int>("Question"),
+                                                  QuestionName = cpiinf.Field<string>("QuestionName"),
                                                   RuleName = cpiinf.Field<string>("RuleName"),
                                                   RuleId = cpiinf.Field<int>("RuleId"),
                                                   ValueName = cpiinf.Field<string>("ValueName"),
@@ -176,7 +177,11 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                                   select new Models.CalificationProject.ConfigItemInfoModel()
                                                   {
                                                       CalificationProjectConfigItemInfoId = cpiinfg.Key.CalificationProjectConfigItemInfoId,
-                                                      Question = cpiinfg.Key.Question,
+                                                      Question = new Company.Models.Util.CatalogModel()
+                                                      {
+                                                          ItemId = cpiinfg.Key.Question,
+                                                          ItemName = cpiinfg.Key.QuestionName,
+                                                      },
                                                       Rule = new Company.Models.Util.CatalogModel()
                                                       {
                                                           ItemName = cpiinfg.Key.RuleName,
@@ -428,7 +433,9 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                          select new Models.CalificationProject.ConfigItemInfoModel()
                          {
                              CalificationProjectConfigItemInfoId = cinfg.Key.CalificationProjectConfigItemInfoId,
-                             Question = cinfg.Key.Question,
+                             Question = new Company.Models.Util.CatalogModel(){
+                                 ItemId = cinfg.Key.Question,
+                             },
                              Rule = new Company.Models.Util.CatalogModel()
                              {
                                  ItemId = cinfg.Key.RuleId,

@@ -99,7 +99,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
                             {
                                 //add mp rule
-                                oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, rule.Question);
+                                oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                                 oBalanceProviderInfo.All(f =>
                                 {
@@ -557,7 +557,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         }
                         else
                         {
-                            oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, rule.Question);
+                            oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                             oBalanceProviderInfo.Where(f => f != null).All(f =>
                             {
@@ -1135,7 +1135,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(cpitinf =>
                     {
-                        oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, cpitinf.Question);
+                        oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         if (oBalanceProviderInfo != null &&
                             oBalanceProviderInfo.Count > 0)

@@ -140,7 +140,7 @@ namespace ProveedoresOnLine.CalificationProject.Controller
                         cinf.CalificationProjectConfigItemInfoId = DAL.Controller.CalificationProjectDataController.Instance.CalificationProjectConfigItemInfoUpsert
                         (oConfigItemModel.CalificationProjectConfigItemId,
                         cinf.CalificationProjectConfigItemInfoId,
-                        cinf.Question,
+                        cinf.Question.ItemId,
                         cinf.Rule.ItemId,
                         cinf.ValueType.ItemId,
                         cinf.Value,

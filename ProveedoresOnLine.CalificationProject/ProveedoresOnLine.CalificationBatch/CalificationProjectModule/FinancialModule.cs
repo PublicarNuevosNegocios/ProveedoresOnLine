@@ -100,7 +100,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
                             {
                                 //add mp rule
-                                oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.FinancialModuleInfo(CompanyPublicId, rule.Question);
+                                oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.FinancialModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                                 oFinancialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                                 {
@@ -767,7 +767,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         else
                         {
                             //run rule
-                            oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question);
+                            oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                             oFinancialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                             {
@@ -1612,7 +1612,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(cpitinf =>
                     {
-                        oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.FinancialModuleInfo(CompanyPublicId, cpitinf.Question);
+                        oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.FinancialModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oFinancialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {

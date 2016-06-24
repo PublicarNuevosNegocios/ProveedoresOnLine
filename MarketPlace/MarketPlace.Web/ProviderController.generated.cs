@@ -109,6 +109,12 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult GICalificationProjectDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GICalificationProjectDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceInfo);
@@ -251,12 +257,6 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CDCustomData);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
-        {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -282,6 +282,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string GITrackingInfo = "GITrackingInfo";
             public readonly string GIBlackList = "GIBlackList";
             public readonly string GIBlackListDetail = "GIBlackListDetail";
+            public readonly string GICalificationProjectDetail = "GICalificationProjectDetail";
             public readonly string LIChaimberOfCommerceInfo = "LIChaimberOfCommerceInfo";
             public readonly string LIRutInfo = "LIRutInfo";
             public readonly string LICIFINInfo = "LICIFINInfo";
@@ -306,7 +307,6 @@ namespace MarketPlace.Web.Controllers
             public readonly string RPGeneral = "RPGeneral";
             public readonly string RPDIAN = "RPDIAN";
             public readonly string CDCustomData = "CDCustomData";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -321,6 +321,7 @@ namespace MarketPlace.Web.Controllers
             public const string GITrackingInfo = "GITrackingInfo";
             public const string GIBlackList = "GIBlackList";
             public const string GIBlackListDetail = "GIBlackListDetail";
+            public const string GICalificationProjectDetail = "GICalificationProjectDetail";
             public const string LIChaimberOfCommerceInfo = "LIChaimberOfCommerceInfo";
             public const string LIRutInfo = "LIRutInfo";
             public const string LICIFINInfo = "LICIFINInfo";
@@ -345,7 +346,6 @@ namespace MarketPlace.Web.Controllers
             public const string RPGeneral = "RPGeneral";
             public const string RPDIAN = "RPDIAN";
             public const string CDCustomData = "CDCustomData";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -419,6 +419,14 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string BlackListId = "BlackListId";
+        }
+        static readonly ActionParamsClass_GICalificationProjectDetail s_params_GICalificationProjectDetail = new ActionParamsClass_GICalificationProjectDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GICalificationProjectDetail GICalificationProjectDetailParams { get { return s_params_GICalificationProjectDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GICalificationProjectDetail
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ActionParamsClass_LIChaimberOfCommerceInfo s_params_LIChaimberOfCommerceInfo = new ActionParamsClass_LIChaimberOfCommerceInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -627,14 +635,6 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
-        {
-            public readonly string FilePath = "FilePath";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -765,6 +765,18 @@ namespace MarketPlace.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "BlackListId", BlackListId);
             GIBlackListDetailOverride(callInfo, ProviderPublicId, BlackListId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GICalificationProjectDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GICalificationProjectDetail(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GICalificationProjectDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            GICalificationProjectDetailOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
@@ -1068,18 +1080,6 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CDCustomData);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             CDCustomDataOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

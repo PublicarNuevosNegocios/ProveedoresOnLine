@@ -1363,6 +1363,7 @@
     <Content Include="Areas\Desktop\Views\Provider\RPGerencial.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\ADAditionalData.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\CDCustomData.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GICalificationProjectDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />

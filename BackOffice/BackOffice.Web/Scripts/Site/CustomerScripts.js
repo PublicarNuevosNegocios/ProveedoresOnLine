@@ -1360,7 +1360,7 @@ var Customer_CalificationProjectItemObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                                Message('success', 'Se editó la fila con el id ' + options.data.CalificationProjectConfigItemInfoId + '.');
                                 $('#' + Customer_CalificationProjectItemObject.ObjectId + '_' + vRenderObject.CalificationProjectItemType).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {

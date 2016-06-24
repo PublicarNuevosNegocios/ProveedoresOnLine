@@ -87,11 +87,9 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
 
-        public List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> ProRelatedCalificationProject { get; set; }
+        public ProviderCalificationViewModel ProviderCalification { get; set; }
 
-        public string TotalCalification { get; set; }
 
-        public int TotalScore { get; set; }
        
             
     }

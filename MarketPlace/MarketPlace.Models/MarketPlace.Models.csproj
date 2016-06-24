@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="General\NotificationViewModel.cs" />
     <Compile Include="Provider\ProviderAditionalDocumentViewModel.cs" />
+    <Compile Include="Provider\ProviderCalificationViewModel.cs" />
     <Compile Include="ThirdKnowledge\ThirdKnowledgeSearchViewModel.cs" />
     <Compile Include="ThirdKnowledge\ThirdKnowledgeViewModel.cs" />
     <Compile Include="Company\CompanyUtil.cs" />

@@ -305,19 +305,21 @@ namespace MarketPlace.Web.Controllers
 
                 List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
 
+                oModel.ProviderCalification = new ProviderCalificationViewModel();
+
                 if (oCalProject != null &&
                     oCalProject.Count > 0)
                 {
                     oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
-                    oModel.ProRelatedCalificationProject = oCalProject;
-                    oModel.TotalScore = oCalProject.FirstOrDefault().TotalScore;
-                    oModel.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);
+                    oModel.ProviderCalification.ProRelatedCalificationProject = oCalProject;
+                    oModel.ProviderCalification.TotalScore = oCalProject.FirstOrDefault().TotalScore;
+                    oModel.ProviderCalification.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);
                 }
                 else
                 {
-                    oModel.ProRelatedCalificationProject = new List<CalificationProjectBatchModel>();
-                    oModel.TotalScore = 0;
-                    oModel.TotalCalification = string.Empty;
+                    oModel.ProviderCalification.ProRelatedCalificationProject = new List<CalificationProjectBatchModel>();
+                    oModel.ProviderCalification.TotalScore = 0;
+                    oModel.ProviderCalification.TotalCalification = string.Empty;
                 }
                 
 
@@ -1028,6 +1030,59 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion
             }
+            return View(oModel);
+        }
+
+        public virtual ActionResult GICalificationProjectDetail(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //Clean the season url saved
+            if (SessionModel.CurrentURL != null)
+                SessionModel.CurrentURL = null;
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId).FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oCalProject = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
+                oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
+
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
+
+                if (oCalProject != null &&
+                    oCalProject.Count > 0)
+                {
+                    oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
+                    oModel.ProviderCalification = new ProviderCalificationViewModel();
+                    oModel.ProviderCalification.ProRelatedCalificationProject = oCalProject;
+                    oModel.ProviderCalification.TotalScore = oCalProject.FirstOrDefault().TotalScore;
+                    oModel.ProviderCalification.TotalCalification = GetCalificationScore(oCalProject, oValidateModel);
+                }
+                else
+                {
+                    oModel.ProviderCalification.ProRelatedCalificationProject = new List<CalificationProjectBatchModel>();
+                    oModel.ProviderCalification.TotalScore = 0;
+                    oModel.ProviderCalification.TotalCalification = string.Empty;
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
             return View(oModel);
         }
 
@@ -2832,12 +2887,12 @@ namespace MarketPlace.Web.Controllers
 
             DataRow row4;
 
-            if (oModel.ProRelatedCalificationProject != null &&
-                oModel.ProRelatedCalificationProject.Count > 0)
+            if (oModel.ProviderCalification.ProRelatedCalificationProject != null &&
+                oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0)
             {
-                foreach (var CalProject in oModel.ProRelatedCalificationProject)
+                foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
                 {
-                    foreach (var CalProjectItem in oModel.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                    foreach (var CalProjectItem in oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
                     {
                         row4 = data4.NewRow();
 
@@ -2858,14 +2913,15 @@ namespace MarketPlace.Web.Controllers
                 data4.Rows.Add(row4);
             }
 
-            parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProRelatedCalificationProject != null && oModel.ProRelatedCalificationProject.Count > 0 ? oModel.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
-            parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProRelatedCalificationProject != null && oModel.ProRelatedCalificationProject.Count > 0 ? oModel.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
-            parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProRelatedCalificationProject != null && oModel.ProRelatedCalificationProject.Count > 0 ? oModel.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
-            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.TotalCalification.ToString()) ? oModel.TotalCalification.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
+            parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
+            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
             
             #endregion
 
             #endregion Set Parameters
+
             string fileFormat = Request["ThirdKnowledge_cmbFormat"] != null ? Request["ThirdKnowledge_cmbFormat"].ToString() : "pdf";
             Tuple<byte[], string, string> GerencialReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_GerencialReport(
                                                             fileFormat,
@@ -4903,6 +4959,27 @@ namespace MarketPlace.Web.Controllers
                         });
                     }
 
+                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.ProviderCalification))
+                    {
+                        //Calificación del Proveedor.
+                        oMenuAux.ChildMenu.Add(new GenericMenu()
+                        {
+                            Name = "Calificación del proveedor",
+                            Url = Url.RouteUrl
+                                    (Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.GICalificationProjectDetail,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                    }),
+                            Position = 5,
+                            IsSelected =
+                                (oCurrentAction == MVC.Provider.ActionNames.GICalificationProjectDetail &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
+                    }
+
                     if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.Tracing))
                     {
                         //Seguimientos
@@ -4917,7 +4994,7 @@ namespace MarketPlace.Web.Controllers
                                         action = MVC.Provider.ActionNames.GITrackingInfo,
                                         ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                     }),
-                            Position = 5,
+                            Position = 6,
                             IsSelected =
                                 (oCurrentAction == MVC.Provider.ActionNames.GITrackingInfo &&
                                 oCurrentController == MVC.Provider.Name),

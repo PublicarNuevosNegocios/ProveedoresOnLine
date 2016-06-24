@@ -23,8 +23,8 @@ namespace ProveedoresOnLine.CalificationProject.Test
         [TestMethod]
         public void CalificationProject_GetByCustomer()
         {
-            List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
-            oReturn = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer("18C25804", "1BD9AD1B", true);
+            List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oReturn = 
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer("18C25804", "1BD9AD1B", true);
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }

@@ -99,7 +99,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
                             {
                                 //add mp rule
-                                oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, rule.Question);
+                                oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                                 oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                                 {
@@ -766,7 +766,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         else
                         {
                             //run rule
-                            oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, rule.Question);
+                            oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                             oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                             {
@@ -1611,7 +1611,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cpitinf => cpitinf.Enable == true).All(cpitinf =>
                     {
-                        oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, cpitinf.Question);
+                        oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {

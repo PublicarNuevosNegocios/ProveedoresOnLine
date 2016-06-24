@@ -99,7 +99,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
                             {
                                 //add mp rule
-                                oHSEQProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, rule.Question);
+                                oHSEQProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                                 oHSEQProviderInfo.Where(pinf => pinf != null).All(pinf =>
                                 {
@@ -766,7 +766,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         else
                         {
                             //run rule
-                            oHSEQProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, rule.Question);
+                            oHSEQProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, rule.Question.ItemId);
 
                             oHSEQProviderInfo.Where(pinf => pinf != null).All(pinf =>
                             {
@@ -1611,7 +1611,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cpitinf => cpitinf.Enable == true).All(cpitinf =>
                     {
-                        oHSEQProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, cpitinf.Question);
+                        oHSEQProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CertificationModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oHSEQProviderInfo.Where(pinf => pinf != null).All(pinf =>
                         {

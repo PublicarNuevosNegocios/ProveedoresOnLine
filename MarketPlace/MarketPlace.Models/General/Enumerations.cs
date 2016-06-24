@@ -827,6 +827,7 @@
         RepresentantInfo = 807004,
         Tracing = 807005,
         RestrictiveList = 807006,
+        ProviderCalification = 807007,
 
         //LegalInfo
         ChaimberOfCommerce = 808001,
