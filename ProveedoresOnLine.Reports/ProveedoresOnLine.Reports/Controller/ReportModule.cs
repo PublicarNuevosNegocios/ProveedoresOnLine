@@ -711,7 +711,7 @@ namespace ProveedoresOnLine.Reports.Controller
 
         #region CalificationReport
 
-            public static Tuple<byte[], string, string> CP_CalificationReport(string FormatType, DataTable LegalData, DataTable CommercialData, DataTable FinancialData, DataTable BalanceData, DataTable CertificationData, DataTable ConfigValidateData, List<ReportParameter> parameters, string FilePath) 
+            public static Tuple<byte[], string, string> CP_CalificationReport(string FormatType, DataTable LegalData, DataTable CommercialData, DataTable FinancialData, DataTable BalanceData, DataTable CertificationData, DataTable ConfigValidateData, List<ReportParameter> parameters,  string FilePath) 
             {
                 LocalReport localReport = new LocalReport();
                 localReport.EnableExternalImages = true;
