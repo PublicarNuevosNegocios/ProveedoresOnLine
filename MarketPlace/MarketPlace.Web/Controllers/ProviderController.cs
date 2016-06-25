@@ -1112,7 +1112,8 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-                    oModel.ProviderCalification.ProRelatedCalificationProject = new List<CalificationProjectBatchModel>();
+
+                    oModel.ProviderCalification = new ProviderCalificationViewModel();
                     oModel.ProviderCalification.TotalScore = 0;
                     oModel.ProviderCalification.TotalCalification = string.Empty;
                 }
@@ -4282,10 +4283,10 @@ namespace MarketPlace.Web.Controllers
                                 row1 = LegalData.NewRow();
                                 
                                 row1["LegalRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row1["LegalRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule;
+                                row1["LegalRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row1["LegalRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
                                 row1["LegalRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
-                                row1["LegalRuleResult"] = CalProjectItem.CalificatioProjectItemInfoModel.FirstOrDefault().ItemInfoScore;
+                                row1["LegalRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 LegalData.Rows.Add(row1);
                             }
@@ -4294,10 +4295,10 @@ namespace MarketPlace.Web.Controllers
                                 row2 = FinancialData.NewRow();
 
                                 row2["FinancialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule;
+                                row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row2["FinancialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
                                 row2["FinancialRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
-                                row2["FinancialRuleResult"] = CalProjectItem.CalificatioProjectItemInfoModel.FirstOrDefault().ItemInfoScore;
+                                row2["FinancialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 FinancialData.Rows.Add(row2);
                             }
@@ -4306,10 +4307,10 @@ namespace MarketPlace.Web.Controllers
                                 row3 = CommercialData.NewRow();
 
                                 row3["CommercialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row3["CommercialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule;
+                                row3["CommercialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row3["CommercialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
                                 row3["CommercialRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
-                                row3["CommercialRuleResult"] = CalProjectItem.CalificatioProjectItemInfoModel.FirstOrDefault().ItemInfoScore;
+                                row3["CommercialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 CommercialData.Rows.Add(row3);
                             }
@@ -4318,10 +4319,10 @@ namespace MarketPlace.Web.Controllers
                                 row4 = CertificationData.NewRow();
 
                                 row4["CertificationRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row4["CertificationRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule;
+                                row4["CertificationRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row4["CertificationRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
                                 row4["CertificationRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
-                                row4["CertificationRuleResult"] = CalProjectItem.CalificatioProjectItemInfoModel.FirstOrDefault().ItemInfoScore;
+                                row4["CertificationRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 CertificationData.Rows.Add(row4);
                             }
@@ -4330,10 +4331,10 @@ namespace MarketPlace.Web.Controllers
                                 row5 = BalanceData.NewRow();
 
                                 row5["BalanceRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row5["BalanceRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule;
+                                row5["BalanceRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row5["BalanceRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
                                 row5["BalanceRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
-                                row5["BalanceRuleResult"] = CalProjectItem.CalificatioProjectItemInfoModel.FirstOrDefault().ItemInfoScore;
+                                row5["BalanceRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 BalanceData.Rows.Add(row5);
                             }                                                        
@@ -4352,66 +4353,66 @@ namespace MarketPlace.Web.Controllers
                     ValidateData.Rows.Add(row6);
                 }
             }
-            else
-            {
-                row1 = LegalData.NewRow();
+            //else
+            //{
+            //    row1 = LegalData.NewRow();
 
-	                    	row1["LegalRuleName"] = "";
-                            row1["LegalRuleOperator"] = "";
-                            row1["LegalRuleValue"] = "";
-                            row1["LegalRuleScore"] = "";
-                            row1["LegalRuleResult"] = "";
+            //                row1["LegalRuleName"] = "";
+            //                row1["LegalRuleOperator"] = "";
+            //                row1["LegalRuleValue"] = "";
+            //                row1["LegalRuleScore"] = "";
+            //                row1["LegalRuleResult"] = "";
   
-                            LegalData.Rows.Add(row1);
+            //                LegalData.Rows.Add(row1);
 
-                row2 = FinancialData.NewRow();
+            //    row2 = FinancialData.NewRow();
 
-                            row2["FinancialRuleName"] = "";
-                            row2["FinancialRuleOperator"] = "";
-                            row2["FinancialRuleValue"] = "";
-                            row2["FinancialRuleScore"] = "";
-                            row2["FinancialRuleResult"] = "";
+            //                row2["FinancialRuleName"] = "";
+            //                row2["FinancialRuleOperator"] = "";
+            //                row2["FinancialRuleValue"] = "";
+            //                row2["FinancialRuleScore"] = "";
+            //                row2["FinancialRuleResult"] = "";
 
-                            FinancialData.Rows.Add(row2);
-                row3 = CommercialData.NewRow();
+            //                FinancialData.Rows.Add(row2);
+            //    row3 = CommercialData.NewRow();
 
-                            row3["CommercialRuleName"] = "";
-                            row3["CommercialRuleOperator"] = "";
-                            row3["CommercialRuleValue"] = "";
-                            row3["CommercialRuleScore"] = "";
-                            row3["CommercialRuleResult"] = "";
+            //                row3["CommercialRuleName"] = "";
+            //                row3["CommercialRuleOperator"] = "";
+            //                row3["CommercialRuleValue"] = "";
+            //                row3["CommercialRuleScore"] = "";
+            //                row3["CommercialRuleResult"] = "";
 
-                            CommercialData.Rows.Add(row3);
+            //                CommercialData.Rows.Add(row3);
 
-                row4 = CertificationData.NewRow();
+            //    row4 = CertificationData.NewRow();
 
-                            row4["CertificationRuleName"] = "";
-                            row4["CertificationRuleOperator"] = "";
-                            row4["CertificationRuleValue"] = "";
-                            row4["CertificationRuleScore"] = "";
-                            row4["CertificationRuleResult"] = "";
+            //                row4["CertificationRuleName"] = "";
+            //                row4["CertificationRuleOperator"] = "";
+            //                row4["CertificationRuleValue"] = "";
+            //                row4["CertificationRuleScore"] = "";
+            //                row4["CertificationRuleResult"] = "";
 
-                            CertificationData.Rows.Add(row4);
+            //                CertificationData.Rows.Add(row4);
 
-                 row5 = BalanceData.NewRow();
+            //     row5 = BalanceData.NewRow();
 
-                            row5["BalanceRuleName"] = "";
-                            row5["BalanceRuleOperator"] = "";
-                            row5["BalanceRuleValue"] = "";
-                            row5["BalanceRuleScore"] = "";
-                            row5["BalanceRuleResult"] = "";
+            //                row5["BalanceRuleName"] = "";
+            //                row5["BalanceRuleOperator"] = "";
+            //                row5["BalanceRuleValue"] = "";
+            //                row5["BalanceRuleScore"] = "";
+            //                row5["BalanceRuleResult"] = "";
 
-                            BalanceData.Rows.Add(row5);
+            //                BalanceData.Rows.Add(row5);
 
-                 row6 = ValidateData.NewRow();
+            //     row6 = ValidateData.NewRow();
 
-                            row6["Operator"] = "";
-                            row6["Value"] = "";
-                            row6["Result"] = "";
+            //                row6["Operator"] = "";
+            //                row6["Value"] = "";
+            //                row6["Result"] = "";
                            
 
-                            ValidateData.Rows.Add(row6);
-            }
+            //                ValidateData.Rows.Add(row6);
+            //}
             #endregion
 
             #endregion

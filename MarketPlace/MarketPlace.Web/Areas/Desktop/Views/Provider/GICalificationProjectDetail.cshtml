@@ -34,41 +34,47 @@
                                     {
                                         ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                     }))">
-                                    <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
-                                    <input type="hidden" name="DownloadReport" value="true" />
+                                    @if (Model.ProviderCalification != null && Model.ProviderCalification.ProRelatedCalificationProject != null)
+                                    {
+                                        <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
+                                        <input type="hidden" name="DownloadReport" value="true" />
+                                    }
+                                    
                                 </form>
                             </div>
                         </div>
                     }
                 }
             </div>
-            <div class="container-fluid POMPProviderDetailContainer">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <br />
-                        <label>Calificación:</label>
-                        <br />
-                        <span>@Model.ProviderCalification.TotalCalification</span>
+            @if (Model.ProviderCalification != null && Model.ProviderCalification.ProRelatedCalificationProject !=null)
+            {
+                <div class="container-fluid POMPProviderDetailContainer">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <br />
+                            <label>Calificación:</label>
+                            <br />
+                            <span>@Model.ProviderCalification.TotalCalification</span>
+                        </div>
+                        <div>
+                            <br />
+                            <label>Puntuación total:</label>
+                            <br />
+                            <span>@Model.ProviderCalification.TotalScore Puntos</span>
+                        </div>
                     </div>
-                    <div>
-                        <br />
-                        <label>Puntuación total:</label>
-                        <br />
-                        <span>@Model.ProviderCalification.TotalScore Puntos</span>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    @foreach (var Module in Model.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
-                    {
-                        <div class="row POMPSectionTitlesBox">
-                            <div class="col-xs-6">
-                                <label>Modulo @(!string.IsNullOrEmpty(Module.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? Module.CalificationProjectConfigItem.CalificationProjectConfigItemName : Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - @Module.ItemScore Puntos</label>
-                            </div>
-                            @if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
-                            {
-                                <div class="col-sm-6 text-right">
-                                    <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                    <br />
+                    <div class="row">
+                        @foreach (var Module in Model.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                        {
+                            <div class="row POMPSectionTitlesBox">
+                                <div class="col-xs-6">
+                                    <label>Modulo @(!string.IsNullOrEmpty(Module.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? Module.CalificationProjectConfigItem.CalificationProjectConfigItemName : Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - @Module.ItemScore Puntos</label>
+                                </div>
+                                @if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
+                                {
+                                    <div class="col-sm-6 text-right">
+                                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -76,14 +82,14 @@
                                                                             action = MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
                                                                             ProviderPublicId = Request["ProviderPublicId"]
                                                                         }))">
-                                        Ver Detalle
-                                    </a>
-                                </div>
-                            }
-                            else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
-                            {
-                                <div class="col-sm-6 text-right">
-                                    <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                                            Ver Detalle
+                                        </a>
+                                    </div>
+                                }
+                                else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
+                                {
+                                    <div class="col-sm-6 text-right">
+                                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -91,14 +97,14 @@
                                                                             action = MVC.Provider.ActionNames.FIIncomeStatementInfo,
                                                                             ProviderPublicId = Request["ProviderPublicId"]
                                                                         }))">
-                                        Ver Detalle
-                                    </a>
-                                </div>
-                            }
-                            else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
-                            {
-                                <div class="col-sm-6 text-right">
-                                    <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                                            Ver Detalle
+                                        </a>
+                                    </div>
+                                }
+                                else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
+                                {
+                                    <div class="col-sm-6 text-right">
+                                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -106,14 +112,14 @@
                                                                             action = MVC.Provider.ActionNames.CIExperiencesInfo,
                                                                             ProviderPublicId = Request["ProviderPublicId"]
                                                                         }))">
-                                        Ver Detalle
-                                    </a>
-                                </div>
-                            }
-                            else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
-                            {
-                                <div class="col-sm-6 text-right">
-                                    <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                                            Ver Detalle
+                                        </a>
+                                    </div>
+                                }
+                                else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
+                                {
+                                    <div class="col-sm-6 text-right">
+                                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -121,14 +127,14 @@
                                                                             action = MVC.Provider.ActionNames.HICertificationsInfo,
                                                                             ProviderPublicId = Request["ProviderPublicId"]
                                                                         }))">
-                                        Ver Detalle
-                                    </a>
-                                </div>
-                            }
-                            else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
-                            {
-                                <div class="col-sm-6 text-right">
-                                    <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                                            Ver Detalle
+                                        </a>
+                                    </div>
+                                }
+                                else if (Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+                                {
+                                    <div class="col-sm-6 text-right">
+                                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -136,63 +142,71 @@
                                                                             action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
                                                                             ProviderPublicId = Request["ProviderPublicId"]
                                                                         }))">
-                                        Ver Detalle
-                                    </a>
-                                </div>
-                            }
-                        </div>
-                        <div class="container-fluid POMPProviderDetailContainer">
-                            <div class="row">
-                                @foreach (var Rule in Module.CalificatioProjectItemInfoModel)
-                                {
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-3">
-                                            <br />
-                                            <label>Pregunta:</label>
-                                            <br />
-                                            <span>@Rule.CalificationProjectConfigItemInfoModel.Question.ItemName</span>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <br />
-                                            <label>Regla:</label>
-                                            <br />
-                                            <span>@Rule.CalificationProjectConfigItemInfoModel.Rule.ItemName</span>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <br />
-                                            <label>Validación</label>
-                                            <br />
-                                            <span>@Rule.CalificationProjectConfigItemInfoModel.ValueType.ItemName</span>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <br />
-                                            <label>Valor</label>
-                                            <br />
-                                            <span>@Rule.CalificationProjectConfigItemInfoModel.Value</span>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <br />
-                                            <label>Resultado</label>
-                                            <br />
-                                            <span>@Rule.ItemInfoScore</span>
-                                        </div>
+                                            Ver Detalle
+                                        </a>
                                     </div>
                                 }
                             </div>
-                        </div>
-                        <br />
-                    }
+                            <div class="container-fluid POMPProviderDetailContainer">
+                                <div class="row">
+                                    @foreach (var Rule in Module.CalificatioProjectItemInfoModel)
+                                    {
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-3">
+                                                <br />
+                                                <label>Pregunta:</label>
+                                                <br />
+                                                <span>@Rule.CalificationProjectConfigItemInfoModel.Question.ItemName</span>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <br />
+                                                <label>Regla:</label>
+                                                <br />
+                                                <span>@Rule.CalificationProjectConfigItemInfoModel.Rule.ItemName</span>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <br />
+                                                <label>Validación</label>
+                                                <br />
+                                                <span>@Rule.CalificationProjectConfigItemInfoModel.ValueType.ItemName</span>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <br />
+                                                <label>Valor</label>
+                                                <br />
+                                                <span>@Rule.CalificationProjectConfigItemInfoModel.Value</span>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <br />
+                                                <label>Resultado</label>
+                                                <br />
+                                                <span>@Rule.ItemInfoScore</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <br />
+                        }
+                    </div>
                 </div>
+            }
+            <div class="container-fluid POMPContainerDetail">
+                <div class="row POMPSectionTitlesBox">
+                    <div class="col-xs-9">
+                        <label>No existe calificación para este proveedor</label>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
-</div>
 
-@{
-    Model.RenderScripts = true;
-}
+    @{
+        Model.RenderScripts = true;
+    }
 
-@section inlinescripts
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
