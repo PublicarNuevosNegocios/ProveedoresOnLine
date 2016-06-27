@@ -162,7 +162,6 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                                   //CalificationProjectConfigItemInfo
                                                   CalificationProjectConfigItemInfoId = cpiinf.Field<int>("CalificationProjectConfigItemInfoId"),
                                                   Question = cpiinf.Field<int>("Question"),
-                                                  QuestionName = cpiinf.Field<string>("QuestionName"),
                                                   RuleName = cpiinf.Field<string>("RuleName"),
                                                   RuleId = cpiinf.Field<int>("RuleId"),
                                                   ValueName = cpiinf.Field<string>("ValueName"),
@@ -180,7 +179,6 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                                                       Question = new Company.Models.Util.CatalogModel()
                                                       {
                                                           ItemId = cpiinfg.Key.Question,
-                                                          ItemName = cpiinfg.Key.QuestionName,
                                                       },
                                                       Rule = new Company.Models.Util.CatalogModel()
                                                       {
