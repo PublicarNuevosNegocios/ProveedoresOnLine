@@ -39,14 +39,13 @@
                                         <button class="POMPButtonDownloadReport_Provider" type="submit" title="Descargar Reporte">Descargar Reporte</button>
                                         <input type="hidden" name="DownloadReport" value="true" />
                                     }
-                                    
                                 </form>
                             </div>
                         </div>
                     }
                 }
             </div>
-            @if (Model.ProviderCalification != null && Model.ProviderCalification.ProRelatedCalificationProject !=null)
+            @if (Model.ProviderCalification != null && Model.ProviderCalification.ProRelatedCalificationProject != null)
             {
                 <div class="container-fluid POMPProviderDetailContainer">
                     <div class="row">
@@ -191,22 +190,26 @@
                     </div>
                 </div>
             }
-            <div class="container-fluid POMPContainerDetail">
-                <div class="row POMPSectionTitlesBox">
-                    <div class="col-xs-9">
-                        <label>No existe calificación para este proveedor</label>
+            else
+            {
+                <div class="container-fluid POMPContainerDetail">
+                    <div class="row POMPSectionTitlesBox">
+                        <div class="col-xs-9">
+                            <label>No existe calificación para este proveedor</label>
+                        </div>
                     </div>
                 </div>
-                
-            </div>
+            }
+
         </div>
     </div>
+</div>
 
-    @{
-        Model.RenderScripts = true;
-    }
+@{
+    Model.RenderScripts = true;
+}
 
-    @section inlinescripts
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}

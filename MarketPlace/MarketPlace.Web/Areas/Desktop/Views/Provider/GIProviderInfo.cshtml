@@ -183,7 +183,9 @@
                             {
                                 <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
                                     <br />
-                                    <label class="POMPProviderBoxInfo">@CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
+                                    <label class="POMPProviderBoxInfo">@(!string.IsNullOrEmpty(Module.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? Module.CalificationProjectConfigItem.CalificationProjectConfigItemName : Module.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName)
+
+                                                                       </label>
                                     <br />
                                     <span>@CalificationItem.ItemScore</span>
                                 </div>
