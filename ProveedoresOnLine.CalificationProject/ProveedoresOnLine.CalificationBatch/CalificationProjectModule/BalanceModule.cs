@@ -123,13 +123,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += BalanceScore;
+
+                                                        mprule.ItemInfoScore = BalanceScore;
                                                     }
                                                     else
                                                     {
                                                         BalanceScore = 0;
                                                     }
-
-                                                    mprule.ItemInfoScore = BalanceScore;
 
                                                     break;
 
@@ -148,13 +148,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += BalanceScore;
+
+                                                        mprule.ItemInfoScore = BalanceScore;
                                                     }
                                                     else
                                                     {
                                                         BalanceScore = 0;
                                                     }
-
-                                                    mprule.ItemInfoScore = BalanceScore;
 
                                                     break;
 
@@ -179,13 +179,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -204,13 +204,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -240,13 +240,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -265,13 +265,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -301,13 +301,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -326,13 +326,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -362,13 +362,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -387,13 +387,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -423,13 +423,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -448,13 +448,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -492,13 +492,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -525,13 +525,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                mprule.ItemInfoScore = BalanceScore;
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            mprule.ItemInfoScore = BalanceScore;
 
                                                             break;
 
@@ -580,22 +580,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += BalanceScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = BalanceScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     BalanceScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = BalanceScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -614,22 +614,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += BalanceScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = BalanceScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     BalanceScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = BalanceScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -654,22 +654,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -688,27 +688,26 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
 
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
-
                                                         break;
 
                                                     #endregion
-
                                                 }
 
                                                 break;
@@ -734,22 +733,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -768,22 +767,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -813,22 +812,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -847,22 +846,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -892,22 +891,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -926,22 +925,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -971,22 +970,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -1005,22 +1004,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
                                                             BalanceScore = 0;
                                                         }
-
-                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                        {
-                                                            CalificationProjectItemInfoId = 0,
-                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                            {
-                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                            },
-                                                            ItemInfoScore = BalanceScore,
-                                                            Enable = true,
-                                                        });
 
                                                         break;
 
@@ -1058,6 +1057,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
@@ -1089,6 +1099,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += BalanceScore;
+
+                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                            {
+                                                                CalificationProjectItemInfoId = 0,
+                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                {
+                                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                                },
+                                                                ItemInfoScore = BalanceScore,
+                                                                Enable = true,
+                                                            });
                                                         }
                                                         else
                                                         {
@@ -1099,17 +1120,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     #endregion
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = BalanceScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1164,22 +1174,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += BalanceScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         BalanceScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = BalanceScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1198,22 +1208,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += BalanceScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = BalanceScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         BalanceScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = BalanceScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1238,22 +1248,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1272,27 +1282,26 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
 
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
-
                                                             break;
 
                                                         #endregion
-
                                                     }
 
                                                     break;
@@ -1318,22 +1327,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1352,22 +1361,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1397,22 +1406,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1431,22 +1440,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1476,22 +1485,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1510,22 +1519,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1555,22 +1564,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1589,22 +1598,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
                                                                 BalanceScore = 0;
                                                             }
-
-                                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                            {
-                                                                CalificationProjectItemInfoId = 0,
-                                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                                {
-                                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                                },
-                                                                ItemInfoScore = BalanceScore,
-                                                                Enable = true,
-                                                            });
 
                                                             break;
 
@@ -1642,6 +1651,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
@@ -1673,6 +1693,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                                 RuleScore++;
 
                                                                 oTotalModuleScore += BalanceScore;
+
+                                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                                {
+                                                                    CalificationProjectItemInfoId = 0,
+                                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                                    {
+                                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                                    },
+                                                                    ItemInfoScore = BalanceScore,
+                                                                    Enable = true,
+                                                                });
                                                             }
                                                             else
                                                             {
@@ -1683,17 +1714,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         #endregion
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = BalanceScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 

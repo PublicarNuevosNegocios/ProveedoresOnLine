@@ -371,7 +371,7 @@ namespace ProveedoresOnLine.CalificationBatch
                                                     ProveedoresOnLine.CalificationBatch.CalificationProjectModule.CommercialModule.CommercialRule(prv.CompanyPublicId, md, null);
 
                                                 oCalificationProjectUpsert.CalificationProjectItemBatchModel.Add(oCommercialModule);
-                                                
+
                                                 break;
 
                                             #endregion
@@ -420,8 +420,11 @@ namespace ProveedoresOnLine.CalificationBatch
                                     #endregion
                                 }
 
+                                LogFile("End provider Process::" + prv.CompanyPublicId + ":::" + DateTime.Now);
+
                                 return true;
                             });
+
                         }
                         else
                         {
@@ -442,6 +445,8 @@ namespace ProveedoresOnLine.CalificationBatch
             {
                 LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
             }
+
+            LogFile("End Process:::" + DateTime.Now);
         }
 
         private void GetCustomer()

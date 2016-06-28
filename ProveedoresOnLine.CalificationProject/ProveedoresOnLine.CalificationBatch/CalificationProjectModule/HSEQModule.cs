@@ -120,13 +120,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    mprule.ItemInfoScore = HSEQScore;
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                mprule.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -145,13 +145,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    mprule.ItemInfoScore = HSEQScore;
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                mprule.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -176,13 +176,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -201,13 +201,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -226,13 +226,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -262,13 +262,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -287,13 +287,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -312,13 +312,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -348,13 +348,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -373,13 +373,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -398,13 +398,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -434,13 +434,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -459,13 +459,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -484,13 +484,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -520,13 +520,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -545,13 +545,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -570,13 +570,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -595,13 +595,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -639,13 +639,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -672,13 +672,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -705,13 +705,13 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                             RuleScore++;
 
                                                             oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
                                                         }
                                                         else
                                                         {
                                                             HSEQScore = 0;
                                                         }
-
-                                                        mprule.ItemInfoScore = HSEQScore;
 
                                                         break;
 
@@ -739,6 +739,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        mprule.ItemInfoScore = HSEQScore;
                                                     }
                                                     else
                                                     {
@@ -747,8 +749,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 }
 
                                                 #endregion
-
-                                                mprule.ItemInfoScore = HSEQScore;
 
                                                 break;
 
@@ -787,22 +787,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 RuleScore++;
 
                                                 oTotalModuleScore += HSEQScore;
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = HSEQScore,
+                                                    Enable = true,
+                                                });
                                             }
                                             else
                                             {
                                                 HSEQScore = 0;
                                             }
-
-                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                            {
-                                                CalificationProjectItemInfoId = 0,
-                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                {
-                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                },
-                                                ItemInfoScore = HSEQScore,
-                                                Enable = true,
-                                            });
 
                                             break;
 
@@ -821,22 +821,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 RuleScore++;
 
                                                 oTotalModuleScore += HSEQScore;
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = HSEQScore,
+                                                    Enable = true,
+                                                });
                                             }
                                             else
                                             {
                                                 HSEQScore = 0;
                                             }
-
-                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                            {
-                                                CalificationProjectItemInfoId = 0,
-                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                {
-                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                },
-                                                ItemInfoScore = HSEQScore,
-                                                Enable = true,
-                                            });
 
                                             break;
 
@@ -861,22 +861,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -895,22 +895,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -929,22 +929,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -974,22 +974,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1008,22 +1008,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1042,22 +1042,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1087,22 +1087,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1121,22 +1121,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1155,22 +1155,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1200,22 +1200,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1234,22 +1234,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1268,22 +1268,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1313,22 +1313,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1347,22 +1347,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1381,22 +1381,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
 
                                                     break;
 
@@ -1413,22 +1413,23 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         HSEQScore = Convert.ToInt32(rule.Score);
                                                         RuleScore++;
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
                                                         HSEQScore = 0;
                                                     }
 
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                    {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
                                                     break;
 
                                                 #endregion
@@ -1465,6 +1466,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
@@ -1496,6 +1508,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
@@ -1527,6 +1550,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         RuleScore++;
 
                                                         oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
                                                     }
                                                     else
                                                     {
@@ -1537,17 +1571,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 #endregion
                                             }
-
-                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                            {
-                                                CalificationProjectItemInfoId = 0,
-                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                {
-                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                },
-                                                ItemInfoScore = HSEQScore,
-                                                Enable = true,
-                                            });
 
                                             break;
 
@@ -1570,6 +1593,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
@@ -1578,17 +1612,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             }
 
                                             #endregion
-
-                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                            {
-                                                CalificationProjectItemInfoId = 0,
-                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                {
-                                                    CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                },
-                                                ItemInfoScore = HSEQScore,
-                                                Enable = true,
-                                            });
 
                                             break;
 
@@ -1632,22 +1655,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             RuleScore++;
 
                                             oTotalModuleScore += HSEQScore;
+
+                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                            {
+                                                CalificationProjectItemInfoId = 0,
+                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                {
+                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                },
+                                                ItemInfoScore = HSEQScore,
+                                                Enable = true,
+                                            });
                                         }
                                         else
                                         {
                                             HSEQScore = 0;
                                         }
-
-                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                        {
-                                            CalificationProjectItemInfoId = 0,
-                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                            {
-                                                CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                            },
-                                            ItemInfoScore = HSEQScore,
-                                            Enable = true,
-                                        });
 
                                         break;
 
@@ -1666,22 +1689,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                             RuleScore++;
 
                                             oTotalModuleScore += HSEQScore;
+
+                                            oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                            {
+                                                CalificationProjectItemInfoId = 0,
+                                                CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                {
+                                                    CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                },
+                                                ItemInfoScore = HSEQScore,
+                                                Enable = true,
+                                            });
                                         }
                                         else
                                         {
                                             HSEQScore = 0;
                                         }
-
-                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                        {
-                                            CalificationProjectItemInfoId = 0,
-                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                            {
-                                                CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                            },
-                                            ItemInfoScore = HSEQScore,
-                                            Enable = true,
-                                        });
 
                                         break;
 
@@ -1706,22 +1729,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1740,22 +1763,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1774,22 +1797,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1819,22 +1842,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1853,22 +1876,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1887,22 +1910,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1932,22 +1955,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -1966,22 +1989,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2000,22 +2023,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2045,22 +2068,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2079,22 +2102,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2113,22 +2136,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2158,22 +2181,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2192,22 +2215,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2226,22 +2249,22 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
 
                                                 break;
 
@@ -2256,24 +2279,27 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 if (oTextValue == cpitinf.Value)
                                                 {
                                                     HSEQScore = Convert.ToInt32(cpitinf.Score);
+
                                                     RuleScore++;
+
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });                                                
                                                 }
                                                 else
                                                 {
                                                     HSEQScore = 0;
                                                 }
 
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                                {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                    {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
                                                 break;
 
                                             #endregion
@@ -2310,6 +2336,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
@@ -2341,6 +2378,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
@@ -2372,6 +2420,17 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     RuleScore++;
 
                                                     oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
                                                 }
                                                 else
                                                 {
@@ -2382,17 +2441,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             #endregion
                                         }
-
-                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                        {
-                                            CalificationProjectItemInfoId = 0,
-                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                            {
-                                                CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                            },
-                                            ItemInfoScore = HSEQScore,
-                                            Enable = true,
-                                        });
 
                                         break;
 
@@ -2414,23 +2462,23 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 RuleScore++;
 
                                                 oTotalModuleScore += HSEQScore;
+
+                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                {
+                                                    CalificationProjectItemInfoId = 0,
+                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    {
+                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                    },
+                                                    ItemInfoScore = HSEQScore,
+                                                    Enable = true,
+                                                });
                                             }
                                             else
                                             {
                                                 HSEQScore = 0;
                                             }
                                         }
-
-                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
-                                        {
-                                            CalificationProjectItemInfoId = 0,
-                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                            {
-                                                CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                            },
-                                            ItemInfoScore = HSEQScore,
-                                            Enable = true,
-                                        });
 
                                         break;
 
