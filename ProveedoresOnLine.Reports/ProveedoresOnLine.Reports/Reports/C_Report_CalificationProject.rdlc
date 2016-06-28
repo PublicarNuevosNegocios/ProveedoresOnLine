@@ -1335,7 +1335,7 @@
         <Top>9.48002cm</Top>
         <Left>0.49578cm</Left>
         <Height>1.37639cm</Height>
-        <Width>15.70429cm</Width>
+        <Width>15.7043cm</Width>
         <ZIndex>27</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
@@ -1413,20 +1413,22 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Legal:</Value>
+                <Value>=Parameters!LegalName.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>8.84474cm</Top>
-        <Left>0.49578cm</Left>
+        <Top>8.74545cm</Top>
+        <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.01981cm</Width>
+        <Width>2.78441cm</Width>
         <ZIndex>29</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
@@ -1834,7 +1836,7 @@
         <Top>11.63212cm</Top>
         <Left>0.49578cm</Left>
         <Height>1.37639cm</Height>
-        <Width>15.65214cm</Width>
+        <Width>15.65215cm</Width>
         <ZIndex>30</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
@@ -1852,20 +1854,22 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Financiera:</Value>
+                <Value>=Parameters!FinancialName.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>10.9977cm</Top>
-        <Left>0.49578cm</Left>
+        <Top>11.0328cm</Top>
+        <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.93774cm</Width>
+        <Width>2.78441cm</Width>
         <ZIndex>31</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
@@ -2291,20 +2295,22 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Comercial:</Value>
+                <Value>Comercial</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>13.18489cm</Top>
-        <Left>0.49578cm</Left>
+        <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.93774cm</Width>
+        <Width>2.78441cm</Width>
         <ZIndex>33</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
@@ -2730,20 +2736,22 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Balance:</Value>
+                <Value>Balance</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>15.33682cm</Top>
-        <Left>0.49578cm</Left>
+        <Top>15.37209cm</Top>
+        <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.93774cm</Width>
+        <Width>2.78441cm</Width>
         <ZIndex>35</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_BalanceInfo") &gt; 0, false, true)</Hidden>
@@ -3069,7 +3077,7 @@
         <Top>21.06512cm</Top>
         <Left>0.54382cm</Left>
         <Height>1.37639cm</Height>
-        <Width>15.56064cm</Width>
+        <Width>15.56063cm</Width>
         <ZIndex>37</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_ValidateInfo") &gt; 0, false, true)</Hidden>
@@ -3491,20 +3499,22 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Certificaciones:</Value>
+                <Value>Certificaciones</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>17.52402cm</Top>
-        <Left>0.54382cm</Left>
+        <Top>17.48874cm</Top>
+        <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.44689cm</Width>
+        <Width>2.78441cm</Width>
         <ZIndex>39</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
@@ -3965,6 +3975,14 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CustomerIdentification">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LegalName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FinancialName">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
