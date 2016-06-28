@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
+using ProveedoresOnLine.CalificationBatch.Models;
 
 namespace MarketPlace.Web.Controllers
 {
@@ -4211,13 +4212,31 @@ namespace MarketPlace.Web.Controllers
             #endregion Basic Info
 
             #region CalificationInfo
+            var ModuleItemId = oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel.FirstOrDefault().CalificationProjectConfigItem;
+            //var ModuleType = ;
             //CalificationProjectInfo
             parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
             parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
-            //parameters.Add(new ReportParameter("LegalName", oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel.FirstOrDefault().CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId.ToString()== ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule.ToString()&& ?);
-
+            foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
+            {
+                foreach (var CalProjectItem in CalProject.CalificationProjectItemBatchModel)
+                {
+                    if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId.ToString() ==Enumerations.enumModuleType.CP_LegalModule.ToString())
+                    {
+                        parameters.Add(new ReportParameter("LegalName", CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName!=null?CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName:CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName));
+                    }
+                    else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId.ToString() ==Enumerations.enumModuleType.CP_FinancialModule.ToString())
+                    {
+                        parameters.Add(new ReportParameter("FinancialName", CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName));    
+                    }
+                    
+                    
+                }
+            }
+            
+            
 
 
             DataTable LegalData = new DataTable();
