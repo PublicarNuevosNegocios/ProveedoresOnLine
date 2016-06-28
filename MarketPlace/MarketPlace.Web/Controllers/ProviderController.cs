@@ -4151,6 +4151,7 @@ namespace MarketPlace.Web.Controllers
 
         public GenericReportModel RPCalification(ProviderViewModel oModel) 
         {
+             
             List<ReportParameter> parameters = new List<ReportParameter>();
             GenericReportModel oReportModel = new GenericReportModel();
 
@@ -4215,6 +4216,9 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
+            //parameters.Add(new ReportParameter("LegalName", oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel.FirstOrDefault().CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId.ToString()== ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule.ToString()&& ?);
+
+
 
             DataTable LegalData = new DataTable();
             LegalData.Columns.Add("LegalRuleName");
