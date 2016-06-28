@@ -20,7 +20,13 @@ namespace ProveedoresOnLine.CalificationBatch.Interfaces
         int CalificationProjectItemUpsert(int vCalificationProjectItemId, int vCalificationProjectId, int vCalificationProjectConfigItemId, int vItemScore, bool vEnable);
 
         int CalificationProjectItemInfoUpsert(int vCalificationProjectItemInfoId, int vCalificationProjectItemId, int vCalificationProjectConfigItemInfoId, int vItemInfoScore, bool vEnable);
-        
+
+        #endregion
+
+        #region MarketPlace
+
+        List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCustomerPublicId(string CustomerPublicId, bool Enable);
+
         #endregion
 
         #region Calification Project Batch Util
