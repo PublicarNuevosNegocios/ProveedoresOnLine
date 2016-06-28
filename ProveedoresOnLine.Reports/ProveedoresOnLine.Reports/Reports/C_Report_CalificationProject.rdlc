@@ -1413,7 +1413,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!LegalName.Value</Value>
+                <Value>=Fields!LegalName.Value</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
@@ -3726,10 +3726,14 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
           <DataField>LegalRuleOperator</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="LegalName">
+          <DataField>LegalName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_CalificationReport_LegalInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_LegalInfo.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_LegalInfo.xsd</rd:SchemaPath>
         <rd:TableName>DT_CalificationLegal</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

@@ -289,6 +289,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnFinancialRuleResult;
             
+            private global::System.Data.DataColumn columnFinancialName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DT_CalificationFinancialDataTable() {
@@ -364,6 +366,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FinancialNameColumn {
+                get {
+                    return this.columnFinancialName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +409,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DT_CalificationFinancialRow AddDT_CalificationFinancialRow(string FinancialRuleName, string FinancialRuleOperator, string FinancialRuleValue, string FinancialRuleScore, string FinancialRuleResult) {
+            public DT_CalificationFinancialRow AddDT_CalificationFinancialRow(string FinancialRuleName, string FinancialRuleOperator, string FinancialRuleValue, string FinancialRuleScore, string FinancialRuleResult, string FinancialName) {
                 DT_CalificationFinancialRow rowDT_CalificationFinancialRow = ((DT_CalificationFinancialRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         FinancialRuleName,
                         FinancialRuleOperator,
                         FinancialRuleValue,
                         FinancialRuleScore,
-                        FinancialRuleResult};
+                        FinancialRuleResult,
+                        FinancialName};
                 rowDT_CalificationFinancialRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDT_CalificationFinancialRow);
                 return rowDT_CalificationFinancialRow;
@@ -434,6 +445,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnFinancialRuleValue = base.Columns["FinancialRuleValue"];
                 this.columnFinancialRuleScore = base.Columns["FinancialRuleScore"];
                 this.columnFinancialRuleResult = base.Columns["FinancialRuleResult"];
+                this.columnFinancialName = base.Columns["FinancialName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -449,6 +461,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnFinancialRuleScore);
                 this.columnFinancialRuleResult = new global::System.Data.DataColumn("FinancialRuleResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFinancialRuleResult);
+                this.columnFinancialName = new global::System.Data.DataColumn("FinancialName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFinancialName);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -676,6 +690,23 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string FinancialName {
+                get {
+                    try {
+                        return ((string)(this[this.tableDT_CalificationFinancial.FinancialNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FinancialName\' in table \'DT_CalificationFinancial\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableDT_CalificationFinancial.FinancialNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsFinancialRuleNameNull() {
                 return this.IsNull(this.tableDT_CalificationFinancial.FinancialRuleNameColumn);
             }
@@ -732,6 +763,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetFinancialRuleResultNull() {
                 this[this.tableDT_CalificationFinancial.FinancialRuleResultColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsFinancialNameNull() {
+                return this.IsNull(this.tableDT_CalificationFinancial.FinancialNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetFinancialNameNull() {
+                this[this.tableDT_CalificationFinancial.FinancialNameColumn] = global::System.Convert.DBNull;
             }
         }
         

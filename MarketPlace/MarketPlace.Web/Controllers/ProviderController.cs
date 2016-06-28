@@ -4218,28 +4218,14 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
             parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
-            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
-            foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
-            {
-                foreach (var CalProjectItem in CalProject.CalificationProjectItemBatchModel)
-                {
-                    if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId.ToString() ==Enumerations.enumModuleType.CP_LegalModule.ToString())
-                    {
-                        parameters.Add(new ReportParameter("LegalName", CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName!=null?CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName:CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName));
-                    }
-                    else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId.ToString() ==Enumerations.enumModuleType.CP_FinancialModule.ToString())
-                    {
-                        parameters.Add(new ReportParameter("FinancialName", CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName));    
-                    }
-                    
-                    
-                }
-            }
+            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));            
             
             
 
 
             DataTable LegalData = new DataTable();
+
+            LegalData.Columns.Add("LegalName");
             LegalData.Columns.Add("LegalRuleName");
             LegalData.Columns.Add("LegalRuleOperator");
             LegalData.Columns.Add("LegalRuleValue");
@@ -4249,6 +4235,8 @@ namespace MarketPlace.Web.Controllers
             DataRow row1;
 
             DataTable FinancialData = new DataTable();
+
+            FinancialData.Columns.Add("FinancialName");
             FinancialData.Columns.Add("FinancialRuleName");
             FinancialData.Columns.Add("FinancialRuleOperator");
             FinancialData.Columns.Add("FinancialRuleValue");
@@ -4304,7 +4292,8 @@ namespace MarketPlace.Web.Controllers
                             if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule )
                             {
                                 row1 = LegalData.NewRow();
-                                
+
+                                row1["LegalName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row1["LegalRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row1["LegalRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row1["LegalRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
@@ -4317,6 +4306,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 row2 = FinancialData.NewRow();
 
+                                row2["FinancialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row2["FinancialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row2["FinancialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
@@ -4375,67 +4365,7 @@ namespace MarketPlace.Web.Controllers
 
                     ValidateData.Rows.Add(row6);
                 }
-            }
-            //else
-            //{
-            //    row1 = LegalData.NewRow();
-
-            //                row1["LegalRuleName"] = "";
-            //                row1["LegalRuleOperator"] = "";
-            //                row1["LegalRuleValue"] = "";
-            //                row1["LegalRuleScore"] = "";
-            //                row1["LegalRuleResult"] = "";
-  
-            //                LegalData.Rows.Add(row1);
-
-            //    row2 = FinancialData.NewRow();
-
-            //                row2["FinancialRuleName"] = "";
-            //                row2["FinancialRuleOperator"] = "";
-            //                row2["FinancialRuleValue"] = "";
-            //                row2["FinancialRuleScore"] = "";
-            //                row2["FinancialRuleResult"] = "";
-
-            //                FinancialData.Rows.Add(row2);
-            //    row3 = CommercialData.NewRow();
-
-            //                row3["CommercialRuleName"] = "";
-            //                row3["CommercialRuleOperator"] = "";
-            //                row3["CommercialRuleValue"] = "";
-            //                row3["CommercialRuleScore"] = "";
-            //                row3["CommercialRuleResult"] = "";
-
-            //                CommercialData.Rows.Add(row3);
-
-            //    row4 = CertificationData.NewRow();
-
-            //                row4["CertificationRuleName"] = "";
-            //                row4["CertificationRuleOperator"] = "";
-            //                row4["CertificationRuleValue"] = "";
-            //                row4["CertificationRuleScore"] = "";
-            //                row4["CertificationRuleResult"] = "";
-
-            //                CertificationData.Rows.Add(row4);
-
-            //     row5 = BalanceData.NewRow();
-
-            //                row5["BalanceRuleName"] = "";
-            //                row5["BalanceRuleOperator"] = "";
-            //                row5["BalanceRuleValue"] = "";
-            //                row5["BalanceRuleScore"] = "";
-            //                row5["BalanceRuleResult"] = "";
-
-            //                BalanceData.Rows.Add(row5);
-
-            //     row6 = ValidateData.NewRow();
-
-            //                row6["Operator"] = "";
-            //                row6["Value"] = "";
-            //                row6["Result"] = "";
-                           
-
-            //                ValidateData.Rows.Add(row6);
-            //}
+            }            
             #endregion
 
             #endregion
