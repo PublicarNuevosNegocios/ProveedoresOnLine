@@ -166,6 +166,15 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
 
         #endregion
 
+        #region MarketPlace
+
+        public static List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCustomerPublicId(string CustomerPublicId, bool Enable)
+        {
+            return DAL.Controller.CalificationProjectBatchDataController.Instance.CalificationProjectConfig_GetByCustomerPublicId(CustomerPublicId, Enable);
+        }
+
+        #endregion
+
         #region Calification Project Barch Util
 
         #region Legal Module

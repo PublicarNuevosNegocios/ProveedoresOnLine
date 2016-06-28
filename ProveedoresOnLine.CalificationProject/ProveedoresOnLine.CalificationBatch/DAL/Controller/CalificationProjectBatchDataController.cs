@@ -65,6 +65,15 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.Controller
 
         #endregion
 
+        #region MarketPlace
+
+        public List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCustomerPublicId(string CustomerPublicId, bool Enable)
+        {
+            return DataFactory.CalificationProjectConfig_GetByCustomerPublicId(CustomerPublicId, Enable);
+        }
+
+        #endregion
+
         #region Calification Project Batch Util
 
         #region Legal Module

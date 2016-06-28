@@ -177,6 +177,19 @@ namespace ProveedoresOnLine.CalificationProject.Test
 
         #endregion
 
+        #region MarketPlace
+
+        [TestMethod]
+        public void GetCalificationProjectConfigByCustomer()
+        {
+            List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oReturn =
+                ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectConfig_GetByCustomerPublicId("18C25804", true);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        #endregion
+
         #region CalificationProjectBatchUtil
 
         #region LegalModule
