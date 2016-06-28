@@ -460,7 +460,8 @@ namespace ProveedoresOnLine.CalificationBatch
             try
             {
                 //get file Log
-                string LogFile = ProveedoresOnLine.CalificationBatch.Models.InternalSettings.Instance[Models.Constants.C_AppSettings_LogFile].Value.Trim();
+                string LogFile = AppDomain.CurrentDomain.BaseDirectory.Trim().TrimEnd(new char[] { '\\' }) + "\\" +
+                    System.Configuration.ConfigurationManager.AppSettings[ProveedoresOnLine.CalificationBatch.Models.Constants.C_AppSettings_LogFile].Trim().TrimEnd(new char[] { '\\' });
 
                 if (!System.IO.Directory.Exists(LogFile))
                     System.IO.Directory.CreateDirectory(LogFile);
