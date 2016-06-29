@@ -22,7 +22,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>0.17639cm</Top>
-        <Left>0.40898cm</Left>
+        <Left>0.4261cm</Left>
         <Height>1cm</Height>
         <Width>15.79109cm</Width>
         <Style>
@@ -86,6 +86,7 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>1.38011cm</Top>
+        <Left>0.01712cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>1</ZIndex>
@@ -115,7 +116,7 @@
         </Paragraphs>
         <rd:DefaultName>InscriptionNumber</rd:DefaultName>
         <Top>4.53857cm</Top>
-        <Left>10.98535cm</Left>
+        <Left>11.00247cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>2</ZIndex>
@@ -148,7 +149,7 @@
         </Paragraphs>
         <rd:DefaultName>Address</rd:DefaultName>
         <Top>3.83274cm</Top>
-        <Left>2.53215cm</Left>
+        <Left>2.54927cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94171cm</Width>
         <ZIndex>3</ZIndex>
@@ -181,7 +182,7 @@
         </Paragraphs>
         <rd:DefaultName>City</rd:DefaultName>
         <Top>3.1269cm</Top>
-        <Left>2.5321cm</Left>
+        <Left>2.54922cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94171cm</Width>
         <ZIndex>4</ZIndex>
@@ -214,7 +215,7 @@
         </Paragraphs>
         <rd:DefaultName>Phone</rd:DefaultName>
         <Top>4.53857cm</Top>
-        <Left>2.5321cm</Left>
+        <Left>2.54922cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94171cm</Width>
         <ZIndex>5</ZIndex>
@@ -247,7 +248,7 @@
         </Paragraphs>
         <rd:DefaultName>Fax</rd:DefaultName>
         <Top>2.42107cm</Top>
-        <Left>10.98535cm</Left>
+        <Left>11.00247cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>6</ZIndex>
@@ -280,7 +281,7 @@
         </Paragraphs>
         <rd:DefaultName>WebSite</rd:DefaultName>
         <Top>3.83274cm</Top>
-        <Left>10.9854cm</Left>
+        <Left>11.00252cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>7</ZIndex>
@@ -313,7 +314,7 @@
         </Paragraphs>
         <rd:DefaultName>Email</rd:DefaultName>
         <Top>3.1269cm</Top>
-        <Left>10.98535cm</Left>
+        <Left>11.00247cm</Left>
         <Height>0.6cm</Height>
         <Width>5.17126cm</Width>
         <ZIndex>8</ZIndex>
@@ -346,7 +347,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>4.53857cm</Top>
-        <Left>7.86645cm</Left>
+        <Left>7.88357cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>9</ZIndex>
@@ -379,7 +380,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.83274cm</Top>
-        <Left>0.3657cm</Left>
+        <Left>0.38282cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>10</ZIndex>
@@ -412,7 +413,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.1269cm</Top>
-        <Left>0.3657cm</Left>
+        <Left>0.38282cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>11</ZIndex>
@@ -445,7 +446,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>4.53857cm</Top>
-        <Left>0.3657cm</Left>
+        <Left>0.38282cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>12</ZIndex>
@@ -478,7 +479,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>2.42107cm</Top>
-        <Left>7.86645cm</Left>
+        <Left>7.88357cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>13</ZIndex>
@@ -511,7 +512,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.1269cm</Top>
-        <Left>7.86645cm</Left>
+        <Left>7.88357cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>14</ZIndex>
@@ -544,7 +545,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>3.83274cm</Top>
-        <Left>7.8665cm</Left>
+        <Left>7.88362cm</Left>
         <Height>0.6cm</Height>
         <Width>2.94251cm</Width>
         <ZIndex>15</ZIndex>
@@ -577,7 +578,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>2.42107cm</Top>
-        <Left>0.3657cm</Left>
+        <Left>0.38282cm</Left>
         <Height>0.6cm</Height>
         <Width>1.99001cm</Width>
         <ZIndex>16</ZIndex>
@@ -610,7 +611,7 @@
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
         <Top>2.42107cm</Top>
-        <Left>2.5321cm</Left>
+        <Left>2.54922cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94176cm</Width>
         <ZIndex>17</ZIndex>
@@ -674,6 +675,7 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>5.3224cm</Top>
+        <Left>0.01712cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>18</ZIndex>
@@ -702,7 +704,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>6.29281cm</Top>
-        <Left>0.3657cm</Left>
+        <Left>0.38282cm</Left>
         <Height>0.6cm</Height>
         <Width>2.62501cm</Width>
         <ZIndex>19</ZIndex>
@@ -734,7 +736,7 @@
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
         <Top>6.29281cm</Top>
-        <Left>3.21038cm</Left>
+        <Left>3.2275cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94176cm</Width>
         <ZIndex>20</ZIndex>
@@ -766,7 +768,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>6.29281cm</Top>
-        <Left>8.45691cm</Left>
+        <Left>8.47403cm</Left>
         <Height>0.6cm</Height>
         <Width>2.91605cm</Width>
         <ZIndex>21</ZIndex>
@@ -798,7 +800,7 @@
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
         <Top>6.29281cm</Top>
-        <Left>11.54935cm</Left>
+        <Left>11.56647cm</Left>
         <Height>0.6cm</Height>
         <Width>4.65072cm</Width>
         <ZIndex>22</ZIndex>
@@ -830,7 +832,7 @@
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
         <Top>7.03392cm</Top>
-        <Left>11.54935cm</Left>
+        <Left>11.56647cm</Left>
         <Height>0.6cm</Height>
         <Width>4.65072cm</Width>
         <ZIndex>23</ZIndex>
@@ -862,7 +864,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>7.03392cm</Top>
-        <Left>8.45691cm</Left>
+        <Left>8.47403cm</Left>
         <Height>0.6cm</Height>
         <Width>2.91605cm</Width>
         <ZIndex>24</ZIndex>
@@ -894,7 +896,7 @@
         </Paragraphs>
         <rd:DefaultName>ProviderIdentificationNumber</rd:DefaultName>
         <Top>7.03392cm</Top>
-        <Left>3.21038cm</Left>
+        <Left>3.2275cm</Left>
         <Height>0.6cm</Height>
         <Width>4.94176cm</Width>
         <ZIndex>25</ZIndex>
@@ -926,7 +928,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>7.03392cm</Top>
-        <Left>0.3657cm</Left>
+        <Left>0.38282cm</Left>
         <Height>0.6cm</Height>
         <Width>2.62493cm</Width>
         <ZIndex>26</ZIndex>
@@ -990,6 +992,7 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>7.81031cm</Top>
+        <Left>0.01712cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>27</ZIndex>
@@ -1390,8 +1393,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_FinancialInfo</DataSetName>
-        <Top>14.41891cm</Top>
-        <Left>0.49578cm</Left>
+        <Top>13.25589cm</Top>
+        <Left>0.46074cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.65215cm</Width>
         <ZIndex>28</ZIndex>
@@ -1404,43 +1407,6 @@
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox63">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value />
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>13.81959cm</Top>
-        <Left>6.60766cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.78441cm</Width>
-        <ZIndex>29</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Tablix Name="Tablix3">
         <TablixBody>
           <TablixColumns>
@@ -1831,11 +1797,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_CommercialInfo</DataSetName>
-        <Top>16.6061cm</Top>
-        <Left>0.49578cm</Left>
+        <Top>16.04284cm</Top>
+        <Left>0.41911cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.65214cm</Width>
-        <ZIndex>30</ZIndex>
+        <ZIndex>29</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -1845,43 +1811,6 @@
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox74">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Comercial</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>15.97168cm</Top>
-        <Left>6.60766cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.78441cm</Width>
-        <ZIndex>31</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Tablix Name="Tablix4">
         <TablixBody>
           <TablixColumns>
@@ -2272,11 +2201,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_BalanceInfo</DataSetName>
-        <Top>18.75803cm</Top>
-        <Left>0.49578cm</Left>
+        <Top>18.71562cm</Top>
+        <Left>0.41911cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.60868cm</Width>
-        <ZIndex>32</ZIndex>
+        <ZIndex>30</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_BalanceInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2286,43 +2215,6 @@
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox85">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Balance</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>18.15888cm</Top>
-        <Left>6.60766cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.78441cm</Width>
-        <ZIndex>33</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_BalanceInfo") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Rectangle Name="Rectangle13">
         <ReportItems>
           <Line Name="Line10">
@@ -2372,10 +2264,11 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>22.8508cm</Top>
+        <Top>23.4858cm</Top>
+        <Left>0.01712cm</Left>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
-        <ZIndex>34</ZIndex>
+        <ZIndex>31</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2631,11 +2524,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_ValidateInfo</DataSetName>
-        <Top>23.85191cm</Top>
-        <Left>0.54382cm</Left>
+        <Top>24.48691cm</Top>
+        <Left>0.56094cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.56063cm</Width>
-        <ZIndex>35</ZIndex>
+        <ZIndex>32</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_ValidateInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2645,447 +2538,6 @@
           </Border>
         </Style>
       </Tablix>
-      <Tablix Name="Tablix6">
-        <TablixBody>
-          <TablixColumns>
-            <TablixColumn>
-              <Width>5.60725cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.36569cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>3.4455cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.08538cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.10486cm</Width>
-            </TablixColumn>
-          </TablixColumns>
-          <TablixRows>
-            <TablixRow>
-              <Height>0.77639cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox87">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox36</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox90">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Operador</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox38</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox92">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Valor Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox40</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox95">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Puntaje Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox46</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox97">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Resultado Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox51</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox98">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!CertificationRuleName.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox37</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox99">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!CertificationRuleOperator.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox39</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox100">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!CertificationRuleValue.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox41</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox101">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!CertificationRuleScore.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox47</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox102">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!CertificationRuleResult.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox52</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-          </TablixRows>
-        </TablixBody>
-        <TablixColumnHierarchy>
-          <TablixMembers>
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-          </TablixMembers>
-        </TablixColumnHierarchy>
-        <TablixRowHierarchy>
-          <TablixMembers>
-            <TablixMember>
-              <KeepWithGroup>After</KeepWithGroup>
-            </TablixMember>
-            <TablixMember>
-              <Group Name="Details6" />
-            </TablixMember>
-          </TablixMembers>
-        </TablixRowHierarchy>
-        <DataSetName>DS_CalificationReport_Certification</DataSetName>
-        <Top>20.94523cm</Top>
-        <Left>0.54382cm</Left>
-        <Height>1.37639cm</Height>
-        <Width>15.60868cm</Width>
-        <ZIndex>36</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Tablix>
-      <Textbox Name="Textbox103">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Certificaciones</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>20.27553cm</Top>
-        <Left>6.60766cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.78441cm</Width>
-        <ZIndex>37</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Tablix Name="Tablix1">
         <TablixBody>
           <TablixColumns>
@@ -3478,11 +2930,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_LegalInfo</DataSetName>
-        <Top>10.5382cm</Top>
-        <Left>0.44362cm</Left>
+        <Top>10.41516cm</Top>
+        <Left>0.46074cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.7043cm</Width>
-        <ZIndex>38</ZIndex>
+        <ZIndex>33</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -3513,18 +2965,25 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!LegalName.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>LegalName</rd:DefaultName>
             <Top>0.08361cm</Top>
-            <Left>6.83938cm</Left>
+            <Left>6.14595cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <Width>3.9078cm</Width>
             <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3538,10 +2997,13 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>9.35972cm</Top>
-        <Left>0.05269cm</Left>
+        <Left>0.0698cm</Left>
         <Height>0.94961cm</Height>
         <Width>16.6cm</Width>
-        <ZIndex>39</ZIndex>
+        <ZIndex>34</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3562,13 +3024,648 @@
               </Border>
             </Style>
           </Line>
+          <Textbox Name="Textbox63">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!FinancialName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox12</rd:DefaultName>
+            <Top>0.11889cm</Top>
+            <Left>6.1723cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.9078cm</Width>
+            <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>12.53701cm</Top>
-        <Left>0.02634cm</Left>
+        <Top>12.21951cm</Top>
+        <Left>0.04346cm</Left>
         <Height>0.86cm</Height>
         <Width>16.6cm</Width>
-        <ZIndex>40</ZIndex>
+        <ZIndex>35</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Rectangle Name="Rectangle16">
+        <ReportItems>
+          <Line Name="Line13">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="CommercialName">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!CommercialName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>CommercialName</rd:DefaultName>
+            <Top>0.16212cm</Top>
+            <Left>6.1723cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.9078cm</Width>
+            <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>15.07701cm</Top>
+        <Left>0.04346cm</Left>
+        <Height>0.86cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>36</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Rectangle Name="Rectangle17">
+        <ReportItems>
+          <Line Name="Line14">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="BalanceName">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!BalanceName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>BalanceName</rd:DefaultName>
+            <Top>0.15417cm</Top>
+            <Left>6.1723cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.16688cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>17.74978cm</Top>
+        <Height>0.86cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>37</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Rectangle Name="Rectangle18">
+        <ReportItems>
+          <Line Name="Line15">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Tablix Name="Tablix6">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>5.60725cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.36569cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.4455cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.08538cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.10486cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.77639cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox87">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Regla</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox36</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox90">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Operador</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox38</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox92">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Valor Regla</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox40</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox95">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Puntaje Regla</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox46</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox97">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Resultado Regla</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox51</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox98">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CertificationRuleName.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox37</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox99">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CertificationRuleOperator.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox39</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox100">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CertificationRuleValue.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox41</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox101">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CertificationRuleScore.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox47</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox102">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CertificationRuleResult.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI Light</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox52</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details6" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DS_CalificationReport_Certification</DataSetName>
+            <Top>0.96583cm</Top>
+            <Left>0.5387cm</Left>
+            <Height>1.37639cm</Height>
+            <Width>15.60868cm</Width>
+            <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+          <Textbox Name="CertificationName">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!CertificationName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>CertificationName</rd:DefaultName>
+            <Top>0.15417cm</Top>
+            <Left>6.14595cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.16688cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>20.5979cm</Top>
+        <Left>0.0698cm</Left>
+        <Height>2.34222cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>38</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3577,10 +3674,10 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>9.96024in</Height>
+    <Height>10.26573in</Height>
     <Style />
   </Body>
-  <Width>6.55618in</Width>
+  <Width>6.56291in</Width>
   <Page>
     <PageHeader>
       <Height>1.50583cm</Height>
@@ -3608,7 +3705,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Left>3.6848cm</Left>
+          <Left>3.70191cm</Left>
           <Height>1.4cm</Height>
           <Width>12.87472cm</Width>
           <Style>
@@ -3627,7 +3724,7 @@
           <Source>External</Source>
           <Value>=Parameters!CustomerImage.Value</Value>
           <Sizing>Fit</Sizing>
-          <Left>0.04952cm</Left>
+          <Left>0.06664cm</Left>
           <Height>1.4cm</Height>
           <Width>3.6cm</Width>
           <ZIndex>1</ZIndex>
@@ -3645,7 +3742,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.29646cm</Height>
+      <Height>1.07624cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -3671,7 +3768,7 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
           </Paragraphs>
           <rd:DefaultName>Textbox9</rd:DefaultName>
           <Top>0.10582cm</Top>
-          <Left>0.49578cm</Left>
+          <Left>0.5129cm</Left>
           <Height>0.97042cm</Height>
           <Width>15.70428cm</Width>
           <Style>
@@ -4052,6 +4149,24 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="FinancialName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CommercialName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BalanceName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CertificationName">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
