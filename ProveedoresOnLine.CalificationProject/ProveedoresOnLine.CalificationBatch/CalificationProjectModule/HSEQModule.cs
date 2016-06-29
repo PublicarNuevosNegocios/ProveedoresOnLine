@@ -32,7 +32,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             int HSEQScore = 0;
             int RuleScore = 0;
             int oIntValue = 0;
-            bool oBooleanValue = true;
+            bool oBooleanValue = false;
             double oPercentValue = 0;
             string oTextValue = "";
             DateTime oDateValue = new DateTime();
@@ -84,13 +84,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             return true;
                         });
                     }
-
-                    //Get last calification
-                    //oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify).All(cpitinf =>
-                    //{
-                    //    oTotalModuleScore += cpitinf.ItemInfoScore;
-                    //    return true;
-                    //});
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
@@ -726,29 +719,85 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                                #region Tipo valor: Archivo
-
-                                                if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                                switch (rule.ValueType.ItemId)
                                                 {
-                                                    bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
+                                                    #region Tipo valor: archivo
 
-                                                    if (oRelatedFile)
-                                                    {
-                                                        HSEQScore = Convert.ToInt32(rule.Score);
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                        RuleScore++;
+                                                        bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                        oTotalModuleScore += HSEQScore;
+                                                        if (oRelatedFile)
+                                                        {
+                                                            HSEQScore = int.Parse(rule.Score);
 
-                                                        mprule.ItemInfoScore = HSEQScore;
-                                                    }
-                                                    else
-                                                    {
-                                                        HSEQScore = 0;
-                                                    }
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            HSEQScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
+
+                                                    #region Tipo valor: texto
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        {
+                                                            HSEQScore = int.Parse(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            HSEQScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
+
+                                                    #region Tipo valor: booleano
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                        if (oBooleanValue)
+                                                        {
+                                                            HSEQScore = int.Parse(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += HSEQScore;
+
+                                                            mprule.ItemInfoScore = HSEQScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            HSEQScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
                                                 }
-
-                                                #endregion
 
                                                 break;
 
@@ -1580,38 +1629,112 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                            #region Tipo valor: Archivo
-
-                                            if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                            switch (rule.ValueType.ItemId)
                                             {
-                                                bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
+                                                #region Tipo valor: archivo
 
-                                                if (oRelatedFile)
-                                                {
-                                                    HSEQScore = Convert.ToInt32(rule.Score);
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                    RuleScore++;
+                                                    bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                    oTotalModuleScore += HSEQScore;
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    if (oRelatedFile)
                                                     {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = HSEQScore,
-                                                        Enable = true,
-                                                    });
-                                                }
-                                                else
-                                                {
-                                                    HSEQScore = 0;
-                                                }
-                                            }
+                                                        HSEQScore = int.Parse(rule.Score);
 
-                                            #endregion
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        HSEQScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: texto
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    {
+                                                        HSEQScore = int.Parse(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        HSEQScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: booleano
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                    if (oBooleanValue)
+                                                    {
+                                                        HSEQScore = int.Parse(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += HSEQScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = HSEQScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        HSEQScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+                                            }
 
                                             break;
 
@@ -2450,34 +2573,111 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                        //Validación por archivo
-                                        if (cpitinf.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                        switch (cpitinf.ValueType.ItemId)
                                         {
-                                            bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) ? true : false;
+                                            #region Tipo valor: archivo
 
-                                            if (oRelatedFile)
-                                            {
-                                                HSEQScore = Convert.ToInt32(cpitinf.Score);
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                RuleScore++;
+                                                bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                oTotalModuleScore += HSEQScore;
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                if (oRelatedFile)
                                                 {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    HSEQScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
                                                     {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = HSEQScore,
-                                                    Enable = true,
-                                                });
-                                            }
-                                            else
-                                            {
-                                                HSEQScore = 0;
-                                            }
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                {
+                                                    HSEQScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: booleano
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                if (oBooleanValue)
+                                                {
+                                                    HSEQScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += HSEQScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = HSEQScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    HSEQScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
                                         }
 
                                         break;
