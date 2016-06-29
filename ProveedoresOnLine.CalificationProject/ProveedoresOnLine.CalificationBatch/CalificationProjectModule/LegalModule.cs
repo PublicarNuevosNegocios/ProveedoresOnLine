@@ -12,6 +12,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
     {
         public static ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel LegalRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
         {
+            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Legal Module in Process::");
+
             CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
                 CalificationProjectItemId = oRelatedCalificationProjectItemModel != null && oRelatedCalificationProjectItemModel.CalificationProjectItemId > 0 ? oRelatedCalificationProjectItemModel.CalificationProjectItemId : 0,

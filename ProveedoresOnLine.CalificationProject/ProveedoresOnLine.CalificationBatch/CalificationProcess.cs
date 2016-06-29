@@ -41,13 +41,15 @@ namespace ProveedoresOnLine.CalificationBatch
                                 //Get calification process by provider
                                 List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                                    ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetProviderByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId);
-                                
+
+                                LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Antes de recorrer el lista de PDC");
+
                                 //validate calification project list
                                 if (oRelatedCalificationProject != null &&
                                     oRelatedCalificationProject.Count > 0)
                                 {
-                                    //update calification project!!!
-
+                                    LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Existen PDC");
+                                    //update calification project!!!                                    
                                     #region Validate calification project with config
 
                                     //validate all calification project config (Calification project - calification project item)
@@ -313,6 +315,7 @@ namespace ProveedoresOnLine.CalificationBatch
                                 }
                                 else
                                 {
+                                    LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Proceso Nuevo");
                                     #region New Calification project
 
                                     //new calification project
@@ -335,12 +338,11 @@ namespace ProveedoresOnLine.CalificationBatch
                                     //execute all calification process
                                     cnf.ConfigItemModel.Where(md => md.Enable == true).All(md =>
                                     {
+                                        LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Validación de módulos");
                                         switch (md.CalificationProjectConfigItemType.ItemId)
                                         {
                                             #region LegalModule
-
-                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
-
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:                                                
                                                 ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
                                                     ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md, null);
 
@@ -443,7 +445,7 @@ namespace ProveedoresOnLine.CalificationBatch
             }
             catch (Exception err)
             {
-                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                LogFile("Fatal Error::" + err.Message + " - " + err.StackTrace);
             }
 
             LogFile("End Process:::" + DateTime.Now);

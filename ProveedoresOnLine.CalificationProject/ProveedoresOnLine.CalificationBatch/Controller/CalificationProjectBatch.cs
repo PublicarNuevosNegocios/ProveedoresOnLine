@@ -33,9 +33,9 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                         (
                             oCalProject.CalificationProjectId,
                             oCalProject.CalificationProjectPublicId,
-                            oCalProject.ProjectConfigModel.CalificationProjectConfigId,
+                            (int)oCalProject.ProjectConfigModel.CalificationProjectConfigId,
                             oCalProject.RelatedProvider.CompanyPublicId,
-                            oCalProject.TotalScore,
+                            (int)oCalProject.TotalScore,
                             oCalProject.Enable
                         );
 
@@ -48,17 +48,17 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
             {
                 oLog.IsSuccess = false;
                 oLog.Message = err.Message + " - " + err.StackTrace;
-                throw err;
+                //throw err;
             }
             finally
             {
-                oLog.LogObject = oCalProject;
-                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                {
-                    LogInfoType = "CalificationProjectId",
-                    Value = oCalProject.CalificationProjectId.ToString()
-                });
-                LogManager.ClientLog.AddLog(oLog);
+                //oLog.LogObject = oCalProject;
+                //oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                //{
+                //    LogInfoType = "CalificationProjectId",
+                //    Value = oCalProject.CalificationProjectId.ToString()
+                //});
+                //LogManager.ClientLog.AddLog(oLog);
             }
             return oCalProject;
         }
@@ -81,8 +81,8 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                             (
                                 oCalItemProject.CalificationProjectItemId,
                                 oCalProject.CalificationProjectId,
-                                oCalItemProject.CalificationProjectConfigItem.CalificationProjectConfigItemId,
-                                oCalItemProject.ItemScore,
+                                (int)oCalItemProject.CalificationProjectConfigItem.CalificationProjectConfigItemId,
+                                (int)oCalItemProject.ItemScore,
                                 oCalItemProject.Enable
                             );
 
@@ -95,17 +95,17 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                     {
                         oLog.IsSuccess = false;
                         oLog.Message = err.Message + " - " + err.StackTrace;
-                        throw err;
+                        //throw err;
                     }
                     finally
                     {
-                        oLog.LogObject = oCalItemProject;
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CalificationProjectItemId",
-                            Value = oCalItemProject.CalificationProjectItemId.ToString()
-                        });
-                        LogManager.ClientLog.AddLog(oLog);
+                        //oLog.LogObject = oCalItemProject;
+                        //oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        //{
+                        //    LogInfoType = "CalificationProjectItemId",
+                        //    Value = oCalItemProject.CalificationProjectItemId.ToString()
+                        //});
+                        //LogManager.ClientLog.AddLog(oLog);
                     }
 
                     return true;
@@ -133,8 +133,8 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                             (
                                 oCalInfoItemProject.CalificationProjectItemInfoId,
                                 oCalItemProject.CalificationProjectItemId,
-                                oCalInfoItemProject.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId,
-                                oCalInfoItemProject.ItemInfoScore,
+                                (int)oCalInfoItemProject.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId,
+                                (int)oCalInfoItemProject.ItemInfoScore,
                                 oCalInfoItemProject.Enable
                             );
                             oLog.IsSuccess = true;
@@ -144,17 +144,17 @@ namespace ProveedoresOnLine.CalificationBatch.Controller
                     {
                         oLog.IsSuccess = false;
                         oLog.Message = err.Message + " - " + err.StackTrace;
-                        throw err;
+                        //throw err;
                     }
                     finally
                     {
-                        oLog.LogObject = oCalInfoItemProject;
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CalificationProjectItemInfoId",
-                            Value = oCalInfoItemProject.CalificationProjectItemInfoId.ToString()
-                        });
-                        LogManager.ClientLog.AddLog(oLog);
+                        //oLog.LogObject = oCalInfoItemProject;
+                        //oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        //{
+                        //    LogInfoType = "CalificationProjectItemInfoId",
+                        //    Value = oCalInfoItemProject.CalificationProjectItemInfoId.ToString()
+                        //});
+                        //LogManager.ClientLog.AddLog(oLog);
                     }
 
                     return true;
