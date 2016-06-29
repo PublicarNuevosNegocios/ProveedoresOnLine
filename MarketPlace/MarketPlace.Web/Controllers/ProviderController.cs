@@ -300,6 +300,11 @@ namespace MarketPlace.Web.Controllers
                 #endregion HSEQ
 
                 #region CalificationProject
+
+                //Get related config by customer public id
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oRelatedCalificationProjectConfig =
+                    ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectConfig_GetByCustomerPublicId(SessionModel.CurrentCompany.CompanyPublicId, true);
+
                 List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oCalProject = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
                 oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.
                                                         CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
@@ -311,6 +316,7 @@ namespace MarketPlace.Web.Controllers
                 if (oCalProject != null &&
                     oCalProject.Count > 0)
                 {
+                    oModel.ProviderCalification.RelatedCalificationProjectConfig = oRelatedCalificationProjectConfig ;
                     oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
                     oModel.ProviderCalification.ProRelatedCalificationProject = oCalProject;
                     oModel.ProviderCalification.TotalScore = oCalProject.FirstOrDefault().TotalScore;
@@ -318,6 +324,7 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
+                    oModel.ProviderCalification.RelatedCalificationProjectConfig = new List<CalificationProjectConfigModel>();
                     oModel.ProviderCalification.ProRelatedCalificationProject = new List<CalificationProjectBatchModel>();
                     oModel.ProviderCalification.TotalScore = 0;
                     oModel.ProviderCalification.TotalCalification = string.Empty;
@@ -1101,11 +1108,15 @@ namespace MarketPlace.Web.Controllers
 
                 List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel = new List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel>();
 
+                List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> oRelatedCalificationProjectConfig =
+                    ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProjectConfig_GetByCustomerPublicId(SessionModel.CurrentCompany.CompanyPublicId, true);
+
                 if (oCalProject != null &&
                     oCalProject.Count > 0)
                 {
                     oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
                     oModel.ProviderCalification = new ProviderCalificationViewModel();
+                    oModel.ProviderCalification.RelatedCalificationProjectConfig = oRelatedCalificationProjectConfig;
                     oModel.ProviderCalification.ProRelatedCalificationProject = oCalProject;
                     oModel.ProviderCalification.oValidateModel = oValidateModel;
                     oModel.ProviderCalification.TotalScore = oCalProject.FirstOrDefault().TotalScore;
@@ -1113,7 +1124,6 @@ namespace MarketPlace.Web.Controllers
                 }
                 else
                 {
-
                     oModel.ProviderCalification = new ProviderCalificationViewModel();
                     oModel.ProviderCalification.TotalScore = 0;
                     oModel.ProviderCalification.TotalCalification = string.Empty;

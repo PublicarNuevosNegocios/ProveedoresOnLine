@@ -12,6 +12,8 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.ConfigValidateModel> oValidateModel { get; set; }
 
+        public List<ProveedoresOnLine.CalificationProject.Models.CalificationProject.CalificationProjectConfigModel> RelatedCalificationProjectConfig { get; set; }
+
         public string TotalCalification { get; set; }
 
         public int TotalScore { get; set; }

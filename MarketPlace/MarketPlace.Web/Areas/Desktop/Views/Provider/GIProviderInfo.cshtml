@@ -157,12 +157,16 @@
             @*Calification Section*@
             @if (Model.ProviderCalification.ProRelatedCalificationProject != null && Model.ProviderCalification.ProRelatedCalificationProject.Count > 0)
             {
-                <div class="row POMPSectionTitlesBox">
-                    <div class="col-xs-6">
-                        <label>Calificación del Proveedor: @Model.ProviderCalification.TotalCalification </label>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
+                foreach (var CalificationProject in Model.ProviderCalification.RelatedCalificationProjectConfig)
+                {
+                    var CalificationProjectBatch = Model.ProviderCalification.ProRelatedCalificationProject.Where(x => x.ProjectConfigModel.CalificationProjectConfigId == CalificationProject.CalificationProjectConfigId).Select(x => x).FirstOrDefault();
+                    
+                    <div class="row POMPSectionTitlesBox">
+                        <div class="col-xs-6">
+                            <label>Calificación del Proveedor: @Model.ProviderCalification.TotalCalification </label>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <a class="POMPLinkDetail_Provider" href="@(Url.RouteUrl
                                                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                                                         new
                                                                         {
@@ -170,35 +174,45 @@
                                                                             action = MVC.Provider.ActionNames.GICalificationProjectDetail,
                                                                             ProviderPublicId = Request["ProviderPublicId"]
                                                                         }))">
-                            Ver Detalle
-                        </a>
+                                Ver Detalle
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="container-fluid POMPProviderDetailContainer">
-                    <div class="col-lg-10">
-                        @foreach (var Calification in Model.ProviderCalification.ProRelatedCalificationProject)
-                        {
-                            foreach (var CalificationItem in Calification.CalificationProjectItemBatchModel)
+                    <div class="container-fluid POMPProviderDetailContainer">
+                        <div class="col-lg-10">
+                            @foreach (var CalificationProjectConfigItem in CalificationProject.ConfigItemModel)
                             {
-                                <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
-                                    <br />
-                                    <label class="POMPProviderBoxInfo">@(!string.IsNullOrEmpty(CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName)
-
-                                                                       </label>
-                                    <br />
-                                    <span>@CalificationItem.ItemScore</span>
-                                </div>
+                                if (CalificationProjectBatch.CalificationProjectItemBatchModel.Any(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId))
+                                {
+                                    <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">
+                                            @(!string.IsNullOrEmpty(CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName)
+                                        </label>
+                                        <br />
+                                        <span>@CalificationProjectBatch.CalificationProjectItemBatchModel.Where(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId).Select(x => x.ItemScore).FirstOrDefault()</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
+                                        <br />
+                                        <label class="POMPProviderBoxInfo">@CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
+                                        <br />
+                                        <span>0</span>
+                                    </div>
+                                }
                             }
-                        }
+                        </div>
+                        <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo ">
+                            <br />
+                            <label class="POMPProviderBoxInfo">Total Score</label>
+                            <br />
+                            <span class="POMPTotalScoreBox">@Model.ProviderCalification.TotalScore</span>
+                        </div>
                     </div>
-                    <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo ">
-                        <br />
-                        <label class="POMPProviderBoxInfo">Total Score</label>
-                        <br />
-                        <span class="POMPTotalScoreBox">@Model.ProviderCalification.TotalScore</span>
-                    </div>
-                </div>
+                }
             }
 
             @*Validación de Modulos por Rol*@
