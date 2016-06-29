@@ -363,6 +363,54 @@
                         </div>
                     </div>
                 }
+
+                if (Model.ProviderCalification.oValidateModel != null &&
+                    Model.ProviderCalification.oValidateModel.Count > 0)
+                {
+
+                    <div class="container-fluid POMPProviderDetailContainer">
+                        <div class="row POMPSectionTitlesBox">
+                            <div class="col-xs-12">
+                                <label>Tabla de Validación:</label>
+                            </div>
+                        </div>
+                        <div class="container-fluid POMPProviderDetailContainer" style="text-align:center;">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <br />
+                                    <label>Operador</label>
+                                    <br />
+                                </div>
+                                <div class="col-xs-4">
+                                    <br />
+                                    <label>Valor</label>
+                                    <br />
+                                </div>
+                                <div class="col-xs-4">
+                                    <br />
+                                    <label>Resultado</label>
+                                    <br />
+                                </div>
+                            </div>
+                            @foreach (var ValidateModel in Model.ProviderCalification.oValidateModel)
+                            {
+                                <div class="row">
+                                    <div class="col-xs-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <span>@ValidateModel.Operator.ItemName</span>
+                                    </div>
+                                    <div class="col-xs-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <span>@ValidateModel.Value</span>
+                                    </div>
+                                    <div class="col-xs-4 POMPBorderbottom POMPProviderBoxInfo">
+                                        <span>@ValidateModel.Result</span>
+                                    </div>
+                                </div>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                }
+
             }
             else
             {
