@@ -86,13 +86,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         });
                     }
 
-                    //Get last calification
-                    //oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify).All(cpitinf =>
-                    //{
-                    //    oTotalModuleScore += cpitinf.ItemInfoScore;
-                    //    return true;
-                    //});
-
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
@@ -727,29 +720,85 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                                #region Tipo valor: Archivo
-
-                                                if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                                switch (rule.ValueType.ItemId)
                                                 {
-                                                    bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
+                                                    #region Tipo valor: archivo
 
-                                                    if (oRelatedFile)
-                                                    {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                        RuleScore++;
+                                                        bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                        oTotalModuleScore += FinancialScore;
+                                                        if (oRelatedFile)
+                                                        {
+                                                            FinancialScore = int.Parse(rule.Score);
 
-                                                        mprule.ItemInfoScore = FinancialScore;
-                                                    }
-                                                    else
-                                                    {
-                                                        FinancialScore = 0;
-                                                    }
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += FinancialScore;
+
+                                                            mprule.ItemInfoScore = FinancialScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            FinancialScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
+
+                                                    #region Tipo valor: texto
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        {
+                                                            FinancialScore = int.Parse(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += FinancialScore;
+
+                                                            mprule.ItemInfoScore = FinancialScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            FinancialScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
+
+                                                    #region Tipo valor: booleano
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                        if (oBooleanValue)
+                                                        {
+                                                            FinancialScore = int.Parse(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += FinancialScore;
+
+                                                            mprule.ItemInfoScore = FinancialScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            FinancialScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
                                                 }
-
-                                                #endregion
 
                                                 break;
 
@@ -1581,38 +1630,112 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                            #region Tipo valor: Archivo
-
-                                            if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                            switch (rule.ValueType.ItemId)
                                             {
-                                                bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
+                                                #region Tipo valor: archivo
 
-                                                if (oRelatedFile)
-                                                {
-                                                    FinancialScore = Convert.ToInt32(rule.Score);
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                    RuleScore++;
+                                                    bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                    oTotalModuleScore += FinancialScore;
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    if (oRelatedFile)
                                                     {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = FinancialScore,
-                                                        Enable = true,
-                                                    });
-                                                }
-                                                else
-                                                {
-                                                    FinancialScore = 0;
-                                                }
-                                            }
+                                                        FinancialScore = int.Parse(rule.Score);
 
-                                            #endregion
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += FinancialScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = FinancialScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        FinancialScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: texto
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    {
+                                                        FinancialScore = int.Parse(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += FinancialScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = FinancialScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        FinancialScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: booleano
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                    if (oBooleanValue)
+                                                    {
+                                                        FinancialScore = int.Parse(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += FinancialScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = FinancialScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        FinancialScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+                                            }
 
                                             break;
 
@@ -2450,34 +2573,111 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                        //Validación por archivo
-                                        if (cpitinf.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                        switch (cpitinf.ValueType.ItemId)
                                         {
-                                            bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) ? true : false;
+                                            #region Tipo valor: archivo
 
-                                            if (oRelatedFile)
-                                            {
-                                                FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                RuleScore++;
+                                                bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                oTotalModuleScore += FinancialScore;
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                if (oRelatedFile)
                                                 {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    FinancialScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += FinancialScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
                                                     {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = FinancialScore,
-                                                    Enable = true,
-                                                });
-                                            }
-                                            else
-                                            {
-                                                FinancialScore = 0;
-                                            }
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = FinancialScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    FinancialScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                {
+                                                    FinancialScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += FinancialScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = FinancialScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    FinancialScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: booleano
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                if (oBooleanValue)
+                                                {
+                                                    FinancialScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += FinancialScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = FinancialScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    FinancialScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
                                         }
 
                                         break;

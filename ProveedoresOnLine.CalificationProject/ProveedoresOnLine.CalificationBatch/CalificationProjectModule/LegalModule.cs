@@ -35,6 +35,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             double oPercentValue = 0;
             DateTime oDateValue = new DateTime();
             string oTextValue = "";
+            bool oBooleanValue = false;
 
             #endregion
 
@@ -83,14 +84,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             return true;
                         });
                     }
-
-                    //Get last calification
-                    //oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify && cpitinf.Enable == true).All(cpitinf =>
-                    //{
-                    //    oTotalModuleScore += cpitinf.ItemInfoScore;
-                    //    return true;
-                    //});
-
+                    
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
@@ -114,7 +108,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > 0)
                                                 {
-                                                    LegalScore =int.Parse(rule.Score);
+                                                    LegalScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -139,7 +133,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < 0)
                                                 {
-                                                    LegalScore =int.Parse(rule.Score);
+                                                    LegalScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -168,9 +162,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue >int.Parse(rule.Value))
+                                                        if (oIntValue > int.Parse(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -195,7 +189,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue > Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -220,7 +214,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue > Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -254,9 +248,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue <int.Parse(rule.Value))
+                                                        if (oIntValue < int.Parse(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -281,7 +275,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -306,7 +300,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -340,9 +334,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue >=int.Parse(rule.Value))
+                                                        if (oIntValue >= int.Parse(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -367,7 +361,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -392,7 +386,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -426,9 +420,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue <=int.Parse(rule.Value))
+                                                        if (oIntValue <= int.Parse(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -453,7 +447,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -478,7 +472,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -512,9 +506,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue ==int.Parse(rule.Value))
+                                                        if (oIntValue == int.Parse(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -539,7 +533,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue == Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -564,7 +558,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue == Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -580,7 +574,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         break;
 
                                                     #endregion
-                                                        
+
                                                     #region Tipo valor: texto
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
@@ -589,7 +583,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oTextValue == rule.Value)
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -626,14 +620,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         string[] oValue = rule.Value.Split(',');
 
-                                                        minValue =int.Parse(oValue[0]);
-                                                        maxValue =int.Parse(oValue[1]);
+                                                        minValue = int.Parse(oValue[0]);
+                                                        maxValue = int.Parse(oValue[1]);
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                         if (oIntValue < maxValue && oIntValue > minValue)
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -666,7 +660,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -699,7 +693,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                         {
-                                                            LegalScore =int.Parse(rule.Score);
+                                                            LegalScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -725,29 +719,85 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                                #region Tipo valor: Archivo
-
-                                                if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                                switch (rule.ValueType.ItemId)
                                                 {
-                                                    bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
+                                                    #region Tipo valor: archivo
 
-                                                    if (oRelatedFile)
-                                                    {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                        RuleScore++;
+                                                        bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                        oTotalModuleScore += LegalScore;
+                                                        if (oRelatedFile)
+                                                        {
+                                                            LegalScore = int.Parse(rule.Score);
 
-                                                        mprule.ItemInfoScore = LegalScore;
-                                                    }
-                                                    else
-                                                    {
-                                                        LegalScore = 0;
-                                                    }
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += LegalScore;
+
+                                                            mprule.ItemInfoScore = LegalScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            LegalScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
+
+                                                    #region Tipo valor: texto
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        {
+                                                            LegalScore = int.Parse(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += LegalScore;
+
+                                                            mprule.ItemInfoScore = LegalScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            LegalScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
+
+                                                    #region Tipo valor: booleano
+
+                                                    case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                        oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                        if (oBooleanValue)
+                                                        {
+                                                            LegalScore = int.Parse(rule.Score);
+
+                                                            RuleScore++;
+
+                                                            oTotalModuleScore += LegalScore;
+
+                                                            mprule.ItemInfoScore = LegalScore;
+                                                        }
+                                                        else
+                                                        {
+                                                            LegalScore = 0;
+                                                        }
+
+                                                        break;
+
+                                                    #endregion
                                                 }
-
-                                                #endregion
 
                                                 break;
 
@@ -781,7 +831,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue >= 0)
                                             {
-                                                LegalScore =int.Parse(rule.Score);
+                                                LegalScore = int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -815,7 +865,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue < 0)
                                             {
-                                                LegalScore =int.Parse(rule.Score);
+                                                LegalScore = int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -853,9 +903,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue >int.Parse(rule.Value))
+                                                    if (oIntValue > int.Parse(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -889,7 +939,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue > Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -923,7 +973,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue > Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -966,9 +1016,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue <int.Parse(rule.Value))
+                                                    if (oIntValue < int.Parse(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1002,7 +1052,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1036,7 +1086,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1079,9 +1129,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue >=int.Parse(rule.Value))
+                                                    if (oIntValue >= int.Parse(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1115,7 +1165,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1149,7 +1199,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1192,9 +1242,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue <=int.Parse(rule.Value))
+                                                    if (oIntValue <= int.Parse(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1228,7 +1278,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1262,7 +1312,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1305,9 +1355,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue ==int.Parse(rule.Value))
+                                                    if (oIntValue == int.Parse(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1341,7 +1391,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue == Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1375,7 +1425,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue == Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1409,7 +1459,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oTextValue == rule.Value)
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
                                                         RuleScore++;
                                                         oTotalModuleScore += LegalScore;
 
@@ -1453,14 +1503,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     string[] oValue = rule.Value.Split(',');
 
-                                                    minValue =int.Parse(oValue[0]);
-                                                    maxValue =int.Parse(oValue[1]);
+                                                    minValue = int.Parse(oValue[0]);
+                                                    maxValue = int.Parse(oValue[1]);
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                     if (oIntValue < maxValue && oIntValue > minValue)
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1502,7 +1552,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1544,7 +1594,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                     {
-                                                        LegalScore =int.Parse(rule.Score);
+                                                        LegalScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1579,38 +1629,112 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                            #region Tipo valor: Archivo
-
-                                            if (rule.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                            switch (rule.ValueType.ItemId)
                                             {
-                                                bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
+                                                #region Tipo valor: archivo
 
-                                                if (oRelatedFile)
-                                                {
-                                                    LegalScore =int.Parse(rule.Score);
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                    RuleScore++;
+                                                    bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                    oTotalModuleScore += LegalScore;
-
-                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    if (oRelatedFile)
                                                     {
-                                                        CalificationProjectItemInfoId = 0,
-                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
-                                                        {
-                                                            CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
-                                                        },
-                                                        ItemInfoScore = LegalScore,
-                                                        Enable = true,
-                                                    });
-                                                }
-                                                else
-                                                {
-                                                    LegalScore = 0;
-                                                }
-                                            }
+                                                        LegalScore = int.Parse(rule.Score);
 
-                                            #endregion
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += LegalScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = LegalScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        LegalScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: texto
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    {
+                                                        LegalScore = int.Parse(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += LegalScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = LegalScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        LegalScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+
+                                                #region Tipo valor: booleano
+
+                                                case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                    oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                    if (oBooleanValue)
+                                                    {
+                                                        LegalScore = int.Parse(rule.Score);
+
+                                                        RuleScore++;
+
+                                                        oTotalModuleScore += LegalScore;
+
+                                                        oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                        {
+                                                            CalificationProjectItemInfoId = 0,
+                                                            CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                            {
+                                                                CalificationProjectConfigItemInfoId = rule.CalificationProjectConfigItemInfoId,
+                                                            },
+                                                            ItemInfoScore = LegalScore,
+                                                            Enable = true,
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        LegalScore = 0;
+                                                    }
+
+                                                    break;
+
+                                                #endregion
+                                            }
 
                                             break;
 
@@ -1649,7 +1773,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue >= 0)
                                         {
-                                            LegalScore =int.Parse(cpitinf.Score);
+                                            LegalScore = int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1683,7 +1807,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            LegalScore =int.Parse(cpitinf.Score);
+                                            LegalScore = int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1721,9 +1845,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue >int.Parse(cpitinf.Value))
+                                                if (oIntValue > int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1757,7 +1881,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1791,7 +1915,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1834,9 +1958,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue <int.Parse(cpitinf.Value))
+                                                if (oIntValue < int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1870,7 +1994,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1904,7 +2028,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1947,9 +2071,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue >=int.Parse(cpitinf.Value))
+                                                if (oIntValue >= int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1983,7 +2107,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2017,7 +2141,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2060,9 +2184,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue <=int.Parse(cpitinf.Value))
+                                                if (oIntValue <= int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2096,7 +2220,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2130,7 +2254,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2173,9 +2297,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue ==int.Parse(cpitinf.Value))
+                                                if (oIntValue == int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2209,7 +2333,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2243,7 +2367,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2277,7 +2401,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oTextValue == cpitinf.Value)
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
                                                     RuleScore++;
                                                     oTotalModuleScore += LegalScore;
                                                 }
@@ -2320,14 +2444,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 string[] oValue = cpitinf.Value.Split(',');
 
-                                                minValue =int.Parse(oValue[0]);
-                                                maxValue =int.Parse(oValue[1]);
+                                                minValue = int.Parse(oValue[0]);
+                                                maxValue = int.Parse(oValue[1]);
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                 if (oIntValue < maxValue && oIntValue > minValue)
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2369,7 +2493,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2411,7 +2535,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    LegalScore =int.Parse(cpitinf.Score);
+                                                    LegalScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2446,34 +2570,111 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.PasaNoPasa:
 
-                                        //Validación por archivo
-                                        if (cpitinf.ValueType.ItemId == (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File)
+                                        switch (cpitinf.ValueType.ItemId)
                                         {
-                                            bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) ? true : false;
+                                            #region Tipo valor: archivo
 
-                                            if (oRelatedFile)
-                                            {
-                                                LegalScore =int.Parse(cpitinf.Score);
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.File:
 
-                                                RuleScore++;
+                                                bool oRelatedFile = !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue) ? true : false;
 
-                                                oTotalModuleScore += LegalScore;
-
-                                                oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                if (oRelatedFile)
                                                 {
-                                                    CalificationProjectItemInfoId = 0,
-                                                    CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                    LegalScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
                                                     {
-                                                        CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
-                                                    },
-                                                    ItemInfoScore = LegalScore,
-                                                    Enable = true,
-                                                });
-                                            }
-                                            else
-                                            {
-                                                LegalScore = 0;
-                                            }
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = LegalScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: texto
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                {
+                                                    LegalScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = LegalScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
+
+                                            #region Tipo valor: booleano
+
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Boolean:
+
+                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
+
+                                                oBooleanValue = !string.IsNullOrEmpty(oTextValue) && (oTextValue == "1" || oTextValue == "True" || oTextValue == "true") ? true : false;
+
+                                                if (oBooleanValue)
+                                                {
+                                                    LegalScore = int.Parse(cpitinf.Score);
+
+                                                    RuleScore++;
+
+                                                    oTotalModuleScore += LegalScore;
+
+                                                    oReturn.CalificatioProjectItemInfoModel.Add(new CalificationProjectItemInfoBatchModel()
+                                                    {
+                                                        CalificationProjectItemInfoId = 0,
+                                                        CalificationProjectConfigItemInfoModel = new ConfigItemInfoModel()
+                                                        {
+                                                            CalificationProjectConfigItemInfoId = cpitinf.CalificationProjectConfigItemInfoId,
+                                                        },
+                                                        ItemInfoScore = LegalScore,
+                                                        Enable = true,
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    LegalScore = 0;
+                                                }
+
+                                                break;
+
+                                            #endregion
                                         }
 
                                         break;

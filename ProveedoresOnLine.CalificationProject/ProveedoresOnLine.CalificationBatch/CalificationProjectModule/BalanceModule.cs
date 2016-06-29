@@ -85,13 +85,6 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                         });
                     }
 
-                    //Get last calification
-                    //oReturn.CalificatioProjectItemInfoModel.Where(cpitinf => cpitinf.CalificationProjectConfigItemInfoModel.LastModify <= cpitinf.LastModify).All(cpitinf =>
-                    //{
-                    //    oTotalModuleScore += cpitinf.ItemInfoScore;
-                    //    return true;
-                    //});
-
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
