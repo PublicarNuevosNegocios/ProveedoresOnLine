@@ -119,6 +119,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DS_CalificationReport_CommercialInfo.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\DataSet\DS_CalificationReport_FinancialInfo.cs">
+      <DependentUpon>DS_CalificationReport_FinancialInfo.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\DataSet\DS_CalificationReport_FinancialInfo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

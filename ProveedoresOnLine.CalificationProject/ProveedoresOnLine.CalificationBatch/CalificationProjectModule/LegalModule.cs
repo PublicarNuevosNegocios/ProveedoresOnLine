@@ -114,7 +114,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > 0)
                                                 {
-                                                    LegalScore = Convert.ToInt32(rule.Score);
+                                                    LegalScore =int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -139,7 +139,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < 0)
                                                 {
-                                                    LegalScore = Convert.ToInt32(rule.Score);
+                                                    LegalScore =int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -168,9 +168,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue > Convert.ToInt32(rule.Value))
+                                                        if (oIntValue >int.Parse(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -195,7 +195,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue > Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -220,7 +220,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue > Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -254,9 +254,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue < Convert.ToInt32(rule.Value))
+                                                        if (oIntValue <int.Parse(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -281,7 +281,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -306,7 +306,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -340,9 +340,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                        if (oIntValue >=int.Parse(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -367,7 +367,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -392,7 +392,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -426,9 +426,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                        if (oIntValue <=int.Parse(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -453,7 +453,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -478,7 +478,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -512,9 +512,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue == Convert.ToInt32(rule.Value))
+                                                        if (oIntValue ==int.Parse(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -539,7 +539,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue == Convert.ToDateTime(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -564,7 +564,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue == Convert.ToDouble(rule.Value))
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -589,7 +589,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oTextValue == rule.Value)
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -626,14 +626,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         string[] oValue = rule.Value.Split(',');
 
-                                                        minValue = Convert.ToInt32(oValue[0]);
-                                                        maxValue = Convert.ToInt32(oValue[1]);
+                                                        minValue =int.Parse(oValue[0]);
+                                                        maxValue =int.Parse(oValue[1]);
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                         if (oIntValue < maxValue && oIntValue > minValue)
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -666,7 +666,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -699,7 +699,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                         {
-                                                            LegalScore = Convert.ToInt32(rule.Score);
+                                                            LegalScore =int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -733,7 +733,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oRelatedFile)
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -781,7 +781,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue >= 0)
                                             {
-                                                LegalScore = Convert.ToInt32(rule.Score);
+                                                LegalScore =int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -815,7 +815,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue < 0)
                                             {
-                                                LegalScore = Convert.ToInt32(rule.Score);
+                                                LegalScore =int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -853,9 +853,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue > Convert.ToInt32(rule.Value))
+                                                    if (oIntValue >int.Parse(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -889,7 +889,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue > Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -923,7 +923,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue > Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -966,9 +966,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue < Convert.ToInt32(rule.Value))
+                                                    if (oIntValue <int.Parse(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1002,7 +1002,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1036,7 +1036,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1079,9 +1079,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                    if (oIntValue >=int.Parse(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1115,7 +1115,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1149,7 +1149,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1192,9 +1192,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                    if (oIntValue <=int.Parse(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1228,7 +1228,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1262,7 +1262,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1305,9 +1305,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue == Convert.ToInt32(rule.Value))
+                                                    if (oIntValue ==int.Parse(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1341,7 +1341,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue == Convert.ToDateTime(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1375,7 +1375,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue == Convert.ToDouble(rule.Value))
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1409,7 +1409,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oTextValue == rule.Value)
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
                                                         RuleScore++;
                                                         oTotalModuleScore += LegalScore;
 
@@ -1453,14 +1453,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     string[] oValue = rule.Value.Split(',');
 
-                                                    minValue = Convert.ToInt32(oValue[0]);
-                                                    maxValue = Convert.ToInt32(oValue[1]);
+                                                    minValue =int.Parse(oValue[0]);
+                                                    maxValue =int.Parse(oValue[1]);
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                     if (oIntValue < maxValue && oIntValue > minValue)
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1502,7 +1502,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1544,7 +1544,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                     {
-                                                        LegalScore = Convert.ToInt32(rule.Score);
+                                                        LegalScore =int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1587,7 +1587,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oRelatedFile)
                                                 {
-                                                    LegalScore = Convert.ToInt32(rule.Score);
+                                                    LegalScore =int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -1649,7 +1649,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue >= 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.Score);
+                                            LegalScore =int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1683,7 +1683,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            LegalScore = Convert.ToInt32(cpitinf.Score);
+                                            LegalScore =int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1721,9 +1721,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue > Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue >int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1757,7 +1757,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1791,7 +1791,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1834,9 +1834,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue < Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue <int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1870,7 +1870,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1904,7 +1904,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1947,9 +1947,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue >= Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue >=int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1983,7 +1983,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2017,7 +2017,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2060,9 +2060,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue <= Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue <=int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2096,7 +2096,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2130,7 +2130,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2173,9 +2173,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue == Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue ==int.Parse(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2209,7 +2209,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2243,7 +2243,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2277,7 +2277,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oTextValue == cpitinf.Value)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
                                                     RuleScore++;
                                                     oTotalModuleScore += LegalScore;
                                                 }
@@ -2320,14 +2320,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 string[] oValue = cpitinf.Value.Split(',');
 
-                                                minValue = Convert.ToInt32(oValue[0]);
-                                                maxValue = Convert.ToInt32(oValue[1]);
+                                                minValue =int.Parse(oValue[0]);
+                                                maxValue =int.Parse(oValue[1]);
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                 if (oIntValue < maxValue && oIntValue > minValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2369,7 +2369,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2411,7 +2411,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                    LegalScore =int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2453,7 +2453,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oRelatedFile)
                                             {
-                                                LegalScore = Convert.ToInt32(cpitinf.Score);
+                                                LegalScore =int.Parse(cpitinf.Score);
 
                                                 RuleScore++;
 

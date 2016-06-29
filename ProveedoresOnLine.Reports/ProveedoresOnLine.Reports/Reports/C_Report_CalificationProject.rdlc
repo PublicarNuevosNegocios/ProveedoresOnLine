@@ -940,412 +940,6 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Tablix Name="Tablix1">
-        <TablixBody>
-          <TablixColumns>
-            <TablixColumn>
-              <Width>5.60725cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.36569cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>3.54981cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.07669cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.10486cm</Width>
-            </TablixColumn>
-          </TablixColumns>
-          <TablixRows>
-            <TablixRow>
-              <Height>0.77639cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox36">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox36</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox38">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Operador</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox38</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox40">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Valor Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox40</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox46">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Puntaje Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox46</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox51">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Resultado Regla</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox51</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="LegalRuleName">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!LegalRuleName.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>LegalRuleName</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="LegalRuleOperator">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!LegalRuleOperator.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>LegalRuleOperator</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="LegalRuleValue">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!LegalRuleValue.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>LegalRuleValue</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="LegalRuleScore">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!LegalRuleScore.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>LegalRuleScore</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="LegalRuleResult">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!LegalRuleResult.Value</Value>
-                              <Style>
-                                <FontFamily>Segoe UI Light</FontFamily>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>LegalRuleResult</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-          </TablixRows>
-        </TablixBody>
-        <TablixColumnHierarchy>
-          <TablixMembers>
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-            <TablixMember />
-          </TablixMembers>
-        </TablixColumnHierarchy>
-        <TablixRowHierarchy>
-          <TablixMembers>
-            <TablixMember>
-              <KeepWithGroup>After</KeepWithGroup>
-            </TablixMember>
-            <TablixMember>
-              <Group Name="Details" />
-            </TablixMember>
-          </TablixMembers>
-        </TablixRowHierarchy>
-        <DataSetName>DS_CalificationReport_LegalInfo</DataSetName>
-        <Top>9.48002cm</Top>
-        <Left>0.49578cm</Left>
-        <Height>1.37639cm</Height>
-        <Width>15.7043cm</Width>
-        <ZIndex>27</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Tablix>
       <Rectangle Name="Rectangle12">
         <ReportItems>
           <Line Name="Line9">
@@ -1398,7 +992,7 @@
         <Top>7.81031cm</Top>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
-        <ZIndex>28</ZIndex>
+        <ZIndex>27</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1406,43 +1000,6 @@
           <BackgroundColor>#ececec</BackgroundColor>
         </Style>
       </Rectangle>
-      <Textbox Name="Textbox49">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Parameters!LegalName.Value</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>8.74545cm</Top>
-        <Left>6.60766cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.78441cm</Width>
-        <ZIndex>29</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Tablix Name="Tablix2">
         <TablixBody>
           <TablixColumns>
@@ -1833,11 +1390,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_FinancialInfo</DataSetName>
-        <Top>11.63212cm</Top>
+        <Top>14.41891cm</Top>
         <Left>0.49578cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.65215cm</Width>
-        <ZIndex>30</ZIndex>
+        <ZIndex>28</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -1854,7 +1411,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!FinancialName.Value</Value>
+                <Value />
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
@@ -1866,11 +1423,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>11.0328cm</Top>
+        <Top>13.81959cm</Top>
         <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
         <Width>2.78441cm</Width>
-        <ZIndex>31</ZIndex>
+        <ZIndex>29</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2274,11 +1831,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_CommercialInfo</DataSetName>
-        <Top>13.81931cm</Top>
+        <Top>16.6061cm</Top>
         <Left>0.49578cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.65214cm</Width>
-        <ZIndex>32</ZIndex>
+        <ZIndex>30</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2307,11 +1864,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>13.18489cm</Top>
+        <Top>15.97168cm</Top>
         <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
         <Width>2.78441cm</Width>
-        <ZIndex>33</ZIndex>
+        <ZIndex>31</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2715,11 +2272,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_BalanceInfo</DataSetName>
-        <Top>15.97124cm</Top>
+        <Top>18.75803cm</Top>
         <Left>0.49578cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.60868cm</Width>
-        <ZIndex>34</ZIndex>
+        <ZIndex>32</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_BalanceInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2748,11 +2305,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>15.37209cm</Top>
+        <Top>18.15888cm</Top>
         <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
         <Width>2.78441cm</Width>
-        <ZIndex>35</ZIndex>
+        <ZIndex>33</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_BalanceInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -2815,10 +2372,10 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>20.06401cm</Top>
+        <Top>22.8508cm</Top>
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
-        <ZIndex>36</ZIndex>
+        <ZIndex>34</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3074,11 +2631,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_ValidateInfo</DataSetName>
-        <Top>21.06512cm</Top>
+        <Top>23.85191cm</Top>
         <Left>0.54382cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.56063cm</Width>
-        <ZIndex>37</ZIndex>
+        <ZIndex>35</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_ValidateInfo") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -3478,11 +3035,11 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_Certification</DataSetName>
-        <Top>18.15844cm</Top>
+        <Top>20.94523cm</Top>
         <Left>0.54382cm</Left>
         <Height>1.37639cm</Height>
         <Width>15.60868cm</Width>
-        <ZIndex>38</ZIndex>
+        <ZIndex>36</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -3511,11 +3068,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>17.48874cm</Top>
+        <Top>20.27553cm</Top>
         <Left>6.60766cm</Left>
         <Height>0.6cm</Height>
         <Width>2.78441cm</Width>
-        <ZIndex>39</ZIndex>
+        <ZIndex>37</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
         </Visibility>
@@ -3529,11 +3086,501 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Tablix Name="Tablix1">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>5.60725cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.36569cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>3.54981cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.07669cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.10486cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.77639cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox36">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Regla</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox36</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox38">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Operador</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox38</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox40">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Valor Regla</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox40</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox46">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Puntaje Regla</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox46</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox51">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Resultado Regla</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox51</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LegalRuleName">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!LegalRuleName.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LegalRuleName</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LegalRuleOperator">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!LegalRuleOperator.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LegalRuleOperator</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LegalRuleValue">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!LegalRuleValue.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LegalRuleValue</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LegalRuleScore">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!LegalRuleScore.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LegalRuleScore</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LegalRuleResult">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!LegalRuleResult.Value</Value>
+                              <Style>
+                                <FontFamily>Segoe UI Light</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LegalRuleResult</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Details" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>DS_CalificationReport_LegalInfo</DataSetName>
+        <Top>10.5382cm</Top>
+        <Left>0.44362cm</Left>
+        <Height>1.37639cm</Height>
+        <Width>15.7043cm</Width>
+        <ZIndex>38</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+      <Rectangle Name="Rectangle14">
+        <ReportItems>
+          <Line Name="Line11">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="LegalName">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!LegalName.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>LegalName</rd:DefaultName>
+            <Top>0.08361cm</Top>
+            <Left>6.83938cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>9.35972cm</Top>
+        <Left>0.05269cm</Left>
+        <Height>0.94961cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>39</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
+      <Rectangle Name="Rectangle15">
+        <ReportItems>
+          <Line Name="Line12">
+            <Top>0.86cm</Top>
+            <Height>0cm</Height>
+            <Width>16.6cm</Width>
+            <Style>
+              <Border>
+                <Color>#f87b00</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+        </ReportItems>
+        <KeepTogether>true</KeepTogether>
+        <Top>12.53701cm</Top>
+        <Left>0.02634cm</Left>
+        <Height>0.86cm</Height>
+        <Width>16.6cm</Width>
+        <ZIndex>40</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>#ececec</BackgroundColor>
+        </Style>
+      </Rectangle>
     </ReportItems>
-    <Height>8.83524in</Height>
+    <Height>9.96024in</Height>
     <Style />
   </Body>
-  <Width>6.57336in</Width>
+  <Width>6.55618in</Width>
   <Page>
     <PageHeader>
       <Height>1.50583cm</Height>
@@ -3561,9 +3608,9 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Left>3.55949cm</Left>
+          <Left>3.6848cm</Left>
           <Height>1.4cm</Height>
-          <Width>13.00003cm</Width>
+          <Width>12.87472cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -3726,119 +3773,15 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
           <DataField>LegalRuleOperator</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="LegalName">
+          <DataField>LegalName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_CalificationReport_LegalInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_LegalInfo.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_LegalInfo.xsd</rd:SchemaPath>
         <rd:TableName>DT_CalificationLegal</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DS_CalificationReport_FinancialInfo">
-      <Query>
-        <DataSourceName>DS_CalificationReport_FinancialInfo</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="FinancialRuleName">
-          <DataField>FinancialRuleName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FinancialRuleOperator">
-          <DataField>FinancialRuleOperator</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FinancialRuleValue">
-          <DataField>FinancialRuleValue</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FinancialRuleScore">
-          <DataField>FinancialRuleScore</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FinancialRuleResult">
-          <DataField>FinancialRuleResult</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DS_CalificationReport_FinancialInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_FinancialInfo.xsd</rd:SchemaPath>
-        <rd:TableName>DT_CalificationFinancial</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DS_CalificationReport_CommercialInfo">
-      <Query>
-        <DataSourceName>DS_CalificationReport_CommercialInfo</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="CommercialRuleName">
-          <DataField>CommercialRuleName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CommercialRuleOperator">
-          <DataField>CommercialRuleOperator</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CommercilaRuleValue">
-          <DataField>CommercilaRuleValue</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CommercialRuleScore">
-          <DataField>CommercialRuleScore</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CommercialRuleResult">
-          <DataField>CommercialRuleResult</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DS_CalificationReport_CommercialInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_CommercialInfo.xsd</rd:SchemaPath>
-        <rd:TableName>DT_CalificationCommercial</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DS_CalificationReport_Certification">
-      <Query>
-        <DataSourceName>DS_CalificationReport_Certification</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="CertificationRuleName">
-          <DataField>CertificationRuleName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CertificationRuleOperator">
-          <DataField>CertificationRuleOperator</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CertificationRuleValue">
-          <DataField>CertificationRuleValue</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CertificationRuleScore">
-          <DataField>CertificationRuleScore</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CertificationRuleResult">
-          <DataField>CertificationRuleResult</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DS_CalificationReport_Certification</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_Certification.xsd</rd:SchemaPath>
-        <rd:TableName>DT_CalificationCertification</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -3870,11 +3813,55 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
           <DataField>BalanceRuleScore</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="BalanceName">
+          <DataField>BalanceName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_CalificationReport_BalanceInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_BalanceInfo.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_BalanceInfo.xsd</rd:SchemaPath>
         <rd:TableName>DT_CalificationBalance</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_CalificationReport_CommercialInfo">
+      <Query>
+        <DataSourceName>DS_CalificationReport_CommercialInfo</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CommercialRuleName">
+          <DataField>CommercialRuleName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CommercialRuleOperator">
+          <DataField>CommercialRuleOperator</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CommercilaRuleValue">
+          <DataField>CommercilaRuleValue</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CommercialRuleScore">
+          <DataField>CommercialRuleScore</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CommercialRuleResult">
+          <DataField>CommercialRuleResult</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CommercialName">
+          <DataField>CommercialName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DS_CalificationReport_CommercialInfo</rd:DataSetName>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_CommercialInfo.xsd</rd:SchemaPath>
+        <rd:TableName>DT_CalificationCommercial</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -3901,8 +3888,88 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_CalificationReport_ValidateInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_ValidateInfo.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_ValidateInfo.xsd</rd:SchemaPath>
         <rd:TableName>DT_CalificationValidate</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_CalificationReport_FinancialInfo">
+      <Query>
+        <DataSourceName>DS_CalificationReport_FinancialInfo</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="FinancialRuleName">
+          <DataField>FinancialRuleName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FinancialRuleOperator">
+          <DataField>FinancialRuleOperator</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FinancialRuleValue">
+          <DataField>FinancialRuleValue</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FinancialRuleScore">
+          <DataField>FinancialRuleScore</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FinancialRuleResult">
+          <DataField>FinancialRuleResult</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FinancialName">
+          <DataField>FinancialName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DS_CalificationReport_FinancialInfo</rd:DataSetName>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_FinancialInfo.xsd</rd:SchemaPath>
+        <rd:TableName>DT_CalificationFinancial</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_CalificationReport_Certification">
+      <Query>
+        <DataSourceName>DS_CalificationReport_Certification</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CertificationRuleName">
+          <DataField>CertificationRuleName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CertificationRuleOperator">
+          <DataField>CertificationRuleOperator</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CertificationRuleValue">
+          <DataField>CertificationRuleValue</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CertificationRuleScore">
+          <DataField>CertificationRuleScore</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CertificationRuleResult">
+          <DataField>CertificationRuleResult</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CertificationName">
+          <DataField>CertificationName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DS_CalificationReport_Certification</rd:DataSetName>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_CalificationReport_Certification.xsd</rd:SchemaPath>
+        <rd:TableName>DT_CalificationCertification</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -3980,10 +4047,14 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
     </ReportParameter>
     <ReportParameter Name="LegalName">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="FinancialName">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

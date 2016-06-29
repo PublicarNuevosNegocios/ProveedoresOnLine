@@ -289,6 +289,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnLegalRuleOperator;
             
+            private global::System.Data.DataColumn columnLegalName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DT_CalificationLegalDataTable() {
@@ -364,6 +366,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LegalNameColumn {
+                get {
+                    return this.columnLegalName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +409,15 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DT_CalificationLegalRow AddDT_CalificationLegalRow(string LegalRuleName, string LegalRuleValue, string LegalRuleResult, string LegalRuleScore, string LegalRuleOperator) {
+            public DT_CalificationLegalRow AddDT_CalificationLegalRow(string LegalRuleName, string LegalRuleValue, string LegalRuleResult, string LegalRuleScore, string LegalRuleOperator, string LegalName) {
                 DT_CalificationLegalRow rowDT_CalificationLegalRow = ((DT_CalificationLegalRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LegalRuleName,
                         LegalRuleValue,
                         LegalRuleResult,
                         LegalRuleScore,
-                        LegalRuleOperator};
+                        LegalRuleOperator,
+                        LegalName};
                 rowDT_CalificationLegalRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDT_CalificationLegalRow);
                 return rowDT_CalificationLegalRow;
@@ -434,6 +445,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnLegalRuleResult = base.Columns["LegalRuleResult"];
                 this.columnLegalRuleScore = base.Columns["LegalRuleScore"];
                 this.columnLegalRuleOperator = base.Columns["LegalRuleOperator"];
+                this.columnLegalName = base.Columns["LegalName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -449,6 +461,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnLegalRuleScore);
                 this.columnLegalRuleOperator = new global::System.Data.DataColumn("LegalRuleOperator", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLegalRuleOperator);
+                this.columnLegalName = new global::System.Data.DataColumn("LegalName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLegalName);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -673,6 +687,22 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LegalName {
+                get {
+                    try {
+                        return ((string)(this[this.tableDT_CalificationLegal.LegalNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LegalName\' in table \'DT_CalificationLegal\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDT_CalificationLegal.LegalNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsLegalRuleNameNull() {
                 return this.IsNull(this.tableDT_CalificationLegal.LegalRuleNameColumn);
             }
@@ -729,6 +759,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetLegalRuleOperatorNull() {
                 this[this.tableDT_CalificationLegal.LegalRuleOperatorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLegalNameNull() {
+                return this.IsNull(this.tableDT_CalificationLegal.LegalNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLegalNameNull() {
+                this[this.tableDT_CalificationLegal.LegalNameColumn] = global::System.Convert.DBNull;
             }
         }
         
