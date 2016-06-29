@@ -4164,6 +4164,9 @@ namespace MarketPlace.Web.Controllers
         {
             var LegalName = "";
             var FinancialName = "";
+            var CommercialName = "";
+            var BalanceName = "";
+            var HSEQName = "";
              
             List<ReportParameter> parameters = new List<ReportParameter>();
             GenericReportModel oReportModel = new GenericReportModel();
@@ -4322,6 +4325,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 row2 = FinancialData.NewRow();
 
+                                FinancialName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row2["FinancialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row2["FinancialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
@@ -4335,6 +4339,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 row3 = CommercialData.NewRow();
 
+                                CommercialName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row3["CommercialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row3["CommercialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row3["CommercialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
@@ -4348,7 +4353,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 row4 = CertificationData.NewRow();
 
-                                //parameters.Add(new ReportParameter("CalificationProjectCal", CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName));            
+                                HSEQName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row4["CertificationName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row4["CertificationRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row4["CertificationRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
@@ -4362,6 +4367,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 row5 = BalanceData.NewRow();
 
+                                BalanceName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row5["BalanceName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                 row5["BalanceRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row5["BalanceRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
@@ -4375,7 +4381,10 @@ namespace MarketPlace.Web.Controllers
                     }
                 }
                 parameters.Add(new ReportParameter("LegalName", LegalName));
-                parameters.Add(new ReportParameter("FinancialName", FinancialName));               
+                parameters.Add(new ReportParameter("FinancialName", FinancialName));
+                parameters.Add(new ReportParameter("CommercialName", CommercialName));
+                parameters.Add(new ReportParameter("CertificationName", HSEQName));
+                parameters.Add(new ReportParameter("BalanceName", BalanceName));
 
                 foreach (var ValidateInfo in oModel.ProviderCalification.oValidateModel)
                 {
