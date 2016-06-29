@@ -285,7 +285,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnLegalRuleResult;
             
-            private global::System.Data.DataColumn columnLegalRuleScore;
+            private global::System.Data.DataColumn columnLegalRuleValueType;
             
             private global::System.Data.DataColumn columnLegalRuleOperator;
             
@@ -350,9 +350,9 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn LegalRuleScoreColumn {
+            public global::System.Data.DataColumn LegalRuleValueTypeColumn {
                 get {
-                    return this.columnLegalRuleScore;
+                    return this.columnLegalRuleValueType;
                 }
             }
             
@@ -409,13 +409,13 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DT_CalificationLegalRow AddDT_CalificationLegalRow(string LegalRuleName, string LegalRuleValue, string LegalRuleResult, string LegalRuleScore, string LegalRuleOperator, string LegalName) {
+            public DT_CalificationLegalRow AddDT_CalificationLegalRow(string LegalRuleName, string LegalRuleValue, string LegalRuleResult, string LegalRuleValueType, string LegalRuleOperator, string LegalName) {
                 DT_CalificationLegalRow rowDT_CalificationLegalRow = ((DT_CalificationLegalRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LegalRuleName,
                         LegalRuleValue,
                         LegalRuleResult,
-                        LegalRuleScore,
+                        LegalRuleValueType,
                         LegalRuleOperator,
                         LegalName};
                 rowDT_CalificationLegalRow.ItemArray = columnValuesArray;
@@ -443,7 +443,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnLegalRuleName = base.Columns["LegalRuleName"];
                 this.columnLegalRuleValue = base.Columns["LegalRuleValue"];
                 this.columnLegalRuleResult = base.Columns["LegalRuleResult"];
-                this.columnLegalRuleScore = base.Columns["LegalRuleScore"];
+                this.columnLegalRuleValueType = base.Columns["LegalRuleValueType"];
                 this.columnLegalRuleOperator = base.Columns["LegalRuleOperator"];
                 this.columnLegalName = base.Columns["LegalName"];
             }
@@ -457,8 +457,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnLegalRuleValue);
                 this.columnLegalRuleResult = new global::System.Data.DataColumn("LegalRuleResult", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLegalRuleResult);
-                this.columnLegalRuleScore = new global::System.Data.DataColumn("LegalRuleScore", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLegalRuleScore);
+                this.columnLegalRuleValueType = new global::System.Data.DataColumn("LegalRuleValueType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLegalRuleValueType);
                 this.columnLegalRuleOperator = new global::System.Data.DataColumn("LegalRuleOperator", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLegalRuleOperator);
                 this.columnLegalName = new global::System.Data.DataColumn("LegalName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -654,17 +654,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string LegalRuleScore {
+            public string LegalRuleValueType {
                 get {
                     try {
-                        return ((string)(this[this.tableDT_CalificationLegal.LegalRuleScoreColumn]));
+                        return ((string)(this[this.tableDT_CalificationLegal.LegalRuleValueTypeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'LegalRuleScore\' in table \'DT_CalificationLegal\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'LegalRuleValueType\' in table \'DT_CalificationLegal\' is DBNu" +
+                                "ll.", e);
                     }
                 }
                 set {
-                    this[this.tableDT_CalificationLegal.LegalRuleScoreColumn] = value;
+                    this[this.tableDT_CalificationLegal.LegalRuleValueTypeColumn] = value;
                 }
             }
             
@@ -739,14 +740,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsLegalRuleScoreNull() {
-                return this.IsNull(this.tableDT_CalificationLegal.LegalRuleScoreColumn);
+            public bool IsLegalRuleValueTypeNull() {
+                return this.IsNull(this.tableDT_CalificationLegal.LegalRuleValueTypeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetLegalRuleScoreNull() {
-                this[this.tableDT_CalificationLegal.LegalRuleScoreColumn] = global::System.Convert.DBNull;
+            public void SetLegalRuleValueTypeNull() {
+                this[this.tableDT_CalificationLegal.LegalRuleValueTypeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

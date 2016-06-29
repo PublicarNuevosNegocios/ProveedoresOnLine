@@ -4244,7 +4244,7 @@ namespace MarketPlace.Web.Controllers
             LegalData.Columns.Add("LegalRuleName");
             LegalData.Columns.Add("LegalRuleOperator");
             LegalData.Columns.Add("LegalRuleValue");
-            LegalData.Columns.Add("LegalRuleScore");
+            LegalData.Columns.Add("LegalRuleValueType");
             LegalData.Columns.Add("LegalRuleResult");
 
             DataRow row1;
@@ -4255,7 +4255,7 @@ namespace MarketPlace.Web.Controllers
             FinancialData.Columns.Add("FinancialRuleName");
             FinancialData.Columns.Add("FinancialRuleOperator");
             FinancialData.Columns.Add("FinancialRuleValue");
-            FinancialData.Columns.Add("FinancialRuleScore");
+            FinancialData.Columns.Add("FinancialRuleValueType");
             FinancialData.Columns.Add("FinancialRuleResult");
 
             DataRow row2;
@@ -4265,7 +4265,7 @@ namespace MarketPlace.Web.Controllers
             CommercialData.Columns.Add("CommercialRuleName");
             CommercialData.Columns.Add("CommercialRuleOperator");
             CommercialData.Columns.Add("CommercialRuleValue");
-            CommercialData.Columns.Add("CommercialRuleScore");
+            CommercialData.Columns.Add("CommercialRuleValueType");
             CommercialData.Columns.Add("CommercialRuleResult");
 
             DataRow row3;
@@ -4276,7 +4276,7 @@ namespace MarketPlace.Web.Controllers
             CertificationData.Columns.Add("CertificationRuleName");
             CertificationData.Columns.Add("CertificationRuleOperator");
             CertificationData.Columns.Add("CertificationRuleValue");
-            CertificationData.Columns.Add("CertificationRuleScore");
+            CertificationData.Columns.Add("CertificationRuleValueType");
             CertificationData.Columns.Add("CertificationRuleResult");
 
             DataRow row4;
@@ -4286,7 +4286,7 @@ namespace MarketPlace.Web.Controllers
             BalanceData.Columns.Add("BalanceRuleName");
             BalanceData.Columns.Add("BalanceRuleOperator");
             BalanceData.Columns.Add("BalanceRuleValue");
-            BalanceData.Columns.Add("BalanceRuleScore");
+            BalanceData.Columns.Add("BalanceRuleValueType");
             BalanceData.Columns.Add("BalanceRuleResult");
 
             DataRow row5;
@@ -4316,7 +4316,7 @@ namespace MarketPlace.Web.Controllers
                                 row1["LegalRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row1["LegalRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row1["LegalRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row1["LegalRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
+                                row1["LegalRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
                                 row1["LegalRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 LegalData.Rows.Add(row1);
@@ -4330,7 +4330,7 @@ namespace MarketPlace.Web.Controllers
                                 row2["FinancialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row2["FinancialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row2["FinancialRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
+                                row2["FinancialRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
                                 row2["FinancialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 FinancialData.Rows.Add(row2);
@@ -4344,7 +4344,7 @@ namespace MarketPlace.Web.Controllers
                                 row3["CommercialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row3["CommercialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row3["CommercialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row3["CommercialRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
+                                row3["CommercialRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
                                 row3["CommercialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 CommercialData.Rows.Add(row3);
@@ -4358,7 +4358,7 @@ namespace MarketPlace.Web.Controllers
                                 row4["CertificationRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row4["CertificationRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row4["CertificationRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row4["CertificationRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
+                                row4["CertificationRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
                                 row4["CertificationRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 CertificationData.Rows.Add(row4);
@@ -4372,7 +4372,7 @@ namespace MarketPlace.Web.Controllers
                                 row5["BalanceRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                 row5["BalanceRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                 row5["BalanceRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row5["BalanceRuleScore"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Score;
+                                row5["BalanceRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
                                 row5["BalanceRuleResult"] = CalProjectItemInfo.ItemInfoScore;
 
                                 BalanceData.Rows.Add(row5);
