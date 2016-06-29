@@ -750,9 +750,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                         {
                                                             HSEQScore = int.Parse(rule.Score);
 
@@ -1669,9 +1667,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                     {
                                                         HSEQScore = int.Parse(rule.Score);
 
@@ -2613,9 +2609,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                 {
                                                     HSEQScore = int.Parse(cpitinf.Score);
 
@@ -2699,7 +2693,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error:: HSEQ Module :: " + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score

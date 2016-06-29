@@ -1732,7 +1732,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error:: Balance Module :: " + err.Message + " - " + err.StackTrace);
             }
             
             //Get new score
