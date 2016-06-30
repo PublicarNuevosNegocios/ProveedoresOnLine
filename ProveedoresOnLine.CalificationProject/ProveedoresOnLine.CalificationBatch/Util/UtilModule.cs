@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CalificationBatch.Util
 
         public static int ValueTypeNumeric(string Value)
         {
-            return Convert.ToInt32(Value);
+            return int.Parse(Value);
         }
 
         public static string ValueTypeText(string Value)

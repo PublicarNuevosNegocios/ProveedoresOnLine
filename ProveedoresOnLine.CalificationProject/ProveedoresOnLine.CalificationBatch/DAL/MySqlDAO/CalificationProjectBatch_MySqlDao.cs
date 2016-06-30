@@ -355,7 +355,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
-            return Convert.ToInt32(response.ScalarResult);
+
+            return int.Parse(response.ScalarResult.ToString());
         }
 
         public int CalificationProjectItemUpsert(int vCalificationProjectItemId, int vCalificationProjectId, int vCalificationProjectConfigItemId, int vItemScore, bool vEnable)
@@ -375,7 +376,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
-            return Convert.ToInt32(response.ScalarResult);
+
+            return int.Parse(response.ScalarResult.ToString());
         }
 
         public int CalificationProjectItemInfoUpsert(int vCalificationProjectItemInfoId, int vCalificationProjectItemId, int vCalificationProjectConfigItemInfoId, int vItemInfoScore, bool vEnable)
@@ -395,7 +397,8 @@ namespace ProveedoresOnLine.CalificationBatch.DAL.MySqlDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
-            return Convert.ToInt32(response.ScalarResult);
+
+            return int.Parse(response.ScalarResult.ToString());
         }
 
 

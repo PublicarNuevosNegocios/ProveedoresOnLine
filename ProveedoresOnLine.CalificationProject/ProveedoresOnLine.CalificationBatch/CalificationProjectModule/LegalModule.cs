@@ -12,6 +12,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
     {
         public static ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel LegalRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
         {
+            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Legal Module in Process::");
+
             CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
                 CalificationProjectItemId = oRelatedCalificationProjectItemModel != null && oRelatedCalificationProjectItemModel.CalificationProjectItemId > 0 ? oRelatedCalificationProjectItemModel.CalificationProjectItemId : 0,
@@ -87,6 +89,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Update validate to Legal module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + rule.CalificationProjectConfigItemInfoId);
+
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
                         {
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
@@ -750,9 +754,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                         {
                                                             LegalScore = int.Parse(rule.Score);
 
@@ -1669,9 +1671,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                     {
                                                         LegalScore = int.Parse(rule.Score);
 
@@ -1757,6 +1757,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cpitinf => cpitinf.Enable == true).All(cpitinf =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Create validate to Legal module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + cpitinf.CalificationProjectConfigItemInfoId);
+
                         oLegalProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.LegalModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oLegalProviderInfo.Where(pinf => pinf != null).All(pinf =>
@@ -2610,9 +2612,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                 {
                                                     LegalScore = int.Parse(cpitinf.Score);
 
@@ -2692,11 +2692,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas legales del proveedor " + CompanyPublicId);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("End legal module process::: Provider public id::: " + CompanyPublicId);
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error:: Legal Module :: " + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score

@@ -12,6 +12,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
     {
         public static ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel CommercialRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
         {
+            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Commercial Module in Process::");
             CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
                 CalificationProjectItemId = oRelatedCalificationProjectItemModel != null && oRelatedCalificationProjectItemModel.CalificationProjectItemId > 0 ? oRelatedCalificationProjectItemModel.CalificationProjectItemId : 0,
@@ -87,6 +88,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Update validate to Commercial module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + rule.CalificationProjectConfigItemInfoId);
+
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
                         {
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
@@ -108,7 +111,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > 0)
                                                 {
-                                                    CommercialScore = Convert.ToInt32(rule.Score);
+                                                    CommercialScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -133,7 +136,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < 0)
                                                 {
-                                                    CommercialScore = Convert.ToInt32(rule.Score);
+                                                    CommercialScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -162,9 +165,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue > Convert.ToInt32(rule.Value))
+                                                        if (oIntValue > int.Parse(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -189,7 +192,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue > Convert.ToDateTime(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -214,7 +217,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue > Convert.ToDouble(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -248,9 +251,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue < Convert.ToInt32(rule.Value))
+                                                        if (oIntValue < int.Parse(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -275,7 +278,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < Convert.ToDateTime(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -300,7 +303,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < Convert.ToDouble(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -334,9 +337,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                        if (oIntValue >= int.Parse(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -361,7 +364,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -386,7 +389,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -420,9 +423,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                        if (oIntValue <= int.Parse(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -447,7 +450,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -472,7 +475,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -506,9 +509,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue == Convert.ToInt32(rule.Value))
+                                                        if (oIntValue == int.Parse(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -533,7 +536,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue == Convert.ToDateTime(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -558,7 +561,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue == Convert.ToDouble(rule.Value))
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -583,7 +586,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oTextValue == rule.Value)
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -620,14 +623,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         string[] oValue = rule.Value.Split(',');
 
-                                                        minValue = Convert.ToInt32(oValue[0]);
-                                                        maxValue = Convert.ToInt32(oValue[1]);
+                                                        minValue = int.Parse(oValue[0]);
+                                                        maxValue = int.Parse(oValue[1]);
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                         if (oIntValue < maxValue && oIntValue > minValue)
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -660,7 +663,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -693,7 +696,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                         {
-                                                            CommercialScore = Convert.ToInt32(rule.Score);
+                                                            CommercialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -750,9 +753,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -831,7 +832,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue >= 0)
                                             {
-                                                CommercialScore = Convert.ToInt32(rule.Score);
+                                                CommercialScore = int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -865,7 +866,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue < 0)
                                             {
-                                                CommercialScore = Convert.ToInt32(rule.Score);
+                                                CommercialScore = int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -903,9 +904,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue > Convert.ToInt32(rule.Value))
+                                                    if (oIntValue > int.Parse(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -939,7 +940,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue > Convert.ToDateTime(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -973,7 +974,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue > Convert.ToDouble(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1016,9 +1017,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue < Convert.ToInt32(rule.Value))
+                                                    if (oIntValue < int.Parse(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1052,7 +1053,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < Convert.ToDateTime(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1086,7 +1087,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < Convert.ToDouble(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1129,9 +1130,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                    if (oIntValue >= int.Parse(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1165,7 +1166,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1199,7 +1200,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1242,9 +1243,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                    if (oIntValue <= int.Parse(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1278,7 +1279,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1312,7 +1313,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1355,9 +1356,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue == Convert.ToInt32(rule.Value))
+                                                    if (oIntValue == int.Parse(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1391,7 +1392,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue == Convert.ToDateTime(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1425,7 +1426,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue == Convert.ToDouble(rule.Value))
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1459,7 +1460,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oTextValue == rule.Value)
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
                                                         RuleScore++;
                                                         oTotalModuleScore += CommercialScore;
 
@@ -1503,14 +1504,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     string[] oValue = rule.Value.Split(',');
 
-                                                    minValue = Convert.ToInt32(oValue[0]);
-                                                    maxValue = Convert.ToInt32(oValue[1]);
+                                                    minValue = int.Parse(oValue[0]);
+                                                    maxValue = int.Parse(oValue[1]);
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                     if (oIntValue < maxValue && oIntValue > minValue)
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1552,7 +1553,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1594,7 +1595,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                     {
-                                                        CommercialScore = Convert.ToInt32(rule.Score);
+                                                        CommercialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1669,9 +1670,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1757,6 +1756,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cpitinf => cpitinf.Enable == true).All(cpitinf =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Create validate to Commercial module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + cpitinf.CalificationProjectConfigItemInfoId);
+
                         oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
@@ -1773,7 +1774,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue >= 0)
                                         {
-                                            CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                            CommercialScore = int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1807,7 +1808,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                            CommercialScore = int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1845,9 +1846,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue > Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue > int.Parse(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1881,7 +1882,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1915,7 +1916,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1958,9 +1959,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue < Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue < int.Parse(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1994,7 +1995,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2028,7 +2029,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2071,9 +2072,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue >= Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue >= int.Parse(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2107,7 +2108,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2141,7 +2142,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2184,9 +2185,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue <= Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue <= int.Parse(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2220,7 +2221,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2254,7 +2255,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2297,9 +2298,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue == Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue == int.Parse(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2333,7 +2334,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2367,7 +2368,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2401,7 +2402,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oTextValue == cpitinf.Value)
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
                                                     RuleScore++;
                                                     oTotalModuleScore += CommercialScore;
 
@@ -2445,14 +2446,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 string[] oValue = cpitinf.Value.Split(',');
 
-                                                minValue = Convert.ToInt32(oValue[0]);
-                                                maxValue = Convert.ToInt32(oValue[1]);
+                                                minValue = int.Parse(oValue[0]);
+                                                maxValue = int.Parse(oValue[1]);
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                 if (oIntValue < maxValue && oIntValue > minValue)
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2494,7 +2495,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2536,7 +2537,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    CommercialScore = Convert.ToInt32(cpitinf.Score);
+                                                    CommercialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2611,9 +2612,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
@@ -2693,11 +2692,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas Comerciales del proveedor " + CompanyPublicId);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("End Commercial module process::: Provider public id::: " + CompanyPublicId);
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error:: Commercial Module :: " + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score

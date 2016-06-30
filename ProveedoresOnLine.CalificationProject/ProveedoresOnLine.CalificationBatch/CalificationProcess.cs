@@ -35,9 +35,11 @@ namespace ProveedoresOnLine.CalificationBatch
                             oRelatedProvider.Count > 0)
                         {
                             LogFile("Provider Process:::" + "Providers Count::::" + oRelatedProvider.Count.ToString() + "::::" + DateTime.Now);
+                            
                             oRelatedProvider.All(prv =>
                             {
                                 LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now);
+                                
                                 //Get calification process by provider
                                 List<Models.CalificationProjectBatch.CalificationProjectBatchModel> oRelatedCalificationProject =
                                    ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetProviderByCustomer(cnf.Company.CompanyPublicId, prv.CompanyPublicId);
@@ -46,8 +48,8 @@ namespace ProveedoresOnLine.CalificationBatch
                                 if (oRelatedCalificationProject != null &&
                                     oRelatedCalificationProject.Count > 0)
                                 {
-                                    //update calification project!!!
-
+                                    LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Validate Calification Project");
+                                    //update calification project                               
                                     #region Validate calification project with config
 
                                     //validate all calification project config (Calification project - calification project item)
@@ -313,6 +315,8 @@ namespace ProveedoresOnLine.CalificationBatch
                                 }
                                 else
                                 {
+                                    LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Crate Calification Project");
+                                    
                                     #region New Calification project
 
                                     //new calification project
@@ -335,12 +339,11 @@ namespace ProveedoresOnLine.CalificationBatch
                                     //execute all calification process
                                     cnf.ConfigItemModel.Where(md => md.Enable == true).All(md =>
                                     {
+                                        LogFile("Provider in Process::" + prv.CompanyPublicId + ":::" + DateTime.Now + "::: Validación de módulos");
                                         switch (md.CalificationProjectConfigItemType.ItemId)
                                         {
                                             #region LegalModule
-
-                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:
-
+                                            case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumModuleType.CP_LegalModule:                                                
                                                 ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectItemBatchModel oLegalModule =
                                                     ProveedoresOnLine.CalificationBatch.CalificationProjectModule.LegalModule.LegalRule(prv.CompanyPublicId, md, null);
 
@@ -429,7 +432,7 @@ namespace ProveedoresOnLine.CalificationBatch
                         else
                         {
                             //Provider list is empty
-                            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Error:: el cliente " + cnf.Company.CompanyPublicId + " no tiene proveedores relacionados para ejecutar el proceso.");
+                            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Error:: customer public id: " + cnf.Company.CompanyPublicId + " :: related provider list is empty.");
                         }
 
                         return true;
@@ -438,15 +441,15 @@ namespace ProveedoresOnLine.CalificationBatch
                 else
                 {
                     //calification project config list is empty
-                    LogFile("Error:: no hay procesos de calificación configurados.");
+                    LogFile("Error:: calification project config list is empty.");
                 }
             }
             catch (Exception err)
             {
-                LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                LogFile("Fatal Error::" + err.Message + " - " + err.StackTrace);
             }
 
-            LogFile("End Process:::" + DateTime.Now);
+            LogFile("End Total Process:::" + DateTime.Now);
         }
 
         private void GetCustomer()

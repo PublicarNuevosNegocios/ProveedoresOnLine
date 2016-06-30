@@ -13,6 +13,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
     {
         public static CalificationProjectItemBatchModel FinancialRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
         {
+            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Financial Module in Process::");
             CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
                 CalificationProjectItemId = oRelatedCalificationProjectItemModel != null && oRelatedCalificationProjectItemModel.CalificationProjectItemId > 0 ? oRelatedCalificationProjectItemModel.CalificationProjectItemId : 0,
@@ -88,8 +89,10 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Update validate to Financial module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + rule.CalificationProjectConfigItemInfoId);
+
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
-                        {
+                        {                            
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
                             {
                                 //add mp rule
@@ -109,7 +112,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue > 0)
                                                 {
-                                                    FinancialScore = Convert.ToInt32(rule.Score);
+                                                    FinancialScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -134,7 +137,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oIntValue < 0)
                                                 {
-                                                    FinancialScore = Convert.ToInt32(rule.Score);
+                                                    FinancialScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -163,9 +166,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue > Convert.ToInt32(rule.Value))
+                                                        if (oIntValue > int.Parse(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -190,7 +193,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue > Convert.ToDateTime(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -215,7 +218,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue > Convert.ToDouble(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -249,9 +252,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue < Convert.ToInt32(rule.Value))
+                                                        if (oIntValue < int.Parse(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -276,7 +279,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < Convert.ToDateTime(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -301,7 +304,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < Convert.ToDouble(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -335,9 +338,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                        if (oIntValue >= int.Parse(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -362,7 +365,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -387,7 +390,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -421,9 +424,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                        if (oIntValue <= int.Parse(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -448,7 +451,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -473,7 +476,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -507,9 +510,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue == Convert.ToInt32(rule.Value))
+                                                        if (oIntValue == int.Parse(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -534,7 +537,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue == Convert.ToDateTime(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -559,7 +562,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue == Convert.ToDouble(rule.Value))
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -584,7 +587,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oTextValue == rule.Value)
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -621,14 +624,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         string[] oValue = rule.Value.Split(',');
 
-                                                        minValue = Convert.ToInt32(oValue[0]);
-                                                        maxValue = Convert.ToInt32(oValue[1]);
+                                                        minValue = int.Parse(oValue[0]);
+                                                        maxValue = int.Parse(oValue[1]);
 
                                                         oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                         if (oIntValue < maxValue && oIntValue > minValue)
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -661,7 +664,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -694,7 +697,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                         {
-                                                            FinancialScore = Convert.ToInt32(rule.Score);
+                                                            FinancialScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -751,9 +754,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                        oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                        if (!string.IsNullOrEmpty(oTextValue))
+                                                        if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                         {
                                                             FinancialScore = int.Parse(rule.Score);
 
@@ -832,7 +833,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue >= 0)
                                             {
-                                                FinancialScore = Convert.ToInt32(rule.Score);
+                                                FinancialScore = int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -866,7 +867,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             if (oIntValue < 0)
                                             {
-                                                FinancialScore = Convert.ToInt32(rule.Score);
+                                                FinancialScore = int.Parse(rule.Score);
 
                                                 RuleScore++;
 
@@ -904,9 +905,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue > Convert.ToInt32(rule.Value))
+                                                    if (oIntValue > int.Parse(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -940,7 +941,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue > Convert.ToDateTime(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -974,7 +975,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue > Convert.ToDouble(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1017,9 +1018,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue < Convert.ToInt32(rule.Value))
+                                                    if (oIntValue < int.Parse(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1053,7 +1054,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < Convert.ToDateTime(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1087,7 +1088,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < Convert.ToDouble(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1130,9 +1131,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue >= Convert.ToInt32(rule.Value))
+                                                    if (oIntValue >= int.Parse(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1166,7 +1167,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue >= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1200,7 +1201,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1243,9 +1244,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue <= Convert.ToInt32(rule.Value))
+                                                    if (oIntValue <= int.Parse(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1279,7 +1280,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue <= Convert.ToDateTime(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1313,7 +1314,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1356,9 +1357,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue == Convert.ToInt32(rule.Value))
+                                                    if (oIntValue == int.Parse(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1392,7 +1393,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue == Convert.ToDateTime(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1426,7 +1427,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue == Convert.ToDouble(rule.Value))
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1460,7 +1461,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oTextValue == rule.Value)
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
                                                         RuleScore++;
                                                         oTotalModuleScore += FinancialScore;
 
@@ -1504,14 +1505,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     string[] oValue = rule.Value.Split(',');
 
-                                                    minValue = Convert.ToInt32(oValue[0]);
-                                                    maxValue = Convert.ToInt32(oValue[1]);
+                                                    minValue = int.Parse(oValue[0]);
+                                                    maxValue = int.Parse(oValue[1]);
 
                                                     oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                     if (oIntValue < maxValue && oIntValue > minValue)
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1553,7 +1554,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1595,7 +1596,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                     {
-                                                        FinancialScore = Convert.ToInt32(rule.Score);
+                                                        FinancialScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -1670,9 +1671,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                    oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                    if (!string.IsNullOrEmpty(oTextValue))
+                                                    if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                     {
                                                         FinancialScore = int.Parse(rule.Score);
 
@@ -1758,6 +1757,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(cpitinf =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Create validate to Financial module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + cpitinf.CalificationProjectConfigItemInfoId);
+
                         oFinancialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.FinancialModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oFinancialProviderInfo.Where(pinf => pinf != null).All(pinf =>
@@ -1774,7 +1775,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue >= 0)
                                         {
-                                            FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                            FinancialScore = int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1808,7 +1809,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         if (oIntValue < 0)
                                         {
-                                            FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                            FinancialScore = int.Parse(cpitinf.Score);
 
                                             RuleScore++;
 
@@ -1846,9 +1847,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue > Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue > int.Parse(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1882,7 +1883,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue > Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1916,7 +1917,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1959,9 +1960,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue < Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue < int.Parse(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -1995,7 +1996,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2029,7 +2030,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2072,9 +2073,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue >= Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue >= int.Parse(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2108,7 +2109,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue >= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2142,7 +2143,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2185,9 +2186,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue <= Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue <= int.Parse(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2221,7 +2222,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue <= Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2255,7 +2256,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2298,9 +2299,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue == Convert.ToInt32(cpitinf.Value))
+                                                if (oIntValue == int.Parse(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2334,7 +2335,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue == Convert.ToDateTime(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2368,7 +2369,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2402,7 +2403,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oTextValue == cpitinf.Value)
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2447,14 +2448,14 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 string[] oValue = cpitinf.Value.Split(',');
 
-                                                minValue = Convert.ToInt32(oValue[0]);
-                                                maxValue = Convert.ToInt32(oValue[1]);
+                                                minValue = int.Parse(oValue[0]);
+                                                maxValue = int.Parse(oValue[1]);
 
                                                 oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
 
                                                 if (oIntValue < maxValue && oIntValue > minValue)
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2496,7 +2497,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDateValue < oMaxValue && oDateValue > oMinValue)
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2538,7 +2539,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                 {
-                                                    FinancialScore = Convert.ToInt32(cpitinf.Score);
+                                                    FinancialScore = int.Parse(cpitinf.Score);
 
                                                     RuleScore++;
 
@@ -2613,9 +2614,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Text:
 
-                                                oTextValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeText(pinf.ItemInfo.FirstOrDefault().Value.Trim());
-
-                                                if (!string.IsNullOrEmpty(oTextValue))
+                                                if (!string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().Value.Trim()) || !string.IsNullOrEmpty(pinf.ItemInfo.FirstOrDefault().LargeValue.Trim()))
                                                 {
                                                     FinancialScore = int.Parse(cpitinf.Score);
 
@@ -2693,11 +2692,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas financieras del proveedor " + CompanyPublicId);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("End Financial module process::: Provider public id::: " + CompanyPublicId);
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error:: Financial Module :: " + err.Message + " - " + err.StackTrace);
             }
 
             //Get new score

@@ -35,7 +35,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
-            return Convert.ToInt32(response.ScalarResult);
+            return (int)response.ScalarResult;
         }
 
         public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string CompanyPublicId, bool Enable)
@@ -306,7 +306,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                 Parameters = lstParams,
             });
 
-            return Convert.ToInt32(response.ScalarResult);
+            return (int)response.ScalarResult;
         }
 
         public List<Models.CalificationProject.ConfigItemModel> CalificationProjectConfigItem_GetByCalificationProjectConfigId(int CalificationProjectConfigId, bool Enable)
@@ -387,7 +387,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                 Parameters = lstParams,
             });
 
-            return Convert.ToInt32(response.ScalarResult);
+            return (int)response.ScalarResult;
         }
 
         public List<Models.CalificationProject.ConfigItemInfoModel> CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId(int CalificationProjectConfigItemId, bool Enable)
@@ -479,7 +479,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 
             });
 
-            return Convert.ToInt32(response.ScalarResult);
+            return (int)response.ScalarResult;
         }
         public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
         {
@@ -567,7 +567,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                          into cig
                          select new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                          {
-                             CatalogId = Convert.ToInt32(cig.Key.CatalogId),
+                             CatalogId = (int)cig.Key.CatalogId,
                              CatalogName = cig.Key.CatalogName,
                              CatalogEnable = cig.Key.CatalogEnable,
                              ItemId = cig.Key.ItemId,

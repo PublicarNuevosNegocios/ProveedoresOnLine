@@ -12,6 +12,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
     {
         public static CalificationProjectItemBatchModel BalanceRule(string CompanyPublicId, ConfigItemModel oCalificationProjectItemModel, CalificationProjectItemBatchModel oRelatedCalificationProjectItemModel)
         {
+            ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Balance Module in Process::");
             CalificationProjectItemBatchModel oReturn = new CalificationProjectItemBatchModel()
             {
                 CalificationProjectItemId = oRelatedCalificationProjectItemModel != null && oRelatedCalificationProjectItemModel.CalificationProjectItemId > 0 ? oRelatedCalificationProjectItemModel.CalificationProjectItemId : 0,
@@ -87,6 +88,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Update validate to Balance module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + rule.CalificationProjectConfigItemInfoId);
+
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
                         {
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
@@ -111,7 +114,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDecimalValue > 0)
                                                     {
-                                                        BalanceScore = Convert.ToInt32(rule.Score);
+                                                        BalanceScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -136,7 +139,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDecimalValue < 0)
                                                     {
-                                                        BalanceScore = Convert.ToInt32(rule.Score);
+                                                        BalanceScore = int.Parse(rule.Score);
 
                                                         RuleScore++;
 
@@ -167,7 +170,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue > Convert.ToDecimal(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -192,7 +195,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue > Convert.ToDouble(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -228,7 +231,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue < Convert.ToDecimal(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -253,7 +256,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue < Convert.ToDouble(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -289,7 +292,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue >= Convert.ToDecimal(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -314,7 +317,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -350,7 +353,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue <= Convert.ToDecimal(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -375,7 +378,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -411,7 +414,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue == Convert.ToDecimal(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -436,7 +439,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue == Convert.ToDouble(rule.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -480,7 +483,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -513,7 +516,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                             {
-                                                                BalanceScore = Convert.ToInt32(rule.Score);
+                                                                BalanceScore = int.Parse(rule.Score);
 
                                                                 RuleScore++;
 
@@ -568,7 +571,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDecimalValue >= 0)
                                                 {
-                                                    BalanceScore = Convert.ToInt32(rule.Score);
+                                                    BalanceScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -602,7 +605,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 if (oDecimalValue < 0)
                                                 {
-                                                    BalanceScore = Convert.ToInt32(rule.Score);
+                                                    BalanceScore = int.Parse(rule.Score);
 
                                                     RuleScore++;
 
@@ -642,7 +645,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue > Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -676,7 +679,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue > Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -721,7 +724,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue < Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -755,7 +758,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -800,7 +803,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue >= Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -834,7 +837,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue >= Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -879,7 +882,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue <= Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -913,7 +916,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue <= Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -958,7 +961,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue == Convert.ToDecimal(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -992,7 +995,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue == Convert.ToDouble(rule.Value))
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -1045,7 +1048,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -1087,7 +1090,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                         if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                         {
-                                                            BalanceScore = Convert.ToInt32(rule.Score);
+                                                            BalanceScore = int.Parse(rule.Score);
 
                                                             RuleScore++;
 
@@ -1138,6 +1141,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.All(cpitinf =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Create validate to Balance module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + cpitinf.CalificationProjectConfigItemInfoId);
+
                         oBalanceProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.BalanceModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         if (oBalanceProviderInfo != null &&
@@ -1162,7 +1167,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDecimalValue >= 0)
                                                     {
-                                                        BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                        BalanceScore = int.Parse(cpitinf.Score);
 
                                                         RuleScore++;
 
@@ -1196,7 +1201,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     if (oDecimalValue < 0)
                                                     {
-                                                        BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                        BalanceScore = int.Parse(cpitinf.Score);
 
                                                         RuleScore++;
 
@@ -1236,7 +1241,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue > Convert.ToDecimal(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1270,7 +1275,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue > Convert.ToDouble(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1315,7 +1320,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue < Convert.ToDecimal(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1349,7 +1354,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue < Convert.ToDouble(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1394,7 +1399,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue >= Convert.ToDecimal(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1428,7 +1433,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue >= Convert.ToDouble(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1473,7 +1478,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue <= Convert.ToDecimal(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1507,7 +1512,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue <= Convert.ToDouble(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1552,7 +1557,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue == Convert.ToDecimal(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1586,7 +1591,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue == Convert.ToDouble(cpitinf.Value))
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1639,7 +1644,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1681,7 +1686,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                             if (oPercentValue < oMaxiValue && oPercentValue > oMiniValue)
                                                             {
-                                                                BalanceScore = Convert.ToInt32(cpitinf.Score);
+                                                                BalanceScore = int.Parse(cpitinf.Score);
 
                                                                 RuleScore++;
 
@@ -1728,11 +1733,11 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas del balance financiero del proveedor " + CompanyPublicId);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("End Balance module process::: Provider public id::: " + CompanyPublicId);
             }
             catch (Exception err)
             {
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error::" + err.Message + " - " + err.StackTrace);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Fatal error:: Balance Module :: " + err.Message + " - " + err.StackTrace);
             }
             
             //Get new score
