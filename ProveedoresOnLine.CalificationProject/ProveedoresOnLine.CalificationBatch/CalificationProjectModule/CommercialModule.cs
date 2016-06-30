@@ -88,6 +88,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(rule => rule.Enable == true).All(rule =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Update validate to Commercial module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + rule.CalificationProjectConfigItemInfoId);
+
                         if (oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Any(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId))
                         {
                             oRelatedCalificationProjectItemModel.CalificatioProjectItemInfoModel.Where(mprule => mprule.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == rule.CalificationProjectConfigItemInfoId).All(mprule =>
@@ -1754,6 +1756,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                     oCalificationProjectItemModel.CalificationProjectConfigItemInfoModel.Where(cpitinf => cpitinf.Enable == true).All(cpitinf =>
                     {
+                        ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Create validate to Commercial module ::: Provider public id ::: " + CompanyPublicId + " ::: RuleId ::: " + cpitinf.CalificationProjectConfigItemInfoId);
+
                         oCommercialProviderInfo = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CommercialModuleInfo(CompanyPublicId, cpitinf.Question.ItemId);
 
                         oCommercialProviderInfo.Where(pinf => pinf != null).All(pinf =>
@@ -2688,7 +2692,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                     });
                 }
 
-                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("Se validaron las reglas Comerciales del proveedor " + CompanyPublicId);
+                ProveedoresOnLine.CalificationBatch.CalificationProcess.LogFile("End Commercial module process::: Provider public id::: " + CompanyPublicId);
             }
             catch (Exception err)
             {
