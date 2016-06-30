@@ -4246,7 +4246,6 @@ namespace MarketPlace.Web.Controllers
             LegalData.Columns.Add("LegalRuleValue");
             LegalData.Columns.Add("LegalRuleValueType");
             LegalData.Columns.Add("LegalRuleResult");
-
             DataRow row1;
 
             DataTable FinancialData = new DataTable();
@@ -4267,7 +4266,6 @@ namespace MarketPlace.Web.Controllers
             CommercialData.Columns.Add("CommercialRuleValue");
             CommercialData.Columns.Add("CommercialRuleValueType");
             CommercialData.Columns.Add("CommercialRuleResult");
-
             DataRow row3;
 
             DataTable CertificationData = new DataTable();
@@ -4278,7 +4276,6 @@ namespace MarketPlace.Web.Controllers
             CertificationData.Columns.Add("CertificationRuleValue");
             CertificationData.Columns.Add("CertificationRuleValueType");
             CertificationData.Columns.Add("CertificationRuleResult");
-
             DataRow row4;
 
             DataTable BalanceData = new DataTable();
@@ -4288,115 +4285,314 @@ namespace MarketPlace.Web.Controllers
             BalanceData.Columns.Add("BalanceRuleValue");
             BalanceData.Columns.Add("BalanceRuleValueType");
             BalanceData.Columns.Add("BalanceRuleResult");
-
             DataRow row5;
 
             DataTable ValidateData = new DataTable();
             ValidateData.Columns.Add("Operator");
             ValidateData.Columns.Add("Value");
-            ValidateData.Columns.Add("Result");
-            
-
+            ValidateData.Columns.Add("Result");            
             DataRow row6;
-
-            if (oModel.ProviderCalification.ProRelatedCalificationProject != null &&
-                oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0)
+            foreach (var ValidateInfo in oModel.ProviderCalification.oValidateModel)
             {
-                foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
+                row6 = ValidateData.NewRow();
+
+                row6["Operator"] = ValidateInfo.Operator.ItemName;
+                row6["Value"] = ValidateInfo.Value;
+                row6["Result"] = ValidateInfo.Result;
+
+                ValidateData.Rows.Add(row6);
+            }
+            foreach (var CalificationProjectConfig in oModel.ProviderCalification.RelatedCalificationProjectConfig)
+	        {
+                var CalificationProjectBatch = oModel.ProviderCalification.ProRelatedCalificationProject.Where(x => x.ProjectConfigModel.CalificationProjectConfigId == CalificationProjectConfig.CalificationProjectConfigId).Select(x => x).FirstOrDefault();
+                foreach (var CalificationProjectConfigItem in CalificationProjectConfig.ConfigItemModel) 
                 {
-                    foreach (var CalProjectItem in CalProject.CalificationProjectItemBatchModel)
+                    if (CalificationProjectBatch.CalificationProjectItemBatchModel.Any(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId))
                     {
-                        foreach (var CalProjectItemInfo in CalProjectItem.CalificatioProjectItemInfoModel)
-	                    {
-                            if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule )
+                        var CalificaitonProjectItemBatch = CalificationProjectBatch.CalificationProjectItemBatchModel.Where(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId).Select(x => x).FirstOrDefault();
+                        foreach (var CalificationProjectConfigItemInfo in CalificationProjectConfigItem.CalificationProjectConfigItemInfoModel)
+                        {
+                            if (CalificaitonProjectItemBatch.CalificatioProjectItemInfoModel.Any(infb => infb.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId))
+                            {
+                                var CalificationProjectItemInfoBatch = CalificaitonProjectItemBatch.CalificatioProjectItemInfoModel.Where(infb => infb.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId).Select(infb => infb).FirstOrDefault();
+                                if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule) 
+                                {
+                                    row1 = LegalData.NewRow();
+                                    LegalName =CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row1["LegalRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
+                                    row1["LegalRuleOperator"] =CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+                                    row1["LegalRuleValue"] =CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
+                                    row1["LegalRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row1["LegalRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
+                                    LegalData.Rows.Add(row1);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
+                                {
+                                    row2 = FinancialData.NewRow();
+                                    FinancialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;                                    
+                                    row2["FinancialRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
+                                    row2["FinancialRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+                                    row2["FinancialRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
+                                    row2["FinancialRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row2["FinancialRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
+                                    FinancialData.Rows.Add(row2);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
+                                {
+                                    row3 = CommercialData.NewRow();
+                                    CommercialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row3["CommercialRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
+                                    row3["CommercialRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+                                    row3["CommercialRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
+                                    row3["CommercialRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row3["CommercialRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
+                                    CommercialData.Rows.Add(row3);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
+                                {
+                                    row4 = CertificationData.NewRow();
+                                    HSEQName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row4["CertificationRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
+                                    row4["CertificationRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+                                    row4["CertificationRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
+                                    row4["CertificationRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row4["CertificationRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
+                                    CertificationData.Rows.Add(row4);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+                                {
+                                    row5 = BalanceData.NewRow();
+                                    BalanceName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row5["BalanceRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
+                                    row5["BalanceRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+                                    row5["BalanceRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
+                                    row5["BalanceRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row5["BalanceRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
+                                    BalanceData.Rows.Add(row5);
+                                }
+
+                            }
+                            else 
+                            {
+                                if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
+                                {
+                                    row1 = LegalData.NewRow();
+                                    LegalName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row1["LegalRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                    row1["LegalRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                    row1["LegalRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                    row1["LegalRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row1["LegalRuleResult"] = "0";
+                                    LegalData.Rows.Add(row1);
+                                    
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
+                                {
+                                    row2 = FinancialData.NewRow();
+                                    FinancialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row2["FinancialRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                    row2["FinancialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                    row2["FinancialRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                    row2["FinancialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row2["FinancialRuleResult"] = "0";
+                                    FinancialData.Rows.Add(row2);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
+                                {
+                                    row3 = CommercialData.NewRow();
+                                    CommercialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row3["CommercialRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                    row3["CommercialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                    row3["CommercialRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                    row3["CommercialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row3["CommercialRuleResult"] = "0";
+                                    CommercialData.Rows.Add(row3);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
+                                {
+                                    row4 = CertificationData.NewRow();
+                                    HSEQName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row4["CertificationRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                    row4["CertificationRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                    row4["CertificationRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                    row4["CertificationRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row4["CertificationRuleResult"] = "0";
+                                    CertificationData.Rows.Add(row4);
+                                }
+                                else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+                                {
+                                    row5 = BalanceData.NewRow();
+                                    BalanceName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    row5["BalanceRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                    row5["BalanceRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                    row5["BalanceRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                    row5["BalanceRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row5["BalanceRuleResult"] = "0";
+                                    BalanceData.Rows.Add(row5);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var CalificationProjectConfigItemInfo in CalificationProjectConfigItem.CalificationProjectConfigItemInfoModel)
+                        {
+                            if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                             {
                                 row1 = LegalData.NewRow();
-
-                                LegalName= CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row1["LegalRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row1["LegalRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
-                                row1["LegalRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row1["LegalRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                row1["LegalRuleResult"] = CalProjectItemInfo.ItemInfoScore;
-
+                                LegalName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                row1["LegalRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                row1["LegalRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                row1["LegalRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                row1["LegalRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row1["LegalRuleResult"] = "0";
                                 LegalData.Rows.Add(row1);
+
                             }
-                            else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
+                            else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
                             {
                                 row2 = FinancialData.NewRow();
-
-                                FinancialName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row2["FinancialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row2["FinancialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
-                                row2["FinancialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row2["FinancialRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                row2["FinancialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
-
+                                FinancialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                row2["FinancialRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                row2["FinancialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                row2["FinancialRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                row2["FinancialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row2["FinancialRuleResult"] = "0";
                                 FinancialData.Rows.Add(row2);
                             }
-                            else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
+                            else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
                             {
                                 row3 = CommercialData.NewRow();
-
-                                CommercialName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row3["CommercialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row3["CommercialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row3["CommercialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
-                                row3["CommercialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row3["CommercialRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                row3["CommercialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
-
+                                CommercialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                row3["CommercialRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                row3["CommercialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                row3["CommercialRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                row3["CommercialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row3["CommercialRuleResult"] = "0";
                                 CommercialData.Rows.Add(row3);
                             }
-                            else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
+                            else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
                             {
                                 row4 = CertificationData.NewRow();
-
-                                HSEQName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row4["CertificationName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row4["CertificationRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row4["CertificationRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
-                                row4["CertificationRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row4["CertificationRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                row4["CertificationRuleResult"] = CalProjectItemInfo.ItemInfoScore;
-
+                                HSEQName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                row4["CertificationRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                row4["CertificationRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                row4["CertificationRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                row4["CertificationRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row4["CertificationRuleResult"] = "0";
                                 CertificationData.Rows.Add(row4);
                             }
-                            else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+                            else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
                             {
                                 row5 = BalanceData.NewRow();
-
-                                BalanceName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row5["BalanceName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                                row5["BalanceRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                row5["BalanceRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
-                                row5["BalanceRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
-                                row5["BalanceRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                row5["BalanceRuleResult"] = CalProjectItemInfo.ItemInfoScore;
-
+                                BalanceName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                row5["BalanceRuleName"] = CalificationProjectConfigItemInfo.Question.ItemName;
+                                row5["BalanceRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
+                                row5["BalanceRuleValue"] = CalificationProjectConfigItemInfo.Value;
+                                row5["BalanceRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row5["BalanceRuleResult"] = "0";
                                 BalanceData.Rows.Add(row5);
-                            }                                                        
-	                    }                        
+                            }
+                        }
                     }
                 }
-                parameters.Add(new ReportParameter("LegalName", LegalName));
-                parameters.Add(new ReportParameter("FinancialName", FinancialName));
-                parameters.Add(new ReportParameter("CommercialName", CommercialName));
-                parameters.Add(new ReportParameter("CertificationName", HSEQName));
-                parameters.Add(new ReportParameter("BalanceName", BalanceName));
+	        }
+            parameters.Add(new ReportParameter("LegalName", LegalName));
+            parameters.Add(new ReportParameter("FinancialName", FinancialName));
+            parameters.Add(new ReportParameter("CommercialName", CommercialName));
+            parameters.Add(new ReportParameter("CertificationName", HSEQName));
+            parameters.Add(new ReportParameter("BalanceName", BalanceName));
 
-                foreach (var ValidateInfo in oModel.ProviderCalification.oValidateModel)
-                {
-                    row6 = ValidateData.NewRow();
 
-                    row6["Operator"] = ValidateInfo.Operator.ItemName;
-                    row6["Value"] = ValidateInfo.Value;
-                    row6["Result"] = ValidateInfo.Result;
+            //if (oModel.ProviderCalification.ProRelatedCalificationProject != null &&
+            //    oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0)
+            //{
+            //    foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
+            //    {
+            //        foreach (var CalProjectItem in CalProject.CalificationProjectItemBatchModel)
+            //        {
+            //            foreach (var CalProjectItemInfo in CalProjectItem.CalificatioProjectItemInfoModel)
+            //            {
+            //                if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule )
+            //                {
+            //                    row1 = LegalData.NewRow();
 
-                    ValidateData.Rows.Add(row6);
-                }
-            }            
+            //                    LegalName= CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row1["LegalRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
+            //                    row1["LegalRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+            //                    row1["LegalRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
+            //                    row1["LegalRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+            //                    row1["LegalRuleResult"] = CalProjectItemInfo.ItemInfoScore;
+
+            //                    LegalData.Rows.Add(row1);
+            //                }
+            //                else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
+            //                {
+            //                    row2 = FinancialData.NewRow();
+
+            //                    FinancialName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row2["FinancialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row2["FinancialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
+            //                    row2["FinancialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+            //                    row2["FinancialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
+            //                    row2["FinancialRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+            //                    row2["FinancialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
+
+            //                    FinancialData.Rows.Add(row2);
+            //                }
+            //                else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
+            //                {
+            //                    row3 = CommercialData.NewRow();
+
+            //                    CommercialName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row3["CommercialName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != null ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row3["CommercialRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
+            //                    row3["CommercialRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+            //                    row3["CommercialRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
+            //                    row3["CommercialRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+            //                    row3["CommercialRuleResult"] = CalProjectItemInfo.ItemInfoScore;
+
+            //                    CommercialData.Rows.Add(row3);
+            //                }
+            //                else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
+            //                {
+            //                    row4 = CertificationData.NewRow();
+
+            //                    HSEQName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row4["CertificationName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row4["CertificationRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
+            //                    row4["CertificationRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+            //                    row4["CertificationRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
+            //                    row4["CertificationRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+            //                    row4["CertificationRuleResult"] = CalProjectItemInfo.ItemInfoScore;
+
+            //                    CertificationData.Rows.Add(row4);
+            //                }
+            //                else if (CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+            //                {
+            //                    row5 = BalanceData.NewRow();
+
+            //                    BalanceName = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row5["BalanceName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //                    row5["BalanceRuleName"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Question.ItemName;
+            //                    row5["BalanceRuleOperator"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+            //                    row5["BalanceRuleValue"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.Value;
+            //                    row5["BalanceRuleValueType"] = CalProjectItemInfo.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+            //                    row5["BalanceRuleResult"] = CalProjectItemInfo.ItemInfoScore;
+
+            //                    BalanceData.Rows.Add(row5);
+            //                }                                                        
+            //            }                        
+            //        }
+            //    }
+            //    parameters.Add(new ReportParameter("LegalName", LegalName));
+            //    parameters.Add(new ReportParameter("FinancialName", FinancialName));
+            //    parameters.Add(new ReportParameter("CommercialName", CommercialName));
+            //    parameters.Add(new ReportParameter("CertificationName", HSEQName));
+            //    parameters.Add(new ReportParameter("BalanceName", BalanceName));
+
+            //    
+            //}            
             #endregion
 
             #endregion
