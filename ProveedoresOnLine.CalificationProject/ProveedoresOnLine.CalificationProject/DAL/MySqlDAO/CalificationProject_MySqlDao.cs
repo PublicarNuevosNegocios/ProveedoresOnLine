@@ -35,7 +35,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
-            return (int)response.ScalarResult;
+            return int.Parse(response.ScalarResult.ToString());
         }
 
         public List<Models.CalificationProject.CalificationProjectConfigModel> CalificationProjectConfig_GetByCompanyId(string CompanyPublicId, bool Enable)
@@ -306,7 +306,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                 Parameters = lstParams,
             });
 
-            return (int)response.ScalarResult;
+            return int.Parse(response.ScalarResult.ToString());
         }
 
         public List<Models.CalificationProject.ConfigItemModel> CalificationProjectConfigItem_GetByCalificationProjectConfigId(int CalificationProjectConfigId, bool Enable)
@@ -387,7 +387,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
                 Parameters = lstParams,
             });
 
-            return (int)response.ScalarResult;
+            return int.Parse(response.ScalarResult.ToString());
         }
 
         public List<Models.CalificationProject.ConfigItemInfoModel> CalificationProjectConfigItemInfo_GetByCalificationProjectConfigItemId(int CalificationProjectConfigItemId, bool Enable)
@@ -479,7 +479,7 @@ namespace ProveedoresOnLine.CalificationProject.DAL.MySqlDAO
 
             });
 
-            return (int)response.ScalarResult;
+            return int.Parse(response.ScalarResult.ToString());
         }
         public List<Models.CalificationProject.ConfigValidateModel> CalificationProjectConfigValidate_GetByProjectConfigId(int CalificationProjectConfigId, bool Enable)
         {
