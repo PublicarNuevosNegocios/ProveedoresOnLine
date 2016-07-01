@@ -82,9 +82,9 @@
                                             }
                                             else
                                             {
-                                                <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - @CalificaitonProjectItemBatch.ItemScore Puntos</label>        
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - @CalificaitonProjectItemBatch.ItemScore Puntos</label>
                                             }
-                                            
+
                                         </div>
                                         @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                                         {
@@ -247,7 +247,14 @@
                                 {
                                     <div class="row POMPSectionTitlesBox">
                                         <div class="col-xs-6">
-                                            <label>Modulo @CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName - 0 Puntos</label>
+                                            @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+                                            {
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) del año: @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault() - 0 Puntos</label>
+                                            }
+                                            else
+                                            {
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - 0 Puntos</label>
+                                            }
                                         </div>
                                         @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                                         {
@@ -434,7 +441,6 @@
         </div>
     </div>
 </div>
-
 @{
     Model.RenderScripts = true;
 }
