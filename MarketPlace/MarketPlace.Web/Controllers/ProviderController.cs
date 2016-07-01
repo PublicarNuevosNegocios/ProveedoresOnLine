@@ -1103,6 +1103,35 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion Legal Info
 
+                #region Basic Financial Info
+
+                List<GenericItemModel> oFinancial = response.RelatedFinantial;
+                oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+
+                if (oFinancial != null)
+                {
+                    decimal oExchange;
+                    oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                                Convert.ToInt32(oFinancial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                                Convert.ToInt32(Models.General.InternalSettings.Instance[Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
+                                Convert.ToInt32(oFinancial.FirstOrDefault().ItemName));
+
+                    oFinancial.All(x =>
+                    {
+                        oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x, oExchange));
+                        return true;
+                    });
+
+                    if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
+                    {
+                        oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
+                            ((Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentActive)).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()))).ToString("#,0.##");
+                    }
+                }
+
+                #endregion Basic Financial Info
+
                 List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel> oCalProject = new List<ProveedoresOnLine.CalificationBatch.Models.CalificationProjectBatch.CalificationProjectBatchModel>();
                 oCalProject = ProveedoresOnLine.CalificationBatch.Controller.CalificationProjectBatch.CalificationProject_GetByCustomer(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId, true);
 
@@ -5319,7 +5348,7 @@ namespace MarketPlace.Web.Controllers
                             minValue = int.Parse(oValue[0]);
                             maxValue = int.Parse(oValue[1]);
 
-                            if (oProviderCalModel.FirstOrDefault().TotalScore < maxValue && oProviderCalModel.FirstOrDefault().TotalScore > minValue)
+                            if (oProviderCalModel.FirstOrDefault().TotalScore <= maxValue && oProviderCalModel.FirstOrDefault().TotalScore >= minValue)
                             {
                                 oTotalScore = x.Result;
                             }

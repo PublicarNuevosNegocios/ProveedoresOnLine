@@ -693,7 +693,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Puntaje:</Value>
+                <Value>Puntuación Total:</Value>
                 <Style>
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
@@ -2542,7 +2542,7 @@
         <Top>24.80899cm</Top>
         <Left>0.41911cm</Left>
         <Height>1.37639cm</Height>
-        <Width>15.6868cm</Width>
+        <Width>15.68681cm</Width>
         <ZIndex>32</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_ValidateInfo") &gt; 0, false, true)</Hidden>
@@ -3227,7 +3227,6 @@
         <ReportItems>
           <Line Name="Line15">
             <Top>0.86cm</Top>
-            <Left>0cm</Left>
             <Height>0cm</Height>
             <Width>16.6cm</Width>
             <Style>

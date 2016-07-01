@@ -76,7 +76,15 @@
 
                                     <div class="row POMPSectionTitlesBox">
                                         <div class="col-xs-6">
-                                            <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - @CalificaitonProjectItemBatch.ItemScore Puntos</label>
+                                            @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
+                                            {
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) del año: @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault() - @CalificaitonProjectItemBatch.ItemScore Puntos</label>
+                                            }
+                                            else
+                                            {
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) - @CalificaitonProjectItemBatch.ItemScore Puntos</label>        
+                                            }
+                                            
                                         </div>
                                         @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                                         {

@@ -160,7 +160,7 @@
                 foreach (var CalificationProject in Model.ProviderCalification.RelatedCalificationProjectConfig)
                 {
                     var CalificationProjectBatch = Model.ProviderCalification.ProRelatedCalificationProject.Where(x => x.ProjectConfigModel.CalificationProjectConfigId == CalificationProject.CalificationProjectConfigId).Select(x => x).FirstOrDefault();
-                    
+
                     <div class="row POMPSectionTitlesBox">
                         <div class="col-xs-6">
                             <label>Calificación del Proveedor: @Model.ProviderCalification.TotalCalification </label>
@@ -180,12 +180,12 @@
                     </div>
 
                     <div class="container-fluid POMPProviderDetailContainer">
-                        <div class="col-lg-10">
+                        <div class="col-lg-12">
                             @foreach (var CalificationProjectConfigItem in CalificationProject.ConfigItemModel)
                             {
                                 if (CalificationProjectBatch.CalificationProjectItemBatchModel.Any(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId))
                                 {
-                                    <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
+                                    <div class="col-sm-2  POMPBorderbottom POMPProviderBoxInfo">
                                         <br />
                                         <label class="POMPProviderBoxInfo">
                                             @(!string.IsNullOrEmpty(CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName)
@@ -196,7 +196,7 @@
                                 }
                                 else
                                 {
-                                    <div class="col-sm-3 POMPBorderbottom POMPProviderBoxInfo">
+                                    <div class="col-sm-2  POMPBorderbottom POMPProviderBoxInfo">
                                         <br />
                                         <label class="POMPProviderBoxInfo">@CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName</label>
                                         <br />
@@ -204,12 +204,13 @@
                                     </div>
                                 }
                             }
-                        </div>
-                        <div class="col-sm-2 POMPBorderbottom POMPProviderBoxInfo ">
-                            <br />
-                            <label class="POMPProviderBoxInfo">Total Score</label>
-                            <br />
-                            <span class="POMPTotalScoreBox">@Model.ProviderCalification.TotalScore</span>
+
+                            <div class="col-sm-2  POMPBorderbottom POMPProviderBoxInfo ">
+                                <br />
+                                <label class="POMPProviderBoxInfo">Puntuación Total</label>
+                                <br />
+                                <span class="POMPTotalScoreBox">@Model.ProviderCalification.TotalScore</span>
+                            </div>
                         </div>
                     </div>
                 }
