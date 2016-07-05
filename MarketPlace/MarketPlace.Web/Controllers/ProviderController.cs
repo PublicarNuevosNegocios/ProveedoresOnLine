@@ -316,7 +316,7 @@ namespace MarketPlace.Web.Controllers
                 if (oCalProject != null &&
                     oCalProject.Count > 0)
                 {
-                    oModel.ProviderCalification.RelatedCalificationProjectConfig = oRelatedCalificationProjectConfig ;
+                    oModel.ProviderCalification.RelatedCalificationProjectConfig = oRelatedCalificationProjectConfig;
                     oValidateModel = ProveedoresOnLine.CalificationProject.Controller.CalificationProject.CalificationProjectValidate_GetByProjectConfigId(oCalProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigId, true);
                     oModel.ProviderCalification.ProRelatedCalificationProject = oCalProject;
                     oModel.ProviderCalification.TotalScore = oCalProject.FirstOrDefault().TotalScore;
@@ -329,7 +329,7 @@ namespace MarketPlace.Web.Controllers
                     oModel.ProviderCalification.TotalScore = 0;
                     oModel.ProviderCalification.TotalCalification = string.Empty;
                 }
-                
+
 
                 #endregion
 
@@ -2971,37 +2971,64 @@ namespace MarketPlace.Web.Controllers
 
             DataRow row4;
 
-            if (oModel.ProviderCalification.ProRelatedCalificationProject != null &&
-                oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0)
+            foreach (var CalificationProjectConfig in oModel.ProviderCalification.RelatedCalificationProjectConfig)
             {
-                foreach (var CalProject in oModel.ProviderCalification.ProRelatedCalificationProject)
+                var CalificationProjectBatch = oModel.ProviderCalification.ProRelatedCalificationProject.Where(x => x.ProjectConfigModel.CalificationProjectConfigId == CalificationProjectConfig.CalificationProjectConfigId).Select(x => x).FirstOrDefault();
+                foreach (var CalificationProjectConfigItem in CalificationProjectConfig.ConfigItemModel)
                 {
-                    foreach (var CalProjectItem in oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().CalificationProjectItemBatchModel)
+                    if (CalificationProjectBatch.CalificationProjectItemBatchModel.Any(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId))
+                    {
+                        var CalificaitonProjectItemBatch = CalificationProjectBatch.CalificationProjectItemBatchModel.Where(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId).Select(x => x).FirstOrDefault();
+
+                        row4 = data4.NewRow();
+                        row4["ItemModuleName"] = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                        row4["ItemScore"] = CalificaitonProjectItemBatch.ItemScore;
+                        data4.Rows.Add(row4);
+                    }
+                    else
                     {
                         row4 = data4.NewRow();
-
-                        row4["ItemModuleName"] = CalProjectItem.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
-                        row4["ItemScore"] = CalProjectItem.ItemScore;
-
+                        row4["ItemModuleName"] = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                        row4["ItemScore"] = "0";
                         data4.Rows.Add(row4);
                     }
                 }
             }
-            else
-            {
-                row4 = data4.NewRow();
+            //    row4 = data4.NewRow();
 
-                row4["ItemModuleName"] = " ";
-                row4["ItemScore"] = " ";
+            //    row4["ItemModuleName"] = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //    row4["ItemScore"] = CalificaitonProjectItemBatch.ItemScore;
 
-                data4.Rows.Add(row4);
-            }
+            //    data4.Rows.Add(row4);
+            //}
+            //else
+            //{
+            //    row4 = data4.NewRow();
+
+            //    row4["ItemModuleName"] = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //    row4["ItemScore"] = "0";
+
+            //    data4.Rows.Add(row4);
+            //}
+            //            }
+            //        }
+            //        else
+            //        {
+            //            row4 = data4.NewRow();
+
+            //            row4["ItemModuleName"] = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+            //            row4["ItemScore"] = "0";
+
+            //            data4.Rows.Add(row4);
+            //        }
+            //    }
+            //}
 
             parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
             parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
-            
+
             #endregion
 
             #endregion Set Parameters
@@ -4189,21 +4216,21 @@ namespace MarketPlace.Web.Controllers
             return oReporModel;
         }
 
-        public GenericReportModel RPCalification(ProviderViewModel oModel) 
+        public GenericReportModel RPCalification(ProviderViewModel oModel)
         {
             var LegalName = "";
             var FinancialName = "";
             var CommercialName = "";
             var BalanceName = "";
             var HSEQName = "";
-             
+
             List<ReportParameter> parameters = new List<ReportParameter>();
             GenericReportModel oReportModel = new GenericReportModel();
 
             #region Set Parameters
 
             #region CustomerInfo
-            
+
             parameters.Add(new ReportParameter("CustomerName", SessionModel.CurrentCompany.CompanyName));
             parameters.Add(new ReportParameter("CustomerIdentification", SessionModel.CurrentCompany.IdentificationNumber));
             parameters.Add(new ReportParameter("CustomerIdentificationType", SessionModel.CurrentCompany.IdentificationType.ItemName));
@@ -4211,12 +4238,12 @@ namespace MarketPlace.Web.Controllers
             #endregion
 
             #region ProviderInfo
-            parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));            
+            parameters.Add(new ReportParameter("ProviderName", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
             parameters.Add(new ReportParameter("ProviderIdentificationNumber", oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
             #endregion
-            
+
             #region Basic Info
-            
+
             if (oModel.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
                 && !string.IsNullOrWhiteSpace(oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
                 parameters.Add(new ReportParameter("InscriptionNumber", oModel.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber));
@@ -4252,7 +4279,7 @@ namespace MarketPlace.Web.Controllers
                 parameters.Add(new ReportParameter("Email", oModel.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()));
             else
                 parameters.Add(new ReportParameter("Email", "NA"));
-            
+
             #endregion Basic Info
 
             #region CalificationInfo
@@ -4262,9 +4289,9 @@ namespace MarketPlace.Web.Controllers
             parameters.Add(new ReportParameter("CalificationProjectName", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().ProjectConfigModel.CalificationProjectConfigName : " "));
             parameters.Add(new ReportParameter("CalificationProjectTotalScore", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().TotalScore.ToString() : " "));
             parameters.Add(new ReportParameter("CalificationProjectLastModify", oModel.ProviderCalification.ProRelatedCalificationProject != null && oModel.ProviderCalification.ProRelatedCalificationProject.Count > 0 ? oModel.ProviderCalification.ProRelatedCalificationProject.FirstOrDefault().LastModify.ToString() : " "));
-            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));            
-            
-            
+            parameters.Add(new ReportParameter("CalificationProjectCal", !string.IsNullOrEmpty(oModel.ProviderCalification.TotalCalification.ToString()) ? oModel.ProviderCalification.TotalCalification.ToString() : " "));
+
+
 
 
             DataTable LegalData = new DataTable();
@@ -4319,7 +4346,7 @@ namespace MarketPlace.Web.Controllers
             DataTable ValidateData = new DataTable();
             ValidateData.Columns.Add("Operator");
             ValidateData.Columns.Add("Value");
-            ValidateData.Columns.Add("Result");            
+            ValidateData.Columns.Add("Result");
             DataRow row6;
             foreach (var ValidateInfo in oModel.ProviderCalification.oValidateModel)
             {
@@ -4332,9 +4359,9 @@ namespace MarketPlace.Web.Controllers
                 ValidateData.Rows.Add(row6);
             }
             foreach (var CalificationProjectConfig in oModel.ProviderCalification.RelatedCalificationProjectConfig)
-	        {
+            {
                 var CalificationProjectBatch = oModel.ProviderCalification.ProRelatedCalificationProject.Where(x => x.ProjectConfigModel.CalificationProjectConfigId == CalificationProjectConfig.CalificationProjectConfigId).Select(x => x).FirstOrDefault();
-                foreach (var CalificationProjectConfigItem in CalificationProjectConfig.ConfigItemModel) 
+                foreach (var CalificationProjectConfigItem in CalificationProjectConfig.ConfigItemModel)
                 {
                     if (CalificationProjectBatch.CalificationProjectItemBatchModel.Any(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId))
                     {
@@ -4344,13 +4371,13 @@ namespace MarketPlace.Web.Controllers
                             if (CalificaitonProjectItemBatch.CalificatioProjectItemInfoModel.Any(infb => infb.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId))
                             {
                                 var CalificationProjectItemInfoBatch = CalificaitonProjectItemBatch.CalificatioProjectItemInfoModel.Where(infb => infb.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId).Select(infb => infb).FirstOrDefault();
-                                if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule) 
+                                if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                                 {
                                     row1 = LegalData.NewRow();
-                                    LegalName =CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
+                                    LegalName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                     row1["LegalRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
-                                    row1["LegalRuleOperator"] =CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
-                                    row1["LegalRuleValue"] =CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
+                                    row1["LegalRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
+                                    row1["LegalRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row1["LegalRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
                                     row1["LegalRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
                                     LegalData.Rows.Add(row1);
@@ -4358,7 +4385,7 @@ namespace MarketPlace.Web.Controllers
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
                                 {
                                     row2 = FinancialData.NewRow();
-                                    FinancialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;                                    
+                                    FinancialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
                                     row2["FinancialRuleName"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Question.ItemName;
                                     row2["FinancialRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row2["FinancialRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
@@ -4401,7 +4428,7 @@ namespace MarketPlace.Web.Controllers
                                 }
 
                             }
-                            else 
+                            else
                             {
                                 if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                                 {
@@ -4413,7 +4440,7 @@ namespace MarketPlace.Web.Controllers
                                     row1["LegalRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
                                     row1["LegalRuleResult"] = "0";
                                     LegalData.Rows.Add(row1);
-                                    
+
                                 }
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
                                 {
@@ -4525,7 +4552,7 @@ namespace MarketPlace.Web.Controllers
                         }
                     }
                 }
-	        }
+            }
             parameters.Add(new ReportParameter("LegalName", LegalName));
             parameters.Add(new ReportParameter("FinancialName", FinancialName));
             parameters.Add(new ReportParameter("CommercialName", CommercialName));
@@ -4628,14 +4655,14 @@ namespace MarketPlace.Web.Controllers
 
             Tuple<byte[], string, string> CalificationReport = ProveedoresOnLine.Reports.Controller.ReportModule.CP_CalificationReport
                                                                 (
-                                                                    enumCategoryInfoType.PDF.ToString(), 
-                                                                    LegalData, 
-                                                                    CommercialData, 
-                                                                    FinancialData, 
-                                                                    BalanceData, 
-                                                                    CertificationData, 
-                                                                    ValidateData, 
-                                                                    parameters, 
+                                                                    enumCategoryInfoType.PDF.ToString(),
+                                                                    LegalData,
+                                                                    CommercialData,
+                                                                    FinancialData,
+                                                                    BalanceData,
+                                                                    CertificationData,
+                                                                    ValidateData,
+                                                                    parameters,
                                                                     Models.General.InternalSettings.Instance[Models.General.Constants.MP_CP_ReportPath].Value.Trim() + "C_Report_CalificationProject.rdlc"
                                                                 );
             oReportModel.File = CalificationReport.Item1;
@@ -5302,11 +5329,6 @@ namespace MarketPlace.Web.Controllers
             if (oProviderCalModel != null && oProviderCalModel.Count > 0 && oValidate != null && oValidate.Count > 0)
             {
                 oProviderCalModel.FirstOrDefault().ProjectConfigModel.ConfigValidateModel = oValidate;
-                //CalificationProjectModel oConfigModel = new CalificationProjectModel();
-                //oConfigModel.ConfigValidateModel = oValidate;
-                //oConfigModel = oProviderCalModel.FirstOrDefault().ProjectConfigModel.ConfigValidateModel.All();
-
-
                 oProviderCalModel.FirstOrDefault().ProjectConfigModel.ConfigValidateModel.All(x =>
                 {
                     switch (x.Operator.ItemId)
