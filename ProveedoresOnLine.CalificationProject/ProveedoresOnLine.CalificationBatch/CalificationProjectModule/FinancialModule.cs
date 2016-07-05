@@ -2688,6 +2688,8 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                             return true;
                         });
 
+                        RuleScore = 0;
+
                         return true;
                     });
                 }
