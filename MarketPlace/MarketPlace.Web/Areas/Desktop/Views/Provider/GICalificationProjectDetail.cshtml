@@ -55,13 +55,13 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <br />
-                                <label>Calificación:</label>
+                                <label>Calificación</label>
                                 <br />
                                 <span>@Model.ProviderCalification.TotalCalification</span>
                             </div>
                             <div>
                                 <br />
-                                <label>Puntuación total:</label>
+                                <label>Puntuación total</label>
                                 <br />
                                 <span>@Model.ProviderCalification.TotalScore Puntos</span>
                             </div>
@@ -78,7 +78,7 @@
                                         <div class="col-xs-6">
                                             @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
                                             {
-                                                <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) del año: @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault() - @CalificaitonProjectItemBatch.ItemScore Puntos</label>
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificaitonProjectItemBatch.CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) del año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault() - @CalificaitonProjectItemBatch.ItemScore Puntos</label>
                                             }
                                             else
                                             {
@@ -164,6 +164,33 @@
                                     </div>
                                     <div class="container-fluid POMPProviderDetailContainer">
                                         <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-3">
+                                                    <br />
+                                                    <label>Pregunta</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <br />
+                                                    <label>Regla</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <br />
+                                                    <label>Validación</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <br />
+                                                    <label>Valor</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <br />
+                                                    <label>Resultado</label>
+                                                    <br />
+                                                </div>
+                                            </div>
                                             @foreach (var CalificationProjectConfigItemInfo in CalificationProjectConfigItem.CalificationProjectConfigItemInfoModel)
                                             {
                                                 if (CalificaitonProjectItemBatch.CalificatioProjectItemInfoModel.Any(infb => infb.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId))
@@ -171,34 +198,19 @@
                                                     var CalificationProjectItemInfoBatch = CalificaitonProjectItemBatch.CalificatioProjectItemInfoModel.Where(infb => infb.CalificationProjectConfigItemInfoModel.CalificationProjectConfigItemInfoId == CalificationProjectConfigItemInfo.CalificationProjectConfigItemInfoId).Select(infb => infb).FirstOrDefault();
 
                                                     <div class="col-xs-12">
-                                                        <div class="col-xs-3">
-                                                            <br />
-                                                            <label>Pregunta:</label>
-                                                            <br />
+                                                        <div class="col-xs-3 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Question.ItemName</span>
                                                         </div>
-                                                        <div class="col-xs-2">
-                                                            <br />
-                                                            <label>Regla:</label>
-                                                            <br />
+                                                        <div class="col-xs-2 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Rule.ItemName</span>
                                                         </div>
-                                                        <div class="col-xs-2">
-                                                            <br />
-                                                            <label>Validación</label>
-                                                            <br />
+                                                        <div class="col-xs-2 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.ValueType.ItemName</span>
                                                         </div>
-                                                        <div class="col-xs-3">
-                                                            <br />
-                                                            <label>Valor</label>
-                                                            <br />
+                                                        <div class="col-xs-3 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Value</span>
                                                         </div>
-                                                        <div class="col-xs-1">
-                                                            <br />
-                                                            <label>Resultado</label>
-                                                            <br />
+                                                        <div class="col-xs-1 CalificationProjectData">
                                                             <span>@CalificationProjectItemInfoBatch.ItemInfoScore</span>
                                                         </div>
                                                     </div>
@@ -206,34 +218,19 @@
                                                 else
                                                 {
                                                     <div class="col-xs-12">
-                                                        <div class="col-xs-3">
-                                                            <br />
-                                                            <label>Pregunta:</label>
-                                                            <br />
+                                                        <div class="col-xs-3 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Question.ItemName</span>
                                                         </div>
-                                                        <div class="col-xs-2">
-                                                            <br />
-                                                            <label>Regla:</label>
-                                                            <br />
+                                                        <div class="col-xs-2 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Rule.ItemName</span>
                                                         </div>
-                                                        <div class="col-xs-2">
-                                                            <br />
-                                                            <label>Validación</label>
-                                                            <br />
+                                                        <div class="col-xs-2 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.ValueType.ItemName</span>
                                                         </div>
-                                                        <div class="col-xs-3">
-                                                            <br />
-                                                            <label>Valor</label>
-                                                            <br />
+                                                        <div class="col-xs-3 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Value</span>
                                                         </div>
-                                                        <div class="col-xs-1">
-                                                            <br />
-                                                            <label>Resultado</label>
-                                                            <br />
+                                                        <div class="col-xs-1 CalificationProjectData">
                                                             <span>0</span>
                                                         </div>
                                                     </div>
@@ -249,7 +246,7 @@
                                         <div class="col-xs-6">
                                             @if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
                                             {
-                                                <label>Modulo @(!string.IsNullOrEmpty(CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) del año: @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault() - 0 Puntos</label>
+                                                <label>Modulo @(!string.IsNullOrEmpty(CalificationProjectConfigItem.CalificationProjectConfigItemName) ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName) del año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault() - 0 Puntos</label>
                                             }
                                             else
                                             {
@@ -334,37 +331,49 @@
                                     </div>
                                     <div class="container-fluid POMPProviderDetailContainer">
                                         <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-3">
+                                                    <br />
+                                                    <label>Pregunta</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <br />
+                                                    <label>Regla</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <br />
+                                                    <label>Validación</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <br />
+                                                    <label>Valor</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <br />
+                                                    <label>Resultado</label>
+                                                    <br />
+                                                </div>
+                                            </div>
                                             @foreach (var CalificationProjectConfigItemInfo in CalificationProjectConfigItem.CalificationProjectConfigItemInfoModel)
                                             {
                                                 <div class="col-xs-12">
-                                                    <div class="col-xs-3">
-                                                        <br />
-                                                        <label>Pregunta:</label>
-                                                        <br />
+                                                    <div class="col-xs-3 CalificationProjectData">
                                                         <span>@CalificationProjectConfigItemInfo.Question.ItemName</span>
                                                     </div>
-                                                    <div class="col-xs-2">
-                                                        <br />
-                                                        <label>Regla:</label>
-                                                        <br />
+                                                    <div class="col-xs-2 CalificationProjectData">
                                                         <span>@CalificationProjectConfigItemInfo.Rule.ItemName</span>
                                                     </div>
-                                                    <div class="col-xs-2">
-                                                        <br />
-                                                        <label>Validación</label>
-                                                        <br />
+                                                    <div class="col-xs-2 CalificationProjectData">
                                                         <span>@CalificationProjectConfigItemInfo.ValueType.ItemName</span>
                                                     </div>
-                                                    <div class="col-xs-3">
-                                                        <br />
-                                                        <label>Valor</label>
-                                                        <br />
+                                                    <div class="col-xs-3 CalificationProjectData">
                                                         <span>@CalificationProjectConfigItemInfo.Value</span>
                                                     </div>
-                                                    <div class="col-xs-1">
-                                                        <br />
-                                                        <label>Resultado</label>
-                                                        <br />
+                                                    <div class="col-xs-1 CalificationProjectData">
                                                         <span>0</span>
                                                     </div>
                                                 </div>
@@ -386,7 +395,7 @@
                     <div class="container-fluid POMPProviderDetailContainer">
                         <div class="row POMPSectionTitlesBox">
                             <div class="col-xs-12">
-                                <label>Tabla de Validación:</label>
+                                <label>Tabla de Validación</label>
                             </div>
                         </div>
                         <div class="container-fluid POMPProviderDetailContainer" style="text-align:center;">

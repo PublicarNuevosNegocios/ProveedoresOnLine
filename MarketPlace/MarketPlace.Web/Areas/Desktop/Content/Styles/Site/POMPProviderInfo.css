@@ -344,3 +344,8 @@ label.POMPProviderInfoContractName {
     min-height: 80px;
     margin-top: 15px;
 }
+
+/******************Calification Project Styles************************/
+.CalificationProjectData{
+    margin: 2% 0px 1% 0px;
+}
