@@ -1267,6 +1267,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_CD_CustomField_101003.cshtml" />
     <None Include="Properties\PublishProfiles\Alex-JP MP.pubxml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
+    <None Include="Properties\PublishProfiles\DiegoF.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian Home MP.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
