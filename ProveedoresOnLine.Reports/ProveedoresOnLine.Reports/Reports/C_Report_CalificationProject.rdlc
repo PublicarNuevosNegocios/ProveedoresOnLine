@@ -730,6 +730,12 @@
                   <FontFamily>Segoe UI Light</FontFamily>
                 </Style>
               </TextRun>
+              <TextRun>
+                <Value> Puntos</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
+              </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
@@ -1416,19 +1422,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.62487cm</Width>
+              <Width>5.61815cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.34807cm</Width>
+              <Width>2.34135cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.57853cm</Width>
+              <Width>2.57181cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.1852cm</Width>
+              <Width>3.17848cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.14832cm</Width>
+              <Width>2.1416cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1808,9 +1814,9 @@
         </TablixRowHierarchy>
         <DataSetName>DS_CalificationReport_CommercialInfo</DataSetName>
         <Top>16.1134cm</Top>
-        <Left>0.40149cm</Left>
+        <Left>0.43507cm</Left>
         <Height>1.37639cm</Height>
-        <Width>15.88499cm</Width>
+        <Width>15.85141cm</Width>
         <ZIndex>29</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
@@ -2251,7 +2257,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Tabla de Validación:</Value>
+                    <Value>Reglas de Validación:</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Color>DimGray</Color>
@@ -2984,21 +2990,58 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Modulo </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!LegalName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> - </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!LegalScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>/</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!LegalTotalScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> Puntos</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>LegalName</rd:DefaultName>
             <Top>0.08361cm</Top>
+            <Left>0.635cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.6698cm</Width>
+            <Width>15.94163cm</Width>
             <ZIndex>1</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows("DS_CalificationReport_LegalInfo") &gt; 0, false, true)</Hidden>
@@ -3016,7 +3059,7 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>9.35972cm</Top>
-        <Height>0.86cm</Height>
+        <Height>1.10836cm</Height>
         <Width>16.6698cm</Width>
         <ZIndex>34</ZIndex>
         <Visibility>
@@ -3050,21 +3093,58 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Modulo </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!FinancialName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> - </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!FinancialScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>/</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!FinancialTotalScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> Puntos</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox12</rd:DefaultName>
             <Top>0.08361cm</Top>
+            <Left>0.63203cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.54732cm</Width>
+            <Width>15.96797cm</Width>
             <ZIndex>1</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows("DS_CalificationReport_FinancialInfo") &gt; 0, false, true)</Hidden>
@@ -3117,21 +3197,58 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Modulo </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!CommercialName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> - </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!CommercialScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>/</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!CommercialTotalScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> Puntos</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>CommercialName</rd:DefaultName>
             <Top>0.08361cm</Top>
+            <Left>0.61788cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.53317cm</Width>
+            <Width>15.94163cm</Width>
             <ZIndex>1</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
@@ -3184,21 +3301,70 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Modulo </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!BalanceName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> del año </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!BalanceYear.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> - </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!BalanceScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>/</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!BalanceTotalScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> Puntos</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>BalanceName</rd:DefaultName>
             <Top>0.08361cm</Top>
+            <Left>0.635cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.55029cm</Width>
+            <Width>15.94163cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -3227,6 +3393,7 @@
         <ReportItems>
           <Line Name="Line15">
             <Top>0.86cm</Top>
+            <Left>0.0698cm</Left>
             <Height>0cm</Height>
             <Width>16.6cm</Width>
             <Style>
@@ -3243,22 +3410,58 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Modulo </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!CertificationName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> - </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!HSEQScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>/</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!HSEQTotalScore.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> Puntos</Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>CertificationName</rd:DefaultName>
-            <Top>0.08361cm</Top>
-            <Left>0.02634cm</Left>
+            <Top>0.11889cm</Top>
+            <Left>0.635cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.57366cm</Width>
+            <Width>15.94163cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -3273,9 +3476,8 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>20.9154cm</Top>
-        <Left>0.0698cm</Left>
         <Height>0.86cm</Height>
-        <Width>16.6cm</Width>
+        <Width>16.6698cm</Width>
         <ZIndex>38</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_Certification") &gt; 0, false, true)</Hidden>
@@ -3700,7 +3902,7 @@
     <Height>10.42198in</Height>
     <Style />
   </Body>
-  <Width>6.56291in</Width>
+  <Width>6.56925in</Width>
   <Page>
     <PageHeader>
       <Height>1.50583cm</Height>
@@ -4190,6 +4392,72 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CertificationName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BalanceYear">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LegalScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LegalTotalScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FinancialScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FinancialTotalScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CommercialScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CommercialTotalScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BalanceScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BalanceTotalScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HSEQScore">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HSEQTotalScore">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
