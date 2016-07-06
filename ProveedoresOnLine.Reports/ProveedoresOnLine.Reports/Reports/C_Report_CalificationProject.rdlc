@@ -1816,7 +1816,7 @@
         <Top>16.1134cm</Top>
         <Left>0.43507cm</Left>
         <Height>1.37639cm</Height>
-        <Width>15.85141cm</Width>
+        <Width>15.85139cm</Width>
         <ZIndex>29</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_CalificationReport_CommercialInfo") &gt; 0, false, true)</Hidden>
@@ -2257,7 +2257,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Reglas de Validación:</Value>
+                    <Value>Tabla de Validación:</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Color>DimGray</Color>
