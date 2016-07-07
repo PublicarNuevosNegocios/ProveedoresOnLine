@@ -3495,6 +3495,9 @@
             <Height>0.6cm</Height>
             <Width>4.92725cm</Width>
             <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3512,6 +3515,9 @@
         <Height>0.86458cm</Height>
         <Width>16.60904cm</Width>
         <ZIndex>63</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3541,6 +3547,9 @@
         <Height>0.6cm</Height>
         <Width>2.62501cm</Width>
         <ZIndex>64</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3573,6 +3582,9 @@
         <Height>0.6cm</Height>
         <Width>4.94176cm</Width>
         <ZIndex>65</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3605,6 +3617,9 @@
         <Height>0.6cm</Height>
         <Width>2.62493cm</Width>
         <ZIndex>66</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3637,6 +3652,9 @@
         <Height>0.6cm</Height>
         <Width>4.94176cm</Width>
         <ZIndex>67</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3669,6 +3687,9 @@
         <Height>0.6cm</Height>
         <Width>2.91605cm</Width>
         <ZIndex>68</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3709,6 +3730,9 @@
         <Height>0.6cm</Height>
         <Width>3.68371cm</Width>
         <ZIndex>69</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3755,6 +3779,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox58</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3766,6 +3793,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -3900,7 +3928,7 @@
         </TablixRowHierarchy>
         <DataSetName>DS_GerencialReport_CalificationInfo</DataSetName>
         <Top>8.78884cm</Top>
-        <Left>4.35017cm</Left>
+        <Left>4.3741cm</Left>
         <Height>1.22646cm</Height>
         <Width>8.0771cm</Width>
         <ZIndex>70</ZIndex>
@@ -3932,6 +3960,9 @@
         <Height>0.6cm</Height>
         <Width>4.65072cm</Width>
         <ZIndex>71</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3964,6 +3995,9 @@
         <Height>0.6cm</Height>
         <Width>2.91605cm</Width>
         <ZIndex>72</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3996,6 +4030,9 @@
         <Height>0.6cm</Height>
         <Width>4.65072cm</Width>
         <ZIndex>73</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -4289,7 +4326,7 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_GerencialReport_CalificationInfo</rd:DataSetName>
-        <rd:SchemaPath>D:\PUBLICAR DEV\ProveedoresOnline\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_GerencialReport_CalificationInfo.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\DataSet\DS_GerencialReport_CalificationInfo.xsd</rd:SchemaPath>
         <rd:TableName>DT_CalificatonInfo</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -4428,18 +4465,26 @@ Parameters!CustomerName.Value + System.Environment.NewLine  + Parameters!Custome
     </ReportParameter>
     <ReportParameter Name="CalificationProjectName">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CalificationProjectTotalScore">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CalificationProjectLastModify">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CalificationProjectCal">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
