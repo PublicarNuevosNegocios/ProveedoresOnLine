@@ -3931,6 +3931,9 @@
         <Height>1.22646cm</Height>
         <Width>8.0771cm</Width>
         <ZIndex>70</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3972,41 +3975,6 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox54">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Calificación:</Value>
-                <Style>
-                  <FontFamily>Segoe UI Light</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>6.35099cm</Top>
-        <Left>8.47838cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.91605cm</Width>
-        <ZIndex>72</ZIndex>
-        <Visibility>
-          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="ProviderIdentificationNumber5">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -4028,6 +3996,41 @@
         <Left>11.57082cm</Left>
         <Height>0.6cm</Height>
         <Width>4.65072cm</Width>
+        <ZIndex>72</ZIndex>
+        <Visibility>
+          <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox54">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Calificación:</Value>
+                <Style>
+                  <FontFamily>Segoe UI Light</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>6.38627cm</Top>
+        <Left>8.47838cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.91605cm</Width>
         <ZIndex>73</ZIndex>
         <Visibility>
           <Hidden>= Iif (CountRows("DS_GerencialReport_CalificationInfo") &gt; 0, false, true)</Hidden>
