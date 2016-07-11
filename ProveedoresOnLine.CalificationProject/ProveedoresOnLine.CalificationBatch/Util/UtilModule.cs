@@ -35,6 +35,15 @@ namespace ProveedoresOnLine.CalificationBatch.Util
             return Convert.ToDateTime(Value);
         }
 
+        public static float ValueTypeFloat(string value) 
+        {
+            return float.Parse(value);
+        }
+
+        public static decimal ValueTypeDecimal(string value) 
+        {
+            return decimal.Parse(value);
+        }
         #endregion
     }
 }
