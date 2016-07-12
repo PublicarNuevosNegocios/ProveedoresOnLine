@@ -155,7 +155,7 @@
             }
 
             @*Calification Section*@
-            @if (Model.ProviderCalification.ProRelatedCalificationProject != null && Model.ProviderCalification.ProRelatedCalificationProject.Count > 0)
+            @if (Model.ProviderCalification.ProRelatedCalificationProject != null && Model.ProviderCalification.ProRelatedCalificationProject.Count > 0 && Model.ProviderCalification.RelatedCalificationProjectConfig != null && Model.ProviderCalification.RelatedCalificationProjectConfig.Count >0)
             {
                 foreach (var CalificationProject in Model.ProviderCalification.RelatedCalificationProjectConfig)
                 {
