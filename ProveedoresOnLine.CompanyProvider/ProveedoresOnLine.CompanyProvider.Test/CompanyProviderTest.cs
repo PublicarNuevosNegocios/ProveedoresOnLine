@@ -12,6 +12,16 @@ namespace ProveedoresOnLine.CompanyProvider.Test
     public class CompanyProviderTest
     {
         [TestMethod]
+        public void Le
+        [TestMethod]
+        public void LegalGetBasicInfo()
+        {
+            List<Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo("22C8E7F9",null, true);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count >= 1);
+        }
+        [TestMethod]
         public void CommercialGetBasicInfo()
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
@@ -39,7 +49,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                 (1);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
-        }       
+        }
 
         [TestMethod]
         public void BalanceSheetUpsert()
@@ -1903,7 +1913,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             Assert.AreEqual(true, oResult.Count > 0);
 
         }
-        
+
         [TestMethod]
         public void MPProviderSearchNew()
         {
@@ -1964,7 +1974,8 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             List<CompanyModel> oCompanyList = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate("7BC27832", DateTime.Now.AddMonths(-5));
             Assert.IsNotNull(oCompanyList);
         }
-        #endregion        
+
+        #endregion
 
         [TestMethod]
         public void MPProviderSearchById()
