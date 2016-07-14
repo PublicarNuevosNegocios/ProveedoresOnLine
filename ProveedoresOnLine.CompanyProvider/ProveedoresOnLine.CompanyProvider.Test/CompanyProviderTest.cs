@@ -10,9 +10,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 {
     [TestClass]
     public class CompanyProviderTest
-    {
-        [TestMethod]
-        public void Le
+    {        
         [TestMethod]
         public void LegalGetBasicInfo()
         {
