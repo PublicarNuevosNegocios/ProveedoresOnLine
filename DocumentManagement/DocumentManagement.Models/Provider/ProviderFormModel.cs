@@ -69,5 +69,9 @@ namespace DocumentManagement.Models.Provider
         public List<DocumentManagement.Provider.Models.Provider.ChangesControlModel> ChangesControlModel { get; set; }
 
         public bool ShowChanges { get; set; }
+
+        public DocumentManagement.Models.Provider.ProviderLegalTermsResource RelatedLegalTermsResource { get; set; }
+
+        public DocumentManagement.Models.Provider.ProviderLegalTermsData RelatedLegalTermsData { get; set; }
     }
 }

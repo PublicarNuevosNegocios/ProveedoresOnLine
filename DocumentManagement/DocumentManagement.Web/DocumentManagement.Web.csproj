@@ -496,6 +496,7 @@
     <Content Include="Global.asax" />
     <Content Include="Rsx-DocumentManagement.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Rsx-FileRepository.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1077,6 +1078,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\ProviderForm\AdminLogProvider.cshtml" />
     <Content Include="Views\Provider\ChangesControl.cshtml" />
+    <Content Include="Views\ProviderForm\LegalTerms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

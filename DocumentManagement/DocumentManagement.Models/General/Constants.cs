@@ -70,5 +70,21 @@
         #endregion
 
         #endregion
+
+        #region Legal Terms
+
+        public const string P_LegalTerms_363_TextHeader = "LegalTerms_363_TextHeader";
+
+        public const string P_LegalTerms_363_TextCheck = "LegalTerms_363_TextCheck";
+
+        public const string P_LegalTerms_363_Url = "LegalTerms_363_Url";
+
+        public const string P_LegalTerms_364_TextHeader = "LegalTerms_364_TextHeader";
+
+        public const string P_LegalTerms_364_TextCheck = "LegalTerms_364_TextCheck";
+
+        public const string P_LegalTerms_364_Url = "LegalTerms_364_Url";
+
+        #endregion
     }
 }

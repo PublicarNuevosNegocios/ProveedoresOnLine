@@ -65,6 +65,12 @@ namespace DocumentManagement.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LegalTerms()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LegalTerms);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LoginProvider()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProvider);
@@ -140,6 +146,7 @@ namespace DocumentManagement.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string LegalTerms = "LegalTerms";
             public readonly string LoginProvider = "LoginProvider";
             public readonly string UpsertGenericStep = "UpsertGenericStep";
             public readonly string AdminProvider = "AdminProvider";
@@ -156,6 +163,7 @@ namespace DocumentManagement.Web.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string LegalTerms = "LegalTerms";
             public const string LoginProvider = "LoginProvider";
             public const string UpsertGenericStep = "UpsertGenericStep";
             public const string AdminProvider = "AdminProvider";
@@ -174,6 +182,17 @@ namespace DocumentManagement.Web.Controllers
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+            public readonly string StepId = "StepId";
+            public readonly string msg = "msg";
+        }
+        static readonly ActionParamsClass_LegalTerms s_params_LegalTerms = new ActionParamsClass_LegalTerms();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LegalTerms LegalTermsParams { get { return s_params_LegalTerms; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LegalTerms
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
@@ -293,10 +312,12 @@ namespace DocumentManagement.Web.Controllers
                 public readonly string AdminLogProvider = "AdminLogProvider";
                 public readonly string AdminProvider = "AdminProvider";
                 public readonly string Index = "Index";
+                public readonly string LegalTerms = "LegalTerms";
             }
             public readonly string AdminLogProvider = "~/Views/ProviderForm/AdminLogProvider.cshtml";
             public readonly string AdminProvider = "~/Views/ProviderForm/AdminProvider.cshtml";
             public readonly string Index = "~/Views/ProviderForm/Index.cshtml";
+            public readonly string LegalTerms = "~/Views/ProviderForm/LegalTerms.cshtml";
         }
     }
 
@@ -317,6 +338,21 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "msg", msg);
             IndexOverride(callInfo, ProviderPublicId, FormPublicId, StepId, msg);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LegalTermsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string StepId, string msg);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LegalTerms(string ProviderPublicId, string FormPublicId, string StepId, string msg)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LegalTerms);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "msg", msg);
+            LegalTermsOverride(callInfo, ProviderPublicId, FormPublicId, StepId, msg);
             return callInfo;
         }
 

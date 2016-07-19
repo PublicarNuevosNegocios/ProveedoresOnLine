@@ -56,6 +56,121 @@ namespace DocumentManagement.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult LegalTerms(string ProviderPublicId, string FormPublicId, string StepId, string msg)
+        {
+            //get first step
+            DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
+                DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
+
+            //Upsert legal terms
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
+            {
+                //get generic models
+                ProviderFormModel oGenericModels = new ProviderFormModel()
+                {
+                    //ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                    RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                    RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId)),
+                };
+
+                //PrevModel
+                ProviderModel oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
+
+                //get request into generic model
+                GetUpsertGenericStepRequest(oGenericModels);
+
+                //DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
+                //oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
+
+                //upsert fields in database
+                //DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
+
+                //legal terms success
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                        StepId = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId,
+                    });
+            }
+
+            int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
+
+            ProviderFormModel oModel = new ProviderFormModel()
+            {
+                ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
+                errorMessage = msg != null ? msg : string.Empty,
+            };
+
+            oModel.RealtedCustomer.RelatedForm.All(frm =>
+            {
+                frm.RelatedStep.Where(stp => stp.StepId == (int)enumLegalTerms.LegalStep).All(stp =>
+                {
+                    if (stp.RelatedField != null &&
+                        stp.RelatedField.Count > 0)
+                    {
+                        stp.RelatedField.All(fld =>
+                        {
+                            oModel.RelatedLegalTermsResource = new ProviderLegalTermsResource(fld);
+
+                            return true;
+                        });
+                    }
+
+                    return true;
+                });
+
+                return true;
+            });
+
+            if (oModel.RealtedProvider != null &&
+                oModel.RealtedProvider.RelatedProviderInfo != null &&
+                oModel.RealtedProvider.RelatedProviderInfo.Count > 0)
+            {
+                oModel.RelatedLegalTermsData = new ProviderLegalTermsData(oModel.RealtedProvider.RelatedProviderInfo.Where(pinf => pinf.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || pinf.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal).Select(pinf => pinf).FirstOrDefault());
+            }
+
+            oModel.RealtedForm = oModel.RealtedCustomer.
+                RelatedForm.
+                Where(x => x.FormPublicId == FormPublicId).
+                FirstOrDefault();
+
+            if (oModel.RealtedForm != null && oModel.RealtedForm.RelatedStep != null && oModel.ShowChanges)
+            {
+                oModel.RealtedForm.RelatedStep.All(x =>
+                {
+                    if (oModel.ChangesControlModel.Any(y => y.StepId == x.StepId))
+                        x.ShowChanges = true;
+                    return true;
+                });
+            }
+
+            if (oStepId != null)
+            {
+                oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
+                    Where(x => x.StepId == (int)oStepId).
+                    FirstOrDefault();
+            }
+
+            if (msg != null)
+            {
+                ViewData["ErrorMessage"] = "El Número o tipo de identificación son incorrectos";
+            }
+
+            return View(oModel);
+        }
+
         public virtual ActionResult LoginProvider(string ProviderPublicId, string FormPublicId, string CustomerPublicId)
         {
             //get Provider info
@@ -71,8 +186,24 @@ namespace DocumentManagement.Web.Controllers
                     DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
 
                 //loggin success
+                //return RedirectToAction
+                //    (MVC.ProviderForm.ActionNames.Index,
+                //    MVC.ProviderForm.Name,
+                //    new
+                //    {
+                //        ProviderPublicId = ProviderPublicId,
+                //        FormPublicId = FormPublicId,
+                //        StepId = RealtedCustomer.
+                //            RelatedForm.
+                //            Where(x => x.FormPublicId == FormPublicId).
+                //            FirstOrDefault().
+                //            RelatedStep.OrderBy(x => x.Position).
+                //            FirstOrDefault().
+                //            StepId,
+                //    });
+
                 return RedirectToAction
-                    (MVC.ProviderForm.ActionNames.Index,
+                    (MVC.ProviderForm.ActionNames.LegalTerms,
                     MVC.ProviderForm.Name,
                     new
                     {

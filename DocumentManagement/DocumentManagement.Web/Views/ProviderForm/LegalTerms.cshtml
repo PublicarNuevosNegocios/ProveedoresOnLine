@@ -1,0 +1,113 @@
+﻿@model DocumentManagement.Models.Provider.ProviderFormModel
+
+@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_LayoutProviderForm.cshtml";
+
+    Model.RenderScripts = false;
+
+    string strStyle = string.Empty;
+    if (Model.RealtedStep == null)
+    {
+        strStyle = "DMLogInProviders";
+    }
+}
+
+<div class="@strStyle">
+    <div class="DMLogIntopWrapper">
+        <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
+        <label>SISTEMA DE REGISTRO DE PROVEEDORES DE @Model.RealtedCustomer.Name.ToUpper()</label>
+        <img class="DMPOLogo" src="@Url.Content("~/Content/Images/LogoPOLogInAlpha.png")" alt="" />
+    </div>
+    <div class="container-fluid DMStepsLayOutWrapper">
+        <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.LegalTerms,
+                            MVC.ProviderForm.Name,
+                            new
+                            {
+                                ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                                FormPublicId = Model.RealtedForm.FormPublicId,
+                                StepId = Model.RealtedStep.StepId
+                            })))" method="post" enctype="multipart/form-data">
+            <div class="container-fluid">
+                <div class="row">
+                    <!--Provider form legal terms-->
+                    <div class="TitleProviderLegalTerms">
+                        <label>@Model.RealtedProvider.Name</label>
+                        <label>@Model.RealtedProvider.IdentificationType.ItemName</label>
+                        <label>@Model.RealtedProvider.IdentificationNumber</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>@Model.RelatedLegalTermsResource.oFieldName</label>
+                    </div>
+                    <div class="col-xs-12">
+                        @if (Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational)
+                        {
+                            <label>@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_363_TextHeader].Value</label>
+                        }
+                        else
+                        {
+                            <label>@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_364_TextHeader].Value</label>
+                        }
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-xs-1">
+                            <input class="CheckLegalTerms" type="checkbox" name="CheckLegalTerms" id="CheckLegalTerms" value="true" @(Model.RelatedLegalTermsData != null && Model.RelatedLegalTermsData.oProviderInfo.Value == "true" ? "checked=\"checked\"" : "") />
+                        </div>
+                        <div class="col-xs-11">
+                            @if (Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational)
+                            {
+                                <label>@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_363_TextCheck].Value</label>
+                            }
+                            else
+                            {
+                                <label>@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_364_TextCheck].Value</label>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        @if (Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational)
+                        {
+                            <a href="@(DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_363_Url].Value)" target="_blank">Descargar términos y condiciones</a>
+                        }
+                        else
+                        {
+                            <a href="@(DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_364_Url].Value)" target="_blank">Descargar términos y condiciones</a>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <a class="DMButtonsForm">Cancelar</a>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="submit">Siguiente</button>
+                    </div>
+                </div>
+                <div style="display:none">
+                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="DMStepsBottomWrapper">
+        <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
+        <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
+    </div>
+</div>
+
+<script>
+    var NAV = navigator.appVersion;
+    NAV = NAV.toString();
+    if (NAV.indexOf("IE 8.0") > -1 || NAV.indexOf("IE 7.0") > -1 || NAV.indexOf("IE 6.0") > -1 || NAV.indexOf("IE 5.0") > -1) {
+        document.getElementById("demo").className = "alert";
+        document.getElementById("demo").innerHTML = "Estas utilizando un navegador no compatible con varias de nuestras funcionalidades. <br /><br /> Te recomendamos utilizar una versión más reciente o utilizar otro navegador. <br /><br /> Para mayor información comunicate con nosotros al teléfono 6465555 ext. 16614 o ext: 16609";
+    }
+</script>
+
+@section inlinescripts{
+
+}
+

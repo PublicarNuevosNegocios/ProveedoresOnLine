@@ -5,7 +5,7 @@ span.DMImportant {
     margin: 0px 3px 0px 7px;
 }
 
-.DMSingleProvider{
+.DMSingleProvider {
     border-style: solid !important;
     border-color: #A09F9F !important;
 }
@@ -434,7 +434,7 @@ span.Message {
         font-size: 0.9em;
     }
 
-.CheckData, .CheckCommercial, .CheckRestrictiveList, .CheckLegalTerms{
+.CheckData, .CheckCommercial, .CheckRestrictiveList, .CheckLegalTerms {
     width: 15px !important;
     margin: 0px 0px 0px 0px !important;
     vertical-align: top;
@@ -455,3 +455,15 @@ span.Message {
 .DownloadTerms {
     margin: 10px 0px 10px 0px;
 }
+
+/***********************LEGAL TERMS STYLES**************************/
+.TitleProviderLegalTerms {
+    text-align: center;
+}
+
+    .TitleProviderLegalTerms label {
+        color: #ff8300;
+        font-family: 'OpenSans-Regular', Fallback, sans-serif;
+        font-size: 1.3em;
+        font-weight: normal;
+    }

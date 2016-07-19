@@ -88,5 +88,49 @@ namespace DocumentManagement.Models.Provider
             this.CheckRestrictiveList = oObjAux.CheckRestrictiveList;
         }
     }
+
+    public class ProviderLegalTermsResource
+    {
+        public DocumentManagement.Customer.Models.Form.FieldModel oFieldModel { get; set; }
+
+        public string oFieldId { get; set; }
+
+        public bool oIsRequired { get; set; }
+
+        public string oFieldName { get; set; }
+
+        public string oFieldPosition { get; set; }
+
+        public DocumentManagement.Provider.Models.Util.CatalogModel oProviderLegalTermsType { get; set; }
+
+        public ProviderLegalTermsResource(DocumentManagement.Customer.Models.Form.FieldModel oRelatedField)
+        {
+            oFieldModel = oRelatedField;
+
+            oFieldId = oFieldModel.FieldId.ToString();
+
+            oIsRequired = oFieldModel.IsRequired;
+
+            oFieldName = oFieldModel.Name;
+
+            oFieldPosition = oFieldModel.Position.ToString();
+
+            oProviderLegalTermsType = new DocumentManagement.Provider.Models.Util.CatalogModel()
+            {
+                ItemId = oFieldModel.ProviderInfoType.ItemId,
+                ItemName = oFieldModel.ProviderInfoType.ItemName,
+            };
+        }
+    }
+
+    public class ProviderLegalTermsData
+    {
+        public DocumentManagement.Provider.Models.Provider.ProviderInfoModel oProviderInfo { get; set; }
+
+        public ProviderLegalTermsData(DocumentManagement.Provider.Models.Provider.ProviderInfoModel oRelatedProviderInfo)
+        {
+            oProviderInfo = oRelatedProviderInfo;
+        }
+    }
 }
 

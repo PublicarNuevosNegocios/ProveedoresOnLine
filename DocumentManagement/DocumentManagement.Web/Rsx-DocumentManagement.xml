@@ -21,7 +21,7 @@
 
     <!--Id Publicar-->
     <key name="CustomerPublicId_Publicar">9966716D</key>
-    
+
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
@@ -52,37 +52,65 @@
 
     <key name="_P_FieldFormPdf_369_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_369_FormText">Descargar formulario pdf.</key>
-    
+
     <key name="_P_FieldFormPdf_370_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_370_FormText">Download form pdf.</key>
-    
+
     <key name="_P_FieldFormPdf_374_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Formato_registro_de_proveedores_esenttia_nacional.xlsx</key>
     <key name="_P_FieldFormPdf_374_FormText">Descargar formulario nacional .xls</key>
-    
+
     <key name="_P_FieldFormPdf_375_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Suplier_registration_form_esenttia_extranjero.xlsx</key>
     <key name="_P_FieldFormPdf_375_FormText">Descargar formulario extranjero .xls</key>
-    
+
     <key name="_P_FieldFormPdf_376_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Carta_autorizacion_transferencia_bancaria.docx</key>
     <key name="_P_FieldFormPdf_376_FormText">Descargar carta de autorización .doc</key>
-    
+
     <key name="_P_FieldFormPdf_388_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Acuerdo+Confidencialidad+Proveedores.docx</key>
     <key name="_P_FieldFormPdf_388_FormText">Descargar acuerdo de confidencialidad de proveedores .doc</key>
-    
+
     <key name="_P_FieldFormPdf_389_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Cuestionario++HSE+Contratistas.doc</key>
     <key name="_P_FieldFormPdf_389_FormText">Descargar cuestionario HSE contratistas .doc</key>
-    
+
     <key name="_P_FieldFormPdf_390_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Formato+registro+de+proveedor.xls</key>
     <key name="_P_FieldFormPdf_390_FormText">Descargar formato de registro de proveedores .xls</key>
-    
+
     <key name="_P_FieldFormPdf_391_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/FCC+Persona+natural+Version+2013+-+V2.pdf</key>
     <key name="_P_FieldFormPdf_391_FormText">Descargar formulario persona natural .pdf</key>
-    
+
     <key name="_P_FieldFormPdf_392_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/FCC+Persona+juridica+Version+2013+-+V2.pdf</key>
     <key name="_P_FieldFormPdf_392_FormText">Descargar formulario persona jurídica .pdf</key>
-    
+
     <key name="_P_FieldFormPdf_395_FormUrl">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0General/Formato+de+Conocimiento+de+Proveedores+y+Clientes.pdf</key>
     <key name="_P_FieldFormPdf_395_FormText">Descargar formato de conocimiento de terceros .pdf</key>
-      
+
+    <key name="LegalTerms_363_TextHeader">
+      <![CDATA[
+        Con el diligenciamiento de la información en el portal de Proveedores Online ó Landing Pages de envío de información ó el suministro de información ó documentación de cualquier tipo usted está aceptando:
+      ]]>
+    </key>
+
+    <key name="LegalTerms_363_TextCheck">
+      <![CDATA[
+        Consulta y certificación de la información en listas restrictivas, centrales de riesgo y demás entidades públicas y privadas para verificación de la información y uso de la base de datos para fines comerciales.
+      ]]>
+    </key>
+
+    <key name="LegalTerms_363_Url">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/LegalTerms/Politica-de-Tratamiento-de-Datos-Personales-Aviso-de-Privacidad.pdf</key>
+
+    <key name="LegalTerms_364_TextHeader">
+      <![CDATA[
+        Con el diligenciamiento de la información en el portal de Proveedores Online ó Landing Pages de envío de información ó el suministro de información ó documentación de cualquier tipo usted está aceptando:
+      ]]>
+    </key>
+
+    <key name="LegalTerms_364_TextCheck">
+      <![CDATA[
+        Consulta y certificación de la información en listas restrictivas, centrales de riesgo y demás entidades públicas y privadas para verificación de la información y uso de la base de datos para fines comerciales.
+      ]]>
+    </key>
+
+    <key name="LegalTerms_364_Url">https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/LegalTerms/Politica-de-Tratamiento-de-Datos-Personales-Aviso-de-Privacidad.pdf</key>
+
     <key name="_P_FieldLegalTerms_363_LegalText">
       <![CDATA[
       {
