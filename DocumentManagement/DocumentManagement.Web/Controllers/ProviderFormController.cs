@@ -62,13 +62,27 @@ namespace DocumentManagement.Web.Controllers
             DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
                 DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
 
+            //Cancel legal terms
+            if (!string.IsNullOrEmpty(Request["CancelLegalTerms"]) && Request["CancelLegalTerms"] == "true")
+            {
+                //legal terms canceled
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                    });
+            }
+
             //Upsert legal terms
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
             {
                 //get generic models
                 ProviderFormModel oGenericModels = new ProviderFormModel()
                 {
-                    //ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                    ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
                     RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
                     RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId)),
                 };
@@ -76,14 +90,26 @@ namespace DocumentManagement.Web.Controllers
                 //PrevModel
                 ProviderModel oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
 
-                //get request into generic model
-                GetUpsertGenericStepRequest(oGenericModels);
+                #region GetRequest
 
-                //DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
-                //oPervProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId));
+                //request legal terms into generic model
+                oGenericModels.RealtedProvider.RelatedProviderInfo = new List<ProviderInfoModel>()
+                {
+                    new ProviderInfoModel()
+                    {
+                        ProviderInfoId = !string.IsNullOrEmpty(Request["LegalTermsValueId"]) ? Convert.ToInt32(Request["LegalTermsValueId"].Trim()) : 0,
+                        Value = Request["CheckLegalTerms"],
+                        ProviderInfoType = new Provider.Models.Util.CatalogModel()
+                        {
+                            ItemId = !string.IsNullOrEmpty(Request["LegalTermsTypeId"]) ? Convert.ToInt32(Request["LegalTermsTypeId"].Trim()) : 0,
+                        },
+                    },
+                };
+
+                #endregion
 
                 //upsert fields in database
-                //DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
+                DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
 
                 //legal terms success
                 return RedirectToAction
@@ -1408,7 +1434,7 @@ namespace DocumentManagement.Web.Controllers
 
             if (oCompanyHomologateData.Count > 0)
             {
-                oCompanyHomologateData.All(c => 
+                oCompanyHomologateData.All(c =>
                 {
                     ProveedoresOnLine.Company.Models.Company.CompanyModel oCurrentCompanyModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(oCompanyPublicid);
 
@@ -1427,7 +1453,7 @@ namespace DocumentManagement.Web.Controllers
 
                     oCompanyToUpsert.CompanyPublicId = oCurrentCompanyModel.CompanyPublicId;
                     ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oCompanyToUpsert);
-                    return true;                    
+                    return true;
                 });
 
                 //Upsert Changes Sincronized

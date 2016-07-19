@@ -459,6 +459,7 @@ span.Message {
 /***********************LEGAL TERMS STYLES**************************/
 .TitleProviderLegalTerms {
     text-align: center;
+    margin: 2% 0px 4% 0px;
 }
 
     .TitleProviderLegalTerms label {
@@ -466,4 +467,79 @@ span.Message {
         font-family: 'OpenSans-Regular', Fallback, sans-serif;
         font-size: 1.3em;
         font-weight: normal;
+    }
+
+.LegalTerms {
+    width: 92%;
+    text-align: justify;
+    margin: 0px 0px 0px 4%;
+}
+
+.ButtonLegalTerms {
+    margin: 0px 0px 0px 30%;
+    border: none;
+    width: auto;
+    height: auto;
+    background-color: #ff8300;
+    color: #fff;
+    font-size: 1.3em;
+    padding: 3px 38px;
+}
+
+    .ButtonLegalTerms:hover {
+        text-decoration: underline;
+        background-color: #ff9955;
+        color: #fff;
+    }
+
+.ButtonAccept {
+    margin: 0px 0px 0px 15%;
+    border: none;
+    width: 96%;
+    height: auto;
+    background-color: #ff8300;
+    color: #fff;
+    font-size: 1.3em;
+    padding: 3px 38px;
+}
+
+    .ButtonAccept:hover {
+        text-decoration: underline;
+        background-color: #ff9955;
+        color: #fff;
+    }
+
+.LegalTermsTitle {
+    margin: 0px 0px 1% 0px;
+}
+
+    .LegalTermsTitle label {
+        color: #4d4d4d;
+        font-size: 1.2em;
+    }
+
+.LegalTextHeader {
+    margin: 1% 0px 1% 0px;
+}
+
+    .LegalTextHeader label {
+        color: #4d4d4d;
+        font-size: 1.1em;
+        font-weight: normal;
+    }
+
+.LegalTermsCheck {
+    margin-top: 2%;
+}
+
+    .LegalTermsCheck input {
+        float: right;
+    }
+
+.LegalTermsDownload {
+    margin: 1% 0px 4% 10%;
+}
+
+    .LegalTermsDownload a {
+        font-size: 1.1em;
     }

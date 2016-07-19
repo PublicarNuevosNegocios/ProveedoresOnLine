@@ -20,6 +20,14 @@
         <img class="DMPOLogo" src="@Url.Content("~/Content/Images/LogoPOLogInAlpha.png")" alt="" />
     </div>
     <div class="container-fluid DMStepsLayOutWrapper">
+        <div class="row">
+            <!--Provider form legal terms-->
+            <div class="TitleProviderLegalTerms">
+                <label>@Model.RealtedProvider.Name</label>
+                <label>@Model.RealtedProvider.IdentificationType.ItemName</label>
+                <label>@Model.RealtedProvider.IdentificationNumber</label>
+            </div>
+        </div>
         <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.LegalTerms,
                             MVC.ProviderForm.Name,
                             new
@@ -29,19 +37,12 @@
                                 StepId = Model.RealtedStep.StepId
                             })))" method="post" enctype="multipart/form-data">
             <div class="container-fluid">
-                <div class="row">
-                    <!--Provider form legal terms-->
-                    <div class="TitleProviderLegalTerms">
-                        <label>@Model.RealtedProvider.Name</label>
-                        <label>@Model.RealtedProvider.IdentificationType.ItemName</label>
-                        <label>@Model.RealtedProvider.IdentificationNumber</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
+
+                <div class="row LegalTerms">
+                    <div class="col-xs-12 LegalTermsTitle">
                         <label>@Model.RelatedLegalTermsResource.oFieldName</label>
                     </div>
-                    <div class="col-xs-12">
+                    <div class="col-xs-12 LegalTextHeader">
                         @if (Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational)
                         {
                             <label>@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_363_TextHeader].Value</label>
@@ -52,10 +53,21 @@
                         }
                     </div>
                     <div class="col-xs-12">
-                        <div class="col-xs-1">
-                            <input class="CheckLegalTerms" type="checkbox" name="CheckLegalTerms" id="CheckLegalTerms" value="true" @(Model.RelatedLegalTermsData != null && Model.RelatedLegalTermsData.oProviderInfo.Value == "true" ? "checked=\"checked\"" : "") />
+                        <div class="col-xs-1 LegalTermsCheck">
+                            @if (Model.RelatedLegalTermsData != null &&
+                                Model.RelatedLegalTermsData.oProviderInfo != null)
+                            {
+                                <input class="CheckLegalTerms" type="checkbox" name="CheckLegalTerms" id="CheckLegalTerms" value="true" @(Model.RelatedLegalTermsData.oProviderInfo.Value == "true" ? "checked=\"checked\"" : "") />
+                            }
+                            else
+                            {
+                                <input class="CheckLegalTerms" type="checkbox" name="CheckLegalTerms" id="CheckLegalTerms" value="true" />
+                            }
+
+                            <input type="hidden" name="LegalTermsValueId" id="LegalTermsValueId" value="@(Model.RelatedLegalTermsData != null ? Model.RelatedLegalTermsData.oProviderInfo.ProviderInfoId : 0)" />
+                            <input type="hidden" name="LegalTermsTypeId" id="LegalTermsTypeId" value="@Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId" />
                         </div>
-                        <div class="col-xs-11">
+                        <div class="col-xs-11 LegalTextHeader">
                             @if (Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational)
                             {
                                 <label>@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_363_TextCheck].Value</label>
@@ -66,7 +78,7 @@
                             }
                         </div>
                     </div>
-                    <div class="col-xs-12">
+                    <div class="col-xs-12 LegalTermsDownload">
                         @if (Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational)
                         {
                             <a href="@(DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_363_Url].Value)" target="_blank">Descargar términos y condiciones</a>
@@ -76,13 +88,28 @@
                             <a href="@(DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.P_LegalTerms_364_Url].Value)" target="_blank">Descargar términos y condiciones</a>
                         }
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                        <a class="DMButtonsForm">Cancelar</a>
-                    </div>
-                    <div class="col-xs-2">
-                        <button type="submit">Siguiente</button>
+
+                    <div class="col-xs-12">
+                        @if (Model.RelatedLegalTermsData != null &&
+                            Model.RelatedLegalTermsData.oProviderInfo != null &&
+                            string.IsNullOrEmpty(Model.RelatedLegalTermsData.oProviderInfo.Value))
+                        {
+                            <div class="col-xs-2 pull-right">
+                                <button class="ButtonLegalTerms" id="CancelLegalTerms" name="CancelLegalTerms" type="submit" value="true">Cancelar</button>
+                            </div>
+                        }
+                        <div class="col-xs-4 pull-right">
+                            @if (Model.RelatedLegalTermsData != null &&
+                            Model.RelatedLegalTermsData.oProviderInfo != null &&
+                            Model.RelatedLegalTermsData.oProviderInfo.Value == "true")
+                            {
+                                <button class="ButtonLegalTerms" type="submit">Siguiente</button>
+                            }
+                            else
+                            {
+                                <button class="ButtonAccept" type="submit">Aceptar términos y condiciones</button>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div style="display:none">
