@@ -33,6 +33,7 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
             int CommercialScore = 0;
             int RuleScore = 0;
             int oIntValue = 0;
+            decimal oDecimalValue = 0;
             bool oBooleanValue = true;
             double oPercentValue = 0;
             DateTime oDateValue = new DateTime();
@@ -107,9 +108,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Positivo:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue > 0)
+                                                if (oDecimalValue > 0)
                                                 {
                                                     CommercialScore = int.Parse(rule.Score);
 
@@ -132,9 +133,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Negativo:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue < 0)
+                                                if (oDecimalValue < 0)
                                                 {
                                                     CommercialScore = int.Parse(rule.Score);
 
@@ -163,9 +164,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue > int.Parse(rule.Value))
+                                                        if (oDecimalValue > int.Parse(rule.Value))
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -249,9 +250,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue < int.Parse(rule.Value))
+                                                        if (oDecimalValue < int.Parse(rule.Value))
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -335,9 +336,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
-
-                                                        if (oIntValue >= int.Parse(rule.Value))
+                                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
+                                                        
+                                                        if (oDecimalValue >= int.Parse(rule.Value))
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -421,9 +422,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue <= int.Parse(rule.Value))
+                                                        if (oDecimalValue <= int.Parse(rule.Value))
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -507,9 +508,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue == int.Parse(rule.Value))
+                                                        if (oDecimalValue == int.Parse(rule.Value))
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -626,9 +627,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                         minValue = int.Parse(oValue[0]);
                                                         maxValue = int.Parse(oValue[1]);
 
-                                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                        if (oIntValue < maxValue && oIntValue > minValue)
+                                                        if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                         {
                                                             CommercialScore = int.Parse(rule.Score);
 
@@ -828,9 +829,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Positivo:
 
-                                            oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                            oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                            if (oIntValue >= 0)
+                                            if (oDecimalValue >= 0)
                                             {
                                                 CommercialScore = int.Parse(rule.Score);
 
@@ -862,9 +863,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                         case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Negativo:
 
-                                            oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                            oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                            if (oIntValue < 0)
+                                            if (oDecimalValue < 0)
                                             {
                                                 CommercialScore = int.Parse(rule.Score);
 
@@ -902,9 +903,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                    oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                    oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue > int.Parse(rule.Value))
+                                                    if (oDecimalValue > int.Parse(rule.Value))
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1015,9 +1016,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                    oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                    oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue < int.Parse(rule.Value))
+                                                    if (oDecimalValue < int.Parse(rule.Value))
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1128,9 +1129,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                    oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                    oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);                                                    
 
-                                                    if (oIntValue >= int.Parse(rule.Value))
+                                                    if (oDecimalValue >= int.Parse(rule.Value))
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1241,9 +1242,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                    oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                    oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue <= int.Parse(rule.Value))
+                                                    if (oDecimalValue <= int.Parse(rule.Value))
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1354,9 +1355,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                                 case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                    oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                    oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue == int.Parse(rule.Value))
+                                                    if (oDecimalValue == int.Parse(rule.Value))
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1507,9 +1508,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                     minValue = int.Parse(oValue[0]);
                                                     maxValue = int.Parse(oValue[1]);
 
-                                                    oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                    oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                    if (oIntValue < maxValue && oIntValue > minValue)
+                                                    if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                     {
                                                         CommercialScore = int.Parse(rule.Score);
 
@@ -1770,9 +1771,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Positivo:
 
-                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                        if (oIntValue >= 0)
+                                        if (oDecimalValue >= 0)
                                         {
                                             CommercialScore = int.Parse(cpitinf.Score);
 
@@ -1804,9 +1805,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                     case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumOperatorType.Negativo:
 
-                                        oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                        oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                        if (oIntValue < 0)
+                                        if (oDecimalValue < 0)
                                         {
                                             CommercialScore = int.Parse(cpitinf.Score);
 
@@ -1844,9 +1845,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue > int.Parse(cpitinf.Value))
+                                                if (oDecimalValue > int.Parse(cpitinf.Value))
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
@@ -1957,9 +1958,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue < int.Parse(cpitinf.Value))
+                                                if (oDecimalValue < int.Parse(cpitinf.Value))
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
@@ -2070,9 +2071,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);                                                
 
-                                                if (oIntValue >= int.Parse(cpitinf.Value))
+                                                if (oDecimalValue >= int.Parse(cpitinf.Value))
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
@@ -2183,9 +2184,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue <= int.Parse(cpitinf.Value))
+                                                if (oDecimalValue <= int.Parse(cpitinf.Value))
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
@@ -2296,9 +2297,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
 
                                             case (int)ProveedoresOnLine.CalificationBatch.Models.Enumerations.enumValueType.Numeric:
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue == int.Parse(cpitinf.Value))
+                                                if (oDecimalValue == int.Parse(cpitinf.Value))
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
@@ -2449,9 +2450,9 @@ namespace ProveedoresOnLine.CalificationBatch.CalificationProjectModule
                                                 minValue = int.Parse(oValue[0]);
                                                 maxValue = int.Parse(oValue[1]);
 
-                                                oIntValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeNumeric(pinf.ItemInfo.FirstOrDefault().Value);
+                                                oDecimalValue = ProveedoresOnLine.CalificationBatch.Util.UtilModule.ValueTypeDecimal(pinf.ItemInfo.FirstOrDefault().Value);
 
-                                                if (oIntValue < maxValue && oIntValue > minValue)
+                                                if (oDecimalValue < maxValue && oDecimalValue > minValue)
                                                 {
                                                     CommercialScore = int.Parse(cpitinf.Score);
 
