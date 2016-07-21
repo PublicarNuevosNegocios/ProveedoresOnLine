@@ -103,7 +103,7 @@
                             Model.RelatedLegalTermsData.oProviderInfo != null &&
                             Model.RelatedLegalTermsData.oProviderInfo.Value == "true")
                             {
-                                <button id="ButtonLegalTerms" name="ButtonLegalTerms" class="ButtonLegalTerms" type="submit">Siguiente</button>
+                                <button id="ButtonLegalTerms" name="ButtonLegalTerms" class="ButtonLegalTerms" type="submit" value="true">Siguiente</button>
                             }
                             else
                             {
@@ -119,10 +119,10 @@
         </form>
     </div>
 
-    @*<div class="DMStepsBottomWrapper">
-            <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
-            <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
-        </div>*@
+    <div class="DMStepsBottomWrapper">
+        <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
+        <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
+    </div>
 </div>
 
 <script>
@@ -141,7 +141,7 @@
 
         if (Model.RelatedLegalTermsData != null &&
                                 Model.RelatedLegalTermsData.oProviderInfo != null &&
-                                string.IsNullOrEmpty(Model.RelatedLegalTermsData.oProviderInfo.Value))
+                                !string.IsNullOrEmpty(Model.RelatedLegalTermsData.oProviderInfo.Value))
         {
             LegalTerms = Model.RelatedLegalTermsData.oProviderInfo.Value;
         }
@@ -151,7 +151,7 @@
         }
 
         var ButtonType = "";
-        
+
         if (Model.RelatedLegalTermsData != null &&
                             Model.RelatedLegalTermsData.oProviderInfo != null &&
                             Model.RelatedLegalTermsData.oProviderInfo.Value == "true")
@@ -166,43 +166,42 @@
     }
     <script type="text/javascript">
         $(document).ready(function () {
-            
-            /*disable buttons*/           
-            if (@ButtonType == true) 
+            /*disable buttons*/
+            if (@ButtonType != null && @ButtonType == true)
             {
-                document.getElementById("ButtonLegalTerms").disabled = false;   
+                document.getElementById("ButtonLegalTerms").disabled = false;
                 document.getElementById("CheckLegalTerms").disabled = true;
             }
-            else 
+            else
             {
                 document.getElementById("ButtonAccept").disabled = true;
             }
 
             /*CheckLegalTerms*/
-            $('#CheckLegalTerms').click(function () 
+            $('#CheckLegalTerms').click(function ()
             {
-                if (@LegalTerms == true) 
+                if (@LegalTerms == true)
                 {
                     document.getElementById("CheckLegalTerms").disabled = true;
                 }
-                else 
+                else
                 {
                     if ($(this).is(':checked') == true) {
-                        if (@ButtonType == true) 
+                        if (@ButtonType == true)
                         {
-                            document.getElementById("ButtonLegalTerms").disabled = false;   
+                            document.getElementById("ButtonLegalTerms").disabled = false;
                         }
-                        else 
+                        else
                         {
                             document.getElementById("ButtonAccept").disabled = false;
                         }
                     }
                     else {
-                        if (@ButtonType == true) 
+                        if (@ButtonType == true)
                         {
-                            document.getElementById("ButtonLegalTerms").disabled = true;   
+                            document.getElementById("ButtonLegalTerms").disabled = true;
                         }
-                        else 
+                        else
                         {
                             document.getElementById("ButtonAccept").disabled = true;
                         }

@@ -62,6 +62,26 @@ namespace DocumentManagement.Web.Controllers
             DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
                 DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
 
+            if (!string.IsNullOrEmpty(Request["ButtonLegalTerms"]) && Request["ButtonLegalTerms"] == "true")
+            {
+                //legal terms success
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                        StepId = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId,
+                    });
+            }
+
             //Cancel legal terms
             if (!string.IsNullOrEmpty(Request["CancelLegalTerms"]) && Request["CancelLegalTerms"] == "true")
             {
