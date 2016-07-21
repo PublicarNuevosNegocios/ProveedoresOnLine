@@ -103,11 +103,11 @@
                             Model.RelatedLegalTermsData.oProviderInfo != null &&
                             Model.RelatedLegalTermsData.oProviderInfo.Value == "true")
                             {
-                                <button class="ButtonLegalTerms" type="submit">Siguiente</button>
+                                <button id="ButtonLegalTerms" name="ButtonLegalTerms" class="ButtonLegalTerms" type="submit" value="true">Siguiente</button>
                             }
                             else
                             {
-                                <button class="ButtonAccept" type="submit">Aceptar términos y condiciones</button>
+                                <button id="ButtonAccept" name="ButtonAccept" class="ButtonAccept" type="submit">Aceptar términos y condiciones</button>
                             }
                         </div>
                     </div>
@@ -135,6 +135,81 @@
 </script>
 
 @section inlinescripts{
+
+    @{
+        var LegalTerms = "";
+
+        if (Model.RelatedLegalTermsData != null &&
+                                Model.RelatedLegalTermsData.oProviderInfo != null &&
+                                !string.IsNullOrEmpty(Model.RelatedLegalTermsData.oProviderInfo.Value))
+        {
+            LegalTerms = Model.RelatedLegalTermsData.oProviderInfo.Value;
+        }
+        else
+        {
+            LegalTerms = "false";
+        }
+
+        var ButtonType = "";
+
+        if (Model.RelatedLegalTermsData != null &&
+                            Model.RelatedLegalTermsData.oProviderInfo != null &&
+                            Model.RelatedLegalTermsData.oProviderInfo.Value == "true")
+        {
+            ButtonType = "true";
+        }
+        else
+        {
+            ButtonType = "false";
+        }
+
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*disable buttons*/
+            if (@ButtonType != null && @ButtonType == true)
+            {
+                document.getElementById("ButtonLegalTerms").disabled = false;
+                document.getElementById("CheckLegalTerms").disabled = true;
+            }
+            else
+            {
+                document.getElementById("ButtonAccept").disabled = true;
+            }
+
+            /*CheckLegalTerms*/
+            $('#CheckLegalTerms').click(function ()
+            {
+                if (@LegalTerms == true)
+                {
+                    document.getElementById("CheckLegalTerms").disabled = true;
+                }
+                else
+                {
+                    if ($(this).is(':checked') == true) {
+                        if (@ButtonType == true)
+                        {
+                            document.getElementById("ButtonLegalTerms").disabled = false;
+                        }
+                        else
+                        {
+                            document.getElementById("ButtonAccept").disabled = false;
+                        }
+                    }
+                    else {
+                        if (@ButtonType == true)
+                        {
+                            document.getElementById("ButtonLegalTerms").disabled = true;
+                        }
+                        else
+                        {
+                            document.getElementById("ButtonAccept").disabled = true;
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
 }
 
