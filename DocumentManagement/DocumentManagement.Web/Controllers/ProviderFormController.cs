@@ -14,7 +14,7 @@ namespace DocumentManagement.Web.Controllers
     public partial class ProviderFormController : BaseController
     {
         public virtual ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId, string msg)
-        {
+        {            
             int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
 
             string oCurrentActionName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
@@ -43,12 +43,21 @@ namespace DocumentManagement.Web.Controllers
                         return true;
                     });
             }
+            var modelStep = new StepModel();
+            modelStep= oModel.RealtedForm.RelatedStep.Where(x=>x.StepId==119).FirstOrDefault();
+            if (oStepId == 119)
+            {
+                 oModel.RealtedForm.RelatedStep.Remove(modelStep);
+                 oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
+            }
             if (oStepId != null)
             {
+
                 oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
                     Where(x => x.StepId == (int)oStepId).
                     FirstOrDefault();
             }
+            
             if (msg != null)
             {
                 ViewData["ErrorMessage"] = "El Número o tipo de identificación son incorrectos";
