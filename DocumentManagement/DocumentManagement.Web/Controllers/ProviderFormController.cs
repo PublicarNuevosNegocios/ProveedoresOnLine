@@ -45,7 +45,7 @@ namespace DocumentManagement.Web.Controllers
             }
             var modelStep = new StepModel();
             modelStep= oModel.RealtedForm.RelatedStep.Where(x=>x.StepId==119).FirstOrDefault();
-            if (oStepId == 119)
+            if (oStepId == 119 && oModel.RealtedForm.RelatedStep.FirstOrDefault().RelatedField.FirstOrDefault().IsRequired==true)
             {
                  oModel.RealtedForm.RelatedStep.Remove(modelStep);
                  oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
