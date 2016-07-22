@@ -102,6 +102,14 @@
 
         #endregion
 
+        #region Index
+
+        public const string C_Settings_ElasticSearchUrl = "ElasticSearchUrl";
+        
+        public const string C_Settings_CompanyIndex = "CompanyIndex";
+
+        #endregion
+
         #endregion
 
         #region Routes

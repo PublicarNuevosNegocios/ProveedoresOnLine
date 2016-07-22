@@ -22,6 +22,10 @@
 
     <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
     
+    <key name="ElasticSearch_Url">http://192.168.0.94:9200/</key>
+    
+    <key name="CompanyIndex">devcompanyidex</key>
+      
     <key name="Analytics">
       <![CDATA[
       <!--YourAnalyticsKey-->

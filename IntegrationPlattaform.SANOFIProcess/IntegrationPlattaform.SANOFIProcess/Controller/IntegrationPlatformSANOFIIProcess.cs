@@ -117,6 +117,25 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 string strSep = "|";
 
                 #region Start Create Process
+                #region Write Header File
+                Header.AppendLine
+                               ("NOMBRE1" + strSep +
+                               "NOMBRE2" + strSep +
+                               "NOMBRE3" + strSep +
+                               "NOMBRE4" + strSep +
+                               "CONCEPTO DE BUSQUEDA" + strSep +
+                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
+                               "CALLE NUMERO" + strSep +
+                               "POBLACION" + strSep +
+                               "REGION" + strSep +
+                               "PAIS" + strSep +
+                               "TELEFONO" + strSep +
+                               "FAX" + strSep +
+                               "EMAIL OC" + strSep +
+                               "EMAIL PAGOS" + strSep +
+                               "EMAIL CERTIFICADOS RETENCION" + strSep +
+                               "COMENTARIOS" + strSep);                
+                #endregion
                 oGeneralInfoModel.All(x =>
                 {
                     #region Name3 and Name4 Field
@@ -151,7 +170,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     #endregion
 
                     #region Write Process
-                    data.AppendLine(
+                    Header.AppendLine("\"" +
                            x.CompanyName + strSep +
                            x.ComercialName + strSep +
                           NaturalName + strSep +
@@ -173,28 +192,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     return true;
                 });
 
-                #region Write Header File
-                Header.AppendLine
-                               ("NOMBRE1" + strSep +
-                               "NOMBRE2" + strSep +
-                               "NOMBRE3" + strSep +
-                               "NOMBRE4" + strSep +
-                               "CONCEPTO DE BUSQUEDA" + strSep +
-                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
-                               "CALLE NUMERO" + strSep +
-                               "POBLACION" + strSep +
-                               "REGION" + strSep +
-                               "PAIS" + strSep +
-                               "TELEFONO" + strSep +
-                               "FAX" + strSep +
-                               "EMAIL OC" + strSep +
-                               "EMAIL PAGOS" + strSep +
-                               "EMAIL CERTIFICADOS RETENCION" + strSep +
-                               "COMENTARIOS" + strSep + data);
-
                 byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
                 File.WriteAllBytes(strFolder + fileName, buffer);
-                #endregion
                 #endregion
 
                 //Send to S3
@@ -265,27 +264,6 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 string strSep = "|";
 
                 #region Start Create Process
-                oComercialGeneralInfoModel.All(x =>
-                {
-                    #region Write Process
-                    data.AppendLine(
-                          x.CompanyName + strSep +
-                          x.FiscalNumber + strSep +
-                          x.IdentificationNumber + strSep +
-                          x.NIFType + strSep +
-                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CountsGroupItemName +
-                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].TaxClassName + strSep +
-                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CurrencyName + strSep +
-                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].Ramo + strSep +
-                          x.PayCondition + strSep +                          
-                          x.GroupSchemaProvider + strSep +
-                          x.ContactName + strSep +
-                          "1" + strSep +
-                          x.BuyCod + strSep);
-
-                    #endregion
-                    return true;
-                });
                 #region Write Header File
                 Header.AppendLine
                                ("NOMBRE1" + strSep +
@@ -300,11 +278,33 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                                "GRUPO ESQUEMA PROVEEDOR" + strSep +
                                "VENDEDOR" + strSep +
                                "VERIFICACION FACT BASE EM" + strSep +
-                               "GRUPO DE COMPRAS" + strSep + data);
+                               "GRUPO DE COMPRAS" + strSep);
+                                
+                #endregion
+                oComercialGeneralInfoModel.All(x =>
+                {
+                    string ContactName = !string.IsNullOrEmpty(x.ContactName) ? x.ContactName.ToUpper() : "";
+                    #region Write Process
+                    Header.AppendLine("\"" +
+                          x.CompanyName + strSep +
+                          x.FiscalNumber + strSep +
+                          x.IdentificationNumber + strSep +
+                          x.NIFType + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CountsGroupItemName + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].TaxClassName + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CurrencyName + strSep +
+                          oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].Ramo + strSep +
+                          x.PayCondition + strSep +                          
+                          x.GroupSchemaProvider + strSep +
+                          ContactName + strSep +
+                          "1" + strSep +
+                          x.BuyCod + strSep);
 
+                    #endregion
+                    return true;
+                });
                 byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
                 File.WriteAllBytes(strFolder + fileName, buffer);
-                #endregion
                 #endregion
 
                 //Send to S3
@@ -375,10 +375,28 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 string strSep = "|";
 
                 #region Start Create Process
+                #region Write Header File
+                Header.AppendLine
+                               ("NOMBRE1" + strSep +
+                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
+                               "CONCEPTO DE BUSQUEDA" + strSep +
+                               "PAIS" + strSep +
+                               "CLAVE DE BANCOS" + strSep +
+                               "CUENTA BANCARIA" + strSep +
+                               "CC" + strSep +
+                               "IBAN" + strSep +
+                               "CUENTA ASOCIADA" + strSep +
+                               "COND. PAGO" + strSep +
+                               "GRUPO TOLERANCIA" + strSep +
+                               "VERIF. FRA DOB." + strSep +
+                               "TP.RECT" + strSep +
+                               "VIAS DE PAGO" + strSep);
+                          
+                #endregion
                 oContableInfoModel.All(x =>
                 {
                     #region Write Process
-                    data.AppendLine(
+                    Header.AppendLine("\"" +
                           x.CompanyName + strSep +
                           x.FiscalNumber + strSep +
                           x.IdentificationNumber + strSep +
@@ -397,26 +415,9 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                     return true;
                 });
-                #region Write Header File
-                Header.AppendLine
-                               ("NOMBRE1" + strSep +
-                               "NUMERO DE IDENTIFICACION FISCAL" + strSep +
-                               "CONCEPTO DE BUSQUEDA" + strSep +
-                               "PAIS" + strSep +
-                               "CLAVE DE BANCOS" + strSep +
-                               "CUENTA BANCARIA" + strSep +
-                               "CC" + strSep +
-                               "IBAN" + strSep +
-                               "CUENTA ASOCIADA" + strSep +
-                               "COND. PAGO" + strSep +
-                               "GRUPO TOLERANCIA" + strSep +
-                               "VERIF. FRA DOB." + strSep +
-                               "TP.RECT" + strSep +
-                               "VIAS DE PAGO" + strSep + data);
-
                 byte[] buffer = Encoding.Default.GetBytes(Header.ToString().ToCharArray());
                 File.WriteAllBytes(strFolder + fileName, buffer);
-                #endregion
+
                 #endregion
                 //Send to S3
                 string oFileCompleteName = strFolder + fileName;

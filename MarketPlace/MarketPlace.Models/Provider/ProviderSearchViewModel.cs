@@ -32,6 +32,10 @@ namespace MarketPlace.Models.Provider
 
         public int TotalPages { get { return (int)Math.Ceiling((decimal)((decimal)TotalRows / (decimal)RowCount)); } }
 
+        public ProveedoresOnLine.Company.Models.Company.CompanyIndexModel CompanyIndexModel { get; set; }
+
+        public MarketPlace.Models.ElasticSearchModels.ElasticSearchModel ElasticModel { get; set; }
+
         #region Comparison
 
         public MarketPlace.Models.Compare.CompareViewModel RelatedCompare { get; set; }

@@ -14,6 +14,9 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using ProveedoresOnLine.CalificationProject.Models.CalificationProject;
 using ProveedoresOnLine.CalificationBatch.Models;
+using Nest;
+using ProveedoresOnLine.Company.Models.Company;
+using MarketPlace.Models.ElasticSearchModels;
 
 namespace MarketPlace.Web.Controllers
 {
@@ -59,7 +62,29 @@ namespace MarketPlace.Web.Controllers
                     OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
                     PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
                     ProviderSearchResult = new List<ProviderLiteViewModel>(),
+                    CompanyIndexModel = new ProveedoresOnLine.Company.Models.Company.CompanyIndexModel(),
+                    ElasticModel = new ElasticSearchModel(),
                 };
+
+                //ElasticSearch
+                Uri node = new Uri(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
+                var settings = new ConnectionSettings(node);
+                settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CompanyIndex].Value);
+                ElasticClient client = new ElasticClient(settings);                
+                
+                var searchResults = client.Search<CompanyIndexModel>(s => s
+                .From(0)
+                .Size(20)
+                .Query(q => q
+                     .Term(p => p, SearchParam)
+                ));
+
+                if (searchResults != null)
+                {
+                    //just a probe, delete after to.
+                    oModel.TotalRows = 2;
+                }
+
 
                 #region Providers
 

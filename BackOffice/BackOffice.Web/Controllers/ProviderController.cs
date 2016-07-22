@@ -1,4 +1,5 @@
 ﻿using BackOffice.Models.General;
+using Nest;
 using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyCustomer.Models.Customer;
@@ -87,10 +88,32 @@ namespace BackOffice.Web.Controllers
                         Enable = true,
                     });
 
-
                     oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
 
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
+
+                    if (CompanyToUpsert != null && !string.IsNullOrWhiteSpace(CompanyToUpsert.CompanyPublicId))
+                    {
+                        ProveedoresOnLine.Company.Models.Company.CompanyIndexModel oCompanyToIndex = new ProveedoresOnLine.Company.Models.Company.CompanyIndexModel()
+                        {
+                            CompanyPublicId = CompanyToUpsert.CompanyPublicId,
+                            CompanyName = CompanyToUpsert.CompanyName,
+                            CommercialCompanyName = CompanyToUpsert.CompanyInfo.
+                                                    Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ComercialName).
+                                                    Select(x => x.Value).FirstOrDefault(),
+                            CustomerPublicId = oCustomerModel.RelatedCompany.CompanyPublicId,
+                            IdentificationNumber = CompanyToUpsert.IdentificationNumber,
+                            IdentificatioTypeId = CompanyToUpsert.CompanyType.ItemId,
+                            ProviderStatus = BackOffice.Models.General.enumProviderCustomerStatus.Creation.ToString(),
+                            ProviderStatusId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
+                        };
+
+                        Uri node = new Uri(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
+                        var settings = new ConnectionSettings(node);
+                        settings.DefaultIndex(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CompanyIndex].Value);
+                        ElasticClient client = new ElasticClient(settings);
+                        var Index = client.Index(oCompanyToIndex); 
+                    }                    
                 }
 
                 //index basic info
@@ -98,8 +121,7 @@ namespace BackOffice.Web.Controllers
 
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
-                InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));
-                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(CompanyToUpsert.CompanyPublicId, InfoTypeModified);
+                InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));                
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&

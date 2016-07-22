@@ -36,6 +36,10 @@
 
         public const string C_Settings_Analytics = "Analytics";
 
+        public const string C_Settings_ElasticSearchUrl = "ElasticSearch_Url";
+
+        public const string C_Settings_CompanyIndex = "CompanyIndex";
+
         #endregion
 
         #region Administrator User Roles
