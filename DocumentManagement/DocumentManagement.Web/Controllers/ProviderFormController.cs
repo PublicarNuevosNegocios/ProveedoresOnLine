@@ -14,7 +14,7 @@ namespace DocumentManagement.Web.Controllers
     public partial class ProviderFormController : BaseController
     {
         public virtual ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId, string msg)
-        {            
+        {
             int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
 
             string oCurrentActionName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
@@ -43,13 +43,7 @@ namespace DocumentManagement.Web.Controllers
                         return true;
                     });
             }
-            var modelStep = new StepModel();
-            modelStep= oModel.RealtedForm.RelatedStep.Where(x=>x.StepId==119).FirstOrDefault();
-            if (oStepId == 119 && oModel.RealtedForm.RelatedStep.FirstOrDefault().RelatedField.FirstOrDefault().IsRequired==true)
-            {
-                 oModel.RealtedForm.RelatedStep.Remove(modelStep);
-                 oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
-            }
+
             if (oStepId != null)
             {
 
@@ -57,7 +51,53 @@ namespace DocumentManagement.Web.Controllers
                     Where(x => x.StepId == (int)oStepId).
                     FirstOrDefault();
             }
-            
+            var LegalTermsModelStep = new StepModel();
+            var LegalTermsStepId = 0;
+
+            if (oModel.RealtedForm.RelatedStep.FirstOrDefault().RelatedField != null && oModel.RealtedForm.RelatedStep.FirstOrDefault().RelatedField.Count > 0 )
+            {
+                
+                foreach (var Steps in oModel.RealtedForm.RelatedStep)
+                {
+                    foreach (var Fields in Steps.RelatedField)
+                    {
+                        if (Fields.ProviderInfoType.ItemId == 363 || Steps.RelatedField.FirstOrDefault().ProviderInfoType.ItemId == 364)
+                        {
+                            LegalTermsStepId = Steps.StepId;
+                        }
+                    }
+                    
+                }
+                LegalTermsModelStep = oModel.RealtedForm.RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+
+                if (oStepId == LegalTermsStepId)
+                {
+                    var LegalTermsField = oModel.RealtedProvider.RelatedProviderInfo.Where(x => x.ProviderInfoType.ItemId == 363).FirstOrDefault().Value;
+
+                    if (LegalTermsField == "true")
+                    {
+                        oModel.RealtedForm.RelatedStep.Remove(LegalTermsModelStep);
+                        oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
+                    }
+                }
+                else
+                {
+                    oModel.RealtedForm.RelatedStep.Remove(LegalTermsModelStep);
+                    oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
+                }
+            }
+            else
+            {
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                    });
+            }
+
             if (msg != null)
             {
                 ViewData["ErrorMessage"] = "El Número o tipo de identificación son incorrectos";
@@ -73,6 +113,31 @@ namespace DocumentManagement.Web.Controllers
 
             if (!string.IsNullOrEmpty(Request["ButtonLegalTerms"]) && Request["ButtonLegalTerms"] == "true")
             {
+                var FormStepId = 0;
+                var LegalTermsModelStep = new StepModel();
+                var LegalTermsStepId = 0;
+
+                foreach (var Form in RealtedCustomer.RelatedForm)
+                {
+                    foreach (var Steps in Form.RelatedStep)
+                    {
+                        foreach (var Fields in Steps.RelatedField)
+                        {
+                            if (Fields.ProviderInfoType.ItemId == 363 || Fields.ProviderInfoType.ItemId == 364)
+                            {
+                                LegalTermsStepId = Steps.StepId;
+                            }
+                        }
+
+                    }
+                }
+                LegalTermsModelStep = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+
+                RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
+
+                FormStepId = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.FirstOrDefault().StepId;
+
+
                 //legal terms success
                 return RedirectToAction
                     (MVC.ProviderForm.ActionNames.Index,
@@ -81,13 +146,7 @@ namespace DocumentManagement.Web.Controllers
                     {
                         ProviderPublicId = ProviderPublicId,
                         FormPublicId = FormPublicId,
-                        StepId = RealtedCustomer.
-                            RelatedForm.
-                            Where(x => x.FormPublicId == FormPublicId).
-                            FirstOrDefault().
-                            RelatedStep.OrderBy(x => x.Position).
-                            FirstOrDefault().
-                            StepId,
+                        StepId = FormStepId,
                     });
             }
 
@@ -140,6 +199,29 @@ namespace DocumentManagement.Web.Controllers
                 //upsert fields in database
                 DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
 
+                var FormStepId = 0;
+                var LegalTermsModelStep = new StepModel();
+                var LegalTermsStepId = 0;
+
+                foreach (var Form in RealtedCustomer.RelatedForm)
+                {
+                    foreach (var Steps in Form.RelatedStep)
+                    {
+                        foreach (var Fields in Steps.RelatedField)
+                        {
+                            if (Fields.ProviderInfoType.ItemId == 363 || Fields.ProviderInfoType.ItemId == 364)
+                            {
+                                LegalTermsStepId = Steps.StepId;
+                            }
+                        }
+                        
+                    }
+                }
+                LegalTermsModelStep = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+
+                RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
+
+                FormStepId = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.FirstOrDefault().StepId;
                 //legal terms success
                 return RedirectToAction
                     (MVC.ProviderForm.ActionNames.Index,
@@ -148,13 +230,7 @@ namespace DocumentManagement.Web.Controllers
                     {
                         ProviderPublicId = ProviderPublicId,
                         FormPublicId = FormPublicId,
-                        StepId = RealtedCustomer.
-                            RelatedForm.
-                            Where(x => x.FormPublicId == FormPublicId).
-                            FirstOrDefault().
-                            RelatedStep.OrderBy(x => x.Position).
-                            FirstOrDefault().
-                            StepId,
+                        StepId = FormStepId,
                     });
             }
 
@@ -168,19 +244,19 @@ namespace DocumentManagement.Web.Controllers
                 errorMessage = msg != null ? msg : string.Empty,
             };
 
+
+            bool returnLegalTerms = false;
+
             oModel.RealtedCustomer.RelatedForm.All(frm =>
             {
-                frm.RelatedStep.Where(stp => stp.StepId == (int)enumLegalTerms.LegalStep).All(stp =>
-                {
-                    if (stp.RelatedField != null &&
-                        stp.RelatedField.Count > 0)
-                    {
-                        stp.RelatedField.All(fld =>
-                        {
-                            oModel.RelatedLegalTermsResource = new ProviderLegalTermsResource(fld);
 
-                            return true;
-                        });
+                frm.RelatedStep.All(stp =>
+                {
+                    if (stp.RelatedField.Any(fld => fld.ProviderInfoType.ItemId == (int)enumLegalTerms.LegalTermsNational || fld.ProviderInfoType.ItemId == (int)enumLegalTerms.LegalTermsNational))
+                    {
+                        oModel.RelatedLegalTermsResource = new ProviderLegalTermsResource(stp.RelatedField.Where(fld => fld.ProviderInfoType.ItemId == (int)enumLegalTerms.LegalTermsNational || fld.ProviderInfoType.ItemId == (int)enumLegalTerms.LegalTermsNational).Select(fld => fld).FirstOrDefault());
+
+                        returnLegalTerms = true;
                     }
 
                     return true;
@@ -188,6 +264,19 @@ namespace DocumentManagement.Web.Controllers
 
                 return true;
             });
+
+            if (!returnLegalTerms)
+            {
+                //legal terms canceled
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                    });
+            }
 
             if (oModel.RealtedProvider != null &&
                 oModel.RealtedProvider.RelatedProviderInfo != null &&
