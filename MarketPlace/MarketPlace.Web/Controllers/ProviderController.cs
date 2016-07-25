@@ -73,10 +73,11 @@ namespace MarketPlace.Web.Controllers
                 ElasticClient client = new ElasticClient(settings);                
                 
                 var searchResults = client.Search<CompanyIndexModel>(s => s
+                .AllTypes()
                 .From(0)
                 .Size(20)
                 .Query(q => q
-                     .Term(p => p, SearchParam)
+                     .Term(p => p.CompanyName, SearchParam)
                 ));
 
                 if (searchResults != null)
