@@ -64,7 +64,7 @@
                                 <input class="CheckLegalTerms" type="checkbox" name="CheckLegalTerms" id="CheckLegalTerms" value="true" />
                             }
 
-                            <input type="hidden" name="LegalTermsValueId" id="LegalTermsValueId" value="@(Model.RelatedLegalTermsData != null ? Model.RelatedLegalTermsData.oProviderInfo.ProviderInfoId : 0)" />
+                            <input type="hidden" name="LegalTermsValueId" id="LegalTermsValueId" value="@(Model.RelatedLegalTermsData != null && Model.RelatedLegalTermsData.oProviderInfo != null ? Model.RelatedLegalTermsData.oProviderInfo.ProviderInfoId : 0)" />
                             <input type="hidden" name="LegalTermsTypeId" id="LegalTermsTypeId" value="@Model.RelatedLegalTermsResource.oProviderLegalTermsType.ItemId" />
                         </div>
                         <div class="col-xs-11 LegalTextHeader">

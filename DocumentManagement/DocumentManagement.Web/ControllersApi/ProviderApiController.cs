@@ -31,11 +31,10 @@ namespace DocumentManagement.Web.ControllersApi
                 prv.RelatedProviderCustomerInfo.All(y =>
                            {
                                if (y.ProviderInfoType.ItemId == 403)
-                                   y.Value = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Path_SalesForce].Value + y.Value;
+                                   y.Value = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Path_SalesForce].Value + y.Value;                            
                                return true;
                            }); 
-                #endregion
-
+                #endregion                
                 oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
                 {
                     RelatedProvider = prv,
@@ -47,6 +46,7 @@ namespace DocumentManagement.Web.ControllersApi
                     checkDigitInfoId = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 378).Select(x => x.ProviderInfoId).FirstOrDefault() == null ? 0 : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 378).Select(x => x.ProviderInfoId).FirstOrDefault(),
                     oTotalRows = oTotalRows
                 });
+                
                 return true;
             });
 
