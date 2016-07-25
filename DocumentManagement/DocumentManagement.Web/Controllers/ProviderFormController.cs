@@ -28,7 +28,7 @@ namespace DocumentManagement.Web.Controllers
                         DocumentManagement.Provider.Models.Provider.ProviderInfoModel oProviderInfoModel =
                         oProviderModel.RelatedProviderInfo.Where(pinf => pinf.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || pinf.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal).Select(pinf => pinf).FirstOrDefault();
 
-                        if (oProviderInfoModel == null)
+                        if (oProviderInfoModel == null || string.IsNullOrEmpty(oProviderInfoModel.Value))
                         {
                             //legal terms empty
                             return RedirectToAction
