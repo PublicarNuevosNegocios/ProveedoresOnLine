@@ -15,6 +15,48 @@ namespace DocumentManagement.Web.Controllers
     {
         public virtual ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId, string msg)
         {
+            DocumentManagement.Provider.Models.Provider.ProviderModel oProviderModel = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null);
+
+            if (SessionModel.CurrentLoginUser == null)
+            {
+                if (!string.IsNullOrEmpty(StepId) &&
+                    oProviderModel != null)
+                {
+                    if (oProviderModel.RelatedProviderInfo != null &&
+                        oProviderModel.RelatedProviderInfo.Count > 0)
+                    {
+                        DocumentManagement.Provider.Models.Provider.ProviderInfoModel oProviderInfoModel =
+                        oProviderModel.RelatedProviderInfo.Where(pinf => pinf.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || pinf.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal).Select(pinf => pinf).FirstOrDefault();
+
+                        if (oProviderInfoModel == null)
+                        {
+                            //legal terms empty
+                            return RedirectToAction
+                                (MVC.ProviderForm.ActionNames.Index,
+                                MVC.ProviderForm.Name,
+                                new
+                                {
+                                    ProviderPublicId = ProviderPublicId,
+                                    FormPublicId = FormPublicId,
+                                });
+                        }
+                    }
+                    else
+                    {
+                        //legal terms empty
+                        return RedirectToAction
+                            (MVC.ProviderForm.ActionNames.Index,
+                            MVC.ProviderForm.Name,
+                            new
+                            {
+                                ProviderPublicId = ProviderPublicId,
+                                FormPublicId = FormPublicId,
+                            });
+                    }
+
+
+                }
+            }
             int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
 
             string oCurrentActionName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
@@ -51,52 +93,6 @@ namespace DocumentManagement.Web.Controllers
                     Where(x => x.StepId == (int)oStepId).
                     FirstOrDefault();
             }
-            var LegalTermsModelStep = new StepModel();
-            var LegalTermsStepId = 0;
-
-            if (oModel.RealtedForm.RelatedStep.FirstOrDefault().RelatedField != null && oModel.RealtedForm.RelatedStep.FirstOrDefault().RelatedField.Count > 0 )
-            {
-                
-                foreach (var Steps in oModel.RealtedForm.RelatedStep)
-                {
-                    foreach (var Fields in Steps.RelatedField)
-                    {
-                        if (Fields.ProviderInfoType.ItemId == 363 || Steps.RelatedField.FirstOrDefault().ProviderInfoType.ItemId == 364)
-                        {
-                            LegalTermsStepId = Steps.StepId;
-                        }
-                    }
-                    
-                }
-                LegalTermsModelStep = oModel.RealtedForm.RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
-
-                if (oStepId == LegalTermsStepId)
-                {
-                    var LegalTermsField = oModel.RealtedProvider.RelatedProviderInfo.Where(x => x.ProviderInfoType.ItemId == 363).FirstOrDefault().Value;
-
-                    if (LegalTermsField == "true")
-                    {
-                        oModel.RealtedForm.RelatedStep.Remove(LegalTermsModelStep);
-                        oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
-                    }
-                }
-                else
-                {
-                    oModel.RealtedForm.RelatedStep.Remove(LegalTermsModelStep);
-                    oStepId = oModel.RealtedForm.RelatedStep.FirstOrDefault().StepId;
-                }
-            }
-            else
-            {
-                return RedirectToAction
-                    (MVC.ProviderForm.ActionNames.Index,
-                    MVC.ProviderForm.Name,
-                    new
-                    {
-                        ProviderPublicId = ProviderPublicId,
-                        FormPublicId = FormPublicId,
-                    });
-            }
 
             if (msg != null)
             {
@@ -131,11 +127,24 @@ namespace DocumentManagement.Web.Controllers
 
                     }
                 }
-                LegalTermsModelStep = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+                LegalTermsModelStep = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+                if (LegalTermsModelStep != null)
+                {
+                    RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
+                }
 
-                RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
 
-                FormStepId = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.FirstOrDefault().StepId;
+                FormStepId = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId;
 
 
                 //legal terms success
@@ -214,14 +223,27 @@ namespace DocumentManagement.Web.Controllers
                                 LegalTermsStepId = Steps.StepId;
                             }
                         }
-                        
+
                     }
                 }
-                LegalTermsModelStep = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+                LegalTermsModelStep = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+                if (LegalTermsModelStep != null)
+                {
+                    RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
+                }
 
-                RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
 
-                FormStepId = RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.FirstOrDefault().StepId;
+                FormStepId = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId;
                 //legal terms success
                 return RedirectToAction
                     (MVC.ProviderForm.ActionNames.Index,
@@ -240,7 +262,7 @@ namespace DocumentManagement.Web.Controllers
             {
                 ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
                 RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
-                RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
+                RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null),
                 errorMessage = msg != null ? msg : string.Empty,
             };
 
@@ -329,38 +351,79 @@ namespace DocumentManagement.Web.Controllers
                 DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
                     DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
 
-                //loggin success
-                //return RedirectToAction
-                //    (MVC.ProviderForm.ActionNames.Index,
-                //    MVC.ProviderForm.Name,
-                //    new
-                //    {
-                //        ProviderPublicId = ProviderPublicId,
-                //        FormPublicId = FormPublicId,
-                //        StepId = RealtedCustomer.
-                //            RelatedForm.
-                //            Where(x => x.FormPublicId == FormPublicId).
-                //            FirstOrDefault().
-                //            RelatedStep.OrderBy(x => x.Position).
-                //            FirstOrDefault().
-                //            StepId,
-                //    });
+                var LegalTermsStepId = 0;
 
-                return RedirectToAction
-                    (MVC.ProviderForm.ActionNames.LegalTerms,
+                foreach (var Form in RealtedCustomer.RelatedForm)
+                {
+                    foreach (var Steps in Form.RelatedStep)
+                    {
+                        foreach (var Fields in Steps.RelatedField)
+                        {
+                            if (Fields.ProviderInfoType.ItemId == 363 || Fields.ProviderInfoType.ItemId == 364)
+                            {
+                                LegalTermsStepId = Steps.StepId;
+                            }
+
+                        }
+                    }
+                }
+
+                //Validación de que existe el paso de términos y condiciones en el formulario
+                if (LegalTermsStepId > 0)
+                {
+
+                    if (SessionModel.CurrentLoginUser != null)
+                    {
+
+
+                        return RedirectToAction
+                         (MVC.ProviderForm.ActionNames.Index,
+                         MVC.ProviderForm.Name,
+                         new
+                         {
+                             ProviderPublicId = ProviderPublicId,
+                             FormPublicId = FormPublicId,
+                             StepId = RealtedCustomer.
+                                 RelatedForm.
+                                 Where(x => x.FormPublicId == FormPublicId).
+                                 FirstOrDefault().
+                                 RelatedStep.OrderBy(x => x.Position).
+                                 FirstOrDefault().
+                                 StepId,
+                         });
+                    }
+                    else
+                    {
+                        return RedirectToAction
+                         (MVC.ProviderForm.ActionNames.LegalTerms,
+                         MVC.ProviderForm.Name,
+                         new
+                         {
+                             ProviderPublicId = ProviderPublicId,
+                             FormPublicId = FormPublicId,
+                             StepId = RealtedCustomer.
+                                 RelatedForm.
+                                 Where(x => x.FormPublicId == FormPublicId).
+                                 FirstOrDefault().
+                                 RelatedStep.OrderBy(x => x.Position).
+                                 FirstOrDefault().
+                                 StepId,
+                         });
+                    }
+                }
+                else
+                {
+                    return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
                     MVC.ProviderForm.Name,
                     new
                     {
                         ProviderPublicId = ProviderPublicId,
                         FormPublicId = FormPublicId,
-                        StepId = RealtedCustomer.
-                            RelatedForm.
-                            Where(x => x.FormPublicId == FormPublicId).
-                            FirstOrDefault().
-                            RelatedStep.OrderBy(x => x.Position).
-                            FirstOrDefault().
-                            StepId,
+                        StepId = string.Empty,
+                        msg = "El formulario no contiene el modulo de términos legales"
                     });
+                }
             }
             else
             {
