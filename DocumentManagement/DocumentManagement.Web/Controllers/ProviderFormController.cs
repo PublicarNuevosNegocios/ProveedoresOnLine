@@ -57,6 +57,7 @@ namespace DocumentManagement.Web.Controllers
 
                 }
             }
+
             int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
 
             string oCurrentActionName = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
@@ -106,16 +107,17 @@ namespace DocumentManagement.Web.Controllers
 
                     }
                 }
+
                 LegalTermsModelStep = oModel.RealtedCustomer.
                             RelatedForm.
                             Where(x => x.FormPublicId == FormPublicId).
                             FirstOrDefault().
                             RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+
                 if (LegalTermsModelStep != null)
                 {
                     oModel.RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
                 }
-
 
                 FormStepId = oModel.RealtedCustomer.
                             RelatedForm.
@@ -388,6 +390,7 @@ namespace DocumentManagement.Web.Controllers
                     DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
 
                 var LegalTermsStepId = 0;
+                var LegalTermsModelStep = new StepModel();
 
                 foreach (var Form in RealtedCustomer.RelatedForm)
                 {
@@ -407,10 +410,15 @@ namespace DocumentManagement.Web.Controllers
                 //Validación de que existe el paso de términos y condiciones en el formulario
                 if (LegalTermsStepId > 0)
                 {
-
                     if (SessionModel.CurrentLoginUser != null)
                     {
+                        LegalTermsModelStep = RealtedCustomer.
+                                    RelatedForm.
+                                    Where(x => x.FormPublicId == FormPublicId).
+                                    FirstOrDefault().
+                                    RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
 
+                        RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
 
                         return RedirectToAction
                          (MVC.ProviderForm.ActionNames.Index,
