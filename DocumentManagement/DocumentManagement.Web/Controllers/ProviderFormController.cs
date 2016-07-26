@@ -88,6 +88,42 @@ namespace DocumentManagement.Web.Controllers
 
             if (oStepId != null)
             {
+                var FormStepId = 0;
+                var LegalTermsModelStep = new StepModel();
+                var LegalTermsStepId = 0;
+
+                foreach (var Form in oModel.RealtedCustomer.RelatedForm)
+                {
+                    foreach (var Steps in Form.RelatedStep)
+                    {
+                        foreach (var Fields in Steps.RelatedField)
+                        {
+                            if (Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal)
+                            {
+                                LegalTermsStepId = Steps.StepId;
+                            }
+                        }
+
+                    }
+                }
+                LegalTermsModelStep = oModel.RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.Where(x => x.StepId == LegalTermsStepId).FirstOrDefault();
+                if (LegalTermsModelStep != null)
+                {
+                    oModel.RealtedCustomer.RelatedForm.FirstOrDefault().RelatedStep.Remove(LegalTermsModelStep);
+                }
+
+
+                FormStepId = oModel.RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId;
 
                 oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
                     Where(x => x.StepId == (int)oStepId).
@@ -119,7 +155,7 @@ namespace DocumentManagement.Web.Controllers
                     {
                         foreach (var Fields in Steps.RelatedField)
                         {
-                            if (Fields.ProviderInfoType.ItemId == 363 || Fields.ProviderInfoType.ItemId == 364)
+                            if (Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal)
                             {
                                 LegalTermsStepId = Steps.StepId;
                             }
@@ -218,7 +254,7 @@ namespace DocumentManagement.Web.Controllers
                     {
                         foreach (var Fields in Steps.RelatedField)
                         {
-                            if (Fields.ProviderInfoType.ItemId == 363 || Fields.ProviderInfoType.ItemId == 364)
+                            if (Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal)
                             {
                                 LegalTermsStepId = Steps.StepId;
                             }
@@ -359,7 +395,7 @@ namespace DocumentManagement.Web.Controllers
                     {
                         foreach (var Fields in Steps.RelatedField)
                         {
-                            if (Fields.ProviderInfoType.ItemId == 363 || Fields.ProviderInfoType.ItemId == 364)
+                            if (Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.LegalTermsNational || Fields.ProviderInfoType.ItemId == (int)DocumentManagement.Models.General.enumLegalTerms.legalTermsExternal)
                             {
                                 LegalTermsStepId = Steps.StepId;
                             }

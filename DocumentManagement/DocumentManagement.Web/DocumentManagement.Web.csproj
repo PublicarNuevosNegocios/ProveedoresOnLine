@@ -516,6 +516,7 @@
     <Content Include="fonts\OpenSans-Regular.ttf" />
     <Content Include="fonts\OpenSans-Regular.woff" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
+    <None Include="Properties\PublishProfiles\DiegoFDocumentMgnt.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MGD.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian.pubxml" />
