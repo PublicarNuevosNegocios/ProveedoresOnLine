@@ -24,7 +24,7 @@
     
     <key name="ElasticSearch_Url">http://192.168.0.94:9200/</key>
     
-    <key name="CompanyIndex">devcompanyidex</key>
+    <key name="CompanyIndex">devcompanyindex</key>
       
     <key name="Analytics">
       <![CDATA[
