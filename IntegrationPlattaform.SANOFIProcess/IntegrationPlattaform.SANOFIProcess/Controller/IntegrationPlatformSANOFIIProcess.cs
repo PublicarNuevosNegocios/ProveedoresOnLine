@@ -294,7 +294,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].TaxClassName + strSep +
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CurrencyName + strSep +
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].Ramo + strSep +
-                          x.PayCondition + strSep +                          
+                          "00" + x.PayCondition + strSep +                          
                           x.GroupSchemaProvider + strSep +
                           ContactName + strSep +
                           "1" + strSep +
