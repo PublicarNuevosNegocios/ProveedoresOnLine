@@ -187,6 +187,13 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult TKThirdKnowledgeSearch(string PageNumber, string InitDate, string EndDate, string SearchType, string Status)
         {
+            string RelatedUser = null;
+
+            if (SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.Where(x => x.CurrentSessionCompany == true).Select(x => x.RelatedUser.FirstOrDefault().RelatedCompanyRole.ParentRoleCompany).FirstOrDefault() != null)
+            {
+                RelatedUser = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.Where(x => x.CurrentSessionCompany == true).Select(x => x.RelatedUser.FirstOrDefault().User).FirstOrDefault();
+            }
+
             ProviderViewModel oModel = new ProviderViewModel();
             oModel.RelatedThidKnowledgeSearch = new ThirdKnowledgeViewModel();
             List<ProveedoresOnLine.ThirdKnowledge.Models.TDQueryModel> oQueryModel = new List<TDQueryModel>();
@@ -207,6 +214,7 @@ namespace MarketPlace.Web.Controllers
 
             oQueryModel = ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.ThirdKnowledgeSearch(
                 SessionModel.CurrentCompany.CompanyPublicId,
+                RelatedUser,
                 !string.IsNullOrEmpty(InitDate) ? InitDate : "",
                 !string.IsNullOrEmpty(EndDate) ? EndDate : "",
                 oModel.RelatedThidKnowledgeSearch.RelatedThidKnowledgePager.PageNumber,
