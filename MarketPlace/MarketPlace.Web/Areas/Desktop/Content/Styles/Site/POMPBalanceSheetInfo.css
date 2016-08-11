@@ -244,7 +244,15 @@
         margin: 3px 0px 3px 0px !important;
         font-weight: bold;
     }
-
+    .POMPBalanceSheetContentFormulaFieldsTitle > span {
+        letter-spacing: -0.5px;
+        background-color: orange !important;
+        padding: 5px 1px 5px 1px;
+        line-height: 1.06em;
+        display: inline-block;
+        margin: 3px 0px 3px 0px !important;
+        font-weight: bold;
+    }
 .FormulaFieldsColumnOne {
     width: 22%;
     height: 28px !important;
@@ -252,6 +260,13 @@
     text-transform: uppercase;
 }
 
+.FormulaFieldsColumnOneTitle {
+    width: 22%;
+    height: 28px !important;
+    padding: 5px 2px 0 4px !important;
+    text-transform: uppercase;
+    background-color: orange;
+}
 .FormulaFieldsColumnTwo,
 .FormulaFieldsColumnThree,
 .FormulaFieldsColumnFour {
