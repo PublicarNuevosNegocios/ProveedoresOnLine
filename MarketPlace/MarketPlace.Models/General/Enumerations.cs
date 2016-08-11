@@ -364,6 +364,7 @@
         BI_CurrentActive = 3118,
         BI_CurrentPassive = 3120,
         BI_Altman = 4930,
+        BI_PasivePatrimony = 4931,
         BI_ExerciseUtility = 3820,
         BI_EBITDA = 4914,
 

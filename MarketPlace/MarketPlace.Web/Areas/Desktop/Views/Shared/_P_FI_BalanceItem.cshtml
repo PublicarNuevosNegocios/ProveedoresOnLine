@@ -33,21 +33,42 @@
     if (!string.IsNullOrEmpty(Model.AccountFormula))
     {
         <!--formula field-->
-        <li class="POMPBalanceSheetContentFormulaFields">
-            <span class="FormulaFieldsColumnOne">@Model.RelatedAccount.ItemName</span>
-            @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
-            {
-                <span class="FormulaFieldsColumnTwo">
-                    @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
+        if (@Model.RelatedAccount.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalActive || @Model.RelatedAccount.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalPassive || @Model.RelatedAccount.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_PasivePatrimony || @Model.RelatedAccount.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_ExerciseUtility)
+        {
+            <li class="POMPBalanceSheetContentFormulaFieldsTitle">
+                <span class="FormulaFieldsColumnOneTitle">@Model.RelatedAccount.ItemName</span>
+                @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                {
+                    <span class="FormulaFieldsColumnTwo">
+                        @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
+                    </span>
+                    <span class="FormulaFieldsColumnThree">
+                        @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
+                    </span>
+                }
+                <span class="FormulaFieldsColumnFour">
+                    @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##")) <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
                 </span>
-                <span class="FormulaFieldsColumnThree">
-                    @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
+            </li>
+        }
+        else
+        {
+            <li class="POMPBalanceSheetContentFormulaFields">
+                <span class="FormulaFieldsColumnOne">@Model.RelatedAccount.ItemName</span>
+                @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
+                {
+                    <span class="FormulaFieldsColumnTwo">
+                        @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
+                    </span>
+                    <span class="FormulaFieldsColumnThree">
+                        @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
+                    </span>
+                }
+                <span class="FormulaFieldsColumnFour">
+                    @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##")) <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
                 </span>
-            }
-            <span class="FormulaFieldsColumnFour">
-                @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##")) <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
-            </span>
-        </li>
+            </li>
+        }
     }
     else
     {

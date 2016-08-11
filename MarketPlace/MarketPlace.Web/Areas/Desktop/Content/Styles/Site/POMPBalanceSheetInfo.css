@@ -114,6 +114,7 @@
         .POMPBalanceSheetContent ul li {
             /*border:1px solid green;*/
             background-color: #fff;
+            padding-top: 5px;
         }
 
             .POMPBalanceSheetContent ul li ul {
@@ -245,11 +246,30 @@
         font-weight: bold;
     }
 
+.POMPBalanceSheetContentFormulaFieldsTitle > span {
+    letter-spacing: -0.5px;
+    background-color: rgb(255, 131, 0) !important;
+    padding: 5px 1px 5px 1px;
+    line-height: 1.06em;
+    display: inline-block;
+    margin: 3px 0px 3px 0px !important;
+    /* font-weight: bold; */
+    color: #fff;
+}
+
 .FormulaFieldsColumnOne {
     width: 22%;
     height: 28px !important;
     padding: 5px 2px 0 4px !important;
     text-transform: uppercase;
+}
+
+.FormulaFieldsColumnOneTitle {
+    width: 22%;
+    height: 28px !important;
+    padding: 5px 2px 0 4px !important;
+    text-transform: uppercase;
+    background-color: orange;
 }
 
 .FormulaFieldsColumnTwo,
