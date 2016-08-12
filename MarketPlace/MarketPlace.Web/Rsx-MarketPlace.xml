@@ -70,7 +70,7 @@
     <key name="Company_Error_Gear3">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/gear3.png</key>
 
     <!--Report Path-->
-    <key name="MP_CP_ReportPath">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
+    <key name="MP_CP_ReportPath">D:\ProveedoresOnLine\ProveedoresOnLine.Reports\ProveedoresOnLine.Reports\Reports\</key>
 
     <!--ThirdKnowledgeReportText-->
     <key name="TK_TextImage"><![CDATA[https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/ThirdKnowledgeText.PNG]]></key>

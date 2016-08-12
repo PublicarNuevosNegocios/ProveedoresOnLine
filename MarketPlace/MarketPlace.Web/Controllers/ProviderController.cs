@@ -4341,6 +4341,7 @@ namespace MarketPlace.Web.Controllers
             LegalData.Columns.Add("LegalRuleValue");
             LegalData.Columns.Add("LegalRuleValueType");
             LegalData.Columns.Add("LegalRuleResult");
+            LegalData.Columns.Add("LegalRuleScore");
             DataRow row1;
 
             DataTable FinancialData = new DataTable();
@@ -4351,7 +4352,7 @@ namespace MarketPlace.Web.Controllers
             FinancialData.Columns.Add("FinancialRuleValue");
             FinancialData.Columns.Add("FinancialRuleValueType");
             FinancialData.Columns.Add("FinancialRuleResult");
-
+            FinancialData.Columns.Add("FinancialRuleScore");
             DataRow row2;
 
             DataTable CommercialData = new DataTable();
@@ -4361,6 +4362,7 @@ namespace MarketPlace.Web.Controllers
             CommercialData.Columns.Add("CommercialRuleValue");
             CommercialData.Columns.Add("CommercialRuleValueType");
             CommercialData.Columns.Add("CommercialRuleResult");
+            CommercialData.Columns.Add("CommercialRuleScore");
             DataRow row3;
 
             DataTable CertificationData = new DataTable();
@@ -4371,6 +4373,7 @@ namespace MarketPlace.Web.Controllers
             CertificationData.Columns.Add("CertificationRuleValue");
             CertificationData.Columns.Add("CertificationRuleValueType");
             CertificationData.Columns.Add("CertificationRuleResult");
+            CertificationData.Columns.Add("CertificationRuleScore");
             DataRow row4;
 
             DataTable BalanceData = new DataTable();
@@ -4380,6 +4383,7 @@ namespace MarketPlace.Web.Controllers
             BalanceData.Columns.Add("BalanceRuleValue");
             BalanceData.Columns.Add("BalanceRuleValueType");
             BalanceData.Columns.Add("BalanceRuleResult");
+            BalanceData.Columns.Add("BalanceRuleScore");
             DataRow row5;
 
             DataTable ValidateData = new DataTable();
@@ -4422,7 +4426,8 @@ namespace MarketPlace.Web.Controllers
                                     row1["LegalRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row1["LegalRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row1["LegalRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                    row1["LegalRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
+                                    row1["LegalRuleScore"] = CalificationProjectConfigItemInfo.Score;
+                                    row1["LegalRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;                                    
                                     LegalData.Rows.Add(row1);
                                 }
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
@@ -4435,6 +4440,7 @@ namespace MarketPlace.Web.Controllers
                                     row2["FinancialRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row2["FinancialRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row2["FinancialRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row2["FianacialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row2["FinancialRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
                                     FinancialData.Rows.Add(row2);
                                 }
@@ -4448,6 +4454,7 @@ namespace MarketPlace.Web.Controllers
                                     row3["CommercialRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row3["CommercialRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row3["CommercialRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row3["CommercialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row3["CommercialRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
                                     CommercialData.Rows.Add(row3);
                                 }
@@ -4461,6 +4468,7 @@ namespace MarketPlace.Web.Controllers
                                     row4["CertificationRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row4["CertificationRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row4["CertificationRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row4["CertificationRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row4["CertificationRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
                                     CertificationData.Rows.Add(row4);
                                 }
@@ -4474,6 +4482,7 @@ namespace MarketPlace.Web.Controllers
                                     row5["BalanceRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row5["BalanceRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row5["BalanceRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
+                                    row5["BalanceRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row5["BalanceRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
                                     BalanceData.Rows.Add(row5);
                                 }
@@ -4483,7 +4492,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.LegalModule)
                                 {
-                                    LegalScore = "0";
+                                    LegalScore = CalificaitonProjectItemBatch.ItemScore.ToString();
                                     LegalTotalScore += int.Parse(CalificationProjectConfigItemInfo.Score);
                                     row1 = LegalData.NewRow();
                                     LegalName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
@@ -4491,13 +4500,14 @@ namespace MarketPlace.Web.Controllers
                                     row1["LegalRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                     row1["LegalRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                     row1["LegalRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row1["LegalRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row1["LegalRuleResult"] = "0";
                                     LegalData.Rows.Add(row1);
 
                                 }
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.FinancialModule)
                                 {
-                                    FinancialScore = "0";
+                                    FinancialScore = CalificaitonProjectItemBatch.ItemScore.ToString();
                                     FinancialTotalScore += int.Parse(CalificationProjectConfigItemInfo.Score);
                                     row2 = FinancialData.NewRow();
                                     FinancialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
@@ -4505,12 +4515,13 @@ namespace MarketPlace.Web.Controllers
                                     row2["FinancialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                     row2["FinancialRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                     row2["FinancialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row2["FinancialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row2["FinancialRuleResult"] = "0";
                                     FinancialData.Rows.Add(row2);
                                 }
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.CommercialModule)
                                 {
-                                    CommercialScore = "0";
+                                    CommercialScore = CalificaitonProjectItemBatch.ItemScore.ToString();
                                     CommercialTotalScore += int.Parse(CalificationProjectConfigItemInfo.Score);
                                     row3 = CommercialData.NewRow();
                                     CommercialName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
@@ -4518,12 +4529,13 @@ namespace MarketPlace.Web.Controllers
                                     row3["CommercialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                     row3["CommercialRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                     row3["CommercialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row3["CommercialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row3["CommercialRuleResult"] = "0";
                                     CommercialData.Rows.Add(row3);
                                 }
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.HSEQModule)
                                 {
-                                    HSEQScore = "0";
+                                    HSEQScore = CalificaitonProjectItemBatch.ItemScore.ToString();
                                     HSEQTotalScore += int.Parse(CalificationProjectConfigItemInfo.Score);
                                     row4 = CertificationData.NewRow();
                                     HSEQName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
@@ -4531,12 +4543,13 @@ namespace MarketPlace.Web.Controllers
                                     row4["CertificationRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                     row4["CertificationRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                     row4["CertificationRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row4["CertificationRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row4["CertificationRuleResult"] = "0";
                                     CertificationData.Rows.Add(row4);
                                 }
                                 else if (CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemId == (int)MarketPlace.Models.General.CalificationProjectModule.BalanceModule)
                                 {
-                                    BalanceScore = "0";
+                                    BalanceScore = CalificaitonProjectItemBatch.ItemScore.ToString();
                                     BalanceTotalScore += int.Parse(CalificationProjectConfigItemInfo.Score);
                                     row5 = BalanceData.NewRow();
                                     BalanceName = CalificationProjectConfigItem.CalificationProjectConfigItemName != "" ? CalificationProjectConfigItem.CalificationProjectConfigItemName : CalificationProjectConfigItem.CalificationProjectConfigItemType.ItemName;
@@ -4544,6 +4557,7 @@ namespace MarketPlace.Web.Controllers
                                     row5["BalanceRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                     row5["BalanceRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                     row5["BalanceRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                    row5["BalanceRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row5["BalanceRuleResult"] = "0";
                                     BalanceData.Rows.Add(row5);
                                 }
@@ -4564,6 +4578,7 @@ namespace MarketPlace.Web.Controllers
                                 row1["LegalRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                 row1["LegalRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                 row1["LegalRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row1["LegalRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                 row1["LegalRuleResult"] = "0";
                                 LegalData.Rows.Add(row1);
 
@@ -4578,6 +4593,7 @@ namespace MarketPlace.Web.Controllers
                                 row2["FinancialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                 row2["FinancialRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                 row2["FinancialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row2["FinancialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                 row2["FinancialRuleResult"] = "0";
                                 FinancialData.Rows.Add(row2);
                             }
@@ -4591,6 +4607,7 @@ namespace MarketPlace.Web.Controllers
                                 row3["CommercialRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                 row3["CommercialRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                 row3["CommercialRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row3["CommercialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                 row3["CommercialRuleResult"] = "0";
                                 CommercialData.Rows.Add(row3);
                             }
@@ -4604,6 +4621,7 @@ namespace MarketPlace.Web.Controllers
                                 row4["CertificationRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                 row4["CertificationRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                 row4["CertificationRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row4["CertificationRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                 row4["CertificationRuleResult"] = "0";
                                 CertificationData.Rows.Add(row4);
                             }
@@ -4617,6 +4635,7 @@ namespace MarketPlace.Web.Controllers
                                 row5["BalanceRuleOperator"] = CalificationProjectConfigItemInfo.Rule.ItemName;
                                 row5["BalanceRuleValue"] = CalificationProjectConfigItemInfo.Value;
                                 row5["BalanceRuleValueType"] = CalificationProjectConfigItemInfo.ValueType.ItemName;
+                                row5["BalanceRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                 row5["BalanceRuleResult"] = "0";
                                 BalanceData.Rows.Add(row5);
                             }

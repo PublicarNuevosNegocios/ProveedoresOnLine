@@ -291,6 +291,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnBalanceName;
             
+            private global::System.Data.DataColumn columnBalanceRuleScore;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DT_CalificationBalanceDataTable() {
@@ -374,6 +376,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BalanceRuleScoreColumn {
+                get {
+                    return this.columnBalanceRuleScore;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -409,7 +419,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DT_CalificationBalanceRow AddDT_CalificationBalanceRow(string BalanceRuleName, string BalanceRuleOperator, string BalanceRuleValue, string BalanceRuleResult, string BalanceRuleValueType, string BalanceName) {
+            public DT_CalificationBalanceRow AddDT_CalificationBalanceRow(string BalanceRuleName, string BalanceRuleOperator, string BalanceRuleValue, string BalanceRuleResult, string BalanceRuleValueType, string BalanceName, string BalanceRuleScore) {
                 DT_CalificationBalanceRow rowDT_CalificationBalanceRow = ((DT_CalificationBalanceRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         BalanceRuleName,
@@ -417,7 +427,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         BalanceRuleValue,
                         BalanceRuleResult,
                         BalanceRuleValueType,
-                        BalanceName};
+                        BalanceName,
+                        BalanceRuleScore};
                 rowDT_CalificationBalanceRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDT_CalificationBalanceRow);
                 return rowDT_CalificationBalanceRow;
@@ -446,6 +457,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnBalanceRuleResult = base.Columns["BalanceRuleResult"];
                 this.columnBalanceRuleValueType = base.Columns["BalanceRuleValueType"];
                 this.columnBalanceName = base.Columns["BalanceName"];
+                this.columnBalanceRuleScore = base.Columns["BalanceRuleScore"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -463,6 +475,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnBalanceRuleValueType);
                 this.columnBalanceName = new global::System.Data.DataColumn("BalanceName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBalanceName);
+                this.columnBalanceRuleScore = new global::System.Data.DataColumn("BalanceRuleScore", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBalanceRuleScore);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -706,6 +720,23 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BalanceRuleScore {
+                get {
+                    try {
+                        return ((string)(this[this.tableDT_CalificationBalance.BalanceRuleScoreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BalanceRuleScore\' in table \'DT_CalificationBalance\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableDT_CalificationBalance.BalanceRuleScoreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsBalanceRuleNameNull() {
                 return this.IsNull(this.tableDT_CalificationBalance.BalanceRuleNameColumn);
             }
@@ -774,6 +805,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetBalanceNameNull() {
                 this[this.tableDT_CalificationBalance.BalanceNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBalanceRuleScoreNull() {
+                return this.IsNull(this.tableDT_CalificationBalance.BalanceRuleScoreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBalanceRuleScoreNull() {
+                this[this.tableDT_CalificationBalance.BalanceRuleScoreColumn] = global::System.Convert.DBNull;
             }
         }
         
