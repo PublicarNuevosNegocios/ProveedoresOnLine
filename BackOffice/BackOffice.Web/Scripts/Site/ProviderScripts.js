@@ -440,34 +440,34 @@ var Provider_CompanyContactObject = {
                             ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
-                            CP_PersonContactType: { editable: true },
+                            CP_PersonContactType: { editable: true, validation: { required: false } },                            
                             CP_PersonContactTypeId: { editable: false },
 
-                            CP_IdentificationType: { editable: true },
+                            CP_IdentificationType: { editable: true, validation: { required: false } },
                             CP_IdentificationTypeId: { editable: false },
 
-                            CP_IdentificationNumber: { editable: true },
+                            CP_IdentificationNumber: { editable: true, validation: { required: false } },
                             CP_IdentificationNumberId: { editable: false },
 
-                            CP_IdentificationCity: { editable: true },
+                            CP_IdentificationCity: { editable: true, validation: { required: false } },
                             CP_IdentificationCityId: { editable: false },
 
-                            CP_IdentificationFile: { editable: true },
+                            CP_IdentificationFile: { editable: true, validation: { required: false } },
                             CP_IdentificationFileId: { editable: false },
 
                             CP_Name: { editable: true, validation: { required: true } },
                             CP_NameId: { editable: false },
 
-                            CP_Phone: { editable: true },
+                            CP_Phone: { editable: true, validation: { required: false } },
                             CP_PhoneId: { editable: false },
 
-                            CP_Extent: { editable: true },
+                            CP_Extent: { editable: true, validation: { required: false } },
                             CP_ExtentId: { editable: false },
 
-                            CP_Email: { editable: true, validation: { email: true } },
+                            CP_Email: { editable: true, validation: { required: false, email: true } },
                             CP_EmailId: { editable: false },
 
-                            CP_Negotiation: { editable: true },
+                            CP_Negotiation: { editable: true, validation: { required: false } },
                             CP_NegotiationId: { editable: false },
                         }
                     }
@@ -797,7 +797,7 @@ var Provider_CompanyContactObject = {
 
                             BR_Extent: { editable: true, type: 'number', validation: { required: false } },
                             BR_ExtentId: { editable: false },
-                            
+
                             BR_Cellphone: { editable: true, validation: { required: false } },
                             BR_CellphoneId: { editable: false },
 
@@ -1765,7 +1765,7 @@ var Provider_CompanyCommercialObject = {
                 title: 'Valor de contrato',
                 width: '180px',
                 template: function (dataItem) {
-                    
+
                     var oReturn = '';
 
                     if (dataItem.EX_ContractValue == '') {
@@ -5491,7 +5491,7 @@ var Provider_LegalInfoObject = {
     },
 
     RenderUniqueRegister: function () {
-        
+
         $('#' + Provider_LegalInfoObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -5563,7 +5563,7 @@ var Provider_LegalInfoObject = {
                 },
                 transport: {
                     read: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
@@ -5577,7 +5577,7 @@ var Provider_LegalInfoObject = {
                         });
                     },
                     create: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
@@ -5596,7 +5596,7 @@ var Provider_LegalInfoObject = {
                         });
                     },
                     update: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
@@ -5709,10 +5709,10 @@ var Provider_LegalInfoObject = {
                 title: 'Clase de impuesto',
                 width: '180px',
                 template: function (dataItem) {
-                    
+
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_ClassTax != null) {
-                        
+
                         $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[221], function (item, value) {
                             if (dataItem.R_ClassTax == value.ItemId) {
                                 oReturn = value.ItemName;
@@ -7086,23 +7086,23 @@ var Provider_CustomerInfoObject = {
 var Provider_CustomData = {
 
     /*UploadFile Generic Function*/
-    UploadFile: function(initObject) {
-        
+    UploadFile: function (initObject) {
+
         var oFileExit = true;
         $('#LoadFile_' + initObject.CustomerPublicId)
         .kendoUpload({
             multiple: false,
-            async: {            
+            async: {
                 saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + initObject.ProviderPublicId,
                 autoUpload: true
             },
-            success: function (e) {            
+            success: function (e) {
                 if (e.response != null && e.response.length > 0) {
                     //set server fiel name
                     $('#' + initObject.ControlellerResponseId).val(e.response[0].ServerName);
                 }
             },
-            complete: function (e) {            
+            complete: function (e) {
                 //enable lost focus
                 oFileExit = true;
             },
@@ -7110,6 +7110,6 @@ var Provider_CustomData = {
                 //disable lost focus while upload file
                 oFileExit = false;
             },
-        });    
+        });
     },
 }
