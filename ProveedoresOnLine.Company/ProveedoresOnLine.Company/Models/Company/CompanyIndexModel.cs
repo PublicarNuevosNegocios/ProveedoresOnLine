@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Company.Models.Company
 {
+    [ElasticsearchType(Name = "Customer_Info")]
     public class CompanyIndexModel
     {
         public CompanyIndexModel()
         {
 
         }
-        [Number]
+        [Number]        
         public int IdentificatioTypeId { get; set; }
         [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
         public string IdentificationNumber { get; set; }

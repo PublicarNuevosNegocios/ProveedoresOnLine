@@ -70,20 +70,26 @@ namespace MarketPlace.Web.Controllers
                 Uri node = new Uri(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
                 var settings = new ConnectionSettings(node);
                 settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CompanyIndex].Value);
-                ElasticClient client = new ElasticClient(settings);                
-                
+                ElasticClient client = new ElasticClient(settings);
+
+
+                QueryContainer queryById = new TermQuery() { Field = "companyName", Value = SearchParam };
+
+                var hits = client.Search<CompanyIndexModel>(s => s.Query(q => q.MatchAll() && queryById)).Hits;
+                             
                 var searchResults = client.Search<CompanyIndexModel>(s => s
                 .AllTypes()
                 .From(0)
                 .Size(20)
-                .Query(q => q
-                     .Term(p => p.CompanyName, SearchParam)
+                .Query(q => 
+                     q.Term(p => p.CompanyName, SearchParam) || 
+                     q.Term(p => p.IdentificationNumber, SearchParam)
                 ));
 
-                if (searchResults != null)
+                if (searchResults != null && hits != null )
                 {
                     //just a probe, delete after to.
-                    oModel.TotalRows = 2;
+                    //oModel.TotalRows = 2;
                 }
 
 
