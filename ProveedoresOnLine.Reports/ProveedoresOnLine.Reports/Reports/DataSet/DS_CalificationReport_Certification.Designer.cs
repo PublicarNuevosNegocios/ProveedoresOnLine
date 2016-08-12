@@ -291,6 +291,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnCertificationName;
             
+            private global::System.Data.DataColumn columnCertificationRuleScore;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DT_CalificationCertificationDataTable() {
@@ -374,6 +376,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CertificationRuleScoreColumn {
+                get {
+                    return this.columnCertificationRuleScore;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -409,7 +419,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DT_CalificationCertificationRow AddDT_CalificationCertificationRow(string CertificationRuleName, string CertificationRuleOperator, string CertificationRuleValue, string CertificationRuleValueType, string CertificationRuleResult, string CertificationName) {
+            public DT_CalificationCertificationRow AddDT_CalificationCertificationRow(string CertificationRuleName, string CertificationRuleOperator, string CertificationRuleValue, string CertificationRuleValueType, string CertificationRuleResult, string CertificationName, string CertificationRuleScore) {
                 DT_CalificationCertificationRow rowDT_CalificationCertificationRow = ((DT_CalificationCertificationRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CertificationRuleName,
@@ -417,7 +427,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         CertificationRuleValue,
                         CertificationRuleValueType,
                         CertificationRuleResult,
-                        CertificationName};
+                        CertificationName,
+                        CertificationRuleScore};
                 rowDT_CalificationCertificationRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDT_CalificationCertificationRow);
                 return rowDT_CalificationCertificationRow;
@@ -446,6 +457,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnCertificationRuleValueType = base.Columns["CertificationRuleValueType"];
                 this.columnCertificationRuleResult = base.Columns["CertificationRuleResult"];
                 this.columnCertificationName = base.Columns["CertificationName"];
+                this.columnCertificationRuleScore = base.Columns["CertificationRuleScore"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -463,6 +475,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnCertificationRuleResult);
                 this.columnCertificationName = new global::System.Data.DataColumn("CertificationName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCertificationName);
+                this.columnCertificationRuleScore = new global::System.Data.DataColumn("CertificationRuleScore", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCertificationRuleScore);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -707,6 +721,23 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CertificationRuleScore {
+                get {
+                    try {
+                        return ((string)(this[this.tableDT_CalificationCertification.CertificationRuleScoreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CertificationRuleScore\' in table \'DT_CalificationCertificat" +
+                                "ion\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDT_CalificationCertification.CertificationRuleScoreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCertificationRuleNameNull() {
                 return this.IsNull(this.tableDT_CalificationCertification.CertificationRuleNameColumn);
             }
@@ -775,6 +806,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCertificationNameNull() {
                 this[this.tableDT_CalificationCertification.CertificationNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCertificationRuleScoreNull() {
+                return this.IsNull(this.tableDT_CalificationCertification.CertificationRuleScoreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCertificationRuleScoreNull() {
+                this[this.tableDT_CalificationCertification.CertificationRuleScoreColumn] = global::System.Convert.DBNull;
             }
         }
         

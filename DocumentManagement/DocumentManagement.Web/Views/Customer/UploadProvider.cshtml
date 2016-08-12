@@ -72,7 +72,7 @@
                     <li>
                         <span class="DMImportant">*</span><label>Tipo de identificación</label>
                         <br />
-                        <select name="IdentificationType" required >
+                        <select name="IdentificationType" required>
                             <option value="101">RUT</option>
                             <option value="102">NIT</option>
                             <option value="103">Tax-id</option>
@@ -86,14 +86,14 @@
                     <li>
                         <label>Dígito de verificación</label>
                         <br />
-                        <input type="text" name="CheckDigit"/>
+                        <input type="text" name="CheckDigit" />
                     </li>
                     <li>
                         <label>Email</label>
                         <br />
                         <input type="text" name="Email" />
                     </li>
-                   
+
                     <li>
                         <input class="BOButtons" type="submit" value="Guardar" />
                     </li>
@@ -105,3 +105,32 @@
         </form>
     </div>
 </div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            @{
+                string oMessage = (string) TempData["SaveProvider"];
+            }
+
+            var oTemp = @Html.Raw(!string.IsNullOrEmpty(oMessage) ? "true" : "false");
+
+            if (oTemp)
+            {
+                var msjText = '@TempData["SaveProvider"]';
+
+                if ($('div.message').length) {
+                    $('div.message').remove();
+                }
+
+                $('<div class="mensj">' + msjText + '</div>').css({
+                    top: $(window).scrollTop() + 'px'
+                }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
+                    $(this).remove();
+                });
+            }
+        });
+    </script>
+}

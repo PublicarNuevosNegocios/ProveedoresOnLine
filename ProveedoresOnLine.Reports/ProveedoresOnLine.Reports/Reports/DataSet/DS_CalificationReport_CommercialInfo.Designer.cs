@@ -291,6 +291,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             private global::System.Data.DataColumn columnCommercialName;
             
+            private global::System.Data.DataColumn columnCommercialRuleScore;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DT_CalificationCommercialDataTable() {
@@ -374,6 +376,14 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CommercialRuleScoreColumn {
+                get {
+                    return this.columnCommercialRuleScore;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -409,7 +419,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DT_CalificationCommercialRow AddDT_CalificationCommercialRow(string CommercialRuleName, string CommercialRuleOperator, string CommercilaRuleValue, string CommercialRuleValueType, string CommercialRuleResult, string CommercialName) {
+            public DT_CalificationCommercialRow AddDT_CalificationCommercialRow(string CommercialRuleName, string CommercialRuleOperator, string CommercilaRuleValue, string CommercialRuleValueType, string CommercialRuleResult, string CommercialName, string CommercialRuleScore) {
                 DT_CalificationCommercialRow rowDT_CalificationCommercialRow = ((DT_CalificationCommercialRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CommercialRuleName,
@@ -417,7 +427,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                         CommercilaRuleValue,
                         CommercialRuleValueType,
                         CommercialRuleResult,
-                        CommercialName};
+                        CommercialName,
+                        CommercialRuleScore};
                 rowDT_CalificationCommercialRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDT_CalificationCommercialRow);
                 return rowDT_CalificationCommercialRow;
@@ -446,6 +457,7 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 this.columnCommercialRuleValueType = base.Columns["CommercialRuleValueType"];
                 this.columnCommercialRuleResult = base.Columns["CommercialRuleResult"];
                 this.columnCommercialName = base.Columns["CommercialName"];
+                this.columnCommercialRuleScore = base.Columns["CommercialRuleScore"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -463,6 +475,8 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
                 base.Columns.Add(this.columnCommercialRuleResult);
                 this.columnCommercialName = new global::System.Data.DataColumn("CommercialName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCommercialName);
+                this.columnCommercialRuleScore = new global::System.Data.DataColumn("CommercialRuleScore", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCommercialRuleScore);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -707,6 +721,23 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CommercialRuleScore {
+                get {
+                    try {
+                        return ((string)(this[this.tableDT_CalificationCommercial.CommercialRuleScoreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CommercialRuleScore\' in table \'DT_CalificationCommercial\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDT_CalificationCommercial.CommercialRuleScoreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCommercialRuleNameNull() {
                 return this.IsNull(this.tableDT_CalificationCommercial.CommercialRuleNameColumn);
             }
@@ -775,6 +806,18 @@ namespace ProveedoresOnLine.Reports.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCommercialNameNull() {
                 this[this.tableDT_CalificationCommercial.CommercialNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCommercialRuleScoreNull() {
+                return this.IsNull(this.tableDT_CalificationCommercial.CommercialRuleScoreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCommercialRuleScoreNull() {
+                this[this.tableDT_CalificationCommercial.CommercialRuleScoreColumn] = global::System.Convert.DBNull;
             }
         }
         

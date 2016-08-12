@@ -19,7 +19,8 @@
                     <label>Proceso de calificación</label>
                 </div>
                 @{
-                    List<int> oCurrentReports = MarketPlace.Models.General.SessionModel.CurrentReport();
+                    List<int>
+                        oCurrentReports = MarketPlace.Models.General.SessionModel.CurrentReport();
 
                     if (oCurrentReports.Any(x => x == (int)MarketPlace.Models.General.enumReports.CalificationProject))
                     {
@@ -77,9 +78,9 @@
                                 {
                                     CalificationProjectItemScore += int.Parse(CalificationProjectItemInfoConfig.Score);
                                 }
-                                
+
                                 if (CalificationProjectBatch.CalificationProjectItemBatchModel.Any(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId))
-                                {                                    
+                                {
                                     var CalificaitonProjectItemBatch = CalificationProjectBatch.CalificationProjectItemBatchModel.Where(y => y.CalificationProjectConfigItem.CalificationProjectConfigItemId == CalificationProjectConfigItem.CalificationProjectConfigItemId).Select(x => x).FirstOrDefault();
 
                                     <div class="row POMPSectionTitlesBox">
@@ -103,8 +104,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -118,8 +119,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.FIIncomeStatementInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -133,8 +134,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.CIExperiencesInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -148,8 +149,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.HICertificationsInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -163,8 +164,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -195,6 +196,11 @@
                                                 </div>
                                                 <div class="col-xs-1">
                                                     <br />
+                                                    <label>Puntaje</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <br />
                                                     <label>Resultado</label>
                                                     <br />
                                                 </div>
@@ -219,6 +225,9 @@
                                                             <span>@CalificationProjectConfigItemInfo.Value</span>
                                                         </div>
                                                         <div class="col-xs-1 CalificationProjectData">
+                                                            <span>@CalificationProjectConfigItemInfo.Score</span>
+                                                        </div>
+                                                        <div class="col-xs-1 CalificationProjectData">
                                                             <span>@CalificationProjectItemInfoBatch.ItemInfoScore</span>
                                                         </div>
                                                     </div>
@@ -237,6 +246,9 @@
                                                         </div>
                                                         <div class="col-xs-3 CalificationProjectData">
                                                             <span>@CalificationProjectConfigItemInfo.Value</span>
+                                                        </div>
+                                                        <div class="col-xs-1 CalificationProjectData">
+                                                            <span>@CalificationProjectConfigItemInfo.Score</span>
                                                         </div>
                                                         <div class="col-xs-1 CalificationProjectData">
                                                             <span>0</span>
@@ -270,8 +282,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -285,8 +297,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.FIIncomeStatementInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -300,8 +312,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.CIExperiencesInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -315,8 +327,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.HICertificationsInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -330,8 +342,8 @@
                                                                             {
                                                                                 controller = MVC.Provider.Name,
                                                                                 action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
-                                                                                ProviderPublicId = Request["ProviderPublicId"]
-                                                                            }))">
+                                                                                ProviderPublicId = Request[" providerpublicid"]
+                               }))">
                                                     Ver Detalle
                                                 </a>
                                             </div>
@@ -362,6 +374,11 @@
                                                 </div>
                                                 <div class="col-xs-1">
                                                     <br />
+                                                    <label>Puntaje</label>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-1">
+                                                    <br />
                                                     <label>Resultado</label>
                                                     <br />
                                                 </div>
@@ -382,6 +399,9 @@
                                                         <span>@CalificationProjectConfigItemInfo.Value</span>
                                                     </div>
                                                     <div class="col-xs-1 CalificationProjectData">
+                                                        <span>@CalificationProjectConfigItemInfo.Score</span>
+                                                    </div>
+                                                    <div class="col-xs-1 CalificationProjectData">
                                                         <span>0</span>
                                                     </div>
                                                 </div>
@@ -397,50 +417,42 @@
                 }
 
                 if (Model.ProviderCalification.oValidateModel != null &&
-                    Model.ProviderCalification.oValidateModel.Count > 0)
+                Model.ProviderCalification.oValidateModel.Count > 0)
                 {
-
-                    <div class="container-fluid POMPProviderDetailContainer">
+                    <div class="container-fluid">
                         <div class="row POMPSectionTitlesBox">
                             <div class="col-xs-12">
-                                <label>Tabla de Validación</label>
+                                <label>Tabla de validación</label>
                             </div>
                         </div>
-                        <div class="container-fluid POMPProviderDetailContainer" style="text-align:center;">
+                        <div class="container-fluid CPValidateTable">
                             <div class="row">
-                                <div class="col-xs-4">
-                                    <br />
-                                    <label>Operador</label>
-                                    <br />
+                                <div class="col-xs-5">
+                                    <label>Factor</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>Puntuación</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <br />
-                                    <label>Valor</label>
-                                    <br />
-                                </div>
-                                <div class="col-xs-4">
-                                    <br />
-                                    <label>Resultado</label>
-                                    <br />
+                                    <label>Calificación</label>
                                 </div>
                             </div>
-                            @foreach (var ValidateModel in Model.ProviderCalification.oValidateModel)
+                            @foreach (var ValidateModel in Model.ProviderCalification.oValidateModel.OrderBy(x => x.Value))
                             {
                                 <div class="row">
-                                    <div class="col-xs-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <div class="col-xs-5">
                                         <span>@ValidateModel.Operator.ItemName</span>
                                     </div>
-                                    <div class="col-xs-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <div class="col-xs-3">
                                         <span>@ValidateModel.Value</span>
                                     </div>
-                                    <div class="col-xs-4 POMPBorderbottom POMPProviderBoxInfo">
+                                    <div class="col-xs-4">
                                         <span>@ValidateModel.Result</span>
                                     </div>
                                 </div>
-                                <br />
                             }
                         </div>
-                    </div>
+                    </div>                    
                 }
 
             }
