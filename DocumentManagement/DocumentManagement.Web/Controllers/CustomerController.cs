@@ -129,6 +129,8 @@ namespace DocumentManagement.Web.Controllers
 
         public virtual ActionResult UploadProvider(string CustomerPublicId, HttpPostedFileBase ExcelFile)
         {
+            UpserCustomerModel oModel = new UpserCustomerModel();
+
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
@@ -199,10 +201,14 @@ namespace DocumentManagement.Web.Controllers
                         ProviderToCreate.ProviderPublicId = oResultValidate.ProviderPublicId;
                         DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
                     }
+
                     #endregion
+
+                    TempData["SaveProvider"] = "Se agregó el proveedor.";
                 }
                 catch(Exception e)
-                { }
+                {
+                }
             }
 
             if (ExcelFile != null)
@@ -239,7 +245,7 @@ namespace DocumentManagement.Web.Controllers
 
                 ViewData["UrlReturn"] = urlList;
 
-                UpserCustomerModel oModel = new UpserCustomerModel()
+                oModel = new UpserCustomerModel()
                 {
                     RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
                 };
@@ -247,7 +253,7 @@ namespace DocumentManagement.Web.Controllers
             }
             else
             {
-                UpserCustomerModel oModel = new UpserCustomerModel()
+                oModel = new UpserCustomerModel()
                 {
                     RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
                 };
