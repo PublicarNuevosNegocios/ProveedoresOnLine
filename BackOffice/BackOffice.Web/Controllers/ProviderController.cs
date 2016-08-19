@@ -61,6 +61,7 @@ namespace BackOffice.Web.Controllers
             }
 
             //eval upsert action
+            #region Upsert
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
                 //get provider request info
@@ -117,20 +118,14 @@ namespace BackOffice.Web.Controllers
                             .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
                             .Analysis(a => a.Analyzers(an => an.Custom("customWhiteSpace", anc => anc.Filters("asciifolding", "lowercase")
                                 .Tokenizer("whitespace")
-                                )
-                            )
-                            .TokenFilters(tf => tf
-                            .EdgeNGram("customEdgeNGram", engrf => engrf
-                                .MinGram(1)
-                                .MaxGram(10)
-                            )
-                            )
-                        ).NumberOfShards(1)
-                        ));
-                        //client.Map<oCompanyToIndex>(m => m.AutoMap());
+                                )).TokenFilters(tf => tf
+                                        .EdgeNGram("customEdgeNGram", engrf => engrf
+                                        .MinGram(1)
+                                        .MaxGram(10)))).NumberOfShards(1)
+                            ));
 
-                        var Index = client.Index(oCompanyToIndex); 
-                    }                    
+                        var Index = client.Index(oCompanyToIndex);
+                    }
                 }
 
                 //index basic info
@@ -138,7 +133,7 @@ namespace BackOffice.Web.Controllers
 
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
-                InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));                
+                InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
@@ -161,7 +156,8 @@ namespace BackOffice.Web.Controllers
                 {
                     return RedirectToAction(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
                 }
-            }
+            } 
+            #endregion           
 
             return View(oModel);
         }
@@ -1388,7 +1384,7 @@ namespace BackOffice.Web.Controllers
                                     },
                                 };
 
-                                #endregion                                
+                                #endregion
 
                                 oCustomDataToUpsert = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_CustomData_Upsert(oCustomDataToUpsert, ProviderPublicId);
 
@@ -1508,7 +1504,7 @@ namespace BackOffice.Web.Controllers
 
                                 break;
                         }
-                    }                  
+                    }
 
                     return true;
                 });
@@ -1517,7 +1513,7 @@ namespace BackOffice.Web.Controllers
             #region Custom Field
 
             List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRelatedCustomer = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerProviderByCustomData(ProviderPublicId);
-            
+
             oModel.RelatedProvider.CustomData = IntegrationPlatform.Controller.IntegrationPlatform.CustomerProvider_GetCustomData(oRelatedCustomer, ProviderPublicId);
 
             #endregion
