@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.IndexSearch", "ProveedoresOnLine.IndexSearch\ProveedoresOnLine.IndexSearch.csproj", "{EE6578FA-AF0B-4567-85BC-3F9070B3F9FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.IndexSearch.Test", "ProveedoresOnLine.IndexSearch.Test\ProveedoresOnLine.IndexSearch.Test.csproj", "{042B8CC3-91EA-4735-BBB5-55F6A6410C0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE6578FA-AF0B-4567-85BC-3F9070B3F9FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6578FA-AF0B-4567-85BC-3F9070B3F9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6578FA-AF0B-4567-85BC-3F9070B3F9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6578FA-AF0B-4567-85BC-3F9070B3F9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042B8CC3-91EA-4735-BBB5-55F6A6410C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042B8CC3-91EA-4735-BBB5-55F6A6410C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042B8CC3-91EA-4735-BBB5-55F6A6410C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042B8CC3-91EA-4735-BBB5-55F6A6410C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
