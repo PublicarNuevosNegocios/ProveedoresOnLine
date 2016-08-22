@@ -4446,7 +4446,7 @@ namespace MarketPlace.Web.Controllers
                                     row2["FinancialRuleOperator"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Rule.ItemName;
                                     row2["FinancialRuleValue"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.Value;
                                     row2["FinancialRuleValueType"] = CalificationProjectItemInfoBatch.CalificationProjectConfigItemInfoModel.ValueType.ItemName;
-                                    row2["FianacialRuleScore"] = CalificationProjectConfigItemInfo.Score;
+                                    row2["FinancialRuleScore"] = CalificationProjectConfigItemInfo.Score;
                                     row2["FinancialRuleResult"] = CalificationProjectItemInfoBatch.ItemInfoScore;
                                     FinancialData.Rows.Add(row2);
                                 }
