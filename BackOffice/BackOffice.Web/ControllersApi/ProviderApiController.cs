@@ -439,13 +439,6 @@ namespace BackOffice.Web.ControllersApi
                             CityId = Convert.ToInt32(oDataToUpsert.BR_City),
                         };
                         var Index = client.Index(oCompanyToIndex);
-
-                        var aggQuery = client.Search<CompanyIndexModel>(s => s
-                            .Aggregations(agg => agg
-                                .Terms("city", aggv => aggv.Field(fi => fi.CityId))
-                            ));
-
-                        var result = aggQuery.Aggs.Terms("city");
                     }
 
                     #endregion

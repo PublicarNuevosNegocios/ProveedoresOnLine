@@ -277,12 +277,10 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             oQuery.QueryStatus = new TDCatalogModel()
                             {
                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeQueryStatus.Finalized,
-                            };
-
-                            CreateReadyResultNotification(oQuery);
-                            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
-
+                            };                            
+                            ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);                            
                             CreateQueryInfo(oQuery, oCoincidences);
+                            CreateReadyResultNotification(oQuery);
                             LogFile("Success:: QueryPublicId '" + oQuery.QueryPublicId + "' :: Validation is success");
                         }
                         catch (Exception err)
