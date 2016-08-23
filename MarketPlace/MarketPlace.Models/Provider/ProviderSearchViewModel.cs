@@ -41,6 +41,8 @@ namespace MarketPlace.Models.Provider
 
         public Nest.TermsAggregate StatusAgg { get; set; }
 
+        public Nest.TermsAggregate CountryAgg { get; set; }
+
         public Nest.TermsAggregate BlackListAgg { get; set; }        
 
         #region Comparison

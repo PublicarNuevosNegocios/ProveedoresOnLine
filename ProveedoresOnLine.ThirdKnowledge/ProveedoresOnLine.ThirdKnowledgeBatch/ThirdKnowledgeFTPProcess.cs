@@ -394,23 +394,18 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Setings_File_S3FilePath].Value + oQuery.FileName, strFolder + oQuery.FileName);
 
                     //Set model Params
-                    List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExcelToProcessInfo = new List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel>();
+                    List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExcelToProcessInfo = null;
 
                     System.Data.DataTable DT_Excel = ReadExcelFile(strFolder + oQuery.FileName);
                     if (DT_Excel != null)
                     {
-                        for (int i = 0; i < DT_Excel.Rows.Count; i++)
+                        oExcelToProcessInfo = new List<ExcelModel>();
+                        foreach (DataRow item in DT_Excel.Rows)
                         {
-                            ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel oToAdd = new ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel()
-                            {
-                                NOMBRES = DT_Excel.Rows[i]["NOMBRES"].ToString(),
-                                NUMEIDEN = DT_Excel.Rows[i]["NUMEIDEN"].ToString(),
-                                TIPOPERSONA = DT_Excel.Rows[i]["TIPOPERSONA"].ToString(),
-                            };
-                            oExcelToProcessInfo.Add(oToAdd);
+                            oExcelToProcessInfo.Add(new ExcelModel(item));
                         }
                     }
-                    
+
                     //Exclude Coincidences
                     List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExclude = null;
                     if (oCoincidences != null && oCoincidences.Count > 0)
@@ -420,7 +415,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                         {
                             oExclude.Add(new ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel()
                             {
-                                TIPOPERSONA = x.Item1,
+                                //TIPOPERSONA = x.Item1,
                                 NUMEIDEN = x.Item2,
                                 NOMBRES = x.Item3,
                             });
@@ -429,10 +424,12 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     }
 
                     if (oExclude != null)
-                    {                         
-                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => !oExclude.Any(z => z.NUMEIDEN == x.NUMEIDEN
-                                                                || z.NOMBRES == x.NOMBRES
-                                                                )).ToList();
+                    {
+                        oExclude.All(x =>
+                            {
+                                oExcelToProcessInfo = oExcelToProcessInfo.Where(y => y.NOMBRES != x.NOMBRES || y.NUMEIDEN != x.NUMEIDEN).Select(y => y).ToList();
+                                return true;
+                            });
                     }
 
                     if (oExcelToProcessInfo != null)

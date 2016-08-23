@@ -88,6 +88,15 @@ namespace MarketPlace.Web.Controllers
                 oModel.CityAgg = aggCityQuery.Aggs.Terms("city"); 
                 #endregion
 
+                #region Country Aggregation
+                var aggCountryQuery = client.Search<CompanyIndexModel>(s => s
+                            .Aggregations(agg => agg
+                                .Terms("country", aggv => aggv.Field(fi => fi.CountryId))
+                            ));
+
+                oModel.CountryAgg = aggCountryQuery.Aggs.Terms("country");
+                #endregion
+
                 #region Status Aggregation
                 var aggStatusQuery = client.Search<CompanyIndexModel>(s => s
                             .Aggregations(agg => agg
