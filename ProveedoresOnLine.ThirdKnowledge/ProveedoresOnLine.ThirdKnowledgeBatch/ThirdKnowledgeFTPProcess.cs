@@ -491,10 +491,10 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                         System.IO.File.Delete(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-
-                throw;
+                //log file for fatal error
+                LogFile("Function::CreateQueryInfo Fatal error::" + err.Message + " - " + err.StackTrace + "Inner Exception::" + err.InnerException);
             }
 
         }
@@ -515,18 +515,17 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     DT_Excel.Columns.Add(HasHeader ? FirstRowCell.Text : string.Format("Column {0}", FirstRowCell.Start.Column));
                 }
                 var StartRow = HasHeader ? 2 : 1;
-                for (Int32 rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
+                for (var rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
                 {
                     var WsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
-                    
+
                     foreach (var cell in WsRow)
                     {
-                        if (cell.Text != null && cell.Text != " " && cell.Text!="")
+                        if (cell.Text != null && cell.Text != " " && cell.Text != "")
                         {
-                            DataRow row = DT_Excel.Rows.Add();                        
+                            DataRow row = DT_Excel.Rows.Add();
                             row[cell.Start.Column - 1] = cell.Text;
                         }
-                        
                     }
                 }
                 return DT_Excel;
