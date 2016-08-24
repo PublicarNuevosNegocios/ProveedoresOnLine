@@ -9,6 +9,16 @@ namespace ProveedoresOnLine.IndexSearch.Interfaces
 {
     internal interface IIndexSearch
     {
-        List<IndexSearchModel> GetCompanyIndex();
+        #region Company Index
+
+        List<CompanyIndexSearchModel> GetCompanyIndex();
+
+        #endregion
+
+        #region Survey Index
+
+        List<SurveyIndexSearchModel> GetSurveyIndex();
+
+        #endregion        
     }
 }

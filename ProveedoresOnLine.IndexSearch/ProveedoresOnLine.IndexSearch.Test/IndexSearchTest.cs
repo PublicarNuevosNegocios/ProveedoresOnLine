@@ -11,8 +11,17 @@ namespace ProveedoresOnLine.IndexSearch.Test
         [TestMethod]
         public void GetAllCompanyIndexSearch()
         {
-            List<IndexSearchModel> oReturn =
+            List<CompanyIndexSearchModel> oReturn =
                 Controller.IndexSearch.GetCompanyIndex();
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetAllSurveyIndexSearch()
+        {
+            List<SurveyIndexSearchModel> oReturn =
+                Controller.IndexSearch.GetSurveyIndex();
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }

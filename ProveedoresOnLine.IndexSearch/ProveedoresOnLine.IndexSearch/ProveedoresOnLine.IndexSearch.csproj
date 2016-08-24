@@ -55,7 +55,8 @@
     <Compile Include="DAL\MySQLDAO\IndexSearch_MySqlDao.cs" />
     <Compile Include="Interfaces\IIndexSearch.cs" />
     <Compile Include="Models\Constants.cs" />
-    <Compile Include="Models\IndexSearchModel.cs" />
+    <Compile Include="Models\CompanyIndexSearchModel.cs" />
+    <Compile Include="Models\SurveyIndexSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
