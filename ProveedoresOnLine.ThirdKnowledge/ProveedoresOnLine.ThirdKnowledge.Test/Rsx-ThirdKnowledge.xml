@@ -28,7 +28,7 @@
     <key name="File_TempDirectory">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\TempDirectory\</key>
     
     <!--S3 Path File-->
-    <key name="File_S3FilePath">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/ThirdKnowledge/</key>
+    <key name="File_S3FilePath">https://s3.amazonaws.com/stgproveedoresonline/MarketPlace/ThirdKnowledge/</key>
 
     <key name="TK_QueryUrl">https://localhost:44309/MarketPlace/ThirdKnowledge/TKThirdKnowledgeDetail?QueryPublicId={QueryPublicId}</key>
 
