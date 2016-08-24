@@ -515,7 +515,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     DT_Excel.Columns.Add(HasHeader ? FirstRowCell.Text : string.Format("Column {0}", FirstRowCell.Start.Column));
                 }
                 var StartRow = HasHeader ? 2 : 1;
-                for (int rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
+                for (Int32 rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
                 {
                     var WsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
                     DataRow row = DT_Excel.Rows.Add();
@@ -526,37 +526,6 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                 }
                 return DT_Excel;
             }
-
-
-            //var ExcelPackage = new OfficeOpenXml.ExcelPackage();
-
-            //ExcelPackage.Load(File.OpenRead(path));
-
-            //var WS = ExcelPackage.Workbook.Worksheets.First();
-
-            //System.Data.DataTable DT_Excel = new System.Data.DataTable();
-
-            //bool HasHeader = true;
-
-            //foreach (var FirstRowCell in WS.Cells[1, 1, 1, WS.Dimension.End.Column])
-            //{
-            //    DT_Excel.Columns.Add(HasHeader ? FirstRowCell.Text : string.Format("Column {0}", FirstRowCell.Start.Column));
-            //}
-
-            //var StartRow = HasHeader ? 2 : 1;
-            //for (var rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
-            //{
-            //    var wsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
-            //    var row = DT_Excel.NewRow();
-            //    foreach (var cell in wsRow)
-            //    {
-            //        row[cell.Start.Column - 1] = cell.Text;
-            //    }
-            //    DT_Excel.Rows.Add(row);
-            //}
-            //ExcelPackage.Dispose();
-            //return DT_Excel;
-
         }
         #endregion
     }
