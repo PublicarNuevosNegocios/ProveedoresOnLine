@@ -802,6 +802,7 @@
         ThirdKnowledgeInfo = 804005,
         ReportsInfo = 804006,
         MyClients = 804007,
+        Survey = 804008,
     }
 
     #endregion
