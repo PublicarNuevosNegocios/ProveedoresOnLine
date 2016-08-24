@@ -40,7 +40,7 @@ namespace MarketPlace.Models.Provider
 
         public MarketPlace.Models.Compare.CompareViewModel RelatedCompare { get; set; }
 
-        #endregion
+        #endregion|
 
         #region Project
 

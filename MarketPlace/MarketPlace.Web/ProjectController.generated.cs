@@ -83,6 +83,12 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectProviderDetail);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProjectController Actions { get { return MVC.Project; } }
@@ -103,6 +109,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string ProjectDetail = "ProjectDetail";
             public readonly string ProjectDetailRecalculate = "ProjectDetailRecalculate";
             public readonly string ProjectProviderDetail = "ProjectProviderDetail";
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -112,6 +119,7 @@ namespace MarketPlace.Web.Controllers
             public const string ProjectDetail = "ProjectDetail";
             public const string ProjectDetailRecalculate = "ProjectDetailRecalculate";
             public const string ProjectProviderDetail = "ProjectProviderDetail";
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
@@ -153,6 +161,14 @@ namespace MarketPlace.Web.Controllers
             public readonly string ProjectPublicId = "ProjectPublicId";
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string EvaluationAreaId = "EvaluationAreaId";
+        }
+        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetPdfFileBytes
+        {
+            public readonly string FilePath = "FilePath";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -225,6 +241,18 @@ namespace MarketPlace.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EvaluationAreaId", EvaluationAreaId);
             ProjectProviderDetailOverride(callInfo, ProjectPublicId, ProviderPublicId, EvaluationAreaId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

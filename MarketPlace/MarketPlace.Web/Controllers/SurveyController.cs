@@ -96,6 +96,13 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult Search()
+        {
+            SurveySearchViewModel oModel = new SurveySearchViewModel();
+
+            return View(oModel);
+        }
+
         public virtual ActionResult SurveyUpsert(string SurveyPublicId, string StepId)
         {
             //get survey request model
