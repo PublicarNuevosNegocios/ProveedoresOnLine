@@ -498,7 +498,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             }
 
         }
-
+        //Implement of EPPLUS package to read an excel file
         private static System.Data.DataTable ReadExcelFile(string path)
         {
             bool HasHeader = true;
@@ -518,10 +518,15 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                 for (Int32 rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
                 {
                     var WsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
-                    DataRow row = DT_Excel.Rows.Add();
+                    
                     foreach (var cell in WsRow)
                     {
-                        row[cell.Start.Column - 1] = cell.Text;
+                        if (cell.Text != null && cell.Text != " " && cell.Text!="")
+                        {
+                            DataRow row = DT_Excel.Rows.Add();                        
+                            row[cell.Start.Column - 1] = cell.Text;
+                        }
+                        
                     }
                 }
                 return DT_Excel;
