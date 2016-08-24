@@ -1,4 +1,7 @@
-﻿using BackOffice.Models.Provider;
+﻿using BackOffice.Models.General;
+using BackOffice.Models.Provider;
+using Nest;
+using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyCustomer.Models.Customer;
 using System;
@@ -144,6 +147,7 @@ namespace BackOffice.Web.ControllersApi
                     }
                 };
 
+                #region Contact
                 if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.CompanyContact)
                 {
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -167,6 +171,8 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
                 }
+                #endregion
+                #region Person Contact
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.PersonContact)
                 {
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -270,6 +276,8 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
                 }
+                #endregion
+                #region Branch
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.Brach)
                 {
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -402,7 +410,41 @@ namespace BackOffice.Web.ControllersApi
                         Value = Convert.ToBoolean(oDataToUpsert.BR_IsPrincipal) == true ? "1" : "0",
                         Enable = true,
                     });
+
+                    #region Index Elastic Filter by City
+                    if (Convert.ToBoolean(oDataToUpsert.BR_IsPrincipal) == true)
+                    {
+                        Uri node = new Uri(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
+                        var settings = new ConnectionSettings(node);
+                        settings.DefaultIndex(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CompanyIndex].Value);
+                        settings.DisableDirectStreaming();
+                        ElasticClient client = new ElasticClient(settings);
+
+                        var searchResults = client.Search<CompanyIndexModel>(s => s
+                        .From(0)
+                        .Size(20)
+                        .Query(q => q.Ids(ids => ids.Values(oCompany.CompanyPublicId))));
+
+                        ProveedoresOnLine.Company.Models.Company.CompanyIndexModel oCompanyToIndex = new ProveedoresOnLine.Company.Models.Company.CompanyIndexModel()
+                        {
+                            CompanyPublicId = oCompany.CompanyPublicId, 
+                            CompanyName = searchResults.Documents.FirstOrDefault().CompanyName,
+                            CommercialCompanyName = searchResults.Documents.FirstOrDefault().CommercialCompanyName,
+                            CustomerPublicId = searchResults.Documents.FirstOrDefault().CustomerPublicId,
+                            IdentificationNumber = searchResults.Documents.FirstOrDefault().IdentificationNumber,
+                            IdentificatioTypeId = searchResults.Documents.FirstOrDefault().IdentificatioTypeId,
+                            ProviderStatus = searchResults.Documents.FirstOrDefault().ProviderStatus,
+                            ProviderStatusId = searchResults.Documents.FirstOrDefault().ProviderStatusId,
+                            City = oDataToUpsert.BR_City,
+                            CityId = Convert.ToInt32(oDataToUpsert.BR_City),
+                        };
+                        var Index = client.Index(oCompanyToIndex);
+                    }
+
+                    #endregion
                 }
+                #endregion
+                #region Distributor
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.Distributor)
                 {
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -503,6 +545,7 @@ namespace BackOffice.Web.ControllersApi
 
                     lstUsedFiles.Add(oDataToUpsert.DT_DistributorFile);
                 }
+                #endregion
 
                 oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
 

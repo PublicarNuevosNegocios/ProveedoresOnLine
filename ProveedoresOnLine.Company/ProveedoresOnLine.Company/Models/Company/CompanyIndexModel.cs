@@ -15,17 +15,20 @@ namespace ProveedoresOnLine.Company.Models.Company
         {
 
         }
-        [Number]        
+        public string Id { get { return CompanyPublicId; } }
+        [Number]
         public int IdentificatioTypeId { get; set; }
         [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
         public string IdentificationNumber { get; set; }
 
         [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
         public string CompanyName { get; set; }
+
         [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
         public string CommercialCompanyName { get; set; }
+
         public string CompanyPublicId { get; set; }
-        
+
         [Number]
         public int PrincipalActivityId { get; set; }
         [String]
@@ -45,6 +48,7 @@ namespace ProveedoresOnLine.Company.Models.Company
         [String]
         public string CustomerPublicId { get; set; }
 
+        [Boolean]
         public bool InBlackList { get; set; }
 
         public int ProviderStatusId { get; set; }

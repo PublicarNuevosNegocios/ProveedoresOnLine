@@ -14,6 +14,8 @@ using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Enums;
 using System.Reflection;
 using Excel = Microsoft.Office.Interop.Excel;
+using OfficeOpenXml;
+using System.Data;
 
 
 namespace ProveedoresOnLine.ThirdKnowledgeBatch
@@ -61,12 +63,12 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             string xml = reader.ReadToEnd();
                             XDocument CurrentXMLAnswer = XDocument.Parse(xml);
                             oQuery.RelatedQueryBasicInfoModel = new List<TDQueryInfoModel>();
-                            
+
                             List<Tuple<string, string, string>> oCoincidences = new List<Tuple<string, string, string>>();
                             //Set results to model
                             CurrentXMLAnswer.Descendants("Resultado").All(
                                 x =>
-                                {                                    
+                                {
                                     if (x.Element("NumeroConsulta").Value != "No existen registros asociados a los parámetros de consulta."
                                         && x.Element("Estado").Value.ToLower() == "true")
                                     {
@@ -267,10 +269,10 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                         #endregion
 
                                         //Create Info Conincidences                                        
-                                        oCoincidences.Add(new Tuple<string, string, string>(x.Element("TipoDocumento") != null && x.Element("TipoDocumento").Value != "N"? x.Element("TipoDocumento").Value : string.Empty
+                                        oCoincidences.Add(new Tuple<string, string, string>(x.Element("TipoDocumento") != null && x.Element("TipoDocumento").Value != "N" ? x.Element("TipoDocumento").Value : string.Empty
                                                                                            , x.Element("IdentificacionConsulta") != null && x.Element("IdentificacionConsulta").Value != "N" ? x.Element("IdentificacionConsulta").Value : string.Empty
-                                                                                           , x.Element("NombreConsulta") != null && x.Element("NombreConsulta").Value != "N" ? x.Element("NombreConsulta").Value : string.Empty));                                        
-                                    }               
+                                                                                           , x.Element("NombreConsulta") != null && x.Element("NombreConsulta").Value != "N" ? x.Element("NombreConsulta").Value : string.Empty));
+                                    }
                                     return true;
                                 });
                             //Update Status query
@@ -278,11 +280,9 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             {
                                 ItemId = (int)ProveedoresOnLine.ThirdKnowledgeBatch.Models.Enumerations.enumThirdKnowledgeQueryStatus.Finalized,
                             };
-
-                            CreateReadyResultNotification(oQuery);
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
-
                             CreateQueryInfo(oQuery, oCoincidences);
+                            CreateReadyResultNotification(oQuery);
                             LogFile("Success:: QueryPublicId '" + oQuery.QueryPublicId + "' :: Validation is success");
                         }
                         catch (Exception err)
@@ -374,16 +374,13 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             #endregion
         }
         #endregion
-        
+
         #region Private Functions
 
         private static void CreateQueryInfo(TDQueryModel oQuery, List<Tuple<string, string, string>> oCoincidences)
         {
             try
             {
-                //Instance App to read excel
-                Application app = new Application();
-
                 //Local Path
                 string strFolder = ThirdKnowledge.Models.InternalSettings.Instance[ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Settings_File_TempDirectory].Value;
                 if (!System.IO.Directory.Exists(strFolder))
@@ -396,42 +393,44 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                     webClient.DownloadFile(ThirdKnowledge.Models.InternalSettings.Instance[
                                         ProveedoresOnLine.ThirdKnowledge.Models.Constants.C_Setings_File_S3FilePath].Value + oQuery.FileName, strFolder + oQuery.FileName);
 
-                    //Open File DownLoaded
-                    Workbook book = app.Workbooks.Open(strFolder + oQuery.FileName,
-                           Missing.Value, Missing.Value, Missing.Value,
-                           Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                           Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                           Missing.Value, Missing.Value, Missing.Value);
-
-                    //Save As .xls
-                    book.SaveAs(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
-                    book.Close();
-
-                    ExcelQueryFactory XlsInfo = new ExcelQueryFactory(strFolder + oQuery.FileName.Replace("xlsx", "xls"));
-
                     //Set model Params
-                    List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExcelToProcessInfo =
-                    (from x in XlsInfo.Worksheet<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel>(0)
-                     select x).ToList();
+                    List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExcelToProcessInfo = null;
+
+                    System.Data.DataTable DT_Excel = ReadExcelFile(strFolder + oQuery.FileName);
+                    if (DT_Excel != null)
+                    {
+                        oExcelToProcessInfo = new List<ExcelModel>();
+                        foreach (DataRow item in DT_Excel.Rows)
+                        {
+                            oExcelToProcessInfo.Add(new ExcelModel(item));
+                        }
+                    }
 
                     //Exclude Coincidences
-                    List<ExcelModel> oExclude = null;
+                    List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel> oExclude = null;
                     if (oCoincidences != null && oCoincidences.Count > 0)
                     {
-                        oExclude = new List<ExcelModel>();
+                        oExclude = new List<ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel>();
                         oCoincidences.All(x =>
                         {
-                            oExclude.Add(new ExcelModel()
+                            oExclude.Add(new ProveedoresOnLine.ThirdKnowledgeBatch.Models.ExcelModel()
                             {
-                                TIPOPERSONA = x.Item1,
+                                //TIPOPERSONA = x.Item1,
                                 NUMEIDEN = x.Item2,
                                 NOMBRES = x.Item3,
                             });
                             return true;
                         });
                     }
+
                     if (oExclude != null)
-                        oExcelToProcessInfo = oExcelToProcessInfo.Where(x => !oExclude.Any(z => z.NUMEIDEN == x.NUMEIDEN || z.NOMBRES == x.NOMBRES)).ToList(); 
+                    {
+                        oExclude.All(x =>
+                            {
+                                oExcelToProcessInfo = oExcelToProcessInfo.Where(y => y.NOMBRES != x.NOMBRES || y.NUMEIDEN != x.NUMEIDEN).Select(y => y).ToList();
+                                return true;
+                            });
+                    }
 
                     if (oExcelToProcessInfo != null)
                     {
@@ -445,7 +444,7 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                             oInfoCreate.DetailInfo = new List<TDQueryDetailInfoModel>();
 
                             #region Create Detail
-                           
+
                             oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
                             {
                                 ItemInfoType = new TDCatalogModel()
@@ -464,19 +463,19 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                                 Value = !string.IsNullOrEmpty(x.NUMEIDEN) ? x.NUMEIDEN : string.Empty,
                                 Enable = true,
                             });
-                             oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
-                            {
-                                ItemInfoType = new TDCatalogModel()
-                                {
-                                    ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
-                                },
-                                Value = "SIN COINCIDENCIAS",
-                                Enable = true,
-                            });
+                            oInfoCreate.DetailInfo.Add(new TDQueryDetailInfoModel()
+                           {
+                               ItemInfoType = new TDCatalogModel()
+                               {
+                                   ItemId = (int)ProveedoresOnLine.ThirdKnowledge.Models.Enumerations.enumThirdKnowledgeColls.GroupName,
+                               },
+                               Value = "SIN COINCIDENCIAS",
+                               Enable = true,
+                           });
                             #endregion
 
                             oQuery.RelatedQueryBasicInfoModel.Add(oInfoCreate);
-                                                        
+
                             ProveedoresOnLine.ThirdKnowledge.Controller.ThirdKnowledgeModule.QueryUpsert(oQuery);
                             return true;
                         });
@@ -494,11 +493,71 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
-            
-        } 
+
+        }
+
+        private static System.Data.DataTable ReadExcelFile(string path)
+        {
+            bool HasHeader = true;
+            using (var ExcelPackage = new OfficeOpenXml.ExcelPackage())
+            {
+                using (var stream = File.OpenRead(path))
+                {
+                    ExcelPackage.Load(stream);
+                }
+                var WS = ExcelPackage.Workbook.Worksheets.First();
+                System.Data.DataTable DT_Excel = new System.Data.DataTable();
+                foreach (var FirstRowCell in WS.Cells[1, 1, 1, WS.Dimension.End.Column])
+                {
+                    DT_Excel.Columns.Add(HasHeader ? FirstRowCell.Text : string.Format("Column {0}", FirstRowCell.Start.Column));
+                }
+                var StartRow = HasHeader ? 2 : 1;
+                for (int rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
+                {
+                    var WsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
+                    DataRow row = DT_Excel.Rows.Add();
+                    foreach (var cell in WsRow)
+                    {
+                        row[cell.Start.Column - 1] = cell.Text;
+                    }
+                }
+                return DT_Excel;
+            }
+
+
+            //var ExcelPackage = new OfficeOpenXml.ExcelPackage();
+
+            //ExcelPackage.Load(File.OpenRead(path));
+
+            //var WS = ExcelPackage.Workbook.Worksheets.First();
+
+            //System.Data.DataTable DT_Excel = new System.Data.DataTable();
+
+            //bool HasHeader = true;
+
+            //foreach (var FirstRowCell in WS.Cells[1, 1, 1, WS.Dimension.End.Column])
+            //{
+            //    DT_Excel.Columns.Add(HasHeader ? FirstRowCell.Text : string.Format("Column {0}", FirstRowCell.Start.Column));
+            //}
+
+            //var StartRow = HasHeader ? 2 : 1;
+            //for (var rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
+            //{
+            //    var wsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
+            //    var row = DT_Excel.NewRow();
+            //    foreach (var cell in wsRow)
+            //    {
+            //        row[cell.Start.Column - 1] = cell.Text;
+            //    }
+            //    DT_Excel.Rows.Add(row);
+            //}
+            //ExcelPackage.Dispose();
+            //return DT_Excel;
+
+        }
         #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,15 @@ namespace MarketPlace.Models.Provider
 
         public ProveedoresOnLine.Company.Models.Company.CompanyIndexModel CompanyIndexModel { get; set; }
 
-        public MarketPlace.Models.ElasticSearchModels.ElasticSearchModel ElasticModel { get; set; }
+        public Nest.ISearchResponse<CompanyIndexModel> ElasticCompanyModel { get; set; }
+
+        public Nest.TermsAggregate CityAgg { get; set; }
+
+        public Nest.TermsAggregate StatusAgg { get; set; }
+
+        public Nest.TermsAggregate CountryAgg { get; set; }
+
+        public Nest.TermsAggregate BlackListAgg { get; set; }        
 
         #region Comparison
 
