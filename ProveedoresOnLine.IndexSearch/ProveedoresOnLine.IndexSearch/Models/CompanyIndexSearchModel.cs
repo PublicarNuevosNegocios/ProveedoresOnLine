@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.IndexSearch.Models
 {
-    public class IndexSearchModel
+    public class CompanyIndexSearchModel
     {
         public string CompanyPublicId { get; set; }
 

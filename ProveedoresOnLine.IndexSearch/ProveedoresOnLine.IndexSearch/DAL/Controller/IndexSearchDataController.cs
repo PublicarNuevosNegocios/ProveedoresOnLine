@@ -38,9 +38,22 @@ namespace ProveedoresOnLine.IndexSearch.DAL.Controller
 
         #endregion
 
-        public List<IndexSearchModel> GetCompanyIndex()
+        #region Company Index
+
+        public List<CompanyIndexSearchModel> GetCompanyIndex()
         {
             return DataFactory.GetCompanyIndex();
         }
+
+        #endregion
+
+        #region Survey Index
+
+        public List<SurveyIndexSearchModel> GetSurveyIndex()
+        {
+            return DataFactory.GetSurveyIndex();
+        }
+
+        #endregion
     }
 }

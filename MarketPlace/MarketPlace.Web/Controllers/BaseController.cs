@@ -77,6 +77,26 @@ namespace MarketPlace.Web.Controllers
                 oPosition++;
             }
 
+            if (oCurrentUserModules.Any(x => x == (int)enumModule.Survey))
+            {
+                //Modulo de Evaluación de Desempeño
+                oReturn.Add(new GenericMenu()
+                {
+                    Name = "Evaluación de Desempeño",
+                    Position = oPosition,
+                    Url = Url.RouteUrl(
+                        MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Survey.Name,
+                            action = MVC.Survey.ActionNames.Search
+                        }),
+                    IsSelected = (CurrentControllerName == MVC.Survey.Name &&
+                                CurrentActionName == MVC.Survey.ActionNames.Search),
+                });
+                oPosition++;
+            }
+
             if (oCurrentUserModules.Any(x => x == (int)enumModule.ComparisionInfo))
             {
                 //Modulo de comparación
