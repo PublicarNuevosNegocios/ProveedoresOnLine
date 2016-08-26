@@ -63,7 +63,10 @@ namespace MarketPlace.Web.Controllers
                     PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
                     ProviderSearchResult = new List<ProviderLiteViewModel>(),
                     CompanyIndexModel = new ProveedoresOnLine.Company.Models.Company.CompanyIndexModel(),
-                    SearchFilterResult = new List<ElasticSearchFilter>(),
+                    CityFilter = new List<ElasticSearchFilter>(),
+                    CountryFilter = new List<ElasticSearchFilter>(),
+                    StatusFilter = new List<ElasticSearchFilter>(),
+                    BlackListFilter = new List<ElasticSearchFilter>(),
                 };
 
                 //ElasticSearch
@@ -88,11 +91,11 @@ namespace MarketPlace.Web.Controllers
                                 
                 aggCityQuery.Aggs.Terms("city").Buckets.All(x =>
                     {
-                        oModel.SearchFilterResult.Add(new ElasticSearchFilter
+                        oModel.CityFilter.Add(new ElasticSearchFilter
                         {
                             FilterCount = (int)x.DocCount,
                             FilterType = x.Key,
-                            FilterName = MarketPlace.Models.Company.CompanyUtil.AllCities.Where(y => y.City.ItemId == int.Parse(x.Key)).Select(y => y.City.ItemName).FirstOrDefault(),
+                            FilterName = MarketPlace.Models.Company.CompanyUtil.GetCityName(x.Key),
                         });
                         return true;
                     });
@@ -105,7 +108,16 @@ namespace MarketPlace.Web.Controllers
                                 .Terms("country", aggv => aggv.Field(fi => fi.CountryId))
                             ));
 
-                oModel.CountryAgg = aggCountryQuery.Aggs.Terms("country");
+                aggCountryQuery.Aggs.Terms("country").Buckets.All(x =>
+                {
+                    oModel.CountryFilter.Add(new ElasticSearchFilter
+                    {
+                        FilterCount = (int)x.DocCount,
+                        FilterType = x.Key,
+                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetCountryName(x.Key),
+                    });
+                    return true;
+                });
                 #endregion
 
                 #region Status Aggregation
@@ -114,7 +126,16 @@ namespace MarketPlace.Web.Controllers
                                 .Terms("status", aggv => aggv.Field(fi => fi.ProviderStatus))
                             ));
 
-                oModel.StatusAgg = aggStatusQuery.Aggs.Terms("status");
+                aggStatusQuery.Aggs.Terms("status").Buckets.All(x =>
+                {
+                    oModel.StatusFilter.Add(new ElasticSearchFilter
+                    {
+                        FilterCount = (int)x.DocCount,
+                        FilterType = x.Key,
+                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(x.Key),
+                    });
+                    return true;
+                });
                 #endregion
 
                 #region BlackList Aggregation
@@ -123,7 +144,15 @@ namespace MarketPlace.Web.Controllers
                                 .Terms("blacklist", aggv => aggv.Field(fi => fi.InBlackList))
                             ));
 
-                oModel.BlackListAgg = aggBlackListQuery.Aggs.Terms("blacklist");
+                aggBlackListQuery.Aggs.Terms("blacklist").Buckets.All(x =>
+                {
+                    oModel.BlackListFilter.Add(new ElasticSearchFilter
+                    {
+                        FilterCount = (int)x.DocCount,
+                        FilterType = x.Key,                        
+                    });
+                    return true;
+                });
                 #endregion
 
                 #region Providers

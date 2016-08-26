@@ -77,18 +77,18 @@
                     </li>
                 }*@
 
-                if (Model.CountryAgg != null && Model.CountryAgg.Buckets.Count > 0)
+                if (Model.CountryFilter != null && Model.CountryFilter.Count > 0)
                 {
                     <li>
                         <span>Pais</span>
                         <ul>
-                            @foreach (var oFilterItem in Model.CountryAgg.Buckets)
+                            @foreach (var oFilterItem in Model.CountryFilter)
                             {
-                                if (oFilterItem.Key != "0")
+                                if (oFilterItem.FilterCount != 0)
                                 {
                                     <li>
-                                        <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.Key + ";" + oFilterItem.Key)'}});" />
-                                            @*<span>@oFilterItem.FilterValue.ItemName (@oFilterItem.Quantity) </span>*@
+                                        <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
+                                            <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                                     </li>
                                 }
                                 <li>
@@ -100,19 +100,19 @@
                     </li>
                 }
 
-                if (Model.CityAgg != null && Model.CityAgg.Buckets.Count > 0)
+                if (Model.CityFilter != null && Model.CityFilter.Count > 0)
                 {
                     <li>
                         <span>Ciudad</span>
                         <ul>
-                            @foreach (var oFilterItem in Model.CityAgg.Buckets)
+                            @foreach (var oFilterItem in Model.CityFilter)
                             {
                                 <li>
-                                    @if (oFilterItem.Key != "0")
+                                    @if (oFilterItem.FilterCount != 0)
                                     {
-                                        <input type="checkbox"  onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.Key + ";" + oFilterItem.Key)'}});" />
+                                        <input type="checkbox"  onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
                                     }                                    
-                                    <span>Bogotá (@oFilterItem.DocCount) </span>
+                                    <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                                 </li>
                             }
                         </ul>
@@ -143,46 +143,46 @@
                     </li>
                 }*@
 
-                if (Model.BlackListAgg != null && Model.BlackListAgg.Buckets.Count > 0)
+                if (Model.BlackListFilter != null && Model.BlackListFilter.Count > 0)
                 {
                     <li>
                         <span>Proveedores en Listas Restrictivas</span>
                         <ul>
-                            @foreach (var oFilterItem in Model.BlackListAgg.Buckets)
+                            @foreach (var oFilterItem in Model.BlackListFilter)
                             {
                                 <li>
-                                   @if (oFilterItem.Key != "0")
+                                   @if (oFilterItem.FilterCount != 0)
                                    {
-                                    <input type="checkbox"  onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.Key + ";" + oFilterItem.Key)'}});" />
+                                    <input type="checkbox"  onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
                                    }
                                     @*else
                                     {
                                         <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
                                     }*@
-                                    <span>Proveedores En Listas Restrictivas (@oFilterItem.DocCount) </span>
+                                    <span>Proveedores En Listas Restrictivas (@oFilterItem.FilterCount) </span>
                                 </li>                                    
                             }
                         </ul>
                     </li>
                 }
 
-                if (Model.StatusAgg != null && Model.StatusAgg.Buckets.Count > 0)
+                if (Model.StatusFilter != null && Model.StatusFilter.Count > 0)
                 {
                     <li>
                         <span>Estado</span>
                         <ul>
-                            @foreach (var oFilterItem in Model.BlackListAgg.Buckets)
+                            @foreach (var oFilterItem in Model.StatusFilter)
                             {
                                 <li>
-                                    @if (oFilterItem.Key != "0")
+                                    @if (oFilterItem.FilterCount != 0)
                                     {
-                                        <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.Key + ";" + oFilterItem.Key)'}});" />
+                                        <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
                                     }
                                     @*else
                                         {
                                             <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
                                         }*@
-                                    <span>Estado (@oFilterItem.DocCount) </span>
+                                    <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                                 </li>
                             }
                         </ul>
