@@ -62,7 +62,8 @@ namespace MarketPlace.Web.Controllers
                     OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
                     PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
                     ProviderSearchResult = new List<ProviderLiteViewModel>(),
-                    CompanyIndexModel = new ProveedoresOnLine.Company.Models.Company.CompanyIndexModel(),                    
+                    CompanyIndexModel = new ProveedoresOnLine.Company.Models.Company.CompanyIndexModel(),
+                    SearchFilterResult = new List<ElasticSearchFilter>(),
                 };
 
                 //ElasticSearch
@@ -84,8 +85,18 @@ namespace MarketPlace.Web.Controllers
                             .Aggregations(agg => agg
                                 .Terms("city", aggv => aggv.Field(fi => fi.CityId))
                             ));
-
-                oModel.CityAgg = aggCityQuery.Aggs.Terms("city"); 
+                                
+                aggCityQuery.Aggs.Terms("city").Buckets.All(x =>
+                    {
+                        oModel.SearchFilterResult.Add(new ElasticSearchFilter
+                        {
+                            FilterCount = (int)x.DocCount,
+                            FilterType = x.Key,
+                            FilterName = MarketPlace.Models.Company.CompanyUtil.AllCities.Where(y => y.City.ItemId == int.Parse(x.Key)).Select(y => y.City.ItemName).FirstOrDefault(),
+                        });
+                        return true;
+                    });
+                
                 #endregion
 
                 #region Country Aggregation
