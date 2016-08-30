@@ -54,6 +54,15 @@ namespace ProveedoresOnLine.IndexSearch.DAL.Controller
             return DataFactory.GetSurveyIndex();
         }
 
+        #region Survey Info Index
+        
+        public List<SurveyInfoIndexSearchModel> GetSurveyInfoIndex()
+        {
+            return DataFactory.GetSurveyInfoIndex();
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -25,5 +25,14 @@ namespace ProveedoresOnLine.IndexSearch.Test
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
+
+        [TestMethod]
+        public void GetAllSurveyInfoIndexSearch()
+        {
+            List<SurveyInfoIndexSearchModel> oReturn =
+                Controller.IndexSearch.GetSurveyInfoIndex();
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
     }
 }

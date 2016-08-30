@@ -58,6 +58,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\CompanyIndexSearchModel.cs" />
     <Compile Include="Models\SurveyIndexSearchModel.cs" />
+    <Compile Include="Models\SurveyInfoIndexSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

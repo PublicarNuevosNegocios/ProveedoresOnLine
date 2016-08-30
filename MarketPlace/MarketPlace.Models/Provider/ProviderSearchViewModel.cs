@@ -17,6 +17,11 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> ProviderFilterResult { get; set; }
 
+        public List<ProveedoresOnLine.Company.Models.Util.ElasticSearchFilter> CityFilter { get; set; }
+        public List<ProveedoresOnLine.Company.Models.Util.ElasticSearchFilter> StatusFilter { get; set; }
+        public List<ProveedoresOnLine.Company.Models.Util.ElasticSearchFilter> BlackListFilter { get; set; }
+        public List<ProveedoresOnLine.Company.Models.Util.ElasticSearchFilter> CountryFilter { get; set; }        
+
         public string SearchParam { get; set; }
 
         public string SearchFilter { get; set; }
@@ -36,14 +41,7 @@ namespace MarketPlace.Models.Provider
         public ProveedoresOnLine.Company.Models.Company.CompanyIndexModel CompanyIndexModel { get; set; }
 
         public Nest.ISearchResponse<CompanyIndexModel> ElasticCompanyModel { get; set; }
-
-        public Nest.TermsAggregate CityAgg { get; set; }
-
-        public Nest.TermsAggregate StatusAgg { get; set; }
-
-        public Nest.TermsAggregate CountryAgg { get; set; }
-
-        public Nest.TermsAggregate BlackListAgg { get; set; }        
+     
 
         #region Comparison
 

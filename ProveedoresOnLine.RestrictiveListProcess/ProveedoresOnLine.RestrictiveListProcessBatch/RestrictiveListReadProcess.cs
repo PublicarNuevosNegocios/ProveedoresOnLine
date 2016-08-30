@@ -8,6 +8,7 @@ using ProveedoresOnLine.RestrictiveListProcessBatch.Models;
 using ProveedoresOnLine.ThirdKnowledge.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -39,33 +40,31 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                         string FileName = Process.FilePath.Split('/').LastOrDefault();
                         //Call Function to get Coincidences
                         List<TDQueryInfoModel> oCoincidences = GetCoincidences(FileName);
-
+                        
+                        List<ExcelModel> oExcelFileProcess = null;
+                       
                         if (oCoincidences != null)
                         {
+                            
                             //Download Current File
                             using (WebClient webClient = new WebClient())
                             {
                                 //Get file from S3 using File Name           
                                 webClient.DownloadFile(Process.FilePath, strFolder + FileName);
+                                //Call function to get Excel info into Datatable
+                                System.Data.DataTable DT_Excel = ReadExcelFile(strFolder + FileName);
 
-                                //Open File DownLoaded
-                                Workbook book = app.Workbooks.Open(strFolder + FileName,
-                                       Missing.Value, Missing.Value, Missing.Value,
-                                       Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                       Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-                                       Missing.Value, Missing.Value, Missing.Value);
+                                if (DT_Excel != null)
+                                {
+                                    oExcelFileProcess = new List<ExcelModel>();
+                                    foreach (DataRow item in DT_Excel.Rows)
+                                    {
+                                        oExcelFileProcess.Add(new ExcelModel(item));
+                                    }
+                                }
 
-                                //Save As .xls
-                                book.SaveAs(strFolder + FileName.Replace("xlsx", "xls"), fileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8);
-                                book.Close();
                             }
-
-                            ExcelQueryFactory XlsInfo = new ExcelQueryFactory(strFolder + FileName.Replace("xlsx", "xls"));
-                            //Set model Params
-                            List<ExcelModel> oExcelS3 =
-                            (from x in XlsInfo.Worksheet<ExcelModel>(0)
-                             select x).ToList();
-
+                            
                             //Get Provider by Status                        
                             Process.RelatedProvider = new List<ProviderModel>();
 
@@ -113,7 +112,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                                     return true;
                                 });
 
-                            oProvidersToCompare = Process.RelatedProvider.Where(y => oCoincidences.Any(c => c.IdentificationResult == y.RelatedCompany.IdentificationNumber && y.RelatedCompany.CompanyName == c.NameResult)).ToList();
+                            oProvidersToCompare = Process.RelatedProvider.Where(y => oCoincidences.Any(c => c.IdentificationResult != y.RelatedCompany.IdentificationNumber || y.RelatedCompany.CompanyName != c.NameResult)).ToList();
 
                             //Get persons coincidences                           
                             Process.RelatedProvider.All(prv =>
@@ -968,6 +967,52 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
             {
                 return false;
                 throw;
+            }
+        }
+
+        private static System.Data.DataTable ReadExcelFile(string path) 
+        {
+            bool HasHeader = true;
+            using (var ExcelPackage = new OfficeOpenXml.ExcelPackage())
+            {
+                using (var stream = File.OpenRead(path))
+                {
+                    ExcelPackage.Load(stream);
+                }
+
+                var WS = ExcelPackage.Workbook.Worksheets.First();
+
+                var FirstRow = 0;
+
+                var DimEndRow = WS.Dimension.End.Row;
+
+                var DimEndColumn = WS.Dimension.End.Column;
+
+                System.Data.DataTable DT_Excel = new System.Data.DataTable();
+
+                //set all the cells from the Excel File
+                foreach (var FirstRowCell in WS.Cells[1, 1, 1, DimEndColumn])
+                {
+                    FirstRow = FirstRowCell.Start.Column;
+                    DT_Excel.Columns.Add(HasHeader ? FirstRowCell.Text : string.Format("Column {0}", FirstRow));
+                }
+
+                var StartRow = HasHeader ? 2 : 1;
+                for (var rowNum = StartRow; rowNum <= DimEndRow; rowNum++)
+                {
+                    var WsRow = WS.Cells[rowNum, 1, rowNum, DimEndColumn];
+                    DataRow row = DT_Excel.Rows.Add();
+
+                    foreach (var cell in WsRow)
+                    {
+                        if (cell.Text != null && cell.Text != " " && cell.Text != "")
+                        {
+                            
+                            row[cell.Start.Column - 1] = cell.Text;
+                        }
+                    }
+                }
+                return DT_Excel;
             }
         }
 
