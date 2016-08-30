@@ -1,0 +1,118 @@
+/********** LAYOUT DE PAGINA DE RESULTADO DE PROVEEDORES **********/
+.POMSurveySearchGreatWrapper {
+    display: block;
+    width: 100%;
+    min-width: 960px;
+    border: none;
+}
+/*********** MUESTRA LOS FILTROS LATERALES EN RESULTADOS ***********/
+.POMPSurveyFilterMenuWrapper {
+    border-right: 2px solid #ff8300;
+    display: inline-block;
+    height: 100%;
+    min-height: 490px;
+    padding: 0 13px 0 11px;
+    margin: 0px 0px 7px 0px;
+    vertical-align: top;
+    width: 24.4%;
+    min-width: 219px;
+}
+/************ MUESTRA LA LISTA DE PROVEEDORES DE RESULTADOS ************/
+.POMPSurveyListWrapper {
+    display: inline-block;
+    height: auto;
+    min-height: 400px;
+    margin: 0px 0px 7px -6px;
+    width: 48%;
+    min-width: 462px;
+    border-right: 2px solid #ff8300;
+    border-left: 2px solid #ff8300;
+    position: relative;
+}
+
+.POMPDownloadExcelButton {
+    width: 65px;
+    height: 50px;
+    /*background:#ff8300;*/
+    color: #fff;
+    position: relative;
+    margin: -12px 0 0 calc(100% - 65px);
+    text-align: center;
+    line-height: 15px;
+}
+
+    .POMPDownloadExcelButton > a > img {
+        width: 30px;
+    }
+
+    .POMPDownloadExcelButton > a {
+        color: #337ab7;
+        font-size: 0.8em;
+    }
+
+.POMPSurveyListWrapper tr {
+    cursor: pointer;
+}
+
+    .POMPSurveyListWrapper tr:hover {
+        background-color: #e4e4e4;
+    }
+/************ MUESTRA LA LISTA DE PROVEEDORES LESECCIONADOS PARA COMPARAR *************/
+.POMPComparisonListWrapper {
+    display: inline-block;
+    height: auto;
+    min-height: 400px;
+    margin: 0px 0px 8px -3px;
+    padding: 0px 0px 0px 8px;
+    width: 27.2%;
+    min-width: 262px;
+    vertical-align: top;
+}
+/************ CALCULA EL ANCHO DE CONTENIDO HASTA 1024PX ************/
+.POMPProviderContentWrapper {
+    border: medium none;
+    display: inline-block;
+    height: auto;
+    margin: 0px 0px 0px 18px;
+    width: calc(100% - 305px);
+}
+/*Message*/
+
+.message {
+    position: absolute;
+    left: 50%;
+    display: none;
+    width: 200px;
+    margin-left: -160px;
+    padding: 10px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 5px solid;
+    border-top: 0px none;
+    z-index: 9999;
+    -moz-box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+    -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,.2);
+    box-shadow: 00px 2px 5px rgba(0,0,0,.2);
+}
+
+.m_success {
+    color: #333;
+    background-color: #b9ec75;
+    border-color: #e7f8ce;
+    border-color: rgba(121,191,98,.5);
+}
+
+.m_error {
+    color: #000;
+    background-color: #ffc9c0;
+    border-color: #af1900;
+    border-color: rgba(226,31,0,.5);
+}
+
+#POMPNotFoundResults {
+    margin: 20px 0 0 20px;
+}

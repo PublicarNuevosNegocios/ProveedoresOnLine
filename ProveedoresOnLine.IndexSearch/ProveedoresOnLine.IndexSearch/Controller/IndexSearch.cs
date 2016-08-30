@@ -25,6 +25,15 @@ namespace ProveedoresOnLine.IndexSearch.Controller
             return DAL.Controller.IndexSearchDataController.Instance.GetSurveyIndex();
         }
 
-        #endregion        
+        #region Survey Info Index
+
+        public static List<SurveyInfoIndexSearchModel> GetSurveyInfoIndex()
+        {
+            return DAL.Controller.IndexSearchDataController.Instance.GetSurveyInfoIndex();
+        }
+
+        #endregion
+
+        #endregion
     }
 }

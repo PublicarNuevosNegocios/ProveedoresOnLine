@@ -79,9 +79,33 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        public virtual System.Web.Mvc.ActionResult SVSurveySearch()
         {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyEvaluatorDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyEvaluatorDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyReport()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyProgram()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -103,7 +127,11 @@ namespace MarketPlace.Web.Controllers
             public readonly string Search = "Search";
             public readonly string SurveyUpsert = "SurveyUpsert";
             public readonly string SurveyFinalize = "SurveyFinalize";
-            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
+            public readonly string SVSurveySearch = "SVSurveySearch";
+            public readonly string SVSurveyDetail = "SVSurveyDetail";
+            public readonly string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
+            public readonly string SVSurveyReport = "SVSurveyReport";
+            public readonly string SVSurveyProgram = "SVSurveyProgram";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -113,7 +141,11 @@ namespace MarketPlace.Web.Controllers
             public const string Search = "Search";
             public const string SurveyUpsert = "SurveyUpsert";
             public const string SurveyFinalize = "SurveyFinalize";
-            public const string GetPdfFileBytes = "GetPdfFileBytes";
+            public const string SVSurveySearch = "SVSurveySearch";
+            public const string SVSurveyDetail = "SVSurveyDetail";
+            public const string SVSurveyEvaluatorDetail = "SVSurveyEvaluatorDetail";
+            public const string SVSurveyReport = "SVSurveyReport";
+            public const string SVSurveyProgram = "SVSurveyProgram";
         }
 
 
@@ -143,13 +175,55 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string SurveyPublicId = "SurveyPublicId";
         }
-        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        static readonly ActionParamsClass_SVSurveySearch s_params_SVSurveySearch = new ActionParamsClass_SVSurveySearch();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        public ActionParamsClass_SVSurveySearch SVSurveySearchParams { get { return s_params_SVSurveySearch; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetPdfFileBytes
+        public class ActionParamsClass_SVSurveySearch
         {
-            public readonly string FilePath = "FilePath";
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SearchOrderType = "SearchOrderType";
+            public readonly string OrderOrientation = "OrderOrientation";
+            public readonly string PageNumber = "PageNumber";
+            public readonly string InitDate = "InitDate";
+            public readonly string EndDate = "EndDate";
+        }
+        static readonly ActionParamsClass_SVSurveyDetail s_params_SVSurveyDetail = new ActionParamsClass_SVSurveyDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyDetail SVSurveyDetailParams { get { return s_params_SVSurveyDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyDetail
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SurveyPublicId = "SurveyPublicId";
+        }
+        static readonly ActionParamsClass_SVSurveyEvaluatorDetail s_params_SVSurveyEvaluatorDetail = new ActionParamsClass_SVSurveyEvaluatorDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyEvaluatorDetail SVSurveyEvaluatorDetailParams { get { return s_params_SVSurveyEvaluatorDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyEvaluatorDetail
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SurveyPublicId = "SurveyPublicId";
+            public readonly string User = "User";
+        }
+        static readonly ActionParamsClass_SVSurveyReport s_params_SVSurveyReport = new ActionParamsClass_SVSurveyReport();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyReport SVSurveyReportParams { get { return s_params_SVSurveyReport; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyReport
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_SVSurveyProgram s_params_SVSurveyProgram = new ActionParamsClass_SVSurveyProgram();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyProgram SVSurveyProgramParams { get { return s_params_SVSurveyProgram; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyProgram
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SurveyPublicId = "SurveyPublicId";
+            public readonly string ProjectPublicId = "ProjectPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -220,14 +294,72 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+        partial void SVSurveySearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
 
         [NonAction]
-        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        public override System.Web.Mvc.ActionResult SVSurveySearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetPdfFileBytesOverride(callInfo, FilePath);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "InitDate", InitDate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
+            SVSurveySearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, InitDate, EndDate);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyDetail(string ProviderPublicId, string SurveyPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
+            SVSurveyDetailOverride(callInfo, ProviderPublicId, SurveyPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyEvaluatorDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId, string User);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyEvaluatorDetail(string ProviderPublicId, string SurveyPublicId, string User)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyEvaluatorDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "User", User);
+            SVSurveyEvaluatorDetailOverride(callInfo, ProviderPublicId, SurveyPublicId, User);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyReport(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            SVSurveyReportOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SurveyPublicId, string ProjectPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId, string SurveyPublicId, string ProjectPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
+            SVSurveyProgramOverride(callInfo, ProviderPublicId, SurveyPublicId, ProjectPublicId);
             return callInfo;
         }
 

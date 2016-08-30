@@ -30,8 +30,8 @@ namespace ProveedoresOnLine.IndexSearch.Models
 
         public string Status { get; set; }
 
-        public string EconomicActivityId { get; set; }
+        public string ICAId { get; set; }
 
-        public string EconomicActivity { get; set; }
+        public string ICA { get; set; }
     }
 }
