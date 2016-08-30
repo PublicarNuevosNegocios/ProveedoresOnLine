@@ -518,12 +518,11 @@ namespace ProveedoresOnLine.ThirdKnowledgeBatch
                 for (var rowNum = StartRow; rowNum <= WS.Dimension.End.Row; rowNum++)
                 {
                     var WsRow = WS.Cells[rowNum, 1, rowNum, WS.Dimension.End.Column];
-
+                    DataRow row = DT_Excel.Rows.Add();
                     foreach (var cell in WsRow)
                     {
                         if (cell.Text != null && cell.Text != " " && cell.Text != "")
-                        {
-                            DataRow row = DT_Excel.Rows.Add();
+                        {                            
                             row[cell.Start.Column - 1] = cell.Text;
                         }
                     }

@@ -18,7 +18,7 @@
             @foreach (var oSearchItem in Model.ElasticCompanyModel.Documents)
             {
                 <li>
-                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, new Tuple<MarketPlace.Models.Provider.ProviderSearchViewModel, MarketPlace.Models.Provider.ProviderLiteViewModel>(Model, oSearchItem))
+                    @*@Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, oSearchItem)*@
                 </li>
             }
         </ul>

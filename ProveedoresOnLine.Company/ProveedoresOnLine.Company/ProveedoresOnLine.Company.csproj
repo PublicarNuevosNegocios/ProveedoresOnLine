@@ -88,6 +88,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\Role\RoleModuleModel.cs" />
+    <Compile Include="Models\Util\ElasticSearchFilter.cs" />
     <Compile Include="Models\Util\GenericChartsModel.cs" />
     <Compile Include="Models\Util\GenericChartsModelInfo.cs" />
     <Compile Include="Models\Util\CatalogModel.cs" />
