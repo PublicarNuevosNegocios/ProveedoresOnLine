@@ -1054,6 +1054,8 @@ namespace Links
                              
                         public static readonly string POMPSurvey_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSurvey.min.css") ? Url("POMPSurvey.min.css") : Url("POMPSurvey.css");
                              
+                        public static readonly string POMPSurveySearchLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSurveySearchLayout.min.css") ? Url("POMPSurveySearchLayout.min.css") : Url("POMPSurveySearchLayout.css");
+                             
                         public static readonly string POMPTermsConditions_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPTermsConditions.min.css") ? Url("POMPTermsConditions.min.css") : Url("POMPTermsConditions.css");
                              
                         public static readonly string POMPThirdKnowledge_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPThirdKnowledge.min.css") ? Url("POMPThirdKnowledge.min.css") : Url("POMPThirdKnowledge.css");

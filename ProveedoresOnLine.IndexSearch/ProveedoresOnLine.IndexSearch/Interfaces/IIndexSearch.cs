@@ -19,6 +19,12 @@ namespace ProveedoresOnLine.IndexSearch.Interfaces
 
         List<SurveyIndexSearchModel> GetSurveyIndex();
 
-        #endregion        
+        #region Survey Info Index
+
+        List<SurveyInfoIndexSearchModel> GetSurveyInfoIndex();
+
+        #endregion
+
+        #endregion
     }
 }

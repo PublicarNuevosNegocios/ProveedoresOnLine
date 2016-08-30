@@ -51,20 +51,20 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                Status = idx.Field<string>("Status"),
                            }
                                into idxg
-                               select new CompanyIndexSearchModel()
-                               {
-                                   CompanyPublicId = idxg.Key.CompanyPublicId,
-                                   CompanyName = idxg.Key.CompanyName,
-                                   CompanyIdentificationTypeId = idxg.Key.CompanyIdentificationTypeId,
-                                   CompanyIdentificationType = idxg.Key.CompanyIdentificationType,
-                                   CompanyIdentificationNumber = idxg.Key.CompanyIdentificationNumber,
-                                   CountryId = idxg.Key.CountryId,
-                                   Country = idxg.Key.Country,
-                                   CityId = idxg.Key.CityId,
-                                   City = idxg.Key.City,
-                                   StatusId = idxg.Key.StatusId,
-                                   Status = idxg.Key.Status,
-                               }).ToList();
+                           select new CompanyIndexSearchModel()
+                           {
+                               CompanyPublicId = idxg.Key.CompanyPublicId,
+                               CompanyName = idxg.Key.CompanyName,
+                               CompanyIdentificationTypeId = idxg.Key.CompanyIdentificationTypeId,
+                               CompanyIdentificationType = idxg.Key.CompanyIdentificationType,
+                               CompanyIdentificationNumber = idxg.Key.CompanyIdentificationNumber,
+                               CountryId = idxg.Key.CountryId,
+                               Country = idxg.Key.Country,
+                               CityId = idxg.Key.CityId,
+                               City = idxg.Key.City,
+                               StatusId = idxg.Key.StatusId,
+                               Status = idxg.Key.Status,
+                           }).ToList();
             }
 
             return oReturn;
@@ -73,7 +73,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
         #endregion
 
         #region Survey Index
-        
+
         public List<SurveyIndexSearchModel> GetSurveyIndex()
         {
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -94,16 +94,6 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                      group sv by new
                      {
                          CompanyPublicId = sv.Field<string>("CompanyPublicId"),
-                         CompanyName = sv.Field<string>("CompanyName"),
-                         CompanyIdentificationTypeId = sv.Field<int?>("CompanyIdentificationTypeId").ToString(),
-                         CompanyIdentificationType = sv.Field<string>("CompanyIdentificationType"),
-                         CompanyIdentificationNumber = sv.Field<string>("CompanyIdentificationNumber"),
-                         CountryId = sv.Field<int?>("CountryId").ToString(),
-                         Country = sv.Field<string>("Country"),
-                         CityId = sv.Field<int?>("CityId").ToString(),
-                         City = sv.Field<string>("City"),
-                         StatusId = sv.Field<int?>("StatusId").ToString(),
-                         Status = sv.Field<string>("Status"),
                          SurveyPublicId = sv.Field<string>("SurveyPublicId"),
                          SurveyTypeId = sv.Field<int?>("SurveyTypeId").ToString(),
                          SurveyType = sv.Field<string>("SurveyType"),
@@ -111,28 +101,52 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                          SurveyStatus = sv.Field<string>("SurveyStatus"),
                      }
                          into svg
-                         select new SurveyIndexSearchModel()
-                         {
-                             oCompanyIndexSearchModel = new CompanyIndexSearchModel()
-                             {
-                                 CompanyPublicId = svg.Key.CompanyPublicId,
-                                 CompanyName = svg.Key.CompanyName,
-                                 CompanyIdentificationTypeId = svg.Key.CompanyIdentificationTypeId,
-                                 CompanyIdentificationType = svg.Key.CompanyIdentificationType,
-                                 CompanyIdentificationNumber = svg.Key.CompanyIdentificationNumber,
-                                 CountryId = svg.Key.CountryId,
-                                 Country = svg.Key.Country,
-                                 CityId = svg.Key.CityId,
-                                 City = svg.Key.City,
-                                 StatusId = svg.Key.StatusId,
-                                 Status = svg.Key.Status,
-                             },
-                             SurveyPublicId = svg.Key.SurveyPublicId,
-                             SurveyTypeId = svg.Key.SurveyTypeId,
-                             SurveyType = svg.Key.SurveyType,
-                             SurveyStatusId = svg.Key.SurveyStatusId,
-                             SurveyStatus = svg.Key.SurveyStatus,
-                         }).ToList();
+                     select new SurveyIndexSearchModel()
+                     {
+                         CompanyPublicId = svg.Key.CompanyPublicId,
+                         SurveyPublicId = svg.Key.SurveyPublicId,
+                         SurveyTypeId = svg.Key.SurveyTypeId,
+                         SurveyType = svg.Key.SurveyType,
+                         SurveyStatusId = svg.Key.SurveyStatusId,
+                         SurveyStatus = svg.Key.SurveyStatus,
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #region Survey Info Index
+
+        public List<SurveyInfoIndexSearchModel> GetSurveyInfoIndex()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_IndexSurveyInfo",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            List<SurveyInfoIndexSearchModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from svinf in response.DataTableResult.AsEnumerable()
+                     where !svinf.IsNull("ParentSurveyPublicId")
+                     group svinf by new
+                     {
+                         ParentSurveyPublicId = svinf.Field<string>("ParentSurveyPublicId"),
+                         SurveyPublicId = svinf.Field<string>("SurveyPublicId"),
+                         UserEmail = svinf.Field<string>("UserEmail"),
+                     }
+                     into svinfg
+                     select new SurveyInfoIndexSearchModel()
+                     {
+                         ParentSurveyPublicId = svinfg.Key.ParentSurveyPublicId,
+                         SurveyPublicId = svinfg.Key.SurveyPublicId,
+                         SurveyUserEmail = svinfg.Key.UserEmail,
+                     }).ToList();
             }
 
             return oReturn;
@@ -140,6 +154,6 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
 
         #endregion
 
-        
+        #endregion
     }
 }
