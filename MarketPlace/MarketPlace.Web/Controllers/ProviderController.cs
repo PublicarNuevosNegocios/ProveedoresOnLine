@@ -3220,7 +3220,7 @@ namespace MarketPlace.Web.Controllers
                 string strSep = ";";
 
                 oProviderResult.All(x =>
-                {
+                {                    
                     string Address = string.Empty;
                     string Telephone = string.Empty;
                     string Representative = string.Empty;
@@ -3228,6 +3228,7 @@ namespace MarketPlace.Web.Controllers
                     int CityId = 0;
                     string City = string.Empty;
                     string State = string.Empty;
+                    string StatusProvider = string.Empty;
 
                     if (x.RelatedCommercial != null)
                     {
@@ -3256,10 +3257,16 @@ namespace MarketPlace.Web.Controllers
                                 Country = (oGeographyModel != null && oGeographyModel.FirstOrDefault().Country.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().Country.ItemName != null) ? oGeographyModel.FirstOrDefault().Country.ItemName : "N/D";
                                 City = (oGeographyModel != null && oGeographyModel.FirstOrDefault().City.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().City.ItemName != null) ? oGeographyModel.FirstOrDefault().City.ItemName : "N/D";
                                 State = (oGeographyModel != null && oGeographyModel.FirstOrDefault().State.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().State.ItemName != null) ? oGeographyModel.FirstOrDefault().State.ItemName : "N/D";
+                                
                             }
 
                             return true;
                         });
+
+                        if (x.RelatedCustomerInfo !=null)
+                        {
+                           StatusProvider = x.RelatedCustomerInfo.FirstOrDefault().Value.ItemType.ItemName.ToString();
+                        }
 
                         if (oProviderResult.IndexOf(x) == 0)
                         {
@@ -3267,6 +3274,7 @@ namespace MarketPlace.Web.Controllers
                             ("\"" + "Tipo Identificacion" + "\"" + strSep +
                                 "\"" + "Numero Identificacion" + "\"" + strSep +
                                 "\"" + "Razon Social" + "\"" + strSep +
+                                "\"" + "Estado Proveedor" + "\"" + strSep +
                                 "\"" + "País" + "\"" + strSep +
 
                                 "\"" + "Ciudad" + "\"" + strSep +
@@ -3280,6 +3288,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + StatusProvider + "\"" + "" + strSep +
                                 "\"" + Country + "\"" + "" + strSep +
                                 "\"" + City + "\"" + strSep +
                                 "\"" + State + "\"" + "" + strSep +
@@ -3293,6 +3302,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + StatusProvider + "\"" + "" + strSep +
                                 "\"" + Country + "\"" + "" + strSep +
                                 "\"" + City + "\"" + strSep +
                                 "\"" + State + "\"" + "" + strSep +
@@ -3309,6 +3319,7 @@ namespace MarketPlace.Web.Controllers
                             ("\"" + "Tipo Identificacion" + "\"" + strSep +
                                 "\"" + "Numero Identificacion" + "\"" + strSep +
                                 "\"" + "Razon Social" + "\"" + strSep +
+                                "\"" + "Estado Proveedor" + "\"" + strSep +
                                 "\"" + "País" + "\"" + strSep +
 
                                 "\"" + "Ciudad" + "\"" + strSep +
@@ -3322,6 +3333,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + StatusProvider + "\"" + "" + strSep +
                                 "\"" + Country + "\"" + "" + strSep +
                                 "\"" + City + "\"" + strSep +
                                 "\"" + State + "\"" + "" + strSep +
@@ -3335,6 +3347,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + "ND" + "\"" + "" + strSep +
                                 "\"" + "ND" + "\"" + "" + strSep +
                                 "\"" + "ND" + "\"" + strSep +
                                 "\"" + "ND" + "\"" + "" + strSep +
