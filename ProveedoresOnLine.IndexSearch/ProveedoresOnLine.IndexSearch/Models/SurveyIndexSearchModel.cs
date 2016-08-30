@@ -8,10 +8,10 @@ namespace ProveedoresOnLine.IndexSearch.Models
 {
     public class SurveyIndexSearchModel
     {
-        public CompanyIndexSearchModel oCompanyIndexSearchModel { get; set; }
+        public string CompanyPublicId { get; set; }
 
         public string SurveyPublicId { get; set; }
-
+         
         public string SurveyTypeId { get; set; }
 
         public string SurveyType { get; set; }

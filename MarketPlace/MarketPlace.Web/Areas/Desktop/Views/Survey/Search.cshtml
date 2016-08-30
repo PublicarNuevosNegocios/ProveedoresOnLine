@@ -4,3 +4,22 @@
     ViewBag.Title = "Proveedores OnLine - Búsqueda de evaluaciones";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
+
+<div class="POMPProviderSearchBox">
+    <!--SearchBox-->
+    <input class="POMPTextField" id="Search_txtSearchBox" type="text" value="@Model.SearchParam" onkeydown="if (event.keyCode == 13) javascript:Provider_SearchObject.Search()" placeholder="Buscar Proveedor por Razón Social, NIT o Actividad." />
+    <a class="POMPButtons POMPSearchButtons" href="javascript:Provider_SearchObject.Search();">
+        Encontrar
+        <span class="POMPSearchButtonsLupita"></span>
+    </a>
+</div>
+<div class="POMSurveySearchGreatWrapper">
+    <!--SearchFilter-->
+    <div class="POMPSurveyFilterMenuWrapper">
+
+    </div>
+    <!--SearchResult-->
+    <div class="POMPSurveyListWrapper">
+
+    </div>
+</div>

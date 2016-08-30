@@ -6,8 +6,8 @@
         (MarketPlace.Models.General.Constants.C_Routes_Default,
         new
         {
-            controller = MVC.Provider.Name,
-            action = MVC.Provider.ActionNames.SVSurveyDetail,
+            controller = MVC.Survey.Name,
+            action = MVC.Survey.ActionNames.SVSurveyDetail,
             ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
             SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
         });
@@ -15,8 +15,8 @@
         (MarketPlace.Models.General.Constants.C_Routes_Default,
         new
         {
-            controller = MVC.Provider.Name,
-            action = MVC.Provider.ActionNames.SVSurveyProgram,
+            controller = MVC.Survey.Name,
+            action = MVC.Survey.ActionNames.SVSurveyProgram,
             ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
             SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
         });
@@ -136,8 +136,8 @@
                             <a class="POMPEvaluationListActions" href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.SVSurveyEvaluatorDetail,
+                                    controller = MVC.Survey.Name,
+                                    action = MVC.Survey.ActionNames.SVSurveyEvaluatorDetail,
                                     ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
                                     SurveyPublicId = Model.RelatedSurvey.RelatedSurvey.ParentSurveyPublicId,
                                     User = Model.RelatedSurvey.SurveyEvaluator
