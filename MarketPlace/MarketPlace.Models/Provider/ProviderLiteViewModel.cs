@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,10 @@ using System.Threading.Tasks;
 namespace MarketPlace.Models.Provider
 {
     public class ProviderLiteViewModel
-    {
+    {    
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; private set; }
+
+        public CompanyIndexModel ElasticRealtedProvider { get; private set; }
 
         /// <summary>
         /// provider is related for session customer
@@ -17,9 +20,10 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return RelatedProvider != null &&
-                        RelatedProvider.RelatedCustomerInfo != null &&
-                        RelatedProvider.RelatedCustomerInfo.Any(x => x.Key == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                return true;
+                //return RelatedProvider != null &&
+                //        RelatedProvider.RelatedCustomerInfo != null &&
+                //        RelatedProvider.RelatedCustomerInfo.Any(x => x.Key == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
             }
         }
 
@@ -30,14 +34,7 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return IsProviderCustomer &&
-                        RelatedProvider != null &&
-                        RelatedProvider.RelatedCustomerInfo != null ?
-                            RelatedProvider.
-                            RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
-                            ItemType.
-                            ItemId :
-                            0;
+                return int.Parse(ElasticRealtedProvider.ProviderStatus);
             }
         }
 
@@ -48,10 +45,10 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                if(ProviderStatusId.ToString() ==
+                if (ElasticRealtedProvider != null && ElasticRealtedProvider.ProviderStatus ==
                     MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value ||
-                    ProviderStatusId.ToString() == "902004" ||
-                    ProviderStatusId.ToString() == "902008")
+                    ElasticRealtedProvider.ProviderStatus == "902004" ||
+                    ElasticRealtedProvider.ProviderStatus == "902008")
                 {
                     return true;
                 }
@@ -69,16 +66,7 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-
-                string pic = RelatedProvider != null &&
-                        RelatedProvider.RelatedCompany != null ?
-                            RelatedProvider.
-                            RelatedCompany.
-                            CompanyInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CompanyLogo).
-                            Select(x => x.Value).
-                            DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value).
-                            FirstOrDefault() :
+                string pic = ElasticRealtedProvider != null ? ElasticRealtedProvider.LogoUrl :
                             MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value;
 
                 if (!string.IsNullOrEmpty(pic))
@@ -88,8 +76,7 @@ namespace MarketPlace.Models.Provider
                 else
                 {
                     return MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value;
-                }
-               
+                }               
             }
         }
 
@@ -100,17 +87,21 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return (5 * (IsProviderCustomer &&
-                        RelatedProvider != null &&
-                        RelatedProvider.RelatedCustomerInfo != null ?
-                            RelatedProvider.
-                            RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
-                            ItemInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCustomerProviderInfoType.ProviderRate).
-                            Select(x => Convert.ToDecimal(x.Value)).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault() :
+                return (5 * (ElasticRealtedProvider.CatlificationRating != null ?
+                            int.Parse(ElasticRealtedProvider.CatlificationRating) :
                             0) / 100);
+
+                //return (5 * (IsProviderCustomer &&
+                //        RelatedProvider != null &&
+                //        RelatedProvider.RelatedCustomerInfo != null ?
+                //            RelatedProvider.
+                //            RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
+                //            ItemInfo.
+                //            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCustomerProviderInfoType.ProviderRate).
+                //            Select(x => Convert.ToDecimal(x.Value)).
+                //            DefaultIfEmpty(0).
+                //            FirstOrDefault() :
+                //            0) / 100);
             }
         }
 
@@ -121,17 +112,7 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return IsProviderCustomer &&
-                        RelatedProvider != null &&
-                        RelatedProvider.RelatedCustomerInfo != null ?
-                            RelatedProvider.
-                            RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
-                            ItemInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCustomerProviderInfoType.ProviderRateCount).
-                            Select(x => Convert.ToInt32(x.Value)).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault() :
-                            0;
+                return 0;
             }
         }
 
@@ -143,15 +124,8 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return RelatedProvider != null &&
-                        RelatedProvider.RelatedCompany != null ?
-                            RelatedProvider.
-                            RelatedCompany.
-                            CompanyInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.AlertRisk).
-                            Select(x => (MarketPlace.Models.General.enumBlackListStatus)Convert.ToInt32(x.Value.Trim())).
-                            DefaultIfEmpty(MarketPlace.Models.General.enumBlackListStatus.DontShowAlert).
-                            FirstOrDefault() :
+                return ElasticRealtedProvider != null && ElasticRealtedProvider.InBlackList ? 
+                            MarketPlace.Models.General.enumBlackListStatus.ShowAlert :
                             MarketPlace.Models.General.enumBlackListStatus.DontShowAlert;
             }
         }
@@ -163,6 +137,11 @@ namespace MarketPlace.Models.Provider
         public ProviderLiteViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oRelatedProvider)
         {
             RelatedProvider = oRelatedProvider;
+        }
+        
+        public ProviderLiteViewModel(CompanyIndexModel oElasticSearchModel)
+        {
+            ElasticRealtedProvider = oElasticSearchModel;
         }
     }
 }

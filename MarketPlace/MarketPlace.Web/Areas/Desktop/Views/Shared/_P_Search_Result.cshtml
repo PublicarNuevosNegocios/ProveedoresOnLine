@@ -15,10 +15,10 @@
         </div>
         <!--SearchResult-->
         <ul class="POMPSearchResultsList">
-            @foreach (var oSearchItem in Model.ElasticCompanyModel.Documents)
+            @foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oSearchItem in Model.ProviderSearchResult)
             {
                 <li>
-                    @*@Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, oSearchItem)*@
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, new Tuple<MarketPlace.Models.Provider.ProviderSearchViewModel, MarketPlace.Models.Provider.ProviderLiteViewModel>(Model, oSearchItem))
                 </li>
             }
         </ul>

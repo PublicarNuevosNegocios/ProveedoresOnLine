@@ -29,6 +29,10 @@ namespace ProveedoresOnLine.Company.Models.Company
 
         public string CompanyPublicId { get; set; }
 
+        public string LogoUrl { get; set; }
+
+        public string CatlificationRating { get; set; }
+
         [Number]
         public int PrincipalActivityId { get; set; }
         [String]
