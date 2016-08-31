@@ -49,6 +49,8 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                City = idx.Field<string>("City"),
                                StatusId = idx.Field<int?>("StatusId").ToString(),
                                Status = idx.Field<string>("Status"),
+                               ICAId = idx.Field<int?>("ICAId").ToString(),
+                               ICA = idx.Field<string>("ICA"),
                            }
                                into idxg
                            select new CompanyIndexSearchModel()
@@ -64,6 +66,8 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                City = idxg.Key.City,
                                StatusId = idxg.Key.StatusId,
                                Status = idxg.Key.Status,
+                               ICAId = idxg.Key.ICAId,
+                               ICA = idxg.Key.ICA,
                            }).ToList();
             }
 
