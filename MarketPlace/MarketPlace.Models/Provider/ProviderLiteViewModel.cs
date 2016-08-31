@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MarketPlace.Models.Provider
 {
     public class ProviderLiteViewModel
-    {    
+    {
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; private set; }
 
         public CompanyIndexModel ElasticRealtedProvider { get; private set; }
@@ -34,7 +34,22 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return int.Parse(ElasticRealtedProvider.ProviderStatus);
+                if (ElasticRealtedProvider != null)
+                {
+                    return int.Parse(ElasticRealtedProvider.ProviderStatus);
+                }
+                else
+                {
+                    return IsProviderCustomer &&
+                         RelatedProvider != null &&
+                         RelatedProvider.RelatedCustomerInfo != null ?
+                             RelatedProvider.
+                             RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
+                             ItemType.
+                             ItemId :
+                             0;
+                }
+
             }
         }
 
@@ -45,10 +60,24 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                if (ElasticRealtedProvider != null && ElasticRealtedProvider.ProviderStatus ==
+                if (ElasticRealtedProvider != null)
+                {
+                    if (ElasticRealtedProvider.ProviderStatus ==
                     MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value ||
                     ElasticRealtedProvider.ProviderStatus == "902004" ||
                     ElasticRealtedProvider.ProviderStatus == "902008")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                if (ProviderStatusId.ToString() ==
+                    MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value ||
+                    ProviderStatusId.ToString() == "902004" ||
+                    ProviderStatusId.ToString() == "902008")
                 {
                     return true;
                 }
@@ -56,6 +85,7 @@ namespace MarketPlace.Models.Provider
                 {
                     return false;
                 }
+
             }
         }
 
@@ -70,13 +100,13 @@ namespace MarketPlace.Models.Provider
                             MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value;
 
                 if (!string.IsNullOrEmpty(pic))
-                {                    
+                {
                     return pic;
                 }
                 else
                 {
                     return MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value;
-                }               
+                }
             }
         }
 
@@ -87,10 +117,17 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return (5 * (ElasticRealtedProvider.CatlificationRating != null ?
+                if (ElasticRealtedProvider != null)
+                {
+                    return (5 * (ElasticRealtedProvider.CatlificationRating != null ?
                             int.Parse(ElasticRealtedProvider.CatlificationRating) :
                             0) / 100);
-
+                }
+                else
+                {
+                    return 0;
+                }
+                
                 //return (5 * (IsProviderCustomer &&
                 //        RelatedProvider != null &&
                 //        RelatedProvider.RelatedCustomerInfo != null ?
@@ -124,7 +161,7 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return ElasticRealtedProvider != null && ElasticRealtedProvider.InBlackList ? 
+                return ElasticRealtedProvider != null && ElasticRealtedProvider.InBlackList ?
                             MarketPlace.Models.General.enumBlackListStatus.ShowAlert :
                             MarketPlace.Models.General.enumBlackListStatus.DontShowAlert;
             }
@@ -138,7 +175,7 @@ namespace MarketPlace.Models.Provider
         {
             RelatedProvider = oRelatedProvider;
         }
-        
+
         public ProviderLiteViewModel(CompanyIndexModel oElasticSearchModel)
         {
             ElasticRealtedProvider = oElasticSearchModel;
