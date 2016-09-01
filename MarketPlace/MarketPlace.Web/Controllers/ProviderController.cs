@@ -83,6 +83,18 @@ namespace MarketPlace.Web.Controllers
                      q.Term(p => p.IdentificationNumber, SearchParam)
                 ));
 
+                //parse view model
+                if (oModel.ElasticCompanyModel != null && oModel.ElasticCompanyModel.Documents.Count() > 0)
+                {
+                    oModel.ElasticCompanyModel.Documents.All(prv =>
+                    {
+                        oModel.ProviderSearchResult.Add
+                            (new ProviderLiteViewModel(prv));
+
+                        return true;
+                    });
+                }
+
                 #region City Aggregation
                 var aggCityQuery = client.Search<CompanyIndexModel>(s => s
                             .Aggregations(agg => agg
@@ -158,20 +170,20 @@ namespace MarketPlace.Web.Controllers
                 #region Providers
 
                 //search providers
-                int oTotalRowsAux;
-                List<ProviderModel> oProviderResult =
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
-                    (SessionModel.CurrentCompany.CompanyPublicId,
-                    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
-                    oModel.SearchParam,
-                    oModel.SearchFilter,
-                    (int)oModel.SearchOrderType,
-                    oModel.OrderOrientation,
-                    oModel.PageNumber,
-                    oModel.RowCount,
-                    out oTotalRowsAux);
+                //int oTotalRowsAux;
+                //List<ProviderModel> oProviderResult =
+                //    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
+                //    (SessionModel.CurrentCompany.CompanyPublicId,
+                //    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
+                //    oModel.SearchParam,
+                //    oModel.SearchFilter,
+                //    (int)oModel.SearchOrderType,
+                //    oModel.OrderOrientation,
+                //    oModel.PageNumber,
+                //    oModel.RowCount,
+                //    out oTotalRowsAux);
 
-                oModel.TotalRows = oTotalRowsAux;
+                //oModel.TotalRows = oTotalRowsAux;
 
                 List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
                     (SessionModel.CurrentCompany.CompanyPublicId,
@@ -184,17 +196,17 @@ namespace MarketPlace.Web.Controllers
                     oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == SessionModel.CurrentCompany.CompanyPublicId).ToList();
                 }
 
-                //parse view model
-                if (oProviderResult != null && oProviderResult.Count > 0)
-                {
-                    oProviderResult.All(prv =>
-                    {
-                        oModel.ProviderSearchResult.Add
-                            (new ProviderLiteViewModel(prv));
+                ////parse view model
+                //if (oProviderResult != null && oProviderResult.Count > 0)
+                //{
+                //    oProviderResult.All(prv =>
+                //    {
+                //        oModel.ProviderSearchResult.Add
+                //            (new ProviderLiteViewModel(prv));
 
-                        return true;
-                    });
-                }
+                //        return true;
+                //    });
+                //}
 
                 #endregion Providers
 
@@ -3220,7 +3232,7 @@ namespace MarketPlace.Web.Controllers
                 string strSep = ";";
 
                 oProviderResult.All(x =>
-                {
+                {                    
                     string Address = string.Empty;
                     string Telephone = string.Empty;
                     string Representative = string.Empty;
@@ -3228,6 +3240,7 @@ namespace MarketPlace.Web.Controllers
                     int CityId = 0;
                     string City = string.Empty;
                     string State = string.Empty;
+                    string StatusProvider = string.Empty;
 
                     if (x.RelatedCommercial != null)
                     {
@@ -3256,10 +3269,16 @@ namespace MarketPlace.Web.Controllers
                                 Country = (oGeographyModel != null && oGeographyModel.FirstOrDefault().Country.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().Country.ItemName != null) ? oGeographyModel.FirstOrDefault().Country.ItemName : "N/D";
                                 City = (oGeographyModel != null && oGeographyModel.FirstOrDefault().City.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().City.ItemName != null) ? oGeographyModel.FirstOrDefault().City.ItemName : "N/D";
                                 State = (oGeographyModel != null && oGeographyModel.FirstOrDefault().State.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().State.ItemName != null) ? oGeographyModel.FirstOrDefault().State.ItemName : "N/D";
+                                
                             }
 
                             return true;
                         });
+
+                        if (x.RelatedCustomerInfo !=null)
+                        {
+                           StatusProvider = x.RelatedCustomerInfo.FirstOrDefault().Value.ItemType.ItemName.ToString();
+                        }
 
                         if (oProviderResult.IndexOf(x) == 0)
                         {
@@ -3267,6 +3286,7 @@ namespace MarketPlace.Web.Controllers
                             ("\"" + "Tipo Identificacion" + "\"" + strSep +
                                 "\"" + "Numero Identificacion" + "\"" + strSep +
                                 "\"" + "Razon Social" + "\"" + strSep +
+                                "\"" + "Estado Proveedor" + "\"" + strSep +
                                 "\"" + "País" + "\"" + strSep +
 
                                 "\"" + "Ciudad" + "\"" + strSep +
@@ -3280,6 +3300,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + StatusProvider + "\"" + "" + strSep +
                                 "\"" + Country + "\"" + "" + strSep +
                                 "\"" + City + "\"" + strSep +
                                 "\"" + State + "\"" + "" + strSep +
@@ -3293,6 +3314,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + StatusProvider + "\"" + "" + strSep +
                                 "\"" + Country + "\"" + "" + strSep +
                                 "\"" + City + "\"" + strSep +
                                 "\"" + State + "\"" + "" + strSep +
@@ -3309,6 +3331,7 @@ namespace MarketPlace.Web.Controllers
                             ("\"" + "Tipo Identificacion" + "\"" + strSep +
                                 "\"" + "Numero Identificacion" + "\"" + strSep +
                                 "\"" + "Razon Social" + "\"" + strSep +
+                                "\"" + "Estado Proveedor" + "\"" + strSep +
                                 "\"" + "País" + "\"" + strSep +
 
                                 "\"" + "Ciudad" + "\"" + strSep +
@@ -3322,6 +3345,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + StatusProvider + "\"" + "" + strSep +
                                 "\"" + Country + "\"" + "" + strSep +
                                 "\"" + City + "\"" + strSep +
                                 "\"" + State + "\"" + "" + strSep +
@@ -3335,6 +3359,7 @@ namespace MarketPlace.Web.Controllers
                                 ("\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
                                 "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
                                 "\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                                "\"" + "ND" + "\"" + "" + strSep +
                                 "\"" + "ND" + "\"" + "" + strSep +
                                 "\"" + "ND" + "\"" + strSep +
                                 "\"" + "ND" + "\"" + "" + strSep +

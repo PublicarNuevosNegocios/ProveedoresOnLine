@@ -1,37 +1,37 @@
-﻿@model MarketPlace.Models.Provider.ProviderLiteViewModel
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderSearchViewModel, MarketPlace.Models.Provider.ProviderLiteViewModel>
 
 @{
     //set project / comparison
     bool oIsInLeftPanel = false;
 
-    //if (Model.Item1.RelatedProject != null && !string.IsNullOrEmpty(Model.Item1.RelatedProject.ProjectPublicId))
-    //{
-    //    Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project;
-    //    Model.Item2.ProviderAddRemoveEnable =
-    //        (Model.Item1.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-    //        Model.Item1.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal);
+    if (Model.Item1.RelatedProject != null && !string.IsNullOrEmpty(Model.Item1.RelatedProject.ProjectPublicId))
+    {
+        Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project;
+        Model.Item2.ProviderAddRemoveEnable =
+            (Model.Item1.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+            Model.Item1.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal);
 
-    //    oIsInLeftPanel =
-    //        Model.Item1 != null &&
-    //        Model.Item1.RelatedProject != null &&
-    //        Model.Item1.RelatedProject.RelatedProjectProvider != null &&
-    //        Model.Item1.RelatedProject.RelatedProjectProvider.
-    //            Any(x => x.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany != null &&
-    //                x.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId);
-    //}
-    //else
-    //{
-    //    Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison;
-    //    Model.Item2.ProviderAddRemoveEnable = true;
+        oIsInLeftPanel =
+            Model.Item1 != null &&
+            Model.Item1.RelatedProject != null &&
+            Model.Item1.RelatedProject.RelatedProjectProvider != null &&
+            Model.Item1.RelatedProject.RelatedProjectProvider.
+                Any(x => x.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany != null &&
+                    x.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId);
+    }
+    else
+    {
+        Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison;
+        Model.Item2.ProviderAddRemoveEnable = true;
 
-    //    oIsInLeftPanel =
-    //        Model.Item1 != null &&
-    //        Model.Item1.RelatedCompare != null &&
-    //        Model.Item1.RelatedCompare.RelatedProvider != null &&
-    //        Model.Item1.RelatedCompare.RelatedProvider.
-    //            Any(x => x.RelatedProvider.RelatedCompany != null &&
-    //                x.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId);
-    //}
+        oIsInLeftPanel =
+            Model.Item1 != null &&
+            Model.Item1.RelatedCompare != null &&
+            Model.Item1.RelatedCompare.RelatedProvider != null &&
+            Model.Item1.RelatedCompare.RelatedProvider.
+                Any(x => x.RelatedProvider.RelatedCompany != null &&
+                    x.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId);
+    }
 
     /*Get session modules by user*/
     bool NewClient = false;
@@ -55,14 +55,14 @@
 
     <div class="POMPSearchResultStatusCertified">
         <!--Check certificacion-->
-        @if (Model.ProviderIsCertified)
+        @if (Model.Item2.ProviderIsCertified)
         {
             <img class="SelGenericTooltip POMPSearchResultStatusCertified" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
         }
     </div>
     <div class="POMPSearchResultProvDataWrapper">
         <!--Provider Logo-->
-        @if (Model.IsProviderCustomer)
+        @if (Model.Item2.IsProviderCustomer)
         {
             <a href="@(Url.RouteUrl
                    (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -70,19 +70,19 @@
                    {
                        controller = MVC.Provider.Name,
                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                       ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId
+                       ProviderPublicId = Model.Item2.ElasticRealtedProvider.CompanyPublicId
                    }))">
-                <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
+                <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
             </a>
         }
         else
         {
             <span>
-                <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
+                <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
             </span>
         }
         <div class="POMPSearchResultNameIDWrapper">
-            @if (Model.IsProviderCustomer)
+            @if (Model.Item2.IsProviderCustomer)
             {
                 <a href="@(Url.RouteUrl
            (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -90,16 +90,16 @@
            {
                controller = MVC.Provider.Name,
                action = MVC.Provider.ActionNames.GIProviderInfo,
-               ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId
+               ProviderPublicId = Model.Item2.ElasticRealtedProvider.CompanyPublicId
            }))">
-                    @Model.RelatedProvider.RelatedCompany.CompanyName
+                   @Model.Item2.ElasticRealtedProvider.CompanyName
                 </a>
             }
             else
             {
-                <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>
+                <label>@Model.Item2.ElasticRealtedProvider.CompanyName</label>
             }
-            <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
+            <label><span>@MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(Model.Item2.ElasticRealtedProvider.IdentificatioTypeId.ToString()).FirstOrDefault() :</span> @Model.Item2.ElasticRealtedProvider.IdentificationNumber</label>
         </div>
 
         @*new code*@
@@ -111,7 +111,7 @@
                 @if (oCurrentSubMenu.Any(x => x == (int)MarketPlace.Models.General.enumProviderSubMenu.RestrictiveList))
                 {
                     <div>
-                        @if (Model.IsProviderCustomer && Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
+                        @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                         {
                             <a class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -119,7 +119,7 @@
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.GIBlackList,
-                                ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId
+                                ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
                             }))">
                             </a>
                         }
@@ -128,18 +128,18 @@
                 @if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo) ||
                     oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.SelectionInfo))
                 {
-                    if (Model.ProviderAddRemoveEnable && MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider)
+                    if (Model.Item2.ProviderAddRemoveEnable && MarketPlace.Models.General.SessionModel.CurrentCompanyType != MarketPlace.Models.General.enumCompanyType.BuyerProvider)
                     {
-                        if (Model.IsProviderCustomer &&
-                             Model.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                        if (Model.Item2.IsProviderCustomer &&
+                             Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
                         {
-                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.ElasticRealtedProvider.CompanyPublicId');">
                                 <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar al proceso de selección"></div>
                             </a>
                         }
-                        else if (Model.IsProviderCustomer && Model.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+                        else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
                         {
-                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.ElasticRealtedProvider.CompanyPublicId');">
                                 <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación"></div>
                             </a>
                         }
@@ -153,13 +153,13 @@
 
         <!--Provider rate-->
         <div class="POMPSearchResultProvRating">
-            <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.ProviderRateCount)</span>
+            <div class="rateit" data-rateit-value="@Model.Item2.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.Item2.ProviderRateCount)</span>
         </div>
 
         <!--Actions for related provider -->
         <ul class="POMPSearchResultLineTwo">
-            @if (!Model.IsProviderCustomer)
+            @if (!Model.Item2.IsProviderCustomer)
             {
                 <li>
                     <!--Actions for not related provider -->
@@ -170,18 +170,18 @@
             {
                 if (oCurrentModule.Any(x => x == (int)MarketPlace.Models.General.enumModule.ComparisionInfo))
                 {
-                    if (Model.ProviderAddRemoveEnable)
+                    if (Model.Item2.ProviderAddRemoveEnable)
                     {
-                        if (Model.IsProviderCustomer && Model.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                        if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
                         {
                             <li>
-                                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar al proceso de selección</a>
+                                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.ElasticRealtedProvider.CompanyPublicId');" title="">Agregar al proceso de selección</a>
                             </li>
                         }
-                        else if (Model.IsProviderCustomer && Model.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+                        else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
                         {
                             <li>
-                                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a Comparación</a>
+                                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.ElasticRealtedProvider.CompanyPublicId');" title="">Agregar a Comparación</a>
                             </li>
                         }
                     }
@@ -194,7 +194,7 @@
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.GIProviderInfo,
-                                ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId
+                                ProviderPublicId = Model.Item2.ElasticRealtedProvider.CompanyPublicId
                             }))">Ver detalle</a>
                 </li>
             }

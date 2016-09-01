@@ -35,7 +35,7 @@
 
     </div>
     <!--Compare title-->
-    <input type="text" id="Search_Compare_CompareName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedCompare == null ? string.Empty: Model.RelatedCompare.CompareName)" style="display: @(Model.RelatedCompare == null ? "none" : "");" />
+    <input type="text" id="Search_Compare_CompareName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedCompare == null ? string.Empty : Model.RelatedCompare.CompareName)" style="display: @(Model.RelatedCompare == null ? "none" : "");" />
     <!--Compare Providers-->
     <ul id="Search_Compare_ItemContainer" class="POMPComparisonProvListWrapper">
         @if (Model.RelatedCompare != null && Model.RelatedCompare.RelatedProvider != null && Model.RelatedCompare.RelatedProvider.Count > 0)
@@ -104,7 +104,10 @@
 
         <ul id="Search_Compare_Item_Template">
             <li>
-                @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, new MarketPlace.Models.Provider.ProviderLiteViewModel(null) { ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison, ProviderAddRemoveEnable = true, })
+                @{
+                    ProveedoresOnLine.Company.Models.Company.CompanyIndexModel oToCompare = null;
+                    Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, new MarketPlace.Models.Provider.ProviderLiteViewModel(oToCompare) { ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison, ProviderAddRemoveEnable = true, });
+                }                
             </li>
         </ul>
 
