@@ -14,6 +14,10 @@ namespace ProveedoresOnLine.IndexSearch.Models
 
         public const string C_SettingsModuleName = "Search";
 
+        public const string C_Settings_ElasticSearchUrl = "ElasticSearch_Url";
+
+        public const string C_Settings_CompanyIndex = "CompanyIndex";
+
         #endregion
     }
 }
