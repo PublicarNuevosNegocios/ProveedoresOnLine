@@ -17,7 +17,9 @@ namespace ProveedoresOnLine.Company.Models.Company
         }
         public string Id { get { return CompanyPublicId; } }
         [Number]
-        public int IdentificatioTypeId { get; set; }
+        public int IdentificationTypeId { get; set; }
+        public string IdentificationType { get; set; }
+
         [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
         public string IdentificationNumber { get; set; }
 
@@ -58,6 +60,9 @@ namespace ProveedoresOnLine.Company.Models.Company
         public int ProviderStatusId { get; set; }
         public string ProviderStatus { get; set; }
 
-        //Survey
+        [Number]
+        public int ICAId { get; set; }
+        [String]
+        public string ICA { get; set; }
     }
 }

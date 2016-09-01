@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.IndexSearch.Models;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.IndexSearch.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ProveedoresOnLine.IndexSearch.Controller
     {
         #region Company Index
 
-        public static List<CompanyIndexSearchModel> GetCompanyIndex()
+        public static List<CompanyIndexModel> GetCompanyIndex()
         {
             return DAL.Controller.IndexSearchDataController.Instance.GetCompanyIndex();
         }

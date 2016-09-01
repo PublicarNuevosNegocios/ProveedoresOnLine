@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.IndexSearch.Interfaces;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.IndexSearch.Interfaces;
 using ProveedoresOnLine.IndexSearch.Models;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.Controller
 
         #region Company Index
 
-        public List<CompanyIndexSearchModel> GetCompanyIndex()
+        public List<CompanyIndexModel> GetCompanyIndex()
         {
             return DataFactory.GetCompanyIndex();
         }

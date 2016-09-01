@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.IndexSearch.Interfaces;
+﻿using ProveedoresOnLine.Company.Models.Company;
+using ProveedoresOnLine.IndexSearch.Interfaces;
 using ProveedoresOnLine.IndexSearch.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
 
         #region Company Index
 
-        public List<CompanyIndexSearchModel> GetCompanyIndex()
+        public List<CompanyIndexModel> GetCompanyIndex()
         {
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -29,7 +30,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                 CommandType = System.Data.CommandType.StoredProcedure,
             });
 
-            List<CompanyIndexSearchModel> oReturn = null;
+            List<Company.Models.Company.CompanyIndexModel> oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
@@ -40,32 +41,35 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                            {
                                CompanyPublicId = idx.Field<string>("CompanyPublicId"),
                                CompanyName = idx.Field<string>("CompanyName"),
-                               CompanyIdentificationTypeId = idx.Field<int>("CompanyIdentificationTypeId").ToString(),
+                               CompanyIdentificationTypeId = !idx.IsNull("CompanyIdentificationTypeId") ? idx.Field<int>("CompanyIdentificationTypeId") : 0,
                                CompanyIdentificationType = idx.Field<string>("CompanyIdentificationType"),
                                CompanyIdentificationNumber = idx.Field<string>("CompanyIdentificationNumber"),
-                               CountryId = idx.Field<int?>("CountryId").ToString(),
+                               CountryId = !idx.IsNull("CountryId") ? idx.Field<int>("CountryId") : 0,
                                Country = idx.Field<string>("Country"),
-                               CityId = idx.Field<int?>("CityId").ToString(),
+                               CityId = !idx.IsNull("CityId") ? idx.Field<int>("CityId") : 0,
                                City = idx.Field<string>("City"),
-                               StatusId = idx.Field<int?>("StatusId").ToString(),
+                               StatusId = !idx.IsNull("StatusId") ? idx.Field<int>("StatusId") : 0,
                                Status = idx.Field<string>("Status"),
-                               ICAId = idx.Field<int?>("ICAId").ToString(),
+                               ICAId = !idx.IsNull("ICAId") ? idx.Field<int>("ICAId") : 0,
                                ICA = idx.Field<string>("ICA"),
                            }
                                into idxg
-                           select new CompanyIndexSearchModel()
+                               select new CompanyIndexModel()
                            {
                                CompanyPublicId = idxg.Key.CompanyPublicId,
                                CompanyName = idxg.Key.CompanyName,
-                               CompanyIdentificationTypeId = idxg.Key.CompanyIdentificationTypeId,
-                               CompanyIdentificationType = idxg.Key.CompanyIdentificationType,
-                               CompanyIdentificationNumber = idxg.Key.CompanyIdentificationNumber,
+                               IdentificationTypeId = idxg.Key.CompanyIdentificationTypeId,
+
+                               IdentificationType = idxg.Key.CompanyIdentificationType,
+
+                               IdentificationNumber = idxg.Key.CompanyIdentificationNumber,
                                CountryId = idxg.Key.CountryId,
                                Country = idxg.Key.Country,
                                CityId = idxg.Key.CityId,
                                City = idxg.Key.City,
-                               StatusId = idxg.Key.StatusId,
-                               Status = idxg.Key.Status,
+                               ProviderStatusId = idxg.Key.StatusId,
+                               ProviderStatus = idxg.Key.Status,
+
                                ICAId = idxg.Key.ICAId,
                                ICA = idxg.Key.ICA,
                            }).ToList();
@@ -105,15 +109,15 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                          SurveyStatus = sv.Field<string>("SurveyStatus"),
                      }
                          into svg
-                     select new SurveyIndexSearchModel()
-                     {
-                         CompanyPublicId = svg.Key.CompanyPublicId,
-                         SurveyPublicId = svg.Key.SurveyPublicId,
-                         SurveyTypeId = svg.Key.SurveyTypeId,
-                         SurveyType = svg.Key.SurveyType,
-                         SurveyStatusId = svg.Key.SurveyStatusId,
-                         SurveyStatus = svg.Key.SurveyStatus,
-                     }).ToList();
+                         select new SurveyIndexSearchModel()
+                         {
+                             CompanyPublicId = svg.Key.CompanyPublicId,
+                             SurveyPublicId = svg.Key.SurveyPublicId,
+                             SurveyTypeId = svg.Key.SurveyTypeId,
+                             SurveyType = svg.Key.SurveyType,
+                             SurveyStatusId = svg.Key.SurveyStatusId,
+                             SurveyStatus = svg.Key.SurveyStatus,
+                         }).ToList();
             }
 
             return oReturn;
@@ -144,13 +148,13 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                          SurveyPublicId = svinf.Field<string>("SurveyPublicId"),
                          UserEmail = svinf.Field<string>("UserEmail"),
                      }
-                     into svinfg
-                     select new SurveyInfoIndexSearchModel()
-                     {
-                         ParentSurveyPublicId = svinfg.Key.ParentSurveyPublicId,
-                         SurveyPublicId = svinfg.Key.SurveyPublicId,
-                         SurveyUserEmail = svinfg.Key.UserEmail,
-                     }).ToList();
+                         into svinfg
+                         select new SurveyInfoIndexSearchModel()
+                         {
+                             ParentSurveyPublicId = svinfg.Key.ParentSurveyPublicId,
+                             SurveyPublicId = svinfg.Key.SurveyPublicId,
+                             SurveyUserEmail = svinfg.Key.UserEmail,
+                         }).ToList();
             }
 
             return oReturn;
