@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <IndexSearch>
+    <key name="ElasticSearch_Url">http://192.168.0.94:9200/</key>
+    <key name="CompanyIndex">dev_compindex</key>
+  </IndexSearch>
+</Settings>
