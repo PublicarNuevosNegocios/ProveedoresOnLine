@@ -104,7 +104,7 @@ namespace BackOffice.Web.Controllers
                                                     Select(x => x.Value).FirstOrDefault(),
                             CustomerPublicId = oCustomerModel.RelatedCompany.CompanyPublicId,
                             IdentificationNumber = CompanyToUpsert.IdentificationNumber,
-                            IdentificatioTypeId = CompanyToUpsert.CompanyType.ItemId,
+                            IdentificationTypeId = CompanyToUpsert.CompanyType.ItemId,
                             ProviderStatus = BackOffice.Models.General.enumProviderCustomerStatus.Creation.ToString(),
                             ProviderStatusId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
                         };

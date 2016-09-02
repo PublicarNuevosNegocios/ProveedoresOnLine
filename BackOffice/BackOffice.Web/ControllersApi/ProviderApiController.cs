@@ -172,6 +172,7 @@ namespace BackOffice.Web.ControllersApi
                     });
                 }
                 #endregion
+
                 #region Person Contact
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.PersonContact)
                 {
@@ -277,6 +278,7 @@ namespace BackOffice.Web.ControllersApi
                     });
                 }
                 #endregion
+
                 #region Branch
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.Brach)
                 {
@@ -432,7 +434,7 @@ namespace BackOffice.Web.ControllersApi
                             CommercialCompanyName = searchResults.Documents.FirstOrDefault().CommercialCompanyName,
                             CustomerPublicId = searchResults.Documents.FirstOrDefault().CustomerPublicId,
                             IdentificationNumber = searchResults.Documents.FirstOrDefault().IdentificationNumber,
-                            IdentificatioTypeId = searchResults.Documents.FirstOrDefault().IdentificatioTypeId,
+                            IdentificationTypeId = searchResults.Documents.FirstOrDefault().IdentificationTypeId,
                             ProviderStatus = searchResults.Documents.FirstOrDefault().ProviderStatus,
                             ProviderStatusId = searchResults.Documents.FirstOrDefault().ProviderStatusId,
                             City = oDataToUpsert.BR_City,

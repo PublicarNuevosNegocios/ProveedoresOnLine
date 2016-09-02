@@ -1381,14 +1381,13 @@ namespace MarketPlace.Web.Controllers
                 string oCurrentController = CurrentControllerName;
                 string oCurrentAction = CurrentActionName;
 
-                List<int> oCurrentProviderMenu = SessionModel.CurrentProviderMenu();
-                List<int> oCurrentProviderSubMenu;
+                List<int> oCurrentSurveySubMenu = SessionModel.CurrentSurveyOption();
 
                 GenericMenu oMenuAux;
 
                 #region Survey Info
 
-                if (oCurrentProviderMenu.Any(x => x == (int)enumProviderMenu.Survey))
+                if (oCurrentSurveySubMenu != null && oCurrentSurveySubMenu.Count > 0)
                 {
                     //header
                     oMenuAux = new GenericMenu()
@@ -1398,11 +1397,7 @@ namespace MarketPlace.Web.Controllers
                         ChildMenu = new List<GenericMenu>(),
                     };
 
-                    oCurrentProviderSubMenu = new List<int>();
-
-                    oCurrentProviderSubMenu = SessionModel.CurrentProviderSubMenu((int)enumProviderMenu.Survey);
-
-                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyList))
+                    if (oCurrentSurveySubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyList))
                     {
                         //survey list
                         oMenuAux.ChildMenu.Add(new GenericMenu()
@@ -1424,7 +1419,7 @@ namespace MarketPlace.Web.Controllers
                         });
                     }
 
-                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyReports))
+                    if (oCurrentSurveySubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyReports))
                     {
                         //survey reports
                         oMenuAux.ChildMenu.Add(new GenericMenu()
@@ -1445,7 +1440,7 @@ namespace MarketPlace.Web.Controllers
                         });
                     }
 
-                    if (oCurrentProviderSubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyProgram))
+                    if (oCurrentSurveySubMenu.Any(y => y == (int)enumProviderSubMenu.SurveyProgram))
                     {
                         //survey program
                         oMenuAux.ChildMenu.Add(new GenericMenu()

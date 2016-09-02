@@ -12,6 +12,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch.Models
 
         public const string C_AppSettings_LogFile = "LogFile";
 
+
         public const string C_SettingsModuleName = "RestrictiveListProcess";
 
         //Collumns Name
