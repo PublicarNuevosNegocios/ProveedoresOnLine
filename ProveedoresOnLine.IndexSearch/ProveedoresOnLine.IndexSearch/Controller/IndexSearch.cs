@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ProveedoresOnLine.IndexSearch.Controller
 {
     public class IndexSearch
-    {
+    {       
         #region Company Index
 
         public static List<CompanyIndexModel> GetCompanyIndex()
@@ -20,31 +20,28 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         public static bool CompanyIndexationFunction()
         {
-
             List<CompanyIndexModel> oCompanyToIndex = GetCompanyIndex();
 
             oCompanyToIndex.All(prov =>
                 {
-                    //Uri node = new Uri(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
-                    //var settings = new ConnectionSettings(node);
-                    //settings.DefaultIndex(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CompanyIndex].Value);
-                    //ElasticClient client = new ElasticClient(settings);
+                    Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
+                    var settings = new ConnectionSettings(node);
+                    settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
+                    ElasticClient client = new ElasticClient(settings);
 
-                    //ICreateIndexResponse oElasticResponse = client.CreateIndex(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CompanyIndex].Value, c => c
-                    //    .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
-                    //    .Analysis(a => a.Analyzers(an => an.Custom("customWhiteSpace", anc => anc.Filters("asciifolding", "lowercase")
-                    //        .Tokenizer("whitespace")
-                    //        )).TokenFilters(tf => tf
-                    //                .EdgeNGram("customEdgeNGram", engrf => engrf
-                    //                .MinGram(1)
-                    //                .MaxGram(10)))).NumberOfShards(1)
-                    //    ));
+                    ICreateIndexResponse oElasticResponse = client.CreateIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value, c => c
+                        .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
+                        .Analysis(a => a.Analyzers(an => an.Custom("customWhiteSpace", anc => anc.Filters("asciifolding", "lowercase")
+                            .Tokenizer("whitespace")
+                            )).TokenFilters(tf => tf
+                                    .EdgeNGram("customEdgeNGram", engrf => engrf
+                                    .MinGram(1)
+                                    .MaxGram(10)))).NumberOfShards(1)
+                        ));
 
-                    //var Index = client.Index(oCompanyToIndex);
+                    var Index = client.Index(prov);
                     return true;
                 });
-
-
             return true;
         }
 
