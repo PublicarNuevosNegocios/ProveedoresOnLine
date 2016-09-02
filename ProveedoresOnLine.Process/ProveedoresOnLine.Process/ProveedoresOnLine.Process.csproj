@@ -109,6 +109,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyIndexSearch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyIndexSearch\developer\ProveedoresOnLine.CompanyIndexSearch.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.CompanyProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
@@ -119,6 +122,9 @@
     <Reference Include="ProveedoresOnLine.FileManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.IndexSearch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.IndexSearch\developer\ProveedoresOnLine.IndexSearch.dll</HintPath>
     </Reference>
     <Reference Include="ProveedoresOnLine.RestrictiveListProcessBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcessBatch.dll</HintPath>
@@ -151,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\CalificationProjectProcessJob.cs" />
+    <Compile Include="Implement\CompanyIndexProcessJob.cs" />
     <Compile Include="Implement\CompanyProviderProcessJob.cs" />
     <Compile Include="Implement\RestrictiveListReadProcess.cs" />
     <Compile Include="Implement\RestrictiveListSendProcess.cs" />

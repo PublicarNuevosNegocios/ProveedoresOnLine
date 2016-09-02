@@ -10,12 +10,7 @@ using System.Threading.Tasks;
 namespace ProveedoresOnLine.IndexSearch.Controller
 {
     public class IndexSearch
-    {
-        public void StartProcess()
-        {
-            GetCompanyIndex();
-        }
-
+    {       
         #region Company Index
 
         public static List<CompanyIndexModel> GetCompanyIndex()

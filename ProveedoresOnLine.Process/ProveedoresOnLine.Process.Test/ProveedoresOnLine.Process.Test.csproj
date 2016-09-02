@@ -172,6 +172,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CalificationProjectProcessJobTest.cs" />
+    <Compile Include="CompanyIndexProcessJobTest.cs" />
     <Compile Include="RestrictiveListReadProcessJobTest.cs" />
     <Compile Include="RestrictiveListSendProcessJobTest.cs" />
     <Compile Include="SANOFIIntegrationProcessJobTest.cs" />
