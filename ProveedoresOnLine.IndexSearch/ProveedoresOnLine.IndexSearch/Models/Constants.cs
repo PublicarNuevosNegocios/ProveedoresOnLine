@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.IndexSearch.Models
 
         #region InternalSettings
 
-        public const string C_SettingsModuleName = "Search";
+        public const string C_SettingsModuleName = "IndexSearch";
 
         public const string C_Settings_ElasticSearchUrl = "ElasticSearch_Url";
 

@@ -21,7 +21,7 @@ namespace ProveedoresOnLine.IndexSearch.Models.Util
 
         public SettingsManager.Models.SettingModel this[string SettingName]
         {
-            get { return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.Company.Models.Constants.C_SettingsModuleName][SettingName]; }
+            get { return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.IndexSearch.Models.Constants.C_SettingsModuleName][SettingName]; }
         }
         public int Count
         {
