@@ -78,7 +78,7 @@ namespace LogManager
         private void StopTimer()
         {
             ProccessLogTimer.Enabled = false;
-        }
+        } 
 
         private void ProccessLogTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -87,7 +87,7 @@ namespace LogManager
             QueueLog.Where(ql => ql.LogId == 0).All(ql =>
             {
                 try
-                {
+                {  
                     ql.LogId = DAL.Controller.LogDataController.Instance.LogCreate
                         (ql.User,
                         ql.Application,
