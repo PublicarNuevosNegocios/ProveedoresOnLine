@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
+using System.Configuration;
 namespace ProveedoresOnLine.IndexSearch.Controller
 {
     public class IndexSearch
@@ -20,14 +21,18 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         public static bool CompanyIndexationFunction()
         {
-            List<CompanyIndexModel> oCompanyToIndex = GetCompanyIndex();
-
-            oCompanyToIndex.All(prov =>
+            var CompanyPublicId = "";
+            try
+            {
+                List<CompanyIndexModel> oCompanyToIndex = GetCompanyIndex();
+                
+                oCompanyToIndex.All(prov =>
                 {
                     Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
                     var settings = new ConnectionSettings(node);
                     settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
                     ElasticClient client = new ElasticClient(settings);
+                    CompanyPublicId =prov.CompanyPublicId;
 
                     ICreateIndexResponse oElasticResponse = client.CreateIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value, c => c
                         .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
@@ -42,7 +47,15 @@ namespace ProveedoresOnLine.IndexSearch.Controller
                     var Index = client.Index(prov);
                     return true;
                 });
+                
+            }
+            catch (Exception err)
+            {
+                LogFile("Index Process Failed for Company: " + CompanyPublicId + err.Message + "Inner Exception::" + err.InnerException);
+            }
+            LogFile("Index Process Succesfull for " + CompanyPublicId);
             return true;
+            
         }
 
         #endregion
@@ -63,6 +76,30 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         #endregion
 
+        #endregion
+
+        #region LogFile     
+        private static void LogFile(string LogMessage)
+        {
+            try
+            {
+                //get file Log
+                string LogFile = AppDomain.CurrentDomain.BaseDirectory.Trim().TrimEnd(new char[] { '\\' }) + "\\" +
+                    System.Configuration.ConfigurationManager.AppSettings[ProveedoresOnLine.IndexSearch.Models.Constants.C_AppSettings_LogFile].Trim().TrimEnd(new char[] { '\\' });
+
+                if (!System.IO.Directory.Exists(LogFile))
+                    System.IO.Directory.CreateDirectory(LogFile);
+
+                LogFile += "\\" + "Log_IndexSearchProcess_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+
+                using (System.IO.StreamWriter sw = System.IO.File.AppendText(LogFile))
+                {
+                    sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "::" + LogMessage);
+                    sw.Close();
+                }
+            }
+            catch { }
+        }
         #endregion
     }
 }
