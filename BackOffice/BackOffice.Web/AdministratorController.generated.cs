@@ -91,6 +91,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminSurvey()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminSurvey);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult AdminReports()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminReports);
@@ -127,6 +133,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminModule = "AdminModule";
             public readonly string AdminProviderMenu = "AdminProviderMenu";
             public readonly string AdminSelectionOption = "AdminSelectionOption";
+            public readonly string AdminSurvey = "AdminSurvey";
             public readonly string AdminReports = "AdminReports";
         }
 
@@ -149,6 +156,7 @@ namespace BackOffice.Web.Controllers
             public const string AdminModule = "AdminModule";
             public const string AdminProviderMenu = "AdminProviderMenu";
             public const string AdminSelectionOption = "AdminSelectionOption";
+            public const string AdminSurvey = "AdminSurvey";
             public const string AdminReports = "AdminReports";
         }
 
@@ -196,6 +204,15 @@ namespace BackOffice.Web.Controllers
             public readonly string RoleCompanyId = "RoleCompanyId";
             public readonly string RoleModuleId = "RoleModuleId";
         }
+        static readonly ActionParamsClass_AdminSurvey s_params_AdminSurvey = new ActionParamsClass_AdminSurvey();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminSurvey AdminSurveyParams { get { return s_params_AdminSurvey; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminSurvey
+        {
+            public readonly string RoleCompanyId = "RoleCompanyId";
+            public readonly string RoleModuleId = "RoleModuleId";
+        }
         static readonly ActionParamsClass_AdminReports s_params_AdminReports = new ActionParamsClass_AdminReports();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_AdminReports AdminReportsParams { get { return s_params_AdminReports; } }
@@ -227,6 +244,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminRole = "AdminRole";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminSelectionOption = "AdminSelectionOption";
+                public readonly string AdminSurvey = "AdminSurvey";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
                 public readonly string AdminTRMUpsert = "AdminTRMUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
@@ -245,6 +263,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminRole = "~/Views/Administrator/AdminRole.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Administrator/AdminRulesUpsert.cshtml";
             public readonly string AdminSelectionOption = "~/Views/Administrator/AdminSelectionOption.cshtml";
+            public readonly string AdminSurvey = "~/Views/Administrator/AdminSurvey.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Administrator/AdminTreeUpsert.cshtml";
             public readonly string AdminTRMUpsert = "~/Views/Administrator/AdminTRMUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Administrator/AdminUserUpsert.cshtml";
@@ -438,6 +457,19 @@ namespace BackOffice.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleModuleId", RoleModuleId);
             AdminSelectionOptionOverride(callInfo, RoleCompanyId, RoleModuleId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminSurveyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int RoleCompanyId, int RoleModuleId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminSurvey(int RoleCompanyId, int RoleModuleId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminSurvey);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleCompanyId", RoleCompanyId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleModuleId", RoleModuleId);
+            AdminSurveyOverride(callInfo, RoleCompanyId, RoleModuleId);
             return callInfo;
         }
 

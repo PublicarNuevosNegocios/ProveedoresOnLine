@@ -221,16 +221,16 @@
                 e.preventDefault();
                 $.ajax({
                     timeout: 9000,
-                    url: '@(Url.Action(MVC.Provider.ActionNames.SVSurveyProgram,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))',
+                    url: '@(Url.Action(MVC.Survey.ActionNames.SVSurveyProgram, MVC.Survey.Name, new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, }))',
                     type: 'POST',
                     data: $("#Survey_ProgramSurvey_Form").serialize(),
                     success: function (result) {
                         Survey_SaveObject.ProgressBar_Generic_Hidden();
-                        Dialog_ShowMessage("Evaluación", "Evaluación almacenada correctamente.", "@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))");
+                        Dialog_ShowMessage("Evaluación", "Evaluación almacenada correctamente.", "@(Url.Action(MVC.Survey.ActionNames.SVSurveySearch, MVC.Survey.Name, new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, }))");
                     },
                     error: function (x, t, m) {
                         Survey_SaveObject.ProgressBar_Generic_Hidden();
-                        Dialog_ShowMessage("Evaluación", "Evaluación almacenada correctamente.", "@(Url.Action(MVC.Provider.ActionNames.SVSurveySearch,MVC.Provider.Name,new{ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,}))");
+                        Dialog_ShowMessage("Evaluación", "Evaluación almacenada correctamente.", "@(Url.Action(MVC.Survey.ActionNames.SVSurveySearch, MVC.Survey.Name, new { ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId, }))");
                     }
                 });
                 return false;

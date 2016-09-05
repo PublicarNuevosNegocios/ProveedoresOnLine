@@ -121,8 +121,8 @@
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.SVSurveySearch,
+                                    controller = MVC.Survey.Name,
+                                    action = MVC.Survey.ActionNames.SVSurveySearch,
                                     ProviderPublicId = Request["ProviderPublicId"],
                                     InitDate = item.RP_InitDateReport,
                                     EndDate = item.RP_EndDateReport,
@@ -134,16 +134,9 @@
                                 }
                             </div>
                         </div>
-
-
-
                     </div>
                     <br />
-
-
-
             }
         </div>
     }
-
 }

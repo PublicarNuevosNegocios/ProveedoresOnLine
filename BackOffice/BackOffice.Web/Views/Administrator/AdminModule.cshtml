@@ -67,6 +67,10 @@
         string AdminSelectionUrl = Url.Action
             (MVC.Administrator.ActionNames.AdminSelectionOption,
             MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}&RoleModuleId=${RoleModuleId}";
+
+        string AdminSurveyUrl = Url.Action
+            (MVC.Administrator.ActionNames.AdminSurvey,
+            MVC.Administrator.Name) + "?RoleCompanyId=${RoleCompanyId}&RoleModuleId=${RoleModuleId}";
     }
 
     <script type="text/javascript">
@@ -76,6 +80,7 @@
                 RoleCompanyId: '@(Model.RelatedRole.RoleCompanyId)',
                 RoleOptionUpsertUrl: '@(AdminOptionUrl)',
                 SelectionOptionUpsertUrl: '@(AdminSelectionUrl)',
+                SurveyUpsertUrl: '@(AdminSurveyUrl)',
                 ModuleList: @Html.Raw(oModuleOptionList),
             });
             Admin_CompanyRoleObject.RenderAsync({
