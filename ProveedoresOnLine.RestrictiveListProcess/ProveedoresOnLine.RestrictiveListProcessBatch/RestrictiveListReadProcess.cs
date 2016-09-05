@@ -112,7 +112,7 @@ namespace ProveedoresOnLine.RestrictiveListProcessBatch
                                     return true;
                                 });
 
-                            oProvidersToCompare = Process.RelatedProvider.Where(y => oCoincidences.Any(c => c.IdentificationResult != y.RelatedCompany.IdentificationNumber || y.RelatedCompany.CompanyName != c.NameResult)).ToList();
+                            oProvidersToCompare = Process.RelatedProvider.Where(y => oCoincidences.Any(c => c.IdentificationResult == y.RelatedCompany.IdentificationNumber && y.RelatedCompany.CompanyName == c.NameResult)).ToList();
 
                             //Get persons coincidences                           
                             Process.RelatedProvider.All(prv =>

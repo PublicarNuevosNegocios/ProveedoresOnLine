@@ -19,5 +19,9 @@ namespace ProveedoresOnLine.IndexSearch.Models
         public const string C_Settings_CompanyIndex = "CompanyIndex";
 
         #endregion
+
+        #region AppSettings
+        public const string C_AppSettings_LogFile = "LogFile";
+        #endregion
     }
 }

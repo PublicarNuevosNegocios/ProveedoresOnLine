@@ -1,0 +1,75 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Administrar Opciones del Proceso de Selección";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Administración de opciones de evaluación de desempeño.</label>
+            <a href="@(Url.Action(
+                MVC.Administrator.ActionNames.AdminModule,
+                MVC.Administrator.Name,
+                new { RoleCompanyId = Model.RelatedRole.RoleCompanyId }))">Regresar al listado de módulos</a>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="loading"></div>
+            <div id="divGridSurveyOption"></div>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <!--template provider info menu-->
+    <div id="divGridSurveyOption_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridSurveyOption_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridSurveyOption_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+    @{
+        string oModuleOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.ProviderOptions.Where(x => x.CatalogId == 813).ToList());
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Admin_CompanyRoleObject.Init({
+                ObjectId: 'divGridSurveyOption',
+                RoleModuleId: '@(Model.RelatedRole.RoleModule.FirstOrDefault().RoleModuleId)',
+                ModuleList: @Html.Raw(oModuleOptionList),
+            });
+            Admin_CompanyRoleObject.RenderAsync({
+                ObjectType: '@((int)BackOffice.Models.General.enumAdminModule.Survey)',
+            });
+        });
+    </script>
+}

@@ -172,6 +172,7 @@ namespace BackOffice.Web.ControllersApi
                     });
                 }
                 #endregion
+
                 #region Person Contact
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.PersonContact)
                 {
@@ -277,6 +278,7 @@ namespace BackOffice.Web.ControllersApi
                     });
                 }
                 #endregion
+
                 #region Branch
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.Brach)
                 {

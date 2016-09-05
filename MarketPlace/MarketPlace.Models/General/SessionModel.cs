@@ -296,6 +296,33 @@ namespace MarketPlace.Models.General
             return oReturn;
         }
 
+        public static List<int> CurrentSurveyOption()
+        {
+            List<int> oReturn = new List<int>();
+
+            if (CurrentCompany != null && CurrentCompany.RelatedUser != null)
+            {
+                CurrentCompany.RelatedUser.All(x =>
+                {
+                    if (x.RelatedCompanyRole.RoleModule != null &&
+                        x.RelatedCompanyRole.RoleModule.Count > 0)
+                    {
+                        List<SessionManager.Models.POLMarketPlace.Session_GenericItemModel> oModel = x.RelatedCompanyRole.RoleModule.Where(y => Convert.ToInt32(y.RoleModule) == (int)MarketPlace.Models.General.enumModule.Survey).Select(y => y.ModuleOption).FirstOrDefault();
+
+                        if (oModel != null &&
+                            oModel.Count > 0)
+                        {
+                            oReturn.AddRange(oModel.Select(z => Convert.ToInt32(z.ItemName)).ToList());
+                        }
+                    }
+
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
         public static List<int> CurrentReport()
         {
             List<int> oReturn = new List<int>();
