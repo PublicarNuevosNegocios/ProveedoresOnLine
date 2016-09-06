@@ -19,6 +19,11 @@ namespace ProveedoresOnLine.IndexSearch.Controller
             return DAL.Controller.IndexSearchDataController.Instance.GetCompanyIndex();
         }
 
+        public static List<CustomerProviderIndexModel> GetCustomerProviderIndex()
+        {
+            return DAL.Controller.IndexSearchDataController.Instance.GetCustomerProviderIndex();
+        }
+
         public static bool CompanyIndexationFunction()
         {
             var ProviderPublicId = "";

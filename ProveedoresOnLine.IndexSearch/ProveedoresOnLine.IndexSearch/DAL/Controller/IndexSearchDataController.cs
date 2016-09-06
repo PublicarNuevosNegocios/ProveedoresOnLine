@@ -46,6 +46,11 @@ namespace ProveedoresOnLine.IndexSearch.DAL.Controller
             return DataFactory.GetCompanyIndex();
         }
 
+        public List<CustomerProviderIndexModel> GetCustomerProviderIndex()
+        {
+            return DataFactory.GetCustomerProviderIndex();
+        }
+
         #endregion
 
         #region Survey Index

@@ -65,7 +65,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                IdentificationType = idxg.Key.CompanyIdentificationType,
 
                                IdentificationNumber = idxg.Key.CompanyIdentificationNumber,
-                               
+
                                CompanyEnable = idxg.Key.CompanyEnable,
                                LogoUrl = idxg.Key.LogoUrl,
 
@@ -82,6 +82,47 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
             }
 
             return oReturn;
+        }
+
+        public List<CustomerProviderIndexModel> GetCustomerProviderIndex()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_IndexCustomerProvider",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            List<CustomerProviderIndexModel> oRetun = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oRetun =
+                    (from cp in response.DataTableResult.AsEnumerable()
+                     where !cp.IsNull("CustomerProviderId")
+                     group cp by new
+                     {
+                         CustomerProviderId = cp.Field<int>("CustomerProviderId"),
+                         CustomerPublicId = cp.Field<string>("CustomerPublicId"),
+                         ProviderPublicId = cp.Field<string>("ProviderPublicId"),
+                         StatusId = cp.Field<int>("StatusId"),
+                         Status = cp.Field<string>("Status"),
+                         CustomerProviderEnable = cp.Field<UInt64>("CustomerProviderEnable") == 1 ? true : false,
+                     }
+                         into cpg
+                         select new CustomerProviderIndexModel()
+                         {
+                             CustomerProviderId = cpg.Key.CustomerProviderId,
+                             CustomerPublicId = cpg.Key.CustomerPublicId,
+                             ProviderPublicId = cpg.Key.ProviderPublicId,
+                             StatusId = cpg.Key.StatusId,
+                             Status = cpg.Key.Status,
+                             CustomerProviderEnable = cpg.Key.CustomerProviderEnable,
+                         }).ToList();
+            }
+
+            return oRetun;
         }
 
         #endregion
