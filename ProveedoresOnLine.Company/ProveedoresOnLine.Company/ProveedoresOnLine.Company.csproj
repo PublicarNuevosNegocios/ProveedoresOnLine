@@ -83,6 +83,7 @@
     <Compile Include="Interfaces\ICompanyData.cs" />
     <Compile Include="Models\Company\CompanyIndexModel.cs" />
     <Compile Include="Models\Company\CompanyModel.cs" />
+    <Compile Include="Models\Company\CustomerProviderIndexModel.cs" />
     <Compile Include="Models\Role\RoleCompanyModel.cs" />
     <Compile Include="Models\Company\UserCompany.cs" />
     <Compile Include="Models\Constants.cs" />
