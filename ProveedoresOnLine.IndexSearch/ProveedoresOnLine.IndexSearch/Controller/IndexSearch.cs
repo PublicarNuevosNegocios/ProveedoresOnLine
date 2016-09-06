@@ -11,7 +11,7 @@ using System.Configuration;
 namespace ProveedoresOnLine.IndexSearch.Controller
 {
     public class IndexSearch
-    {       
+    {
         #region Company Index
 
         public static List<CompanyIndexModel> GetCompanyIndex()
@@ -21,18 +21,20 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         public static bool CompanyIndexationFunction()
         {
-            var CompanyPublicId = "";
+            var ProviderPublicId = "";
+            var Counter = 0;
             try
             {
                 List<CompanyIndexModel> oCompanyToIndex = GetCompanyIndex();
-                
+                LogFile("About to index: " + oCompanyToIndex.Count + " Providers");
+
                 oCompanyToIndex.All(prov =>
                 {
                     Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
                     var settings = new ConnectionSettings(node);
                     settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
                     ElasticClient client = new ElasticClient(settings);
-                    CompanyPublicId =prov.CompanyPublicId;
+                    ProviderPublicId = prov.CompanyPublicId;
 
                     ICreateIndexResponse oElasticResponse = client.CreateIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value, c => c
                         .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
@@ -43,19 +45,20 @@ namespace ProveedoresOnLine.IndexSearch.Controller
                                     .MinGram(1)
                                     .MaxGram(10)))).NumberOfShards(1)
                         ));
-
+                    Counter++;
                     var Index = client.Index(prov);
+                    LogFile(Counter +"-Index Process for: " + prov.CompanyPublicId);
+
                     return true;
                 });
-                
+
             }
             catch (Exception err)
             {
-                LogFile("Index Process Failed for Company: " + CompanyPublicId + err.Message + "Inner Exception::" + err.InnerException);
+                LogFile("Index Process Failed for Company: " + ProviderPublicId + err.Message + "Inner Exception::" + err.InnerException);
             }
-            LogFile("Index Process Succesfull for " + CompanyPublicId);
+            LogFile("Index Process Successfull for: " + Counter);
             return true;
-            
         }
 
         #endregion
@@ -78,7 +81,7 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         #endregion
 
-        #region LogFile     
+        #region LogFile
         private static void LogFile(string LogMessage)
         {
             try

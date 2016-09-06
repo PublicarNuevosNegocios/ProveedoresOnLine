@@ -35,5 +35,11 @@ namespace ProveedoresOnLine.IndexSearch.Test
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
         }
+        [TestMethod]
+        public void CompanyIndexationFunction() 
+        {
+            bool oReturn = Controller.IndexSearch.CompanyIndexationFunction();
+            Assert.AreEqual(true, oReturn != null && oReturn == true);
+        }
     }
 }

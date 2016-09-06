@@ -131,6 +131,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.IndexSearch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.IndexSearch\developer\ProveedoresOnLine.IndexSearch.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.RestrictiveListProcessBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcessBatch\developer\ProveedoresOnLine.RestrictiveListProcessBatch.dll</HintPath>
     </Reference>

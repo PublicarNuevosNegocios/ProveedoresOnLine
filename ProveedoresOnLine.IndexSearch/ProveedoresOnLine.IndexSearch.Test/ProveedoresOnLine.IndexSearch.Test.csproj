@@ -69,11 +69,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CompanyIndexModel.cs" />
+    <Compile Include="CompanyIndexTest.cs" />
     <Compile Include="IndexSearchTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.CompanyIndexSearch\ProveedoresOnLine.CompanyIndexSearch.csproj">
+      <Project>{a0eaccfd-15cc-4395-86f4-d9e8b0e80bb5}</Project>
+      <Name>ProveedoresOnLine.CompanyIndexSearch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProveedoresOnLine.IndexSearch\ProveedoresOnLine.IndexSearch.csproj">
       <Project>{ee6578fa-af0b-4567-85bc-3f9070b3f9ff}</Project>
       <Name>ProveedoresOnLine.IndexSearch</Name>
