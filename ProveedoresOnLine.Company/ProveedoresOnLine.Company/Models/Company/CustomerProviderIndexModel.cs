@@ -15,18 +15,25 @@ namespace ProveedoresOnLine.Company.Models.Company
 
         }
 
+        [Number]
         public int Id { get { return CustomerProviderId; } }
 
+        [Number]
         public int CustomerProviderId { get; set; }
 
+        [String]
         public string CustomerPublicId { get; set; }
 
+        [String]
         public string ProviderPublicId { get; set; }
 
+        [Number]
         public int StatusId { get; set; }
 
+        [String]
         public string Status { get; set; }
 
+        [Boolean]
         public bool CustomerProviderEnable { get; set; }
     }
 }
