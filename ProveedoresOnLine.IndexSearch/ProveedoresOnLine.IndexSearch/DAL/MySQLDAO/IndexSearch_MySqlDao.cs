@@ -44,6 +44,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                CompanyIdentificationTypeId = !idx.IsNull("CompanyIdentificationTypeId") ? idx.Field<int>("CompanyIdentificationTypeId") : 0,
                                CompanyIdentificationType = idx.Field<string>("CompanyIdentificationType"),
                                CompanyIdentificationNumber = idx.Field<string>("CompanyIdentificationNumber"),
+                               CompanyEnable = idx.Field<UInt64>("CompanyEnable") == 1 ? true : false,
                                LogoUrl = idx.Field<string>("LogoUrl"),
                                CountryId = !idx.IsNull("CountryId") ? idx.Field<int>("CountryId") : 0,
                                Country = idx.Field<string>("Country"),
@@ -65,6 +66,7 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
 
                                IdentificationNumber = idxg.Key.CompanyIdentificationNumber,
                                
+                               CompanyEnable = idxg.Key.CompanyEnable,
                                LogoUrl = idxg.Key.LogoUrl,
 
                                CountryId = idxg.Key.CountryId,
