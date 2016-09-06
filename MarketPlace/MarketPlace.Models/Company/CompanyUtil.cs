@@ -121,7 +121,21 @@ namespace MarketPlace.Models.Company
                         Select(ci => ci.Country.ItemName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-        }       
+        }
+
+        /// <summary>
+        /// get Contry name by Country id
+        /// </summary>
+        /// <param name="vCoundtryId">country id</param>
+        /// <returns></returns>
+        public static string GetCountryNameByCountryId(string vCountryId)
+        {
+            return AllCountries.
+                        Where(ci => ci.Country != null && ci.Country.ItemId.ToString() == vCountryId).
+                        Select(ci => ci.Country.ItemName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+        }   
 
         #endregion
 

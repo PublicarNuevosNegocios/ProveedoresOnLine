@@ -126,7 +126,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         FilterCount = (int)x.DocCount,
                         FilterType = x.Key,
-                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetCountryName(x.Key),
+                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetCountryNameByCountryId(x.Key),
                     });
                     return true;
                 });
