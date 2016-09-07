@@ -47,6 +47,7 @@ namespace ProveedoresOnLine.IndexSearch.Test
         public void CompanyIndexationFunction() 
         {
             bool oReturn = Controller.IndexSearch.CompanyIndexationFunction();
+
             Assert.AreEqual(true, oReturn != null && oReturn == true);
         }
 
@@ -54,6 +55,8 @@ namespace ProveedoresOnLine.IndexSearch.Test
         public void CustomerProviderIndexationFunction() 
         {
             bool oReturn = Controller.IndexSearch.CustomerProviderIdexationFunction();
+
+            Assert.AreEqual(true, oReturn != null && oReturn == true);
         }
     }
 }
