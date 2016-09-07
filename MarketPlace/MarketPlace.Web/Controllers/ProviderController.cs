@@ -68,6 +68,7 @@ namespace MarketPlace.Web.Controllers
                     StatusFilter = new List<ElasticSearchFilter>(),
                     BlackListFilter = new List<ElasticSearchFilter>(),
                 };
+                #region ElasticSearch
 
                 //ElasticSearch
                 Uri node = new Uri(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
@@ -75,11 +76,22 @@ namespace MarketPlace.Web.Controllers
                 settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CompanyIndex].Value);
                 ElasticClient client = new ElasticClient(settings);
 
-                oModel.ElasticCompanyModel = client.Search<CompanyIndexModel>(s => s                
+                oModel.ElasticCompanyModel = client.Search<CompanyIndexModel>(s => s
                 .From(0)
                 .Size(20)
+                .Aggregations
+                (agg => agg
+                    .Terms("city", aggv => aggv
+                        .Field(fi => fi.CityId))
+                    .Terms("country", c => c
+                        .Field(fi => fi.CountryId))
+                    .Terms("status", st => st
+                        .Field(fi => fi.ProviderStatusId))
+                    .Terms("blacklist", bl => bl
+                        .Field(fi => fi.InBlackList)))
                 .Query(q =>
                      q.Term(p => p.CompanyName, SearchParam) ||
+                     q.Term(p => p.CommercialCompanyName, SearchParam) ||
                      q.Term(p => p.IdentificationNumber, SearchParam)
                 ));
 
@@ -96,12 +108,8 @@ namespace MarketPlace.Web.Controllers
                 }
 
                 #region City Aggregation
-                var aggCityQuery = client.Search<CompanyIndexModel>(s => s
-                            .Aggregations(agg => agg
-                                .Terms("city", aggv => aggv.Field(fi => fi.CityId))
-                            ));
-                                
-                aggCityQuery.Aggs.Terms("city").Buckets.All(x =>
+
+                oModel.ElasticCompanyModel.Aggs.Terms("city").Buckets.All(x =>
                     {
                         oModel.CityFilter.Add(new ElasticSearchFilter
                         {
@@ -111,16 +119,11 @@ namespace MarketPlace.Web.Controllers
                         });
                         return true;
                     });
-                
+
                 #endregion
 
                 #region Country Aggregation
-                var aggCountryQuery = client.Search<CompanyIndexModel>(s => s
-                            .Aggregations(agg => agg
-                                .Terms("country", aggv => aggv.Field(fi => fi.CountryId))
-                            ));
-
-                aggCountryQuery.Aggs.Terms("country").Buckets.All(x =>
+                oModel.ElasticCompanyModel.Aggs.Terms("country").Buckets.All(x =>
                 {
                     oModel.CountryFilter.Add(new ElasticSearchFilter
                     {
@@ -133,12 +136,8 @@ namespace MarketPlace.Web.Controllers
                 #endregion
 
                 #region Status Aggregation
-                var aggStatusQuery = client.Search<CompanyIndexModel>(s => s
-                            .Aggregations(agg => agg
-                                .Terms("status", aggv => aggv.Field(fi => fi.ProviderStatus))
-                            ));
 
-                aggStatusQuery.Aggs.Terms("status").Buckets.All(x =>
+                oModel.ElasticCompanyModel.Aggs.Terms("status").Buckets.All(x =>
                 {
                     oModel.StatusFilter.Add(new ElasticSearchFilter
                     {
@@ -151,39 +150,20 @@ namespace MarketPlace.Web.Controllers
                 #endregion
 
                 #region BlackList Aggregation
-                var aggBlackListQuery = client.Search<CompanyIndexModel>(s => s
-                            .Aggregations(agg => agg
-                                .Terms("blacklist", aggv => aggv.Field(fi => fi.InBlackList))
-                            ));
-
-                aggBlackListQuery.Aggs.Terms("blacklist").Buckets.All(x =>
+                oModel.ElasticCompanyModel.Aggs.Terms("blacklist").Buckets.All(x =>
                 {
                     oModel.BlackListFilter.Add(new ElasticSearchFilter
                     {
                         FilterCount = (int)x.DocCount,
-                        FilterType = x.Key,                        
+                        FilterType = x.Key,
                     });
                     return true;
                 });
                 #endregion
 
+                #endregion
+
                 #region Providers
-
-                //search providers
-                //int oTotalRowsAux;
-                //List<ProviderModel> oProviderResult =
-                //    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchNew
-                //    (SessionModel.CurrentCompany.CompanyPublicId,
-                //    SessionModel.CurrentCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.OtherProviders).Select(x => x.Value).FirstOrDefault() == "1" ? true : false,
-                //    oModel.SearchParam,
-                //    oModel.SearchFilter,
-                //    (int)oModel.SearchOrderType,
-                //    oModel.OrderOrientation,
-                //    oModel.PageNumber,
-                //    oModel.RowCount,
-                //    out oTotalRowsAux);
-
-                //oModel.TotalRows = oTotalRowsAux;
 
                 List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilterNew
                     (SessionModel.CurrentCompany.CompanyPublicId,
@@ -195,19 +175,6 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == SessionModel.CurrentCompany.CompanyPublicId).ToList();
                 }
-
-                ////parse view model
-                //if (oProviderResult != null && oProviderResult.Count > 0)
-                //{
-                //    oProviderResult.All(prv =>
-                //    {
-                //        oModel.ProviderSearchResult.Add
-                //            (new ProviderLiteViewModel(prv));
-
-                //        return true;
-                //    });
-                //}
-
                 #endregion Providers
 
                 if (!string.IsNullOrEmpty(ProjectPublicId))
@@ -3232,7 +3199,7 @@ namespace MarketPlace.Web.Controllers
                 string strSep = ";";
 
                 oProviderResult.All(x =>
-                {                    
+                {
                     string Address = string.Empty;
                     string Telephone = string.Empty;
                     string Representative = string.Empty;
@@ -3269,15 +3236,15 @@ namespace MarketPlace.Web.Controllers
                                 Country = (oGeographyModel != null && oGeographyModel.FirstOrDefault().Country.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().Country.ItemName != null) ? oGeographyModel.FirstOrDefault().Country.ItemName : "N/D";
                                 City = (oGeographyModel != null && oGeographyModel.FirstOrDefault().City.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().City.ItemName != null) ? oGeographyModel.FirstOrDefault().City.ItemName : "N/D";
                                 State = (oGeographyModel != null && oGeographyModel.FirstOrDefault().State.ItemName.Length > 0 && oGeographyModel.FirstOrDefault().State.ItemName != null) ? oGeographyModel.FirstOrDefault().State.ItemName : "N/D";
-                                
+
                             }
 
                             return true;
                         });
 
-                        if (x.RelatedCustomerInfo !=null)
+                        if (x.RelatedCustomerInfo != null)
                         {
-                           StatusProvider = x.RelatedCustomerInfo.FirstOrDefault().Value.ItemType.ItemName.ToString();
+                            StatusProvider = x.RelatedCustomerInfo.FirstOrDefault().Value.ItemType.ItemName.ToString();
                         }
 
                         if (oProviderResult.IndexOf(x) == 0)
