@@ -82,7 +82,7 @@
                     <ul>
                         @foreach (var oFilterItem in Model.CountryFilter)
                         {
-                            if (oFilterItem.FilterCount != 0)
+                            if (oFilterItem.FilterCount != 0 && oFilterItem.FilterName != "")
                             {
                                 <li>
                                     <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
@@ -106,11 +106,11 @@
                         @foreach (var oFilterItem in Model.CityFilter)
                         {
                             <li>
-                                @if (oFilterItem.FilterCount != 0)
+                                @if (oFilterItem.FilterCount != 0 && oFilterItem.FilterName != "")
                                 {
                                     <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
+                                    <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                                 }
-                                <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                             </li>
                         }
                     </ul>
@@ -149,15 +149,15 @@
                         @foreach (var oFilterItem in Model.BlackListFilter)
                         {
                             <li>
-                                @if (oFilterItem.FilterCount != 0)
+                                @if (oFilterItem.FilterCount != 0 && oFilterItem.FilterName != "")
                                 {
                                     <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
+                                    <span>Proveedores En Listas Restrictivas (@oFilterItem.FilterCount) </span>
                                 }
                                 @*else
                                     {
                                         <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
                                     }*@
-                                <span>Proveedores En Listas Restrictivas (@oFilterItem.FilterCount) </span>
                             </li>
                         }
                     </ul>
@@ -172,15 +172,15 @@
                         @foreach (var oFilterItem in Model.StatusFilter)
                         {
                             <li>
-                                @if (oFilterItem.FilterCount != 0)
+                                @if (oFilterItem.FilterCount != 0 && oFilterItem.FilterName != "")
                                 {
                                     <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterCount + ";" + oFilterItem.FilterCount)'}});" />
+                                    <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                                 }
                                 @*else
                                     {
                                         <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
                                     }*@
-                                <span>@oFilterItem.FilterName (@oFilterItem.FilterCount) </span>
                             </li>
                         }
                     </ul>
