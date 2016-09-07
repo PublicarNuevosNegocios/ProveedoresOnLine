@@ -50,8 +50,6 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                Country = idx.Field<string>("Country"),
                                CityId = !idx.IsNull("CityId") ? idx.Field<int>("CityId") : 0,
                                City = idx.Field<string>("City"),
-                               StatusId = !idx.IsNull("StatusId") ? idx.Field<int>("StatusId") : 0,
-                               Status = idx.Field<string>("Status"),
                                ICAId = !idx.IsNull("ICAId") ? idx.Field<int>("ICAId") : 0,
                                ICA = idx.Field<string>("ICA"),
                            }
@@ -73,8 +71,6 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                Country = idxg.Key.Country,
                                CityId = idxg.Key.CityId,
                                City = idxg.Key.City,
-                               ProviderStatusId = idxg.Key.StatusId,
-                               ProviderStatus = idxg.Key.Status,
 
                                ICAId = idxg.Key.ICAId,
                                ICA = idxg.Key.ICA,
