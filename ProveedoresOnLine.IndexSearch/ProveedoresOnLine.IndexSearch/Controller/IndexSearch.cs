@@ -52,7 +52,7 @@ namespace ProveedoresOnLine.IndexSearch.Controller
                         ));
                     Counter++;
                     var Index = client.Index(prov);
-                    LogFile(Counter +"-Index Process for: " + prov.CompanyPublicId);
+                    LogFile(Counter + "-Index Process for: " + prov.CompanyPublicId);
 
                     return true;
                 });
@@ -63,6 +63,49 @@ namespace ProveedoresOnLine.IndexSearch.Controller
                 LogFile("Index Process Failed for Company: " + ProviderPublicId + err.Message + "Inner Exception::" + err.InnerException);
             }
             LogFile("Index Process Successfull for: " + Counter);
+            return true;
+        }
+
+        public static bool CustomerProviderIdexationFunction() 
+        {
+            var CustomerProviderId = 0;
+            var Counter = 0;
+            try
+            {
+                List<CustomerProviderIndexModel> oCustomerProviderToIndex = GetCustomerProviderIndex();
+                LogFile("About to index: " + oCustomerProviderToIndex.Count + " CustomerProviders");
+
+                oCustomerProviderToIndex.All(cp =>
+                    {
+
+                        Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
+                        var settings = new ConnectionSettings(node);
+                        settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CustomerProviderIndex].Value);
+                        ElasticClient client = new ElasticClient(settings);
+                        CustomerProviderId = cp.CustomerProviderId;
+
+                        ICreateIndexResponse oElasticResponse = client.CreateIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CustomerProviderIndex].Value, c => c
+                        .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
+                        .Analysis(a => a.Analyzers(an => an.Custom("customWhiteSpace", anc => anc.Filters("asciifolding", "lowercase")
+                            .Tokenizer("whitespace")
+                            )).TokenFilters(tf => tf
+                                    .EdgeNGram("customEdgeNGram", engrf => engrf
+                                    .MinGram(1)
+                                    .MaxGram(10)))).NumberOfShards(1)
+                        ));
+                        Counter++;
+                        var Index = client.Index(cp);
+                        LogFile(Counter + "-Index Process for: " + cp.CustomerProviderId);
+
+                        return true;
+                    });
+            }
+            catch (Exception err)
+            {
+                LogFile("Index Process Failed for CustomerProvider: " + CustomerProviderId + err.Message + "Inner Exception::" + err.InnerException);                
+            }
+
+            LogFile("Index Process Successfull for: " + Counter + " Customers-Providers");
             return true;
         }
 
