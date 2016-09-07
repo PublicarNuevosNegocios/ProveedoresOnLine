@@ -49,5 +49,11 @@ namespace ProveedoresOnLine.IndexSearch.Test
             bool oReturn = Controller.IndexSearch.CompanyIndexationFunction();
             Assert.AreEqual(true, oReturn != null && oReturn == true);
         }
+
+        [TestMethod]
+        public void CustomerProviderIndexationFunction() 
+        {
+            bool oReturn = Controller.IndexSearch.CustomerProviderIdexationFunction();
+        }
     }
 }
