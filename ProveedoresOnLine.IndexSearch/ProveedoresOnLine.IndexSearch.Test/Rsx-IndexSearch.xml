@@ -3,5 +3,6 @@
   <IndexSearch>
     <key name="ElasticSearch_Url">http://192.168.0.94:9200/</key>
     <key name="CompanyIndex">dev_compindex</key>
+    <key name="CustomerProviderIndex">dev_customerproviderindex</key>
   </IndexSearch>
 </Settings>

@@ -18,6 +18,8 @@ namespace ProveedoresOnLine.IndexSearch.Models
 
         public const string C_Settings_CompanyIndex = "CompanyIndex";
 
+        public const string C_Settings_CustomerProviderIndex = "CustomerProviderIndex";
+
         #endregion
 
         #region AppSettings
