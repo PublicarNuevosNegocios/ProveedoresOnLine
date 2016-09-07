@@ -60,6 +60,8 @@ namespace ProveedoresOnLine.Company.Models.Company
         public int ProviderStatusId { get; set; }
         public string ProviderStatus { get; set; }
 
+        public bool CompanyEnable { get; set; }
+
         [Number]
         public int ICAId { get; set; }
         [String]

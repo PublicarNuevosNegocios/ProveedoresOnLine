@@ -14,6 +14,8 @@ namespace ProveedoresOnLine.IndexSearch.Interfaces
 
         List<CompanyIndexModel> GetCompanyIndex();
 
+        List<CustomerProviderIndexModel> GetCustomerProviderIndex();
+
         #endregion
 
         #region Survey Index
