@@ -74,6 +74,27 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
 
                                ICAId = idxg.Key.ICAId,
                                ICA = idxg.Key.ICA,
+                               oCustomerProviderIndexModel =
+                                    (from cp in response.DataTableResult.AsEnumerable()
+                                     where !cp.IsNull("CustomerProviderId") &&
+                                           cp.Field<string>("CompanyPublicId") == idxg.Key.CompanyPublicId
+                                     group cp by new
+                                     {
+                                         CustomerProviderId = cp.Field<int>("CustomerProviderId"),
+                                         CustomerPublicId = cp.Field<string>("CustomerPublicId"),
+                                         StatusId = cp.Field<int>("StatusId"),
+                                         Status = cp.Field<string>("Status"),
+                                         CustomerProviderEnable = cp.Field<UInt64>("CustomerProviderEnable") == 1 ? true : false,
+                                     }
+                                         into cpg
+                                         select new CustomerProviderIndexModel()
+                                         {
+                                             CustomerProviderId = cpg.Key.CustomerProviderId,
+                                             CustomerPublicId = cpg.Key.CustomerPublicId,
+                                             StatusId = cpg.Key.StatusId,
+                                             Status = cpg.Key.Status,
+                                             CustomerProviderEnable = cpg.Key.CustomerProviderEnable,
+                                         }).ToList()
                            }).ToList();
             }
 

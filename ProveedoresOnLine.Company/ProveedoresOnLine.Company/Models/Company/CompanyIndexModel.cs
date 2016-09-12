@@ -66,5 +66,7 @@ namespace ProveedoresOnLine.Company.Models.Company
         public int ICAId { get; set; }
         [String]
         public string ICA { get; set; }
+
+        public List<CustomerProviderIndexModel> oCustomerProviderIndexModel { get; set; }
     }
 }
