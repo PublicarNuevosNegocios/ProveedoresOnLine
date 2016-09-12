@@ -170,7 +170,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     #endregion
 
                     #region Write Process
-                    Header.AppendLine("\"" +
+                    Header.AppendLine(
                            x.CompanyName + strSep +
                            x.ComercialName + strSep +
                           NaturalName + strSep +
@@ -181,7 +181,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           x.City + strSep +
                           x.Region + strSep +
                           x.Country + strSep +
-                          string.Empty + strSep +
+                          x.PhoneNumber + strSep +
                           x.Fax + strSep +
                           x.Email_OC + strSep +
                           x.Email_P + strSep +
@@ -285,7 +285,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 {
                     string ContactName = !string.IsNullOrEmpty(x.ContactName) ? x.ContactName.ToUpper() : "";
                     #region Write Process
-                    Header.AppendLine("\"" +
+                    Header.AppendLine(
                           x.CompanyName + strSep +
                           x.FiscalNumber + strSep +
                           x.IdentificationNumber + strSep +
@@ -396,7 +396,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 oContableInfoModel.All(x =>
                 {
                     #region Write Process
-                    Header.AppendLine("\"" +
+                    Header.AppendLine(
                           x.CompanyName + strSep +
                           x.FiscalNumber + strSep +
                           x.IdentificationNumber + strSep +
