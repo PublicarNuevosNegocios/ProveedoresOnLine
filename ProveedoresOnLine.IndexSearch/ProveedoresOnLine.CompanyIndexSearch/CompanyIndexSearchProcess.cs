@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyIndexSearch
         {
             ProveedoresOnLine.IndexSearch.Controller.IndexSearch.CompanyIndexationFunction();
 
-            ProveedoresOnLine.IndexSearch.Controller.IndexSearch.CustomerProviderIdexationFunction();
+            //ProveedoresOnLine.IndexSearch.Controller.IndexSearch.CustomerProviderIdexationFunction();
         }
     }
 }
