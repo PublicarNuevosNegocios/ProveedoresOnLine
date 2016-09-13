@@ -80,9 +80,9 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
                                            cp.Field<string>("CompanyPublicId") == idxg.Key.CompanyPublicId
                                      group cp by new
                                      {
-                                         CustomerProviderId = cp.Field<int>("CustomerProviderId"),
+                                         CustomerProviderId = !cp.IsNull("CustomerProviderId") ? cp.Field<int>("CustomerProviderId") : 0,
                                          CustomerPublicId = cp.Field<string>("CustomerPublicId"),
-                                         StatusId = cp.Field<int>("StatusId"),
+                                         StatusId = !cp.IsNull("StatusId") ? cp.Field<int>("StatusId") : 0,
                                          Status = cp.Field<string>("Status"),
                                          CustomerProviderEnable = cp.Field<UInt64>("CustomerProviderEnable") == 1 ? true : false,
                                      }
