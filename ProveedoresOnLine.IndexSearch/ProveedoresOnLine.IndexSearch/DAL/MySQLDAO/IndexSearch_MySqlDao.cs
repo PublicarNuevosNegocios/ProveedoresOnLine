@@ -25,77 +25,82 @@ namespace ProveedoresOnLine.IndexSearch.DAL.MySQLDAO
         {
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
-                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataSet,
                 CommandText = "C_IndexCompany",
                 CommandType = System.Data.CommandType.StoredProcedure,
             });
 
             List<Company.Models.Company.CompanyIndexModel> oReturn = null;
 
-            if (response.DataTableResult != null &&
-                response.DataTableResult.Rows.Count > 0)
+            if (response.DataSetResult != null &&
+                response.DataSetResult.Tables[0] != null &&
+                response.DataSetResult.Tables[0].Rows.Count > 0 &&
+                response.DataSetResult.Tables[1] != null &&
+                response.DataSetResult.Tables[1].Rows.Count > 0)
             {
-                oReturn = (from idx in response.DataTableResult.AsEnumerable()
-                           where !idx.IsNull("CompanyPublicId")
-                           group idx by new
-                           {
-                               CompanyPublicId = idx.Field<string>("CompanyPublicId"),
-                               CompanyName = idx.Field<string>("CompanyName"),
-                               CompanyIdentificationTypeId = !idx.IsNull("CompanyIdentificationTypeId") ? idx.Field<int>("CompanyIdentificationTypeId") : 0,
-                               CompanyIdentificationType = idx.Field<string>("CompanyIdentificationType"),
-                               CompanyIdentificationNumber = idx.Field<string>("CompanyIdentificationNumber"),
-                               CompanyEnable = idx.Field<UInt64>("CompanyEnable") == 1 ? true : false,
-                               LogoUrl = idx.Field<string>("LogoUrl"),
-                               CountryId = !idx.IsNull("CountryId") ? idx.Field<int>("CountryId") : 0,
-                               Country = idx.Field<string>("Country"),
-                               CityId = !idx.IsNull("CityId") ? idx.Field<int>("CityId") : 0,
-                               City = idx.Field<string>("City"),
-                               ICAId = !idx.IsNull("ICAId") ? idx.Field<int>("ICAId") : 0,
-                               ICA = idx.Field<string>("ICA"),
-                           }
-                               into idxg
-                               select new CompanyIndexModel()
-                           {
-                               CompanyPublicId = idxg.Key.CompanyPublicId,
-                               CompanyName = idxg.Key.CompanyName,
-                               IdentificationTypeId = idxg.Key.CompanyIdentificationTypeId,
+                oReturn =
+                    (from ci in response.DataSetResult.Tables[1].AsEnumerable()
+                     where !ci.IsNull("CompanyPublicId")
+                     group ci by new
+                     {
+                         CompanyPublicId = ci.Field<string>("CompanyPublicId"),
+                         CompanyName = ci.Field<string>("CompanyName"),
+                         CompanyIdentificationTypeId = !ci.IsNull("CompanyIdentificationTypeId") ? ci.Field<int>("CompanyIdentificationTypeId") : 0,
+                         CompanyIdentificationType = ci.Field<string>("CompanyIdentificationType"),
+                         CompanyIdentificationNumber = ci.Field<string>("CompanyIdentificationNumber"),
+                         CompanyEnable = ci.Field<UInt64>("CompanyEnable") == 1 ? true : false,
+                         LogoUrl = ci.Field<string>("LogoUrl"),
+                         CountryId = !ci.IsNull("CountryId") ? ci.Field<int>("CountryId") : 0,
+                         Country = ci.Field<string>("Country"),
+                         CityId = !ci.IsNull("CityId") ? ci.Field<int>("CityId") : 0,
+                         City = ci.Field<string>("City"),
+                         ICAId = !ci.IsNull("ICAId") ? ci.Field<int>("ICAId") : 0,
+                         ICA = ci.Field<string>("ICA"),
+                     }
+                         into cig
+                         select new CompanyIndexModel()
+                         {
+                             CompanyPublicId = cig.Key.CompanyPublicId,
+                             CompanyName = cig.Key.CompanyName,
+                             IdentificationTypeId = cig.Key.CompanyIdentificationTypeId,
 
-                               IdentificationType = idxg.Key.CompanyIdentificationType,
+                             IdentificationType = cig.Key.CompanyIdentificationType,
 
-                               IdentificationNumber = idxg.Key.CompanyIdentificationNumber,
+                             IdentificationNumber = cig.Key.CompanyIdentificationNumber,
 
-                               CompanyEnable = idxg.Key.CompanyEnable,
-                               LogoUrl = idxg.Key.LogoUrl,
+                             CompanyEnable = cig.Key.CompanyEnable,
+                             LogoUrl = cig.Key.LogoUrl,
 
-                               CountryId = idxg.Key.CountryId,
-                               Country = idxg.Key.Country,
-                               CityId = idxg.Key.CityId,
-                               City = idxg.Key.City,
+                             CountryId = cig.Key.CountryId,
+                             Country = cig.Key.Country,
+                             CityId = cig.Key.CityId,
+                             City = cig.Key.City,
 
-                               ICAId = idxg.Key.ICAId,
-                               ICA = idxg.Key.ICA,
-                               oCustomerProviderIndexModel =
-                                    (from cp in response.DataTableResult.AsEnumerable()
-                                     where !cp.IsNull("CustomerProviderId") &&
-                                           cp.Field<string>("CompanyPublicId") == idxg.Key.CompanyPublicId
-                                     group cp by new
+                             ICAId = cig.Key.ICAId,
+                             ICA = cig.Key.ICA,
+
+                             oCustomerProviderIndexModel =
+                                (from cp in response.DataSetResult.Tables[0].AsEnumerable()
+                                 where !cp.IsNull("CustomerProviderId") &&
+                                       cp.Field<string>("ProviderPublicId") == cig.Key.CompanyPublicId
+                                 group cp by new
+                                 {
+                                     CustomerProviderId = !cp.IsNull("CustomerProviderId") ? cp.Field<int>("CustomerProviderId") : 0,
+                                     CustomerPublicId = cp.Field<string>("CustomerPublicId"),
+                                     StatusId = !cp.IsNull("StatusId") ? cp.Field<int>("StatusId") : 0,
+                                     Status = cp.Field<string>("Status"),
+                                     CustomerProviderEnable = cp.Field<UInt64>("CustomerProviderEnable") == 1 ? true : false,
+                                 }
+                                     into cpg
+                                     select new CustomerProviderIndexModel()
                                      {
-                                         CustomerProviderId = !cp.IsNull("CustomerProviderId") ? cp.Field<int>("CustomerProviderId") : 0,
-                                         CustomerPublicId = cp.Field<string>("CustomerPublicId"),
-                                         StatusId = !cp.IsNull("StatusId") ? cp.Field<int>("StatusId") : 0,
-                                         Status = cp.Field<string>("Status"),
-                                         CustomerProviderEnable = cp.Field<UInt64>("CustomerProviderEnable") == 1 ? true : false,
-                                     }
-                                         into cpg
-                                         select new CustomerProviderIndexModel()
-                                         {
-                                             CustomerProviderId = cpg.Key.CustomerProviderId,
-                                             CustomerPublicId = cpg.Key.CustomerPublicId,
-                                             StatusId = cpg.Key.StatusId,
-                                             Status = cpg.Key.Status,
-                                             CustomerProviderEnable = cpg.Key.CustomerProviderEnable,
-                                         }).ToList()
-                           }).ToList();
+                                         CustomerProviderId = cpg.Key.CustomerProviderId,
+                                         CustomerPublicId = cpg.Key.CustomerPublicId,
+                                         StatusId = cpg.Key.StatusId,
+                                         Status = cpg.Key.Status,
+                                         CustomerProviderEnable = cpg.Key.CustomerProviderEnable,
+                                     }).ToList()
+                         }).ToList();
             }
 
             return oReturn;
