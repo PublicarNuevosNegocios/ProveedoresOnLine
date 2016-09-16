@@ -52,6 +52,9 @@ namespace MarketPlace.Web.Controllers
             if (SessionModel.CurrentCompany != null &&
                 !string.IsNullOrEmpty(SessionModel.CurrentCompany.CompanyPublicId))
             {
+                Uri node = new Uri(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
+                var settings = new ConnectionSettings(node);
+
                 //get basic search model
                 oModel = new ProviderSearchViewModel()
                 {
@@ -69,31 +72,54 @@ namespace MarketPlace.Web.Controllers
                     BlackListFilter = new List<ElasticSearchFilter>(),
                 };
                 #region ElasticSearch
+                #region Customer Provider
+                settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CustomerProviderIndex].Value);
+                ElasticClient CustomerProviderClient = new ElasticClient(settings);
+                oModel.ElasticCustomerProviderModel = CustomerProviderClient.Search<CustomerProviderIndexModel>(s => s
+                .From(0)
+                .Size(20)
+                    .Aggregations
+                    (agg => agg
+                        .Terms("statusId", aggv => aggv
+                            .Field(fi => fi.StatusId)))
+                .Query(q => q.Match(m => m.Field("customerPublicId").Query(SessionModel.CurrentCompany.CompanyPublicId))
+                ));
 
-                //ElasticSearch
-                Uri node = new Uri(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ElasticSearchUrl].Value);
-                var settings = new ConnectionSettings(node);
+                #endregion
+
+                #region Search Result Comany
+
                 settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CompanyIndex].Value);
                 ElasticClient client = new ElasticClient(settings);
-
+                
                 oModel.ElasticCompanyModel = client.Search<CompanyIndexModel>(s => s
                 .From(0)
                 .Size(20)
-                .Aggregations
-                (agg => agg
-                    .Terms("city", aggv => aggv
-                        .Field(fi => fi.CityId))
-                    .Terms("country", c => c
-                        .Field(fi => fi.CountryId))
-                    .Terms("status", st => st
-                        .Field(fi => fi.ProviderStatusId))
-                    .Terms("blacklist", bl => bl
-                        .Field(fi => fi.InBlackList)))
-                .Query(q =>
-                     q.Term(p => p.CompanyName, SearchParam) ||
-                     q.Term(p => p.CommercialCompanyName, SearchParam) ||
-                     q.Term(p => p.IdentificationNumber, SearchParam)
-                ));
+                //.Aggregations
+                //(agg => agg 
+                //    .Terms("city", aggv => aggv
+                //        .Field(fi => fi.CityId))
+                //    .Terms("country", c => c
+                //        .Field(fi => fi.CountryId))
+                //    .Terms("blacklist", bl => bl
+                //        .Field(fi => fi.InBlackList)))
+                .Query(q => q
+                    .Nested(n => n
+                        .Path(p => p.oCustomerProviderIndexModel)
+                        .Query(f => f.Term("customerPublicId", SessionModel.CurrentCompany.CompanyPublicId)))
+                //.Query(q => 
+                //     q.Term(p => p.CompanyName, SearchParam) ||         
+                //     q.Term(p => p.CommercialCompanyName, SearchParam)||
+                //     q.Term(p => p.IdentificationNumber, SearchParam)  
+                ));                                                     
+
+                var Result = oModel.ElasticCompanyModel.Documents.Where(x => oModel.ElasticCustomerProviderModel.Documents.Any(y => y.ProviderPublicId == x.CompanyPublicId) == true).Select(x => x).ToList();
+
+                if (Result != null)
+                {
+                    oModel.ElasticCompanyModel = oModel.ElasticCompanyModel;
+                }
+                #endregion
 
                 //parse view model
                 if (oModel.ElasticCompanyModel != null && oModel.ElasticCompanyModel.Documents.Count() > 0)

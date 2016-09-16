@@ -74,6 +74,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rsx-IndexSearch.xml" />
+    <Content Include="Rsx-SettingsConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ProveedoresOnLine.CompanyIndexSearch\ProveedoresOnLine.CompanyIndexSearch.csproj">
       <Project>{a0eaccfd-15cc-4395-86f4-d9e8b0e80bb5}</Project>
       <Name>ProveedoresOnLine.CompanyIndexSearch</Name>
@@ -82,14 +90,6 @@
       <Project>{ee6578fa-af0b-4567-85bc-3f9070b3f9ff}</Project>
       <Name>ProveedoresOnLine.IndexSearch</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Rsx-IndexSearch.xml" />
-    <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

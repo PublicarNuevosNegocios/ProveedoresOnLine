@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
   <Module name="IndexSearch">
-    <key name="location">C:\Users\DIEGO F JARAMILLO\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.IndexSearch\ProveedoresOnLine.IndexSearch.Test\Rsx-IndexSearch.xml</key>
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\IndexSearch\Rsx-IndexSearch.xml</key>
   </Module>
 </SettingsConfig>

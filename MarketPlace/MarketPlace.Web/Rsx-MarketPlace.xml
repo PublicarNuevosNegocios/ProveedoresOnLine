@@ -41,8 +41,10 @@
     <key name="CompanyPublicId_ClientePolipropileno">10A0C1D5</key>
 
     <key name="ElasticSearchUrl">http://192.168.0.94:9200/</key>
-    
+        
     <key name="CompanyIndex">dev_compindex</key>
+    
+    <key name="CustomerProviderIndex">dev_customerproviderindex</key>
       
     <key name="Desktop_Analytics">
       <![CDATA[

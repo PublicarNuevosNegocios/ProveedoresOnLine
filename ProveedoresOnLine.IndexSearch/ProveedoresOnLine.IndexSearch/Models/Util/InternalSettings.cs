@@ -27,7 +27,7 @@ namespace ProveedoresOnLine.IndexSearch.Models.Util
         {
             get
             {
-                return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.Company.Models.Constants.C_SettingsModuleName].Count;
+                return SettingsManager.SettingsController.SettingsInstance.ModulesParams[ProveedoresOnLine.IndexSearch.Models.Constants.C_SettingsModuleName].Count;
             }
         }
     }
