@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Company.Models.Company
 {
-    [ElasticsearchType(Name = "CustomerProvider_Info")]
+    //[ElasticsearchType(Name = "CustomerProvider_Info")]
     public class CustomerProviderIndexModel
     {
         public CustomerProviderIndexModel()
@@ -21,10 +21,10 @@ namespace ProveedoresOnLine.Company.Models.Company
         [Number]
         public int CustomerProviderId { get; set; }
                 
-        [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
+        [String]
         public string CustomerPublicId { get; set; }
                 
-        [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
+        [String]
         public string ProviderPublicId { get; set; }
 
         [Number]

@@ -41,6 +41,8 @@ namespace MarketPlace.Models.Provider
         public ProveedoresOnLine.Company.Models.Company.CompanyIndexModel CompanyIndexModel { get; set; }
 
         public Nest.ISearchResponse<CompanyIndexModel> ElasticCompanyModel { get; set; }
+
+        public Nest.ISearchResponse<CustomerProviderIndexModel> ElasticCustomerProviderModel { get; set; }
      
 
         #region Comparison

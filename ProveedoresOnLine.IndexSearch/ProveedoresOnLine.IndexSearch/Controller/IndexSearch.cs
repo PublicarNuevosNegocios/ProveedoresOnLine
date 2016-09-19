@@ -68,7 +68,7 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         public static bool CustomerProviderIdexationFunction() 
         {
-            var CustomerProviderId = 0;
+            int CustomerProviderId = 0;
             var Counter = 0;
             try
             {
@@ -77,7 +77,6 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
                 oCustomerProviderToIndex.All(cp =>
                     {
-
                         Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
                         var settings = new ConnectionSettings(node);
                         settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CustomerProviderIndex].Value);
