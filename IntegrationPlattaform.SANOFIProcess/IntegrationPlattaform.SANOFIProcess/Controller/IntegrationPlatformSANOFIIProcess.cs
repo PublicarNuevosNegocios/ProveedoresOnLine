@@ -403,10 +403,10 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           x.Country + strSep +
                           x.BankPassword + strSep +
                           x.BankCountNumber + strSep +
-                          "1" + strSep +
+                          "001" + strSep +
                           x.IBAN + strSep +
                           x.AssociatedCount + strSep +
-                          x.PayCondition + strSep +
+                         "00"+ x.PayCondition + strSep +
                           "0010" + strSep +
                           "1" + strSep +
                           "1" + strSep +
