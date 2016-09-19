@@ -26,43 +26,41 @@ namespace ProveedoresOnLine.IndexSearch.Controller
 
         public static bool CompanyIndexationFunction()
         {
-            var ProviderPublicId = "";
-            var Counter = 0;
+            List<CompanyIndexModel> oCompanyToIndex = GetCompanyIndex();
             try
-            {
-                List<CompanyIndexModel> oCompanyToIndex = GetCompanyIndex();
-                LogFile("About to index: " + oCompanyToIndex.Count + " Providers");
+            {   
+                LogFile("Start Process: " + "ProvidersToIndex:::" + oCompanyToIndex.Count());
 
-                oCompanyToIndex.All(prov =>
-                {
-                    Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
-                    var settings = new ConnectionSettings(node);
-                    settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
-                    ElasticClient client = new ElasticClient(settings);
-                    ProviderPublicId = prov.CompanyPublicId;
+                Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
+                var settings = new ConnectionSettings(node);
+                settings.DefaultIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
+                ElasticClient client = new ElasticClient(settings);
 
-                    ICreateIndexResponse oElasticResponse = client.CreateIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value, c => c
+                ICreateIndexResponse oElasticResponse = client.
+                        CreateIndex(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value, c => c
                         .Settings(s => s.NumberOfReplicas(0).NumberOfShards(1)
-                        .Analysis(a => a.Analyzers(an => an.Custom("customWhiteSpace", anc => anc.Filters("asciifolding", "lowercase")
-                            .Tokenizer("whitespace")
-                            )).TokenFilters(tf => tf
+                        .Analysis(a => a.
+                            Analyzers(an => an.
+                                Custom("customWhiteSpace", anc => anc.
+                                    Filters("asciifolding", "lowercase").
+                                    Tokenizer("whitespace")
+                                        )
+                                    ).TokenFilters(tf => tf
                                     .EdgeNGram("customEdgeNGram", engrf => engrf
                                     .MinGram(1)
-                                    .MaxGram(10)))).NumberOfShards(1)
-                        ));
-                    Counter++;
-                    var Index = client.Index(prov);
-                    LogFile(Counter + "-Index Process for: " + prov.CompanyPublicId);
+                                    .MaxGram(10))
+                                )
+                            ).NumberOfShards(1)
+                        )
+                    );
 
-                    return true;
-                });
-
+                var Index = client.IndexMany(oCompanyToIndex, ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
             }
             catch (Exception err)
             {
-                LogFile("Index Process Failed for Company: " + ProviderPublicId + err.Message + "Inner Exception::" + err.InnerException);
+                LogFile("Index Process Failed for Company: " + err.Message + "Inner Exception::" + err.InnerException);
             }
-            LogFile("Index Process Successfull for: " + Counter);
+            LogFile("Index Process Successfull for: " + oCompanyToIndex.Count());
             return true;
         }
 

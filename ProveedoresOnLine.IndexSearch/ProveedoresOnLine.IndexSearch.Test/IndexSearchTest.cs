@@ -5,6 +5,7 @@ using ProveedoresOnLine.IndexSearch.Models;
 using ProveedoresOnLine.Company.Models.Company;
 using System.Linq;
 using Nest;
+using System.Collections;
 
 namespace ProveedoresOnLine.IndexSearch.Test
 {
@@ -93,9 +94,9 @@ namespace ProveedoresOnLine.IndexSearch.Test
                 .Nested(n => n
                 .Path(p => p.oCustomerProviderIndexModel)
                 .Query(fq => fq
-                   .Term(term => term.oCustomerProviderIndexModel.First().CustomerPublicId, "7BC27832")
+                   .Term(term => term.oCustomerProviderIndexModel.First().Id, "7BC27832")
                 )
-                .ScoreMode(NestedScoreMode.Max)))                                         
+                .ScoreMode(NestedScoreMode.Max)))
             );
         }
     }
