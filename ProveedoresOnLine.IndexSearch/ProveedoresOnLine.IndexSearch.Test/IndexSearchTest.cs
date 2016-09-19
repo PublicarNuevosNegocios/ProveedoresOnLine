@@ -83,7 +83,7 @@ namespace ProveedoresOnLine.IndexSearch.Test
         {
             Uri node = new Uri(ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_ElasticSearchUrl].Value);
             var settings = new ConnectionSettings(node);
-
+            settings.DisableDirectStreaming(true);
             settings.DefaultIndex("dev_companyindex");
             ElasticClient CustomerProviderClient = new ElasticClient(settings);
 
@@ -94,8 +94,8 @@ namespace ProveedoresOnLine.IndexSearch.Test
                 .Nested(n => n
                 .Path(p => p.oCustomerProviderIndexModel)
                 .Query(fq => fq
-                   .Term(term => term.oCustomerProviderIndexModel.First().Id, "7BC27832")
-                )
+                   .Term(term => term.oCustomerProviderIndexModel.First().CustomerPublicId, "1B40C887")
+                )                
                 .ScoreMode(NestedScoreMode.Max)))
             );
         }
