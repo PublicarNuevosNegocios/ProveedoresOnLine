@@ -53,7 +53,7 @@ namespace ProveedoresOnLine.IndexSearch.Controller
                             ).NumberOfShards(1)
                         )
                     );
-
+                client.Map<CompanyIndexModel>(m => m.AutoMap());
                 var Index = client.IndexMany(oCompanyToIndex, ProveedoresOnLine.IndexSearch.Models.Util.InternalSettings.Instance[ProveedoresOnLine.IndexSearch.Models.Constants.C_Settings_CompanyIndex].Value);
             }
             catch (Exception err)
