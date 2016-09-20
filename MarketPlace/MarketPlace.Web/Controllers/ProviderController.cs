@@ -99,7 +99,7 @@ namespace MarketPlace.Web.Controllers
                 //(agg => agg 
                 //    .Terms("city", aggv => aggv
                 //        .Field(fi => fi.CityId))
-                //    .Terms("country", c => c
+                //    .Terms("country", c => c 
                 //        .Field(fi => fi.CountryId))
                 //    .Terms("blacklist", bl => bl
                 //        .Field(fi => fi.InBlackList)))
