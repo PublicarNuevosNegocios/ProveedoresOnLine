@@ -87,7 +87,7 @@ namespace ProveedoresOnLine.IndexSearch.Test
             settings.DefaultIndex("dev_companyindex");
             ElasticClient CustomerProviderClient = new ElasticClient(settings);
 
-            var result = CustomerProviderClient.Search<CompanyIndexModel>(s => s
+            Nest.ISearchResponse<CompanyIndexModel> result = CustomerProviderClient.Search<CompanyIndexModel>(s => s
             .From(0)
             .Size(20)
             .Query(q => q
