@@ -21,7 +21,7 @@ namespace ProveedoresOnLine.Company.Models.Company
         [Number]
         public int CustomerProviderId { get; set; }
 
-        [String(Analyzer = "")]
+        [String(Analyzer = "not_analyzed")]
         public string CustomerPublicId { get; set; }
 
         [String(Analyzer = "customWhiteSpace", SearchAnalyzer = "customWhiteSpace")]
