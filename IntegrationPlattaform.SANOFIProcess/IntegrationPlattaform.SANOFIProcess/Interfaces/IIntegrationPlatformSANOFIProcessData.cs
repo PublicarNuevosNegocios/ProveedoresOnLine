@@ -17,7 +17,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Interfaces
 
         List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId);
 
-        int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable);
+        int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, string FileName, bool SendStatus, bool IsSuccess, bool Enable);
 
         List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess);
 

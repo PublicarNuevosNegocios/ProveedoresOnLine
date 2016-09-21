@@ -14,6 +14,10 @@ namespace IntegrationPlattaform.SANOFIProcess.Models
 
         public string ProcessName { get; set; }
 
+        public string FileName { get; set; }
+
+        public bool SendStatus { get; set; }
+
         public bool IsSucces { get; set; }
 
         public DateTime CreateDate { get; set; }

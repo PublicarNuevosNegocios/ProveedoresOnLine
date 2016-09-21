@@ -492,6 +492,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         (
                             oLogModel.ProviderPublicId,
                             oLogModel.ProcessName,
+                            oLogModel.FileName,
+                            oLogModel.SendStatus,
                             oLogModel.IsSucces,
                             oLogModel.Enable
                         );
