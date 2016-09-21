@@ -295,7 +295,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CurrencyName + strSep +
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].Ramo + strSep +
                           "00" + x.PayCondition + strSep +                          
-                          x.GroupSchemaProvider + strSep +
+                          "0"+x.GroupSchemaProvider + strSep +
                           ContactName + strSep +
                           "1" + strSep +
                           x.BuyCod + strSep);
@@ -401,7 +401,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           x.FiscalNumber + strSep +
                           x.IdentificationNumber + strSep +
                           x.Country + strSep +
-                          x.BankPassword + strSep +
+                          "00"+x.BankPassword + strSep +
                           x.BankCountNumber + strSep +
                           "001" + strSep +
                           x.IBAN + strSep +
@@ -492,6 +492,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         (
                             oLogModel.ProviderPublicId,
                             oLogModel.ProcessName,
+                            oLogModel.FileName,
+                            oLogModel.SendStatus,
                             oLogModel.IsSucces,
                             oLogModel.Enable
                         );

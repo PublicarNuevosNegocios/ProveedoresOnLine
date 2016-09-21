@@ -48,6 +48,8 @@ namespace IntegrationPlatform.SANOFIProcess.Test
             {
                 ProviderPublicId = "A24EB150",
                 ProcessName = "PruebaLog 4",
+                FileName = "https:-------------------------------------",
+                SendStatus = false,
                 IsSucces = true,
                 Enable = true
             };

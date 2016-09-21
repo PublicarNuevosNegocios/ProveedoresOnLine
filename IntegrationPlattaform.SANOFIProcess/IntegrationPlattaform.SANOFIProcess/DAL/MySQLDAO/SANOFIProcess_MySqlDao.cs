@@ -243,12 +243,14 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-        public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, bool IsSuccess, bool Enable)
+        public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, string FileName, bool SendStatus, bool IsSuccess, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstparams.Add(DataInstance.CreateTypedParameter("vProcessName", ProcessName));
+            lstparams.Add(DataInstance.CreateTypedParameter("vFileName", FileName));
+            lstparams.Add(DataInstance.CreateTypedParameter("vSendStatus", (SendStatus == true) ? 1 : 0));
             lstparams.Add(DataInstance.CreateTypedParameter("vIsSuccess", (IsSuccess == true) ? 1 : 0));
             lstparams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
 
@@ -289,6 +291,8 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                             SanofiProcessLogId = spl.Field<int>("SanofiProcessLogId"),
                             ProviderPublicId = spl.Field<string>("ProviderPublicId"),
                             ProcessName = spl.Field<string>("ProcessName"),
+                            FileName = spl.Field<string>("FileName"),
+                            SendStatus = spl.Field<UInt64>("SendStatus") == 1 ? true : false,
                             IsSuccess = spl.Field<UInt64>("IsSuccess") == 1 ? true : false,
                             CreateDate = spl.Field<DateTime>("CreateDate"),
                             LastModify = spl.Field<DateTime>("LastModify"),
@@ -300,6 +304,8 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                                 SanofiProcessLogId = splg.Key.SanofiProcessLogId,
                                 ProviderPublicId = splg.Key.ProviderPublicId,
                                 ProcessName = splg.Key.ProcessName,
+                                FileName = splg.Key.FileName,
+                                SendStatus = splg.Key.SendStatus,
                                 IsSucces = splg.Key.IsSuccess,
                                 CreateDate = splg.Key.CreateDate,
                                 LastModify = splg.Key.LastModify
@@ -327,6 +333,8 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
                     SanofiProcessLogId = response.DataTableResult.Rows[0].Field<int>("SanofiProcessLogId"),
                     ProviderPublicId = response.DataTableResult.Rows[0].Field<string>("ProviderPublicId"),
                     ProcessName = response.DataTableResult.Rows[0].Field<string>("ProcessName"),
+                    FileName = response.DataTableResult.Rows[0].Field<string>("FileName"),
+                    SendStatus = response.DataTableResult.Rows[0].Field<UInt64>("SendStatus") == 1 ? true : false,
                     IsSucces = response.DataTableResult.Rows[0].Field<UInt64>("IsSuccess") == 1 ? true : false,
                     CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate"),
                     LastModify = response.DataTableResult.Rows[0].Field<DateTime>("lastModify")
