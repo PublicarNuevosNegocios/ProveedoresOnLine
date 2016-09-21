@@ -94,7 +94,7 @@ namespace ProveedoresOnLine.IndexSearch.Test
                 .Nested(n => n
                 .Path(p => p.oCustomerProviderIndexModel)
                 .Query(fq => fq
-                   .Term(term => term.oCustomerProviderIndexModel.First().StatusId, 902002)
+                   .Term(term => term.oCustomerProviderIndexModel.First().CustomerPublicId, "1B40C887")
                 )                
                 .ScoreMode(NestedScoreMode.Max)))
             );
