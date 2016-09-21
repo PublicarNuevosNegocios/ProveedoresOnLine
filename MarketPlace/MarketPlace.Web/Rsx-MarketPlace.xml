@@ -42,7 +42,7 @@
 
     <key name="ElasticSearchUrl">http://192.168.0.94:9200/</key>
         
-    <key name="CompanyIndex">dev_compindex</key>
+    <key name="CompanyIndex">dev_companyindex</key>
     
     <key name="CustomerProviderIndex">dev_customerproviderindex</key>
       
