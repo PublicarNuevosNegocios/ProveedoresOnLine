@@ -71,54 +71,44 @@ namespace MarketPlace.Web.Controllers
                     StatusFilter = new List<ElasticSearchFilter>(),
                     BlackListFilter = new List<ElasticSearchFilter>(),
                 };
-                #region ElasticSearch
-                #region Customer Provider
-                settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CustomerProviderIndex].Value);
-                ElasticClient CustomerProviderClient = new ElasticClient(settings);
-                oModel.ElasticCustomerProviderModel = CustomerProviderClient.Search<CustomerProviderIndexModel>(s => s
-                .From(0)
-                .Size(20)
-                    .Aggregations
-                    (agg => agg
-                        .Terms("statusId", aggv => aggv
-                            .Field(fi => fi.StatusId)))
-                .Query(q => q.Match(m => m.Field("customerPublicId").Query(SessionModel.CurrentCompany.CompanyPublicId))
-                ));
-
-                #endregion
-
-                #region Search Result Comany
+                #region ElasticSearch             
+                #region Search Result Company
 
                 settings.DefaultIndex(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CompanyIndex].Value);
+                settings.DisableDirectStreaming(true);
                 ElasticClient client = new ElasticClient(settings);
-                
+
                 oModel.ElasticCompanyModel = client.Search<CompanyIndexModel>(s => s
                 .From(0)
                 .Size(20)
-                //.Aggregations
-                //(agg => agg 
-                //    .Terms("city", aggv => aggv
-                //        .Field(fi => fi.CityId))
-                //    .Terms("country", c => c 
-                //        .Field(fi => fi.CountryId))
-                //    .Terms("blacklist", bl => bl
-                //        .Field(fi => fi.InBlackList)))
+                    .Aggregations
+                     (agg => agg
+                        .Nested("status_avg", x => x.
+                            Path(p => p.oCustomerProviderIndexModel).
+                            Aggregations(aggs => aggs.
+                                Terms("status", term => term.
+                                    Field(fi => fi.oCustomerProviderIndexModel.First().StatusId)
+                                )
+                            )
+                        )
+                        .Terms("city", aggv => aggv
+                            .Field(fi => fi.CityId))
+                        .Terms("country", c => c
+                            .Field(fi => fi.CountryId))
+                        .Terms("blacklist", bl => bl
+                            .Field(fi => fi.InBlackList)))
                 .Query(q => q
                     .Nested(n => n
                         .Path(p => p.oCustomerProviderIndexModel)
-                        .Query(f => f.Term("customerPublicId", SessionModel.CurrentCompany.CompanyPublicId)))
-                //.Query(q => 
-                //     q.Term(p => p.CompanyName, SearchParam) ||         
-                //     q.Term(p => p.CommercialCompanyName, SearchParam)||
-                //     q.Term(p => p.IdentificationNumber, SearchParam)  
-                ));                                                     
-
-                var Result = oModel.ElasticCompanyModel.Documents.Where(x => oModel.ElasticCustomerProviderModel.Documents.Any(y => y.ProviderPublicId == x.CompanyPublicId) == true).Select(x => x).ToList();
-
-                if (Result != null)
-                {
-                    oModel.ElasticCompanyModel = oModel.ElasticCompanyModel;
-                }
+                            .Query(fq => fq
+                                .Match(match => match
+                                                    .Field(field => field.oCustomerProviderIndexModel.First().CustomerPublicId)
+                                                    .Query(SessionModel.CurrentCompany.CompanyPublicId)
+                                )
+                              ).ScoreMode(NestedScoreMode.Max)
+                            )
+                    )
+                );             
                 #endregion
 
                 //parse view model
@@ -163,8 +153,8 @@ namespace MarketPlace.Web.Controllers
 
                 #region Status Aggregation
 
-                oModel.ElasticCompanyModel.Aggs.Terms("status").Buckets.All(x =>
-                {
+                oModel.ElasticCompanyModel.Aggs.Nested("status_avg").Terms("status").Buckets.All(x =>
+                {                    
                     oModel.StatusFilter.Add(new ElasticSearchFilter
                     {
                         FilterCount = (int)x.DocCount,

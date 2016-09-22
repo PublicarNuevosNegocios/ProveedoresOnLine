@@ -90,13 +90,32 @@ namespace ProveedoresOnLine.IndexSearch.Test
             Nest.ISearchResponse<CompanyIndexModel> result = CustomerProviderClient.Search<CompanyIndexModel>(s => s
             .From(0)
             .Size(20)
+             .Aggregations
+                    (agg => agg
+                        .Nested("my_avg_agg", x => x.
+                            Path(p => p.oCustomerProviderIndexModel).
+                            Aggregations(aggs => aggs.
+                                Terms("status", term => term.
+                                    Field(fi => fi.oCustomerProviderIndexModel.First().StatusId)
+                                )
+                            )
+                        )
+                        .Terms("city", aggv => aggv
+                            .Field(fi => fi.CityId))
+                        .Terms("country", c => c
+                            .Field(fi => fi.CountryId))
+                        .Terms("blacklist", bl => bl
+                            .Field(fi => fi.InBlackList)))
             .Query(q => q
                 .Nested(n => n
                 .Path(p => p.oCustomerProviderIndexModel)
                 .Query(fq => fq
-                   .Term(term => term.oCustomerProviderIndexModel.First().CustomerPublicId, "1B40C887")
-                )                
-                .ScoreMode(NestedScoreMode.Max)))
+                    .Match(match => match
+                                            .Field(field => field.oCustomerProviderIndexModel.First().CustomerPublicId)
+                                            .Query("7BC27832")))
+                        .ScoreMode(NestedScoreMode.Max)
+                    )
+                )
             );
         }
     }
