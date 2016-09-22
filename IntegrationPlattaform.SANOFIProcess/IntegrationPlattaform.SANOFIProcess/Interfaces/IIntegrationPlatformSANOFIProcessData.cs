@@ -9,13 +9,13 @@ namespace IntegrationPlattaform.SANOFIProcess.Interfaces
 {
     internal interface IIntegrationPlatformSANOFIProcessData
     {
-        List<SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId);
+        List<SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId, DateTime vStartDate);
 
-        List<SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId);
+        List<SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId, DateTime vStartDate);
 
-        List<SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId);
+        List<SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId, DateTime vStartDate);
 
-        List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId);
+        List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId, DateTime vStartDate);
 
         int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, string FileName, bool SendStatus, bool IsSuccess, bool Enable);
 

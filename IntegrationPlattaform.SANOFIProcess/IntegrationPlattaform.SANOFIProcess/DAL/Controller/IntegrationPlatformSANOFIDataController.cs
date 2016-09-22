@@ -39,24 +39,24 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
         #endregion
 
 
-        public List<Models.SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId)
+        public List<Models.SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
-            return DataFactory.GetInfoByProvider(vProviderPublicId);
+            return DataFactory.GetInfoByProvider(vProviderPublicId, vStartDate);
         }
 
-        public List<Models.SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId)
+        public List<Models.SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
-            return DataFactory.GetComercialInfoByProvider(vProviderPublicId);
+            return DataFactory.GetComercialInfoByProvider(vProviderPublicId, vStartDate);
         }
 
-        public List<Models.SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId)
+        public List<Models.SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
-            return DataFactory.GetComercialBasicInfoByProvider(vProviderPublicId);
+            return DataFactory.GetComercialBasicInfoByProvider(vProviderPublicId, vStartDate);
         }
 
-        public List<Models.SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
+        public List<Models.SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
-            return DataFactory.GetContableInfoByProvider(vProviderPublicId);
+            return DataFactory.GetContableInfoByProvider(vProviderPublicId, vStartDate);
         }
 
         public int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, string FileName, bool SendStatus, bool IsSuccess, bool Enable)
