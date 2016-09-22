@@ -97,8 +97,8 @@ namespace MarketPlace.Web.Controllers
                             .Field(fi => fi.CountryId))
                         .Terms("blacklist", bl => bl
                             .Field(fi => fi.InBlackList)))
-                .Query(q => q
-                    .Nested(n => n
+                .Query(q =>                     
+                    q.Nested(n => n
                         .Path(p => p.oCustomerProviderIndexModel)
                             .Query(fq => fq
                                 .Match(match => match
@@ -106,8 +106,12 @@ namespace MarketPlace.Web.Controllers
                                                     .Query(SessionModel.CurrentCompany.CompanyPublicId)
                                 )
                               ).ScoreMode(NestedScoreMode.Max)
-                            )
+                           )                    
                     )
+                .Query(q =>
+                     q.Term(p => p.CompanyName, SearchParam) ||
+                     q.Term(p => p.CommercialCompanyName, SearchParam) ||
+                     q.Term(p => p.IdentificationNumber, SearchParam))
                 );             
                 #endregion
 
@@ -130,8 +134,8 @@ namespace MarketPlace.Web.Controllers
                         oModel.CityFilter.Add(new ElasticSearchFilter
                         {
                             FilterCount = (int)x.DocCount,
-                            FilterType = x.Key,
-                            FilterName = MarketPlace.Models.Company.CompanyUtil.GetCityName(x.Key),
+                            FilterType = x.Key.Split('.')[0],
+                            FilterName = MarketPlace.Models.Company.CompanyUtil.GetCityName(x.Key.Split('.')[0]),
                         });
                         return true;
                     });
@@ -144,8 +148,8 @@ namespace MarketPlace.Web.Controllers
                     oModel.CountryFilter.Add(new ElasticSearchFilter
                     {
                         FilterCount = (int)x.DocCount,
-                        FilterType = x.Key,
-                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetCountryNameByCountryId(x.Key),
+                        FilterType = x.Key.Split('.')[0],
+                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetCountryNameByCountryId(x.Key.Split('.')[0]),
                     });
                     return true;
                 });
@@ -158,8 +162,8 @@ namespace MarketPlace.Web.Controllers
                     oModel.StatusFilter.Add(new ElasticSearchFilter
                     {
                         FilterCount = (int)x.DocCount,
-                        FilterType = x.Key,
-                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(x.Key),
+                        FilterType = x.Key.Split('.')[0],
+                        FilterName = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(x.Key.Split('.')[0]),
                     });
                     return true;
                 });
