@@ -22,5 +22,11 @@ namespace IntegrationPlattaform.SANOFIProcess.Interfaces
         List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess);
 
         SanofiProcessLogModel GetSanofiLastProcessLog();
+
+        #region Sanofi Message Proccess
+
+        List<SanofiProcessLogModel> GetSanofiProcessLogBySendStatus(bool SendStatus);
+
+        #endregion
     }    
 }

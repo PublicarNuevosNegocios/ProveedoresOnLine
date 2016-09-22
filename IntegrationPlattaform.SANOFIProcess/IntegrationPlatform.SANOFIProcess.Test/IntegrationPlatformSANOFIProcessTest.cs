@@ -72,5 +72,18 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         {
             Assert.IsNotNull(IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiLastProcessLog());
         }
+
+        #region Sanofi Message Proccess
+
+        [TestMethod]
+        public void GetSanofiProcessLogBySendStatus()
+        {
+            List<SanofiProcessLogModel> oReturn =
+                IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiProcessLogBySendStatus(false);
+
+            Assert.AreEqual(true, oReturn != null && oReturn.Count > 0);
+        }
+
+        #endregion
     }
 }

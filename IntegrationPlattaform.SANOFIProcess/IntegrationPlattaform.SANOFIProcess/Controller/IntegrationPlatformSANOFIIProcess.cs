@@ -602,5 +602,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             catch { }
         }
         #endregion
+
+        #region Sanofi Message Proccess
+
+        public static List<SanofiProcessLogModel> GetSanofiProcessLogBySendStatus(bool SendStatus)
+        {
+            return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetSanofiProcessLogBySendStatus(SendStatus);
+        }
+
+        #endregion
     }
 }
