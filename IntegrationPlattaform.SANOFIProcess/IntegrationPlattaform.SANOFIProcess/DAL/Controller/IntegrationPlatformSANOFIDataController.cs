@@ -73,5 +73,14 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.Controller
         {
             return DataFactory.GetSanofiLastProcessLog();
         }
+
+        #region Sanofi Message Proccess
+
+        public List<SanofiProcessLogModel> GetSanofiProcessLogBySendStatus(bool SendStatus)
+        {
+            return DataFactory.GetSanofiProcessLogBySendStatus(SendStatus);
+        }
+
+        #endregion
     }
 }

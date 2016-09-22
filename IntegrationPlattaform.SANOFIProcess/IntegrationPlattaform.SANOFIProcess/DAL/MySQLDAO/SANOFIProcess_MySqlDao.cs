@@ -342,5 +342,61 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        #region Sanofi Message Proccess
+
+        public List<SanofiProcessLogModel> GetSanofiProcessLogBySendStatus(bool SendStatus)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSendStatus", (SendStatus == true) ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "Sanofi_ProcessLog_GetBySendStatus",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<SanofiProcessLogModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from pl in response.DataTableResult.AsEnumerable()
+                     where !pl.IsNull("SanofiProcessLogId")
+                     group pl by new
+                     {
+                         SanofiProcessLogId = pl.Field<int>("SanofiProcessLogId"),
+                         ProviderPublicId = pl.Field<string>("ProviderPublicId"),
+                         ProcessName = pl.Field<string>("ProcessName"),
+                         FileName = pl.Field<string>("FileName"),
+                         SendStatus = pl.Field<UInt64>("SendStatus") == 1 ? true : false,
+                         IsSuccess = pl.Field<UInt64>("IsSuccess") == 1 ? true : false,
+                         CreateDate = pl.Field<DateTime>("CreateDate"),
+                         LastModify = pl.Field<DateTime>("LastModify"),
+                         Enable = pl.Field<UInt64>("Enable") == 1 ? true : false,
+                     }
+                         into plg
+                         select new SanofiProcessLogModel()
+                         {
+                             SanofiProcessLogId = plg.Key.SanofiProcessLogId,
+                             ProviderPublicId = plg.Key.ProviderPublicId,
+                             ProcessName = plg.Key.ProcessName,
+                             FileName = plg.Key.FileName,
+                             SendStatus = plg.Key.SendStatus,
+                             IsSucces = plg.Key.IsSuccess,
+                             CreateDate = plg.Key.CreateDate,
+                             LastModify = plg.Key.LastModify,
+                             Enable = plg.Key.Enable,
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }
