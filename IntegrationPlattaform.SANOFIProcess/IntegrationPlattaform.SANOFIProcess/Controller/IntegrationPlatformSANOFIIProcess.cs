@@ -301,6 +301,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "GeneralInfo",
                         FileName = strRemoteFile,
+                        SendStatus = false,
                         IsSucces = true,
                         Enable = true,
                     };
@@ -318,6 +319,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     {
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "GeneralInfo",
+                        FileName = string.Empty,
+                        SendStatus = false,
                         IsSucces = false,
                         Enable = true,
                     };
@@ -413,6 +416,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "ComercialInfo",
                         FileName = strRemoteFile,
+                        SendStatus = false,
                         IsSucces = true,
                         Enable = true,
                     };
@@ -430,6 +434,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     {
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "ComercialInfo",
+                        FileName = string.Empty,
+                        SendStatus = false,
                         IsSucces = false,
                         Enable = true,
                     };
@@ -526,6 +532,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "ContableInfo",
                         FileName = strRemoteFile,
+                        SendStatus = false,
                         IsSucces = true,
                         Enable = true,
                     };
@@ -543,6 +550,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     {
                         ProviderPublicId = x.CompanyId.ToString(),
                         ProcessName = "ContableInfo",
+                        FileName = string.Empty,
+                        SendStatus = false,
                         IsSucces = false,
                         Enable = true,
                     };
