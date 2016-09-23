@@ -19,6 +19,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Interfaces
 
         int SanofiProcessLogInsert(string ProviderPublicId, string ProcessName, string FileName, bool SendStatus, bool IsSuccess, bool Enable);
 
+        int SanofiProcessLogUpdate(int SanofiProcessLogId, string ProviderPublicId, string ProcessName, string FileName, bool IsSuccess, bool SendStatus, bool Enable);
+
         List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess);
 
         SanofiProcessLogModel GetSanofiLastProcessLog();

@@ -264,6 +264,29 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public int SanofiProcessLogUpdate(int SanofiProcessLogId, string ProviderPublicId, string ProcessName, string FileName, bool IsSuccess, bool SendStatus, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSanofiProcessLogId", SanofiProcessLogId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProcessName", ProcessName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFileName", FileName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIsSuccess", (IsSuccess == true) ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSendStatus", (SendStatus == true) ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", (Enable == true) ? 1 : 0));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "Sanofi_ProcessLog_Update",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
         public List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();

@@ -60,6 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
     </Reference>
+    <Reference Include="IntegrationPlatform.SANOFIMessage">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform.SANOFIMessage\developer\IntegrationPlatform.SANOFIMessage.dll</HintPath>
+    </Reference>
     <Reference Include="IntegrationPlattaform.SANOFIProcess">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform.SANOFIProcess\developer\IntegrationPlattaform.SANOFIProcess.dll</HintPath>
     </Reference>
@@ -162,6 +165,7 @@
     <Compile Include="Implement\RestrictiveListReadProcess.cs" />
     <Compile Include="Implement\RestrictiveListSendProcess.cs" />
     <Compile Include="Implement\SANOFIProcess.cs" />
+    <Compile Include="Implement\SANOFIProcessMessage.cs" />
     <Compile Include="Implement\SurveyReminderProcessJob.cs" />
     <Compile Include="Implement\SurveySendProcessJob.cs" />
     <Compile Include="Implement\MessageModuleJob.cs" />

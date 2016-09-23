@@ -24,11 +24,13 @@ namespace IntegrationPlatform.SANOFIMessage.Models
 
         public const string C_Settings_SANOFI_FileUrl = "Sanofi_FileUrl";
 
+        public const string C_Settings_SanofiProviderInfo = "SanofiProviderInfo";
+
         #endregion
 
         #region Message Agent Constants
 
-        public const string C_POL_SANOFI_Mail_Agent = "IntegrationPlatform_Sanofi_FileUrl_Mail";
+        public const string C_POL_SANOFI_Mail_Agent = "AgentConfig_POL_SanofiProcessFile_Mail";
 
         #endregion
     }
