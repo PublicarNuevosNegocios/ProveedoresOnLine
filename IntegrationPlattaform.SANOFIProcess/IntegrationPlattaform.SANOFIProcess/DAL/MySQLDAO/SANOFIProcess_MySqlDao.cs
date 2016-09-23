@@ -20,11 +20,13 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SettingsModuleName);
         }
 
-        public List<SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId)
+        public List<SanofiGeneralInfoModel> GetInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vStartDate", vStartDate));
+
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -85,11 +87,12 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId)
+        public List<SanofiComercialInfoModel> GetComercialInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vStartDate", vStartDate));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -136,11 +139,12 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId)
+        public List<SanofiComercialInfoModel> GetComercialBasicInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vStartDate", vStartDate));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -186,11 +190,12 @@ namespace IntegrationPlattaform.SANOFIProcess.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId)
+        public List<SanofiContableInfoModel> GetContableInfoByProvider(string vProviderPublicId, DateTime vStartDate)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<System.Data.IDbDataParameter>();
 
             lstparams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", vProviderPublicId));
+            lstparams.Add(DataInstance.CreateTypedParameter("vStartDate", vStartDate));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

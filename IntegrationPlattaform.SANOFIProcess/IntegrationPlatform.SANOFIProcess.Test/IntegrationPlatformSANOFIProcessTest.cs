@@ -10,7 +10,7 @@ namespace IntegrationPlatform.SANOFIProcess.Test
     {
         [TestMethod]
         public void StartProcess()
-       { 
+        { 
             IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.StartProcess();
         }
 
@@ -18,7 +18,8 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         public void GetInfo_ByProvider()
         {
             List<SanofiGeneralInfoModel> oReturn = new List<SanofiGeneralInfoModel>();
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetInfoByProvider("A24EB150");
+            DateTime startdate = new DateTime(01,01,0001);
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetInfoByProvider("A24EB150", startdate);
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
@@ -27,7 +28,8 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         public void GetComercialInfo_ByProvider()
         {
             List<SanofiComercialInfoModel> oReturn = new List<SanofiComercialInfoModel>();
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetComercialInfoByProvider("A24EB150");
+            DateTime startdate = new DateTime(01, 01, 0001);
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetComercialInfoByProvider("A24EB150", startdate);
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }
@@ -36,7 +38,8 @@ namespace IntegrationPlatform.SANOFIProcess.Test
         public void GetContableInfo_ByProvider()
         {
             List<SanofiContableInfoModel> oReturn = new List<SanofiContableInfoModel>();
-            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetContableInfoByProvider("A24EB150");
+            DateTime startdate = new DateTime(01, 01, 0001);
+            oReturn = IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetContableInfoByProvider("A24EB150", startdate);
 
             Assert.AreEqual(true, oReturn.Count > 0);
         }

@@ -89,10 +89,10 @@ namespace ProveedoresOnLine.IndexSearch.Test
 
             Nest.ISearchResponse<CompanyIndexModel> result = CustomerProviderClient.Search<CompanyIndexModel>(s => s
             .From(0)
-            .Size(20)
-             .Aggregations
-                    (agg => agg
-                        .Nested("my_avg_agg", x => x.
+                .Size(20)
+                    .Aggregations
+                     (agg => agg
+                        .Nested("status_avg", x => x.
                             Path(p => p.oCustomerProviderIndexModel).
                             Aggregations(aggs => aggs.
                                 Terms("status", term => term.
@@ -106,17 +106,22 @@ namespace ProveedoresOnLine.IndexSearch.Test
                             .Field(fi => fi.CountryId))
                         .Terms("blacklist", bl => bl
                             .Field(fi => fi.InBlackList)))
-            .Query(q => q
-                .Nested(n => n
-                .Path(p => p.oCustomerProviderIndexModel)
-                .Query(fq => fq
-                    .Match(match => match
-                                            .Field(field => field.oCustomerProviderIndexModel.First().CustomerPublicId)
-                                            .Query("7BC27832")))
-                        .ScoreMode(NestedScoreMode.Max)
+                .Query(q =>
+                    q.Nested(n => n
+                        .Path(p => p.oCustomerProviderIndexModel)
+                            .Query(fq => fq
+                                .Match(match => match
+                                                    .Field(field => field.oCustomerProviderIndexModel.First().CustomerPublicId)
+                                                    .Query("DA5C572E")
+                                )
+                              ).ScoreMode(NestedScoreMode.Max)
+                           )
                     )
-                )
-            );
+                .Query(q =>
+                     q.Term(p => p.CompanyName, "SAP") ||
+                     q.Term(p => p.CommercialCompanyName, "SAP") ||
+                     q.Term(p => p.IdentificationNumber, "SAP"))
+                );
         }
     }
 }
