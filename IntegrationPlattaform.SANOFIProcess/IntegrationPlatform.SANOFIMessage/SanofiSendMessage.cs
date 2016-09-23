@@ -31,7 +31,6 @@ namespace IntegrationPlatform.SANOFIMessage
                         {
                             //update status send message
                             log.SendStatus = true;
-
                             IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLogUpsert(log);
 
                             return true;
