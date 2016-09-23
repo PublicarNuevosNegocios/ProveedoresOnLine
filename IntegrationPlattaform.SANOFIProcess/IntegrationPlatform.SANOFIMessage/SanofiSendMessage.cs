@@ -19,26 +19,33 @@ namespace IntegrationPlatform.SANOFIMessage
                     List<IntegrationPlattaform.SANOFIProcess.Models.SanofiProcessLogModel> oLogModel =
                     IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiProcessLogBySendStatus(false);
 
-                    MessageModule.Client.Models.ClientMessageModel oMessageModel =
-                        GetMessage(oLogModel, "david.moncayo@publicar.com");
-
-                    //create message
-                    int oMessageCreate = MessageModule.Client.Controller.ClientController.CreateMessage(oMessageModel);
-
-                    if (oMessageCreate > 0)
+                    if (oLogModel != null && oLogModel.Count > 0)
                     {
-                        oLogModel.All(log =>
-                        {
-                            //update status send message
-                            log.SendStatus = true;
-                            IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLogUpsert(log);
+                        MessageModule.Client.Models.ClientMessageModel oMessageModel =
+                            GetMessage(oLogModel, "david.moncayo@publicar.com");
 
-                            return true;
-                        });
+                        //create message
+                        int oMessageCreate = MessageModule.Client.Controller.ClientController.CreateMessage(oMessageModel);
+
+                        if (oMessageCreate > 0)
+                        {
+                            oLogModel.All(log =>
+                            {
+                                //update status send message
+                                log.SendStatus = true;
+                                IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLogUpsert(log);
+
+                                return true;
+                            });
+                        }
+                        else
+                        {
+                            throw new Exception("Sanofi process error:: Send Queue");
+                        }
                     }
                     else
                     {
-                        throw new Exception ("Sanofi process error:: Send Queue");
+                        throw new Exception("Sanofi process error:: Sanofi log list is empty.");
                     }
                 }
                 catch (Exception err)
@@ -57,7 +64,7 @@ namespace IntegrationPlatform.SANOFIMessage
             MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
             {
                 Agent = IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_Mail_Agent,
-                User = "",
+                User = "SANOFIProccess",
                 ProgramTime = DateTime.Now,
                 MessageQueueInfo = new List<Tuple<string, string>>(),
             };
@@ -65,6 +72,9 @@ namespace IntegrationPlatform.SANOFIMessage
             //get to address
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
                 ("To", toMessage));
+
+            string oFileMessage = IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value;
 
             //get Sanofi document
             oLogModel.All(log =>
@@ -120,6 +130,9 @@ namespace IntegrationPlatform.SANOFIMessage
 
                 return true;
             });
+
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("SanofiFileGenerate", oFileMessage));
 
             return oReturn;
         }

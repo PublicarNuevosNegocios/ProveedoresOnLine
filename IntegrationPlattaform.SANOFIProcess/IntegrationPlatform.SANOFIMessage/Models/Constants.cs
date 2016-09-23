@@ -32,6 +32,8 @@ namespace IntegrationPlatform.SANOFIMessage.Models
 
         public const string C_POL_SANOFI_Mail_Agent = "AgentConfig_POL_SanofiProcessFile_Mail";
 
+        public const string C_POL_SANOFI_FileMessage = "SanofiFileMessage";
+
         #endregion
     }
 }
