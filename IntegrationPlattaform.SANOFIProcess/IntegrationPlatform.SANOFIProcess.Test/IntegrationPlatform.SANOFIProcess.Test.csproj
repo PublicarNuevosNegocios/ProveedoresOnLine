@@ -92,6 +92,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="IntegrationPlatformSANOFIMEssage.cs" />
     <Compile Include="IntegrationPlatformSANOFIProcessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +104,10 @@
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IntegrationPlatform.SANOFIMessage\IntegrationPlatform.SANOFIMessage.csproj">
+      <Project>{76e74d61-acd7-47fc-ad3f-8a69dae51fa1}</Project>
+      <Name>IntegrationPlatform.SANOFIMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.csproj">
       <Project>{055fd021-2e72-4b65-88c8-abe35a7fe9ec}</Project>
       <Name>IntegrationPlatform.SANOFIProcess</Name>

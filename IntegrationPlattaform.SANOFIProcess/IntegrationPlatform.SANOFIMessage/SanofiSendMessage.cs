@@ -21,12 +21,31 @@ namespace IntegrationPlatform.SANOFIMessage
 
                     MessageModule.Client.Models.ClientMessageModel oMessageModel =
                         GetMessage(oLogModel, "david.moncayo@publicar.com");
+
+                    //create message
+                    int oMessageCreate = MessageModule.Client.Controller.ClientController.CreateMessage(oMessageModel);
+
+                    if (oMessageCreate > 0)
+                    {
+                        oLogModel.All(log =>
+                        {
+                            //update status send message
+                            log.SendStatus = true;
+
+                            IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.SanofiProcessLogUpsert(log);
+
+                            return true;
+                        });
+                    }
+                    else
+                    {
+                        throw new Exception ("Sanofi process error:: Send Queue");
+                    }
                 }
                 catch (Exception err)
                 {
                     LogFile("Error:: SanofiMessageProccess '" + err.Message);
-                }
-                
+                }                
             }
             catch { }
         }

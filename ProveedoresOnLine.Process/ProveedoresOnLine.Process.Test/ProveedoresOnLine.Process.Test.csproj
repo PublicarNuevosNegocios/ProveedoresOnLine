@@ -65,6 +65,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
     </Reference>
+    <Reference Include="IntegrationPlatform.SANOFIMessage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\IntegrationPlatform.SANOFIMessage\developer\IntegrationPlatform.SANOFIMessage.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToExcel, Version=1.10.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
@@ -180,6 +184,7 @@
     <Compile Include="RestrictiveListReadProcessJobTest.cs" />
     <Compile Include="RestrictiveListSendProcessJobTest.cs" />
     <Compile Include="SANOFIIntegrationProcessJobTest.cs" />
+    <Compile Include="SANOFIMessageTest.cs" />
     <Compile Include="SurveyReminderProcessJobTest.cs" />
     <Compile Include="ThirdKnowledgeProcessJobTest.cs" />
     <Compile Include="SurveySendProcessJobTest.cs" />

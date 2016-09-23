@@ -605,6 +605,30 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
             return oLogModel;
         }
 
+        public static SanofiProcessLogModel SanofiProcessLogUpsert(SanofiProcessLogModel oLogModel)
+        {
+            try
+            {
+                if (oLogModel != null)
+                {
+                    oLogModel.SanofiProcessLogId = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.SanofiProcessLogUpdate
+                        (oLogModel.SanofiProcessLogId,
+                        oLogModel.ProviderPublicId,
+                        oLogModel.ProcessName,
+                        oLogModel.FileName,
+                        oLogModel.IsSucces,
+                        oLogModel.SendStatus,
+                        oLogModel.Enable);
+                }
+            }
+            catch (Exception err)
+            {
+                throw err;
+            }
+
+            return oLogModel;
+        }
+
         public static List<SanofiProcessLogModel> GetSanofiProcessLog(bool IsSuccess)
         {
             return DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetSanofiProcessLog(IsSuccess);
