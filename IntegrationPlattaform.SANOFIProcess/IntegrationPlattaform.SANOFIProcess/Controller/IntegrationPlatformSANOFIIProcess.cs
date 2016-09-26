@@ -25,14 +25,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                 // Get Providers SANOFI
                 //TODO: Get all sanofi providers 
-                //List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId
-                //    (
-                //        IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                //        IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value
-                //    );
-                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
-                     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
+                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId
+                    (
+                        IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                        IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value
+                    );
+                //List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
+                //     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                //     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
 
                 Tuple<bool, string, string> oGeneralResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oComercialResult = new Tuple<bool, string, string>(false, "", "");
