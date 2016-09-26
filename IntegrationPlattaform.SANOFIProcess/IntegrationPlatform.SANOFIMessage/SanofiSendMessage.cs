@@ -73,66 +73,70 @@ namespace IntegrationPlatform.SANOFIMessage
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
                 ("To", toMessage));
 
-            string oFileMessage = IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
-                [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value;
+            string oAllFile = "";
 
             //get Sanofi document
-            oLogModel.All(log =>
+
+            if (oLogModel != null &&
+                oLogModel.Count > 0)
             {
-                if (log.ProcessName == "GeneralInfo")
-                {
-                    if (!string.IsNullOrEmpty(log.FileName))
-                    {
-                        //General Document
-                        oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                            ("GeneralInfo", log.FileName));
+                #region General Info
 
-                        oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                            ("GeneralInfoLastDate", log.CreateDate.ToString()));
-                    }
-                    else
-                    {
-                        LogFile("Error:: General info file is empty or null");
-                    }                    
-                }
-                else if (log.ProcessName == "ComercialInfo")
+                if (oLogModel.Any(x => x.ProcessName == "GeneralInfo"))
                 {
-                    if (!string.IsNullOrEmpty(log.FileName))
-                    {
-                        //Commercial Document
-                        oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                            ("ComercialInfo", log.FileName));
-
-                        oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                            ("ComercialInfoLastDate", log.CreateDate.ToString()));    
-                    }
-                    else
-                    {
-                        LogFile("Error:: Commercial info file is empty or null");
-                    }                    
+                    //Add general info doc to html
+                    oAllFile += IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                                    [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value.
+                                    Replace("{InformationType}", "Información General").
+                                    Replace("{InfoFileUrl}", oLogModel.Where(log => log.ProcessName == "GeneralInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().FileName).
+                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "GeneralInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString());
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(log.FileName))
-                    {
-                        //Contable Document
-                        oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                            ("ContableInfo", log.FileName));
-
-                        oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                            ("ContableInfoLastDate", log.CreateDate.ToString()));                        
-                    }
-                    else
-                    {
-                        LogFile("Error:: Contable info file is empty or null");
-                    }
+                    LogFile("Error:: General info file is empty or null");
                 }
 
-                return true;
-            });
+                #endregion
+
+                #region Commercial Info
+
+                if (oLogModel.Any(x => x.ProcessName == "ComercialInfo"))
+                {
+                    //Add commercial info doc to html
+                    oAllFile += IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                                    [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value.
+                                    Replace("{InformationType}", "Información Comercial").
+                                    Replace("{InfoFileUrl}", oLogModel.Where(log => log.ProcessName == "ComercialInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().FileName).
+                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "ComercialInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString());
+                }
+                else
+                {
+                    LogFile("Error:: Commercial info file is empty or null");
+                }
+
+                #endregion
+
+                #region Contable Info
+
+                if (oLogModel.Any(x => x.ProcessName == "ContableInfo"))
+                {
+                    //Add contable info doc to html
+                    oAllFile += IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                                    [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value.
+                                    Replace("{InformationType}", "Información Contable").
+                                    Replace("{InfoFileUrl}", oLogModel.Where(log => log.ProcessName == "ContableInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().FileName).
+                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "ContableInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString());
+                }
+                else
+                {
+                    LogFile("Error:: Contable info file is empty or null");
+                }
+
+                #endregion
+            }
 
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("SanofiFileGenerate", oFileMessage));
+                ("SanofiFileGenerate", oAllFile));
 
             return oReturn;
         }
