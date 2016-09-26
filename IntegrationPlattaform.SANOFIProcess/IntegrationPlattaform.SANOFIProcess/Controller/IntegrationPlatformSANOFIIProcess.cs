@@ -25,14 +25,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                 // Get Providers SANOFI
                 //TODO: Get all sanofi providers 
-                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId
-                    (
-                        IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                        IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value
-                    );
-                //List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
-                //     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                //     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
+                //List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId
+                //    (
+                //        IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                //        IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value
+                //    );
+                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
+                     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
 
                 Tuple<bool, string, string> oGeneralResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oComercialResult = new Tuple<bool, string, string>(false, "", "");
@@ -40,9 +40,11 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                 if (oProviders != null)
                 {
+                    
                     //First time process SET UP
                     if (oProcessLog == null || oProcessLog.Count == 0)
                     {
+                        var count = 0;
                         LogFile("Process Set Up " + oProviders.Count.ToString());
 
                         List<SanofiGeneralInfoModel> oGeneralInfo = new List<SanofiGeneralInfoModel>();
@@ -52,42 +54,52 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                         oProviders.All(p =>
                         {
+                            
                             //Get Last Process
                             //Modify Date against Last Created process
-                            LogFile("ProviderPublicId:::: " + p.CompanyPublicId.ToString());
+                            LogFile(count + " ProviderPublicId:::: " + p.CompanyPublicId.ToString());
 
                             //TODO: Set lastmodify
-                            SanofiGeneralInfoModel oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(p.CompanyPublicId,LastProcess.LastModify).FirstOrDefault();
+                            SanofiGeneralInfoModel oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(p.CompanyPublicId, LastProcess.LastModify).FirstOrDefault();
                             SanofiComercialInfoModel oComercialGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfoByProvider(p.CompanyPublicId, LastProcess.LastModify).FirstOrDefault();
                             SanofiComercialInfoModel oComercialBasicRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialBasicInfoByProvider(p.CompanyPublicId, LastProcess.LastModify).FirstOrDefault();
                             SanofiContableInfoModel oContableRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfoByProvider(p.CompanyPublicId, LastProcess.LastModify).FirstOrDefault();
 
-                            if (oGeneralRow != null && (oComercialGeneralRow != null || oComercialBasicRow != null) && oContableRow != null)
+                            if (oGeneralRow != null && oComercialGeneralRow != null && oComercialBasicRow != null && oContableRow != null)
                             {
                                 oGeneralInfo.Add(oGeneralRow);
                                 oComercialInfo.Add(oComercialGeneralRow);
                                 oComercialBasicInfo.Add(oComercialBasicRow);
                                 oContableInfo.Add(oContableRow);
                             }
-
+                            count++;
                             return true;
                         });
 
                         //Call Function to create the txt;
-                        if (oGeneralInfo.Count > 0)
-                            oGeneralResult = GeneralInfoProcess(oGeneralInfo);
+                        if (oGeneralInfo !=null && oGeneralInfo.Count > 0)
+                        {
+                           oGeneralResult = GeneralInfoProcess(oGeneralInfo);
+                            LogFile("General Info for "+ oGeneralInfo.Count);
+                        }
 
                         //Call Function to create the txt;
-                        if (oComercialInfo.Count > 0 && oComercialBasicInfo.Count > 0)
+                        if (oComercialInfo !=null && oComercialBasicInfo !=null && oComercialInfo.Count > 0 && oComercialBasicInfo.Count > 0)
+                        {
                             oComercialResult = ComercialInfoProcess(oComercialInfo, oComercialBasicInfo);
-
+                            LogFile("Commercial Info for "+ oComercialBasicInfo.Count);
+                        }
                         //Call Function to create the txt;
-                        if (oContableInfo.Count > 0)
+                        if (oContableInfo !=null && oContableInfo.Count > 0)
+                        {
                             oContableResult = ContableInfoProcess(oContableInfo);
-                       
+                            LogFile("Countable Info for "+ oContableInfo.Count);
+                        }
+                        LogFile("Set Up Process finish " + DateTime.Now);
                     }
                     else
                     {
+                        var count = 0;
                         //When Process Log Has a LastDate
 
 
@@ -99,12 +111,12 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                         List<SanofiComercialInfoModel> oComercialBasicInfo = new List<SanofiComercialInfoModel>();
                         List<SanofiContableInfoModel> oContableInfo = new List<SanofiContableInfoModel>();
 
-                        
+
                         oProviders.All(p =>
                         {
                             //Get Last Process
                             //Modify Date against Last Created process
-                            LogFile("ProviderPublicId:::: " + p.CompanyPublicId.ToString());
+                            LogFile(count+ " ProviderPublicId:::: " + p.CompanyPublicId.ToString());
 
                             //TODO: Set lastmodify
                             SanofiGeneralInfoModel oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(p.CompanyPublicId, LastProcess.LastModify).FirstOrDefault();
@@ -114,54 +126,64 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                             List<SanofiProcessLogModel> oExist = new List<SanofiProcessLogModel>();
 
-                            oExist= oProcessLog.Where(l => p.CompanyPublicId == l.ProviderPublicId).ToList();
-                            
-                             if (oExist != null && oExist.Count >0)
-	                            {
-		                            oExist.All(l=>
-                                 {
-                                       oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
-                                       oComercialGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
-                                       oComercialBasicRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialBasicInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
-                                       oContableRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
+                            oExist = oProcessLog.Where(l => p.CompanyPublicId == l.ProviderPublicId).ToList();
 
-                                    if (oGeneralRow != null && (oComercialGeneralRow != null || oComercialBasicRow != null) && oContableRow != null)
-                                    {
-                                        oGeneralInfo.Add(oGeneralRow);
-                                        oComercialInfo.Add(oComercialGeneralRow);
-                                        oComercialBasicInfo.Add(oComercialBasicRow);
-                                        oContableInfo.Add(oContableRow);
-                                    }
-                                    return true;
-                                  });
-                                }
-                             else
+                            if (oExist != null && oExist.Count > 0)
+                            {
+                                oExist.All(l =>
                              {
-                                 if (oGeneralRow != null)
-                                     oGeneralInfo.Add(oGeneralRow);
-                                 if (oComercialGeneralRow != null && oComercialBasicRow != null)
+                                 oGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
+                                 oComercialGeneralRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
+                                 oComercialBasicRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetComercialBasicInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
+                                 oContableRow = DAL.Controller.IntegrationPlatformSANOFIDataController.Instance.GetContableInfoByProvider(l.ProviderPublicId, LastProcess.LastModify).FirstOrDefault();
+
+                                 if (oGeneralRow != null && (oComercialGeneralRow != null || oComercialBasicRow != null) && oContableRow != null)
                                  {
+                                     oGeneralInfo.Add(oGeneralRow);
                                      oComercialInfo.Add(oComercialGeneralRow);
                                      oComercialBasicInfo.Add(oComercialBasicRow);
-                                 }
-                                 if (oContableRow != null)
                                      oContableInfo.Add(oContableRow);
-                             }
+                                 }
+                                 count++;
+                                 return true;
+                             });
+                            }
+                            else
+                            {
+                                if (oGeneralRow != null)
+                                    oGeneralInfo.Add(oGeneralRow);
+                                if (oComercialGeneralRow != null && oComercialBasicRow != null)
+                                {
+                                    oComercialInfo.Add(oComercialGeneralRow);
+                                    oComercialBasicInfo.Add(oComercialBasicRow);
+                                }
+                                if (oContableRow != null)
+                                    oContableInfo.Add(oContableRow);
+                            }
                             return true;
                         });
 
                         //Call Function to create the txt;
-                        if (oGeneralInfo.Count > 0)
+                        if (oContableInfo != null && oContableInfo.Count > 0) 
+                        {
                             oGeneralResult = GeneralInfoProcess(oGeneralInfo);
+                            LogFile("General Info for " + oGeneralInfo.Count);
+                        }
+                            
 
                         //Call Function to create the txt;
-                        if (oComercialInfo.Count > 0 && oComercialBasicInfo.Count > 0)
+                        if (oComercialInfo !=null && oComercialBasicInfo !=null && oComercialInfo.Count > 0 && oComercialBasicInfo.Count > 0)
+                        { 
                             oComercialResult = ComercialInfoProcess(oComercialInfo, oComercialBasicInfo);
-
+                            LogFile("Commercial Info for " + oComercialBasicInfo.Count);
+                        }
                         //Call Function to create the txt;
-                        if (oContableInfo.Count > 0)
+                        if (oContableInfo != null && oContableInfo.Count > 0) 
+                        {
                             oContableResult = ContableInfoProcess(oContableInfo);
-                        
+                            LogFile("Countable Info for " + oContableInfo.Count);
+                        }
+                        LogFile("Start Process finish " + DateTime.Now);
                     }
 
                 }
@@ -385,8 +407,8 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].TaxClassName + strSep +
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].CurrencyName + strSep +
                           oComercialBasicInfoModel[oComercialBasicInfoModel.IndexOf(x) + 1].Ramo + strSep +
-                          "00" + x.PayCondition + strSep +
-                          "0" + x.GroupSchemaProvider + strSep +
+                          (!string.IsNullOrEmpty(x.PayCondition) ? x.PayCondition.PadLeft(4,'0'): "0") + strSep +
+                          (x.GroupSchemaProvider != null && x.GroupSchemaProvider > 0 ? x.GroupSchemaProvider.ToString().PadLeft(2,'0') : "0") + strSep +
                           ContactName + strSep +
                           "1" + strSep +
                           x.BuyCod + strSep);
@@ -496,12 +518,12 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           x.FiscalNumber + strSep +
                           x.IdentificationNumber + strSep +
                           x.Country + strSep +
-                          "00" + x.BankPassword + strSep +
+                          (!string.IsNullOrEmpty( x.BankPassword)? x.BankPassword.PadLeft(4, '0'):"0") + strSep +
                           x.BankCountNumber + strSep +
                           "001" + strSep +
                           x.IBAN + strSep +
                           x.AssociatedCount + strSep +
-                         "00" + x.PayCondition + strSep +
+                          (!string.IsNullOrEmpty(x.PayCondition)? x.PayCondition.PadLeft(4, '0'):"0") + strSep +
                           "0010" + strSep +
                           "1" + strSep +
                           "1" + strSep +
