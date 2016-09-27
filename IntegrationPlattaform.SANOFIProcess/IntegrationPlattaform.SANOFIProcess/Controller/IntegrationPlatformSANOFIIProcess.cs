@@ -25,14 +25,14 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
 
                 // Get Providers SANOFI
                 //TODO: Get all sanofi providers 
-                //List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId
-                //    (
-                //        IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                //        IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value
-                //    );
-                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
-                     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
-                     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
+                List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicId
+                    (
+                        IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                        IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value
+                    );
+                //List<CompanyModel> oProviders = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetAllProvidersByCustomerPublicIdByStartDate(
+                //     IntegrationPlattaform.SANOFIProcess.Models.InternalSettings.Instance[
+                //     IntegrationPlattaform.SANOFIProcess.Models.Constants.C_SANOFI_ProviderPublicId].Value, LastProcess != null && LastProcess.ProviderPublicId != null ? LastProcess.LastModify : DateTime.Now.AddYears(-50));
 
                 Tuple<bool, string, string> oGeneralResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oComercialResult = new Tuple<bool, string, string>(false, "", "");
@@ -518,16 +518,16 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           x.FiscalNumber + strSep +
                           x.IdentificationNumber + strSep +
                           x.Country + strSep +
-                          (!string.IsNullOrEmpty( x.BankPassword)? x.BankPassword.PadLeft(4, '0'):"0") + strSep +
+                          (!string.IsNullOrEmpty( x.BankPassword)? x.BankPassword.PadLeft(3, '0'):"0") + strSep +
                           x.BankCountNumber + strSep +
                           "001" + strSep +
                           x.IBAN + strSep +
                           x.AssociatedCount + strSep +
-                          (!string.IsNullOrEmpty(x.PayCondition)? x.PayCondition.PadLeft(4, '0'):"0") + strSep +
+                          (!string.IsNullOrEmpty(x.PayCondition)? x.PayCondition.PadLeft(3, '0'):"0") + strSep +
                           "0010" + strSep +
                           "1" + strSep +
                           "1" + strSep +
-                          x.PayCondition + strSep);
+                          x.PayWay + strSep);
                     #endregion
 
                     return true;
