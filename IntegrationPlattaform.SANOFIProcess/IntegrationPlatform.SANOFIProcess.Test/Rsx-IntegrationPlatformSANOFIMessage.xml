@@ -77,18 +77,16 @@
     <!--Fragment of provider info-->
     <key name="SanofiFileMessage">
       <![CDATA[
-      <tr  style="width: 500px; height: 30px; display: block;">
-        <td>
+      <tr style="padding-top: 8px;display: block; font-size:0.9em; color:#404040;">
+        <td style="">
           <strong>{InformationType}</strong>
         </td>
       </tr>
-      <tr style="width: 150px; height:30px; border: 1px solid blue; display: inline-block;">
-        <td>
-          <a target="_blank" title="{InfoFileUrl}" href="" style="display: block; color: #0066ae; display:block; font-size: 1em; letter-spacing: -0.8px; font-weight:bold;">Descargar archivo</a>
+      <tr style="padding: 5px 0px 5px 10px;display: block;border-bottom: solid 1px #ddd; font-size:0.9em; color:#404040;">
+        <td style="">
+          <a target="_blank" style="display: block; color: #0066ae; display:block; font-size: 1em; letter-spacing: -0.8px; font-weight:bold;" href="{InfoFileUrl}" title="Descargar archivo">Descargar archivo</a>
         </td>
-      </tr>
-      <tr style="width: 330px; height: 30px; border: 1px solid brown; display: inline-block;">
-        <td>
+        <td style="padding: 0px 0px 0px 20px;">
           <span>fecha de generación: {FileCreateDate}</span>
         </td>
       </tr>
