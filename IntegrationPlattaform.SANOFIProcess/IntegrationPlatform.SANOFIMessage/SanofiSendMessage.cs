@@ -34,7 +34,7 @@ namespace IntegrationPlatform.SANOFIMessage
                         LogFile("StartProccess:: upsert message");
 
                         //create message
-                        Int64 oMessageCreate = Convert.ToInt64(MessageModule.Client.Controller.ClientController.CreateMessage(oMessageModel));
+                        int oMessageCreate = MessageModule.Client.Controller.ClientController.CreateMessage(oMessageModel);
 
                         LogFile("StartProccess:: message saved with code: " + oMessageCreate);
 
@@ -87,6 +87,11 @@ namespace IntegrationPlatform.SANOFIMessage
             //get to address
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
                 ("To", toMessage));
+
+            //Add Sanofi logo to email
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerLogo", IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                                    [IntegrationPlatform.SANOFIMessage.Models.Constants.C_Settings_Company_DefaultLogoUrl].Value));
             
             //get Sanofi document
 
