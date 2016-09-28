@@ -16,19 +16,32 @@ namespace IntegrationPlatform.SANOFIMessage
 
                 try
                 {
+                    LogFile("StartProccess:: get all log process");
+
                     List<IntegrationPlattaform.SANOFIProcess.Models.SanofiProcessLogModel> oLogModel =
                     IntegrationPlattaform.SANOFIProcess.Controller.IntegrationPlatformSANOFIIProcess.GetSanofiProcessLogBySendStatus(false);
 
+                    LogFile("StartProccess:: log process :: count " + oLogModel.Count);
+
                     if (oLogModel != null && oLogModel.Count > 0)
                     {
+                        LogFile("StartProccess:: get message");
+
                         MessageModule.Client.Models.ClientMessageModel oMessageModel =
-                            GetMessage(oLogModel, "david.moncayo@publicar.com");
+                            GetMessage(oLogModel, IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                                    [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SanofiMessage_To].Value.ToString());
+
+                        LogFile("StartProccess:: upsert message");
 
                         //create message
                         int oMessageCreate = MessageModule.Client.Controller.ClientController.CreateMessage(oMessageModel);
 
+                        LogFile("StartProccess:: message saved with code: " + oMessageCreate);
+
                         if (oMessageCreate > 0)
                         {
+                            LogFile("StartProccess:: update log send status");
+
                             oLogModel.All(log =>
                             {
                                 //update status send message
@@ -37,6 +50,8 @@ namespace IntegrationPlatform.SANOFIMessage
 
                                 return true;
                             });
+
+                            LogFile("StartProccess:: finally update send status");
                         }
                         else
                         {
@@ -51,7 +66,7 @@ namespace IntegrationPlatform.SANOFIMessage
                 catch (Exception err)
                 {
                     LogFile("Error:: SanofiMessageProccess '" + err.Message);
-                }                
+                }
             }
             catch { }
         }
@@ -73,8 +88,11 @@ namespace IntegrationPlatform.SANOFIMessage
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
                 ("To", toMessage));
 
-            string oAllFile = "";
-
+            //Add Sanofi logo to email
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerLogo", IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                                    [IntegrationPlatform.SANOFIMessage.Models.Constants.C_Settings_Company_DefaultLogoUrl].Value));
+            
             //get Sanofi document
 
             if (oLogModel != null &&
@@ -85,14 +103,18 @@ namespace IntegrationPlatform.SANOFIMessage
                 if (oLogModel.Any(x => x.ProcessName == "GeneralInfo"))
                 {
                     //Add general info doc to html
-                    oAllFile += IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("SANOFIGeneralInfo", IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
                                     [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value.
                                     Replace("{InformationType}", "Información General").
                                     Replace("{InfoFileUrl}", oLogModel.Where(log => log.ProcessName == "GeneralInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().FileName).
-                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "GeneralInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString());
+                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "GeneralInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString())));
                 }
                 else
                 {
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("SANOFIGeneralInfo", string.Empty));
+
                     LogFile("Error:: General info file is empty or null");
                 }
 
@@ -103,14 +125,18 @@ namespace IntegrationPlatform.SANOFIMessage
                 if (oLogModel.Any(x => x.ProcessName == "ComercialInfo"))
                 {
                     //Add commercial info doc to html
-                    oAllFile += IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("SANOFIComercialInfo", IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
                                     [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value.
                                     Replace("{InformationType}", "Información Comercial").
                                     Replace("{InfoFileUrl}", oLogModel.Where(log => log.ProcessName == "ComercialInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().FileName).
-                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "ComercialInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString());
+                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "ComercialInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString())));
                 }
                 else
                 {
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("SANOFIComercialInfo", string.Empty));
+
                     LogFile("Error:: Commercial info file is empty or null");
                 }
 
@@ -121,22 +147,23 @@ namespace IntegrationPlatform.SANOFIMessage
                 if (oLogModel.Any(x => x.ProcessName == "ContableInfo"))
                 {
                     //Add contable info doc to html
-                    oAllFile += IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("SANOFIContableInfo", IntegrationPlatform.SANOFIMessage.Models.InternalSettings.Instance
                                     [IntegrationPlatform.SANOFIMessage.Models.Constants.C_POL_SANOFI_FileMessage].Value.
                                     Replace("{InformationType}", "Información Contable").
                                     Replace("{InfoFileUrl}", oLogModel.Where(log => log.ProcessName == "ContableInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().FileName).
-                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "ContableInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString());
+                                    Replace("{FileCreateDate}", oLogModel.Where(log => log.ProcessName == "ContableInfo" && !string.IsNullOrEmpty(log.FileName)).FirstOrDefault().CreateDate.ToString())));
                 }
                 else
                 {
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("SANOFIContableInfo", string.Empty));
+
                     LogFile("Error:: Contable info file is empty or null");
                 }
 
                 #endregion
             }
-
-            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("SanofiFileGenerate", oAllFile));
 
             return oReturn;
         }
