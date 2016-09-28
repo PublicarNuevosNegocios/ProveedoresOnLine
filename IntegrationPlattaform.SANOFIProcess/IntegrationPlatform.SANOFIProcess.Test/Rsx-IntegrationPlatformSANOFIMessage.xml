@@ -2,94 +2,32 @@
 <Settings>
   <SanofiMessage>
 
-    <!--Proveedores on line Sanofi file email agent-->
-    <key name="AgentConfig_POL_SanofiProcessFile_Mail">
-      <![CDATA[	     
-        <POL_SanofiProcessFile_Mail>
-          <key name="Assemblie">
-            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
-          </key>
-          <key name="AccessKeyId">
-            &lt;![CDATA[My AccesKeyId]]&gt;
-          </key>
-          <key name="SecretAccessKey">
-            &lt;![CDATA[My SecretAccessKey]]&gt;
-          </key>
-          <key name="RegionEndpoint">
-            &lt;![CDATA[us-east-1]]&gt;
-          </key>
-          <key name="Subject">
-            &lt;![CDATA[Proveedores OnLine - Archivos de proveedores SANOFI]]&gt;
-          </key>
-          <key name="From">
-            &lt;![CDATA[Proveedores OnLine<proveedoresonline@publicar.com>]]&gt;
-          </key>
-          <key name="MessageBody">
-            &lt;![CDATA[
-				        <table>
-	              <thead>
-		              <table width="628" cellspacing="0" cellpadding="0">
-			                <tr>
-			  	              <td align="center" style="padding: 20px 0 10px 0; border-bottom:1px solid #C0C0C0;">
-				               <img src="{CustomerLogo}" alt="SANOFI" width="23%" style="display: block; " />
-				              </td>			
-		              </table>
-	              </thead>
-	                  <tbody>
-		                  <table width="628" cellspacing="0" cellpadding="0">
-				                  <tr>
-					                  <td width="628" height="190" style="padding: 0px 8% 0px 9%; font-size:0.9em; color:#404040;">
-						                  <span>
-						                  Archivos de información general, comercial y financiera de los proveedores relacionados a SANOFI.
-						                  </span>	
-                              <br />
-                              <br />
-                              <table style="width: auto; height: auto;">
-                                {SanofiFileGenerate}
-                              </table>
-					                  </td>
-				                  </tr>
-		                  </table>		                 
-	                  </tbody>
-	                  <tfoot>
-		                  <table width="628" cellspacing="0" cellpadding="0">
-			                   <tr>
-				                  <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
-					                  <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
-					                  <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
-				                  </td>
-			                   </tr>
-			                  <tr>
-				                   <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
-					                  <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-					                   <a target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>									  
-					                   </td>
-			                   </tr>
-		                  </table>
-	                  </tfoot>
-              </table>
-            ]]&gt;
-          </key>
-        </POL_SanofiProcessFile_Mail>
-      ]]>
+    <!--SanofiLogo-->
+    <key name="Company_DefaultLogoUrl">
+      <![CDATA[https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/SANOFIDefaultLogo.jpg]]>
+    </key>
+    
+    <!--SanofiMessageEmailTo-->
+    <key name="POL_SanofiMessage_To">
+      <![CDATA[david.moncayo@publicar.com]]>
     </key>
 
     <!--Fragment of provider info-->
     <key name="SanofiFileMessage">
       <![CDATA[
-      <tr style="padding-top: 8px;display: block; font-size:0.9em; color:#404040;">
-        <td style="">
-          <strong>{InformationType}</strong>
-        </td>
-      </tr>
-      <tr style="padding: 5px 0px 5px 10px;display: block;border-bottom: solid 1px #ddd; font-size:0.9em; color:#404040;">
-        <td style="">
-          <a target="_blank" style="display: block; color: #0066ae; display:block; font-size: 1em; letter-spacing: -0.8px; font-weight:bold;" href="{InfoFileUrl}" title="Descargar archivo">Descargar archivo</a>
-        </td>
-        <td style="padding: 0px 0px 0px 20px;">
-          <span>fecha de generación: {FileCreateDate}</span>
-        </td>
-      </tr>
+          <tr style="height: 36px;">
+            <td>
+              <strong>{InformationType}</strong>
+            </td>
+          </tr>
+          <tr style="height: 30px;">
+            <td>
+              <a target="_blank" style="color: #0066ae; font-size: 1em; letter-spacing: -0.8px; font-weight:bold;" href="{InfoFileUrl}" title="Descargar archivo">Descargar archivo</a>
+            </td>
+            <td>
+              <span>fecha de generación: {FileCreateDate}</span>
+            </td>
+          </tr>
       ]]>
     </key>
     

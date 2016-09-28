@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
   <Module name="MessageModule">
-    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\MessageModule\Rsx-MessageModule.xml</key>
+    <key name="location">C:\Publicar Software\ProveedoresOnLine\MessageModule\MessageModule.Test\Rsx-MessageModule.xml</key>
   </Module>
   <Module name="Company">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
@@ -13,16 +13,19 @@
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\CompanyProvider\Rsx-CompanyProviderBatch.xml</key>
   </Module>
   <Module name="ThirdKnowledge">
-    <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\Rsx-ThirdKnowledge.xml</key>
+    <key name="location">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.ThirdKnowledge\ProveedoresOnLine.ThirdKnowledge.Test\Rsx-ThirdKnowledge.xml</key>
   </Module>
   <Module name="RestrictiveListProcess">
-    <key name="location">C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-RestrictiveListProcess.xml</key>
+    <key name="location">C:\Publicar Software\ProveedoresOnLine\ProveedoresOnLine.RestrictiveListProcess\ProveedoresOnLine.RestrictiveListProcess.Test\Rsx-RestrictiveListProcess.xml</key>
+  </Module>
+  <Module name="SanofiMessage">
+    <key name="location">C:\Publicar Software\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\Rsx-IntegrationPlatformSANOFIMessage.xml</key>
   </Module>
   <Module name="FileRepository">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-FileRepository.xml</key>
   </Module>
   <Module name="IntegrationPlatformSANOFIIProcess">
-    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\IntegrationPlatform.SANOFIProcess\Rsx-IntegrationPlatformSANOFIIProcess.xml</key>
+    <key name="location">C:\Publicar Software\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\Rsx-IntegrationPlatformSANOFIIProcess.xml</key>
   </Module>
   <Module name="CalificationProjectBatch">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ProveedoresOnLine.CalificationProject\Rsx-CalificationProjectBatch.xml</key>
