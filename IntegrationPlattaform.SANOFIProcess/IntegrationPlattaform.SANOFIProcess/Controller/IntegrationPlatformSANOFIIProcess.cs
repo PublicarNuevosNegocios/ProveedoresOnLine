@@ -145,7 +145,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                                      oComercialBasicInfo.Add(oComercialBasicRow);
                                      oContableInfo.Add(oContableRow);
                                  }
-                                 count++;
+                                 
                                  return true;
                              });
                             }
@@ -161,6 +161,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                                 if (oContableRow != null)
                                     oContableInfo.Add(oContableRow);
                             }
+                            count++;
                             return true;
                         });
 
@@ -524,7 +525,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           "010" + strSep +
                           x.IBAN + strSep +
                           x.AssociatedCount + strSep +
-                          (!string.IsNullOrEmpty(x.PayCondition)? x.PayCondition.PadLeft(3, '0'):"0") + strSep +
+                          (!string.IsNullOrEmpty(x.PayCondition)? x.PayCondition.PadLeft(4, '0'):"0") + strSep +
                           "0010" + strSep +
                           "1" + strSep +
                           "1" + strSep +
