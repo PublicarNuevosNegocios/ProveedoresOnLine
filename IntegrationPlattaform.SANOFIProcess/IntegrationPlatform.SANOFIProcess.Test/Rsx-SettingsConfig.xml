@@ -7,4 +7,8 @@
   <Module name="FileRepository">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-FileRepository.xml</key>
   </Module>
+
+  <Module name="SanofiMessage">
+    <key name="location">C:\Publicar Software\ProveedoresOnLine\IntegrationPlattaform.SANOFIProcess\IntegrationPlatform.SANOFIProcess.Test\Rsx-IntegrationPlatformSANOFIMessage.xml</key>
+  </Module>
 </SettingsConfig>
