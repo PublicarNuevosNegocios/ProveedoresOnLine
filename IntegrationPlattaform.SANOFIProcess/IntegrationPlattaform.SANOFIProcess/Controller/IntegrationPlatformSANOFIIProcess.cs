@@ -37,6 +37,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                 Tuple<bool, string, string> oGeneralResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oComercialResult = new Tuple<bool, string, string>(false, "", "");
                 Tuple<bool, string, string> oContableResult = new Tuple<bool, string, string>(false, "", "");
+                var count = 0;
 
                 if (oProviders != null)
                 {
@@ -44,7 +45,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     //First time process SET UP
                     if (oProcessLog == null || oProcessLog.Count == 0)
                     {
-                        var count = 0;
+                        
                         LogFile("Process Set Up " + oProviders.Count.ToString());
 
                         List<SanofiGeneralInfoModel> oGeneralInfo = new List<SanofiGeneralInfoModel>();
@@ -99,7 +100,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                     }
                     else
                     {
-                        var count = 0;
+                        
                         //When Process Log Has a LastDate
 
 
@@ -520,7 +521,7 @@ namespace IntegrationPlattaform.SANOFIProcess.Controller
                           x.Country + strSep +
                           (!string.IsNullOrEmpty( x.BankPassword)? x.BankPassword.PadLeft(3, '0'):"0") + strSep +
                           x.BankCountNumber + strSep +
-                          "001" + strSep +
+                          "010" + strSep +
                           x.IBAN + strSep +
                           x.AssociatedCount + strSep +
                           (!string.IsNullOrEmpty(x.PayCondition)? x.PayCondition.PadLeft(3, '0'):"0") + strSep +
