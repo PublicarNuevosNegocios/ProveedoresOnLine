@@ -719,10 +719,10 @@
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="AccessKeyId">
-            &lt;![CDATA[AKIAILAPRZ3GK6KWP2EA]]&gt;
+            &lt;![CDATA[My AccesKeyId]]&gt;
           </key>
           <key name="SecretAccessKey">
-            &lt;![CDATA[Yc3S0/DbZWA8q+yFvvdVUCr5rdTmBD7Ayl9inQ3j]]&gt;
+            &lt;![CDATA[My SecretAccessKey]]&gt;
           </key>
           <key name="RegionEndpoint">
             &lt;![CDATA[us-east-1]]&gt;
